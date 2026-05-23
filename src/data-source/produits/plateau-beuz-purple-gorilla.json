@@ -1,0 +1,30 @@
+{
+  "marque": "Purple Gorilla",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Plateau BEUZ – Purple Gorilla",
+  "actif": true,
+  "prix": 4.99,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Compact et l&eacute;ger, il s&rsquo;adapte parfaitement &agrave; un usage quotidien, &agrave; la maison ou en d&eacute;placement.",
+  "categorie": "accessoires",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "plateau-beuz-purple-gorilla",
+  "image": "/media/produits/1778342775212-plateau-beuz-purple-gorilla.png",
+  "description": "Plateau BEUZ – Purple Gorilla.\n\nPrésentation\nLe plateau BEUZ Purple Gorilla est un plateau à rouler compact et léger, idéal pour un usage quotidien à la maison comme en déplacement. Suffisamment rigide pour une utilisation confortable, il arbore un design Purple Gorilla coloré et collector.\n\nCaractéristiques\nMatériau : plastique rigide de qualité. Dimensions : format compact standard. Bords relevés pour éviter les pertes. Design Purple Gorilla exclusif. Léger et facile à transporter.\n\nIdéal pour\nUn usage quotidien ou en déplacement.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Compact et l&eacute;ger, il s&rsquo;adapte parfaitement &agrave; un usage quotidien, &agrave; la maison ou en d&eacute;placement."
+  }
+}

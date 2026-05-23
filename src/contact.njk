@@ -1,0 +1,122 @@
+---
+layout: layouts/base.njk
+permalink: /contact/index.html
+title: "Contact"
+description: "Contactez VapeLab, votre boutique CBD &amp; Vape à Gex (01170). Une question, un retour ? Notre équipe vous répond rapidement."
+---
+<section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  <h1 class="font-display text-5xl lg:text-6xl text-white tracking-wide mb-3 fade-up">CONTACT</h1>
+  <p class="text-smoke text-sm mb-10 fade-up">Une question, un retour, un produit cassé ? Écrivez-nous, on répond sous 24 h ouvrées.</p>
+
+  <div class="grid lg:grid-cols-3 gap-8">
+    <aside class="space-y-5">
+      <div class="rounded-2xl bg-dark-card border border-dark-border p-5">
+        <h2 class="font-display text-base tracking-widest text-white mb-3">BOUTIQUE</h2>
+        <p class="text-smoke text-sm leading-relaxed">📍 48 Rue de Genève<br/>01170 Gex, France</p>
+        <p class="text-smoke text-sm mt-3">📞 <a href="tel:+33450415150" class="text-neon-violet hover:underline">04 50 41 51 50</a></p>
+        <p class="text-smoke text-sm mt-1">✉️ <a href="mailto:contact@vapelab.fr" class="text-neon-violet hover:underline">contact@vapelab.fr</a></p>
+      </div>
+      <div class="rounded-2xl bg-dark-card border border-dark-border p-5">
+        <h2 class="font-display text-base tracking-widest text-white mb-3">HORAIRES</h2>
+        <p class="text-smoke text-sm">Lun/Mar/Jeu/Ven : 7h30–12h30 / 14h–19h</p>
+        <p class="text-smoke text-sm">Mercredi : 7h30–12h / 14h–19h</p>
+        <p class="text-smoke text-sm">Samedi : 8h–12h30 / 14h–18h40</p>
+        <p class="text-smoke text-sm">Dimanche : 8h–12h</p>
+      </div>
+    </aside>
+
+    <form id="contact-form" class="lg:col-span-2 rounded-2xl bg-dark-card border border-dark-border p-6 space-y-4" novalidate>
+
+      <p class="hidden"><label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off"/></label></p>
+
+      <label class="block">
+        <span class="block text-sm font-semibold text-white mb-2">Nom *</span>
+        <input type="text" name="nom" required minlength="2"
+               class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-neon-green/50 transition-colors"/>
+      </label>
+
+      <label class="block">
+        <span class="block text-sm font-semibold text-white mb-2">Email *</span>
+        <input type="email" name="email" required
+               class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-neon-green/50 transition-colors"/>
+      </label>
+
+      <label class="block">
+        <span class="block text-sm font-semibold text-white mb-2">Sujet *</span>
+        <select name="sujet" required
+                class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-neon-green/50 transition-colors">
+          <option value="">— Choisir —</option>
+          <option>Question sur un produit</option>
+          <option>Suivi de commande</option>
+          <option>Réclamation / produit défectueux</option>
+          <option>Demande de remboursement</option>
+          <option>Demande de devis pro</option>
+          <option>Autre</option>
+        </select>
+      </label>
+
+      <label class="block">
+        <span class="block text-sm font-semibold text-white mb-2">Numéro de commande (si applicable)</span>
+        <input type="text" name="orderId" placeholder="TG-202604281430-A1B2"
+               class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-neon-green/50 transition-colors"/>
+      </label>
+
+      <label class="block">
+        <span class="block text-sm font-semibold text-white mb-2">Message *</span>
+        <textarea name="message" rows="5" required minlength="10" maxlength="2000"
+                  class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-neon-green/50 transition-colors resize-y"></textarea>
+      </label>
+
+      <button type="submit" class="btn-neon-green w-full py-3.5 rounded-xl text-sm uppercase tracking-widest font-bold">Envoyer le message</button>
+
+      <div id="contact-status" class="hidden p-4 rounded-xl text-sm"></div>
+
+      <p class="text-smoke text-xs">
+        En envoyant ce message, vous acceptez que vos informations soient utilisées uniquement pour répondre à votre demande, conformément à notre <a href="/mentions-legales/" class="text-neon-violet hover:underline">politique de confidentialité</a>.
+      </p>
+    </form>
+  </div>
+</section>
+
+<script>
+(function() {
+  const form = document.getElementById('contact-form');
+  const statusEl = document.getElementById('contact-status');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.classList.add('hidden');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const orig = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi…';
+
+    const fd = new FormData(form);
+    const payload = Object.fromEntries(fd.entries());
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+
+      statusEl.className = 'p-4 rounded-xl text-sm border border-neon-green/30 bg-neon-green/10 text-neon-green';
+      statusEl.textContent = '✓ Message envoyé ! Nous vous répondrons sous 24 h ouvrées.';
+      statusEl.classList.remove('hidden');
+      form.reset();
+    } catch (err) {
+      statusEl.className = 'p-4 rounded-xl text-sm border border-red-400/30 bg-red-400/10 text-red-300';
+      statusEl.textContent = 'Erreur : ' + err.message + '. Réessayez ou écrivez à contact@vapelab.fr.';
+      statusEl.classList.remove('hidden');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = orig;
+    }
+  });
+})();
+</script>

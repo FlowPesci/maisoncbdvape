@@ -1,0 +1,30 @@
+{
+  "marque": "Astronaute",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Cendrier Astronaute",
+  "actif": true,
+  "prix": 9.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Astronaute",
+  "categorie": "accessoires",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "cendrier-astronaute",
+  "image": "/media/produits/1778342770289-cendrier-astronaute.png",
+  "description": "Cendrier Astronaute – Accessoire décoratif.\n\nPrésentation\nUn cendrier original en forme d'astronaute, alliant utilité et décoration. Fabriqué dans un matériau résistant, il apporte une touche d'originalité et de style à votre bureau, salon ou espace fumeur.\n\nCaractéristiques\nDesign astronaute original et ludique. Matériau résistant et durable. Facile à nettoyer. Format compact.\n\nIdéal pour\nOffrir en cadeau ou pour agrémenter votre espace fumeur d'une pièce décorative amusante.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

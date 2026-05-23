@@ -1,0 +1,30 @@
+{
+  "marque": "Alien",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Cendrier Alien",
+  "actif": true,
+  "prix": 14.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Alien",
+  "categorie": "accessoires",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "cendrier-alien",
+  "image": "/media/produits/1778342773018-cendrier-alien.png",
+  "description": "Cendrier Alien – Accessoire décoratif.\n\nPrésentation\nUn cendrier au design alien unique, parfait pour les amateurs de décoration originale et décalée. Matériau robuste, facile à entretenir, il devient une pièce décorative à part entière.\n\nCaractéristiques\nDesign alien original et collectible. Matériau résistant. Fond stable pour éviter les renversements. Facile à nettoyer.\n\nIdéal pour\nUn cadeau original ou une pièce déco dans votre espace fumeur ou bureau.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "marque": "Amnésia Hydro Indoor CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Amnésia Hydro Indoor CBD",
+  "actif": true,
+  "prix": 4.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 14.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 24.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 49,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes intenses et complexes, typiques de l’Amnesia.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "indoor",
+    "nouveaute",
+    "bestseller"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "amnesia-hydro-indoor-cbd",
+  "image": "/media/produits/1778340500386-amnesia-hydro-indoor-cbd.jpeg",
+  "description": "Aspect visuel :\n\nTêtes denses, compactes et parfaitement manucurées.\n\nUne robe verte claire, parfois ponctuée de nuances orangées grâce à ses pistils.\n\nRecouverte d’une épaisse couche de trichomes scintillants, signe d’une forte concentration en cannabinoïdes et terpènes.\n\nArômes & saveurs :\n\nNotes intenses et complexes, typiques de l’Amnesia.\n\nMélange frais et citronné, relevé par des touches terreuses et épicées.\n\nEn bouche, on retrouve un goût persistant, équilibrant fraîcheur et puissance.\n\n⚡ Effets :\n\nConnue pour ses effets énergisants, stimulants et cérébraux.\n\nApporte une sensation de clarté mentale et de créativité.\n\nIdéale en journée pour rester actif et concentré.\n\nCulture hydroponique indoor :\n\nFavorise un développement optimal des fleurs grâce à une nutrition précise et un environnement parfaitement contrôlé.\n\nPermet d’obtenir une fleur pure, propre et particulièrement riche en terpènes.\n\nEn résumé, la Amnesia Indoor Hydro de haute qualité est une fleur prestigieuse, appréciée pour son intensité aromatique, sa puissance et la finesse de sa culture en hydroponie.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes intenses et complexes, typiques de l’Amnesia."
+  }
+}

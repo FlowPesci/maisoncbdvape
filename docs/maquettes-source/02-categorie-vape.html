@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Univers Vape & E-liquides – Tabac Gex | CBD & Vape</title>
+  <meta name="description" content="Cigarettes électroniques, pods, box et e-liquides. Vaporesso, Geek Vape, Le Petit Verger, Curieux. Boutique premium à Gex (01170)." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'neon-green':  '#39FF14',
+            'neon-violet': '#BF5FFF',
+            'neon-blue':   '#00D4FF',
+            'dark-bg':     '#0A0A0F',
+            'dark-card':   '#12121A',
+            'dark-surface':'#161622',
+            'dark-border': '#1E1E2E',
+            'smoke':       '#8A8A9A',
+          },
+          fontFamily: {
+            'display': ['Bebas Neue', 'sans-serif'],
+            'body':    ['DM Sans', 'sans-serif'],
+            'mono':    ['Space Mono', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { background: #0A0A0F; font-family: 'DM Sans', sans-serif; }
+
+    /* grain */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .35;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+    }
+
+    /* ── Header ──────────────────────────────── */
+    .glass-header {
+      background: rgba(10,10,15,.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.055);
+    }
+    .nav-link {
+      position: relative; color: #8A8A9A;
+      font-weight: 500; font-size: .82rem;
+      letter-spacing: .06em; text-transform: uppercase;
+      transition: color .25s;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1.5px;
+      background: linear-gradient(90deg,#39FF14,#BF5FFF);
+      transform: scaleX(0); transform-origin: left; transition: transform .3s;
+    }
+    .nav-link:hover { color: #fff; }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .icon-btn { color: #8A8A9A; transition: color .2s; }
+    .icon-btn:hover { color: #fff; }
+
+    /* ── Breadcrumb ──────────────────────────── */
+    .breadcrumb-link { color: #8A8A9A; font-size: .78rem; transition: color .2s; }
+    .breadcrumb-link:hover { color: #39FF14; }
+
+    /* ── Sidebar ─────────────────────────────── */
+    .sidebar-card {
+      background: #12121A;
+      border: 1px solid #1E1E2E;
+      border-radius: 14px;
+    }
+    .filter-section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: .1em; font-size: 1rem; color: #fff;
+    }
+    /* sub-cat pill */
+    .subcat-pill {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border-radius: 10px;
+      border: 1px solid #1E1E2E;
+      color: #8A8A9A; font-size: .82rem; font-weight: 500;
+      transition: all .25s; cursor: pointer;
+    }
+    .subcat-pill:hover, .subcat-pill.active {
+      background: rgba(57,255,20,.08);
+      border-color: rgba(57,255,20,.3);
+      color: #39FF14;
+    }
+    /* checkbox custom */
+    .check-row { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .check-row input[type="checkbox"] {
+      appearance: none; -webkit-appearance: none;
+      width: 16px; height: 16px; border-radius: 5px;
+      border: 1.5px solid #2E2E44;
+      background: #0A0A0F; cursor: pointer; transition: all .2s;
+      flex-shrink: 0;
+    }
+    .check-row input[type="checkbox"]:checked {
+      background: #39FF14; border-color: #39FF14;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%230A0A0F' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: center;
+    }
+    .check-row label { color: #8A8A9A; font-size: .82rem; cursor: pointer; transition: color .2s; }
+    .check-row:hover label { color: #fff; }
+
+    /* price range */
+    .price-pill {
+      padding: 6px 12px; border-radius: 8px;
+      border: 1px solid #1E1E2E;
+      color: #8A8A9A; font-size: .78rem; font-weight: 500;
+      cursor: pointer; transition: all .22s;
+    }
+    .price-pill:hover, .price-pill.active {
+      border-color: rgba(191,95,255,.4);
+      background: rgba(191,95,255,.08);
+      color: #BF5FFF;
+    }
+
+    /* ── Toolbar ─────────────────────────────── */
+    .toolbar-bar {
+      background: #12121A;
+      border: 1px solid #1E1E2E;
+      border-radius: 12px;
+    }
+    .sort-select {
+      background: #0A0A0F; border: 1px solid #2E2E44;
+      color: #ccc; border-radius: 8px; font-size: .8rem;
+      padding: 6px 10px; cursor: pointer; outline: none;
+      transition: border-color .2s;
+    }
+    .sort-select:hover { border-color: #BF5FFF; }
+    .sort-select option { background: #12121A; }
+
+    /* ── Product cards ───────────────────────── */
+    .product-card {
+      background: #12121A;
+      border: 1px solid #1E1E2E;
+      border-radius: 16px; overflow: hidden;
+      position: relative;
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .product-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 16px;
+      padding: 1px;
+      background: linear-gradient(135deg,#39FF1400,#BF5FFF00);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      transition: background .35s; pointer-events: none;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.55), 0 0 40px rgba(191,95,255,.07);
+      border-color: #BF5FFF44;
+    }
+    .product-card:hover::before {
+      background: linear-gradient(135deg,#39FF1440,#BF5FFF40);
+    }
+
+    /* cart btn (hidden by default) */
+    .add-cart-btn {
+      background: transparent;
+      border: 1.5px solid rgba(57,255,20,.35);
+      color: #39FF14;
+      font-weight: 600; letter-spacing: .05em;
+      font-size: .72rem; text-transform: uppercase;
+      border-radius: 8px; width: 100%;
+      padding: 9px 0;
+      opacity: 0; transform: translateY(8px);
+      transition: all .28s ease;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .product-card:hover .add-cart-btn {
+      opacity: 1; transform: translateY(0);
+    }
+    .add-cart-btn:hover {
+      background: #39FF14; color: #0A0A0F;
+      border-color: #39FF14;
+      box-shadow: 0 0 20px #39FF1466;
+    }
+
+    /* img hover zoom */
+    .product-img { transition: transform .5s ease; }
+    .product-card:hover .product-img { transform: scale(1.06); }
+
+    /* stock badge */
+    .stock-badge {
+      background: rgba(57,255,20,.12);
+      color: #39FF14;
+      border: 1px solid rgba(57,255,20,.28);
+    }
+
+    /* ── Pagination ──────────────────────────── */
+    .page-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid #1E1E2E;
+      font-size: .8rem; color: #8A8A9A;
+      cursor: pointer; transition: all .22s;
+    }
+    .page-btn:hover { border-color: #BF5FFF55; color: #BF5FFF; background: rgba(191,95,255,.07); }
+    .page-btn.active { background: #BF5FFF; color: #0A0A0F; border-color: #BF5FFF; font-weight: 700; }
+    .page-next {
+      padding: 0 16px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; gap: 6px;
+      border: 1px solid #1E1E2E; font-size: .8rem; color: #8A8A9A;
+      cursor: pointer; transition: all .22s;
+    }
+    .page-next:hover { border-color: #39FF1455; color: #39FF14; background: rgba(57,255,20,.07); }
+
+    /* ── Dividers ────────────────────────────── */
+    .neon-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #39FF1444, #BF5FFF44, transparent);
+    }
+
+    /* ── Footer ──────────────────────────────── */
+    .footer-bg { background: linear-gradient(180deg,#0A0A0F,#07070D); border-top: 1px solid #1E1E2E; }
+    .age-band { background: linear-gradient(90deg,#1a0a0a,#2a0a0a,#1a0a0a); border-top:1px solid #5a1a1a; border-bottom:1px solid #5a1a1a; }
+    .foot-link { color: #8A8A9A; font-size:.82rem; transition: color .2s; }
+    .foot-link:hover { color: #fff; }
+
+    /* ── Mobile filter drawer ────────────────── */
+    #filter-drawer {
+      transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .35s;
+    }
+    #filter-drawer.hidden-drawer {
+      transform: translateX(-100%); opacity: 0; pointer-events: none;
+    }
+    #drawer-overlay {
+      background: rgba(0,0,0,.7);
+      transition: opacity .35s;
+    }
+    #drawer-overlay.hidden { opacity: 0; pointer-events: none; }
+
+    /* btn-neon-green */
+    .btn-neon-green {
+      background: linear-gradient(135deg,#39FF14,#00C853);
+      color: #0A0A0F;
+      box-shadow: 0 0 18px #39FF1455, 0 4px 20px rgba(57,255,20,.28);
+      transition: all .28s;
+    }
+    .btn-neon-green:hover { box-shadow: 0 0 36px #39FF1488, 0 8px 28px rgba(57,255,20,.45); transform: translateY(-2px); }
+    .btn-outline-violet {
+      border: 1.5px solid #BF5FFF; color: #BF5FFF; background: transparent;
+      transition: all .28s;
+    }
+    .btn-outline-violet:hover { background: rgba(191,95,255,.1); box-shadow: 0 0 22px #BF5FFF44; transform: translateY(-2px); }
+
+    /* fade-up */
+    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* grid bg lines */
+    .grid-lines {
+      background-image: linear-gradient(rgba(255,255,255,.014) 1px,transparent 1px),
+                        linear-gradient(90deg,rgba(255,255,255,.014) 1px,transparent 1px);
+      background-size: 60px 60px;
+    }
+  </style>
+</head>
+
+<body class="text-white antialiased">
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════ -->
+<header class="glass-header fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 shrink-0">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-neon-green to-neon-violet flex items-center justify-center">
+          <svg class="w-4 h-4 text-dark-bg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-display text-xl tracking-widest text-white leading-none">TABAC GEX</div>
+          <div class="font-mono text-xs text-smoke tracking-widest leading-none">CBD & VAPE</div>
+        </div>
+      </a>
+
+      <!-- Nav desktop -->
+      <nav class="hidden lg:flex items-center gap-7">
+        <a href="#" class="nav-link">CBD</a>
+        <a href="#" class="nav-link">Puffs</a>
+        <a href="#" class="nav-link" style="color:#BF5FFF;">Vape & E-liquides</a>
+        <a href="#" class="nav-link">Chicha</a>
+        <a href="#" class="nav-link">Accessoires</a>
+      </nav>
+
+      <!-- Icons -->
+      <div class="flex items-center gap-4">
+        <!-- Search -->
+        <button class="icon-btn hidden sm:block" aria-label="Rechercher">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+          </svg>
+        </button>
+        <!-- Account -->
+        <button class="icon-btn hidden sm:block" aria-label="Compte">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+          </svg>
+        </button>
+        <!-- Cart -->
+        <button class="icon-btn relative" aria-label="Panier">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
+          </svg>
+          <span class="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-neon-violet text-dark-bg font-mono font-bold flex items-center justify-center" style="font-size:9px;">2</span>
+        </button>
+        <!-- Mobile burger -->
+        <button id="menu-toggle" class="lg:hidden icon-btn p-1" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile nav menu -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-dark-border">
+    <div class="px-4 py-3 space-y-1">
+      <a href="#" class="block py-2 text-smoke hover:text-white uppercase text-sm font-medium tracking-wider transition-colors">CBD</a>
+      <a href="#" class="block py-2 text-neon-violet uppercase text-sm font-medium tracking-wider">Vape & E-liquides</a>
+      <a href="#" class="block py-2 text-smoke hover:text-white uppercase text-sm font-medium tracking-wider transition-colors">Puffs</a>
+      <a href="#" class="block py-2 text-smoke hover:text-white uppercase text-sm font-medium tracking-wider transition-colors">Chicha</a>
+      <a href="#" class="block py-2 text-smoke hover:text-white uppercase text-sm font-medium tracking-wider transition-colors">Accessoires</a>
+    </div>
+  </div>
+</header>
+
+
+<!-- ═══════════════════════════════════════════
+     HERO CATEGORY HEADER
+═══════════════════════════════════════════ -->
+<div class="pt-16 grid-lines">
+  <!-- Glow blobs -->
+  <div class="absolute left-1/4 top-20 w-80 h-80 rounded-full blur-3xl pointer-events-none" style="background:radial-gradient(circle,rgba(191,95,255,.07) 0%,transparent 70%);"></div>
+  <div class="absolute right-1/4 top-16 w-64 h-64 rounded-full blur-3xl pointer-events-none" style="background:radial-gradient(circle,rgba(0,212,255,.05) 0%,transparent 70%);"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14 relative">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Fil d'Ariane" class="flex items-center gap-2 mb-6 text-xs font-mono fade-up">
+      <a href="index.html" class="breadcrumb-link">Accueil</a>
+      <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+      <a href="#" class="breadcrumb-link">Boutique</a>
+      <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+      <span class="text-neon-violet">Univers Vape</span>
+    </nav>
+
+    <!-- Category title block -->
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 fade-up" style="transition-delay:.05s;">
+      <div class="max-w-2xl">
+        <!-- Eyebrow -->
+        <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full border border-neon-violet/20 bg-neon-violet/5">
+          <span class="w-1.5 h-1.5 rounded-full bg-neon-violet animate-pulse"></span>
+          <span class="font-mono text-xs text-neon-violet tracking-widest uppercase">Catégorie</span>
+        </div>
+
+        <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl text-white tracking-wide mb-4 leading-none">
+          UNIVERS VAPE<br/>
+          <span style="color:#BF5FFF;" class="neon-violet" >& E-LIQUIDES</span>
+        </h1>
+
+        <p class="text-smoke text-sm sm:text-base leading-relaxed">
+          Découvrez notre large gamme de <strong class="text-white font-medium">cigarettes électroniques</strong>, pods, box et
+          <strong class="text-white font-medium">e-liquides</strong> (Le Petit Verger, Curieux, E-CG).
+          Retrouvez les meilleures marques comme <strong class="text-white font-medium">Vaporesso</strong> et <strong class="text-white font-medium">Geek Vape</strong>.
+        </p>
+      </div>
+
+      <!-- Mini stats -->
+      <div class="flex gap-6 shrink-0">
+        <div class="text-center">
+          <div class="font-display text-3xl" style="color:#BF5FFF;">24</div>
+          <div class="text-smoke text-xs tracking-wider uppercase font-mono">Produits</div>
+        </div>
+        <div class="w-px bg-dark-border"></div>
+        <div class="text-center">
+          <div class="font-display text-3xl" style="color:#39FF14;">4</div>
+          <div class="text-smoke text-xs tracking-wider uppercase font-mono">Marques</div>
+        </div>
+        <div class="w-px bg-dark-border"></div>
+        <div class="text-center">
+          <div class="font-display text-3xl" style="color:#00D4FF;">48h</div>
+          <div class="text-smoke text-xs tracking-wider uppercase font-mono">Livraison</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="neon-divider"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     MAIN CONTENT: SIDEBAR + PRODUCTS
+═══════════════════════════════════════════ -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  <!-- Mobile filter button -->
+  <div class="flex items-center justify-between mb-6 lg:hidden">
+    <p class="text-smoke text-sm font-mono">24 résultats</p>
+    <button id="open-filters" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-dark-border bg-dark-card text-sm text-white font-medium transition hover:border-neon-violet/40">
+      <svg class="w-4 h-4" style="color:#BF5FFF;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM3.75 6h.75m16.5 6H6.75m0 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM3.75 12h.75m16.5 6H13.5m0 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM3.75 18h.75"/>
+      </svg>
+      Filtrer & Trier
+    </button>
+  </div>
+
+  <div class="flex gap-8 relative">
+
+    <!-- ──────────────────────────────────────
+         SIDEBAR (desktop)
+    ────────────────────────────────────── -->
+    <aside class="hidden lg:block w-64 xl:w-72 shrink-0">
+      <div class="space-y-5 sticky top-24">
+
+        <!-- Sub-categories -->
+        <div class="sidebar-card p-5">
+          <h2 class="filter-section-title mb-4">Sous-catégories</h2>
+          <div class="space-y-2">
+            <button class="subcat-pill w-full active" onclick="toggleSubcat(this)">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h7.5"/></svg>
+              Tout voir
+            </button>
+            <button class="subcat-pill w-full" onclick="toggleSubcat(this)">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Cigarettes Électroniques
+            </button>
+            <button class="subcat-pill w-full" onclick="toggleSubcat(this)">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
+              E-liquides
+            </button>
+            <button class="subcat-pill w-full" onclick="toggleSubcat(this)">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"/></svg>
+              DIY / Base
+            </button>
+            <button class="subcat-pill w-full" onclick="toggleSubcat(this)">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+              Puffs Jetables
+            </button>
+          </div>
+        </div>
+
+        <!-- Brand filter -->
+        <div class="sidebar-card p-5">
+          <h2 class="filter-section-title mb-4">Marques</h2>
+          <div class="space-y-3">
+            <label class="check-row">
+              <input type="checkbox" checked />
+              <label>Vaporesso <span class="text-smoke text-xs">(8)</span></label>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" />
+              <label>Justfog <span class="text-smoke text-xs">(5)</span></label>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" checked />
+              <label>Geek Vape <span class="text-smoke text-xs">(6)</span></label>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" />
+              <label>Al Fakher <span class="text-smoke text-xs">(5)</span></label>
+            </label>
+            <button class="text-xs text-neon-violet hover:underline mt-1 transition-opacity hover:opacity-80">+ Voir plus</button>
+          </div>
+        </div>
+
+        <!-- Price filter -->
+        <div class="sidebar-card p-5">
+          <h2 class="filter-section-title mb-4">Prix</h2>
+
+          <!-- Visual range -->
+          <div class="mb-4">
+            <div class="flex justify-between text-xs text-smoke font-mono mb-2">
+              <span>0 €</span>
+              <span>120 €</span>
+            </div>
+            <div class="relative h-1.5 rounded-full" style="background:#1E1E2E;">
+              <div class="absolute h-1.5 rounded-full" style="left:0%;right:20%;background:linear-gradient(90deg,#39FF14,#BF5FFF);"></div>
+              <div class="absolute w-3.5 h-3.5 rounded-full border-2 border-neon-green bg-dark-bg -top-1 cursor-pointer shadow-lg" style="left:0%;box-shadow:0 0 8px #39FF1466;"></div>
+              <div class="absolute w-3.5 h-3.5 rounded-full border-2 border-neon-violet bg-dark-bg -top-1 cursor-pointer shadow-lg" style="right:20%;transform:translateX(50%);box-shadow:0 0 8px #BF5FFF66;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-white font-mono mt-3">
+              <span>0 €</span><span>96 €</span>
+            </div>
+          </div>
+
+          <!-- Price pills -->
+          <div class="flex flex-wrap gap-2 mt-4">
+            <button class="price-pill active" onclick="togglePrice(this)">Moins de 20 €</button>
+            <button class="price-pill" onclick="togglePrice(this)">20 € – 50 €</button>
+            <button class="price-pill" onclick="togglePrice(this)">Plus de 50 €</button>
+          </div>
+        </div>
+
+        <!-- Reset -->
+        <button class="w-full py-2.5 rounded-xl border border-dark-border text-smoke text-sm font-medium hover:text-white hover:border-white/20 transition-all">
+          Réinitialiser les filtres
+        </button>
+
+      </div>
+    </aside>
+
+
+    <!-- ──────────────────────────────────────
+         PRODUCTS COLUMN
+    ────────────────────────────────────── -->
+    <div class="flex-1 min-w-0">
+
+      <!-- Toolbar -->
+      <div class="toolbar-bar flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-3.5 mb-7 fade-up">
+        <p class="text-smoke text-xs font-mono">
+          Affichage <span class="text-white font-bold">1–6</span> sur <span class="text-white font-bold">24</span> résultats
+        </p>
+        <div class="flex items-center gap-3">
+          <label class="text-smoke text-xs uppercase tracking-wider font-mono shrink-0">Trier par :</label>
+          <select class="sort-select">
+            <option>Nouveautés</option>
+            <option>Prix croissant</option>
+            <option>Prix décroissant</option>
+            <option>Mieux notés</option>
+          </select>
+          <!-- View toggle -->
+          <div class="hidden sm:flex items-center gap-1 ml-2">
+            <button class="p-1.5 rounded-lg border border-neon-violet/40 bg-neon-violet/10 text-neon-violet" title="Grille">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 16 16"><path d="M1 2.5A1.5 1.5 0 012.5 1h3A1.5 1.5 0 017 2.5v3A1.5 1.5 0 015.5 7h-3A1.5 1.5 0 011 5.5v-3zm8 0A1.5 1.5 0 0110.5 1h3A1.5 1.5 0 0115 2.5v3A1.5 1.5 0 0113.5 7h-3A1.5 1.5 0 019 5.5v-3zm-8 8A1.5 1.5 0 012.5 9h3A1.5 1.5 0 017 10.5v3A1.5 1.5 0 015.5 15h-3A1.5 1.5 0 011 13.5v-3zm8 0A1.5 1.5 0 0110.5 9h3a1.5 1.5 0 011.5 1.5v3a1.5 1.5 0 01-1.5 1.5h-3A1.5 1.5 0 019 13.5v-3z"/></svg>
+            </button>
+            <button class="p-1.5 rounded-lg border border-dark-border text-smoke hover:text-white hover:border-white/20 transition-all" title="Liste">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 01.5-.5h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+
+        <!-- ── CARD 1 ── -->
+        <article class="product-card fade-up group relative">
+    <a href="product.html" class="absolute inset-0 z-10" aria-label="Voir le produit"></a>
+
+    <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+        <img src="img/kit-box-gen-se-vaporesso.jpg"
+             alt="Kit Box Gen SE Vaporesso"
+             class="product-img w-full h-full object-cover"/>
+        
+        <div class="absolute top-3 left-3 flex flex-col gap-2 z-20">
+            <span class="stock-badge text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">En stock</span>
+        </div>
+        <div class="absolute top-3 right-3 z-20">
+            <span class="bg-neon-violet text-dark-bg text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Nouveau</span>
+        </div>
+
+        <button class="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-dark-bg/80 border border-dark-border flex items-center justify-center text-smoke hover:text-red-400 transition-all opacity-0 group-hover:opacity-100 z-20">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+        </button>
+    </div>
+
+    <div class="p-4">
+        <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">Vaporesso · Kit</div>
+        <h3 class="text-white font-semibold text-sm leading-snug mb-2">Kit Box Gen SE – Vaporesso</h3>
+        <div class="flex items-center gap-1 mb-3">
+            <div class="flex text-yellow-400 text-xs">★★★★★</div>
+            <span class="text-smoke text-xs">(32)</span>
+        </div>
+        <div class="flex items-center justify-between mb-3">
+            <div class="font-display text-2xl" style="color:#39FF14;">49,90 €</div>
+        </div>
+
+        <button class="add-cart-btn relative z-20">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            Ajouter au panier
+        </button>
+    </div>
+</article>
+
+        <!-- ── CARD 2 ── -->
+        <article class="product-card fade-up group" style="transition-delay:.07s;">
+          <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+            <img src="img/XROS-5-Mini-Vaporesso.png"
+                 alt="XROS 5 Mini Vaporesso"
+                 class="product-img w-full h-full object-cover"/>
+            <div class="absolute top-3 left-3">
+              <span class="stock-badge text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">En stock</span>
+            </div>
+            <button class="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-dark-bg/80 border border-dark-border flex items-center justify-center text-smoke hover:text-red-400 transition-all opacity-0 group-hover:opacity-100">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+            </button>
+          </div>
+          <div class="p-4">
+            <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">Vaporesso · Pod</div>
+            <h3 class="text-white font-semibold text-sm leading-snug mb-2">XROS 5 Mini – Vaporesso</h3>
+            <div class="flex items-center gap-1 mb-3">
+              <div class="flex text-yellow-400 text-xs">★★★★☆</div>
+              <span class="text-smoke text-xs">(18)</span>
+            </div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="font-display text-2xl" style="color:#39FF14;">29,90 €</div>
+            </div>
+            <button class="add-cart-btn">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              Ajouter au panier
+            </button>
+          </div>
+        </article>
+
+        <!-- ── CARD 3 ── -->
+        <article class="product-card fade-up group" style="transition-delay:.14s;">
+          <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+            <img src="img/Pêche-Litchi-50ml-Le-Petit-Verger.jpeg"
+                 alt="E-liquide Pêche Litchi Frais"
+                 class="product-img w-full h-full object-cover"/>
+            <div class="absolute top-3 left-3">
+              <span class="stock-badge text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">En stock</span>
+            </div>
+            <div class="absolute top-3 right-3">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider" style="background:rgba(255,120,0,.2);color:#FF7800;border:1px solid rgba(255,120,0,.3);">Promo</span>
+            </div>
+            <button class="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-dark-bg/80 border border-dark-border flex items-center justify-center text-smoke hover:text-red-400 transition-all opacity-0 group-hover:opacity-100">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+            </button>
+          </div>
+          <div class="p-4">
+            <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">Le Petit Verger · E-liquide</div>
+            <h3 class="text-white font-semibold text-sm leading-snug mb-2">E-liquide Pêche Litchi Frais 50ml</h3>
+            <div class="flex items-center gap-1 mb-3">
+              <div class="flex text-yellow-400 text-xs">★★★★★</div>
+              <span class="text-smoke text-xs">(57)</span>
+            </div>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="font-display text-2xl" style="color:#39FF14;">7,90 €</div>
+              <div class="font-mono text-smoke text-sm line-through">10,90 €</div>
+            </div>
+            <button class="add-cart-btn">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              Ajouter au panier
+            </button>
+          </div>
+        </article>
+
+        <!-- ── CARD 4 ── -->
+        <article class="product-card fade-up group" style="transition-delay:.21s;">
+          <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+            <img src="https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=500&q=80&fit=crop"
+                 alt="Aegis Legend 3 Geek Vape"
+                 class="product-img w-full h-full object-cover"/>
+            <div class="absolute top-3 left-3">
+              <span class="stock-badge text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">En stock</span>
+            </div>
+            <div class="absolute top-3 right-3">
+              <span class="bg-neon-violet text-dark-bg text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Nouveau</span>
+            </div>
+            <button class="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-dark-bg/80 border border-dark-border flex items-center justify-center text-smoke hover:text-red-400 transition-all opacity-0 group-hover:opacity-100">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+            </button>
+          </div>
+          <div class="p-4">
+            <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">Geek Vape · Box Mod</div>
+            <h3 class="text-white font-semibold text-sm leading-snug mb-2">Aegis Legend 3 – Geek Vape</h3>
+            <div class="flex items-center gap-1 mb-3">
+              <div class="flex text-yellow-400 text-xs">★★★★★</div>
+              <span class="text-smoke text-xs">(24)</span>
+            </div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="font-display text-2xl" style="color:#39FF14;">89,90 €</div>
+            </div>
+            <button class="add-cart-btn">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              Ajouter au panier
+            </button>
+          </div>
+        </article>
+
+        <!-- ── CARD 5 ── -->
+        <article class="product-card fade-up group" style="transition-delay:.28s;">
+          <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=80&fit=crop"
+                 alt="E-liquide Fraise Menthe Curieux"
+                 class="product-img w-full h-full object-cover opacity-80"/>
+            <div class="absolute top-3 left-3">
+              <span class="stock-badge text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">En stock</span>
+            </div>
+            <button class="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-dark-bg/80 border border-dark-border flex items-center justify-center text-smoke hover:text-red-400 transition-all opacity-0 group-hover:opacity-100">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+            </button>
+          </div>
+          <div class="p-4">
+            <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">Curieux · E-liquide</div>
+            <h3 class="text-white font-semibold text-sm leading-snug mb-2">E-liquide Fraise Menthe Glaciale 100ml</h3>
+            <div class="flex items-center gap-1 mb-3">
+              <div class="flex text-yellow-400 text-xs">★★★★☆</div>
+              <span class="text-smoke text-xs">(41)</span>
+            </div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="font-display text-2xl" style="color:#39FF14;">12,90 €</div>
+            </div>
+            <button class="add-cart-btn">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              Ajouter au panier
+            </button>
+          </div>
+        </article>
+
+        <!-- ── CARD 6 ── -->
+        <article class="product-card fade-up group" style="transition-delay:.35s;">
+          <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=80&fit=crop"
+                 alt="Kit Caliburn G3 Uwell"
+                 class="product-img w-full h-full object-cover"/>
+            <div class="absolute top-3 left-3 flex gap-2">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider" style="background:rgba(255,80,80,.18);color:#FF5050;border:1px solid rgba(255,80,80,.28);">Best-seller</span>
+            </div>
+            <button class="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-dark-bg/80 border border-dark-border flex items-center justify-center text-smoke hover:text-red-400 transition-all opacity-0 group-hover:opacity-100">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+            </button>
+          </div>
+          <div class="p-4">
+            <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">Justfog · Pod Kit</div>
+            <h3 class="text-white font-semibold text-sm leading-snug mb-2">Kit Caliburn G3 – Justfog</h3>
+            <div class="flex items-center gap-1 mb-3">
+              <div class="flex text-yellow-400 text-xs">★★★★★</div>
+              <span class="text-smoke text-xs">(78)</span>
+            </div>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="font-display text-2xl" style="color:#39FF14;">34,90 €</div>
+              <span class="text-xs px-2 py-0.5 rounded-full font-mono" style="background:rgba(57,255,20,.1);color:#39FF14;border:1px solid rgba(57,255,20,.2);">En stock</span>
+            </div>
+            <button class="add-cart-btn">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              Ajouter au panier
+            </button>
+          </div>
+        </article>
+
+      </div><!-- /grid -->
+
+      <!-- Pagination -->
+      <div class="flex items-center justify-center gap-2 mt-12 fade-up">
+        <button class="page-btn" title="Précédent">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+        </button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">4</button>
+        <span class="text-smoke text-sm px-1">…</span>
+        <button class="page-btn">8</button>
+        <button class="page-next">
+          Suivant
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        </button>
+      </div>
+
+    </div><!-- /products column -->
+  </div><!-- /flex row -->
+</main>
+
+
+<!-- ═══════════════════════════════════════════
+     MOBILE FILTER DRAWER
+═══════════════════════════════════════════ -->
+<!-- Overlay -->
+<div id="drawer-overlay" class="hidden fixed inset-0 z-40 lg:hidden" onclick="closeFilters()"></div>
+
+<!-- Drawer -->
+<div id="filter-drawer" class="hidden-drawer fixed top-0 left-0 bottom-0 w-80 max-w-[88vw] z-50 lg:hidden overflow-y-auto"
+     style="background:#0D0D18; border-right:1px solid #1E1E2E;">
+  <div class="p-5">
+    <!-- Drawer header -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="font-display text-xl tracking-wide text-white">FILTRES</h2>
+      <button onclick="closeFilters()" class="w-8 h-8 rounded-lg border border-dark-border flex items-center justify-center text-smoke hover:text-white transition-colors">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Sub-categories -->
+    <div class="mb-6">
+      <h3 class="filter-section-title mb-3">Sous-catégories</h3>
+      <div class="space-y-2">
+        <button class="subcat-pill w-full active">Tout voir</button>
+        <button class="subcat-pill w-full">Cigarettes Électroniques</button>
+        <button class="subcat-pill w-full">E-liquides</button>
+        <button class="subcat-pill w-full">DIY / Base</button>
+        <button class="subcat-pill w-full">Puffs Jetables</button>
+      </div>
+    </div>
+
+    <div class="neon-divider my-4"></div>
+
+    <!-- Brands -->
+    <div class="mb-6">
+      <h3 class="filter-section-title mb-3">Marques</h3>
+      <div class="space-y-3">
+        <label class="check-row"><input type="checkbox" checked /><label>Vaporesso <span class="text-smoke text-xs">(8)</span></label></label>
+        <label class="check-row"><input type="checkbox" /><label>Justfog <span class="text-smoke text-xs">(5)</span></label></label>
+        <label class="check-row"><input type="checkbox" checked /><label>Geek Vape <span class="text-smoke text-xs">(6)</span></label></label>
+        <label class="check-row"><input type="checkbox" /><label>Al Fakher <span class="text-smoke text-xs">(5)</span></label></label>
+      </div>
+    </div>
+
+    <div class="neon-divider my-4"></div>
+
+    <!-- Price -->
+    <div class="mb-6">
+      <h3 class="filter-section-title mb-3">Prix</h3>
+      <div class="flex flex-wrap gap-2">
+        <button class="price-pill active">Moins de 20 €</button>
+        <button class="price-pill">20 € – 50 €</button>
+        <button class="price-pill">Plus de 50 €</button>
+      </div>
+    </div>
+
+    <!-- Apply -->
+    <button onclick="closeFilters()" class="btn-neon-green w-full py-3 rounded-xl font-semibold text-sm uppercase tracking-widest">
+      Voir les 24 résultats
+    </button>
+    <button class="w-full py-2.5 mt-3 rounded-xl border border-dark-border text-smoke text-sm hover:text-white transition-colors">
+      Réinitialiser
+    </button>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer class="footer-bg mt-8">
+
+  <!-- Age warning -->
+  <div class="age-band py-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold" style="color:#FF6B6B;">🔞 Vente strictement interdite aux mineurs de moins de 18 ans. La vente de produits liés au tabac et à la vape est réservée aux personnes majeures.</p>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-neon-green to-neon-violet flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-dark-bg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
+            <div class="font-display text-base tracking-widest text-white">TABAC GEX</div>
+            <div class="font-mono text-xs text-smoke tracking-widest">CBD & VAPE</div>
+          </div>
+        </div>
+        <p class="text-smoke text-xs leading-relaxed mb-5">Votre boutique premium spécialisée CBD, Vape, Puffs, Chicha et articles fumeurs au cœur de Gex.</p>
+        <div class="flex gap-3">
+          <a href="#" class="w-8 h-8 rounded-lg border border-dark-border flex items-center justify-center text-smoke hover:text-white hover:border-neon-violet/40 transition-all" aria-label="Instagram">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-lg border border-dark-border flex items-center justify-center text-smoke hover:text-white hover:border-neon-blue/40 transition-all" aria-label="Facebook">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-lg border border-dark-border flex items-center justify-center text-smoke hover:text-white hover:border-neon-violet/40 transition-all" aria-label="TikTok">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Infos pratiques -->
+      <div>
+        <h4 class="font-display text-base tracking-wide text-white mb-4">INFOS PRATIQUES</h4>
+        <ul class="space-y-3 text-smoke text-xs">
+          <li class="flex items-start gap-2">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            <span>48 Rue De Genève<br/>01170 Gex, France</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 shrink-0" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+            <a href="#" class="hover:text-white transition-colors">04 50 XX XX XX</a>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div>Lun–Sam : 9h – 19h30<br/>Dimanche : 10h – 13h</div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Boutique -->
+      <div>
+        <h4 class="font-display text-base tracking-wide text-white mb-4">BOUTIQUE</h4>
+        <ul class="space-y-2 text-smoke text-xs">
+          <li><a href="#" class="foot-link">Fleurs & Résines CBD</a></li>
+          <li><a href="#" class="foot-link">Puffs Jetables</a></li>
+          <li><a href="#" class="foot-link" style="color:#BF5FFF;">Cigarettes Électroniques</a></li>
+          <li><a href="#" class="foot-link">E-liquides & DIY</a></li>
+          <li><a href="#" class="foot-link">Chicha & Accessoires</a></li>
+          <li><a href="#" class="foot-link">Nouveautés</a></li>
+        </ul>
+      </div>
+
+      <!-- Aide -->
+      <div>
+        <h4 class="font-display text-base tracking-wide text-white mb-4">AIDE & LÉGAL</h4>
+        <ul class="space-y-2 text-smoke text-xs">
+          <li><a href="#" class="foot-link">Suivi de commande</a></li>
+          <li><a href="#" class="foot-link">Politique de livraison</a></li>
+          <li><a href="#" class="foot-link">Retours & Remboursements</a></li>
+          <li><a href="#" class="foot-link">CGV</a></li>
+          <li><a href="#" class="foot-link">Mentions légales</a></li>
+          <li><a href="#" class="foot-link">Contact</a></li>
+        </ul>
+        <div class="mt-5">
+          <div class="text-smoke text-xs mb-2 uppercase tracking-wider font-mono">Paiements</div>
+          <div class="flex gap-1.5 flex-wrap">
+            <div class="px-2 py-0.5 rounded bg-dark-card border border-dark-border text-smoke text-xs font-mono">VISA</div>
+            <div class="px-2 py-0.5 rounded bg-dark-card border border-dark-border text-smoke text-xs font-mono">MC</div>
+            <div class="px-2 py-0.5 rounded bg-dark-card border border-dark-border text-smoke text-xs font-mono">CB</div>
+            <div class="px-2 py-0.5 rounded bg-dark-card border border-dark-border text-smoke text-xs font-mono">PayPal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="neon-divider mt-10 mb-5"></div>
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-3 text-smoke text-xs">
+      <p>© 2025 Tabac Gex – Tous droits réservés.</p>
+      <p class="font-mono opacity-50">tabacgex.fr · Gex 01170 · France</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════ -->
+<script>
+  // ── Mobile menu ──────────────────────
+  document.getElementById('menu-toggle')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+  });
+
+  // ── Filter drawer ─────────────────────
+  function openFilters() {
+    const drawer = document.getElementById('filter-drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    drawer.classList.remove('hidden-drawer');
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFilters() {
+    const drawer = document.getElementById('filter-drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    drawer.classList.add('hidden-drawer');
+    overlay.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('open-filters')?.addEventListener('click', openFilters);
+
+  // ── Sub-cat toggle ────────────────────
+  function toggleSubcat(el) {
+    el.closest('.space-y-2').querySelectorAll('.subcat-pill').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // ── Price pill toggle ─────────────────
+  function togglePrice(el) {
+    el.closest('.flex').querySelectorAll('.price-pill').forEach(b => b.classList.remove('active'));
+    el.classList.toggle('active');
+  }
+
+  // ── Add to cart feedback ──────────────
+  document.querySelectorAll('.add-cart-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const orig = this.innerHTML;
+      this.innerHTML = `<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Ajouté !`;
+      this.style.cssText = 'background:#39FF14;color:#0A0A0F;border-color:#39FF14;opacity:1;transform:translateY(0);box-shadow:0 0 20px #39FF1466;';
+      setTimeout(() => { this.innerHTML = orig; this.style.cssText = ''; }, 2000);
+    });
+  });
+
+  // ── Scroll animations ─────────────────
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // ── Sticky header ─────────────────────
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    header.style.boxShadow = window.scrollY > 50 ? '0 4px 40px rgba(0,0,0,.55)' : 'none';
+  });
+
+  // ── Pagination active state ───────────
+  document.querySelectorAll('.page-btn:not(.page-next)').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

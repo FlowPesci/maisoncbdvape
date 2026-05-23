@@ -1,0 +1,395 @@
+---
+layout: layouts/base.njk
+permalink: /commande/index.html
+title: "Finaliser ma commande"
+description: "Coordonnées et mode de livraison — VapeLab, boutique CBD &amp; Vape à Gex (01170)"
+---
+{# ──────────────────────────────────────────────────────────────────────────
+   commande.njk — Formulaire de commande (Click & Collect ou Livraison)
+   ────────────────────────────────────────────────────────────────────────── #}
+
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+
+  <nav aria-label="Fil d'Ariane" class="flex items-center gap-2 mb-6 text-xs font-mono fade-up">
+    <a href="/" class="breadcrumb-link">Accueil</a>
+    <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+    <a href="/panier/" class="breadcrumb-link">Mon panier</a>
+    <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+    <span class="text-neon-green">Finaliser</span>
+  </nav>
+
+  <h1 class="font-display text-5xl lg:text-6xl text-white tracking-wide mb-3 fade-up">FINALISER MA COMMANDE</h1>
+  <p class="text-smoke text-sm mb-8 fade-up">Vos coordonnées et votre mode de réception.</p>
+
+  {# ── Sélecteur de mode ── #}
+  <div class="grid grid-cols-2 gap-3 mb-10 fade-up" id="mode-selector">
+    <button type="button" id="mode-cc-btn"
+            class="mode-btn rounded-2xl border-2 border-neon-green bg-neon-green/10 p-4 text-left transition-all">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="w-8 h-8 rounded-lg bg-neon-green/20 flex items-center justify-center shrink-0">
+          <svg class="w-4 h-4 text-neon-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+        </span>
+        <span class="font-display text-sm tracking-widest text-white">CLICK &amp; COLLECT</span>
+      </div>
+      <p class="text-xs text-smoke">Retrait gratuit en boutique — 48 Rue de Genève, Gex</p>
+    </button>
+    <button type="button" id="mode-livraison-btn"
+            class="mode-btn rounded-2xl border-2 border-dark-border bg-dark-card p-4 text-left transition-all hover:border-smoke">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="w-8 h-8 rounded-lg bg-dark-border/60 flex items-center justify-center shrink-0">
+          <svg class="w-4 h-4 text-smoke" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+        </span>
+        <span class="font-display text-sm tracking-widest text-white">LIVRAISON</span>
+      </div>
+      <p class="text-xs text-smoke">Colissimo — Gratuite dès 30 €, sinon 3,90 €</p>
+    </button>
+  </div>
+
+  {# Empty state si panier vide #}
+  <div id="checkout-empty" class="hidden text-center py-20 rounded-2xl border border-dashed border-dark-border bg-dark-card/40">
+    <div class="text-5xl mb-4">🛒</div>
+    <h3 class="font-display text-2xl text-white mb-2">Panier vide</h3>
+    <p class="text-smoke text-sm max-w-md mx-auto mb-6">Ajoutez d'abord des produits avant de passer commande.</p>
+    <a href="/" class="btn-neon-green inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">Découvrir la boutique</a>
+  </div>
+
+  <form id="checkout-form" class="hidden grid lg:grid-cols-3 gap-8" novalidate>
+
+    {# Champ caché : mode choisi #}
+    <input type="hidden" name="modeLivraison" id="mode-livraison-hidden" value="click-and-collect"/>
+
+    {# Colonne gauche : formulaire #}
+    <div class="lg:col-span-2 space-y-6">
+
+      {# ─── Coordonnées ─── #}
+      <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
+        <h2 class="font-display text-xl tracking-widest text-white mb-5">VOS COORDONNÉES</h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="block sm:col-span-2">
+            <span class="block text-sm font-semibold text-white mb-2">Nom complet *</span>
+            <input type="text" name="nom" required minlength="2" maxlength="80" placeholder="Jean Dupont"
+                   class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm placeholder-smoke focus:outline-none focus:border-neon-green/50 transition-colors"/>
+            <span class="error-msg hidden mt-1 text-xs text-red-400" data-error-for="nom"></span>
+          </label>
+          <label class="block">
+            <span class="block text-sm font-semibold text-white mb-2">Email *</span>
+            <input type="email" name="email" required maxlength="120" placeholder="vous@exemple.com"
+                   class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm placeholder-smoke focus:outline-none focus:border-neon-green/50 transition-colors"/>
+            <span class="error-msg hidden mt-1 text-xs text-red-400" data-error-for="email"></span>
+          </label>
+          <label class="block">
+            <span class="block text-sm font-semibold text-white mb-2">Téléphone *</span>
+            <input type="tel" name="telephone" required pattern="[0-9 +.\-()]{8,}" maxlength="20" placeholder="06 12 34 56 78"
+                   class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm placeholder-smoke focus:outline-none focus:border-neon-green/50 transition-colors"/>
+            <span class="error-msg hidden mt-1 text-xs text-red-400" data-error-for="telephone"></span>
+          </label>
+          <label class="block sm:col-span-2">
+            <span class="block text-sm font-semibold text-white mb-2">Notes (optionnel)</span>
+            <textarea name="notes" rows="2" maxlength="300" placeholder="Indication particulière (allergies, préférence…)"
+                      class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm placeholder-smoke focus:outline-none focus:border-neon-green/50 transition-colors resize-none"></textarea>
+          </label>
+        </div>
+      </div>
+
+      {# ─── Créneau retrait (Click & Collect) ─── #}
+      <div id="section-cc" class="rounded-2xl bg-dark-card border border-dark-border p-6">
+        <h2 class="font-display text-xl tracking-widest text-white mb-2">CRÉNEAU DE RETRAIT</h2>
+        <p class="text-smoke text-xs mb-5">
+          📍 48 Rue de Genève, 01170 Gex — Lun–Sam 9 h – 19 h 30, Dim 10 h – 13 h.<br/>
+          Préparation sous 24 h ouvrées. Choisissez un créneau au plus tôt 24 h après la commande.
+        </p>
+
+        <input type="hidden" name="creneauDate" id="creneauDate-hidden"/>
+        <span class="error-msg hidden mt-1 text-xs text-red-400" data-error-for="creneauDate"></span>
+
+        <div class="mb-5">
+          <span class="block text-sm font-semibold text-white mb-3">Date *</span>
+          <div class="flex items-center justify-between mb-3">
+            <button type="button" id="cal-prev" aria-label="Mois précédent"
+                    class="w-8 h-8 rounded-lg border border-dark-border bg-dark-bg text-smoke hover:text-white hover:border-neon-green/40 transition-colors flex items-center justify-center">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+            </button>
+            <span id="cal-title" class="text-white font-semibold text-sm capitalize"></span>
+            <button type="button" id="cal-next" aria-label="Mois suivant"
+                    class="w-8 h-8 rounded-lg border border-dark-border bg-dark-bg text-smoke hover:text-white hover:border-neon-green/40 transition-colors flex items-center justify-center">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+            </button>
+          </div>
+          <div class="grid grid-cols-7 mb-1">
+            <span class="text-center text-xs font-mono text-smoke py-1">Lu</span>
+            <span class="text-center text-xs font-mono text-smoke py-1">Ma</span>
+            <span class="text-center text-xs font-mono text-smoke py-1">Me</span>
+            <span class="text-center text-xs font-mono text-smoke py-1">Je</span>
+            <span class="text-center text-xs font-mono text-smoke py-1">Ve</span>
+            <span class="text-center text-xs font-mono text-smoke py-1">Sa</span>
+            <span class="text-center text-xs font-mono text-smoke py-1">Di</span>
+          </div>
+          <div id="cal-grid" class="grid grid-cols-7 gap-1"></div>
+          <p id="cal-selected-label" class="mt-3 text-xs text-smoke hidden">
+            ✓ <span id="cal-selected-text" class="text-neon-green font-semibold"></span>
+          </p>
+        </div>
+
+        <label class="block">
+          <span class="block text-sm font-semibold text-white mb-2">Heure approximative *</span>
+          <select name="creneauHeure" id="creneauHeure-select"
+                  class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-neon-green/50 transition-colors">
+            <option value="">— Choisir une date d'abord —</option>
+          </select>
+          <span class="error-msg hidden mt-1 text-xs text-red-400" data-error-for="creneauHeure"></span>
+        </label>
+      </div>
+
+      {# ── Script calendrier ── #}
+      <script>
+      (function () {
+        const hiddenDate  = document.getElementById('creneauDate-hidden');
+        const calGrid     = document.getElementById('cal-grid');
+        const calTitle    = document.getElementById('cal-title');
+        const calPrev     = document.getElementById('cal-prev');
+        const calNext     = document.getElementById('cal-next');
+        const calLabel    = document.getElementById('cal-selected-label');
+        const calText     = document.getElementById('cal-selected-text');
+        const heureSelect = document.getElementById('creneauHeure-select');
+        // Lun / Mar / Jeu / Ven : 7h30–12h30 et 14h–19h
+        const SLOTS_LMJV = [
+          { value: '07:30', label: '7 h 30 – 9 h' },
+          { value: '09:00', label: '9 h – 10 h 30' },
+          { value: '10:30', label: '10 h 30 – 12 h' },
+          { value: '14:00', label: '14 h – 15 h 30' },
+          { value: '15:30', label: '15 h 30 – 17 h' },
+          { value: '17:00', label: '17 h – 18 h 30' },
+        ];
+        // Mercredi : 7h30–12h00 et 14h–19h
+        const SLOTS_MER = [
+          { value: '07:30', label: '7 h 30 – 9 h' },
+          { value: '09:00', label: '9 h – 10 h 30' },
+          { value: '10:30', label: '10 h 30 – 12 h' },
+          { value: '14:00', label: '14 h – 15 h 30' },
+          { value: '15:30', label: '15 h 30 – 17 h' },
+          { value: '17:00', label: '17 h – 18 h 30' },
+        ];
+        // Samedi : 8h–12h30 et 14h–18h40
+        const SLOTS_SAM = [
+          { value: '08:00', label: '8 h – 9 h 30' },
+          { value: '09:30', label: '9 h 30 – 11 h' },
+          { value: '11:00', label: '11 h – 12 h 30' },
+          { value: '14:00', label: '14 h – 15 h 30' },
+          { value: '15:30', label: '15 h 30 – 17 h' },
+          { value: '17:00', label: '17 h – 18 h 30' },
+        ];
+        // Dimanche : 8h–12h
+        const SLOTS_DIM = [
+          { value: '08:00', label: '8 h – 9 h 30' },
+          { value: '09:30', label: '9 h 30 – 11 h' },
+          { value: '11:00', label: '11 h – 12 h' },
+        ];
+        const today = new Date(); today.setHours(0,0,0,0);
+        const minDate = new Date(today); minDate.setDate(minDate.getDate() + 1);
+        let viewYear = minDate.getFullYear(), viewMonth = minDate.getMonth(), selectedDate = null;
+        function isoStr(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+        function frStr(d) { return d.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' }); }
+        function renderHeure(dow, forDate) {
+          // dow : 0=dim, 1=lun, 2=mar, 3=mer, 4=jeu, 5=ven, 6=sam
+          const map = { 0: SLOTS_DIM, 1: SLOTS_LMJV, 2: SLOTS_LMJV, 3: SLOTS_MER, 4: SLOTS_LMJV, 5: SLOTS_LMJV, 6: SLOTS_SAM };
+          let slots = map[dow] || SLOTS_LMJV;
+
+          // Filtrer les créneaux trop proches si la date sélectionnée est demain
+          const now = new Date();
+          const tomorrow = new Date(now); tomorrow.setDate(tomorrow.getDate() + 1); tomorrow.setHours(0,0,0,0);
+          const isNextDay = forDate && forDate.toDateString() === tomorrow.toDateString();
+          if (isNextDay) {
+            // Blocage si le créneau commence dans moins de 4 heures (en heure locale)
+            const minHour = now.getHours() + 4 + now.getMinutes() / 60;
+            slots = slots.filter(s => {
+              const [h, m] = s.value.split(':').map(Number);
+              return (h + m / 60) > minHour;
+            });
+          }
+
+          heureSelect.innerHTML = '<option value="">— Choisir —</option>' + slots.map(s => `<option value="${s.value}">${s.label}</option>`).join('');
+          heureSelect.disabled = slots.length === 0;
+          if (slots.length === 0) heureSelect.innerHTML = '<option value="">Aucun créneau disponible</option>';
+        }
+        function renderCalendar() {
+          calTitle.textContent = new Date(viewYear, viewMonth, 1).toLocaleDateString('fr-FR', { month:'long', year:'numeric' });
+          const startDow = (new Date(viewYear, viewMonth, 1).getDay() + 6) % 7;
+          const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+          let html = '';
+          for (let i = 0; i < startDow; i++) html += '<span></span>';
+          for (let d = 1; d <= daysInMonth; d++) {
+            const date = new Date(viewYear, viewMonth, d);
+            const iso = isoStr(date);
+            const isDisabled = date < minDate;
+            const isSelected = selectedDate && isoStr(selectedDate) === iso;
+            const isToday = isoStr(date) === isoStr(today);
+            let cls = 'w-full aspect-square rounded-lg text-sm font-mono flex items-center justify-center transition-all ';
+            if (isDisabled) cls += 'text-dark-border cursor-not-allowed';
+            else if (isSelected) cls += 'bg-neon-green text-dark-bg font-bold cursor-pointer';
+            else if (isToday) cls += 'border border-neon-green/40 text-white cursor-pointer hover:bg-dark-border';
+            else cls += 'text-smoke hover:bg-dark-border hover:text-white cursor-pointer';
+            html += `<button type="button" class="${cls}" data-date="${iso}" ${isDisabled ? 'disabled' : ''}>${d}</button>`;
+          }
+          calGrid.innerHTML = html;
+          calPrev.disabled = (viewYear === minDate.getFullYear() && viewMonth === minDate.getMonth());
+          calPrev.classList.toggle('opacity-30', calPrev.disabled);
+        }
+        calGrid.addEventListener('click', function(e) {
+          const btn = e.target.closest('button[data-date]');
+          if (!btn || btn.disabled) return;
+          selectedDate = new Date(btn.dataset.date + 'T00:00:00');
+          hiddenDate.value = btn.dataset.date;
+          calText.textContent = frStr(selectedDate);
+          calLabel.classList.remove('hidden');
+          renderHeure(selectedDate.getDay(), selectedDate);
+          renderCalendar();
+        });
+        calPrev.addEventListener('click', () => { viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } renderCalendar(); });
+        calNext.addEventListener('click', () => { viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; } renderCalendar(); });
+        renderCalendar();
+      })();
+      </script>
+
+      {# ─── Adresse de livraison (masqué par défaut) ─── #}
+      <div id="section-livraison" class="hidden rounded-2xl bg-dark-card border border-dark-border p-6">
+        <h2 class="font-display text-xl tracking-widest text-white mb-2">ADRESSE DE LIVRAISON</h2>
+        <p class="text-smoke text-xs mb-5">
+          📦 Expédition Colissimo sous 2 à 4 jours ouvrés après confirmation.<br/>
+          Livraison gratuite dès 30 € d'achat, sinon 3,90 €.
+        </p>
+        <div class="space-y-4">
+          <label class="block">
+            <span class="block text-sm font-semibold text-white mb-2">Adresse *</span>
+            <input type="text" name="livraisonAdresse" maxlength="150" placeholder="12 rue de la Paix, Appt 3"
+                   class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm placeholder-smoke focus:outline-none focus:border-neon-green/50 transition-colors"/>
+            <span class="error-msg hidden mt-1 text-xs text-red-400" data-error-for="livraisonAdresse"></span>
+          </label>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <label class="block">
+              <span class="block text-sm font-semibold text-white mb-2">Code postal *</span>
+              <input type="text" name="livraisonCodePostal" maxlength="10" placeholder="01170"
+                     class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm placeholder-smoke focus:outline-none focus:border-neon-green/50 transition-colors"/>
+              <span class="error-msg hidden mt-1 text-xs text-red-400" data-error-for="livraisonCodePostal"></span>
+            </label>
+            <label class="block">
+              <span class="block text-sm font-semibold text-white mb-2">Ville *</span>
+              <input type="text" name="livraisonVille" maxlength="80" placeholder="Gex"
+                     class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm placeholder-smoke focus:outline-none focus:border-neon-green/50 transition-colors"/>
+              <span class="error-msg hidden mt-1 text-xs text-red-400" data-error-for="livraisonVille"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      {# ─── CGV ─── #}
+      <label class="flex items-start gap-3">
+        <input type="checkbox" name="cgv" required
+               class="mt-1 w-4 h-4 rounded border-dark-border bg-dark-bg checked:bg-neon-green focus:ring-2 focus:ring-neon-green/40"/>
+        <span class="text-smoke text-xs">
+          Je certifie être majeur (18 ans+) et j'accepte les
+          <a href="/cgv/" class="text-neon-violet hover:underline">conditions générales de vente</a>
+          ainsi que la
+          <a href="/mentions-legales/" class="text-neon-violet hover:underline">politique de confidentialité</a>.
+        </span>
+      </label>
+      <span class="error-msg hidden mt-1 text-xs text-red-400 -mt-3" data-error-for="cgv"></span>
+    </div>
+
+    {# Colonne droite : récap + CTAs #}
+    <aside class="lg:sticky lg:top-24 self-start space-y-6">
+
+      <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
+        <h2 class="font-display text-xl tracking-widest text-white mb-5">RÉCAPITULATIF</h2>
+        <div id="checkout-items" class="space-y-3 mb-5 text-sm text-smoke max-h-72 overflow-y-auto pr-1"></div>
+        <dl class="space-y-3 text-sm border-t border-dark-border pt-4">
+          <div class="flex justify-between">
+            <dt class="text-smoke">Sous-total HT</dt>
+            <dd class="font-mono text-white" id="checkout-total-ht">0,00 €</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-smoke">TVA (20 %)</dt>
+            <dd class="font-mono text-white" id="checkout-total-tva">0,00 €</dd>
+          </div>
+          <div class="flex justify-between hidden" id="frais-port-row">
+            <dt class="text-smoke">Frais de port</dt>
+            <dd class="font-mono text-white" id="frais-port-value">3,90 €</dd>
+          </div>
+          <div class="flex justify-between pt-3 border-t border-dark-border">
+            <dt class="font-display text-base tracking-wider text-white">TOTAL TTC</dt>
+            <dd class="font-display text-2xl" style="color:#39FF14;" id="checkout-total-ttc">0,00 €</dd>
+          </div>
+        </dl>
+      </div>
+
+      {# CTAs #}
+      <div class="space-y-3">
+        <button type="submit" name="mode" value="en-magasin" data-mode="en-magasin" id="btn-en-magasin"
+                class="btn-outline-violet w-full py-4 rounded-xl text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 font-semibold">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+          Réserver et payer en boutique
+        </button>
+        <button type="submit" name="mode" value="viva-wallet" data-mode="viva-wallet"
+                class="btn-neon-green w-full py-4 rounded-xl text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 font-bold">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
+          Payer en ligne (CB)
+        </button>
+        <p class="text-smoke text-xs text-center">
+          Paiement sécurisé via <strong class="text-white">Viva Wallet</strong> (CB, Apple Pay, Google Pay, Bancontact).
+        </p>
+      </div>
+
+      <div id="checkout-status" class="hidden p-4 rounded-xl text-sm"></div>
+    </aside>
+  </form>
+
+  {# ── Script : bascule Click & Collect / Livraison ── #}
+  <script>
+  (function () {
+    const btnCC       = document.getElementById('mode-cc-btn');
+    const btnLiv      = document.getElementById('mode-livraison-btn');
+    const hiddenMode  = document.getElementById('mode-livraison-hidden');
+    const sectionCC   = document.getElementById('section-cc');
+    const sectionLiv  = document.getElementById('section-livraison');
+    const btnMagasin  = document.getElementById('btn-en-magasin');
+
+    function setMode(mode) {
+      const isCC = mode === 'click-and-collect';
+      hiddenMode.value = mode;
+
+      // Onglets visuels
+      btnCC.className  = 'mode-btn rounded-2xl border-2 p-4 text-left transition-all ' +
+        (isCC ? 'border-neon-green bg-neon-green/10' : 'border-dark-border bg-dark-card hover:border-smoke');
+      btnLiv.className = 'mode-btn rounded-2xl border-2 p-4 text-left transition-all ' +
+        (!isCC ? 'border-neon-violet bg-neon-violet/10' : 'border-dark-border bg-dark-card hover:border-smoke');
+
+      // Icônes couleur
+      btnCC.querySelector('span.w-8').className  = 'w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ' + (isCC ? 'bg-neon-green/20' : 'bg-dark-border/60');
+      btnCC.querySelector('svg').className        = 'w-4 h-4 ' + (isCC ? 'text-neon-green' : 'text-smoke');
+      btnLiv.querySelector('span.w-8').className  = 'w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ' + (!isCC ? 'bg-neon-violet/20' : 'bg-dark-border/60');
+      btnLiv.querySelector('svg').className        = 'w-4 h-4 ' + (!isCC ? 'text-neon-violet' : 'text-smoke');
+
+      // Sections
+      sectionCC.classList.toggle('hidden',  !isCC);
+      sectionLiv.classList.toggle('hidden',  isCC);
+
+      // Bouton "payer en boutique" : masqué en mode livraison (pas de retrait possible)
+      if (btnMagasin) btnMagasin.closest('.space-y-3')?.querySelectorAll('button')[0]
+        ?.classList.toggle('hidden', false); // toujours visible
+
+      // Recalcul frais de port dans le récap
+      if (typeof window.checkoutUpdateShipping === 'function') window.checkoutUpdateShipping();
+    }
+
+    btnCC.addEventListener('click',  () => setMode('click-and-collect'));
+    btnLiv.addEventListener('click', () => setMode('livraison'));
+
+    // Initialisation : Click & Collect par défaut
+    setMode('click-and-collect');
+  })();
+  </script>
+
+{# Données produits exposées au JS pour hydrater le récapitulatif #}
+<script id="produits-data" type="application/json">
+{{ produits | dump | safe }}
+</script>
+</section>

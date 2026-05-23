@@ -1,0 +1,30 @@
+{
+  "marque": "Le Petit Gourmet",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Riz au Lait – 50 ml",
+  "actif": true,
+  "prix": 16.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Le Petit Gourmet",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "riz-au-lait-50-ml",
+  "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/9a47f9946254f65d0c5f9be60ded7347d46e964f-lg.png",
+  "description": "E-liquide Riz au Lait de la gamme Le Petit Gourmet.\n\nProfil aromatique\nLa douceur du riz au lait traditionnel : lait entier chaud, riz fondant, sucre vanillé et une légère pointe de cannelle. Un arôme réconfortant, doux et nostalgique.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50. Arôme pâtissier premium.\n\nUsage recommandé\nParfait pour une vape douce et gourmande en soirée.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "marque": "Le Petit Gourmet",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Cake Noisettes – 50 ml",
+  "actif": true,
+  "prix": 16.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Le Petit Gourmet",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "cake-noisettes-50-ml",
+  "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/a9624be3002df6b14050a149e11478fbf8516ef3-lg.png",
+  "description": "E-liquide Cake Noisettes de la gamme Le Petit Gourmet.\n\nProfil aromatique\nUn cake moelleux aux noisettes grillées : la noisette dorée et caramélisée, les notes beurrées d'une pâte dorée et un cœur fondant. Un arôme simple, généreux et réconfortant.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour une vape gourmande et douce en toutes occasions.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

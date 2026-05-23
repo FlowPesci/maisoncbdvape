@@ -1,0 +1,54 @@
+{
+  "marque": "Dutch Punch Indoor CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Dutch Punch Indoor CBD",
+  "actif": true,
+  "prix": 4.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 14.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 24.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 49,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes sucrées et florales, accompagnées d’une légère touche d’agrumes et de fruits tropicaux.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "indoor"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "dutch-punch-indoor-cbd",
+  "image": "/media/produits/1778340406476-dutch-punch-indoor-cbd.jpeg",
+  "description": "🌿 Aspect visuel\n\nBuds compacts, parfaitement manucurés et résineux.\n\nTeinte vert profond avec des pistils orangés et une belle couverture de trichomes cristallins.\n\nAspect dense et soigné, typique d’une culture indoor maîtrisée.\n\n👃 Arômes & saveurs\n\nProfil aromatique intense et fruité.\n\nNotes sucrées et florales, accompagnées d’une légère touche d’agrumes et de fruits tropicaux.\n\nEn bouche : une saveur douce, gourmande et persistante, à la fois fraîche et équilibrée.\n\n⚡ Effets (CBD)\n\nEffet relaxant rapide et durable, sans altérer la clarté mentale.\n\nAide à réduire le stress, favorise le bien-être et la détente corporelle.\n\nIdéale pour un moment de calme et de sérénité en fin de journée.\n\n💧 Culture indoor premium\n\nCultivée en intérieur, dans un environnement parfaitement contrôlé (lumière, humidité, nutriments).\n\nPermet d’obtenir une fleur propre, riche en terpènes et d’une qualité constante.\n\n👉 En résumé, la CBD Dutch Punch Indoor est une fleur d’exception, aux arômes fruités et floraux intenses, aux effets relaxants équilibrés et issue d’une culture indoor soignée garantissant une qualité irréprochable.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes sucrées et florales, accompagnées d’une légère touche d’agrumes et de fruits tropicaux."
+  }
+}

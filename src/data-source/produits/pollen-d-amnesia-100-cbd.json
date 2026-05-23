@@ -1,0 +1,54 @@
+{
+  "marque": "Pollen d’Amnésia pur CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Pollen D'Amnésia 100% CBD",
+  "actif": true,
+  "prix": 4.2,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.2,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 12.6,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 21,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 42,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes fraîches et citronnées, relevées par une touche épicée et terreuse.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "hot"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "pollen-d-amnesia-100-cbd",
+  "image": "/media/produits/1778340620435-pollen-d-amnesia-100-cbd.jpeg",
+  "description": "Aspect visuel & texture\n\nPoudre fine et compacte, d’un joli beige doré.\n\nTexture légèrement grasse et malléable, signe d’une grande pureté.\n\nFacile à effriter, tout en conservant une bonne densité.\n\nArômes & saveurs\n\nProfil aromatique intense, typique de l’Amnesia.\n\nNotes fraîches et citronnées, relevées par une touche épicée et terreuse.\n\nEn bouche : une saveur riche, persistante et parfaitement équilibrée.\n\n⚡ Effets (CBD)\n\nRiche en CBD, il procure une relaxation profonde et durable.\n\nAide à apaiser le stress, relâcher les tensions et favoriser un bien-être global.\n\nIdéal pour un moment de calme sans effet psychotrope.\n\nQualité & pureté\n\nPollen issu d’une extraction soignée à partir de fleurs premium cultivées en indoor.\n\nProduit naturel, pur et concentré en cannabinoïdes et terpènes.\n\nRésultat : une expérience aromatique et relaxante haut de gamme.\n\nEn résumé, le Pollen d’Amnésia pur CBD est un produit premium, apprécié pour son intensité aromatique citronnée, sa puissance relaxante et sa qualité irréprochable.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes fraîches et citronnées, relevées par une touche épicée et terreuse."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "marque": "DUM ",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Foyer Céramique Blanche",
+  "actif": true,
+  "prix": 14.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "C&eacute;ramique &eacute;paisse : r&eacute;sistance et long&eacute;vit&eacute; accrues",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "foyer-ceramique-blanche",
+  "image": "/media/produits/1778342662511-foyer-ceramique-blanche.png",
+  "description": "Foyer Céramique Blanche – Bowl pour chicha.\n\nPrésentation\nUn foyer en céramique blanche classique, épais et robuste pour des sessions longues et homogènes. La céramique épaisse accumule la chaleur progressivement pour une diffusion régulière et contrôlée.\n\nCaractéristiques\nCéramique épaisse : résistance et longévité accrues. Chaleur homogène. Finition blanche mate classique. Compatible avec la majorité des chichas standard.\n\nEntretien\nNettoyer après chaque utilisation à l'eau tiède. Idéal pour les utilisateurs réguliers.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "C&eacute;ramique &eacute;paisse : r&eacute;sistance et long&eacute;vit&eacute; accrues"
+  }
+}

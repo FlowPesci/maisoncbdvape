@@ -1,0 +1,54 @@
+{
+  "marque": "Indoor Hydro LED",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Burn Baby Burn Indoor CBD",
+  "actif": true,
+  "prix": 4.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 14.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 24.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 49,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Une explosion de saveurs alliant des notes terreuses et boisées à des touches légèrement poivrées et acidulées.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "indoor"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "burn-baby-burn-indoor-cbd",
+  "image": "/media/produits/1778340406340-burn-baby-burn-indoor-cbd.jpeg",
+  "description": "Burn Baby Burn Indoor CBD – L'intensité à l'état pur\nDécouvrez la Burn Baby Burn, une variété premium cultivée en intérieur (Indoor) pour une qualité et une puissance aromatique exceptionnelles. Issue d'une sélection rigoureuse, cette fleur de CBD se distingue par son caractère affirmé et ses bourgeons denses, parfaitement manucurés.\n\nSes points forts :\n\nCulture Indoor : Un environnement contrôlé qui permet de sublimer les arômes et de garantir une pureté maximale.\n\nProfil Aromatique : Une explosion de saveurs alliant des notes terreuses et boisées à des touches légèrement poivrées et acidulées.\n\nEffets : Idéale pour un moment de relaxation profonde, elle aide à apaiser le stress tout en restant parfaitement lucide.\n\nQualité Garantie : Taux de THC inférieur à 0,3 %, conformément à la législation en vigueur.\n\nParfaite pour les amateurs de fleurs de caractère, la Burn Baby Burn porte bien son nom : une expérience intense et chaleureuse à chaque utilisation.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Une explosion de saveurs alliant des notes terreuses et boisées à des touches légèrement poivrées et acidulées."
+  }
+}

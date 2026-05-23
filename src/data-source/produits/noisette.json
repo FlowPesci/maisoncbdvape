@@ -1,0 +1,30 @@
+{
+  "marque": "Curieux",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Noisette",
+  "actif": true,
+  "prix": 19.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Découvrez E Liquide Curieux Noisette, un produit de qualité dans la catégorie Curieux. Disponible chez Tabacgex.fr à Gex.",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "noisette",
+  "image": "/media/produits/1778341879543-noisette.jpeg",
+  "description": "E-liquide Noisette de la gamme Curieux.\n\nProfil aromatique\nUn arôme noisette authentique et généreux : doux, grillé et légèrement gourmand. Une vape sucrée et enveloppante qui rappelle les meilleures pâtes à tartiner artisanales.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés (10 ml). Ratio PG/VG 50/50. Fabriqué en France.\n\nUsage recommandé\nParfait pour une vape gourmande tout au long de la journée, en MTL ou en pod.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Découvrez E Liquide Curieux Noisette, un produit de qualité dans la catégorie Curieux. Disponible chez Tabacgex.fr à Gex."
+  }
+}

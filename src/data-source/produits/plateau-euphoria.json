@@ -1,0 +1,30 @@
+{
+  "marque": "Euphoria",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Plateau Euphoria",
+  "actif": true,
+  "prix": 9.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Fabriqu&eacute; en m&eacute;tal robuste, ce plateau est extr&ecirc;mement solide et durable. Sa conception l&eacute;g&egrave;re (170g) permet de le transporter ",
+  "categorie": "accessoires",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "plateau-euphoria",
+  "image": "/media/produits/1778342913134-plateau-euphoria.jpeg",
+  "description": "Plateau Euphoria – Plateau à rouler en métal.\n\nPrésentation\nLe plateau Euphoria se distingue par sa construction en métal robuste, extrêmement solide et durable. Sa conception soignée garantit une surface stable et un usage prolongé sans déformation.\n\nCaractéristiques\nMatériau : métal robuste. Construction solide et durable. Bords relevés. Design Euphoria élégant. Résistant aux chocs et rayures.\n\nIdéal pour\nLes utilisateurs cherchant un plateau à rouler durable et premium.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Fabriqu&eacute; en m&eacute;tal robuste, ce plateau est extr&ecirc;mement solide et durable. Sa conception l&eacute;g&egrave;re (170g) permet de le transporter "
+  }
+}

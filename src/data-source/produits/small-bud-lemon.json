@@ -1,0 +1,54 @@
+{
+  "marque": "Greenhouse",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Small Bud Lemon",
+  "actif": true,
+  "prix": 0.99,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 0.99,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 2.97,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 4.95,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 9.9,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Parfum citronné vif, notes fraîches et légèrement herbacées",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "promo"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "small-bud-lemon",
+  "image": "/media/produits/1778340406323-small-bud-lemon.jpeg",
+  "description": "≈ 15–20 % CBD\n\nProfil dominant : Hybride Sativa\n\nCulture Greenhouse : arômes plus précis et fleurs mieux structurées\n\nSmall buds légères mais très aromatiques\n\nEffet clair et équilibré, parfait pour la journée",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Parfum citronné vif, notes fraîches et légèrement herbacées"
+  }
+}

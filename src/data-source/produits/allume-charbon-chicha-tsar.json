@@ -1,0 +1,30 @@
+{
+  "marque": "Tsar",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Allume charbon Chicha Tsar",
+  "actif": true,
+  "prix": 19.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Compact, robuste et simple d&rsquo;utilisation, il s&rsquo;int&egrave;gre parfaitement dans un environnement domestique.",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "allume-charbon-chicha-tsar",
+  "image": "/media/produits/1778342744804-allume-charbon-chicha-tsar.jpeg",
+  "description": "Allume Charbon Chicha Tsar – Électrique.\n\nPrésentation\nCompact, robuste et simple d'utilisation, l'allume charbon Tsar s'intègre parfaitement dans un environnement salon ou lounge. Il permet d'allumer vos charbons de chicha rapidement et uniformément, sans résidu de briquet ni de flamme.\n\nCaractéristiques\nChauffe-charbon électrique résistant. Allumage rapide et homogène. Surface de chauffe antirayures. Design compact. Prise européenne standard.\n\nUtilisation\nPlacer les charbons sur la résistance, allumer l'appareil, retirer lorsque les charbons sont entièrement incandescents (5 à 10 min).",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Compact, robuste et simple d&rsquo;utilisation, il s&rsquo;int&egrave;gre parfaitement dans un environnement domestique."
+  }
+}

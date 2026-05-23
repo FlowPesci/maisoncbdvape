@@ -1,0 +1,133 @@
+---
+layout: layouts/base.njk
+title: Toute la boutique
+description: "Découvrez tout le catalogue VapeLab — CBD, Vape, Puffs, Chicha et Accessoires à Gex (01170). Retrait en boutique ou livraison rapide 48h."
+permalink: /boutique/index.html
+---
+
+{% from "components/product-card.njk" import productCard %}
+
+{% set tousProduits = collections.produitsActifs %}
+
+{# ═══════════════════════════════════════════════════════════════════════════
+   HERO — titre + stats
+   ═══════════════════════════════════════════════════════════════════════════ #}
+<div class="grid-lines relative">
+  <div class="absolute left-1/4 top-12 w-80 h-80 rounded-full blur-3xl pointer-events-none"
+       style="background:radial-gradient(circle,rgba(57,255,20,.10) 0%,transparent 70%);"></div>
+  <div class="absolute right-1/4 top-8 w-64 h-64 rounded-full blur-3xl pointer-events-none"
+       style="background:radial-gradient(circle,rgba(191,95,255,.08) 0%,transparent 70%);"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14 relative">
+
+    <nav aria-label="Fil d'Ariane" class="flex items-center gap-2 mb-6 text-xs font-mono fade-up">
+      <a href="/" class="breadcrumb-link">Accueil</a>
+      <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+      <span style="color:#39FF14;">Boutique</span>
+    </nav>
+
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 fade-up" style="transition-delay:.05s;">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full"
+             style="border:1px solid #39FF1433;background:#39FF140D;">
+          <span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background:#39FF14;"></span>
+          <span class="font-mono text-xs tracking-widest uppercase" style="color:#39FF14;">Catalogue complet</span>
+        </div>
+        <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl text-white tracking-wide mb-4 leading-none">
+          TOUTE LA<br/>BOUTIQUE
+        </h1>
+        <p class="text-smoke text-sm sm:text-base leading-relaxed">
+          CBD, Puffs, Vape, Chicha & Accessoires — {{ tousProduits | length }} références disponibles.
+        </p>
+      </div>
+
+      <div class="flex gap-6 shrink-0">
+        <div class="text-center">
+          <div class="font-display text-3xl" style="color:#39FF14;">{{ tousProduits | length }}</div>
+          <div class="text-smoke text-xs tracking-wider uppercase font-mono">Produits</div>
+        </div>
+        <div class="w-px bg-dark-border"></div>
+        <div class="text-center">
+          <div class="font-display text-3xl" style="color:#BF5FFF;">{{ categories | length }}</div>
+          <div class="text-smoke text-xs tracking-wider uppercase font-mono">Catégories</div>
+        </div>
+      </div>
+    </div>
+
+    {# Filtres par catégorie #}
+    <div class="flex flex-wrap gap-2 mt-8 fade-up" style="transition-delay:.1s;" id="cat-tabs">
+      <button class="cat-tab active px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-widest transition-all"
+              data-cat="all"
+              style="background:rgba(57,255,20,0.15);border:1px solid rgba(57,255,20,0.4);color:#39FF14;">
+        Tout voir
+      </button>
+      {% for cat in categories %}
+        <button class="cat-tab px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-widest transition-all"
+                data-cat="{{ cat.slug }}"
+                style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#8A8A9A;">
+          {{ cat.nomCourt }}
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{# ═══════════════════════════════════════════════════════════════════════════
+   GRILLE PRODUITS
+   ═══════════════════════════════════════════════════════════════════════════ #}
+<section class="pb-24 lg:pb-32" style="background:#0A0A0F;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+      {% for produit in tousProduits %}
+        <div class="product-item fade-up h-full" data-cat="{{ produit.categorie }}" style="transition-delay:{{ loop.index0 * 0.03 }}s;">
+          {{ productCard(produit, "h-full") }}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div id="no-results" class="hidden text-center py-20">
+      <div class="text-smoke text-sm">Aucun produit dans cette catégorie.</div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tabs = document.querySelectorAll('.cat-tab');
+    const items = document.querySelectorAll('.product-item');
+    const noResults = document.getElementById('no-results');
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        const cat = tab.dataset.cat;
+
+        // Style des onglets
+        tabs.forEach(function (t) {
+          t.style.background = 'rgba(255,255,255,0.04)';
+          t.style.border = '1px solid rgba(255,255,255,0.08)';
+          t.style.color = '#8A8A9A';
+          t.classList.remove('active');
+        });
+        tab.style.background = 'rgba(57,255,20,0.15)';
+        tab.style.border = '1px solid rgba(57,255,20,0.4)';
+        tab.style.color = '#39FF14';
+        tab.classList.add('active');
+
+        // Filtrage
+        let visible = 0;
+        items.forEach(function (item) {
+          if (cat === 'all' || item.dataset.cat === cat) {
+            item.style.display = '';
+            visible++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        noResults.classList.toggle('hidden', visible > 0);
+      });
+    });
+  });
+</script>

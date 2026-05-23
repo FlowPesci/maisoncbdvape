@@ -1,0 +1,54 @@
+{
+  "marque": "Moon Rock CBD Indoor",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Moon Rock CBD Indoor",
+  "actif": true,
+  "prix": 7.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 7.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 23.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 39.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 79,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes terreuses et épicées, relevées d’une pointe sucrée et légèrement citronnée.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "indoor"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "moon-rock-cbd-indoor",
+  "image": "/media/produits/1778340406550-moon-rock-cbd-indoor.jpeg",
+  "description": "Aspect visuel\n\nBuds denses et généreux, roulés dans du pollen pour un rendu spectaculaire.\n\nCouleur vert foncé recouverte d’une couche résineuse qui leur donne un aspect rocheux unique.\n\nTexture riche et collante, signe d’une forte concentration en CBD et en terpènes.\n\nArômes & saveurs\n\nProfil intense, puissant et complexe.\n\nNotes terreuses et épicées, relevées d’une pointe sucrée et légèrement citronnée.\n\nSaveur riche, persistante et profonde en bouche, idéale pour les amateurs d’expériences intenses.\n\n⚡ Effets (CBD)\n\nTeneur en CBD plus élevée que la moyenne, procurant une relaxation profonde et durable.\n\nApaise efficacement le stress et les tensions physiques.\n\nIdéal pour les consommateurs recherchant une fleur plus puissante sans effet psychotrope.\n\nCulture indoor hydroponique\n\nCultivée en intérieur sous hydroponie, garantissant un contrôle optimal et une pureté exemplaire.\n\nRésultat : un produit haut de gamme, riche en principes actifs et en arômes.\n\nEn résumé, la CBD Moonrock Indoor Hydro est une fleur premium exceptionnelle, réputée pour son aspect unique, ses saveurs intenses et ses effets relaxants puissants, parfaite pour les amateurs de produits CBD d’exception.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes terreuses et épicées, relevées d’une pointe sucrée et légèrement citronnée."
+  }
+}

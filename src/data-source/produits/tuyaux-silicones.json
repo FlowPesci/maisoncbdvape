@@ -1,0 +1,30 @@
+{
+  "marque": "TSAR",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Tuyaux Silicones",
+  "actif": true,
+  "prix": 6.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Sa mati&egrave;re r&eacute;sistante ne retient ni les odeurs ni les saveurs, permettant de pr&eacute;server la puret&eacute; des ar&ocirc;mes &agrave; chaque se",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "tuyaux-silicones",
+  "image": "/media/produits/1778342704162-tuyaux-silicones.jpeg",
+  "description": "Tuyaux Silicones pour chicha – Marque TSAR.\n\nPrésentation\nDes tuyaux en silicone alimentaire de qualité supérieure, résistants et durables. La matière silicone ne retient ni les odeurs ni les saveurs, permettant de préserver la pureté de chaque arôme session après session.\n\nCaractéristiques\nSilicone alimentaire premium. Ne retient pas les odeurs ni les saveurs. Flexible et résistant. Facile à nettoyer. Compatible avec les raccords standard des chichas du marché.\n\nEntretien\nRincer à l'eau chaude après chaque session. Sécher avant rangement.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Sa mati&egrave;re r&eacute;sistante ne retient ni les odeurs ni les saveurs, permettant de pr&eacute;server la puret&eacute; des ar&ocirc;mes &agrave; chaque se"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "marque": "Jack Herer Hydro Indoor CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Jack Herer Hydro Indoor CBD",
+  "actif": true,
+  "prix": 4.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 14.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 24.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 49,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes fraîches et boisées, relevées de touches citronnées et poivrées.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "indoor"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "jack-herer-hydro-indoor-cbd",
+  "image": "/media/produits/1778340479400-jack-herer-hydro-indoor-cbd.jpeg",
+  "description": "Aspect visuel\n\nBuds compacts et généreux, parfaitement manucurés.\n\nTeinte vert clair aux reflets orangés grâce à ses pistils.\n\nRecouverts d’une belle couche de trichomes cristallins, gage de richesse en CBD et terpènes.\n\nArômes & saveurs\n\nProfil aromatique puissant et raffiné.\n\nNotes fraîches et boisées, relevées de touches citronnées et poivrées.\n\nSaveur intense et persistante en bouche, à la fois épicée et légèrement sucrée.\n\n⚡ Effets (CBD)\n\nRelaxation profonde sans effet psychotrope.\n\nApaise le stress et favorise un bien-être général.\n\nIdéal en fin de journée pour se détendre tout en gardant l’esprit clair.\n\nCulture indoor hydroponique\n\nCultivée en intérieur sous hydroponie, garantissant un contrôle optimal de la lumière, des nutriments et de l’humidité.\n\nRésultat : une fleur pure, stable et d’une qualité premium, riche en saveurs et en principes actifs.\n\nEn résumé, la Jack Herer CBD Indoor Hydro est une fleur d’exception : arômes boisés et citronnés, effets relaxants et culture soignée pour un produit haut de gamme.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes fraîches et boisées, relevées de touches citronnées et poivrées."
+  }
+}

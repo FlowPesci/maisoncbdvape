@@ -1,0 +1,30 @@
+{
+  "marque": "Curieux",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Menthe Intense",
+  "actif": true,
+  "prix": 19.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "E-liquide Curieux Menthe Intense 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "menthe-intense",
+  "image": "/media/produits/1778341951622-menthe-intense.jpeg",
+  "description": "E-liquide Menthe Intense de la gamme Curieux.\n\nProfil aromatique\nPour les amateurs de sensations puissantes : une menthe glaciale, franche et intense qui procure une fraîcheur maximale dès la première bouffée. Arôme concentré et percutant.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés. Ratio PG/VG 50/50. Fabriqué en France.\n\nUsage recommandé\nIdéal pour une vape glacée très fraîche, en MTL ou en pod.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "E-liquide Curieux Menthe Intense 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "marque": "El Badia",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "El Badia Fusion",
+  "actif": true,
+  "prix": 49.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Montage simple et entretien facile",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "el-badia-fusion",
+  "image": "/media/produits/1778342604940-el-badia-fusion.png",
+  "description": "Chicha El Badia Fusion.\n\nDesign & matériaux\nUn modèle compact et élégant de la gamme El Badia : design fusionné entre tradition et modernité. Montage simple et entretien facile, idéal pour débuter avec une chicha de qualité.\n\nCaractéristiques techniques\nTaille intermédiaire adaptée à un usage régulier. Tirage fluide et agréable. Compatible avec les foyers El Badia et foyers universels. Purge efficace.\n\nContenu de la boîte\nChicha montée, vase en verre, tuyau, embout, tige centrale, plateau. Notice de montage.\n\nIdéal pour\nLes débutants et les utilisateurs cherchant une chicha fiable, abordable et facile à entretenir.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Montage simple et entretien facile"
+  }
+}

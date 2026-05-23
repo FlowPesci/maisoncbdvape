@@ -1,0 +1,31 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{{ site.url }}/</loc>
+    <lastmod>{{ page.date | isoDate }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+{%- for cat in categories %}
+  <url>
+    <loc>{{ site.url }}/categories/{{ cat.slug }}/</loc>
+    <lastmod>{{ page.date | isoDate }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+{%- endfor %}
+{%- for produit in produits %}
+{%- if produit.actif != false %}
+  <url>
+    <loc>{{ site.url }}/produits/{{ produit.id }}/</loc>
+    <lastmod>{{ produit.dateAjout | isoDate if produit.dateAjout else (page.date | isoDate) }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+{%- endif %}
+{%- endfor %}
+</urlset>

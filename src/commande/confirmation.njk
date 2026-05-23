@@ -1,0 +1,52 @@
+---
+layout: layouts/base.njk
+permalink: /commande/confirmation/index.html
+title: "Commande confirmée"
+description: "Votre commande VapeLab est confirmée. Merci pour votre achat chez VapeLab à Gex (01170)."
+---
+<section class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center">
+
+  <div class="inline-flex items-center justify-center w-20 h-20 rounded-full mb-8" style="background:linear-gradient(135deg,#39FF14,#00C853);box-shadow:0 0 50px rgba(57,255,20,0.4);">
+    <svg class="w-10 h-10 text-dark-bg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+    </svg>
+  </div>
+
+  <h1 class="font-display text-5xl lg:text-6xl text-white tracking-wide mb-4 fade-up">
+    COMMANDE<br/>
+    <span style="color:#39FF14;">CONFIRMÉE !</span>
+  </h1>
+
+  <p class="text-smoke text-base mb-2 fade-up">Votre numéro de commande :</p>
+  <p class="font-mono text-2xl text-white mb-10 fade-up" id="order-id">—</p>
+
+  <div class="rounded-2xl bg-dark-card border border-dark-border p-6 mb-8 text-left fade-up">
+    <h2 class="font-display text-lg tracking-widest text-white mb-3">PROCHAINES ÉTAPES</h2>
+    <ol class="space-y-3 text-sm text-smoke list-decimal list-inside">
+      <li>Vous recevez un <strong class="text-white">email de confirmation</strong> sous quelques minutes.</li>
+      <li>Le commerçant prépare votre commande sous <strong class="text-white">24 h ouvrées</strong>.</li>
+      <li>Quand elle est prête, vous recevez un <strong class="text-white">email "Prête à récupérer"</strong>.</li>
+      <li>Présentez-vous au <strong class="text-white">48 Rue de Genève, 01170 Gex</strong> au créneau choisi, avec votre numéro de commande.</li>
+      <li>Réglez sur place (CB, espèces, paiement sans contact).</li>
+    </ol>
+  </div>
+
+  <div class="flex flex-col sm:flex-row items-center justify-center gap-3 fade-up">
+    <a href="/" class="btn-neon-green inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">
+      Retour à la boutique
+    </a>
+    <a href="mailto:contact@vapelab.fr" class="text-smoke text-sm hover:text-white transition-colors">
+      Une question ? Contactez-nous
+    </a>
+  </div>
+</section>
+
+<script>
+  // Récupère l'orderId depuis ?id=...
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (id) {
+    document.getElementById('order-id').textContent = id;
+    document.title = 'Commande ' + id + ' — VapeLab';
+  }
+</script>

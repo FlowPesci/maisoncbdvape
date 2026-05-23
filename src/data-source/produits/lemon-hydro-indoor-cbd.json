@@ -1,0 +1,54 @@
+{
+  "marque": "Lemon Hydro Indoor CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Lemon Hydro Indoor CBD",
+  "actif": true,
+  "prix": 4.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 14.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 24.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 49,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes dominantes de citron et d’agrumes, avec une pointe herbacée.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "indoor"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "lemon-hydro-indoor-cbd",
+  "image": "/media/produits/1778340449454-lemon-hydro-indoor-cbd.jpeg",
+  "description": "Aspect visuel\n\nFleurs compactes, denses et soigneusement manucurées.\n\nJoli vert clair avec des pistils orangés qui apportent de belles nuances.\n\nRecouvertes d’une fine couche de trichomes brillants, signe de pureté et de richesse en CBD.\n\nArômes & saveurs\n\nProfil aromatique frais et acidulé.\n\nNotes dominantes de citron et d’agrumes, avec une pointe herbacée.\n\nEn bouche, un goût vif, fruité et rafraîchissant qui reste longtemps.\n\n⚡ Effets (CBD)\n\nApporte une sensation de détente et de bien-être sans effet planant.\n\nFavorise la relaxation tout en laissant l’esprit clair.\n\nIdéale pour réduire le stress ou accompagner des moments calmes en journée comme en soirée.\n\nCulture indoor hydroponique\n\nCultivée en intérieur via hydroponie, pour un contrôle optimal de la nutrition et de l’environnement.\n\nPermet d’obtenir une fleur propre, régulière et d’une qualité supérieure, riche en terpènes.\n\nEn résumé, la CBD Lemon Indoor Hydro est une fleur premium au parfum d’agrumes intense, aux effets relaxants équilibrés et à la culture soignée, parfaite pour les amateurs de goûts frais et fruités.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes dominantes de citron et d’agrumes, avec une pointe herbacée."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "marque": "Wiz",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Sunakin Wiz Go",
+  "actif": true,
+  "prix": 19.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Ce pod offre une vape douce, stable et parfaitement adaptée au CBD, grâce à une puissance volontairement modérée et constante.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "wiz",
+  "image": "/media/produits/1778340727667-sunakin-wiz-go.png",
+  "description": "Le Sunakin Wiz Go est un pod pensé pour la simplicité maximale : aucun bouton, aucun réglage, il suffit d’inhaler pour vapoter. Son design compact et léger permet de l’emporter partout, tandis que sa batterie 1200 mAh assure une autonomie largement suffisante pour une journée complète.\n\nLe Wiz Go fonctionne avec une cartouche préremplie de 2 ml, généralement en e-liquide CBD full spectrum (sans THC). Une fois la cartouche vide, on la remplace simplement : pas de résistance à changer, pas d’entretien lourd. L’airflow réglable permet de choisir entre un tirage serré (MTL) ou plus ouvert, selon ses préférences.\n\nCe pod offre une vape douce, stable et parfaitement adaptée au CBD, grâce à une puissance volontairement modérée et constante.\n\n✔ Points forts\nBatterie 1200 mAh avec recharge USB-C\n\nActivation automatique à l’inhalation\n\nAirflow réglable (MTL à semi-aérien)\n\nCartouche préremplie 2 ml prête à l’emploi\n\nVape douce et régulière, idéale pour le CBD\n\nAucun réglage nécessaire : utilisation intuitive\n\nDesign compact, discret et léger\n\n📦 Contenu du kit\n1 × Pod Sunakin Wiz Go\n\n1 × Cartouche Wiz Pod 2 ml préremplie\n\n1 × Câble USB-C\n\n1 × Manuel d’utilisation\n\n🎯 Pour qui ?\nLe Wiz Go est parfait pour ceux qui veulent vaper du CBD sans prise de tête : débutants, utilisateurs en déplacement, ou vapoteurs cherchant un système simple, fiable et sans entretien.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Ce pod offre une vape douce, stable et parfaitement adaptée au CBD, grâce à une puissance volontairement modérée et constante."
+  }
+}

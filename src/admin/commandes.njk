@@ -1,0 +1,178 @@
+---
+layout: layouts/base.njk
+permalink: /admin/commandes/index.html
+title: "Gestion des commandes"
+description: "Back-office Tabac Gex"
+eleventyExcludeFromCollections: true
+---
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+    <div>
+      <p class="font-mono text-xs text-smoke uppercase tracking-widest mb-1">Back-office</p>
+      <h1 class="font-display text-4xl lg:text-5xl text-white tracking-wide">COMMANDES</h1>
+    </div>
+    <div class="flex items-center gap-3 flex-wrap">
+      <button id="logout-btn" class="hidden text-smoke text-xs hover:text-white transition-colors flex items-center gap-1">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"/></svg>
+        Déconnexion
+      </button>
+      <a href="/admin/" class="text-smoke text-xs hover:text-white transition-colors">Decap CMS →</a>
+    </div>
+  </div>
+
+  <div id="status-filters" class="hidden flex-wrap gap-2 mb-6">
+    <button class="filter-pill px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider is-active" data-filter-status="">Toutes</button>
+    <button class="filter-pill px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider" data-filter-status="pending">En attente</button>
+    <button class="filter-pill px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider" data-filter-status="paid">Payée</button>
+    <button class="filter-pill px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider" data-filter-status="preparing">En préparation</button>
+    <button class="filter-pill px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider" data-filter-status="ready">Prête</button>
+    <button class="filter-pill px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider" data-filter-status="completed">Récupérée</button>
+    <button class="filter-pill px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider" data-filter-status="cancelled">Annulée</button>
+  </div>
+
+  <div id="orders-status" class="rounded-2xl border border-dashed border-dark-border bg-dark-card/40 py-20 text-center">
+    <p class="text-smoke text-sm">Chargement…</p>
+  </div>
+
+  <div id="orders-table" class="hidden rounded-2xl border border-dark-border bg-dark-card overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-smoke text-xs font-mono uppercase tracking-wider border-b border-dark-border">
+            <th class="text-left py-3 px-4">N°</th>
+            <th class="text-left py-3 px-4">Date</th>
+            <th class="text-left py-3 px-4">Client</th>
+            <th class="text-left py-3 px-4">Total</th>
+            <th class="text-left py-3 px-4">Paiement</th>
+            <th class="text-left py-3 px-4">Statut</th>
+            <th class="text-right py-3 px-4">Action</th>
+          </tr>
+        </thead>
+        <tbody id="orders-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const TOKEN_KEY = 'tabacgex-admin-token';
+  let token = localStorage.getItem(TOKEN_KEY);
+
+  /** Échappe les caractères HTML pour prévenir les injections XSS */
+  function esc(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;');
+  }
+
+  // Si on revient d'un OAuth callback : extrait le token du hash
+  if (window.location.hash.startsWith('#token=')) {
+    token = decodeURIComponent(window.location.hash.slice(7));
+    localStorage.setItem(TOKEN_KEY, token);
+    history.replaceState({}, '', window.location.pathname); // efface le hash
+  }
+
+  const statusEl = document.getElementById('orders-status');
+  const tableEl  = document.getElementById('orders-table');
+  const tbody    = document.getElementById('orders-tbody');
+  const filters  = document.getElementById('status-filters');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  function showLogin() {
+    filters.classList.add('hidden');
+    tableEl.classList.add('hidden');
+    logoutBtn.classList.add('hidden');
+    statusEl.innerHTML = `
+      <p class="text-smoke text-sm mb-4">Connexion via GitHub requise pour accéder à la gestion des commandes.</p>
+      <a href="/api/auth/login?mode=admin&return=/admin/commandes/" class="btn-neon-green inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">
+        Se connecter via GitHub
+      </a>`;
+    statusEl.classList.remove('hidden');
+  }
+
+  function logout() {
+    localStorage.removeItem(TOKEN_KEY);
+    token = null;
+    showLogin();
+  }
+  logoutBtn?.addEventListener('click', logout);
+
+  function statusBadge(status) {
+    const map = {
+      pending:    { label: 'En attente', color: '#FFA500' },
+      paid:       { label: 'Payée',      color: '#39FF14' },
+      preparing:  { label: 'En préparation', color: '#BF5FFF' },
+      ready:      { label: 'Prête',      color: '#00D4FF' },
+      completed:  { label: 'Récupérée',  color: '#8A8A9A' },
+      cancelled:  { label: 'Annulée',    color: '#FF5050' },
+    };
+    const m = map[status] || { label: status, color: '#8A8A9A' };
+    return `<span style="background:${m.color}22;color:${m.color};border:1px solid ${m.color}55;" class="text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">${m.label}</span>`;
+  }
+  function formatEur(n) { return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(n); }
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: '2-digit' }) + ' · ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  async function loadOrders(status = '') {
+    if (!token) return showLogin();
+    statusEl.innerHTML = '<p class="text-smoke text-sm">Chargement…</p>';
+    statusEl.classList.remove('hidden');
+    tableEl.classList.add('hidden');
+    filters.classList.add('hidden');
+
+    const url = '/api/list-orders' + (status ? '?status=' + encodeURIComponent(status) : '');
+    try {
+      const res = await fetch(url, { headers: { Authorization: 'Bearer ' + token } });
+      if (res.status === 401 || res.status === 403) return logout();
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const { orders } = await res.json();
+
+      filters.classList.remove('hidden');
+      filters.classList.add('flex');
+      logoutBtn.classList.remove('hidden');
+
+      if (!orders.length) {
+        statusEl.innerHTML = '<p class="text-smoke text-sm">Aucune commande pour ce filtre.</p>';
+        return;
+      }
+      tbody.innerHTML = orders.map((o) => `
+        <tr class="border-b border-dark-border hover:bg-white/[0.02] transition-colors">
+          <td class="py-3 px-4 font-mono text-xs text-white">${esc(o.orderId)}</td>
+          <td class="py-3 px-4 text-smoke text-xs">${formatDate(o.createdAt)}</td>
+          <td class="py-3 px-4">
+            <div class="text-white">${esc(o.client.nom)}</div>
+            <div class="text-smoke text-xs">${esc(o.client.email)}</div>
+          </td>
+          <td class="py-3 px-4 font-mono text-white">${formatEur(o.totalTTC)}</td>
+          <td class="py-3 px-4 text-xs text-smoke">${o.paiement?.methode === 'viva-wallet' ? '💳 Viva' : '🏪 Magasin'}</td>
+          <td class="py-3 px-4">${statusBadge(esc(o.status))}</td>
+          <td class="py-3 px-4 text-right">
+            <a href="/admin/commande/?id=${encodeURIComponent(o.orderId)}" class="text-neon-violet text-xs hover:underline">Détail →</a>
+          </td>
+        </tr>`).join('');
+      statusEl.classList.add('hidden');
+      tableEl.classList.remove('hidden');
+    } catch (err) {
+      statusEl.innerHTML = `<p class="text-red-400 text-sm">Erreur : ${err.message}</p>`;
+    }
+  }
+
+  filters?.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-filter-status]');
+    if (!btn) return;
+    document.querySelectorAll('#status-filters .filter-pill').forEach((b) => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    loadOrders(btn.dataset.filterStatus);
+  });
+
+  if (token) loadOrders(''); else showLogin();
+})();
+</script>

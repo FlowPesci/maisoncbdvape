@@ -1,0 +1,30 @@
+{
+  "marque": "Spliff Box",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Spliff Box M ! ?",
+  "actif": true,
+  "prix": 16.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Compartiments int&eacute;gr&eacute;s pour une organisation optimale",
+  "categorie": "accessoires",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "spliff-box-m",
+  "image": "/media/produits/1778342920741-spliff-box-m.jpeg",
+  "description": "Spliff Box M – Boîte de rangement accessoires fumeur.\n\nPrésentation\nLa Spliff Box M est une boîte de rangement compacte et bien organisée pour tous vos accessoires fumeur. Ses compartiments intégrés permettent une organisation optimale de vos papiers, filtres, briquet et tabac.\n\nCaractéristiques\nFormat M : compact et transportable. Compartiments intégrés pour organisation optimale. Fermeture sécurisée. Matériau résistant. Design discret.\n\nIdéal pour\nUn rangement ordonné de vos accessoires à la maison ou en déplacement.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Compartiments int&eacute;gr&eacute;s pour une organisation optimale"
+  }
+}

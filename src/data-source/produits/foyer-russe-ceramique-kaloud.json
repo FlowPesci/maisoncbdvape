@@ -1,0 +1,30 @@
+{
+  "marque": "Kaloud ",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Foyer Russe Céramique + Kaloud",
+  "actif": true,
+  "prix": 29.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Kaloud ",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "foyer-russe-ceramique-kaloud",
+  "image": "/media/produits/1778342643376-foyer-russe-ceramique-kaloud.jpeg",
+  "description": "Foyer Russe Céramique + Kaloud – Pack complet.\n\nPrésentation\nUn duo de référence pour les amateurs de chicha : le foyer en céramique Russe associé au Kaloud pour une gestion thermique optimale. La céramique accumule et diffuse la chaleur de manière homogène, le Kaloud protège votre tabac de la surchauffe.\n\nCaractéristiques\nFoyer en céramique épaisse : résistance et longévité accrues. Kaloud en alliage métallique résistant. Compatible avec les chichas standard. Entretien facile.\n\nContenu du pack\n1 foyer céramique Russe + 1 Kaloud I. Prêt à l'emploi.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

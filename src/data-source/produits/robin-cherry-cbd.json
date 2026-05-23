@@ -1,0 +1,54 @@
+{
+  "marque": "Robin Cherry CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Robin Cherry CBD",
+  "actif": true,
+  "prix": 6.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 6.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 20.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 34.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 69,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes dominantes de cerise et de fruits rouges, relevées d’une touche sucrée et florale.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "indoor"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "robin-cherry-cbd",
+  "image": "/media/produits/1778340567309-robin-cherry-cbd.jpeg",
+  "description": "Aspect visuel\n\nBuds compacts et résineux, d’un vert intense parsemé de pistils orangés.\n\nPrésence abondante de trichomes cristallins qui apportent brillance et richesse aromatique.\n\nAspect soigné et premium grâce à une culture indoor contrôlée.\n\nArômes & saveurs\n\nProfil gourmand et fruité.\n\nNotes dominantes de cerise et de fruits rouges, relevées d’une touche sucrée et florale.\n\nSaveur douce, agréable et persistante en bouche, idéale pour les amateurs de fleurs fruitées.\n\n⚡ Effets (CBD)\n\nRelaxation apaisante sans effet psychotrope.\n\nFavorise le bien-être, la détente musculaire et mentale.\n\nIdéale pour accompagner un moment calme en fin de journée ou pour relâcher le stress.\n\nCulture indoor hydroponique\n\nCultivée en intérieur sous hydroponie, avec un contrôle précis de l’eau, des nutriments et de la lumière.\n\nRésultat : une fleur propre, stable, riche en terpènes et d’une qualité constante.\n\nEn résumé, la Robin-Cherry CBD Indoor Hydro est une fleur haut de gamme au parfum fruité et sucré de cerise, aux effets relaxants équilibrés et issue d’une culture minutieuse qui garantit une qualité irréprochable.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes dominantes de cerise et de fruits rouges, relevées d’une touche sucrée et florale."
+  }
+}

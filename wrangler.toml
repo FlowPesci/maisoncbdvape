@@ -1,0 +1,53 @@
+# ──────────────────────────────────────────────────────────────────────────
+# wrangler.toml — Configuration Cloudflare Pages — MaisonCBDVape
+# ──────────────────────────────────────────────────────────────────────────
+
+name = "maisoncbdvape"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = "public"
+
+# ─── Variables d'environnement ────────────────────────────────────────────
+# ⚠ Pour les projets Pages connectés à GitHub, les [vars] ci-dessous
+#   ne s'appliquent qu'en LOCAL (wrangler pages dev).
+#   En PRODUCTION, toutes les variables doivent être dans le dashboard :
+#   Cloudflare Pages → Settings → Environment variables
+#
+# Variables à configurer dans le dashboard :
+#   PLAINTEXT :
+#     SITE_URL               = https://maisoncbdvape.fr
+#     VIVA_ENV               = demo
+#     EMAIL_FROM             = MaisonCBDVape <noreply@maisoncbdvape.fr>
+#     EMAIL_REPLY_TO         = contact@vapelab.fr
+#     EMAIL_MERCHANT         = vincent.kotowski@ikmail.com,contact@vapelab.fr
+#     GITHUB_OAUTH_CLIENT_ID = (nouveau OAuth App à créer)
+#     GITHUB_REPO            = FlowPesci/maisoncbdvape
+#     ADMIN_GITHUB_USERS     = FlowPesci
+#   SECRETS (chiffrés) :
+#     RESEND_API_KEY
+#     GITHUB_OAUTH_CLIENT_SECRET
+#     VIVA_MERCHANT_ID, VIVA_API_KEY, VIVA_SOURCE_CODE, VIVA_WEBHOOK_KEY
+
+[vars]
+SITE_URL               = "https://maisoncbdvape.fr"
+VIVA_ENV               = "demo"
+EMAIL_FROM             = "MaisonCBDVape <noreply@vapelab.fr>"
+EMAIL_REPLY_TO         = "contact@vapelab.fr"
+EMAIL_MERCHANT         = "vincent.kotowski@ikmail.com,contact@vapelab.fr"
+GITHUB_OAUTH_CLIENT_ID = ""
+GITHUB_REPO            = "FlowPesci/maisoncbdvape"
+ADMIN_GITHUB_USERS     = "FlowPesci"
+
+# ─── Bindings KV (commandes + état OAuth) ─────────────────────────────────
+[[kv_namespaces]]
+binding = "ORDERS_KV"
+id = "REMPLACER_PAR_NOUVEAU_KV_ID"
+
+[[kv_namespaces]]
+binding = "OAUTH_KV"
+id = "REMPLACER_PAR_NOUVEAU_KV_ID"
+
+# ─── Bindings R2 (médias : photos produits) ───────────────────────────────
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "maisoncbdvape-media"

@@ -1,0 +1,30 @@
+{
+  "marque": "Curieux",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Amazonien",
+  "actif": true,
+  "prix": 19.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "E-liquide Curieux Amazonien 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "amazonien",
+  "image": "/media/produits/1778341894253-amazonien.jpeg",
+  "description": "E-liquide Amazonien de la gamme Curieux.\n\nProfil aromatique\nUn voyage au cœur de la forêt tropicale : fruits exotiques, notes vertes et arômes luxuriants se mêlent pour une vape dense, complexe et dépaysante. Un arôme qui transporte.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés. Ratio PG/VG 50/50. Fabriqué en France.\n\nUsage recommandé\nPour les amateurs d'arômes exotiques et enveloppants.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "E-liquide Curieux Amazonien 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+  }
+}

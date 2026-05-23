@@ -1,0 +1,30 @@
+{
+  "marque": "Blackcoco’s",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Allume charbon Gaz Blackcoco’s",
+  "actif": true,
+  "prix": 24.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Simple d&rsquo;utilisation, il permet d&rsquo;obtenir des charbons uniform&eacute;ment incandescents pour des sessions ma&icirc;tris&eacute;es et efficaces.",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "allume-charbon-gaz-blackcoco-s",
+  "image": "/media/produits/1778342764373-allume-charbon-gaz-blackcoco-s.jpeg",
+  "description": "Allume Charbon Gaz Blackcoco's – Format S.\n\nPrésentation\nSimple d'utilisation, l'allume charbon gaz Blackcoco's permet d'obtenir des charbons uniformément incandescents en quelques minutes. Format compact S, idéal pour les déplacements et les soirées.\n\nCaractéristiques\nFlamme gaz puissante et directionnelle. Format S compact. Recharge gaz standard. Allumage rapide des charbons naturels et rapides. Sécurité enfant. Corps résistant.\n\nUtilisation\nDiriger la flamme sur chaque face des charbons jusqu'à incandescence complète.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Simple d&rsquo;utilisation, il permet d&rsquo;obtenir des charbons uniform&eacute;ment incandescents pour des sessions ma&icirc;tris&eacute;es et efficaces."
+  }
+}

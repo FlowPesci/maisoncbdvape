@@ -1,0 +1,30 @@
+{
+  "marque": "Dschinni",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Pinces à charbon Dschinni",
+  "actif": true,
+  "prix": 6.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Leur finition m&eacute;tallis&eacute;e violette leur apporte un look moderne et &eacute;l&eacute;gant, id&eacute;al pour compl&eacute;ter votre setup.",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "pinces-a-charbon-dschinni",
+  "image": "/media/produits/1778342765040-pinces-a-charbon-dschinni.jpeg",
+  "description": "Pinces à Charbon Dschinni – Accessoire chicha.\n\nPrésentation\nLes pinces à charbon Dschinni allient fonctionnalité et style. Leur finition métallisée violette leur apporte un look moderne et élégant, tout en garantissant une prise sûre et confortable pour manipuler vos charbons chauds.\n\nCaractéristiques\nMatériau : métal robuste. Finition métallisée violette. Longueur adaptée pour une manipulation sûre. Extrémités crantées pour une prise ferme des charbons. Compatible avec tous types de charbons.\n\nEntretien\nNettoyer après chaque utilisation à l'eau froide.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Leur finition m&eacute;tallis&eacute;e violette leur apporte un look moderne et &eacute;l&eacute;gant, id&eacute;al pour compl&eacute;ter votre setup."
+  }
+}

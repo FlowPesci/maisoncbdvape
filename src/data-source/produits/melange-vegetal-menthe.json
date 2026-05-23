@@ -1,0 +1,30 @@
+{
+  "marque": "Mélange végétal Menthe",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Mélange végétal Menthe",
+  "actif": true,
+  "prix": 6.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Menthe Nanah, Bouillon blanc, Calendula & Chanvre",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "melange-vegetal-menthe",
+  "image": "/media/produits/1778340653012-melange-vegetal-menthe.png",
+  "description": "🌿 Substitut de tabac naturel – Menthe Nanah, Bouillon blanc, Calendula & Chanvre\nSavourez une expérience douce et rafraîchissante, sans tabac ni nicotine.\nCe mélange harmonieux associe la Menthe Nanah, au parfum frais et vivifiant, au Bouillon blanc, qui adoucit la gorge, au Calendula, aux vertus apaisantes et florales, et au Chanvre, reconnu pour son effet relaxant et équilibrant.\n\n✨ 100 % plantes naturelles – Sans tabac – Sans nicotine\nParfait pour un sevrage en douceur ou un moment de détente aromatique et conscient.\n\n🌿 Une bouffée fraîche et apaisante, entre légèreté et sérénité.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Menthe Nanah, Bouillon blanc, Calendula & Chanvre"
+  }
+}

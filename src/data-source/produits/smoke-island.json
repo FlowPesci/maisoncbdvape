@@ -1,0 +1,30 @@
+{
+  "marque": "Smoke Island",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Smoke Island",
+  "actif": true,
+  "prix": 16.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Smoke Island",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "smoke-island",
+  "image": "/media/produits/1778342720640-smoke-island.png",
+  "description": "Smoke Island – Accessoire chicha.\n\nPrésentation\nSmoke Island est un accessoire indispensable pour une session de chicha propre et confortable. Conçu pour offrir une expérience de tirage agréable et durable, fabriqué avec des matériaux de qualité.\n\nCaractéristiques\nConstruction solide et durable. Design pratique et ergonomique. Compatible avec les chichas standard du marché. Entretien simple.\n\nDisponible en boutique VapeLab à Gex (01170) ou en livraison.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

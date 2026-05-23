@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="E-liquide Pêche Litchi Frais 50ml – Curieux">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#0A0A0F"/>
+      <stop offset="50%" stop-color="#12121A"/>
+      <stop offset="100%" stop-color="#0A0A0F"/>
+    </linearGradient>
+    <radialGradient id="accentGlow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%"   stop-color="#BF5FFF" stop-opacity="0.32"/>
+      <stop offset="60%"  stop-color="#BF5FFF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#BF5FFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#BF5FFF" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="800" fill="url(#bgGrad)"/>
+  <rect width="800" height="800" fill="url(#grid)"/>
+  <rect width="800" height="800" fill="url(#accentGlow)"/>
+
+  <!-- Cadre néon discret -->
+  <rect x="24" y="24" width="752" height="752" rx="16" ry="16"
+        fill="none" stroke="#BF5FFF" stroke-opacity="0.35" stroke-width="2"/>
+
+  <!-- Mention TABAC GEX en haut à gauche -->
+  <text x="48" y="68" fill="#BF5FFF"
+        font-family="'Space Mono', monospace" font-size="14"
+        letter-spacing="6" style="text-transform:uppercase;">// TABAC GEX</text>
+
+  <!-- Indicateur "PLACEHOLDER" en haut à droite -->
+  <text x="752" y="68" text-anchor="end" fill="#8A8A9A"
+        font-family="'Space Mono', monospace" font-size="11"
+        letter-spacing="4" style="text-transform:uppercase;">[ image en attente ]</text>
+
+  <!-- Titre central -->
+  <text x="400" y="392" text-anchor="middle" fill="#FFFFFF" font-family="'Bebas Neue', Impact, sans-serif" font-size="56" letter-spacing="2" style="text-transform:uppercase;">E-liquide Pêche Litchi</text>
+  <text x="400" y="456" text-anchor="middle" fill="#FFFFFF" font-family="'Bebas Neue', Impact, sans-serif" font-size="56" letter-spacing="2" style="text-transform:uppercase;">Frais 50ml – Curieux</text>
+
+  <text x="400" y="548" text-anchor="middle" fill="#BF5FFF" font-family="'Space Mono', monospace" font-size="14" letter-spacing="6" style="text-transform:uppercase;">Curieux · vue 1/1</text>
+
+  <!-- Bandeau néon en bas -->
+  <rect x="0" y="796" width="800" height="4" fill="#BF5FFF"/>
+</svg>

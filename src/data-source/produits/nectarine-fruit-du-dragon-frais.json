@@ -1,0 +1,30 @@
+{
+  "marque": "Le Petit Verger",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Nectarine – Fruit du Dragon FRAIS",
+  "actif": true,
+  "prix": 16.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Un &eacute;quilibre parfait entre la nectarine velout&eacute;e et la pitaya parfum&eacute;e : une vape raffin&eacute;e, l&eacute;g&egrave;rement sucr&eacute;e e",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "nectarine-fruit-du-dragon-frais",
+  "image": "/media/produits/1778341454151-nectarine-fruit-du-dragon-frais.jpeg",
+  "description": "E-liquide Nectarine – Fruit du Dragon FRAIS de la collection fraîcheur Le Petit Verger.\n\nProfil aromatique\nUn équilibre parfait entre la nectarine veloutée et la pitaya parfumée, sublimé par une note fraîche et légèrement mentholée. Une vape raffinée, légèrement sucrée et exotique.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour les amateurs de saveurs exotiques fraîches.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Un &eacute;quilibre parfait entre la nectarine velout&eacute;e et la pitaya parfum&eacute;e : une vape raffin&eacute;e, l&eacute;g&egrave;rement sucr&eacute;e e"
+  }
+}

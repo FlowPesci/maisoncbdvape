@@ -1,0 +1,561 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: produits
+  size: 1
+  alias: produit
+permalink: "/produits/{{ produit.id }}/index.html"
+eleventyComputed:
+  title: "{{ produit.seo.title or produit.nom }}"
+  description: "{{ produit.seo.description or produit.descriptionCourte }}"
+  ogImage: "{{ site.url }}{{ produit.image }}"
+  canonicalPath: "/produits/{{ produit.id }}/"
+---
+{# ──────────────────────────────────────────────────────────────────────────
+   produit-detail.njk — UNE page par produit (pagination size: 1)
+   Source visuelle : docs/maquettes-source/03-produit-detail.html
+   ────────────────────────────────────────────────────────────────────────── #}
+
+{% from "components/product-card.njk" import productCard %}
+
+{# ── Préparation des données ─────────────────────────────────────────────── #}
+{% set categorieCourante = (categories | where("slug", produit.categorie) | first) %}
+{% set categorieLabel    = categorieCourante.nomCourt or produit.categorie | capitalize %}
+{% set discountPct       = null %}
+{% if produit.prixBarre and produit.prix < produit.prixBarre %}
+  {% set discountPct = ((produit.prixBarre - produit.prix) / produit.prixBarre * 100) | round %}
+{% endif %}
+{% set isOutOfStock      = (produit.stock or 0) <= 0 or produit.statutStock == "rupture" %}
+{% set isLowStock        = not isOutOfStock and (produit.stock or 0) <= 5 %}
+{% set produitsAssocies  = produits | where("categorie", produit.categorie) | rejectId(produit.id) | limit(4) %}
+{% set fullStars         = (produit.note or 0) | int %}
+
+{# Couleur d'accent contextuelle selon catégorie #}
+{% set accentColor = "#39FF14" %}
+{% if produit.categorie == "vape" or produit.categorie == "puffs" %}{% set accentColor = "#BF5FFF" %}
+{% elif produit.categorie == "chicha" %}{% set accentColor = "#00D4FF" %}
+{% elif produit.categorie == "accessoires" %}{% set accentColor = "#8A8A9A" %}
+{% endif %}
+
+{# ═══════════════════════════════════════════════════════════════════════════
+   FIL D'ARIANE
+   ═══════════════════════════════════════════════════════════════════════════ #}
+<div class="grid-lines">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+    <nav aria-label="Fil d'Ariane" class="flex items-center flex-wrap gap-1.5 text-xs font-mono">
+      <a href="/" class="breadcrumb-link">Accueil</a>
+      <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+      <a href="/categories/{{ produit.categorie }}/" class="breadcrumb-link">{{ categorieCourante.nom or categorieLabel }}</a>
+      <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+      <span style="color:{{ accentColor }};">{{ produit.nom }}</span>
+    </nav>
+  </div>
+  <div class="neon-divider"></div>
+</div>
+
+
+{# ═══════════════════════════════════════════════════════════════════════════
+   ZONE PRINCIPALE — Galerie (gauche) + Achat (droite)
+   ═══════════════════════════════════════════════════════════════════════════ #}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+  <div class="grid lg:grid-cols-2 gap-10 xl:gap-16 items-start">
+
+    {# ─────────────────────── GAUCHE : Galerie ─────────────────────── #}
+    <div class="lg:sticky lg:top-24 fade-up">
+      <div id="main-image-wrap"
+           class="relative aspect-square border border-dark-border rounded-2xl overflow-hidden mb-4"
+           style="background:#ffffff;">
+
+        {% if "bestseller" in (produit.tags or []) %}
+          <div class="product-badge">✨ Coup de cœur</div>
+        {% elif "premium" in (produit.tags or []) %}
+          <div class="product-badge" style="background:#FBBF24;">★ Premium</div>
+        {% elif "nouveaute" in (produit.tags or []) %}
+          <div class="product-badge">⚡ Nouveauté</div>
+        {% endif %}
+
+        <button class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-dark-bg/80 border border-dark-border flex items-center justify-center text-smoke hover:text-red-400 transition-all"
+                aria-label="Ajouter aux favoris">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+        </button>
+
+        <img id="main-image"
+             src="{{ produit.galerie[0] or produit.image }}"
+             alt="{{ produit.nom }} – vue principale"
+             class="w-full h-full object-contain"/>
+      </div>
+
+      {% if produit.galerie and produit.galerie | length > 1 %}
+        <div class="grid grid-cols-4 gap-3">
+          {% for img in produit.galerie | limit(4) %}
+            <button class="thumb-btn aspect-square {% if loop.first %}active{% endif %}"
+                    data-src="{{ img }}"
+                    data-alt="{{ produit.nom }} – vue {{ loop.index }}"
+                    aria-label="Voir la photo {{ loop.index }}">
+              <img src="{{ img }}" alt="{{ produit.nom }} – miniature {{ loop.index }}" loading="lazy"/>
+            </button>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {# Partage #}
+      <div class="flex items-center gap-3 mt-5 pt-5 border-t border-dark-border flex-wrap">
+        <span class="text-smoke text-xs font-mono uppercase tracking-wider">Partager :</span>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}/produits/{{ produit.id }}/" target="_blank" rel="noopener" class="text-smoke hover:text-white transition-colors text-xs">Facebook</a>
+        <a href="https://twitter.com/intent/tweet?url={{ site.url }}/produits/{{ produit.id }}/&text={{ produit.nom }}" target="_blank" rel="noopener" class="text-smoke hover:text-white transition-colors text-xs">Twitter / X</a>
+        <a href="https://wa.me/?text={{ produit.nom }} {{ site.url }}/produits/{{ produit.id }}/" target="_blank" rel="noopener" class="text-smoke hover:text-white transition-colors text-xs">WhatsApp</a>
+      </div>
+    </div>
+
+
+    {# ─────────────────────── DROITE : Infos + Achat ───────────────────────── #}
+    <div class="fade-up" style="transition-delay:.08s;">
+
+      {# Marque + référence #}
+      <div class="flex items-center gap-3 mb-3 flex-wrap">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-xs tracking-widest uppercase"
+              style="border:1px solid {{ accentColor }}40;background:{{ accentColor }}0F;color:{{ accentColor }};">
+          <span class="w-1.5 h-1.5 rounded-full" style="background:{{ accentColor }};"></span>
+          {{ produit.marque }}
+        </span>
+        <span class="text-smoke text-xs font-mono">Réf : {{ produit.id | upper }}</span>
+      </div>
+
+      {# H1 #}
+      <h1 class="font-display text-4xl sm:text-5xl xl:text-6xl text-white leading-none tracking-wide mb-4">
+        {{ produit.nom | upper }}
+      </h1>
+
+      {# Note + lien avis #}
+      {% if produit.note %}
+        <div class="flex items-center gap-3 mb-5 flex-wrap">
+          <div class="flex items-center gap-0.5">
+            {% for i in range(0, 5) %}
+              <span class="text-lg {% if i < fullStars %}star-filled{% else %}star-empty{% endif %}">★</span>
+            {% endfor %}
+          </div>
+          <span class="text-white font-semibold text-sm">{{ produit.note }}</span>
+          {% if produit.nombreAvis %}
+            <a href="#reviews" class="text-smoke text-xs hover:text-white transition-colors underline underline-offset-2">
+              Basé sur {{ produit.nombreAvis }} avis certifiés
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {# Description courte #}
+      {% if produit.descriptionCourte %}
+        <p class="text-smoke text-base leading-relaxed mb-6">{{ produit.descriptionCourte }}</p>
+      {% endif %}
+
+      {# Sélecteur CBD : quantité en grammes #}
+      {% if produit.unitePrix == 'g' %}
+        <div class="rounded-2xl bg-dark-card border border-dark-border p-5 mb-5"
+             data-prix-par-gramme="{{ produit.prix }}">
+          <div class="flex items-center justify-between mb-4">
+            <label class="text-sm font-semibold text-white">Quantité</label>
+            <span class="text-xs font-mono text-smoke">{{ produit.prix | eur }} / g</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <button id="gram-minus" class="qty-btn w-10 h-10 text-xl flex-none" aria-label="Moins">−</button>
+            <div class="flex-1 text-center">
+              <span id="gram-display" class="font-display text-3xl text-white">1</span>
+              <span class="text-smoke text-base ml-1">g</span>
+            </div>
+            <button id="gram-plus" class="qty-btn w-10 h-10 text-xl flex-none" aria-label="Plus">+</button>
+          </div>
+        </div>
+
+      {# Sélecteur puffs : saveurs #}
+      {% elif produit.variantes and produit.variantes | length > 0 %}
+        <div class="rounded-2xl bg-dark-card border border-dark-border p-5 mb-5">
+          <div class="flex items-center justify-between mb-3">
+            <label class="text-sm font-semibold text-white">Saveur</label>
+            <span id="variante-label-display" class="text-xs font-mono" style="color:#BF5FFF;">{{ produit.variantes[0].label }}</span>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            {% for v in produit.variantes %}
+              <button class="variante-btn {% if loop.first %}active{% endif %}"
+                      data-variante-label="{{ v.label }}"
+                      data-variante-prix="{{ v.prix }}"
+                      data-variante-stock="{{ v.stock }}">
+                {{ v.label }}
+              </button>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {# Bloc prix + stock #}
+      <div class="rounded-2xl bg-dark-card border border-dark-border p-5 mb-5">
+        <div class="flex items-end gap-4 mb-3 flex-wrap">
+          <div class="font-display text-5xl" style="color:#39FF14;">
+            {% if produit.unitePrix == 'g' %}
+              <span id="prix-display">{{ produit.prix | eur }}</span>
+            {% elif produit.variantes and produit.variantes | length > 0 %}
+              <span id="prix-display">{{ produit.variantes[0].prix | eur }}</span>
+            {% else %}
+              {{ produit.prix | eur }}{% if produit.unitePrix %}<span class="text-2xl">/{{ produit.unitePrix }}</span>{% endif %}
+            {% endif %}
+          </div>
+          {% if produit.prixBarre %}
+            <div class="mb-1">
+              <div class="text-smoke text-sm line-through font-mono">{{ produit.prixBarre | eur }}</div>
+              {% if discountPct %}
+                <div class="text-xs font-bold px-2 py-0.5 rounded inline-block"
+                     style="background:rgba(255,80,0,.15);color:#FF6020;border:1px solid rgba(255,80,0,.25);">
+                  −{{ discountPct }}%
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          {% if isOutOfStock %}
+            <span class="badge-rupture text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">✕ Rupture</span>
+          {% elif isLowStock %}
+            <span class="stock-low text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">⚠ Stock faible — {{ produit.stock }} restant{% if produit.stock > 1 %}s{% endif %}</span>
+          {% else %}
+            <span class="stock-badge text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">✓ En stock</span>
+          {% endif %}
+          {% if not isOutOfStock %}
+            <span class="dispatch-badge">⚡ Expédié sous 24h</span>
+          {% endif %}
+        </div>
+
+        <div class="flex items-center gap-2 text-xs text-smoke">
+          <svg class="w-4 h-4 shrink-0" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+          <span>Click &amp; Collect gratuit en boutique à Gex (01170)</span>
+        </div>
+      </div>
+
+      {# Points forts #}
+      {% if produit.pointsForts and produit.pointsForts | length > 0 %}
+        <div class="rounded-2xl bg-dark-card border border-dark-border p-5 mb-6">
+          <h3 class="font-display text-base tracking-widest text-white mb-1">POINTS FORTS</h3>
+          <div>
+            {% for fort in produit.pointsForts %}
+              <div class="feature-item">
+                <div class="feature-icon" style="background:{{ accentColor }}1A;">
+                  <svg class="w-3.5 h-3.5" style="color:{{ accentColor }};" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-white text-sm font-semibold">{{ fort }}</div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {# Configuration : couleurs + quantité #}
+      <div class="space-y-5 mb-7">
+
+        {% if produit.couleurs and produit.couleurs | length > 0 %}
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <label class="text-sm font-semibold text-white">Couleur</label>
+              <span id="color-label" class="text-xs font-mono" style="color:{{ accentColor }};">{{ produit.couleurs[0].nom }}</span>
+            </div>
+            <div class="flex items-center gap-3 flex-wrap">
+              {% for couleur in produit.couleurs %}
+                <button class="color-swatch {% if loop.first %}active{% endif %}"
+                        style="background:{{ couleur.hex }};"
+                        data-color="{{ couleur.nom }}"
+                        title="{{ couleur.nom }}"
+                        aria-label="Sélectionner la couleur {{ couleur.nom }}"></button>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if not isOutOfStock %}
+          <div>
+            <label class="text-sm font-semibold text-white block mb-3">Quantité</label>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button class="qty-btn" data-qty-dec aria-label="Diminuer la quantité">−</button>
+              <span id="qty-display" class="w-10 text-center font-mono font-bold text-white text-lg">1</span>
+              <button class="qty-btn" data-qty-inc aria-label="Augmenter la quantité">+</button>
+              <span class="text-smoke text-xs ml-2">Max. 5 par commande</span>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      {# CTAs #}
+      <div class="space-y-3 mb-6">
+        <button class="btn-neon-green w-full py-4 rounded-xl text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 font-bold"
+                data-add-to-cart="{{ produit.id }}"
+                {% if isOutOfStock %}disabled style="opacity:.4;cursor:not-allowed;"{% endif %}>
+          {% if isOutOfStock %}
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14L21 3m0 0v6m0-6h-6"/></svg>
+            Me prévenir lors du retour en stock
+          {% else %}
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+            Ajouter au panier
+          {% endif %}
+        </button>
+        {% if not isOutOfStock %}
+          <button id="click-collect-btn"
+                  data-click-collect="{{ produit.id }}"
+                  class="btn-outline-violet w-full py-4 rounded-xl text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 font-semibold">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            Réserver en Click &amp; Collect — Gex
+          </button>
+        {% endif %}
+      </div>
+
+      {# Ancre de référence pour la barre sticky mobile : placée juste après
+         les CTA desktop. Quand cette ancre quitte le viewport, on déclenche
+         l'apparition de la barre flottante. #}
+      <div id="buy-anchor" aria-hidden="true" class="h-0"></div>
+
+      {# Réassurance #}
+      <div class="grid grid-cols-3 gap-3">
+        <div class="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border border-dark-border bg-dark-card text-center">
+          <svg class="w-4 h-4" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+          <span class="text-smoke text-xs leading-tight">Paiement sécurisé</span>
+        </div>
+        <div class="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border border-dark-border bg-dark-card text-center">
+          <svg class="w-4 h-4" style="color:#00D4FF;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+          <span class="text-smoke text-xs leading-tight">Livraison 48h</span>
+        </div>
+        <div class="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border border-dark-border bg-dark-card text-center">
+          <svg class="w-4 h-4" style="color:#BF5FFF;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/></svg>
+          <span class="text-smoke text-xs leading-tight">Retours 14 jours</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{# ═══════════════════════════════════════════════════════════════════════════
+   ONGLETS — Fiche technique / Contenu / Avis
+   ═══════════════════════════════════════════════════════════════════════════ #}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 fade-up">
+  <div class="flex items-end gap-1 border-b border-dark-border overflow-x-auto" style="scrollbar-width:none;">
+    {% set hasFiche = produit.ficheTechnique and (produit.ficheTechnique | length) > 0 %}
+    {% set hasKit   = produit.contenuKit and produit.contenuKit | length > 0 %}
+    {% set hasDesc  = produit.description and produit.description | length > 0 %}
+    {% if hasDesc  %}<button class="tab-btn active" data-tab="tab-desc">Description</button>{% endif %}
+    {% if hasFiche %}<button class="tab-btn {% if not hasDesc %}active{% endif %}" data-tab="tab-specs">Fiche Technique</button>{% endif %}
+    {% if hasKit   %}<button class="tab-btn {% if not hasDesc and not hasFiche %}active{% endif %}" data-tab="tab-kit">Contenu du Kit</button>{% endif %}
+    <button class="tab-btn {% if not hasDesc and not hasFiche and not hasKit %}active{% endif %}" data-tab="tab-reviews">Avis Clients{% if produit.nombreAvis %} ({{ produit.nombreAvis }}){% endif %}</button>
+  </div>
+
+  {# ── Onglet 0 : Description longue ── #}
+  {% if hasDesc %}
+    <div id="tab-desc" class="tab-panel active">
+      <div class="rounded-b-2xl rounded-tr-2xl bg-dark-card border border-t-0 border-dark-border p-6 lg:p-8">
+        <p class="text-smoke text-sm leading-relaxed whitespace-pre-line">{{ produit.description }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  {# ── Onglet 1 : Fiche technique ── #}
+  {% if hasFiche %}
+    <div id="tab-specs" class="tab-panel {% if not hasDesc %}active{% endif %}">
+      <div class="rounded-b-2xl rounded-tr-2xl bg-dark-card border border-t-0 border-dark-border overflow-x-auto">
+        <table class="w-full text-sm">
+          <tbody>
+            <tr class="spec-row">
+              <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider w-44 lg:w-56">Marque</td>
+              <td class="py-3.5 px-5 text-white font-medium">{{ produit.marque }}</td>
+            </tr>
+            <tr class="spec-row">
+              <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Catégorie</td>
+              <td class="py-3.5 px-5 text-white font-medium">{{ categorieCourante.nom or categorieLabel }}</td>
+            </tr>
+            {% for cle, valeur in produit.ficheTechnique %}
+              <tr class="spec-row">
+                <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">{{ cle }}</td>
+                <td class="py-3.5 px-5 text-white font-medium">{{ valeur }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% endif %}
+
+  {# ── Onglet 2 : Contenu du Kit ── #}
+  {% if hasKit %}
+    <div id="tab-kit" class="tab-panel {% if not hasDesc and not hasFiche %}active{% endif %}">
+      <div class="rounded-b-2xl rounded-tr-2xl bg-dark-card border border-t-0 border-dark-border p-6 lg:p-8">
+        <div class="grid sm:grid-cols-2 gap-3">
+          {% for item in produit.contenuKit %}
+            <div class="flex items-center gap-3 p-3.5 rounded-xl border border-dark-border bg-dark-bg">
+              <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(57,255,20,.1);">
+                <svg class="w-3.5 h-3.5" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <span class="text-white text-sm">{{ item }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {# ── Onglet 3 : Avis clients ── #}
+  <div id="tab-reviews" class="tab-panel {% if not hasDesc and not hasFiche and not hasKit %}active{% endif %}">
+    <div class="rounded-b-2xl rounded-tr-2xl bg-dark-card border border-t-0 border-dark-border p-6 lg:p-8" id="reviews">
+
+      {% if produit.nombreAvis %}
+        <div class="grid sm:grid-cols-2 gap-8 mb-8">
+          <div class="flex flex-col items-center justify-center py-6 rounded-2xl border border-dark-border bg-dark-bg text-center">
+            <div class="font-display text-7xl mb-1" style="color:#FBBF24;">{{ produit.note }}</div>
+            <div class="flex gap-1 mb-2">
+              {% for i in range(0, 5) %}
+                <span class="text-2xl {% if i < fullStars %}star-filled{% else %}star-empty{% endif %}">★</span>
+              {% endfor %}
+            </div>
+            <div class="text-smoke text-xs font-mono">Basé sur {{ produit.nombreAvis }} avis certifiés</div>
+          </div>
+          <div class="space-y-2.5">
+            {% for star in [5, 4, 3, 2, 1] %}
+              {% set pct = 0 %}
+              {% if star == 5 %}{% set pct = 88 %}{% elif star == 4 %}{% set pct = 9 %}{% elif star == 3 %}{% set pct = 2 %}{% elif star == 2 %}{% set pct = 1 %}{% endif %}
+              <div class="flex items-center gap-3">
+                <span class="text-smoke text-xs font-mono w-4">{{ star }}★</span>
+                <div class="rating-bar-track flex-1"><div class="rating-bar-fill" style="width:{{ pct }}%;"></div></div>
+                <span class="text-smoke text-xs font-mono w-8 text-right">{{ ((produit.nombreAvis * pct) / 100) | round }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="space-y-4">
+        <div class="review-card p-5">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center font-display text-sm text-dark-bg" style="background:linear-gradient(135deg,#39FF14,#BF5FFF);">MB</div>
+              <div>
+                <div class="text-white font-semibold text-sm">Mathieu B.</div>
+                <div class="text-smoke text-xs font-mono">Achat vérifié · client local Gex</div>
+              </div>
+            </div>
+            <div class="flex gap-0.5 text-sm star-filled">★★★★★</div>
+          </div>
+          <p class="text-smoke text-sm leading-relaxed italic">« Service au top, conseils précis en boutique et livraison rapide. Je recommande VapeLab sans hésitation. »</p>
+        </div>
+
+        <div class="review-card p-5">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center font-display text-sm text-dark-bg" style="background:linear-gradient(135deg,#00D4FF,#39FF14);">SL</div>
+              <div>
+                <div class="text-white font-semibold text-sm">Sophie L.</div>
+                <div class="text-smoke text-xs font-mono">Achat vérifié</div>
+              </div>
+            </div>
+            <div class="flex gap-0.5 text-sm star-filled">★★★★★</div>
+          </div>
+          <p class="text-smoke text-sm leading-relaxed italic">« Produit conforme à la description, finition impeccable. Très bon rapport qualité-prix. »</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+{# ═══════════════════════════════════════════════════════════════════════════
+   PRODUITS ASSOCIÉS — autres produits de la même catégorie
+   ═══════════════════════════════════════════════════════════════════════════ #}
+{% if produitsAssocies and produitsAssocies | length > 0 %}
+  <section class="py-16 lg:py-20" style="background:linear-gradient(180deg,#0A0A0F 0%,#0D0D18 100%);border-top:1px solid #1E1E2E;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="flex items-end justify-between mb-10 fade-up flex-wrap gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full border border-dark-border">
+            <span class="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse"></span>
+            <span class="font-mono text-xs text-smoke tracking-widest uppercase">Complétez votre setup</span>
+          </div>
+          <h2 class="font-display text-4xl lg:text-5xl text-white tracking-wide">PRODUITS ASSOCIÉS</h2>
+        </div>
+        <a href="/categories/{{ produit.categorie }}/" class="hidden sm:flex items-center gap-2 text-sm text-neon-violet border border-neon-violet/30 px-4 py-2 rounded-xl hover:bg-neon-violet/10 transition-all">
+          Voir tout
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {% for assoc in produitsAssocies %}
+          {{ productCard(assoc, "fade-up") }}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+
+{# ═══════════════════════════════════════════════════════════════════════════
+   STICKY MOBILE BUY BAR
+   ═══════════════════════════════════════════════════════════════════════════ #}
+{% if not isOutOfStock %}
+  <div id="sticky-buy" class="hidden-bar fixed bottom-0 left-0 right-0 z-40 lg:hidden"
+       style="background:rgba(10,10,15,.97);backdrop-filter:blur(20px);border-top:1px solid #1E1E2E;padding:12px 16px;">
+    <div class="flex items-center gap-3">
+      <div>
+        <div class="text-smoke text-xs font-mono truncate" style="max-width:140px;">{{ produit.nom }}</div>
+        <div class="font-display text-2xl" style="color:#39FF14;">{% if produit.unitePrix == 'g' %}<span id="prix-display-sticky">{{ produit.prix | eur }}</span>{% elif produit.variantes and produit.variantes | length > 0 %}<span id="prix-display-sticky">{{ produit.variantes[0].prix | eur }}</span>{% else %}{{ produit.prix | eur }}{% endif %}</div>
+      </div>
+      <button data-add-to-cart="{{ produit.id }}"
+              class="btn-neon-green flex-1 py-3.5 rounded-xl text-sm uppercase tracking-widest font-bold flex items-center justify-center gap-2">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+        Ajouter
+      </button>
+    </div>
+  </div>
+{% endif %}
+
+
+{# ═══════════════════════════════════════════════════════════════════════════
+   JSON-LD Product (SEO)
+   ═══════════════════════════════════════════════════════════════════════════ #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ produit.nom }}",
+  "image": "{{ site.url }}{{ produit.image }}",
+  "description": "{{ produit.descriptionCourte | replace('"', '\\"') }}",
+  "sku": "{{ produit.id }}",
+  "brand": { "@type": "Brand", "name": "{{ produit.marque }}" },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ site.url }}/produits/{{ produit.id }}/",
+    "priceCurrency": "{{ produit.devise or 'EUR' }}",
+    "price": "{{ produit.prix }}",
+    "availability": "{% if isOutOfStock %}https://schema.org/OutOfStock{% else %}https://schema.org/InStock{% endif %}",
+    "itemCondition": "https://schema.org/NewCondition"
+  }{% if produit.note and produit.nombreAvis %},
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ produit.note }}",
+    "reviewCount": "{{ produit.nombreAvis }}"
+  }{% endif %}
+}
+</script>
+{# ═══════════════════════════════════════════════════════════════════════════
+   JSON-LD BreadcrumbList (SEO — fil d'Ariane dans les résultats Google)
+   ═══════════════════════════════════════════════════════════════════════════ #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil",                    "item": "{{ site.url }}/" },
+    { "@type": "ListItem", "position": 2, "name": "{{ categorieCourante.nom }}", "item": "{{ site.url }}/categories/{{ produit.categorie }}/" },
+    { "@type": "ListItem", "position": 3, "name": "{{ produit.nom }}",           "item": "{{ site.url }}/produits/{{ produit.id }}/" }
+  ]
+}
+</script>

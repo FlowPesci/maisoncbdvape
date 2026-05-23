@@ -1,0 +1,20 @@
+{
+  "name": "maisoncbdvape-eleventy",
+  "version": "1.0.0",
+  "description": "MaisonCBDVape — Site e-commerce JAMstack Eleventy + Cloudflare",
+  "type": "module",
+  "scripts": {
+    "build": "npm run css && npm run catalog && eleventy",
+    "css": "tailwindcss -i ./tailwind/input.css -o ./src/assets/css/tailwind.css --minify",
+    "catalog": "node scripts/build-catalog-index.js",
+    "start": "concurrently \"npm run css -- --watch\" \"eleventy --serve --incremental\"",
+    "dev": "wrangler pages dev public --kv ORDERS_KV --kv OAUTH_KV --r2 MEDIA",
+    "deploy": "npm run build && wrangler pages deploy public"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "concurrently": "^8.2.2",
+    "tailwindcss": "^3.4.1",
+    "wrangler": "^3.0.0"
+  }
+}

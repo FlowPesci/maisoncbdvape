@@ -1,0 +1,30 @@
+{
+  "marque": "Le Petit Gourmet",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Cannelé – 50 ml",
+  "actif": true,
+  "prix": 16.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Le Petit Gourmet",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "cannele-50-ml",
+  "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/474bd767dab496e5934e3f2419e7d1ad6acb79b9-lg.png",
+  "description": "E-liquide Cannelé de la gamme Le Petit Gourmet.\n\nProfil aromatique\nLa spécialité bordelaise en e-liquide : une croûte caramélisée légèrement croquante, un cœur moelleux à la vanille et au rhum, avec des notes de beurre et de caramel ambré.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50. Arôme pâtissier artisanal.\n\nUsage recommandé\nPour les amateurs de vapes gourmandes et authentiquement françaises.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

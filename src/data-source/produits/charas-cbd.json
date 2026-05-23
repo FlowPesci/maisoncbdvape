@@ -1,0 +1,52 @@
+{
+  "marque": "Charas CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Charas CBD",
+  "actif": true,
+  "prix": 4.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 14.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 24.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 49,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes terreuses et épicées, avec une touche boisée et légèrement sucrée.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "charas-cbd",
+  "image": "/media/produits/1778340639632-charas-cbd.jpeg",
+  "description": "Aspect visuel & texture\n\nRésine sombre, souple et légèrement collante au toucher.\n\nFacile à malaxer et à travailler, signe d’une extraction artisanale réussie.\n\nPrésente un aspect homogène et onctueux, gage de pureté et de qualité.\n\nArômes & saveurs\n\nProfil riche, profond et intense.\n\nNotes terreuses et épicées, avec une touche boisée et légèrement sucrée.\n\nEn bouche : une saveur puissante, authentique et persistante, rappelant les traditions du hashich indien.\n\n⚡ Effets (CBD)\n\nForte teneur en CBD pour une détente profonde et durable.\n\nApaise efficacement le stress, favorise le relâchement musculaire et le bien-être mental.\n\nIdéal en soirée ou lors de moments de relaxation intense.\n\nMéthode de fabrication\n\nCharas CBD obtenu à partir de fleurs sélectionnées et de techniques artisanales respectueuses du produit.\n\nRésultat : une résine pure, concentrée en CBD et en terpènes, offrant une expérience authentique et premium.\n\nEn résumé, le CBD Charas haut de gamme est une résine exceptionnelle, alliant puissance, authenticité et finesse aromatique, parfaite pour les amateurs de hasch traditionnel recherchant une alternative riche en CBD et sans effet psychotrope.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes terreuses et épicées, avec une touche boisée et légèrement sucrée."
+  }
+}

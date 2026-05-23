@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kit Box Gen SE – Vaporesso | Tabac Gex CBD & Vape</title>
+  <meta name="description" content="Kit Box Gen SE Vaporesso – Chipset AXON, écran TFT, réservoir 5ml iTank 2, 80W. Boutique premium Tabac Gex à Gex (01170). Livraison 24h." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'neon-green':  '#39FF14',
+            'neon-violet': '#BF5FFF',
+            'neon-blue':   '#00D4FF',
+            'dark-bg':     '#0A0A0F',
+            'dark-card':   '#12121A',
+            'dark-surface':'#161622',
+            'dark-border': '#1E1E2E',
+            'smoke':       '#8A8A9A',
+          },
+          fontFamily: {
+            'display': ['Bebas Neue', 'sans-serif'],
+            'body':    ['DM Sans', 'sans-serif'],
+            'mono':    ['Space Mono', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { background: #0A0A0F; font-family: 'DM Sans', sans-serif; }
+
+    /* grain texture */
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .32;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+    }
+
+    /* ── Header ──────────────────────────────── */
+    .glass-header {
+      background: rgba(10,10,15,.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.055);
+    }
+    .nav-link {
+      position: relative; color: #8A8A9A;
+      font-weight: 500; font-size: .82rem;
+      letter-spacing: .06em; text-transform: uppercase;
+      transition: color .25s;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1.5px;
+      background: linear-gradient(90deg,#39FF14,#BF5FFF);
+      transform: scaleX(0); transform-origin: left; transition: transform .3s;
+    }
+    .nav-link:hover { color: #fff; }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .icon-btn { color: #8A8A9A; transition: color .2s; position: relative; }
+    .icon-btn:hover { color: #fff; }
+
+    /* ── Breadcrumb ──────────────────────────── */
+    .breadcrumb-link { color: #8A8A9A; font-size: .75rem; transition: color .2s; }
+    .breadcrumb-link:hover { color: #39FF14; }
+
+    /* ── Gallery ─────────────────────────────── */
+    #main-image {
+      transition: opacity .3s ease, transform .4s ease;
+    }
+    #main-image.swapping { opacity: 0; transform: scale(.98); }
+
+    .thumb-btn {
+      border: 2px solid transparent;
+      border-radius: 10px; overflow: hidden;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      cursor: pointer;
+    }
+    .thumb-btn:hover { border-color: rgba(191,95,255,.45); transform: translateY(-2px); }
+    .thumb-btn.active {
+      border-color: #BF5FFF;
+      box-shadow: 0 0 14px rgba(191,95,255,.4);
+    }
+    .thumb-btn img { transition: transform .4s ease; display: block; width: 100%; height: 100%; object-fit: cover; }
+    .thumb-btn:hover img { transform: scale(1.08); }
+
+    /* ── Color swatches ──────────────────────── */
+    .color-swatch {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer; position: relative;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .color-swatch:hover { transform: scale(1.15); }
+    .color-swatch.active {
+      border-color: #fff;
+      box-shadow: 0 0 0 3px rgba(191,95,255,.55), 0 0 14px rgba(191,95,255,.4);
+    }
+    .color-swatch::after {
+      content: '';
+      position: absolute; inset: 2px; border-radius: 50%;
+      background: inherit; z-index: -1;
+    }
+
+    /* ── Qty stepper ─────────────────────────── */
+    .qty-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: #12121A; border: 1px solid #1E1E2E;
+      color: #fff; font-size: 1.1rem; font-weight: 700;
+      cursor: pointer; transition: all .22s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { border-color: #BF5FFF55; background: rgba(191,95,255,.08); color: #BF5FFF; }
+
+    /* ── CTAs ────────────────────────────────── */
+    .btn-neon-green {
+      background: linear-gradient(135deg,#39FF14,#00C853);
+      color: #0A0A0F; font-weight: 700;
+      box-shadow: 0 0 24px rgba(57,255,20,.4), 0 4px 20px rgba(57,255,20,.25);
+      transition: all .3s ease;
+    }
+    .btn-neon-green:hover {
+      box-shadow: 0 0 42px rgba(57,255,20,.6), 0 8px 30px rgba(57,255,20,.4);
+      transform: translateY(-2px);
+    }
+    .btn-neon-green:active { transform: translateY(0); }
+
+    .btn-outline-violet {
+      border: 1.5px solid #BF5FFF; color: #BF5FFF;
+      background: rgba(191,95,255,.06);
+      transition: all .3s ease; font-weight: 600;
+    }
+    .btn-outline-violet:hover {
+      background: rgba(191,95,255,.14);
+      box-shadow: 0 0 28px rgba(191,95,255,.35), inset 0 0 16px rgba(191,95,255,.07);
+      transform: translateY(-2px);
+    }
+
+    /* ── Spec table ──────────────────────────── */
+    .spec-row { border-bottom: 1px solid #1E1E2E; transition: background .2s; }
+    .spec-row:last-child { border-bottom: none; }
+    .spec-row:hover { background: rgba(255,255,255,.025); }
+
+    /* ── Tab system ──────────────────────────── */
+    .tab-btn {
+      padding: 10px 20px; border-radius: 10px 10px 0 0;
+      font-size: .82rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+      color: #8A8A9A; border: 1px solid transparent; border-bottom: none;
+      cursor: pointer; transition: all .22s;
+    }
+    .tab-btn.active { color: #BF5FFF; border-color: #1E1E2E; background: #12121A; }
+    .tab-btn:not(.active):hover { color: #fff; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Review stars ────────────────────────── */
+    .star-filled { color: #FBBF24; }
+    .star-empty  { color: #2E2E44; }
+    .review-card {
+      background: #12121A; border: 1px solid #1E1E2E; border-radius: 14px;
+      transition: border-color .3s, transform .3s;
+    }
+    .review-card:hover { border-color: #BF5FFF33; transform: translateY(-3px); }
+
+    /* ── Associated product cards ────────────── */
+    .assoc-card {
+      background: #12121A; border: 1px solid #1E1E2E; border-radius: 14px;
+      overflow: hidden; position: relative;
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .assoc-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.5), 0 0 30px rgba(191,95,255,.06);
+      border-color: #BF5FFF44;
+    }
+    .assoc-card img { transition: transform .5s ease; }
+    .assoc-card:hover img { transform: scale(1.07); }
+    .assoc-add-btn {
+      background: transparent; border: 1.5px solid rgba(57,255,20,.35);
+      color: #39FF14; font-size: .72rem; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; border-radius: 8px;
+      padding: 8px 0; width: 100%;
+      opacity: 0; transform: translateY(7px);
+      transition: all .28s;
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+    }
+    .assoc-card:hover .assoc-add-btn { opacity: 1; transform: translateY(0); }
+    .assoc-add-btn:hover { background: #39FF14; color: #0A0A0F; border-color: #39FF14; box-shadow: 0 0 18px #39FF1466; }
+
+    /* ── Highlight features ──────────────────── */
+    .feature-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(30,30,46,.7);
+    }
+    .feature-item:last-child { border-bottom: none; }
+    .feature-icon {
+      width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Stock badge ─────────────────────────── */
+    .stock-badge {
+      background: rgba(57,255,20,.1); color: #39FF14;
+      border: 1px solid rgba(57,255,20,.28);
+      border-radius: 50px; font-size: .72rem; font-weight: 700;
+      padding: 4px 12px; letter-spacing: .04em; text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+    }
+    .dispatch-badge {
+      background: rgba(0,212,255,.1); color: #00D4FF;
+      border: 1px solid rgba(0,212,255,.28);
+      border-radius: 50px; font-size: .72rem; font-weight: 700;
+      padding: 4px 12px; letter-spacing: .04em; text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── Floating product badge ──────────────── */
+    .product-badge {
+      position: absolute; top: 16px; left: 16px; z-index: 10;
+      background: #BF5FFF; color: #0A0A0F;
+      font-family: 'Space Mono', monospace; font-weight: 700;
+      font-size: .7rem; letter-spacing: .06em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 50px;
+    }
+
+    /* ── Divider ─────────────────────────────── */
+    .neon-divider {
+      height: 1px;
+      background: linear-gradient(90deg,transparent,#39FF1433,#BF5FFF33,transparent);
+    }
+
+    /* ── Fade-up scroll anim ─────────────────── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Footer ──────────────────────────────── */
+    .footer-bg { background: linear-gradient(180deg,#0A0A0F,#07070D); border-top: 1px solid #1E1E2E; }
+    .age-band { background: linear-gradient(90deg,#1a0a0a,#2a0a0a,#1a0a0a); border-top:1px solid #5a1a1a; border-bottom:1px solid #5a1a1a; }
+    .foot-link { color: #8A8A9A; font-size: .8rem; transition: color .2s; }
+    .foot-link:hover { color: #fff; }
+
+    /* ── Rating bar ──────────────────────────── */
+    .rating-bar-track { background: #1E1E2E; border-radius: 99px; height: 5px; flex: 1; }
+    .rating-bar-fill { background: linear-gradient(90deg,#FBBF24,#F59E0B); border-radius: 99px; height: 5px; }
+
+    /* ── Sticky purchase panel (mobile) ──────── */
+    #sticky-buy {
+      transition: transform .35s ease, opacity .35s ease;
+    }
+    #sticky-buy.hidden-bar { transform: translateY(100%); opacity: 0; pointer-events: none; }
+
+    /* grid lines bg */
+    .grid-lines {
+      background-image: linear-gradient(rgba(255,255,255,.013) 1px,transparent 1px),
+                        linear-gradient(90deg,rgba(255,255,255,.013) 1px,transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* image zoom on hover */
+    #main-image-wrap { overflow: hidden; border-radius: 20px; }
+    #main-image-wrap:hover #main-image:not(.swapping) { transform: scale(1.03); }
+    #main-image { transform-origin: center; }
+  </style>
+</head>
+
+<body class="text-white antialiased">
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════ -->
+<header class="glass-header fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <a href="#" class="flex items-center gap-2 shrink-0">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-neon-green to-neon-violet flex items-center justify-center">
+          <svg class="w-4 h-4 text-dark-bg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-display text-xl tracking-widest text-white leading-none">TABAC GEX</div>
+          <div class="font-mono text-xs text-smoke tracking-widest leading-none">CBD & VAPE</div>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7">
+        <a href="#" class="nav-link">CBD</a>
+        <a href="#" class="nav-link">Puffs</a>
+        <a href="vape.html" class="nav-link" style="color:#BF5FFF;">Vape & E-liquides</a>
+        <a href="#" class="nav-link">Chicha</a>
+        <a href="#" class="nav-link">Accessoires</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <button class="icon-btn hidden sm:block" aria-label="Rechercher">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+        </button>
+        <button class="icon-btn hidden sm:block" aria-label="Compte">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+        </button>
+        <button class="icon-btn relative" aria-label="Panier">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+          <span class="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-neon-violet text-dark-bg font-mono font-bold flex items-center justify-center" style="font-size:9px;">2</span>
+        </button>
+        <button id="menu-toggle" class="lg:hidden icon-btn p-1" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-dark-border">
+    <div class="px-4 py-3 space-y-1">
+      <a href="#" class="block py-2 text-smoke hover:text-white uppercase text-sm font-medium tracking-wider transition-colors">CBD</a>
+      <a href="#" class="block py-2 text-neon-violet uppercase text-sm font-medium tracking-wider">Vape & E-liquides</a>
+      <a href="#" class="block py-2 text-smoke hover:text-white uppercase text-sm font-medium tracking-wider transition-colors">Puffs</a>
+      <a href="#" class="block py-2 text-smoke hover:text-white uppercase text-sm font-medium tracking-wider transition-colors">Chicha</a>
+      <a href="#" class="block py-2 text-smoke hover:text-white uppercase text-sm font-medium tracking-wider transition-colors">Accessoires</a>
+    </div>
+  </div>
+</header>
+
+
+<!-- ═══════════════════════════════════════════
+     BREADCRUMB
+═══════════════════════════════════════════ -->
+<div class="pt-16 grid-lines">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+    <nav aria-label="Fil d'Ariane" class="flex items-center flex-wrap gap-1.5 text-xs font-mono">
+      <a href="index.html" class="breadcrumb-link">Accueil</a>
+      <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+      <a href="vape.html" class="breadcrumb-link">Vape</a>
+      <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+      <a href="#" class="breadcrumb-link">Cigarettes Électroniques</a>
+      <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+      <span class="text-neon-violet">Kit Box Gen SE</span>
+    </nav>
+  </div>
+  <div class="neon-divider"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     MAIN PRODUCT AREA
+═══════════════════════════════════════════ -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+  <div class="grid lg:grid-cols-2 gap-10 xl:gap-16 items-start">
+
+    <!-- ═══════════════════════════════════
+         LEFT – GALLERY
+    ═══════════════════════════════════ -->
+    <div class="lg:sticky lg:top-24 fade-up">
+
+      <!-- Main image -->
+      <div id="main-image-wrap" class="relative aspect-square bg-dark-card border border-dark-border rounded-2xl overflow-hidden mb-4 cursor-zoom-in"
+           style="background:linear-gradient(135deg,#12121A 0%,#0F0F1A 100%);">
+
+        <!-- Floating badge -->
+        <div class="product-badge">✨ Coup de cœur</div>
+
+        <!-- Wishlist -->
+        <button class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-dark-bg/80 border border-dark-border flex items-center justify-center text-smoke hover:text-red-400 transition-all">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+        </button>
+
+        <img id="main-image"
+             src="img/kit-box-gen-se-vaporesso.jpg"
+             alt="Kit Box Gen SE Vaporesso – vue principale"
+             class="w-full h-full object-cover"
+             style="transition: opacity .3s ease, transform .5s ease;" />
+
+        <!-- Zoom hint -->
+        <div class="absolute bottom-4 left-4 px-2 py-1 rounded-lg bg-dark-bg/70 border border-dark-border text-smoke text-xs font-mono flex items-center gap-1.5">
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"/></svg>
+          Zoom au survol
+        </div>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="grid grid-cols-4 gap-3">
+        <button class="thumb-btn active aspect-square"
+                data-src="img/box-gen-se-80w-vaporesso-1.jpeg"
+                data-alt="Kit Box Gen SE – Vue principale"
+                onclick="switchImage(this)">
+          <img src="img/box-gen-se-80w-vaporesso-1.jpeg" alt="Vue principale" />
+        </button>
+        <button class="thumb-btn aspect-square"
+                data-src="img/P1011239.jpg"
+                data-alt="Kit Box Gen SE – Couleur Midnight Blue"
+                onclick="switchImage(this)">
+          <img src="img/P1011239.jpg" alt="Couleur Midnight Blue" />
+        </button>
+        <button class="thumb-btn aspect-square"
+                data-src="img/kitgen80w.jpeg"
+                data-alt="Kit Box Gen SE – Écran TFT gros plan"
+                onclick="switchImage(this)">
+          <img src="img/kitgen80w.jpeg" alt="Écran TFT" />
+        </button>
+        <button class="thumb-btn aspect-square"
+                data-src="img/boxgense.jpeg"
+                data-alt="Kit Box Gen SE – Vue éclatée tank iTank 2"
+                onclick="switchImage(this)">
+          <img src="img/boxgense.jpeg" alt="Tank iTank 2" />
+        </button>
+      </div>
+
+      <!-- Share row -->
+      <div class="flex items-center gap-3 mt-5 pt-5 border-t border-dark-border">
+        <span class="text-smoke text-xs font-mono uppercase tracking-wider">Partager :</span>
+        <a href="#" class="text-smoke hover:text-white transition-colors text-xs">Facebook</a>
+        <a href="#" class="text-smoke hover:text-white transition-colors text-xs">Twitter / X</a>
+        <a href="#" class="text-smoke hover:text-white transition-colors text-xs">WhatsApp</a>
+        <a href="#" class="text-smoke hover:text-white transition-colors text-xs ml-auto flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/></svg>
+          Copier le lien
+        </a>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════
+         RIGHT – PRODUCT INFO
+    ═══════════════════════════════════ -->
+    <div class="fade-up" style="transition-delay:.08s;">
+
+      <!-- Brand tag -->
+      <div class="flex items-center gap-3 mb-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-neon-violet/25 bg-neon-violet/6 text-neon-violet font-mono text-xs tracking-widest uppercase">
+          <span class="w-1.5 h-1.5 rounded-full bg-neon-violet"></span>
+          Vaporesso
+        </span>
+        <span class="text-smoke text-xs font-mono">Réf: GEN-SE-KIT-V1</span>
+      </div>
+
+      <!-- H1 -->
+      <h1 class="font-display text-4xl sm:text-5xl xl:text-6xl text-white leading-none tracking-wide mb-4">
+        KIT BOX GEN SE<br/>
+        <span style="color:#BF5FFF;">PERFORMANCE</span><br/>
+        <span style="color:#39FF14;">&amp; ÉLÉGANCE.</span>
+      </h1>
+
+      <!-- Rating -->
+      <div class="flex items-center gap-3 mb-5">
+        <div class="flex items-center gap-0.5">
+          <span class="star-filled text-lg">★</span>
+          <span class="star-filled text-lg">★</span>
+          <span class="star-filled text-lg">★</span>
+          <span class="star-filled text-lg">★</span>
+          <span class="star-filled text-lg">★</span>
+        </div>
+        <span class="text-white font-semibold text-sm">4.9</span>
+        <a href="#reviews" class="text-smoke text-xs hover:text-white transition-colors underline underline-offset-2">Basé sur 45 avis certifiés</a>
+      </div>
+
+      <!-- Short description -->
+      <p class="text-smoke text-base leading-relaxed mb-6">
+        La <strong class="text-white font-medium">Box Gen SE</strong> de Vaporesso réunit technologie de pointe et design affûté dans un format compact.<br/>
+        Le chipset <strong class="text-white font-medium">AXON</strong> offre des performances exceptionnelles, du tir ultra-réactif à la vapeur dense — pour les vapoteurs exigeants.
+      </p>
+
+      <!-- Price block -->
+      <div class="rounded-2xl bg-dark-card border border-dark-border p-5 mb-5">
+        <div class="flex items-end gap-4 mb-3">
+          <div class="font-display text-5xl" style="color:#39FF14;">69,90 €</div>
+          <div class="mb-1">
+            <div class="text-smoke text-sm line-through font-mono">84,90 €</div>
+            <div class="text-xs font-bold px-2 py-0.5 rounded" style="background:rgba(255,80,0,.15);color:#FF6020;border:1px solid rgba(255,80,0,.25);">−18%</div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <span class="stock-badge">✓ En stock</span>
+          <span class="dispatch-badge">⚡ Expédié sous 24h</span>
+        </div>
+
+        <!-- Payment ease -->
+        <div class="flex items-center gap-2 text-xs text-smoke">
+          <svg class="w-4 h-4 shrink-0" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
+          Paiement en 3× ou 4× sans frais disponible — à partir de <strong class="text-white">23,30 €/mois</strong>
+        </div>
+      </div>
+
+      <!-- Feature highlights -->
+      <div class="rounded-2xl bg-dark-card border border-dark-border p-5 mb-6">
+        <h3 class="font-display text-base tracking-widest text-white mb-1">POINTS FORTS</h3>
+        <div>
+
+          <div class="feature-item">
+            <div class="feature-icon" style="background:rgba(57,255,20,.1);">
+              <svg class="w-3.5 h-3.5" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.809 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+            </div>
+            <div>
+              <div class="text-white text-sm font-semibold">Chipset AXON</div>
+              <div class="text-smoke text-xs">Tir ultra-réactif, protection avancée, longévité maximale</div>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon" style="background:rgba(191,95,255,.1);">
+              <svg class="w-3.5 h-3.5" style="color:#BF5FFF;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3"/></svg>
+            </div>
+            <div>
+              <div class="text-white text-sm font-semibold">Écran TFT couleur 0,96"</div>
+              <div class="text-smoke text-xs">Affichage clair de la puissance, batterie et mode de vape</div>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon" style="background:rgba(0,212,255,.1);">
+              <svg class="w-3.5 h-3.5" style="color:#00D4FF;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
+            </div>
+            <div>
+              <div class="text-white text-sm font-semibold">Réservoir iTank 2 – 5 ml</div>
+              <div class="text-smoke text-xs">Remplissage top-fill sans fuite, compatible coils GTX</div>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon" style="background:rgba(251,191,36,.1);">
+              <svg class="w-3.5 h-3.5" style="color:#FBBF24;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+            </div>
+            <div>
+              <div class="text-white text-sm font-semibold">Puissance max 80W</div>
+              <div class="text-smoke text-xs">Modes Pulse, ECO & Smart pour chaque profil de vapoteur</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── CONFIGURATION ── -->
+      <div class="space-y-5 mb-7">
+
+        <!-- Color selector -->
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <label class="text-sm font-semibold text-white">Couleur</label>
+            <span id="color-label" class="text-xs font-mono text-neon-violet">Midnight Blue</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="color-swatch active" style="background:#1a2a4a;" data-color="Midnight Blue" onclick="selectColor(this)" title="Midnight Blue"></button>
+            <button class="color-swatch" style="background:#2a2a2a;" data-color="Gunmetal Black" onclick="selectColor(this)" title="Gunmetal Black"></button>
+            <button class="color-swatch" style="background:#c0c0c0;" data-color="Silver Chrome" onclick="selectColor(this)" title="Silver Chrome"></button>
+            <button class="color-swatch" style="background:linear-gradient(135deg,#8B0000,#CC0000);" data-color="Carbon Red" onclick="selectColor(this)" title="Carbon Red"></button>
+          </div>
+        </div>
+
+        <!-- Quantity -->
+        <div>
+          <label class="text-sm font-semibold text-white block mb-3">Quantité</label>
+          <div class="flex items-center gap-3">
+            <button class="qty-btn" onclick="changeQty(-1)">−</button>
+            <span id="qty-display" class="w-10 text-center font-mono font-bold text-white text-lg">1</span>
+            <button class="qty-btn" onclick="changeQty(1)">+</button>
+            <span class="text-smoke text-xs ml-2">Max. 5 par commande</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTAs -->
+      <div class="space-y-3 mb-6">
+        <button id="add-cart-btn" onclick="addToCart(this)"
+                class="btn-neon-green w-full py-4 rounded-xl text-sm uppercase tracking-widest flex items-center justify-center gap-2.5">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+          Ajouter au panier
+        </button>
+        <button class="btn-outline-violet w-full py-4 rounded-xl text-sm uppercase tracking-widest flex items-center justify-center gap-2.5">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+          Réserver en Click & Collect – Gex
+        </button>
+      </div>
+
+      <!-- Reassurance mini-icons -->
+      <div class="grid grid-cols-3 gap-3">
+        <div class="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border border-dark-border bg-dark-card text-center">
+          <svg class="w-4 h-4" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+          <span class="text-smoke text-xs leading-tight">Paiement sécurisé</span>
+        </div>
+        <div class="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border border-dark-border bg-dark-card text-center">
+          <svg class="w-4 h-4" style="color:#00D4FF;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+          <span class="text-smoke text-xs leading-tight">Livraison 48h</span>
+        </div>
+        <div class="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border border-dark-border bg-dark-card text-center">
+          <svg class="w-4 h-4" style="color:#BF5FFF;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/></svg>
+          <span class="text-smoke text-xs leading-tight">Retours 14 jours</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+
+<!-- ═══════════════════════════════════════════
+     TABS: SPECS / KIT CONTENT / REVIEWS
+═══════════════════════════════════════════ -->
+<section id="tabs-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 fade-up">
+
+  <!-- Tab nav -->
+  <div class="flex items-end gap-1 border-b border-dark-border mb-0 overflow-x-auto" style="scrollbar-width:none;">
+    <button class="tab-btn active" onclick="switchTab(this,'tab-specs')">Fiche Technique</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-kit')">Contenu du Kit</button>
+    <button class="tab-btn" id="reviews-tab-btn" onclick="switchTab(this,'tab-reviews')">Avis Clients (45)</button>
+  </div>
+
+  <!-- ── TAB 1: SPECS ── -->
+  <div id="tab-specs" class="tab-panel active">
+    <div class="rounded-b-2xl rounded-tr-2xl bg-dark-card border border-t-0 border-dark-border overflow-hidden">
+      <table class="w-full text-sm">
+        <tbody>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider w-44 lg:w-56">Marque</td>
+            <td class="py-3.5 px-5 text-white font-medium">Vaporesso</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Modèle</td>
+            <td class="py-3.5 px-5 text-white font-medium">Gen SE Kit</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Chipset</td>
+            <td class="py-3.5 px-5 text-neon-green font-semibold font-mono">AXON</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Puissance max</td>
+            <td class="py-3.5 px-5 text-white font-medium">80 W</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Batterie</td>
+            <td class="py-3.5 px-5 text-white font-medium">1× 18650 (non incluse)</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Écran</td>
+            <td class="py-3.5 px-5 text-white font-medium">TFT Couleur 0,96"</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Tank</td>
+            <td class="py-3.5 px-5 text-white font-medium">iTank 2 – 5 ml</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Coils compatibles</td>
+            <td class="py-3.5 px-5 text-white font-medium">GTX Mesh 0,2 Ω / GTX 0,3 Ω</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Remplissage</td>
+            <td class="py-3.5 px-5 text-white font-medium">Top-fill anti-fuite</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Modes de vape</td>
+            <td class="py-3.5 px-5 text-white font-medium">Pulse / ECO / Smart</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Recharge</td>
+            <td class="py-3.5 px-5 text-white font-medium">USB-C 1A (câble inclus)</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Dimensions</td>
+            <td class="py-3.5 px-5 text-white font-medium">85 × 52 × 28 mm</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Poids (sans accu)</td>
+            <td class="py-3.5 px-5 text-white font-medium">148 g</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Couleurs dispo</td>
+            <td class="py-3.5 px-5 text-white font-medium">Midnight Blue · Gunmetal Black · Silver Chrome · Carbon Red</td>
+          </tr>
+          <tr class="spec-row">
+            <td class="py-3.5 px-5 text-smoke font-mono text-xs uppercase tracking-wider">Garantie</td>
+            <td class="py-3.5 px-5 text-white font-medium">6 mois constructeur</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── TAB 2: KIT CONTENT ── -->
+  <div id="tab-kit" class="tab-panel">
+    <div class="rounded-b-2xl rounded-tr-2xl bg-dark-card border border-t-0 border-dark-border p-6 lg:p-8">
+      <p class="text-smoke text-sm mb-6">Le kit complet <strong class="text-white">Gen SE</strong> inclut tout ce dont vous avez besoin pour commencer à vaper immédiatement — il vous manquera uniquement l'accu 18650 et votre e-liquide préféré.</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <!-- items -->
+        <div class="flex items-center gap-3 p-3.5 rounded-xl border border-dark-border bg-dark-bg">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(57,255,20,.1);">
+            <svg class="w-3.5 h-3.5" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <span class="text-white text-sm">1× Box Gen SE (80W)</span>
+        </div>
+        <div class="flex items-center gap-3 p-3.5 rounded-xl border border-dark-border bg-dark-bg">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(57,255,20,.1);">
+            <svg class="w-3.5 h-3.5" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <span class="text-white text-sm">1× Tank iTank 2 (5 ml)</span>
+        </div>
+        <div class="flex items-center gap-3 p-3.5 rounded-xl border border-dark-border bg-dark-bg">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(57,255,20,.1);">
+            <svg class="w-3.5 h-3.5" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <span class="text-white text-sm">1× Coil GTX Mesh 0,2 Ω (pré-installé)</span>
+        </div>
+        <div class="flex items-center gap-3 p-3.5 rounded-xl border border-dark-border bg-dark-bg">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(57,255,20,.1);">
+            <svg class="w-3.5 h-3.5" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <span class="text-white text-sm">1× Coil GTX 0,3 Ω (spare)</span>
+        </div>
+        <div class="flex items-center gap-3 p-3.5 rounded-xl border border-dark-border bg-dark-bg">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(57,255,20,.1);">
+            <svg class="w-3.5 h-3.5" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <span class="text-white text-sm">1× Câble USB-C (recharge)</span>
+        </div>
+        <div class="flex items-center gap-3 p-3.5 rounded-xl border border-dark-border bg-dark-bg">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(57,255,20,.1);">
+            <svg class="w-3.5 h-3.5" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <span class="text-white text-sm">1× Guide d'utilisation (FR)</span>
+        </div>
+        <div class="flex items-center gap-3 p-3.5 rounded-xl border border-dark-border bg-dark-bg">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(57,255,20,.1);">
+            <svg class="w-3.5 h-3.5" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <span class="text-white text-sm">1× Carte de garantie Vaporesso</span>
+        </div>
+        <div class="flex items-center gap-3 p-3.5 rounded-xl border border-dark-border bg-dark-bg">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(255,80,0,.1);">
+            <svg class="w-3.5 h-3.5" style="color:#FF6020;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </div>
+          <span class="text-smoke text-sm italic">Accu 18650 <em>non inclus</em></span>
+        </div>
+      </div>
+      <div class="mt-5 p-4 rounded-xl border border-neon-blue/20 bg-neon-blue/5 flex gap-3">
+        <svg class="w-5 h-5 shrink-0 mt-0.5" style="color:#00D4FF;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
+        <p class="text-smoke text-xs leading-relaxed"><strong class="text-white">Conseil Tabac Gex :</strong> Associez votre Kit Gen SE avec un accu <strong class="text-white">Samsung 30Q 18650</strong> pour des performances optimales. Retrouvez-le dans nos produits associés ci-dessous.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 3: REVIEWS ── -->
+  <div id="tab-reviews" class="tab-panel">
+    <div class="rounded-b-2xl rounded-tr-2xl bg-dark-card border border-t-0 border-dark-border p-6 lg:p-8" id="reviews">
+
+      <!-- Rating overview -->
+      <div class="grid sm:grid-cols-2 gap-8 mb-8">
+        <!-- Global score -->
+        <div class="flex flex-col items-center justify-center py-6 rounded-2xl border border-dark-border bg-dark-bg text-center">
+          <div class="font-display text-7xl mb-1" style="color:#FBBF24;">4.9</div>
+          <div class="flex gap-1 mb-2">
+            <span class="star-filled text-2xl">★</span><span class="star-filled text-2xl">★</span>
+            <span class="star-filled text-2xl">★</span><span class="star-filled text-2xl">★</span>
+            <span class="star-filled text-2xl">★</span>
+          </div>
+          <div class="text-smoke text-xs font-mono">Basé sur 45 avis certifiés</div>
+        </div>
+        <!-- Breakdown -->
+        <div class="space-y-2.5">
+          <div class="flex items-center gap-3">
+            <span class="text-smoke text-xs font-mono w-4">5★</span>
+            <div class="rating-bar-track flex-1"><div class="rating-bar-fill" style="width:88%;"></div></div>
+            <span class="text-smoke text-xs font-mono w-6">40</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-smoke text-xs font-mono w-4">4★</span>
+            <div class="rating-bar-track flex-1"><div class="rating-bar-fill" style="width:9%;"></div></div>
+            <span class="text-smoke text-xs font-mono w-6">4</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-smoke text-xs font-mono w-4">3★</span>
+            <div class="rating-bar-track flex-1"><div class="rating-bar-fill" style="width:2%;"></div></div>
+            <span class="text-smoke text-xs font-mono w-6">1</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-smoke text-xs font-mono w-4">2★</span>
+            <div class="rating-bar-track flex-1"><div class="rating-bar-fill" style="width:0%;"></div></div>
+            <span class="text-smoke text-xs font-mono w-6">0</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-smoke text-xs font-mono w-4">1★</span>
+            <div class="rating-bar-track flex-1"><div class="rating-bar-fill" style="width:0%;"></div></div>
+            <span class="text-smoke text-xs font-mono w-6">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Individual reviews -->
+      <div class="space-y-4">
+
+        <!-- Review 1 -->
+        <div class="review-card p-5">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center font-display text-sm text-dark-bg" style="background:linear-gradient(135deg,#39FF14,#BF5FFF);">MB</div>
+              <div>
+                <div class="text-white font-semibold text-sm">Mathieu B.</div>
+                <div class="text-smoke text-xs font-mono">Achat vérifié · 12 mars 2025</div>
+              </div>
+            </div>
+            <div class="flex gap-0.5 text-sm star-filled">★★★★★</div>
+          </div>
+          <h4 class="text-white text-sm font-semibold mb-1.5">"Meilleur kit que j'aie eu depuis 3 ans de vape"</h4>
+          <p class="text-smoke text-sm leading-relaxed">L'écran est vraiment lisible, la chauffe ultra rapide avec le GTX Mesh 0,2Ω. Le tank ne fuit absolument pas, j'ai testé dans toutes les positions. La touche de feu est bien placée et le grip en main est parfait. Je recommande sans hésitation à tout vapoteur exigeant.</p>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card p-5">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center font-display text-sm text-dark-bg" style="background:linear-gradient(135deg,#00D4FF,#39FF14);">SL</div>
+              <div>
+                <div class="text-white font-semibold text-sm">Sophie L.</div>
+                <div class="text-smoke text-xs font-mono">Achat vérifié · 4 fév. 2025</div>
+              </div>
+            </div>
+            <div class="flex gap-0.5 text-sm star-filled">★★★★★</div>
+          </div>
+          <h4 class="text-white text-sm font-semibold mb-1.5">"Design superbe, en adéquation avec le marketing"</h4>
+          <p class="text-smoke text-sm leading-relaxed">J'avais peur que les photos soient trompeuses mais la finition du coloris Midnight Blue est vraiment premium. Le poids avec l'accu est idéal, pas trop lourd. Livraison le lendemain depuis Gex, le service Tabac Gex est au top !</p>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card p-5">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center font-display text-sm text-dark-bg" style="background:linear-gradient(135deg,#BF5FFF,#FF6020);">RD</div>
+              <div>
+                <div class="text-white font-semibold text-sm">Romain D.</div>
+                <div class="text-smoke text-xs font-mono">Achat vérifié · 19 jan. 2025</div>
+              </div>
+            </div>
+            <div class="flex gap-0.5 text-sm">
+              <span class="star-filled">★★★★</span><span class="star-empty">★</span>
+            </div>
+          </div>
+          <h4 class="text-white text-sm font-semibold mb-1.5">"Très bon kit, léger bémol sur la batterie non incluse"</h4>
+          <p class="text-smoke text-sm leading-relaxed">Le kit en lui-même est vraiment excellent. Je retire une étoile uniquement parce que l'accu n'est pas inclus, ce qui m'a surpris. Préférez commander l'accu Samsung 30Q en même temps. Sinon la vape est dense, la saveur bien rendue, et le mode Smart est bluffant.</p>
+        </div>
+
+      </div>
+
+      <!-- CTA review -->
+      <div class="mt-6 text-center">
+        <a href="#" class="btn-outline-violet inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold uppercase tracking-widest">
+          Laisser un avis
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     PRODUITS ASSOCIÉS
+═══════════════════════════════════════════ -->
+<section class="py-16 lg:py-20" style="background:linear-gradient(180deg,#0A0A0F 0%,#0D0D18 100%);border-top:1px solid #1E1E2E;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="flex items-end justify-between mb-10 fade-up">
+      <div>
+        <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full border border-dark-border">
+          <span class="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse"></span>
+          <span class="font-mono text-xs text-smoke tracking-widest uppercase">Complétez votre setup</span>
+        </div>
+        <h2 class="font-display text-4xl lg:text-5xl text-white tracking-wide">PRODUITS ASSOCIÉS</h2>
+      </div>
+      <a href="#" class="hidden sm:flex items-center gap-2 text-sm text-neon-violet border border-neon-violet/30 px-4 py-2 rounded-xl hover:bg-neon-violet/10 transition-all">
+        Voir tout
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+
+      <!-- Assoc 1 -->
+      <div class="assoc-card group fade-up">
+        <div class="relative overflow-hidden" style="aspect-ratio:1/1;">
+          <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400&q=80&fit=crop" alt="Coils GTX Mesh" class="w-full h-full object-cover"/>
+          <div class="absolute top-3 left-3">
+            <span class="bg-neon-green text-dark-bg text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono">Compatible</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">Vaporesso · Coils</div>
+          <h3 class="text-white font-semibold text-sm leading-snug mb-2">Coils GTX Mesh 0,2 Ω <span class="text-smoke text-xs">× 5</span></h3>
+          <div class="flex items-center justify-between mb-3">
+            <div class="font-display text-xl" style="color:#39FF14;">12,90 €</div>
+          </div>
+          <button class="assoc-add-btn">
+            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            Ajouter
+          </button>
+        </div>
+      </div>
+
+      <!-- Assoc 2 -->
+      <div class="assoc-card group fade-up" style="transition-delay:.08s;">
+        <div class="relative overflow-hidden" style="aspect-ratio:1/1;">
+          <img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?w=400&q=80&fit=crop" alt="Accu 18650 Samsung" class="w-full h-full object-cover"/>
+          <div class="absolute top-3 left-3">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono" style="background:rgba(0,212,255,.2);color:#00D4FF;border:1px solid rgba(0,212,255,.28);">Indispensable</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">Samsung · Accu</div>
+          <h3 class="text-white font-semibold text-sm leading-snug mb-2">Accu 18650 Samsung 30Q – 3000 mAh</h3>
+          <div class="flex items-center justify-between mb-3">
+            <div class="font-display text-xl" style="color:#39FF14;">8,90 €</div>
+          </div>
+          <button class="assoc-add-btn">
+            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            Ajouter
+          </button>
+        </div>
+      </div>
+
+      <!-- Assoc 3 -->
+      <div class="assoc-card group fade-up" style="transition-delay:.16s;">
+        <div class="relative overflow-hidden" style="aspect-ratio:1/1;">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80&fit=crop" alt="E-liquide Le Petit Verger Pêche" class="w-full h-full object-cover opacity-85"/>
+          <div class="absolute top-3 left-3">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono" style="background:rgba(251,191,36,.2);color:#FBBF24;border:1px solid rgba(251,191,36,.28);">Best-seller</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">Le Petit Verger · 50ml</div>
+          <h3 class="text-white font-semibold text-sm leading-snug mb-2">E-liquide Pêche Litchi Frais – 0mg</h3>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="font-display text-xl" style="color:#39FF14;">7,90 €</div>
+            <div class="font-mono text-smoke text-xs line-through">10,90 €</div>
+          </div>
+          <button class="assoc-add-btn">
+            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            Ajouter
+          </button>
+        </div>
+      </div>
+
+      <!-- Assoc 4 -->
+      <div class="assoc-card group fade-up" style="transition-delay:.24s;">
+        <div class="relative overflow-hidden" style="aspect-ratio:1/1;">
+          <img src="https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=400&q=80&fit=crop" alt="Étui de protection silicone" class="w-full h-full object-cover"/>
+          <div class="absolute top-3 left-3">
+            <span class="bg-neon-violet text-dark-bg text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider font-mono">Nouveau</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">Accessoire · Protection</div>
+          <h3 class="text-white font-semibold text-sm leading-snug mb-2">Étui Silicone Gen SE – Protection intégrale</h3>
+          <div class="flex items-center justify-between mb-3">
+            <div class="font-display text-xl" style="color:#39FF14;">5,90 €</div>
+          </div>
+          <button class="assoc-add-btn">
+            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            Ajouter
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     STICKY MOBILE BUY BAR
+═══════════════════════════════════════════ -->
+<div id="sticky-buy" class="hidden-bar fixed bottom-0 left-0 right-0 z-40 lg:hidden"
+     style="background:rgba(10,10,15,.97);backdrop-filter:blur(20px);border-top:1px solid #1E1E2E;padding:12px 16px;">
+  <div class="flex items-center gap-3">
+    <div>
+      <div class="text-smoke text-xs font-mono">Kit Box Gen SE</div>
+      <div class="font-display text-2xl" style="color:#39FF14;">69,90 €</div>
+    </div>
+    <button onclick="addToCart(document.getElementById('add-cart-btn'))"
+            class="btn-neon-green flex-1 py-3.5 rounded-xl text-sm uppercase tracking-widest font-bold flex items-center justify-center gap-2">
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+      Ajouter au panier
+    </button>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer class="footer-bg">
+  <div class="age-band py-3">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-sm font-semibold" style="color:#FF6B6B;">🔞 Vente strictement interdite aux mineurs de moins de 18 ans. Produits réservés aux personnes majeures.</p>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-neon-green to-neon-violet flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-dark-bg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
+            <div class="font-display text-base tracking-widest text-white">TABAC GEX</div>
+            <div class="font-mono text-xs text-smoke tracking-widest">CBD & VAPE</div>
+          </div>
+        </div>
+        <p class="text-smoke text-xs leading-relaxed mb-4">Boutique premium CBD, Vape, Puffs, Chicha et articles fumeurs à Gex.</p>
+        <div class="flex gap-2.5">
+          <a href="#" class="w-8 h-8 rounded-lg border border-dark-border flex items-center justify-center text-smoke hover:text-white hover:border-neon-violet/40 transition-all" aria-label="Instagram">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-lg border border-dark-border flex items-center justify-center text-smoke hover:text-white hover:border-neon-blue/40 transition-all" aria-label="Facebook">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-lg border border-dark-border flex items-center justify-center text-smoke hover:text-white hover:border-neon-violet/40 transition-all" aria-label="TikTok">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-display text-base tracking-wide text-white mb-4">INFOS PRATIQUES</h4>
+        <ul class="space-y-2.5 text-smoke text-xs">
+          <li class="flex items-start gap-2">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            <span>48 Rue De Genève<br/>01170 Gex, France</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 shrink-0" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+            <a href="#" class="hover:text-white transition-colors">04 50 XX XX XX</a>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0" style="color:#39FF14;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div>Lun–Sam : 9h – 19h30<br/>Dimanche : 10h – 13h</div>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-display text-base tracking-wide text-white mb-4">BOUTIQUE</h4>
+        <ul class="space-y-2 text-smoke text-xs">
+          <li><a href="#" class="foot-link">Fleurs & Résines CBD</a></li>
+          <li><a href="#" class="foot-link">Puffs Jetables</a></li>
+          <li><a href="#" class="foot-link" style="color:#BF5FFF;">Cigarettes Électroniques</a></li>
+          <li><a href="#" class="foot-link">E-liquides & DIY</a></li>
+          <li><a href="#" class="foot-link">Chicha & Accessoires</a></li>
+          <li><a href="#" class="foot-link">Nouveautés</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-display text-base tracking-wide text-white mb-4">AIDE & LÉGAL</h4>
+        <ul class="space-y-2 text-smoke text-xs">
+          <li><a href="#" class="foot-link">Suivi de commande</a></li>
+          <li><a href="#" class="foot-link">Politique de livraison</a></li>
+          <li><a href="#" class="foot-link">Retours & Remboursements</a></li>
+          <li><a href="#" class="foot-link">CGV</a></li>
+          <li><a href="#" class="foot-link">Mentions légales</a></li>
+          <li><a href="#" class="foot-link">Contact</a></li>
+        </ul>
+        <div class="mt-5">
+          <div class="text-smoke text-xs mb-2 font-mono uppercase tracking-wider">Paiements</div>
+          <div class="flex gap-1.5 flex-wrap">
+            <div class="px-2 py-0.5 rounded bg-dark-card border border-dark-border text-smoke text-xs font-mono">VISA</div>
+            <div class="px-2 py-0.5 rounded bg-dark-card border border-dark-border text-smoke text-xs font-mono">MC</div>
+            <div class="px-2 py-0.5 rounded bg-dark-card border border-dark-border text-smoke text-xs font-mono">CB</div>
+            <div class="px-2 py-0.5 rounded bg-dark-card border border-dark-border text-smoke text-xs font-mono">PayPal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="neon-divider mt-10 mb-5"></div>
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-3 text-smoke text-xs">
+      <p>© 2025 Tabac Gex – Tous droits réservés.</p>
+      <p class="font-mono opacity-50">tabacgex.fr · Gex 01170 · France</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════ -->
+<script>
+  // ── Header mobile menu ────────────────
+  document.getElementById('menu-toggle')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+  });
+
+  // ── Thumbnail switcher ────────────────
+  function switchImage(btn) {
+    const mainImg = document.getElementById('main-image');
+    const newSrc  = btn.dataset.src;
+    const newAlt  = btn.dataset.alt;
+
+    // Deactivate all thumbs
+    document.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Animate swap
+    mainImg.classList.add('swapping');
+    setTimeout(() => {
+      mainImg.src = newSrc;
+      mainImg.alt = newAlt;
+      mainImg.onload = () => mainImg.classList.remove('swapping');
+      // fallback if already cached
+      if (mainImg.complete) mainImg.classList.remove('swapping');
+    }, 200);
+  }
+
+  // ── Color selector ────────────────────
+  function selectColor(btn) {
+    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('color-label').textContent = btn.dataset.color;
+  }
+
+  // ── Quantity stepper ──────────────────
+  let qty = 1;
+  function changeQty(delta) {
+    qty = Math.max(1, Math.min(5, qty + delta));
+    document.getElementById('qty-display').textContent = qty;
+  }
+
+  // ── Add to cart feedback ──────────────
+  function addToCart(btn) {
+    if (!btn) return;
+    const orig = btn.innerHTML;
+    btn.innerHTML = `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Ajouté au panier !`;
+    btn.style.boxShadow = '0 0 50px rgba(57,255,20,.7)';
+    btn.disabled = true;
+    // bump cart badge
+    document.querySelectorAll('.icon-btn span').forEach(s => {
+      if (s.textContent.trim().length <= 2) s.textContent = String(Number(s.textContent) + qty);
+    });
+    setTimeout(() => {
+      btn.innerHTML = orig;
+      btn.style.boxShadow = '';
+      btn.disabled = false;
+    }, 2500);
+  }
+  document.getElementById('add-cart-btn')?.addEventListener('click', function() { addToCart(this); });
+
+  // ── Tab system ────────────────────────
+  function switchTab(btn, panelId) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panelId)?.classList.add('active');
+  }
+  // Allow anchor #reviews to open reviews tab
+  if (window.location.hash === '#reviews') {
+    switchTab(document.getElementById('reviews-tab-btn'), 'tab-reviews');
+  }
+
+  // ── Scroll animations ─────────────────
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // ── Sticky buy bar (mobile) ───────────
+  const mainSection = document.querySelector('main');
+  const stickyBar   = document.getElementById('sticky-buy');
+  const scrollObs   = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) {
+        stickyBar.classList.remove('hidden-bar');
+      } else {
+        stickyBar.classList.add('hidden-bar');
+      }
+    });
+  }, { threshold: 0.1 });
+  if (mainSection) scrollObs.observe(mainSection);
+
+  // ── Sticky header shadow ──────────────
+  window.addEventListener('scroll', () => {
+    document.querySelector('header').style.boxShadow =
+      window.scrollY > 60 ? '0 4px 40px rgba(0,0,0,.6)' : 'none';
+  });
+
+  // ── Assoc card add buttons ────────────
+  document.querySelectorAll('.assoc-add-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const orig = this.innerHTML;
+      this.innerHTML = `<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Ajouté !`;
+      this.style.background = '#39FF14'; this.style.color = '#0A0A0F';
+      this.style.borderColor = '#39FF14'; this.style.opacity = '1'; this.style.transform = 'translateY(0)';
+      setTimeout(() => {
+        this.innerHTML = orig;
+        this.style.background = ''; this.style.color = ''; this.style.borderColor = ''; this.style.opacity = ''; this.style.transform = '';
+      }, 2000);
+    });
+  });
+</script>
+
+</body>
+</html>

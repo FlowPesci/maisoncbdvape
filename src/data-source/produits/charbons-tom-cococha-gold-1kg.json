@@ -1,0 +1,30 @@
+{
+  "marque": "Tom Cococha",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Charbons Tom Cococha Gold 1kg",
+  "actif": true,
+  "prix": 6.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Reconnu pour sa stabilit&eacute; thermique, le Tom Coco Gold permet de profiter pleinement des saveurs, sans go&ucirc;t parasite.",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "charbons-tom-cococha-gold-1kg",
+  "image": "/media/produits/1778342739063-charbons-tom-cococha-gold-1kg.jpeg",
+  "description": "Charbons Tom Cococha Gold – 1 kg.\n\nPrésentation\nReconnu pour sa stabilité thermique, le Tom Coco Gold est la référence du marché pour les charbons de chicha. Sa combustion régulière et longue permet de profiter pleinement des saveurs de votre tabac sans altération.\n\nCaractéristiques\n100% noix de coco naturelle. Cube hexagonal Gold. Durée de combustion : 60 à 90 min. Températures stables. Sans goût ni odeur parasite. Allumage sur plaque électrique uniquement.\n\nContenu : 1 kg (environ 60 cubes hexagonaux).",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Reconnu pour sa stabilit&eacute; thermique, le Tom Coco Gold permet de profiter pleinement des saveurs, sans go&ucirc;t parasite."
+  }
+}

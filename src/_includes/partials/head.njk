@@ -1,0 +1,51 @@
+{# ──────────────────────────────────────────────────────────────────────────
+   head.njk — bloc <head> commun à toutes les pages — MaisonCBDVape
+────────────────────────────────────────────────────────────────────────── #}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>{% if title %}{{ title }} – {% endif %}{{ site.nom }} | {{ site.tagline }}</title>
+<meta name="description" content="{{ description or site.description }}" />
+
+{# ─── Open Graph / Twitter ─────────────────────────────────────────── #}
+<meta property="og:type"        content="website" />
+<meta property="og:locale"      content="{{ site.locale }}" />
+<meta property="og:site_name"   content="{{ site.nom }}" />
+<meta property="og:title"       content="{% if title %}{{ title }} – {% endif %}{{ site.nom }}" />
+<meta property="og:description" content="{{ description or site.description }}" />
+<meta property="og:url"         content="{{ site.url }}{{ canonicalPath or page.url }}" />
+{% if ogImage %}<meta property="og:image" content="{{ ogImage }}" />{% endif %}
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="canonical" href="{{ site.url }}{{ canonicalPath or page.url }}" />
+
+{# ─── Tailwind CSS ────────────────────────────────────────────────────── #}
+<link rel="stylesheet" href="/assets/css/tailwind.css?v={{ '/assets/css/tailwind.css' | contentHash }}">
+
+{# ─── Google Fonts (Cormorant Garamond + DM Sans + Space Mono) ──────── #}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=optional">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=optional" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=optional"></noscript>
+
+{# ─── Favicon ──────────────────────────────────────────────────────── #}
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+{# ─── JSON-LD structuré ───────────────────────────────────────────── #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "{{ site.nom }}",
+  "url": "{{ site.url }}",
+  "telephone": "{{ site.contact.telephoneE164 }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ site.adresse.rue }}",
+    "postalCode": "{{ site.adresse.codePostal }}",
+    "addressLocality": "{{ site.adresse.ville }}",
+    "addressCountry": "FR"
+  }
+}
+</script>

@@ -1,0 +1,54 @@
+{
+  "marque": "Banana Hydro Indoor CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Banana Hydro Indoor CBD",
+  "actif": true,
+  "prix": 4.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 14.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 24.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 49,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes dominantes de banane mûre et de fruits tropicaux.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "indoor"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "banana-hydro-indoor-cbd",
+  "image": "/media/produits/1778340406426-banana-hydro-indoor-cbd.jpeg",
+  "description": "Aspect visuel\n\nBuds compacts, denses et parfaitement manucurés.\n\nTeinte vert clair, rehaussée de pistils orangés et de trichomes cristallins abondants.\n\nAspect soigné et résineux, gage d’une fleur premium.\n\n? Arômes & saveurs\n\nProfil aromatique gourmand et exotique.\n\nNotes dominantes de banane mûre et de fruits tropicaux.\n\nEn bouche : une saveur douce, sucrée et persistante, rappelant un dessert fruité.\n\n⚡ Effets (CBD)\n\nRelaxation profonde et agréable, sans effet psychotrope.\n\nFavorise le bien-être, la détente mentale et physique.\n\nIdéale pour un moment de calme, en journée comme en soirée.\n\n? Culture indoor hydroponique\n\nMéthode hydroponique indoor permettant un contrôle total de l’environnement (lumière, nutriments, humidité).\n\nGarantit une fleur propre, stable, riche en terpènes et en CBD.\n\n? En résumé, la CBD Banana Indoor Hydro est une fleur d’exception, aux arômes tropicaux et sucrés, aux effets relaxants équilibrés et issue d’une culture minutieuse garantissant une qualité premium.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes dominantes de banane mûre et de fruits tropicaux."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "marque": "E-CG",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "E-CG 50ml",
+  "actif": true,
+  "prix": 11.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "E-CG",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "e-cg-50ml",
+  "image": "/media/produits/1778342428576-e-cg-50ml.png",
+  "description": "E-liquide E-CG 50 ml.\n\nPrésentation\nL'e-liquide E-CG est un incontournable pour les amateurs d'arômes tabac blond légèrement fruité. Un profil aromatique classique, fidèle et équilibré, apprécié des anciens fumeurs.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés 10 ml. PG/VG 50/50.\n\nUsage recommandé\nIdéal en clearomiseur MTL ou en pod pour une vape quotidienne.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

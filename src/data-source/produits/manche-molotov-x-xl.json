@@ -1,0 +1,30 @@
+{
+  "marque": "Molotov",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Manche Molotov X XL",
+  "actif": true,
+  "prix": 11.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Robuste et bien &eacute;quilibr&eacute;, il assure un tirage fluide tout en apportant une touche esth&eacute;tique moderne &agrave; votre installation. Son desi",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "manche-molotov-x-xl",
+  "image": "/media/produits/1778342696203-manche-molotov-x-xl.jpeg",
+  "description": "Manche Molotov X XL – Tuyau pour chicha.\n\nPrésentation\nLe manche Molotov X XL est un tuyau robuste et bien équilibré, apprécié pour son tirage fluide et son esthétique soignée. Sa longueur XL apporte un confort d'utilisation optimal pour des sessions prolongées.\n\nCaractéristiques\nLongueur XL pour un confort maximal. Matériaux résistants. Tirage fluide sans résistance excessive. Embout ergonomique. Compatible avec les raccords standard.\n\nEntretien\nNettoyable à l'eau, sécher avant réutilisation.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Robuste et bien &eacute;quilibr&eacute;, il assure un tirage fluide tout en apportant une touche esth&eacute;tique moderne &agrave; votre installation. Son desi"
+  }
+}

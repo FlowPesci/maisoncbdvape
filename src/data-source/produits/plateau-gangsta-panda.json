@@ -1,0 +1,30 @@
+{
+  "marque": "Gangsta Panda",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Plateau Gangsta Panda",
+  "actif": true,
+  "prix": 6.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Gangsta Panda",
+  "categorie": "accessoires",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "plateau-gangsta-panda",
+  "image": "/media/produits/1778342810764-plateau-gangsta-panda.jpeg",
+  "description": "Plateau Gangsta Panda – Plateau à rouler.\n\nPrésentation\nUn plateau à rouler au design Gangsta Panda décalé et collector. Fabriqué dans un matériau résistant, il offre une surface stable et pratique pour un usage quotidien.\n\nCaractéristiques\nDesign Gangsta Panda exclusif. Matériau résistant et durable. Bords relevés pour éviter les pertes. Format compact et pratique.\n\nIdéal pour\nUn usage quotidien ou comme pièce de collection pour les amateurs de design streetwear.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

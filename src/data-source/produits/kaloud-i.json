@@ -1,0 +1,30 @@
+{
+  "marque": "Kaloud ",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Kaloud I",
+  "actif": true,
+  "prix": 19.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Fabriqu&eacute; en alliage m&eacute;tallique r&eacute;sistant &agrave; haute temp&eacute;rature, il am&eacute;liore la diffusion thermique et r&eacute;duit les ",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "kaloud-i",
+  "image": "/media/produits/1778342610509-kaloud-i.jpeg",
+  "description": "Foyer Kaloud I – Gestion de chaleur pour chicha.\n\nPrésentation\nLe Kaloud I est un foyer en alliage métallique résistant à haute température, conçu pour optimiser la gestion de la chaleur et prolonger la durée de vie de votre tabac à chicha. Un incontournable pour les sessions de qualité.\n\nCaractéristiques\nAlliage métallique résistant. Compatible avec la majorité des foyers et têtes rondes du marché. Régulation thermique optimale. Facile à nettoyer.\n\nUtilisation\nPosez le Kaloud I sur votre foyer de chicha, insérez les charbons allumés dans les encoches prévues. La chaleur est diffusée uniformément pour une session constante.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Fabriqu&eacute; en alliage m&eacute;tallique r&eacute;sistant &agrave; haute temp&eacute;rature, il am&eacute;liore la diffusion thermique et r&eacute;duit les "
+  }
+}

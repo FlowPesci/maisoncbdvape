@@ -1,0 +1,30 @@
+{
+  "marque": "Le Petit Verger",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Fraise – Litchi",
+  "actif": true,
+  "prix": 16.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "La fraise sucr&eacute;e et parfum&eacute;e rencontre la finesse exotique du litchi. Un m&eacute;lange doux, &eacute;l&eacute;gant et l&eacute;g&egrave;rement fl",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "fraise-litchi",
+  "image": "/media/produits/1778341355136-fraise-litchi.png",
+  "description": "E-liquide Fraise – Litchi de la gamme Le Petit Verger.\n\nProfil aromatique\nLa fraise sucrée et parfumée rencontre la finesse exotique du litchi. Un mélange doux, élégant et légèrement floral, aussi délicat que savoureux.\n\nFormat & composition\nFlacon shortfill 50 ml (contenant 70 ml) – sans nicotine. Compatible avec les shots nicotinés (10 ml). Ratio PG/VG 50/50.\n\nUsage recommandé\nParfait pour une vape tout-terrain, en MTL ou en pod.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "La fraise sucr&eacute;e et parfum&eacute;e rencontre la finesse exotique du litchi. Un m&eacute;lange doux, &eacute;l&eacute;gant et l&eacute;g&egrave;rement fl"
+  }
+}

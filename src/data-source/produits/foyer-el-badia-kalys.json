@@ -1,0 +1,30 @@
+{
+  "marque": "EL-BADIA",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Foyer EL-BADIA KALYS",
+  "actif": true,
+  "prix": 14.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "EL-BADIA",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "foyer-el-badia-kalys",
+  "image": "/media/produits/1778342680398-foyer-el-badia-kalys.png",
+  "description": "Foyer EL-BADIA KALYS – Bowl pour chicha.\n\nPrésentation\nLe foyer KALYS d'El Badia est un accessoire de qualité conçu pour s'intégrer parfaitement avec les chichas El Badia et la plupart des chichas universelles. Matériaux robustes et résistants pour une session longue et homogène.\n\nCaractéristiques\nDesign spécifique El Badia. Matériau : céramique ou argile résistante. Chaleur bien répartie. Compatible avec les chichas El Badia et universelles.\n\nEntretien\nNettoyage facile à l'eau après chaque session.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

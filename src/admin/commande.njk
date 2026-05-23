@@ -1,0 +1,215 @@
+---
+layout: layouts/base.njk
+permalink: /admin/commande/index.html
+title: "Détail commande"
+description: "Back-office Tabac Gex"
+eleventyExcludeFromCollections: true
+---
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  <div class="mb-6">
+    <a href="/admin/commandes/" class="text-smoke text-xs hover:text-white transition-colors flex items-center gap-1 mb-2">
+      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+      Retour à la liste
+    </a>
+    <h1 class="font-display text-3xl lg:text-4xl text-white tracking-wide" id="page-title">DÉTAIL COMMANDE</h1>
+  </div>
+
+  <div id="order-status" class="rounded-2xl border border-dashed border-dark-border bg-dark-card/40 py-20 text-center">
+    <p class="text-smoke text-sm">Chargement…</p>
+  </div>
+
+  <div id="order-detail" class="hidden grid lg:grid-cols-3 gap-6"></div>
+</section>
+
+<script>
+(function() {
+  const TOKEN_KEY = 'tabacgex-admin-token';
+  let token = localStorage.getItem(TOKEN_KEY);
+
+  /** Échappe les caractères HTML pour prévenir les injections XSS */
+  function esc(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;');
+  }
+  if (window.location.hash.startsWith('#token=')) {
+    token = decodeURIComponent(window.location.hash.slice(7));
+    localStorage.setItem(TOKEN_KEY, token);
+    history.replaceState({}, '', window.location.pathname + window.location.search);
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const orderId = params.get('id');
+  const statusEl = document.getElementById('order-status');
+  const detailEl = document.getElementById('order-detail');
+
+  function formatEur(n) { return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(n); }
+  function formatDate(iso) { return new Date(iso).toLocaleString('fr-FR'); }
+  const RETURN = '/admin/commande/?id=' + encodeURIComponent(orderId || '');
+
+  function showLogin() {
+    detailEl.classList.add('hidden');
+    statusEl.innerHTML = `
+      <p class="text-smoke text-sm mb-4">Connexion requise.</p>
+      <a href="/api/auth/login?mode=admin&return=${encodeURIComponent(RETURN)}" class="btn-neon-green inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">Se connecter via GitHub</a>`;
+    statusEl.classList.remove('hidden');
+  }
+
+  function statusBadge(status) {
+    const map = {
+      pending: { label: 'En attente', color: '#FFA500' }, paid: { label: 'Payée', color: '#39FF14' },
+      preparing: { label: 'En préparation', color: '#BF5FFF' }, ready: { label: 'Prête', color: '#00D4FF' },
+      completed: { label: 'Récupérée', color: '#8A8A9A' }, cancelled: { label: 'Annulée', color: '#FF5050' },
+    };
+    const m = map[status] || { label: status, color: '#8A8A9A' };
+    return `<span style="background:${m.color}22;color:${m.color};border:1px solid ${m.color}55;" class="text-xs font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider">${m.label}</span>`;
+  }
+  function nextStatusOptions(current) {
+    const flow = { pending: ['preparing', 'cancelled'], paid: ['preparing', 'cancelled'], preparing: ['ready', 'cancelled'], ready: ['completed', 'cancelled'], completed: [], cancelled: [] };
+    return flow[current] || [];
+  }
+  function statusLabel(s) {
+    return ({ pending: 'En attente', paid: 'Payée', preparing: 'En préparation', ready: 'Prête à récupérer', completed: 'Récupérée', cancelled: 'Annulée' })[s] || s;
+  }
+
+  function render(order) {
+    document.getElementById('page-title').textContent = order.orderId;
+    const itemsRows = order.items.map((it) => `
+      <div class="flex justify-between gap-3 py-2 border-b border-dark-border last:border-0">
+        <span class="text-smoke">${esc(it.qty)} × ${esc(it.nom)} <span class="text-xs">(${esc(it.marque)})</span></span>
+        <span class="font-mono text-white shrink-0">${formatEur(it.prix * it.qty)}</span>
+      </div>`).join('');
+    const history = (order.history || []).slice().reverse().map((h) => `
+      <li class="text-xs py-1.5 border-b border-dark-border last:border-0">
+        <span class="font-mono text-smoke">${formatDate(h.at)}</span> · ${statusBadge(esc(h.status))} ·
+        <span class="text-smoke">${esc(h.by)}</span>
+        ${h.note ? `<div class="text-smoke italic mt-0.5">${esc(h.note)}</div>` : ''}
+      </li>`).join('');
+
+    const nextOptions = nextStatusOptions(order.status);
+    const actionsHtml = nextOptions.length
+      ? `<div class="space-y-2">
+           <p class="text-smoke text-xs uppercase tracking-wider font-mono">Changer le statut</p>
+           ${nextOptions.map((s) => `<button data-new-status="${s}" class="btn-outline-violet w-full py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest">→ ${statusLabel(s)}</button>`).join('')}
+         </div>`
+      : `<p class="text-smoke text-xs italic">Pas de transition possible depuis ce statut.</p>`;
+
+    detailEl.innerHTML = `
+      <div class="lg:col-span-2 space-y-6">
+        <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
+          <div class="flex items-center justify-between gap-3 flex-wrap">
+            <div><p class="text-smoke text-xs font-mono">${formatDate(order.createdAt)}</p><p class="font-display text-2xl text-white">${order.orderId}</p></div>
+            ${statusBadge(order.status)}
+          </div>
+        </div>
+        <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
+          <h2 class="font-display text-base tracking-widest text-white mb-3">CLIENT</h2>
+          <div class="space-y-2 text-sm">
+            <p><span class="text-smoke">Nom :</span> <span class="text-white">${esc(order.client.nom)}</span></p>
+            <p><span class="text-smoke">Email :</span> <a href="mailto:${esc(order.client.email)}" class="text-neon-violet hover:underline">${esc(order.client.email)}</a></p>
+            <p><span class="text-smoke">Téléphone :</span> <a href="tel:${esc(order.client.telephone)}" class="text-neon-violet hover:underline">${esc(order.client.telephone)}</a></p>
+            ${order.client.notes ? `<p><span class="text-smoke">Notes :</span> <span class="text-white italic">${esc(order.client.notes)}</span></p>` : ''}
+          </div>
+        </div>
+        <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
+          <h2 class="font-display text-base tracking-widest text-white mb-3">ARTICLES</h2>
+          <div>${itemsRows}</div>
+          <div class="mt-4 pt-4 border-t border-dark-border space-y-1 text-sm">
+            <div class="flex justify-between"><span class="text-smoke">Sous-total HT</span><span class="font-mono text-white">${formatEur(order.totalHT)}</span></div>
+            <div class="flex justify-between"><span class="text-smoke">TVA (20 %)</span><span class="font-mono text-white">${formatEur(order.totalTVA)}</span></div>
+            <div class="flex justify-between pt-2 border-t border-dark-border"><span class="font-display text-base text-white tracking-wider">TOTAL TTC</span><span class="font-display text-xl" style="color:#39FF14;">${formatEur(order.totalTTC)}</span></div>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
+          <h2 class="font-display text-base tracking-widest text-white mb-3">HISTORIQUE</h2>
+          <ul>${history}</ul>
+        </div>
+      </div>
+      <aside class="space-y-6">
+        <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
+          <h2 class="font-display text-base tracking-widest text-white mb-3">RETRAIT</h2>
+          <p class="text-sm text-white">📅 ${order.creneauRetrait?.date || '—'}</p>
+          <p class="text-sm text-white">🕐 ${order.creneauRetrait?.heure || '—'}</p>
+          <p class="text-xs text-smoke mt-2">48 Rue de Genève, 01170 Gex</p>
+        </div>
+        <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
+          <h2 class="font-display text-base tracking-widest text-white mb-3">PAIEMENT</h2>
+          <p class="text-sm">${order.paiement?.methode === 'viva-wallet' ? '💳 Viva Wallet (en ligne)' : '🏪 En boutique'}</p>
+          ${order.paiement?.paidAt ? `<p class="text-xs text-smoke mt-2">Réglé le ${formatDate(order.paiement.paidAt)}</p>` : ''}
+        </div>
+        <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
+          <h2 class="font-display text-base tracking-widest text-white mb-3">ACTIONS</h2>
+          ${actionsHtml}
+        </div>
+      </aside>`;
+    detailEl.classList.remove('hidden');
+    detailEl.classList.add('grid');
+    statusEl.classList.add('hidden');
+
+    detailEl.querySelectorAll('[data-new-status]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const newStatus = btn.dataset.newStatus;
+        if (!confirm(`Confirmer le passage en statut "${statusLabel(newStatus)}" ?`)) return;
+        btn.disabled = true; btn.textContent = '...';
+        try {
+          const res = await fetch('/api/update-order-status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+            body: JSON.stringify({ orderId: order.orderId, status: newStatus }),
+          });
+          if (res.status === 401 || res.status === 403) {
+            localStorage.removeItem(TOKEN_KEY);
+            token = null;
+            showLogin();
+            return;
+          }
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            throw new Error(err.error || ('HTTP ' + res.status));
+          }
+          const { order: updated } = await res.json();
+          render(updated);
+        } catch (err) {
+          alert('Erreur : ' + err.message);
+          btn.disabled = false; btn.textContent = '→ ' + statusLabel(newStatus);
+        }
+      });
+    });
+  }
+
+  async function loadOrder() {
+    if (!token) return showLogin();
+    if (!orderId) {
+      statusEl.innerHTML = '<p class="text-red-400 text-sm">Paramètre <code>id</code> manquant.</p>';
+      return;
+    }
+    statusEl.innerHTML = '<p class="text-smoke text-sm">Chargement…</p>';
+    statusEl.classList.remove('hidden');
+    detailEl.classList.add('hidden');
+    try {
+      const res = await fetch('/api/get-order?id=' + encodeURIComponent(orderId), { headers: { Authorization: 'Bearer ' + token } });
+      if (res.status === 401 || res.status === 403) {
+        localStorage.removeItem(TOKEN_KEY);
+        token = null;
+        showLogin();
+        return;
+      }
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || ('HTTP ' + res.status));
+      }
+      const { order } = await res.json();
+      render(order);
+    } catch (err) {
+      statusEl.innerHTML = `<p class="text-red-400 text-sm">Erreur : ${err.message}</p>`;
+    }
+  }
+
+  loadOrder();
+})();
+</script>

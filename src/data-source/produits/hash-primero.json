@@ -1,0 +1,52 @@
+{
+  "marque": "Hash Primero",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Hash Primero",
+  "actif": true,
+  "prix": 4.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 14.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 24.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 49,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes terreuses et boisées dominantes, relevées d’accents de pin et de fleurs séchées.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "hash-primero",
+  "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/6f13ef9ea9228f5d5aa168b094a770d34f243234-lg.png",
+  "description": "💨 Hash Primero CBD — Résine Premium de Haute Qualité\n🌿 Aspect & Texture\nRésine d’un brun doré profond, à la surface légèrement satinée.\n\nTexture souple et malléable, facile à travailler entre les doigts sans coller excessivement.\n\nUne structure homogène, dense et fine, témoignant d’un pressage minutieux et d’un tamisage de grande précision.\n\n👃 Arômes & Saveurs\nProfil olfactif riche et envoûtant, à la croisée entre tradition et finesse.\n\nNotes terreuses et boisées dominantes, relevées d’accents de pin et de fleurs séchées.\n\nEn bouche : une saveur douce et ronde, légèrement épicée, avec un fond crémeux et des touches de miel chaud.\n\nLa combustion lente révèle toute la complexité de son bouquet, long et harmonieux.\n\n⚡ Effets (CBD)\nTeneur élevée en CBD, pour un effet relaxant profond et durable.\n\nApporte apaisement, sérénité et clarté mentale, sans effet psychotrope.\n\nIdéal pour un moment de détente en fin de journée, ou pour accompagner un instant de réflexion calme et concentré.\n\n💧 Fabrication & Qualité\nÉlaboré à partir de fleurs CBD sélectionnées, issues de cultures naturelles et rigoureusement contrôlées.\n\nExtraction par tamisage à froid, préservant les trichomes et les terpènes les plus fins.\n\nPressage artisanal, réalisé à basse température pour conserver la richesse aromatique et la texture souple caractéristique du Primero.\n\nProduit sans additif, ni solvant, 100 % naturel et conforme à la législation européenne (< 0,3 % THC).\n\n🪶 Profil Terpénique Dominant\nMyrcène → notes boisées, terreuses et apaisantes.\n\nCaryophyllène → nuances épicées, poivrées et légèrement sucrées.\n\nLimonène → touche d’agrume, fraîcheur en arrière-plan.\n\n✨ En résumé\nLe Hash Primero CBD est une résine d’exception, au parfum profond et raffiné, qui allie puissance aromatique et douceur d’effet.\nSa texture fondante, son goût traditionnel et sa richesse en CBD en font un produit premium, à la fois authentique et moderne — un vrai plaisir pour les amateurs exigeants.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes terreuses et boisées dominantes, relevées d’accents de pin et de fleurs séchées."
+  }
+}

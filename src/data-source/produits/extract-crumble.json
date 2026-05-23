@@ -1,0 +1,54 @@
+{
+  "marque": "Extract Crumble",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Extract Crumble",
+  "actif": true,
+  "prix": 9.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 9.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 29.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 49.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 99,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Ce Crumble Extract 95 % est un extrait hautement concentré, destiné à une clientèle avertie recherchant un produit puissant, stable et visuellement qualitatif.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "bestseller"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "extract-crumble",
+  "image": "/media/produits/1778340623724-extract-crumble.jpeg",
+  "description": "Sa texture crumble sèche et friable, à la teinte dorée naturelle, témoigne d’un procédé d’extraction maîtrisé et d’une haute pureté. Facile à manipuler, il permet un dosage précis et constant, apprécié aussi bien pour la revente spécialisée que pour l’usage en lounge.\n\nGrâce à sa concentration élevée (95 %), ce crumble se distingue par son rendement, sa régularité et sa présentation premium, parfaitement adaptée aux établissements exigeants souhaitant proposer une gamme d’extraits haut de niveau.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Ce Crumble Extract 95 % est un extrait hautement concentré, destiné à une clientèle avertie recherchant un produit puissant, stable et visuellement qualitatif."
+  }
+}

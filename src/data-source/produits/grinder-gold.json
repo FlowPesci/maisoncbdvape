@@ -1,0 +1,30 @@
+{
+  "marque": "Grinder",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Grinder Gold",
+  "actif": true,
+  "prix": 9.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Grinder",
+  "categorie": "accessoires",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "grinder-gold",
+  "image": "/media/produits/1778343032973-grinder-gold.png",
+  "description": "Grinder Gold – Broyeur à herbes.\n\nPrésentation\nLe Grinder Gold est un broyeur à herbes aux finitions dorées premium, alliant robustesse et esthétique. Un accessoire incontournable pour un broyage efficace et homogène.\n\nCaractéristiques\nFinition dorée élégante. Dents broyeuses affûtées pour un broyage homogène. Fermeture magnétique sécurisée. Matériau : métal résistant. Format pratique.\n\nIdéal pour\nUn broyage efficace et régulier avec un accessoire au design premium et élégant.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

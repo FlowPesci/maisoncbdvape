@@ -1,0 +1,30 @@
+{
+  "marque": "BEUZ",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Plateau BEUZ – Arctic Grower",
+  "actif": true,
+  "prix": 4.99,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Compact et l&eacute;ger, il se transporte facilement tout en restant suffisamment rigide pour un usage quotidien.",
+  "categorie": "accessoires",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "plateau-beuz-arctic-grower",
+  "image": "/media/produits/1778342809226-plateau-beuz-arctic-grower.png",
+  "description": "Plateau BEUZ – Arctic Grower.\n\nPrésentation\nLe plateau BEUZ Arctic Grower : compact et léger, il se transporte facilement tout en restant suffisamment rigide pour une utilisation quotidienne. Un design Arctic Grower sobre et élégant pour les amateurs discrets.\n\nCaractéristiques\nMatériau : plastique rigide de qualité. Format compact. Bords relevés. Design Arctic Grower. Poids léger.\n\nIdéal pour\nUsage quotidien à domicile et en déplacement.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Compact et l&eacute;ger, il se transporte facilement tout en restant suffisamment rigide pour un usage quotidien."
+  }
+}

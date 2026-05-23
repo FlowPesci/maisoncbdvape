@@ -1,0 +1,770 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Tabac Gex — Design System
+   ───────────────────────────────────────────────────────────────────────────
+   Centralise tous les styles custom hors classes Tailwind.
+   Tailwind reste chargé via CDN dans <head> avec son tailwind.config inline
+   pour les couleurs/fonts custom. Ce fichier porte ce que Tailwind ne peut
+   pas faire seul : gradients radiaux, masques SVG, animations, glassmorphism.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Reset léger ────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+body {
+  background: #0A0A0F;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ─── Grain overlay (texture film subtile sur tout le viewport) ──────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.4;
+}
+
+/* ─── Glow texte néon ────────────────────────────────────────────────────── */
+.neon-green-glow  { text-shadow: 0 0 20px #39FF14, 0 0 40px #39FF1466; }
+.neon-violet-glow { text-shadow: 0 0 20px #BF5FFF, 0 0 40px #BF5FFF66; }
+.neon-blue-glow   { text-shadow: 0 0 20px #00D4FF, 0 0 40px #00D4FF66; }
+
+/* ─── Boutons signature ──────────────────────────────────────────────────── */
+.btn-neon-green {
+  background: linear-gradient(135deg, #39FF14 0%, #00C853 100%);
+  color: #0A0A0F;
+  box-shadow: 0 0 20px #39FF1466, 0 4px 24px rgba(57, 255, 20, 0.3);
+  transition: all 0.3s ease;
+}
+.btn-neon-green:hover {
+  box-shadow: 0 0 40px #39FF1499, 0 8px 32px rgba(57, 255, 20, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-outline-violet {
+  border: 1.5px solid #BF5FFF;
+  color: #BF5FFF;
+  background: transparent;
+  box-shadow: inset 0 0 0px #BF5FFF00, 0 0 10px #BF5FFF22;
+  transition: all 0.3s ease;
+}
+.btn-outline-violet:hover {
+  background: #BF5FFF15;
+  box-shadow: inset 0 0 20px #BF5FFF22, 0 0 25px #BF5FFF55;
+  transform: translateY(-2px);
+}
+
+/* ─── Header glassmorphism ───────────────────────────────────────────────── */
+.glass-header {
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ─── Lien de navigation avec underline gradient ─────────────────────────── */
+.nav-link {
+  position: relative;
+  color: #8A8A9A;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, #39FF14, #BF5FFF);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.nav-link:hover { color: #fff; }
+.nav-link:hover::after,
+.nav-link.is-active::after { transform: scaleX(1); }
+.nav-link.is-active { color: #fff; }
+
+/* ─── Hero mesh gradient (3 ellipses néon sur fond noir) ─────────────────── */
+.hero-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(57, 255, 20, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 70% at 80% 30%, rgba(191, 95, 255, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 60% 80%, rgba(0, 212, 255, 0.06) 0%, transparent 50%),
+    #0A0A0F;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+}
+
+/* ─── Carte produit avec border gradient animée au hover ─────────────────── */
+.product-card {
+  background: #12121A;
+  border: 1px solid #1E1E2E;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  position: relative;
+}
+.product-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, #39FF1400, #BF5FFF00);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: background 0.35s ease;
+  pointer-events: none;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(191, 95, 255, 0.08);
+  border-color: #BF5FFF44;
+}
+.product-card:hover::before {
+  background: linear-gradient(135deg, #39FF1444, #BF5FFF44);
+}
+
+/* ─── Carte catégorie avec overlay sombre + reveal CTA ───────────────────── */
+.cat-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid #1E1E2E;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+.cat-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 15, 0.1) 0%, rgba(10, 10, 15, 0.85) 100%);
+  transition: all 0.4s ease;
+}
+.cat-card:hover .cat-card-overlay {
+  background: linear-gradient(180deg, rgba(10, 10, 15, 0.3) 0%, rgba(10, 10, 15, 0.92) 100%);
+}
+.cat-card:hover {
+  border-color: #39FF1455;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+.cat-discover-btn {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: all 0.35s ease;
+}
+.cat-card:hover .cat-discover-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+.cat-card img { transition: transform 0.6s ease; }
+.cat-card:hover img { transform: scale(1.06); }
+
+/* ─── Bandeau réassurance ────────────────────────────────────────────────── */
+.reassurance-strip {
+  background: linear-gradient(90deg, #0D0D16, #12121F, #0D0D16);
+  border-top: 1px solid #1E1E2E;
+  border-bottom: 1px solid #1E1E2E;
+}
+
+/* ─── Badges produit ─────────────────────────────────────────────────────── */
+.stock-badge {
+  background: rgba(57, 255, 20, 0.12);
+  color: #39FF14;
+  border: 1px solid rgba(57, 255, 20, 0.3);
+}
+
+.badge-rupture {
+  background: rgba(140, 140, 160, 0.15);
+  color: #8A8A9A;
+  border: 1px solid rgba(140, 140, 160, 0.3);
+}
+
+.badge-nouveau {
+  background: #BF5FFF;
+  color: #0A0A0F;
+}
+
+.badge-promo {
+  background: rgba(0, 212, 255, 0.2);
+  color: #00D4FF;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.badge-hot {
+  background: rgba(255, 80, 80, 0.2);
+  color: #FF5050;
+  border: 1px solid rgba(255, 80, 80, 0.3);
+}
+
+.badge-cbd {
+  background: rgba(57, 255, 20, 0.2);
+  color: #39FF14;
+  border: 1px solid rgba(57, 255, 20, 0.3);
+}
+
+/* ─── Bouton "Ajouter au panier" ─────────────────────────────────────────── */
+.add-cart-btn {
+  background: transparent;
+  border: 1.5px solid #39FF1444;
+  color: #39FF14;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+.add-cart-btn:hover {
+  background: #39FF14;
+  color: #0A0A0F;
+  border-color: #39FF14;
+  box-shadow: 0 0 20px #39FF1466;
+}
+.add-cart-btn:disabled {
+  background: transparent;
+  border-color: #2A2A3A;
+  color: #5A5A6A;
+  cursor: not-allowed;
+}
+.add-cart-btn:disabled:hover {
+  background: transparent;
+  color: #5A5A6A;
+  box-shadow: none;
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────────────── */
+.footer-bg {
+  background: linear-gradient(180deg, #0A0A0F 0%, #07070D 100%);
+  border-top: 1px solid #1E1E2E;
+}
+
+/* ─── Bandeau 18+ obligatoire ────────────────────────────────────────────── */
+.age-band {
+  background: linear-gradient(90deg, #1a0a0a, #2a0a0a, #1a0a0a);
+  border-top: 1px solid #5a1a1a;
+  border-bottom: 1px solid #5a1a1a;
+}
+
+/* ─── Menu mobile ────────────────────────────────────────────────────────── */
+#mobile-menu { transition: all 0.3s ease; }
+
+/* ─── Animation scroll fade-up ───────────────────────────────────────────── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── Bouton icône header ────────────────────────────────────────────────── */
+.icon-btn {
+  color: #8A8A9A;
+  transition: color 0.2s ease;
+  position: relative;
+}
+.icon-btn:hover { color: #fff; }
+
+/* ─── Divider gradient ───────────────────────────────────────────────────── */
+.neon-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #39FF1444, #BF5FFF44, transparent);
+}
+
+/* ─── Sidebar filtres (page catégorie) ───────────────────────────────────── */
+.filter-pill {
+  background: transparent;
+  border: 1px solid #1E1E2E;
+  color: #8A8A9A;
+  transition: all 0.25s ease;
+}
+.filter-pill:hover {
+  border-color: #BF5FFF44;
+  color: #fff;
+}
+.filter-pill.is-active {
+  background: linear-gradient(135deg, #BF5FFF22, #39FF1422);
+  border-color: #BF5FFF;
+  color: #fff;
+}
+
+/* ─── Checkbox custom ────────────────────────────────────────────────────── */
+.custom-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #2A2A3A;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+.custom-checkbox:checked {
+  background: #39FF14;
+  border-color: #39FF14;
+}
+.custom-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0A0A0F;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* ─── Stock indicators (carte produit) ───────────────────────────────────── */
+.stock-low {
+  background: rgba(255, 165, 0, 0.15);
+  color: #FFA500;
+  border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FICHE PRODUIT — styles de la page détail produit
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Fil d'Ariane ───────────────────────────────────────────────────────── */
+.breadcrumb-link {
+  color: #8A8A9A;
+  font-size: 0.75rem;
+  transition: color 0.2s ease;
+}
+.breadcrumb-link:hover { color: #39FF14; }
+
+/* ─── Galerie : image principale + miniatures ────────────────────────────── */
+#main-image-wrap { overflow: hidden; border-radius: 20px; }
+#main-image-wrap:hover #main-image:not(.swapping) { transform: scale(1.03); }
+#main-image {
+  transform-origin: center;
+  transition: opacity 0.3s ease, transform 0.5s ease;
+}
+#main-image.swapping { opacity: 0; transform: scale(0.98); }
+
+.thumb-btn {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  cursor: pointer;
+  background: #12121A;
+}
+.thumb-btn:hover {
+  border-color: rgba(191, 95, 255, 0.45);
+  transform: translateY(-2px);
+}
+.thumb-btn.active {
+  border-color: #BF5FFF;
+  box-shadow: 0 0 14px rgba(191, 95, 255, 0.4);
+}
+.thumb-btn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.thumb-btn:hover img { transform: scale(1.08); }
+
+/* ─── Sélecteur de couleurs ──────────────────────────────────────────────── */
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.color-swatch:hover { transform: scale(1.15); }
+.color-swatch.active {
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(191, 95, 255, 0.55), 0 0 14px rgba(191, 95, 255, 0.4);
+}
+
+/* ─── Stepper quantité ───────────────────────────────────────────────────── */
+.qty-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #12121A;
+  border: 1px solid #1E1E2E;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qty-btn:hover {
+  border-color: rgba(191, 95, 255, 0.35);
+  background: rgba(191, 95, 255, 0.08);
+  color: #BF5FFF;
+}
+
+/* ─── Items "Points forts" ───────────────────────────────────────────────── */
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(30, 30, 46, 0.7);
+}
+.feature-item:last-child { border-bottom: none; }
+.feature-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Onglets : fiche technique / contenu / avis ─────────────────────────── */
+.tab-btn {
+  padding: 10px 20px;
+  border-radius: 10px 10px 0 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #8A8A9A;
+  border: 1px solid transparent;
+  border-bottom: none;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  background: transparent;
+  white-space: nowrap;
+}
+.tab-btn.active {
+  color: #BF5FFF;
+  border-color: #1E1E2E;
+  background: #12121A;
+}
+.tab-btn:not(.active):hover { color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ─── Tableau spécifications ─────────────────────────────────────────────── */
+.spec-row {
+  border-bottom: 1px solid #1E1E2E;
+  transition: background 0.2s ease;
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-row:hover { background: rgba(255, 255, 255, 0.025); }
+
+/* ─── Étoiles de note ────────────────────────────────────────────────────── */
+.star-filled { color: #FBBF24; }
+.star-empty  { color: #2E2E44; }
+
+/* ─── Carte d'avis ───────────────────────────────────────────────────────── */
+.review-card {
+  background: #12121A;
+  border: 1px solid #1E1E2E;
+  border-radius: 14px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.review-card:hover {
+  border-color: rgba(191, 95, 255, 0.2);
+  transform: translateY(-3px);
+}
+.rating-bar-track {
+  background: #1E1E2E;
+  border-radius: 99px;
+  height: 5px;
+  flex: 1;
+}
+.rating-bar-fill {
+  background: linear-gradient(90deg, #FBBF24, #F59E0B);
+  border-radius: 99px;
+  height: 5px;
+}
+
+/* ─── Cartes produits associés ───────────────────────────────────────────── */
+.assoc-card {
+  background: #12121A;
+  border: 1px solid #1E1E2E;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.assoc-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(191, 95, 255, 0.06);
+  border-color: rgba(191, 95, 255, 0.27);
+}
+.assoc-card img { transition: transform 0.5s ease; }
+.assoc-card:hover img { transform: scale(1.07); }
+.assoc-add-btn {
+  background: transparent;
+  border: 1.5px solid rgba(57, 255, 20, 0.35);
+  color: #39FF14;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 8px;
+  padding: 8px 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(7px);
+  transition: all 0.28s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.assoc-card:hover .assoc-add-btn { opacity: 1; transform: translateY(0); }
+.assoc-add-btn:hover {
+  background: #39FF14;
+  color: #0A0A0F;
+  border-color: #39FF14;
+  box-shadow: 0 0 18px rgba(57, 255, 20, 0.4);
+}
+
+/* ─── Floating product badge ─────────────────────────────────────────────── */
+.product-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+  background: #BF5FFF;
+  color: #0A0A0F;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 50px;
+}
+
+/* ─── Sticky barre achat (mobile) ────────────────────────────────────────── */
+#sticky-buy {
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+#sticky-buy.hidden-bar {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── Lignes de fond discrètes (autour breadcrumb) ───────────────────────── */
+.grid-lines {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.013) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.013) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ─── Badge expédition (bleu néon) ───────────────────────────────────────── */
+.dispatch-badge {
+  background: rgba(0, 212, 255, 0.1);
+  color: #00D4FF;
+  border: 1px solid rgba(0, 212, 255, 0.28);
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: 'Space Mono', monospace;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PAGE CATÉGORIE — sidebar filtres, toolbar, drawer mobile, pagination
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.sidebar-card {
+  background: #12121A;
+  border: 1px solid #1E1E2E;
+  border-radius: 14px;
+}
+.filter-section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.1em;
+  font-size: 1rem;
+  color: #fff;
+}
+
+/* Pill sous-catégorie */
+.subcat-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #1E1E2E;
+  color: #8A8A9A;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  background: transparent;
+  text-align: left;
+}
+.subcat-pill:hover,
+.subcat-pill.active {
+  background: rgba(57, 255, 20, 0.08);
+  border-color: rgba(57, 255, 20, 0.3);
+  color: #39FF14;
+}
+
+/* Checkbox custom (sidebar marques) */
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.check-row input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  border: 1.5px solid #2E2E44;
+  background: #0A0A0F;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.check-row input[type="checkbox"]:checked {
+  background: #39FF14;
+  border-color: #39FF14;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%230A0A0F' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.check-row label {
+  color: #8A8A9A;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.check-row:hover label { color: #fff; }
+
+/* Pill prix */
+.price-pill {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #1E1E2E;
+  color: #8A8A9A;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  background: transparent;
+}
+.price-pill:hover,
+.price-pill.active {
+  border-color: rgba(191, 95, 255, 0.4);
+  background: rgba(191, 95, 255, 0.08);
+  color: #BF5FFF;
+}
+
+/* Toolbar */
+.toolbar-bar {
+  background: #12121A;
+  border: 1px solid #1E1E2E;
+  border-radius: 12px;
+}
+.sort-select {
+  background: #0A0A0F;
+  border: 1px solid #2E2E44;
+  color: #ccc;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.sort-select:hover { border-color: #BF5FFF; }
+.sort-select option { background: #12121A; }
+
+/* Pagination */
+.page-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #1E1E2E;
+  font-size: 0.8rem;
+  color: #8A8A9A;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  background: transparent;
+}
+.page-btn:hover {
+  border-color: rgba(191, 95, 255, 0.33);
+  color: #BF5FFF;
+  background: rgba(191, 95, 255, 0.07);
+}
+.page-btn.active {
+  background: #BF5FFF;
+  color: #0A0A0F;
+  border-color: #BF5FFF;
+  font-weight: 700;
+}
+.page-next {
+  padding: 0 16px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #1E1E2E;
+  font-size: 0.8rem;
+  color: #8A8A9A;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  background: transparent;
+}
+.page-next:hover {
+  border-color: rgba(57, 255, 20, 0.33);
+  color: #39FF14;
+  background: rgba(57, 255, 20, 0.07);
+}
+
+/* Mobile filter drawer */
+#filter-drawer {
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+}
+#filter-drawer.hidden-drawer {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+#drawer-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.35s ease;
+}
+#drawer-overlay.hidden-overlay {
+  opacity: 0;
+  pointer-events: none;
+}

@@ -1,0 +1,54 @@
+{
+  "marque": "Bubba Kush Hydro Indoor CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Bubba Kush Hydro Indoor CBD",
+  "actif": true,
+  "prix": 4.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 14.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 24.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 49,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes terreuses et boisées, avec une pointe de café et d’épices douces.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "indoor"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "bubba-kush-hydro-indoor-cbd",
+  "image": "/media/produits/1778340406348-bubba-kush-hydro-indoor-cbd.jpeg",
+  "description": "Aspect visuel\n\nBuds compacts, ronds et bien résineux.\n\nCouleur vert foncé avec des nuances violettes et des pistils orangés.\n\nRecouverts de trichomes brillants, signe de richesse en terpènes et en CBD.\n\n? Arômes & saveurs\n\nProfil aromatique intense et reconnaissable.\n\nNotes terreuses et boisées, avec une pointe de café et d’épices douces.\n\nEn bouche : saveur profonde, ronde et persistante, très appréciée des connaisseurs.\n\n⚡ Effets (CBD)\n\nRelaxation corporelle et mentale marquée, sans effet psychotrope.\n\nFavorise la détente musculaire et le relâchement du stress.\n\nIdéale en soirée pour un moment de calme ou pour accompagner le repos.\n\n? Culture indoor hydroponique\n\nCultivée en intérieur via hydroponie, garantissant une maîtrise totale des nutriments, de la lumière et de l’humidité.\n\nProduit final : une fleur propre, régulière, riche en saveurs et en principes actifs.\n\n? En résumé, la CBD Bubba Kush Indoor Hydro est une fleur premium, au goût terreux et épicé unique, aux effets relaxants puissants et issue d’une culture soignée qui garantit une qualité irréprochable.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes terreuses et boisées, avec une pointe de café et d’épices douces."
+  }
+}

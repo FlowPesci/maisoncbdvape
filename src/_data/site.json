@@ -1,0 +1,38 @@
+{
+  "nom": "MaisonCBDVape",
+  "baseline": "CBD & Vape Premium",
+  "tagline": "L'art de savourer autrement",
+  "description": "MaisonCBDVape – Boutique premium CBD, Vape, Puffs, Chicha et articles fumeurs à Gex (01170). Retrait en magasin ou livraison rapide 48h.",
+  "url": "https://maisoncbdvape.fr",
+  "lang": "fr",
+  "locale": "fr_FR",
+  "adresse": {
+    "rue": "48 Rue de Genève",
+    "codePostal": "01170",
+    "ville": "Gex",
+    "pays": "France"
+  },
+  "contact": {
+    "telephone": "04 50 41 51 50",
+    "telephoneE164": "+33450415150",
+    "email": "contact@vapelab.fr"
+  },
+  "horaires": [
+    { "jours": "Lun, Mar, Jeu, Ven", "heures": "7h30–12h30 / 14h–19h" },
+    { "jours": "Mercredi",           "heures": "7h30–12h00 / 14h–19h" },
+    { "jours": "Samedi",             "heures": "8h–12h30 / 14h–18h40" },
+    { "jours": "Dimanche",           "heures": "8h–12h" }
+  ],
+  "social": {
+    "instagram": "https://instagram.com/tabacgex",
+    "facebook":  "https://facebook.com/tabacgex",
+    "tiktok":    "https://tiktok.com/@tabacgex"
+  },
+  "navigation": [
+    { "label": "CBD",            "url": "/categories/cbd/",         "couleur": "gold" },
+    { "label": "Puffs",         "url": "/categories/puffs/",       "couleur": "gold" },
+    { "label": "Vape & E-liquides","url": "/categories/vape/",     "couleur": "gold" },
+    { "label": "Chicha",        "url": "/categories/chicha/",      "couleur": "gold" },
+    { "label": "Accessoires",   "url": "/categories/accessoires/", "couleur": "gold" }
+  ]
+}

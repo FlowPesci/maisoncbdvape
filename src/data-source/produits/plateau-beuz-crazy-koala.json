@@ -1,0 +1,30 @@
+{
+  "marque": "BEUZ",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Plateau BEUZ – Crazy Koala",
+  "actif": true,
+  "prix": 4.99,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "L&eacute;ger mais solide, il convient parfaitement &agrave; un usage quotidien, &agrave; la maison comme en d&eacute;placement.",
+  "categorie": "accessoires",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "plateau-beuz-crazy-koala",
+  "image": "/media/produits/1778342792320-plateau-beuz-crazy-koala.png",
+  "description": "Plateau BEUZ – Crazy Koala.\n\nPrésentation\nLe plateau à rouler BEUZ Crazy Koala : léger mais solide, il convient parfaitement à un usage quotidien à la maison comme en extérieur. Design coloré Crazy Koala pour une touche d'humour et de caractère.\n\nCaractéristiques\nMatériau : plastique rigide. Format compact standard. Bords relevés anti-perte. Design Crazy Koala exclusif. Poids léger, facilement transportable.\n\nIdéal pour\nUsage quotidien et déplacements.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "L&eacute;ger mais solide, il convient parfaitement &agrave; un usage quotidien, &agrave; la maison comme en d&eacute;placement."
+  }
+}

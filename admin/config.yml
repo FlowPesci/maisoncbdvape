@@ -1,0 +1,378 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Decap CMS — Configuration admin Tabac Gex
+# ──────────────────────────────────────────────────────────────────────────────
+# Backend : git-gateway (auth via Netlify Identity).
+# Doc widgets : https://decapcms.org/docs/widgets/
+# ──────────────────────────────────────────────────────────────────────────────
+
+backend:
+  name: github
+  repo: FlowPesci/tabacgex
+  branch: main
+  base_url: https://vapelab.fr
+  auth_endpoint: /api/auth/login
+  commit_messages:
+    create: 'Création de "{{collection}} – {{slug}}"'
+    update: 'Mise à jour de "{{collection}} – {{slug}}"'
+    delete: 'Suppression de "{{collection}} – {{slug}}"'
+    uploadMedia: 'Upload image : {{path}}'
+    deleteMedia: 'Suppression image : {{path}}'
+
+
+# Dossier où Decap stocke les images uploadées via le CMS
+media_folder: "src/assets/img/produits"
+public_folder: "/assets/img/produits"
+
+# Locale française pour l'interface admin
+locale: "fr"
+
+# Site URL (sera mis à jour automatiquement au déploiement)
+site_url: https://vapelab.fr
+display_url: https://vapelab.fr
+logo_url: https://vapelab.fr/favicon.svg
+
+# Active l'éditeur de contenu enrichi (markdown) avec sauvegardes automatiques
+editor:
+  preview: false
+
+collections:
+
+  # ════════════════════════════════════════════════════════════════════════
+  # PRODUITS — fichier unique JSON contenant la liste complète
+  # ════════════════════════════════════════════════════════════════════════
+  - name: "produits"
+    label: "Catalogue produits"
+    label_singular: "Produit"
+    description: "Tous les produits de la boutique. Utilisez les filtres par catégorie sur la gauche."
+    folder: "src/data-source/produits"
+    create: true
+    delete: true
+    identifier_field: "id"
+    extension: "json"
+    format: "json"
+    slug: "{{id}}"
+    summary: "[{{categorie}}] {{nom}} – {{marque}} ({{prix}} €)"
+    sortable_fields: ["categorie", "nom", "marque", "prix"]
+    view_filters:
+      - label: "CBD"
+        field: categorie
+        pattern: "cbd"
+      - label: "Vape & E-liquides"
+        field: categorie
+        pattern: "vape"
+      - label: "Puffs"
+        field: categorie
+        pattern: "puffs"
+      - label: "Chicha"
+        field: categorie
+        pattern: "chicha"
+      - label: "Accessoires"
+        field: categorie
+        pattern: "accessoires"
+    view_groups:
+      - label: "Catégorie"
+        field: categorie
+      - label: "Actif"
+        field: actif
+    fields:
+
+      # ─── Identité ──────────────────────────────────────────────
+      - label: "Identifiant URL (slug)"
+        name: "id"
+        widget: "string"
+        hint: "Identifiant unique en kebab-case (lettres minuscules + tirets). Ex : kit-box-gen-se-vaporesso. Sert d'URL : /produits/<id>/"
+        pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', 'Uniquement lettres minuscules, chiffres et tirets']
+
+      - label: "Nom du produit"
+        name: "nom"
+        widget: "string"
+        hint: "Affiché en gros titre sur la fiche produit"
+
+      - label: "Marque"
+        name: "marque"
+        widget: "string"
+
+      - label: "Catégorie"
+        name: "categorie"
+        widget: "select"
+        options:
+          - { label: "CBD",         value: "cbd" }
+          - { label: "Vape & E-liquides", value: "vape" }
+          - { label: "Puffs",       value: "puffs" }
+          - { label: "Chicha",      value: "chicha" }
+          - { label: "Accessoires", value: "accessoires" }
+
+      - label: "Sous-catégorie"
+        name: "sousCategorie"
+        widget: "string"
+        required: false
+        hint: "Ex : kits-debutants, fleurs-indoor, e-liquides... (optionnel)"
+
+      # ─── Prix & stock ──────────────────────────────────────────
+      - label: "Prix (€)"
+        name: "prix"
+        widget: "number"
+        value_type: "float"
+        step: 0.01
+        min: 0
+
+      - label: "Prix barré (€)"
+        name: "prixBarre"
+        widget: "number"
+        value_type: "float"
+        step: 0.01
+        min: 0
+        required: false
+        hint: "Prix avant promo. Laisser vide si pas de promotion."
+
+      - label: "Devise"
+        name: "devise"
+        widget: "hidden"
+        default: "EUR"
+
+      - label: "Unité de prix"
+        name: "unitePrix"
+        widget: "string"
+        required: false
+        hint: 'Ex : "g" pour les fleurs CBD vendues au gramme. Laisser vide si vente à l''unité.'
+
+      - label: "Stock"
+        name: "stock"
+        widget: "number"
+        value_type: "int"
+        min: 0
+        default: 0
+
+      - label: "Statut stock"
+        name: "statutStock"
+        widget: "select"
+        options:
+          - { label: "En stock",     value: "en-stock" }
+          - { label: "Stock faible", value: "stock-faible" }
+          - { label: "Rupture",      value: "rupture" }
+        default: "en-stock"
+
+      # ─── Images ────────────────────────────────────────────────
+      - label: "Image principale"
+        name: "image"
+        widget: "image"
+        hint: "Photo principale qui apparaît sur les listes et en miniature de la fiche"
+
+      - label: "Galerie photos"
+        name: "galerie"
+        widget: "list"
+        field: { label: "Photo", name: "photo", widget: "image" }
+        hint: "Toutes les photos du produit"
+        required: false
+
+      # ─── Description ───────────────────────────────────────────
+      - label: "Description courte"
+        name: "descriptionCourte"
+        widget: "string"
+        hint: "1-2 phrases (visible sur les cartes produit et en haut de la fiche)"
+
+      - label: "Description complète"
+        name: "description"
+        widget: "text"
+        hint: "Description longue (paragraphe complet)"
+        required: false
+
+      - label: "Points forts"
+        name: "pointsForts"
+        widget: "list"
+        field: { label: "Argument", name: "argument", widget: "string" }
+        hint: "Liste à puces des arguments clés du produit"
+        required: false
+
+      # ─── Fiche technique ───────────────────────────────────────
+      - label: "Fiche technique"
+        name: "ficheTechnique"
+        widget: "list"
+        hint: "Caractéristiques techniques en paires (ex : Puissance / 80W)"
+        required: false
+        summary: "{{fields.cle}} : {{fields.valeur}}"
+        fields:
+          - { label: "Caractéristique", name: "cle", widget: "string" }
+          - { label: "Valeur", name: "valeur", widget: "string" }
+
+      # ─── Contenu du kit ────────────────────────────────────────
+      - label: "Contenu du kit"
+        name: "contenuKit"
+        widget: "list"
+        field: { label: "Élément inclus", name: "element", widget: "string" }
+        hint: 'Liste des items inclus (ex : "1× Box", "1× Câble USB-C")'
+        required: false
+
+      # ─── Couleurs ──────────────────────────────────────────────
+      - label: "Couleurs disponibles"
+        name: "couleurs"
+        widget: "list"
+        summary: "{{fields.nom}}"
+        required: false
+        fields:
+          - { label: "Nom de la couleur", name: "nom", widget: "string" }
+          - { label: "Code couleur (hex)", name: "hex", widget: "color", allowInput: true }
+
+      # ─── Saveurs ───────────────────────────────────────────────
+      - label: "Saveurs disponibles"
+        name: "saveurs"
+        widget: "list"
+        field: { label: "Saveur", name: "saveur", widget: "string" }
+        required: false
+        hint: "Pour les puffs et e-liquides"
+
+      # ─── Variantes ─────────────────────────────────────────────
+      - label: "Variantes"
+        name: "variantes"
+        widget: "list"
+        summary: "{{fields.label}}{% if fields.prix %} — {{fields.prix}} €{% endif %}"
+        required: false
+        hint: "CBD : formats 1g / 3g / 5g / 10g avec prix calculé. Puffs : une entrée par saveur."
+        fields:
+          - { label: "Label", name: "label", widget: "string", hint: "Ex : 1g, 3g, Fraise, Mangue…" }
+          - { label: "Prix (€)", name: "prix", widget: "number", value_type: "float", required: false }
+          - { label: "Stock", name: "stock", widget: "number", value_type: "int", default: 10 }
+
+      # ─── Tags ──────────────────────────────────────────────────
+      - label: "Tags"
+        name: "tags"
+        widget: "select"
+        multiple: true
+        options:
+          - { label: "Bestseller",   value: "bestseller" }
+          - { label: "Nouveauté",    value: "nouveaute" }
+          - { label: "Hot",          value: "hot" }
+          - { label: "Promo",        value: "promo" }
+          - { label: "Premium",      value: "premium" }
+          - { label: "Indoor",       value: "indoor" }
+          - { label: "Best-saveur",  value: "best-saveur" }
+          - { label: "Kit complet",  value: "kit-complet" }
+          - { label: "Débutant",     value: "debutant" }
+        required: false
+
+      # ─── Avis ──────────────────────────────────────────────────
+      - label: "Note moyenne (0-5)"
+        name: "note"
+        widget: "number"
+        value_type: "float"
+        min: 0
+        max: 5
+        step: 0.1
+        required: false
+
+      - label: "Nombre d'avis"
+        name: "nombreAvis"
+        widget: "number"
+        value_type: "int"
+        min: 0
+        required: false
+
+      # ─── Méta ──────────────────────────────────────────────────
+      - label: "Date d'ajout"
+        name: "dateAjout"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        picker_utc: false
+
+      - label: "Produit actif (visible sur le site)"
+        name: "actif"
+        widget: "boolean"
+        default: true
+        hint: "Décochez pour masquer un produit sans le supprimer"
+
+      # ─── SEO ───────────────────────────────────────────────────
+      - label: "SEO"
+        name: "seo"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Titre SEO", name: "title", widget: "string", required: false }
+          - { label: "Meta description", name: "description", widget: "string", required: false, hint: "150-160 caractères max" }
+
+  - name: "categories"
+    label: "Catégories (univers)"
+    label_singular: "Catégorie"
+    description: "Les 5 univers de la boutique : CBD, Vape, Puffs, Chicha, Accessoires."
+    files:
+      - file: "src/data-source/categories.json"
+        label: "Liste des catégories"
+        name: "categories"
+        fields:
+          - label: "Catégories"
+            name: "categories"
+            widget: "list"
+            summary: "{{fields.nom}}"
+            collapsed: true
+            fields:
+              - { label: "Slug (URL)", name: "slug", widget: "string", pattern: ['^[a-z0-9-]+$', 'Lettres minuscules + tirets'] }
+              - { label: "Nom complet", name: "nom", widget: "string" }
+              - { label: "Nom court (pour menu)", name: "nomCourt", widget: "string", required: false }
+              - { label: "Couleur d'accent", name: "couleur", widget: "select", options: ["green", "violet", "blue", "smoke"] }
+              - { label: "Code hex couleur", name: "couleurHex", widget: "color", allowInput: true, required: false }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Image de bannière", name: "image", widget: "image", required: false }
+              - { label: "Icône (clé technique)", name: "icone", widget: "string", required: false }
+              - { label: "Ordre d'affichage", name: "ordre", widget: "number", value_type: "int", min: 1 }
+
+
+  # ════════════════════════════════════════════════════════════════════════
+  # SITE — config globale (rare modification)
+  # ════════════════════════════════════════════════════════════════════════
+  - name: "site"
+    label: "Configuration du site"
+    description: "Coordonnées de la boutique, horaires, réseaux sociaux. À éditer rarement."
+    files:
+      - file: "src/_data/site.json"
+        label: "Infos boutique"
+        name: "site"
+        fields:
+          - { label: "Nom de la boutique", name: "nom", widget: "string" }
+          - { label: "Baseline (sous-titre court)", name: "baseline", widget: "string" }
+          - { label: "Tagline (slogan)", name: "tagline", widget: "string" }
+          - { label: "Description SEO", name: "description", widget: "text" }
+          - { label: "URL du site", name: "url", widget: "string" }
+          - { label: "Langue (code)", name: "lang", widget: "hidden", default: "fr" }
+          - { label: "Locale", name: "locale", widget: "hidden", default: "fr_FR" }
+
+          - label: "Adresse"
+            name: "adresse"
+            widget: "object"
+            fields:
+              - { label: "Rue", name: "rue", widget: "string" }
+              - { label: "Code postal", name: "codePostal", widget: "string" }
+              - { label: "Ville", name: "ville", widget: "string" }
+              - { label: "Pays", name: "pays", widget: "string", default: "France" }
+
+          - label: "Contact"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Téléphone (format affiché)", name: "telephone", widget: "string" }
+              - { label: "Téléphone (format E.164)", name: "telephoneE164", widget: "string", hint: "Ex : +33450000000 (utilisé pour les liens 'cliquer pour appeler')" }
+              - { label: "Email", name: "email", widget: "string" }
+
+          - label: "Horaires"
+            name: "horaires"
+            widget: "list"
+            summary: "{{fields.jours}} : {{fields.heures}}"
+            fields:
+              - { label: "Jours", name: "jours", widget: "string" }
+              - { label: "Heures", name: "heures", widget: "string" }
+
+          - label: "Réseaux sociaux"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "Instagram", name: "instagram", widget: "string", required: false }
+              - { label: "Facebook",  name: "facebook",  widget: "string", required: false }
+              - { label: "TikTok",    name: "tiktok",    widget: "string", required: false }
+
+          - label: "Menu de navigation"
+            name: "navigation"
+            widget: "list"
+            summary: "{{fields.label}} → {{fields.url}}"
+            fields:
+              - { label: "Libellé", name: "label", widget: "string" }
+              - { label: "URL",     name: "url",   widget: "string" }
+              - { label: "Couleur d'accent", name: "couleur", widget: "select", options: ["green", "violet", "blue", "smoke"] }

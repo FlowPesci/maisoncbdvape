@@ -1,0 +1,30 @@
+{
+  "marque": "Spliff Box",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Spliff Box L ! ?",
+  "actif": true,
+  "prix": 19.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Compartiments int&eacute;gr&eacute;s pour une organisation optimale",
+  "categorie": "accessoires",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "spliff-box-l",
+  "image": "/media/produits/1778342923568-spliff-box-l.jpeg",
+  "description": "Spliff Box L – Boîte de rangement accessoires fumeur.\n\nPrésentation\nLa Spliff Box L est la version grand format de la boîte de rangement pour accessoires fumeur. Ses compartiments intégrés offrent une organisation optimale pour papiers, filtres, briquet, tabac et plus encore.\n\nCaractéristiques\nFormat L : plus d'espace de rangement. Compartiments intégrés pour organisation optimale. Fermeture sécurisée. Matériau résistant. Design discret.\n\nIdéal pour\nLes utilisateurs qui souhaitent regrouper tous leurs accessoires dans un seul contenant pratique.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Compartiments int&eacute;gr&eacute;s pour une organisation optimale"
+  }
+}

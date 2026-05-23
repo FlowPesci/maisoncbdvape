@@ -1,0 +1,30 @@
+{
+  "marque": "Celeste",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Chicha CELESTE® Edition Black",
+  "actif": true,
+  "prix": 59.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Design &eacute;l&eacute;gant et 100% noir mat",
+  "categorie": "chicha",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "chicha-celeste-edition-black",
+  "image": "/media/produits/1778342520969-chicha-celeste-edition-black.jpeg",
+  "description": "Chicha CELESTE® Edition Black.\n\nDesign & matériaux\nUn design élégant 100% noir mat pour une esthétique premium et minimaliste. Corps en acier inoxydable brossé, vase en verre épais résistant, tuyau silicone flexible et embout inclus.\n\nCaractéristiques techniques\nHauteur : environ 38 cm. Tirage fluide et équilibré. Compatible avec tous les foyers du marché. Purge efficace. Montage simple et rapide.\n\nContenu de la boîte\nChicha complète montée, vase en verre, tuyau silicone, embout, tige inox, plateau. Prête à l'emploi.\n\nIdéal pour\nUne utilisation à domicile, pour débuter ou pour les amateurs souhaitant une chicha fiable et esthétique.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Design &eacute;l&eacute;gant et 100% noir mat"
+  }
+}

@@ -1,0 +1,35 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# netlify.toml — Configuration de déploiement Tabac Gex
+# ──────────────────────────────────────────────────────────────────────────────
+
+[build]
+  command   = "npm run build"
+  publish   = "public"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Functions ESM par défaut (notre type=module dans package.json)
+[functions]
+  node_bundler = "esbuild"
+
+# Headers globaux : sécurité + cache assets
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options          = "SAMEORIGIN"
+    X-Content-Type-Options   = "nosniff"
+    Referrer-Policy          = "strict-origin-when-cross-origin"
+    Permissions-Policy       = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Page 404 personnalisée
+[[redirects]]
+  from   = "/*"
+  to     = "/404.html"
+  status = 404

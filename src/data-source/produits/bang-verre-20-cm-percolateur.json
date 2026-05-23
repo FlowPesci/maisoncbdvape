@@ -1,0 +1,30 @@
+{
+  "marque": "Bang ",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Bang verre 20 cm Percolateur",
+  "actif": true,
+  "prix": 16.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Une construction solide adapt&eacute;e aux utilisateurs recherchant durabilit&eacute; et simplicit&eacute;",
+  "categorie": "accessoires",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "bang-verre-20-cm-percolateur",
+  "image": "/media/produits/1778343041321-bang-verre-20-cm-percolateur.jpeg",
+  "description": "Bang en Verre 20 cm Percolateur.\n\nPrésentation\nUn bang en verre borosilicaté compact de 20 cm avec percolateur pour une utilisation à domicile. Format idéal pour une discrétion maximale tout en conservant la qualité de filtration d'un percolateur.\n\nCaractéristiques\nHauteur : 20 cm. Verre borosilicaté résistant. Percolateur intégré pour refroidissement et filtration. Bol inclus. Format compact et facile à ranger.\n\nEntretien\nNettoyer à l'alcool isopropylique ou à l'eau chaude après chaque utilisation.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Une construction solide adapt&eacute;e aux utilisateurs recherchant durabilit&eacute; et simplicit&eacute;"
+  }
+}

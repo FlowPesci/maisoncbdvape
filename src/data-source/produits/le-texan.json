@@ -1,0 +1,30 @@
+{
+  "marque": "Curieux",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Le Texan",
+  "actif": true,
+  "prix": 19.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Découvrez Le Texan, un produit de qualité dans la catégorie Curieux. Disponible chez Tabacgex.fr à Gex.",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "le-texan",
+  "image": "/media/produits/1778341899856-le-texan.jpeg",
+  "description": "E-liquide Le Texan de la gamme Curieux.\n\nProfil aromatique\nUn arôme tabac blond américain : robuste, sec et légèrement vanillé. Le Texan rend hommage aux grandes plaines avec une vape tabacée franche, équilibrée et sans amertume.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés. Ratio PG/VG 50/50. Fabriqué en France.\n\nUsage recommandé\nIdéal pour les anciens fumeurs en quête d'un arôme tabac authentique.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Découvrez Le Texan, un produit de qualité dans la catégorie Curieux. Disponible chez Tabacgex.fr à Gex."
+  }
+}

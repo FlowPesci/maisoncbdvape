@@ -1,0 +1,54 @@
+{
+  "marque": "Moby Dick Hydro Indoor CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Moby Dick Hydro Indoor CBD",
+  "actif": true,
+  "prix": 4.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 14.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 24.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 49,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes boisées et terreuses, équilibrées par une fraîcheur citronnée et légèrement épicée.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "indoor"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "moby-dick-hydro-indoor-cbd",
+  "image": "/media/produits/1778340424986-moby-dick-hydro-indoor-cbd.jpeg",
+  "description": "Aspect visuel\n\nBuds volumineux et compacts, soigneusement taillés.\n\nTeinte vert clair avec des pistils orangés éclatants.\n\nRecouverts d’une fine couche de trichomes brillants, révélant une grande richesse en terpènes et CBD.\n\nArômes & saveurs\n\nProfil intense et puissant.\n\nNotes boisées et terreuses, équilibrées par une fraîcheur citronnée et légèrement épicée.\n\nSaveur complexe, profonde et persistante en bouche.\n\n⚡ Effets (CBD)\n\nRelaxation intense, idéale pour apaiser le corps et l’esprit sans effet psychotrope.\n\nFavorise la détente musculaire et mentale, tout en gardant une clarté d’esprit.\n\nParfaite en fin de journée ou pour un moment de repos.\n\nCulture indoor hydroponique\n\nCultivée en intérieur via hydroponie, offrant un contrôle parfait sur la lumière, l’humidité et la nutrition.\n\nRésultat : une fleur propre, stable, régulière et d’une qualité supérieure.\n\nEn résumé, la CBD Moby-Dick Indoor Hydro est une fleur d’exception, aux arômes boisés et citronnés, aux effets relaxants marqués et issue d’une culture soignée, garantissant une expérience premium.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes boisées et terreuses, équilibrées par une fraîcheur citronnée et légèrement épicée."
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "categories": [
+    {
+      "slug": "cbd",
+      "nom": "Fleurs & Résines CBD",
+      "icone": "leaf",
+      "ordre": 1,
+      "image": "/assets/img/produits/f7d83d44591093a46efddebe80425d5d4856af56.png",
+      "couleurHex": "#39FF14",
+      "description": "Fleurs CBD indoor & outdoor, résines, huiles et infusions. Sélection rigoureuse de producteurs européens, taux de THC < 0,3% conforme à la législation.",
+      "nomCourt": "CBD",
+      "couleur": "green"
+    },
+    {
+      "slug": "puffs",
+      "nom": "Puffs Jetables",
+      "icone": "bolt",
+      "ordre": 2,
+      "image": "/assets/img/produits/ac96b7cf800a435506efa12bc9213f7a1dba2402.png",
+      "couleurHex": "#BF5FFF",
+      "description": "Puffs jetables nouvelle génération : Al Fakher Crown Bar, JNR, Lost Mary. De 600 à 30 000 bouffées, plus de 50 saveurs disponibles.",
+      "nomCourt": "Puffs",
+      "couleur": "violet"
+    },
+    {
+      "slug": "vape",
+      "nom": "Cigarettes Électroniques & DIY",
+      "icone": "spark",
+      "ordre": 3,
+      "image": "/assets/img/produits/cigarettes-electroniques.jpg",
+      "couleurHex": "#BF5FFF",
+      "description": "Box, pods, kits débutants et avancés. E-liquides Le Petit Verger, Curieux, E-CG. Marques expertes : Vaporesso, Geek Vape, Justfog.",
+      "nomCourt": "Vape & E-liquides",
+      "couleur": "violet"
+    },
+    {
+      "slug": "chicha",
+      "nom": "Univers Chicha",
+      "icone": "flame",
+      "ordre": 4,
+      "image": "/assets/img/produits/4971b234eb3c8c8be4dda05f4c24a9edb4842b02.png",
+      "couleurHex": "#00D4FF",
+      "description": "Chichas TSAR, Khalil Mamoon, Cyborg Hookah. Charbons naturels, tabac à chicha, foyers Phunnel et accessoires premium.",
+      "nomCourt": "Chicha",
+      "couleur": "blue"
+    },
+    {
+      "slug": "accessoires",
+      "nom": "Accessoires Fumeurs",
+      "icone": "tool",
+      "ordre": 5,
+      "image": "/assets/img/produits/accessoires.jpg",
+      "couleurHex": "#8A8A9A",
+      "description": "Briquets, grinders, feuilles, cendriers, étuis. Tout l'essentiel pour le fumeur exigeant.",
+      "nomCourt": "Accessoires",
+      "couleur": "smoke"
+    }
+  ]
+}

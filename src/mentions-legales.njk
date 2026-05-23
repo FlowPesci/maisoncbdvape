@@ -1,0 +1,60 @@
+---
+layout: layouts/base.njk
+permalink: /mentions-legales/index.html
+title: "Mentions légales"
+description: "Mentions légales du site vapelab.fr."
+---
+<article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  <h1 class="font-display text-5xl lg:text-6xl text-white tracking-wide mb-3">MENTIONS LÉGALES</h1>
+  <p class="text-smoke text-sm mb-10">Mise à jour : {{ "now" | date("dd MMMM yyyy") if false else "14 mai 2026" }}</p>
+
+  <h2 class="font-display text-xl tracking-widest text-white mt-10 mb-3">ÉDITEUR DU SITE</h2>
+  <ul class="text-smoke space-y-1.5">
+    <li>Dénomination sociale : <strong class="text-white">BOURGOIS KOTOWSKI ET CIE</strong></li>
+    <li>Forme juridique : Société en nom collectif (SNC)</li>
+    <li>Capital social : 1 524,49 €</li>
+    <li>Siège social : 48 Rue de Genève, 01170 Gex, France</li>
+    <li>SIREN : <strong class="text-white">401 978 747</strong></li>
+    <li>SIRET : <strong class="text-white">401 978 747 00012</strong></li>
+    <li>RCS : <strong class="text-white">RCS Bourg-en-Bresse 401 978 747</strong></li>
+    <li>N° TVA intracommunautaire : <strong class="text-white">FR49 401 978 747</strong></li>
+    <li>Téléphone : <a href="tel:{{ site.contact.telephoneE164 }}" class="hover:text-white transition-colors">{{ site.contact.telephone }}</a></li>
+    <li>Email : <a href="mailto:{{ site.contact.email }}" class="text-neon-violet hover:underline">{{ site.contact.email }}</a></li>
+    <li>Directeurs de la publication : <strong class="text-white">Vincent KOTOWSKI &amp; Elisabeth BOURGOIS</strong></li>
+  </ul>
+
+  <h2 class="font-display text-xl tracking-widest text-white mt-8 mb-3">HÉBERGEMENT</h2>
+  <ul class="text-smoke space-y-1.5">
+    <li>Hébergeur : <strong class="text-white">Cloudflare, Inc.</strong></li>
+    <li>Adresse : 101 Townsend St, San Francisco, CA 94107, USA</li>
+    <li>Site web : <a href="https://www.cloudflare.com" class="text-neon-violet hover:underline">cloudflare.com</a></li>
+  </ul>
+
+  <h2 class="font-display text-xl tracking-widest text-white mt-8 mb-3">PROPRIÉTÉ INTELLECTUELLE</h2>
+  <p class="text-smoke leading-relaxed">L'ensemble des éléments du site (textes, images, logos, marques) est protégé par le droit d'auteur et la propriété intellectuelle. Toute reproduction, totale ou partielle, sans autorisation écrite préalable est interdite.</p>
+
+  <h2 class="font-display text-xl tracking-widest text-white mt-8 mb-3">DONNÉES PERSONNELLES (RGPD)</h2>
+  <p class="text-smoke leading-relaxed mb-3">
+    Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, l'utilisateur dispose d'un droit d'accès, de rectification, de suppression et d'opposition aux données le concernant.
+  </p>
+  <p class="text-smoke leading-relaxed mb-3">
+    <strong class="text-white">Données collectées :</strong> nom, email, téléphone, contenu de la commande, créneau de retrait. Aucune donnée bancaire n'est conservée (paiement géré par Viva Wallet).
+  </p>
+  <p class="text-smoke leading-relaxed mb-3">
+    <strong class="text-white">Finalité :</strong> traitement de la commande, communication avec le client, facturation.
+  </p>
+  <p class="text-smoke leading-relaxed mb-3">
+    <strong class="text-white">Durée de conservation :</strong> 3 ans après la dernière commande, puis archivage 10 ans pour obligations comptables.
+  </p>
+  <p class="text-smoke leading-relaxed mb-3">
+    <strong class="text-white">Pour exercer vos droits :</strong> <a href="mailto:{{ site.contact.email }}" class="text-neon-violet hover:underline">{{ site.contact.email }}</a>. En cas de désaccord, vous pouvez saisir la <a href="https://www.cnil.fr" class="text-neon-violet hover:underline">CNIL</a>.
+  </p>
+
+  <h2 class="font-display text-xl tracking-widest text-white mt-8 mb-3">COOKIES</h2>
+  <p class="text-smoke leading-relaxed">Le site vapelab.fr utilise uniquement des cookies techniques nécessaires au fonctionnement (session, panier en localStorage). Aucun cookie de tracking publicitaire n'est déposé sans consentement préalable.</p>
+
+  <h2 class="font-display text-xl tracking-widest text-white mt-8 mb-3">CRÉDITS</h2>
+  <p class="text-smoke leading-relaxed">Conception et développement : <strong class="text-white">Pulsar Web</strong>. Polices : Bebas Neue, DM Sans, Space Mono (Google Fonts).</p>
+
+</article>

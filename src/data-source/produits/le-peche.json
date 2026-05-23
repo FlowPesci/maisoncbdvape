@@ -1,0 +1,30 @@
+{
+  "marque": "Curieux",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Le Pêche",
+  "actif": true,
+  "prix": 19.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "E-liquide Curieux Le Pêche 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "le-peche",
+  "image": "/media/produits/1778341880954-le-peche.jpeg",
+  "description": "E-liquide Le Pêche de la gamme Curieux.\n\nProfil aromatique\nLa pêche blanche à son meilleur : juteuse, fondante et légèrement sucrée. Un arôme fidèle et équilibré qui restitue toute la fraîcheur d'une pêche mûre cueillie à point.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés. Ratio PG/VG 50/50. Fabrication française.\n\nUsage recommandé\nIdéal pour une vape fruitée et naturelle en MTL ou en pod.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "E-liquide Curieux Le Pêche 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+  }
+}

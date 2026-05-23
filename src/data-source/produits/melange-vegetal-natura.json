@@ -1,0 +1,30 @@
+{
+  "marque": "Mélange végétal Natura",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Mélange végétal Natura",
+  "actif": true,
+  "prix": 6.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Bouillon blanc, Calendula & Chanvre",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "melange-vegetal-natura",
+  "image": "/media/produits/1778340655602-melange-vegetal-natura.png",
+  "description": "Substitut de tabac naturel – Bouillon blanc, Calendula & Chanvre\n\nRedécouvrez le plaisir du rituel sans nicotine grâce à cette synergie végétale apaisante.\nComposé de Bouillon blanc, Calendula et Chanvre, ce mélange doux et aromatique offre une fumée légère, au goût rond et légèrement floral.\nLe Bouillon blanc adoucit la gorge, le Calendula apporte des notes ensoleillées et bienfaisantes, tandis que le Chanvre procure une sensation de détente et d’équilibre.\n\n✨ Sans tabac – Sans nicotine – 100 % naturel\nIdéal pour accompagner un sevrage en douceur ou savourer un moment de relaxation consciente.\n\n🌿 Un mélange harmonieux pour respirer la liberté, une bouffée à la fois.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Bouillon blanc, Calendula & Chanvre"
+  }
+}

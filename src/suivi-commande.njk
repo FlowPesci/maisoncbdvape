@@ -1,0 +1,127 @@
+---
+layout: layouts/base.njk
+permalink: /suivi-commande/index.html
+title: "Suivi de commande"
+description: "Suivez votre commande VapeLab en temps réel grâce à votre numéro de commande et votre adresse email."
+---
+<section class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  <h1 class="font-display text-5xl lg:text-6xl text-white tracking-wide mb-3 fade-up">SUIVI DE COMMANDE</h1>
+  <p class="text-smoke text-sm mb-10 fade-up">
+    Saisissez votre numéro de commande (reçu par email) et l'adresse email utilisée lors de la commande.
+  </p>
+
+  <form id="track-form" class="rounded-2xl bg-dark-card border border-dark-border p-6 space-y-5 mb-6">
+    <label class="block">
+      <span class="block text-sm font-semibold text-white mb-2">Numéro de commande</span>
+      <input type="text" name="orderId" required pattern="TG-[0-9]{12}-[A-Z0-9]{4}" placeholder="TG-202604281430-A1B2"
+             class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm font-mono placeholder-smoke focus:outline-none focus:border-neon-green/50 transition-colors"/>
+    </label>
+    <label class="block">
+      <span class="block text-sm font-semibold text-white mb-2">Adresse email</span>
+      <input type="email" name="email" required
+             class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white text-sm placeholder-smoke focus:outline-none focus:border-neon-green/50 transition-colors"/>
+    </label>
+    <button type="submit" class="btn-neon-green w-full py-3 rounded-xl text-sm uppercase tracking-widest font-bold">
+      Voir le statut
+    </button>
+  </form>
+
+  <div id="track-result" class="hidden"></div>
+  <div id="track-error" class="hidden p-4 rounded-xl bg-red-400/10 border border-red-400/30 text-red-300 text-sm"></div>
+</section>
+
+<script>
+(function() {
+  const form    = document.getElementById('track-form');
+  const result  = document.getElementById('track-result');
+  const errorEl = document.getElementById('track-error');
+  const formatEur = (n) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(n);
+  const formatDate = (iso) => new Date(iso).toLocaleString('fr-FR');
+  function esc(str) {
+    if (str == null) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');
+  }
+  function fmtAdresse(a) {
+    if (!a || typeof a !== 'object') return '';
+    return [a.adresse, a.codePostal, a.ville].filter(Boolean).map(esc).join(', ');
+  }
+
+  const STATUS_LABEL = {
+    pending:    { label: 'En attente de préparation', color: '#FFA500', desc: 'Votre commande est enregistrée. Le commerçant la prend en charge dans les 24 h ouvrées.' },
+    paid:       { label: 'Paiement confirmé',         color: '#39FF14', desc: 'Votre paiement est validé. Préparation imminente.' },
+    preparing:  { label: 'En préparation',            color: '#BF5FFF', desc: 'Le commerçant prépare votre commande. Vous recevrez un email dès qu\'elle sera prête.' },
+    ready:      { label: 'Prête à récupérer',         color: '#00D4FF', desc: 'Votre commande vous attend en boutique au créneau choisi !' },
+    completed:  { label: 'Récupérée',                 color: '#8A8A9A', desc: 'Merci pour votre achat. À très vite !' },
+    cancelled:  { label: 'Annulée',                   color: '#FF5050', desc: 'Cette commande a été annulée.' },
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    result.classList.add('hidden');
+    errorEl.classList.add('hidden');
+
+    const fd = new FormData(form);
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Recherche…';
+
+    try {
+      const res = await fetch('/api/track-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId: fd.get('orderId'), email: fd.get('email') }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Erreur ' + res.status);
+
+      const o = data.order;
+      const s = STATUS_LABEL[o.status] || { label: o.status, color: '#8A8A9A', desc: '' };
+      const items = o.items.map((it) => `
+        <li class="flex justify-between gap-3 py-2 border-b border-dark-border last:border-0">
+          <span class="text-smoke">${esc(it.qty)} × ${esc(it.nom)}</span>
+          <span class="font-mono text-white">${formatEur(it.prix * it.qty)}</span>
+        </li>`).join('');
+
+      result.innerHTML = `
+        <div class="rounded-2xl bg-dark-card border border-dark-border p-6 space-y-6">
+          <div>
+            <p class="text-smoke text-xs font-mono mb-1">${esc(o.orderId)}</p>
+            <p class="text-smoke text-xs">Commandée le ${formatDate(o.createdAt)}</p>
+          </div>
+          <div class="text-center py-4 rounded-xl border" style="border-color:${s.color}55;background:${s.color}10;">
+            <p class="text-xs font-mono uppercase tracking-widest mb-1" style="color:${s.color};">Statut</p>
+            <p class="font-display text-2xl" style="color:${s.color};">${esc(s.label)}</p>
+            <p class="text-smoke text-xs mt-2 max-w-md mx-auto">${esc(s.desc)}</p>
+          </div>
+          <div>
+            ${o.modeLivraison === 'livraison' ? `
+            <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-2">Livraison à domicile</p>
+            <p class="text-white">🚚 ${fmtAdresse(o.adresseLivraison)}</p>
+            <p class="text-smoke text-xs mt-1">Colissimo — 2 à 4 jours ouvrés après expédition</p>
+            ` : `
+            <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-2">Retrait prévu</p>
+            <p class="text-white">📅 ${esc(o.creneauRetrait?.date)} à partir de ${esc(o.creneauRetrait?.heure)}</p>
+            <p class="text-smoke text-xs mt-1">📍 48 Rue de Genève, 01170 Gex</p>
+            `}
+          </div>
+          <div>
+            <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-2">Articles</p>
+            <ul>${items}</ul>
+            <p class="mt-3 text-right font-display text-2xl" style="color:#39FF14;">${formatEur(o.totalTTC)}</p>
+          </div>
+          <div class="pt-4 border-t border-dark-border">
+            <a href="/contact/" class="text-smoke text-xs hover:text-white transition-colors">❓ Une question sur votre commande ? Contactez-nous →</a>
+          </div>
+        </div>`;
+      result.classList.remove('hidden');
+    } catch (err) {
+      errorEl.textContent = err.message + " — vérifiez votre numéro de commande et votre email.";
+      errorEl.classList.remove('hidden');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Voir le statut';
+    }
+  });
+})();
+</script>

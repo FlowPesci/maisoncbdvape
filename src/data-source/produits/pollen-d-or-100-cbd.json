@@ -1,0 +1,54 @@
+{
+  "marque": "Cannatonic",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Pollen D'or 100% CBD",
+  "actif": true,
+  "prix": 4.2,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.2,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 12.6,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 21,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 42,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes terreuses et boisées, avec une légère touche d’agrumes et d’herbes fraîches.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [
+    "hot"
+  ],
+  "saveurs": [],
+  "galerie": [],
+  "id": "pollen-d-or-100-cbd",
+  "image": "/media/produits/1778340594003-pollen-d-or-100-cbd.jpeg",
+  "description": "Aspect visuel & texture\n\nPoudre compacte et homogène, d’une belle couleur dorée à brun clair.\n\nTexture souple, légèrement grasse, facile à travailler et à effriter.\n\nPrésente une belle densité, signe de concentration et de pureté.\n\nArômes & saveurs\n\nProfil aromatique doux et équilibré, typique de la variété Cannatonic.\n\nNotes terreuses et boisées, avec une légère touche d’agrumes et d’herbes fraîches.\n\nEn bouche : une saveur subtile, ronde et persistante, idéale pour les amateurs de goûts fins.\n\n⚡ Effets (CBD)\n\nForte teneur en CBD, procurant une relaxation apaisante et durable.\n\nFavorise la détente musculaire et la réduction du stress, tout en gardant l’esprit clair.\n\nIdéal pour les moments de calme, la récupération et le bien-être quotidien.\n\nQualité & pureté\n\nIssu à 100% de fleurs Cannatonic premium, cultivées avec soin.\n\nPollen naturel, pur, sans additif, riche en cannabinoïdes et en terpènes.\n\nRésultat : un produit haut de gamme, puissant et raffiné.\n\nEn résumé, le Pollen 100% Cannatonic pur CBD est une résine premium, réputée pour son goût subtil, ses arômes raffinés et ses effets relaxants équilibrés, idéale pour une expérience CBD de qualité supérieure.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes terreuses et boisées, avec une légère touche d’agrumes et d’herbes fraîches."
+  }
+}

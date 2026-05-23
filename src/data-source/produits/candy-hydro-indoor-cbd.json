@@ -1,0 +1,52 @@
+{
+  "marque": "Candy Hydro Indoor CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Candy Hydro Indoor CBD",
+  "actif": true,
+  "prix": 4.9,
+  "unitePrix": "g",
+  "note": null,
+  "ficheTechnique": {},
+  "variantes": [
+    {
+      "label": "1g",
+      "prix": 4.9,
+      "stock": 10
+    },
+    {
+      "label": "3g",
+      "prix": 14.7,
+      "stock": 10
+    },
+    {
+      "label": "5g",
+      "prix": 24.5,
+      "stock": 10
+    },
+    {
+      "label": "10g",
+      "prix": 49,
+      "stock": 10
+    }
+  ],
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Notes fruitées, douces et légèrement florales.",
+  "categorie": "cbd",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "candy-hydro-indoor-cbd",
+  "image": "/media/produits/1778340429786-candy-hydro-indoor-cbd.jpeg",
+  "description": "Aspect visuel\n\nBuds compacts, bien formés et soigneusement manucurés.\n\nCouleur vert clair avec de subtils reflets orangés et parfois légèrement violets.\n\nRecouverts d’une belle couche de trichomes brillants, garantissant richesse en CBD et intensité aromatique.\n\nArômes & saveurs\n\nProfil sucré et gourmand, rappelant les bonbons et les fruits confits.\n\nNotes fruitées, douces et légèrement florales.\n\nEn bouche : une saveur sucrée, agréable et persistante qui séduit immédiatement.\n\n⚡ Effets (CBD)\n\nRelaxation douce et agréable, sans effet psychotrope.\n\nFavorise un état de bien-être et de détente, idéal pour relâcher les tensions.\n\nParfaite pour un moment de calme, seule ou en convivialité.\n\nCulture indoor hydroponique\n\nCultivée en intérieur via hydroponie, permettant une nutrition précise et un environnement maîtrisé.\n\nRésultat : une fleur stable, pure et d’une qualité premium, riche en terpènes et en arômes.\n\nEn résumé, la CBD Candy Indoor Hydro est une fleur haut de gamme, au parfum sucré et fruité, aux effets relaxants équilibrés et issue d’une culture minutieuse garantissant une qualité irréprochable.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "Notes fruitées, douces et légèrement florales."
+  }
+}

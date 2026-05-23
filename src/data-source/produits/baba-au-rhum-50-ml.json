@@ -1,0 +1,30 @@
+{
+  "marque": "Le Petit Gourmet",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Baba au Rhum – 50 ml",
+  "actif": true,
+  "prix": 16.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "Le Petit Gourmet",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "baba-au-rhum-50-ml",
+  "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/e6fd81b0068a69a8421522ec612a88b70c68aa42-lg.png",
+  "description": "E-liquide Baba au Rhum de la gamme Le Petit Gourmet.\n\nProfil aromatique\nLe dessert des grandes occasions en e-liquide : une pâte briochée légère imbibée de sirop de rhum, des notes vanillées et une pointe de chantilly. Un arôme festif et généreux.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50. Arôme pâtissier premium.\n\nUsage recommandé\nParfait pour une vape gourmande et festive après le repas.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": ""
+  }
+}

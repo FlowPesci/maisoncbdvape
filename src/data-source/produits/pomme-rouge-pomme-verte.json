@@ -1,0 +1,30 @@
+{
+  "marque": "Le Petit Verger",
+  "statutStock": "en-stock",
+  "pointsForts": [],
+  "devise": "EUR",
+  "nombreAvis": null,
+  "nom": "Pomme rouge – Pomme verte",
+  "actif": true,
+  "prix": 16.9,
+  "unitePrix": null,
+  "note": null,
+  "ficheTechnique": {},
+  "couleurs": [],
+  "prixBarre": null,
+  "stock": 10,
+  "descriptionCourte": "La douceur gourmande de la pomme rouge se m&ecirc;le au pep&rsquo;s acidul&eacute; de la pomme verte. Une explosion croquante et rafra&icirc;chissante, id&eacut",
+  "categorie": "vape",
+  "dateAjout": "2026-05-09",
+  "tags": [],
+  "saveurs": [],
+  "galerie": [],
+  "id": "pomme-rouge-pomme-verte",
+  "image": "/media/produits/1778341283187-pomme-rouge-pomme-verte.png",
+  "description": "E-liquide Pomme Rouge – Pomme Verte de la gamme Le Petit Verger.\n\nProfil aromatique\nLa douceur gourmande de la pomme rouge se mêle au pep's acidulé de la pomme verte. Une explosion croquante et rafraîchissante, idéale pour les amateurs de pomme dans toute sa complexité.\n\nFormat & composition\nFlacon shortfill 50 ml (contenant 70 ml) – sans nicotine. Compatible avec les shots nicotinés (10 ml). Ratio PG/VG 50/50.\n\nUsage recommandé\nParfait pour une vape fruitée toute la journée, en MTL ou en pod.",
+  "contenuKit": [],
+  "seo": {
+    "title": "",
+    "description": "La douceur gourmande de la pomme rouge se m&ecirc;le au pep&rsquo;s acidul&eacute; de la pomme verte. Une explosion croquante et rafra&icirc;chissante, id&eacut"
+  }
+}

@@ -1,0 +1,63 @@
+{# ──────────────────────────────────────────────────────────────────────────
+   header.njk — Navigation luxury MaisonCBDVape
+────────────────────────────────────────────────────────────────────────── #}
+<header class="mcv-header fixed top-0 left-0 right-0 z-50">
+  <div style="max-width:1280px;margin:0 auto;padding:0 40px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:72px;">
+
+      {# ─── Logo ───────────────────────────────────────────────────── #}
+      <a href="/" style="text-decoration:none;flex-shrink:0;" aria-label="MaisonCBDVape – Accueil">
+        <span style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;line-height:1;">
+          <span style="color:#F5F0E8;">MAISON</span><span style="color:#C9A96E;">CBD</span><span style="color:#F5F0E8;">VAPE</span>
+        </span>
+      </a>
+
+      {# ─── Nav desktop ─────────────────────────────────────────────── #}
+      <nav class="hidden lg:flex" style="align-items:center;gap:36px;" aria-label="Navigation principale">
+        {% for item in site.navigation %}
+          <a href="{{ item.url }}"
+             class="nav-link {% if page.url == item.url or (page.url | includes(item.url)) and item.url != '/' %}is-active{% endif %}">
+            {{ item.label }}
+          </a>
+        {% endfor %}
+      </nav>
+
+      {# ─── Icônes droite ───────────────────────────────────────────── #}
+      <div style="display:flex;align-items:center;gap:20px;">
+        <a href="/recherche/" class="icon-btn hidden lg:flex" aria-label="Rechercher">
+          <svg style="width:18px;height:18px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+        </a>
+        <a href="/panier/" class="icon-btn" style="position:relative;" aria-label="Mon panier">
+          <svg style="width:18px;height:18px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
+          </svg>
+          <span id="cart-badge" class="cart-badge" style="display:none;">0</span>
+        </a>
+
+        {# ─── Burger mobile ───────────────────────────────────────── #}
+        <button id="menu-toggle" class="lg:hidden icon-btn" aria-label="Ouvrir le menu" aria-expanded="false" style="flex-direction:column;gap:5px;padding:4px;">
+          <span style="display:block;width:22px;height:1px;background:var(--text);transition:all .3s;"></span>
+          <span style="display:block;width:22px;height:1px;background:var(--text);transition:all .3s;"></span>
+          <span style="display:block;width:22px;height:1px;background:var(--text);transition:all .3s;"></span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  {# ─── Menu mobile ─────────────────────────────────────────────────── #}
+  <div id="mobile-menu" class="hidden lg:hidden" style="border-top:1px solid var(--borderl);background:rgba(14,12,9,0.98);">
+    <div style="padding:24px 40px 32px;display:flex;flex-direction:column;gap:4px;">
+      {% for item in site.navigation %}
+        <a href="{{ item.url }}"
+           style="display:block;padding:10px 0;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;letter-spacing:.06em;text-transform:uppercase;color:var(--text);text-decoration:none;border-bottom:1px solid var(--borderl);transition:color .3s;"
+           onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text)'">
+          {{ item.label }}
+        </a>
+      {% endfor %}
+      <a href="/recherche/" style="display:block;padding:10px 0;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-top:8px;">
+        Rechercher
+      </a>
+    </div>
+  </div>
+</header>
