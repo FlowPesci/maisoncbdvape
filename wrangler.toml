@@ -15,7 +15,7 @@ pages_build_output_dir = "public"
 #
 # Variables à configurer dans le dashboard :
 #   PLAINTEXT :
-#     SITE_URL               = https://maisoncbdvape.fr
+#     SITE_URL               = https://maisoncbdvape.pages.dev  ← temporaire (→ .fr quand domaine connecté)
 #     VIVA_ENV               = demo
 #     EMAIL_FROM             = MaisonCBDVape <noreply@maisoncbdvape.fr>
 #     EMAIL_REPLY_TO         = contact@maisoncbdvape.fr
@@ -29,7 +29,7 @@ pages_build_output_dir = "public"
 #     VIVA_MERCHANT_ID, VIVA_API_KEY, VIVA_SOURCE_CODE, VIVA_WEBHOOK_KEY
 
 [vars]
-SITE_URL               = "https://maisoncbdvape.fr"
+SITE_URL               = "https://maisoncbdvape.pages.dev"
 VIVA_ENV               = "demo"
 EMAIL_FROM             = "MaisonCBDVape <noreply@maisoncbdvape.fr>"
 EMAIL_REPLY_TO         = "contact@maisoncbdvape.fr"
