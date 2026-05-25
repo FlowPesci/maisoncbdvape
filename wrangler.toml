@@ -50,4 +50,4 @@ id = "e7ebbd4459e443ae99aa15f76ce30301"
 # ─── Bindings R2 (médias : photos produits) ───────────────────────────────
 [[r2_buckets]]
 binding = "MEDIA"
-b
+bucket_name = "tabacgex-media"
