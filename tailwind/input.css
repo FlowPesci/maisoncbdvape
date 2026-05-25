@@ -166,25 +166,32 @@ h1, h2, h3, .heading {
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--borderl);
 }
-.nav-link {
-  font-size: 10.5px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text);
-  opacity: 0.6;
-  text-decoration: none;
-  transition: opacity .3s, color .3s;
+@layer components {
+  .nav-link {
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: 0.6;
+    text-decoration: none;
+    transition: opacity .3s, color .3s;
+  }
+  .nav-link:hover,
+  .nav-link.is-active { opacity: 1; color: var(--gold); }
 }
-.nav-link:hover,
-.nav-link.is-active { opacity: 1; color: var(--gold); }
 
-.icon-btn {
-  color: var(--text);
-  opacity: 0.55;
-  transition: opacity .3s, color .3s;
-  display: flex; align-items: center;
+/* icon-btn dans @layer components → les utilities Tailwind (hidden, lg:flex…)
+   ont priorité et peuvent masquer/afficher l'élément sans être écrasées */
+@layer components {
+  .icon-btn {
+    color: var(--text);
+    opacity: 0.55;
+    transition: opacity .3s, color .3s;
+    display: flex;
+    align-items: center;
+  }
+  .icon-btn:hover { opacity: 1; color: var(--gold); }
 }
-.icon-btn:hover { opacity: 1; color: var(--gold); }
 
 /* ─── Boutons ─────────────────────────────────────────────────────────── */
 .btn-gold {
