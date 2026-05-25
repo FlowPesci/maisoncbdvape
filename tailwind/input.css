@@ -19,7 +19,11 @@
 }
 
 /* ─── Reset & Base ────────────────────────────────────────────────────── */
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;   /* bloque le scroll horizontal à la racine */
+  max-width: 100%;
+}
 
 body {
   background: var(--dark);
@@ -27,6 +31,36 @@ body {
   font-family: 'DM Sans', system-ui, sans-serif;
   font-weight: 300;
   overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Tous les éléments respectent la boîte (déjà fait par Tailwind Preflight
+   mais on le force pour les éléments hors-Tailwind) */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ─── Hero layout ─────────────────────────────────────────────────────── */
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 80px 40px 80px 100px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+.hero-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+@media (max-width: 1023px) {
+  .hero-inner {
+    padding: 64px 20px 72px;
+  }
+  .hero-grid-2col {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 }
 
 /* ─── Curseur personnalisé ────────────────────────────────────────────── */
@@ -411,14 +445,9 @@ h1, h2, h3, .heading {
 /* ─── Responsive — layout mobile ─────────────────────────────────────── */
 @media (max-width: 1023px) {
 
-  /* Hero */
-  .hero-inner        { padding: 60px 20px 80px !important; }
-  .hero-deco-line    { display: none !important; }
-  .hero-scroll-hint  { display: none !important; }
-  .hero-content-grid {
-    grid-template-columns: 1fr !important;
-    gap: 0 !important;
-  }
+  /* Hero — déjà géré par .hero-inner et .hero-grid-2col ci-dessus */
+  .hero-deco-line   { display: none !important; }
+  .hero-scroll-hint { display: none !important; }
 
   /* Grille catégories homepage → 2 colonnes */
   .grid-cat-home {
