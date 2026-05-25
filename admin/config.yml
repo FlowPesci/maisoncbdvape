@@ -1,15 +1,15 @@
 # ──────────────────────────────────────────────────────────────────────────────
-# Decap CMS — Configuration admin Tabac Gex
+# Decap CMS — Configuration admin MaisonCBDVape
 # ──────────────────────────────────────────────────────────────────────────────
-# Backend : git-gateway (auth via Netlify Identity).
+# Backend : GitHub OAuth custom (auth via /api/auth/login)
 # Doc widgets : https://decapcms.org/docs/widgets/
 # ──────────────────────────────────────────────────────────────────────────────
 
 backend:
   name: github
-  repo: FlowPesci/tabacgex
+  repo: FlowPesci/maisoncbdvape
   branch: main
-  base_url: https://vapelab.fr
+  base_url: https://maisoncbdvape.pages.dev
   auth_endpoint: /api/auth/login
   commit_messages:
     create: 'Création de "{{collection}} – {{slug}}"'
@@ -27,9 +27,9 @@ public_folder: "/assets/img/produits"
 locale: "fr"
 
 # Site URL (sera mis à jour automatiquement au déploiement)
-site_url: https://vapelab.fr
-display_url: https://vapelab.fr
-logo_url: https://vapelab.fr/favicon.svg
+site_url: https://maisoncbdvape.pages.dev
+display_url: https://maisoncbdvape.pages.dev
+logo_url: https://maisoncbdvape.pages.dev/favicon.svg
 
 # Active l'éditeur de contenu enrichi (markdown) avec sauvegardes automatiques
 editor:
