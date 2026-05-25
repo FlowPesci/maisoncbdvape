@@ -41,11 +41,11 @@ ADMIN_GITHUB_USERS     = "FlowPesci"
 # ─── Bindings KV (commandes + état OAuth) ─────────────────────────────────
 [[kv_namespaces]]
 binding = "ORDERS_KV"
-id = "REMPLACER_PAR_NOUVEAU_KV_ID"
+id = "912b7534e54b4658a08db0530e2e278b"
 
 [[kv_namespaces]]
 binding = "OAUTH_KV"
-id = "REMPLACER_PAR_NOUVEAU_KV_ID"
+id = "e7ebbd4459e443ae99aa15f76ce30301"
 
 # ─── Bindings R2 (médias : photos produits) ───────────────────────────────
 [[r2_buckets]]
