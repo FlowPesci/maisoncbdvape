@@ -9,292 +9,442 @@ eleventyComputed:
   title: "{{ cat.nom }}"
   description: "{{ cat.description }}"
 ---
-{# ──────────────────────────────────────────────────────────────────────────
-   categorie.njk — UNE page par catégorie (5 au total)
-   Source visuelle : docs/maquettes-source/02-categorie-vape.html
-   ────────────────────────────────────────────────────────────────────────── #}
 
 {% from "components/product-card.njk" import productCard %}
 
-{# ── Préparation des données ─────────────────────────────────────────────── #}
-{% set produitsCat   = produits | where("categorie", cat.slug) %}
-{% set marquesCat    = produitsCat | pluck("marque") | unique %}
-{% set prixMin       = produitsCat | pluck("prix") | min %}
-{% set prixMax       = produitsCat | pluck("prix") | max %}
-{% set nbProduits    = produitsCat | count %}
-{% set nbMarques     = marquesCat | count %}
+{% set produitsCat = produits | where("categorie", cat.slug) %}
+{% set marquesCat  = produitsCat | pluck("marque") | unique %}
+{% set prixMin     = produitsCat | pluck("prix") | min %}
+{% set prixMax     = produitsCat | pluck("prix") | max %}
+{% set nbProduits  = produitsCat | count %}
+{% set nbMarques   = marquesCat | count %}
 
-{# Couleur d'accent contextuelle #}
-{% set accent = "#39FF14" %}
-{% if cat.slug == "vape" or cat.slug == "puffs" %}{% set accent = "#BF5FFF" %}
-{% elif cat.slug == "chicha" %}{% set accent = "#00D4FF" %}
-{% elif cat.slug == "accessoires" %}{% set accent = "#8A8A9A" %}
-{% endif %}
+{# ═══════════════════════════════════════════════════════════════════════
+   PAGE HEADER — luxury
+   ═══════════════════════════════════════════════════════════════════════ #}
+<div style="padding:100px 0 0;border-bottom:1px solid var(--borderl);">
+  <div style="max-width:1280px;margin:0 auto;padding:0 40px 32px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;">
 
-{# ═══════════════════════════════════════════════════════════════════════════
-   HERO CATÉGORIE — fil d'Ariane + titre + stats
-   ═══════════════════════════════════════════════════════════════════════════ #}
-<div class="grid-lines relative">
-  <div class="absolute left-1/4 top-12 w-80 h-80 rounded-full blur-3xl pointer-events-none"
-       style="background:radial-gradient(circle,{{ accent }}1A 0%,transparent 70%);"></div>
-  <div class="absolute right-1/4 top-8 w-64 h-64 rounded-full blur-3xl pointer-events-none"
-       style="background:radial-gradient(circle,rgba(0,212,255,.08) 0%,transparent 70%);"></div>
+    <div>
+      {# Fil d'Ariane #}
+      <nav aria-label="Fil d'Ariane" style="display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:11px;letter-spacing:.12em;">
+        <a href="/" style="color:var(--muted);text-decoration:none;transition:color .3s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Accueil</a>
+        <svg style="width:10px;height:10px;color:var(--borderl);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        <span style="color:var(--gold);">{{ cat.nom }}</span>
+      </nav>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14 relative">
-
-    <nav aria-label="Fil d'Ariane" class="flex items-center gap-2 mb-6 text-xs font-mono fade-up">
-      <a href="/" class="breadcrumb-link">Accueil</a>
-      <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
-      <span style="color:{{ accent }};">{{ cat.nom }}</span>
-    </nav>
-
-    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 fade-up" style="transition-delay:.05s;">
-      <div class="max-w-2xl">
-        <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full"
-             style="border:1px solid {{ accent }}33;background:{{ accent }}0D;">
-          <span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background:{{ accent }};"></span>
-          <span class="font-mono text-xs tracking-widest uppercase" style="color:{{ accent }};">Catégorie</span>
-        </div>
-
-        <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl text-white tracking-wide mb-4 leading-none">
-          {{ cat.nom | upper }}
-        </h1>
-
-        {% if cat.description %}
-          <p class="text-smoke text-sm sm:text-base leading-relaxed">{{ cat.description }}</p>
-        {% endif %}
+      {# Eyebrow #}
+      <div style="display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">
+        <div style="width:24px;height:1px;background:var(--gold);opacity:.6;"></div>
+        Notre sélection
       </div>
 
-      {% if nbProduits > 0 %}
-        <div class="flex gap-6 shrink-0">
-          <div class="text-center">
-            <div class="font-display text-3xl" style="color:{{ accent }};">{{ nbProduits }}</div>
-            <div class="text-smoke text-xs tracking-wider uppercase font-mono">Produit{% if nbProduits > 1 %}s{% endif %}</div>
-          </div>
-          <div class="w-px bg-dark-border"></div>
-          <div class="text-center">
-            <div class="font-display text-3xl" style="color:#39FF14;">{{ nbMarques }}</div>
-            <div class="text-smoke text-xs tracking-wider uppercase font-mono">Marque{% if nbMarques > 1 %}s{% endif %}</div>
-          </div>
-          <div class="w-px bg-dark-border"></div>
-          <div class="text-center">
-            <div class="font-display text-3xl" style="color:#00D4FF;">48h</div>
-            <div class="text-smoke text-xs tracking-wider uppercase font-mono">Livraison</div>
-          </div>
-        </div>
+      {# Titre #}
+      <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(52px,8vw,110px);font-weight:300;line-height:.95;color:var(--cream);letter-spacing:-.01em;">
+        <em style="font-style:italic;color:var(--gold);">{{ cat.nom }}</em>
+      </h1>
+
+      {% if cat.description %}
+        <p style="font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:16px;display:flex;align-items:center;gap:12px;">
+          {{ cat.description | truncate(80) }}
+        </p>
       {% endif %}
     </div>
-  </div>
 
-  <div class="neon-divider"></div>
+    {# Stats #}
+    {% if nbProduits > 0 %}
+      <div style="display:flex;gap:32px;align-items:center;flex-shrink:0;padding-bottom:8px;">
+        <div style="text-align:right;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold-light);">{{ nbProduits }}</div>
+          <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);">Produit{% if nbProduits > 1 %}s{% endif %}</div>
+        </div>
+        <div style="width:1px;height:40px;background:var(--borderl);"></div>
+        <div style="text-align:right;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold-light);">{{ nbMarques }}</div>
+          <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);">Marque{% if nbMarques > 1 %}s{% endif %}</div>
+        </div>
+        <div style="width:1px;height:40px;background:var(--borderl);"></div>
+        <div style="text-align:right;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold-light);">48h</div>
+          <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);">Livraison</div>
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
 </div>
 
 
-{# ═══════════════════════════════════════════════════════════════════════════
-   CONTENU PRINCIPAL — sidebar + grille produits
-   ═══════════════════════════════════════════════════════════════════════════ #}
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+{# ═══════════════════════════════════════════════════════════════════════
+   MENU CARTE CBD — uniquement pour la catégorie CBD
+   ═══════════════════════════════════════════════════════════════════════ #}
+{% if cat.slug == "cbd" %}
+<section style="padding:48px 0 0;background:var(--dark);">
+  <div style="max-width:1280px;margin:0 auto;padding:0 40px;">
 
-  {# Bouton mobile pour ouvrir le drawer filtres #}
-  <div class="flex items-center justify-between mb-6 lg:hidden">
-    <p class="text-smoke text-sm font-mono">{{ nbProduits }} résultat{% if nbProduits > 1 %}s{% endif %}</p>
-    <button id="open-filters" type="button"
-            class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-dark-border bg-dark-card text-sm text-white font-medium transition hover:border-neon-violet/40">
-      <svg class="w-4 h-4" style="color:{{ accent }};" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM3.75 6h.75m16.5 6H6.75m0 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM3.75 12h.75m16.5 6H13.5m0 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM3.75 18h.75"/>
-      </svg>
-      Filtrer &amp; Trier
-    </button>
-  </div>
+    <div style="display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;">
+      <div style="width:24px;height:1px;background:var(--gold);opacity:.6;"></div>
+      La carte · Prix au gramme
+    </div>
 
-  <div class="flex gap-8 relative">
+    {# Grille de panneaux #}
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:auto auto;gap:1px;background:var(--borderl);margin-bottom:1px;">
 
-    {# ─────────────────────── SIDEBAR (desktop) ─────────────────────── #}
-    <aside class="hidden lg:block w-64 xl:w-72 shrink-0">
-      <div class="space-y-5 sticky top-24 overflow-y-auto" style="max-height:calc(100vh - 7rem); scrollbar-width:thin; scrollbar-color:#1E1E2E transparent;">
-
-        {# Sous-catégories (pour MVP : "Tout voir" + chaque autre univers) #}
-        <div class="sidebar-card p-5">
-          <h2 class="filter-section-title mb-4">Univers</h2>
-          <div class="space-y-2">
-            <a href="/categories/{{ cat.slug }}/" class="subcat-pill w-full active">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h7.5"/></svg>
-              {{ cat.nomCourt or cat.nom }} ({{ nbProduits }})
-            </a>
-            {% for autre in categories %}
-              {% if autre.slug != cat.slug %}
-                <a href="/categories/{{ autre.slug }}/" class="subcat-pill w-full">
-                  <span style="color:{{ autre.couleurHex or '#8A8A9A' }};">●</span>
-                  {{ autre.nomCourt or autre.nom }}
-                </a>
-              {% endif %}
-            {% endfor %}
-          </div>
+      {# ── PREMIUM INDOOR (grande colonne gauche) ── #}
+      <div style="background:var(--dark2);padding:32px 28px;grid-column:1;grid-row:1/3;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Premium Indoor</div>
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--gold);color:var(--gold);">★ Top Shelf</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
+          <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
         </div>
 
-        {# Marques #}
-        {% if marquesCat | count > 0 %}
-          <div class="sidebar-card p-5">
-            <h2 class="filter-section-title mb-4">Marques</h2>
-            <div class="space-y-3">
-              {% for marque in marquesCat %}
-                {% set countMarque = produitsCat | where("marque", marque) | count %}
-                <label class="check-row">
-                  <input type="checkbox" data-filter-brand="{{ marque }}" />
-                  <label>{{ marque }} <span class="text-smoke text-xs">({{ countMarque }})</span></label>
-                </label>
+        {% set indoorProducts = [
+          {nom: "Moon Rock CBD Indoor", id: "moon-rock-cbd-indoor", flag: "🇫🇷", cbd: "—", prix: "7,90", crown: true, top: true},
+          {nom: "Extract Crumble",      id: "extract-crumble",      flag: "🇨🇭", cbd: "—", prix: "9,90", star: true, top: true}
+        ] %}
+        {% for p in indoorProducts %}
+          <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:10px 0;border-bottom:1px solid var(--borderl);">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:12px;">{% if p.crown %}👑{% elif p.star %}★{% endif %}</span>
+              <a href="/produits/{{ p.id }}/" style="font-size:14.5px;font-weight:500;color:var(--gold-light);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--gold-light)'">{{ p.nom }}</a>
+            </div>
+            <div style="text-align:right;font-size:14px;">{{ p.flag }}</div>
+            <div style="text-align:right;font-size:12px;color:var(--gold);">{{ p.cbd }}</div>
+            <div style="text-align:right;font-size:15px;font-weight:500;color:var(--gold-light);">{{ p.prix }}</div>
+          </div>
+        {% endfor %}
+
+        <div style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding:12px 0 6px;opacity:.6;">Sélection Indoor</div>
+
+        {% set indoorSel = [
+          {nom: "Amnésia Hydro Indoor CBD",   id: "amnesia-hydro-indoor-cbd",   flag: "🇫🇷", prix: "4,30"},
+          {nom: "Banana Hydro Indoor CBD",    id: "banana-hydro-indoor-cbd",    flag: "🇫🇷", prix: "4,50"},
+          {nom: "Bubba Kush Hydro Indoor CBD", id: "bubba-kush-hydro-indoor-cbd", flag: "🇫🇷", prix: "4,30"},
+          {nom: "Burn Baby Burn Indoor CBD",  id: "burn-baby-burn-indoor-cbd",  flag: "🇫🇷", prix: "4,90"},
+          {nom: "Candy Hydro Indoor CBD",     id: "candy-hydro-indoor-cbd",     flag: "🇫🇷", prix: "4,50"},
+          {nom: "Dutch Punch Indoor CBD",     id: "dutch-punch-indoor-cbd",     flag: "🇫🇷", prix: "4,90"},
+          {nom: "Gelato Hydro Indoor CBD",    id: "gelato-hydro-indoor-cbd",    flag: "🇫🇷", prix: "4,50"},
+          {nom: "Jack Herer Hydro Indoor CBD", id: "jack-herer-hydro-indoor-cbd", flag: "🇫🇷", prix: "4,90"},
+          {nom: "Lemon Hydro Indoor CBD",     id: "lemon-hydro-indoor-cbd",     flag: "🇫🇷", prix: "4,90"},
+          {nom: "Moby Dick Hydro Indoor CBD", id: "moby-dick-hydro-indoor-cbd", flag: "🇫🇷", prix: "4,90"},
+          {nom: "Robin Cherry CBD",           id: "robin-cherry-cbd",           flag: "🇫🇷", prix: "6,90"},
+          {nom: "Snowing in Dam",             id: "snowing-in-dam",             flag: "🇫🇷", prix: "4,90"}
+        ] %}
+        {% for p in indoorSel %}
+          <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>
+              <a href="/produits/{{ p.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream)'">{{ p.nom }}</a>
+            </div>
+            <div style="text-align:right;font-size:13px;">{{ p.flag }}</div>
+            <div style="text-align:right;font-size:12px;color:var(--gold);">—</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:400;color:var(--text);">{{ p.prix }}</div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {# ── GREENHOUSE ── #}
+      <div style="background:var(--dark2);padding:32px 28px;grid-column:2;grid-row:1;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Greenhouse</div>
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">Fleurs CBD</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
+          <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
+        </div>
+        {% for p in [{nom:"Small Bud Lemon",id:"small-bud-lemon",flag:"🇪🇺"},{nom:"Small Bud Strawberry",id:"small-bud-strawberry",flag:"🇪🇺"}] %}
+          <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>
+              <a href="/produits/{{ p.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream)'">{{ p.nom }}</a>
+            </div>
+            <div style="text-align:right;font-size:13px;">{{ p.flag }}</div>
+            <div style="text-align:right;font-size:12px;color:var(--gold);">—</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:500;color:var(--gold-light);">0,99</div>
+          </div>
+        {% endfor %}
+        <div style="text-align:center;padding:20px 16px 8px;border-top:1px solid var(--borderl);margin-top:8px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--cream);letter-spacing:.02em;">À partir de <em style="font-style:italic;color:var(--gold);">0,99 €</em> /g</div>
+          <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:4px;">Idéal pour découvrir · Qualité garantie</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;padding-top:14px;border-top:1px solid var(--borderl);">
+          <div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">🌿 Zéro pesticides</div>
+          <div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">🇫🇷 Origine France</div>
+          <div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">☀️ Séchage naturel</div>
+        </div>
+      </div>
+
+      {# ── RÉSINES & POLLENS ── #}
+      <div style="background:var(--dark2);padding:32px 28px;grid-column:3;grid-row:1;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Résines &amp; Pollens</div>
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">Concentrés</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
+          <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
+        </div>
+        {% set resines = [
+          {nom:"Extract Crumble",           id:"extract-crumble",           flag:"🇨🇭", cbd:"—",    prix:"9,90", crown:true, top:true},
+          {nom:"Charas CBD",                id:"charas-cbd",                flag:"🇫🇷", cbd:"—",    prix:"4,50"},
+          {nom:"Hash Primero",              id:"hash-primero",              flag:"🇫🇷", cbd:"—",    prix:"4,90"},
+          {nom:"Pollen d'Amnésia 100% CBD", id:"pollen-d-amnesia-100-cbd",  flag:"🇫🇷", cbd:"100%", prix:"4,20"},
+          {nom:"Pollen d'Or 100% CBD",      id:"pollen-d-or-100-cbd",       flag:"🇫🇷", cbd:"100%", prix:"4,20"}
+        ] %}
+        {% for p in resines %}
+          <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
+            <div style="display:flex;align-items:center;gap:8px;">
+              {% if p.crown %}<span style="font-size:12px;">👑</span>{% else %}<span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>{% endif %}
+              <a href="/produits/{{ p.id }}/" style="font-size:13px;color:{% if p.top %}var(--gold-light){% else %}var(--cream){% endif %};text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='{% if p.top %}var(--gold-light){% else %}var(--cream){% endif %}'">{{ p.nom }}</a>
+            </div>
+            <div style="text-align:right;font-size:13px;">{{ p.flag }}</div>
+            <div style="text-align:right;font-size:12px;color:var(--gold);">{{ p.cbd }}</div>
+            <div style="text-align:right;font-size:{% if p.top %}15px;font-weight:500;color:var(--gold-light){% else %}13.5px;color:var(--text){% endif %};">{{ p.prix }}</div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {# ── SMALL BUDS ── #}
+      <div style="background:var(--dark3);padding:32px 28px;grid-column:2;grid-row:2;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Small Buds</div>
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;background:var(--gold);color:var(--dark);font-weight:500;">PROMO</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
+          <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
+        </div>
+        {% for p in [{nom:"Small Bud Lemon",id:"small-bud-lemon",flag:"🇪🇺"},{nom:"Small Bud Strawberry",id:"small-bud-strawberry",flag:"🇪🇺"}] %}
+          <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>
+              <a href="/produits/{{ p.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream)'">{{ p.nom }}</a>
+            </div>
+            <div style="text-align:right;font-size:13px;">{{ p.flag }}</div>
+            <div style="text-align:right;font-size:12px;color:var(--gold);">—</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:500;color:var(--gold-light);">0,99</div>
+          </div>
+        {% endfor %}
+        <div style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding:12px 0 6px;opacity:.6;margin-top:8px;">Accessoire</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--borderl);">
+          <div>
+            <a href="/produits/pod-recharge/" style="font-size:12px;color:var(--cream);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream)'">Pod Recharge</a>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Cigarette électronique</div>
+          </div>
+          <div style="font-size:15px;font-weight:500;color:var(--cream);">9,90 €</div>
+        </div>
+      </div>
+
+      {# ── MÉLANGES VÉGÉTAUX ── #}
+      <div style="background:var(--dark3);padding:32px 28px;grid-column:3;grid-row:2;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Mélanges Végétaux</div>
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">Infusions</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
+          <span>Produit</span><span></span><span></span><span style="text-align:right;">Prix</span>
+        </div>
+        {% set melanges = [
+          {nom:"Mélange végétal Bergamote", id:"melange-vegetal-bergamote", prix:"6,90 €"},
+          {nom:"Mélange végétal Citron",    id:"",                          prix:"6,90 €"},
+          {nom:"Mélange végétal Menthe",    id:"melange-vegetal-menthe",    prix:"6,90 €"},
+          {nom:"Mélange végétal Natura",    id:"melange-vegetal-natura",    prix:"6,90 €"},
+          {nom:"Mélange végétal Vanille",   id:"",                          prix:"6,90 €"}
+        ] %}
+        {% for p in melanges %}
+          <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>
+              {% if p.id %}
+                <a href="/produits/{{ p.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream)'">{{ p.nom }}</a>
+              {% else %}
+                <span style="font-size:13px;color:var(--cream);">{{ p.nom }}</span>
+              {% endif %}
+            </div>
+            <div></div><div></div>
+            <div style="text-align:right;font-size:13.5px;color:var(--text);">{{ p.prix }}</div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+    {# Barre de bas de carte #}
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-top:1px solid var(--borderl);margin-top:1px;">
+      <div style="display:flex;align-items:center;gap:24px;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);opacity:.6;">
+        <span>CBD ≤ 0,3% THC · Conformité EFSA</span>
+        <span style="opacity:.3;">·</span>
+        <span>Vente réservée aux +18 ans</span>
+      </div>
+      <div style="font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);opacity:.5;">Prix TTC · Tarification au gramme</div>
+    </div>
+
+  </div>
+</section>
+{% endif %}
+
+
+{# ═══════════════════════════════════════════════════════════════════════
+   CONTENU PRINCIPAL — sidebar + grille produits
+   ═══════════════════════════════════════════════════════════════════════ #}
+<section style="padding:48px 0 72px;background:var(--dark);">
+  <div style="max-width:1280px;margin:0 auto;padding:0 40px;">
+
+    {# Bouton mobile filtres #}
+    <div class="flex items-center justify-between mb-6 lg:hidden">
+      <p style="font-size:12px;color:var(--muted);">{{ nbProduits }} résultat{% if nbProduits > 1 %}s{% endif %}</p>
+      <button id="open-filters" type="button"
+              style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--borderl);background:var(--dark2);font-size:12px;color:var(--text);">
+        <svg style="width:14px;height:14px;color:var(--gold);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM3.75 6h.75m16.5 6H6.75m0 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM3.75 12h.75m16.5 6H13.5m0 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM3.75 18h.75"/>
+        </svg>
+        Filtrer &amp; Trier
+      </button>
+    </div>
+
+    <div style="display:flex;gap:40px;position:relative;">
+
+      {# SIDEBAR #}
+      <aside class="hidden lg:block" style="width:240px;flex-shrink:0;">
+        <div style="position:sticky;top:90px;display:flex;flex-direction:column;gap:16px;">
+
+          {# Univers #}
+          <div style="background:var(--dark2);border:1px solid var(--borderl);padding:20px;">
+            <h2 style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Univers</h2>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <a href="/categories/{{ cat.slug }}/"
+                 style="display:flex;align-items:center;gap:8px;padding:9px 12px;font-size:12px;letter-spacing:.05em;color:var(--gold);border:1px solid rgba(201,169,110,0.3);background:rgba(201,169,110,0.06);text-decoration:none;">
+                <svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h7.5"/></svg>
+                {{ cat.nomCourt or cat.nom }} ({{ nbProduits }})
+              </a>
+              {% for autre in categories %}
+                {% if autre.slug != cat.slug %}
+                  <a href="/categories/{{ autre.slug }}/"
+                     style="display:flex;align-items:center;gap:8px;padding:9px 12px;font-size:12px;letter-spacing:.05em;color:var(--muted);border:1px solid transparent;text-decoration:none;transition:color .3s,border-color .3s;"
+                     onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--borderl)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='transparent'">
+                    <span style="color:var(--gold);opacity:.5;">●</span>
+                    {{ autre.nomCourt or autre.nom }}
+                  </a>
+                {% endif %}
               {% endfor %}
             </div>
           </div>
-        {% endif %}
 
-        {# Prix - double slider #}
+          {# Marques #}
+          {% if marquesCat | count > 0 %}
+            <div style="background:var(--dark2);border:1px solid var(--borderl);padding:20px;">
+              <h2 style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Marques</h2>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                {% for marque in marquesCat %}
+                  {% set countMarque = produitsCat | where("marque", marque) | count %}
+                  <label style="display:flex;align-items:center;gap:10px;cursor:none;">
+                    <input type="checkbox" data-filter-brand="{{ marque }}"
+                           style="width:14px;height:14px;accent-color:var(--gold);cursor:none;"/>
+                    <span style="font-size:12.5px;color:var(--text);">{{ marque }} <span style="color:var(--muted);font-size:11px;">({{ countMarque }})</span></span>
+                  </label>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+
+          {# Prix #}
+          {% if nbProduits > 0 %}
+            <div style="background:var(--dark2);border:1px solid var(--borderl);padding:20px;">
+              <h2 style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Prix</h2>
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:10px;">
+                <span id="price-display-min" style="color:var(--gold);">{{ prixMin | eur }}</span>
+                <span id="price-display-max" style="color:var(--muted);">{{ prixMax | eur }}</span>
+              </div>
+              <div id="price-slider-wrap" class="price-range-wrap"
+                   data-prix-min="{{ prixMin }}" data-prix-max="{{ prixMax }}">
+                <div id="price-range-fill" class="price-range-fill"></div>
+                <input type="range" id="price-min" class="price-range-input"
+                       min="{{ prixMin }}" max="{{ prixMax }}" step="0.5" value="{{ prixMin }}">
+                <input type="range" id="price-max" class="price-range-input"
+                       min="{{ prixMin }}" max="{{ prixMax }}" step="0.5" value="{{ prixMax }}">
+              </div>
+            </div>
+          {% endif %}
+
+          <button type="button"
+                  style="padding:11px;border:1px solid var(--borderl);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);background:transparent;transition:color .3s,border-color .3s;"
+                  onmouseover="this.style.color='var(--cream)';this.style.borderColor='rgba(245,240,232,0.2)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--borderl)'">
+            Réinitialiser les filtres
+          </button>
+
+        </div>
+      </aside>
+
+      {# COLONNE PRODUITS #}
+      <div style="flex:1;min-width:0;">
+
+        {# Toolbar #}
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--dark2);border:1px solid var(--borderl);margin-bottom:24px;">
+          <p style="font-size:11px;color:var(--muted);">
+            Affichage <span style="color:var(--cream);font-weight:400;">1–{{ nbProduits }}</span> sur <span style="color:var(--cream);font-weight:400;">{{ nbProduits }}</span> résultat{% if nbProduits > 1 %}s{% endif %}
+          </p>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <label style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);" for="sort-select">Trier :</label>
+            <select id="sort-select" style="background:var(--dark3);border:1px solid var(--borderl);color:var(--text);font-size:11.5px;padding:6px 10px;outline:none;">
+              <option value="nouveautes">Nouveautés</option>
+              <option value="prix-asc">Prix croissant</option>
+              <option value="prix-desc">Prix décroissant</option>
+              <option value="note">Mieux notés</option>
+            </select>
+          </div>
+        </div>
+
+        {# Grille produits #}
         {% if nbProduits > 0 %}
-          <div class="sidebar-card p-5">
-            <h2 class="filter-section-title mb-4">Prix</h2>
-            <div class="flex justify-between text-xs font-mono mb-3">
-              <span id="price-display-min" style="color:#39FF14;">{{ prixMin | eur }}</span>
-              <span id="price-display-max" class="text-smoke">{{ prixMax | eur }}</span>
-            </div>
-            <div id="price-slider-wrap" class="price-range-wrap"
-                 data-prix-min="{{ prixMin }}" data-prix-max="{{ prixMax }}">
-              <div id="price-range-fill" class="price-range-fill"></div>
-              <input type="range" id="price-min" class="price-range-input"
-                     min="{{ prixMin }}" max="{{ prixMax }}" step="0.5" value="{{ prixMin }}">
-              <input type="range" id="price-max" class="price-range-input"
-                     min="{{ prixMin }}" max="{{ prixMax }}" step="0.5" value="{{ prixMax }}">
-            </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+            {% for produit in produitsCat %}
+              {{ productCard(produit, "fade-up") }}
+            {% endfor %}
+          </div>
+        {% else %}
+          <div style="text-align:center;padding:80px 20px;border:1px solid var(--borderl);">
+            <div style="font-size:40px;margin-bottom:16px;opacity:.5;">📦</div>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--cream);margin-bottom:8px;">Aucun produit pour le moment</h3>
+            <p style="font-size:12.5px;color:var(--muted);max-width:380px;margin:0 auto 24px;line-height:1.75;">Cette catégorie est en cours de constitution. Explorez les autres univers.</p>
+            <a href="/" class="btn-ghost" style="padding:12px 28px;font-size:9.5px;">Retour à l'accueil</a>
           </div>
         {% endif %}
 
-        <button type="button"
-                class="w-full py-2.5 rounded-xl border border-dark-border text-smoke text-sm font-medium hover:text-white hover:border-white/20 transition-all">
-          Réinitialiser les filtres
-        </button>
       </div>
-    </aside>
-
-
-    {# ─────────────────────── COLONNE PRODUITS ─────────────────────── #}
-    <div class="flex-1 min-w-0">
-
-      {# Toolbar : count + tri #}
-      <div class="toolbar-bar flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-3.5 mb-7 fade-up">
-        <p class="text-smoke text-xs font-mono">
-          Affichage <span class="text-white font-bold">1–{{ nbProduits }}</span> sur <span class="text-white font-bold">{{ nbProduits }}</span> résultat{% if nbProduits > 1 %}s{% endif %}
-        </p>
-        <div class="flex items-center gap-3">
-          <label class="text-smoke text-xs uppercase tracking-wider font-mono shrink-0" for="sort-select">Trier par :</label>
-          <select id="sort-select" class="sort-select">
-            <option value="nouveautes">Nouveautés</option>
-            <option value="prix-asc">Prix croissant</option>
-            <option value="prix-desc">Prix décroissant</option>
-            <option value="note">Mieux notés</option>
-          </select>
-        </div>
-      </div>
-
-      {# Grille produits #}
-      {% if nbProduits > 0 %}
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-          {% for produit in produitsCat %}
-            {{ productCard(produit, "fade-up") }}
-          {% endfor %}
-        </div>
-      {% else %}
-        <div class="text-center py-20 rounded-2xl border border-dashed border-dark-border bg-dark-card/40">
-          <div class="text-5xl mb-4">📦</div>
-          <h3 class="font-display text-2xl text-white mb-2">Aucun produit pour le moment</h3>
-          <p class="text-smoke text-sm max-w-md mx-auto mb-6">
-            Cette catégorie est en cours de constitution. Revenez bientôt ou explorez les autres univers de la boutique.
-          </p>
-          <a href="/" class="btn-outline-violet inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold uppercase tracking-widest">
-            Retour à l'accueil
-          </a>
-        </div>
-      {% endif %}
-
     </div>
   </div>
 </section>
 
 
-{# ═══════════════════════════════════════════════════════════════════════════
-   DRAWER FILTRES MOBILE (replique le sidebar)
-   ═══════════════════════════════════════════════════════════════════════════ #}
+{# ─── Drawer filtres mobile ─────────────────────────────────────────── #}
 <div id="drawer-overlay" class="hidden-overlay fixed inset-0 z-40 lg:hidden" aria-hidden="true"></div>
-
 <aside id="filter-drawer"
-       class="hidden-drawer fixed top-0 left-0 bottom-0 w-[85%] max-w-sm z-50 lg:hidden bg-dark-bg border-r border-dark-border overflow-y-auto"
-       aria-label="Filtres et tri">
-  <div class="p-5">
-    <div class="flex items-center justify-between mb-6">
-      <h2 class="font-display text-xl tracking-wide text-white">FILTRES</h2>
-      <button id="close-filters" type="button" class="icon-btn p-1" aria-label="Fermer les filtres">
-        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+       class="hidden-drawer fixed top-0 left-0 bottom-0 w-[85%] max-w-sm z-50 lg:hidden overflow-y-auto"
+       style="background:var(--dark2);border-right:1px solid var(--borderl);"
+       aria-label="Filtres">
+  <div style="padding:24px 20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--cream);letter-spacing:.08em;text-transform:uppercase;">Filtres</h2>
+      <button id="close-filters" type="button" style="color:var(--muted);background:none;border:none;" aria-label="Fermer">
+        <svg style="width:20px;height:20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
-
-    {# Univers #}
-    <div class="mb-6">
-      <h3 class="filter-section-title mb-3">Univers</h3>
-      <div class="space-y-2">
-        <a href="/categories/{{ cat.slug }}/" class="subcat-pill w-full active">{{ cat.nomCourt or cat.nom }} ({{ nbProduits }})</a>
-        {% for autre in categories %}
-          {% if autre.slug != cat.slug %}
-            <a href="/categories/{{ autre.slug }}/" class="subcat-pill w-full">{{ autre.nomCourt or autre.nom }}</a>
-          {% endif %}
-        {% endfor %}
-      </div>
+    <div style="height:1px;background:var(--borderl);margin-bottom:20px;"></div>
+    <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:24px;">
+      <a href="/categories/{{ cat.slug }}/" style="padding:10px 14px;font-size:1.2rem;font-family:'Cormorant Garamond',serif;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--borderl);">{{ cat.nom }} ({{ nbProduits }})</a>
+      {% for autre in categories %}
+        {% if autre.slug != cat.slug %}
+          <a href="/categories/{{ autre.slug }}/" style="padding:10px 14px;font-size:1.2rem;font-family:'Cormorant Garamond',serif;color:var(--text);text-decoration:none;border-bottom:1px solid rgba(201,169,110,0.07);">{{ autre.nom }}</a>
+        {% endif %}
+      {% endfor %}
     </div>
-
-    <div class="neon-divider my-4"></div>
-
-    {# Marques #}
-    {% if marquesCat | count > 0 %}
-      <div class="mb-6">
-        <h3 class="filter-section-title mb-3">Marques</h3>
-        <div class="space-y-3">
-          {% for marque in marquesCat %}
-            {% set countMarque = produitsCat | where("marque", marque) | count %}
-            <label class="check-row">
-              <input type="checkbox" />
-              <label>{{ marque }} <span class="text-smoke text-xs">({{ countMarque }})</span></label>
-            </label>
-          {% endfor %}
-        </div>
-      </div>
-
-      <div class="neon-divider my-4"></div>
-    {% endif %}
-
-    {# Prix #}
-    {% if nbProduits > 0 %}
-      <div class="mb-6">
-        <h3 class="filter-section-title mb-3">Prix</h3>
-        <div class="flex flex-wrap gap-2">
-          <button type="button" class="price-pill">Moins de 20 €</button>
-          <button type="button" class="price-pill">20 € – 50 €</button>
-          <button type="button" class="price-pill">Plus de 50 €</button>
-        </div>
-      </div>
-    {% endif %}
-
-    <button id="apply-filters" type="button"
-            class="btn-neon-green w-full py-3 rounded-xl font-semibold text-sm uppercase tracking-widest">
-      Voir les {{ nbProduits }} résultat{% if nbProduits > 1 %}s{% endif %}
-    </button>
-    <button type="button"
-            class="w-full py-2.5 mt-3 rounded-xl border border-dark-border text-smoke text-sm hover:text-white transition-colors">
-      Réinitialiser
+    <button id="apply-filters" type="button" class="btn-gold" style="width:100%;justify-content:center;padding:13px;">
+      <span>Voir les {{ nbProduits }} résultat{% if nbProduits > 1 %}s{% endif %}</span>
     </button>
   </div>
 </aside>
 
 
-{# ═══════════════════════════════════════════════════════════════════════════
-   JSON-LD CollectionPage (SEO)
-   ═══════════════════════════════════════════════════════════════════════════ #}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

@@ -106,6 +106,7 @@ h1, h2, h3, .heading {
   text-transform: uppercase;
   font-family: 'DM Sans', sans-serif;
   position: relative; overflow: hidden;
+  isolation: isolate;
   transition: color .35s;
 }
 .btn-gold::before {
@@ -114,11 +115,10 @@ h1, h2, h3, .heading {
   background: var(--gold);
   transform: translateX(-101%);
   transition: transform .35s cubic-bezier(.4,0,.2,1);
-  z-index: 0;
+  z-index: -1;
 }
 .btn-gold:hover { color: var(--dark); }
 .btn-gold:hover::before { transform: translateX(0); }
-.btn-gold > * { position: relative; z-index: 1; }
 
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 12px;

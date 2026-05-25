@@ -50,4 +50,4 @@ id = "REMPLACER_PAR_NOUVEAU_KV_ID"
 # ─── Bindings R2 (médias : photos produits) ───────────────────────────────
 [[r2_buckets]]
 binding = "MEDIA"
-bucket_name = "maisoncbdvape-media"
+bucket_name = "tabacgex-media"

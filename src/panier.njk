@@ -2,32 +2,34 @@
 layout: layouts/base.njk
 permalink: /panier/index.html
 title: "Mon panier"
-description: "Récapitulatif de votre panier — VapeLab, boutique CBD &amp; Vape à Gex (01170)"
+description: "Récapitulatif de votre panier — MaisonCBDVape, boutique CBD &amp; Vape à Gex (01170)"
 ---
 {# ──────────────────────────────────────────────────────────────────────────
-   panier.njk — Page panier
+   panier.njk — MaisonCBDVape — design gold luxury
    ────────────────────────────────────────────────────────────────────────── #}
 
 <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
 
   {# Fil d'Ariane #}
-  <nav aria-label="Fil d'Ariane" class="flex items-center gap-2 mb-6 text-xs font-mono fade-up">
-    <a href="/" class="breadcrumb-link">Accueil</a>
-    <svg class="w-3 h-3 text-dark-border" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
-    <span class="text-neon-green">Mon panier</span>
+  <nav aria-label="Fil d'Ariane" class="flex items-center gap-2 mb-6 text-xs fade-up" style="font-family:'DM Sans',sans-serif;">
+    <a href="/" style="color:var(--muted);transition:color .2s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--muted)'">Accueil</a>
+    <svg class="w-3 h-3" style="color:var(--borderl);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+    <span style="color:var(--gold);">Mon panier</span>
   </nav>
 
-  <h1 class="font-display text-5xl lg:text-6xl text-white tracking-wide mb-3 fade-up">MON PANIER</h1>
-  <p class="text-smoke text-sm mb-10 fade-up">Vérifiez votre commande avant de continuer.</p>
+  <h1 class="fade-up" style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:300;color:var(--cream);letter-spacing:.04em;line-height:1.05;margin-bottom:.75rem;">
+    Mon <em>panier</em>
+  </h1>
+  <p class="fade-up" style="color:var(--muted);font-size:.875rem;margin-bottom:2.5rem;">Vérifiez votre commande avant de continuer.</p>
 
   {# ─── État vide (caché par défaut) ─────────────────────────────────── #}
-  <div id="cart-empty" class="hidden text-center py-20 rounded-2xl border border-dashed border-dark-border bg-dark-card/40">
+  <div id="cart-empty" class="hidden text-center py-20" style="border:1px dashed var(--borderl);background:rgba(201,169,110,.03);border-radius:2px;">
     <div class="text-5xl mb-4">🛒</div>
-    <h3 class="font-display text-2xl text-white mb-2">Votre panier est vide</h3>
-    <p class="text-smoke text-sm max-w-md mx-auto mb-6">
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:300;color:var(--cream);margin-bottom:.5rem;">Votre panier est vide</h3>
+    <p style="color:var(--muted);font-size:.875rem;max-width:26rem;margin:0 auto 1.5rem;">
       Ajoutez des produits depuis nos univers — CBD, Vape, Puffs, Chicha, Accessoires.
     </p>
-    <a href="/" class="btn-neon-green inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">
+    <a href="/" class="btn-gold inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold uppercase tracking-widest">
       Découvrir la boutique
     </a>
   </div>
@@ -38,53 +40,56 @@ description: "Récapitulatif de votre panier — VapeLab, boutique CBD &amp; Vap
     {# Colonne gauche : liste des items #}
     <div class="lg:col-span-2">
       <div class="flex items-center justify-between mb-3">
-        <span class="text-smoke text-sm font-mono" id="cart-count-label"></span>
+        <span style="color:var(--muted);font-size:.875rem;font-family:'DM Sans',sans-serif;" id="cart-count-label"></span>
         <button id="cart-clear-btn"
-                class="text-xs text-smoke hover:text-red-400 transition-colors flex items-center gap-1 font-mono"
+                class="flex items-center gap-1 font-mono transition-colors"
+                style="font-size:.75rem;color:var(--muted);"
+                onmouseover="this.style.color='#e87461'" onmouseout="this.style.color='var(--muted)'"
                 aria-label="Vider le panier">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>
           Vider le panier
         </button>
       </div>
       <div class="space-y-3" id="cart-items">
-        {# Items injectés par JS — voir tabacgex.js initCartPage() #}
+        {# Items injectés par JS #}
       </div>
     </div>
 
     {# Colonne droite : récap + CTA (sticky desktop) #}
     <aside class="lg:sticky lg:top-24 self-start">
-      <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
-        <h2 class="font-display text-xl tracking-widest text-white mb-5">RÉCAPITULATIF</h2>
+      <div style="background:var(--dark2);border:1px solid var(--borderl);padding:1.5rem;border-radius:2px;">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;letter-spacing:.12em;color:var(--cream);margin-bottom:1.25rem;font-weight:400;">RÉCAPITULATIF</h2>
 
         <dl class="space-y-3 text-sm">
           <div class="flex justify-between">
-            <dt class="text-smoke">Sous-total HT</dt>
-            <dd class="font-mono text-white" id="cart-total-ht">0,00 €</dd>
+            <dt style="color:var(--muted);">Sous-total HT</dt>
+            <dd style="font-family:'DM Sans',sans-serif;color:var(--cream);" id="cart-total-ht">0,00 €</dd>
           </div>
           <div class="flex justify-between">
-            <dt class="text-smoke">TVA (20 %)</dt>
-            <dd class="font-mono text-white" id="cart-total-tva">0,00 €</dd>
+            <dt style="color:var(--muted);">TVA (20 %)</dt>
+            <dd style="font-family:'DM Sans',sans-serif;color:var(--cream);" id="cart-total-tva">0,00 €</dd>
           </div>
-          <div class="flex justify-between pt-3 border-t border-dark-border">
-            <dt class="font-display text-base tracking-wider text-white">TOTAL TTC</dt>
-            <dd class="font-display text-2xl" style="color:#39FF14;" id="cart-total-ttc">0,00 €</dd>
+          <div class="flex justify-between pt-3" style="border-top:1px solid var(--borderl);">
+            <dt style="font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.1em;color:var(--cream);">TOTAL TTC</dt>
+            <dd style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--gold);" id="cart-total-ttc">0,00 €</dd>
           </div>
         </dl>
 
-        <div class="my-5 p-3 rounded-xl border border-neon-blue/20 bg-neon-blue/5 flex gap-2 text-xs">
-          <svg class="w-4 h-4 shrink-0 mt-0.5" style="color:#00D4FF;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
-          <span class="text-smoke">
-            <strong class="text-white">Click &amp; Collect gratuit</strong> — Retrait en boutique au 48 Rue de Genève, Gex.
+        <div class="my-5 p-3 flex gap-2 text-xs" style="border:1px solid rgba(201,169,110,.2);background:rgba(201,169,110,.04);border-radius:2px;">
+          <svg class="w-4 h-4 shrink-0 mt-0.5" style="color:var(--gold);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+          <span style="color:var(--muted);">
+            <strong style="color:var(--cream);">Click &amp; Collect gratuit</strong> — Retrait en boutique au 48 Rue de Genève, Gex.
           </span>
         </div>
 
         <a href="/commande/" id="cart-checkout-btn"
-           class="btn-neon-green w-full py-4 rounded-xl text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 font-bold">
+           class="btn-gold w-full py-4 text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 font-semibold">
           Continuer la commande
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
         </a>
 
-        <a href="/" class="block mt-3 text-center text-smoke text-xs hover:text-white transition-colors underline underline-offset-2">
+        <a href="/" class="block mt-3 text-center text-xs transition-colors underline underline-offset-2"
+           style="color:var(--muted);" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--muted)'">
           Continuer mes achats
         </a>
       </div>
