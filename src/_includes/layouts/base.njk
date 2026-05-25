@@ -74,85 +74,35 @@
       });
     }
 
-    // ── Curseur magnétique (pointer-capable devices only) ──────────────
+    // ── Curseur personnalisé simple (dot + anneau fluide, sans magnétisme) ──
     var dot  = document.getElementById('cursor-dot');
     var ring = document.getElementById('cursor-ring');
     if (!dot || !ring) return;
 
     var mx = -200, my = -200;
     var rx = -200, ry = -200;
-    var ringTargetX = null, ringTargetY = null;
-    var currentMagnet = null;
-    var PULL  = 0.30;   // force de déplacement de l'élément (0→1)
-    var LERP  = 0.14;   // vitesse de suivi de l'anneau
-
-    // Sélecteurs éligibles au magnétisme
-    var MAGNET_SEL = 'a, button, [role="button"], .btn-gold, .btn-ghost, .icon-btn, .nav-link';
+    var LERP = 0.14;
 
     document.addEventListener('mousemove', function(e) {
       mx = e.clientX;
       my = e.clientY;
       dot.style.left = mx + 'px';
       dot.style.top  = my + 'px';
-      updateMagnets(mx, my);
-    });
-
-    function updateMagnets(cx, cy) {
-      var magnets = document.querySelectorAll(MAGNET_SEL);
-      var best = null, bestDist = Infinity;
-
-      magnets.forEach(function(el) {
-        var r = el.getBoundingClientRect();
-        // ignorer les éléments hors viewport
-        if (r.width === 0 || r.bottom < 0 || r.top > window.innerHeight) return;
-        var ex = r.left + r.width  / 2;
-        var ey = r.top  + r.height / 2;
-        var dist = Math.sqrt((cx - ex) * (cx - ex) + (cy - ey) * (cy - ey));
-        // seuil = demi-diagonale + marge de 18px
-        var thresh = Math.sqrt(r.width * r.width + r.height * r.height) * 0.6 + 18;
-        if (dist < thresh && dist < bestDist) {
-          bestDist = dist;
-          best = { el: el, ex: ex, ey: ey, dist: dist, thresh: thresh };
-        }
-      });
-
-      // Libérer l'ancien aimant si on change d'élément
-      if (currentMagnet && (!best || currentMagnet.el !== best.el)) {
-        currentMagnet.el.style.transform = '';
-        currentMagnet.el.style.transition = 'transform .45s cubic-bezier(.25,.46,.45,.94), opacity .3s, color .3s';
-        currentMagnet = null;
-        ringTargetX   = null;
-        ringTargetY   = null;
+      // Agrandir l'anneau au survol d'un lien/bouton
+      var t = e.target.closest('a, button, [role="button"]');
+      if (t) {
+        dot.classList.add('hovering');
+        ring.classList.add('hovering');
+      } else {
         dot.classList.remove('hovering');
         ring.classList.remove('hovering');
       }
+    });
 
-      if (best) {
-        var pull = 1 - (best.dist / best.thresh);
-        var dx = (cx - best.ex) * pull * PULL;
-        var dy = (cy - best.ey) * pull * PULL;
-
-        best.el.style.transform  = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px)';
-        best.el.style.transition = 'transform .1s ease';
-
-        // L'anneau se centre sur l'élément (légèrement décalé vers le curseur)
-        ringTargetX = best.ex + dx * 0.5;
-        ringTargetY = best.ey + dy * 0.5;
-
-        if (!currentMagnet || currentMagnet.el !== best.el) {
-          dot.classList.add('hovering');
-          ring.classList.add('hovering');
-        }
-        currentMagnet = best;
-      }
-    }
-
-    // Anneau — suivi lerp vers la cible magnétique ou le curseur
+    // Anneau — suivi lerp doux
     (function animRing() {
-      var destX = ringTargetX !== null ? ringTargetX : mx;
-      var destY = ringTargetY !== null ? ringTargetY : my;
-      rx += (destX - rx) * LERP;
-      ry += (destY - ry) * LERP;
+      rx += (mx - rx) * LERP;
+      ry += (my - ry) * LERP;
       ring.style.left = rx + 'px';
       ring.style.top  = ry + 'px';
       requestAnimationFrame(animRing);
