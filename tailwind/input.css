@@ -277,6 +277,98 @@ h1, h2, h3, .heading {
   background: rgba(201,169,110,0.015);
 }
 
+/* ─── Mobile filter drawer ───────────────────────────────────────────── */
+.hidden-overlay {
+  background: rgba(0,0,0,0);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.hidden-overlay:not(.hidden-overlay) { pointer-events: auto; }
+#drawer-overlay:not(.hidden-overlay) {
+  background: rgba(0,0,0,0.6);
+  pointer-events: auto;
+  opacity: 1;
+}
+.hidden-drawer {
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition: transform .3s ease, visibility 0s .3s;
+}
+#filter-drawer:not(.hidden-drawer) {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform .3s ease;
+}
+
+/* ─── Price range dual slider ────────────────────────────────────────── */
+.price-range-wrap {
+  position: relative;
+  height: 24px;
+  margin: 4px 0 6px;
+}
+/* Base track (grey line) */
+.price-range-wrap::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  transform: translateY(-50%);
+  height: 2px;
+  background: rgba(201,169,110,0.18);
+  border-radius: 1px;
+}
+/* Gold fill between the two thumbs */
+.price-range-fill {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 2px;
+  background: var(--gold);
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 1px;
+}
+/* Both range inputs stacked, transparent */
+.price-range-input {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+  z-index: 3;
+  margin: 0;
+}
+.price-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--dark);
+  cursor: pointer;
+  pointer-events: all;
+  position: relative;
+  z-index: 4;
+  transition: transform .2s, box-shadow .2s;
+}
+.price-range-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px rgba(201,169,110,0.18);
+}
+.price-range-input::-moz-range-thumb {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--dark);
+  cursor: pointer;
+  pointer-events: all;
+}
+.price-range-input::-webkit-slider-runnable-track { background: transparent; }
+.price-range-input::-moz-range-track               { background: transparent; }
+
 /* ─── Animations ──────────────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(22px); }
