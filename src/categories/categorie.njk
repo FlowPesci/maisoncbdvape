@@ -23,7 +23,7 @@ eleventyComputed:
    PAGE HEADER — luxury
    ═══════════════════════════════════════════════════════════════════════ #}
 <div style="padding:100px 0 0;border-bottom:1px solid var(--borderl);">
-  <div style="max-width:1280px;margin:0 auto;padding:0 40px 32px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;">
+  <div class="section-pad section-header-flex" style="max-width:1280px;margin:0 auto;padding:0 40px 32px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;">
 
     <div>
       {# Fil d'Ariane #}
@@ -288,7 +288,7 @@ eleventyComputed:
    CONTENU PRINCIPAL — sidebar + grille produits
    ═══════════════════════════════════════════════════════════════════════ #}
 <section style="padding:48px 0 72px;background:var(--dark);">
-  <div style="max-width:1280px;margin:0 auto;padding:0 40px;">
+  <div class="section-pad" style="max-width:1280px;margin:0 auto;padding:0 40px;">
 
     {# Bouton mobile filtres #}
     <div class="flex items-center justify-between mb-6 lg:hidden">
@@ -408,7 +408,7 @@ eleventyComputed:
 
         {# Grille produits #}
         {% if nbProduits > 0 %}
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+          <div class="grid-products-3col" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
             {% for produit in produitsCat %}
               {{ productCard(produit, "fade-up") }}
             {% endfor %}
