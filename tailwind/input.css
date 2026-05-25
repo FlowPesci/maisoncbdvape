@@ -113,6 +113,52 @@ h1, h2, h3, .heading {
   color: var(--cream);
 }
 
+/* ─── Header inner padding ───────────────────────────────────────────── */
+.header-inner { padding: 0 40px; }
+@media (max-width: 1023px) {
+  .header-inner { padding: 0 16px; }
+}
+
+/* ─── Footer grid ─────────────────────────────────────────────────────── */
+.grid-footer {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+@media (max-width: 1023px) {
+  .grid-footer {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+  }
+}
+@media (max-width: 479px) {
+  .grid-footer {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+/* ─── CBD menu card (grille 3 col) ───────────────────────────────────── */
+.grid-cbd-menu {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1px;
+  background: var(--borderl);
+  margin-bottom: 1px;
+}
+@media (max-width: 1023px) {
+  .grid-cbd-menu {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+  }
+  /* Reset toutes les assignations de cellule */
+  .grid-cbd-menu > div {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+}
+
 /* ─── Header ─────────────────────────────────────────────────────────── */
 .mcv-header {
   background: rgba(14,12,9,0.94);
