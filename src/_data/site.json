@@ -15,7 +15,7 @@
   "contact": {
     "telephone": "04 50 41 51 50",
     "telephoneE164": "+33450415150",
-    "email": "contact@vapelab.fr"
+    "email": "contact@maisoncbdvape.fr"
   },
   "horaires": [
     { "jours": "Lun, Mar, Jeu, Ven", "heures": "7h30–12h30 / 14h–19h" },
@@ -34,5 +34,3 @@
     { "label": "Vape & E-liquides","url": "/categories/vape/",     "couleur": "gold" },
     { "label": "Chicha",        "url": "/categories/chicha/",      "couleur": "gold" },
     { "label": "Accessoires",   "url": "/categories/accessoires/", "couleur": "gold" }
-  ]
-}

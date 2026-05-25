@@ -18,8 +18,8 @@ pages_build_output_dir = "public"
 #     SITE_URL               = https://maisoncbdvape.fr
 #     VIVA_ENV               = demo
 #     EMAIL_FROM             = MaisonCBDVape <noreply@maisoncbdvape.fr>
-#     EMAIL_REPLY_TO         = contact@vapelab.fr
-#     EMAIL_MERCHANT         = vincent.kotowski@ikmail.com,contact@vapelab.fr
+#     EMAIL_REPLY_TO         = contact@maisoncbdvape.fr
+#     EMAIL_MERCHANT         = vincent.kotowski@ikmail.com,contact@maisoncbdvape.fr
 #     GITHUB_OAUTH_CLIENT_ID = Ov23liwMg8Mc7uBdzJj3
 #     GITHUB_REPO            = FlowPesci/maisoncbdvape
 #     ADMIN_GITHUB_USERS     = FlowPesci
@@ -31,9 +31,9 @@ pages_build_output_dir = "public"
 [vars]
 SITE_URL               = "https://maisoncbdvape.fr"
 VIVA_ENV               = "demo"
-EMAIL_FROM             = "MaisonCBDVape <noreply@vapelab.fr>"
-EMAIL_REPLY_TO         = "contact@vapelab.fr"
-EMAIL_MERCHANT         = "vincent.kotowski@ikmail.com,contact@vapelab.fr"
+EMAIL_FROM             = "MaisonCBDVape <noreply@maisoncbdvape.fr>"
+EMAIL_REPLY_TO         = "contact@maisoncbdvape.fr"
+EMAIL_MERCHANT         = "vincent.kotowski@ikmail.com,contact@maisoncbdvape.fr"
 GITHUB_OAUTH_CLIENT_ID = "Ov23liwMg8Mc7uBdzJj3"
 GITHUB_REPO            = "FlowPesci/maisoncbdvape"
 ADMIN_GITHUB_USERS     = "FlowPesci"
@@ -50,4 +50,4 @@ id = "e7ebbd4459e443ae99aa15f76ce30301"
 # ─── Bindings R2 (médias : photos produits) ───────────────────────────────
 [[r2_buckets]]
 binding = "MEDIA"
-bucket_name = "tabacgex-media"
+b
