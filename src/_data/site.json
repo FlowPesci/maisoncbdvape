@@ -34,3 +34,5 @@
     { "label": "Vape & E-liquides","url": "/categories/vape/",     "couleur": "gold" },
     { "label": "Chicha",        "url": "/categories/chicha/",      "couleur": "gold" },
     { "label": "Accessoires",   "url": "/categories/accessoires/", "couleur": "gold" }
+  ]
+}

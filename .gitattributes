@@ -1,0 +1,24 @@
+# Normalisation des fins de lignes
+# Tous les fichiers texte → LF dans le repo, CRLF sur Windows au checkout
+* text=auto eol=lf
+
+# JSON : toujours LF, jamais de conversion
+*.json text eol=lf
+
+# JS/CSS/HTML/njk : idem
+*.js   text eol=lf
+*.css  text eol=lf
+*.html text eol=lf
+*.njk  text eol=lf
+*.toml text eol=lf
+*.md   text eol=lf
+
+# Binaires : pas de conversion
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.woff2 binary
+*.woff  binary
