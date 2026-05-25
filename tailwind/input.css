@@ -63,45 +63,6 @@ body {
   }
 }
 
-/* ─── Curseur personnalisé ────────────────────────────────────────────── */
-@media (pointer: fine) {
-  body { cursor: none; }
-  .cursor-dot {
-    position: fixed;
-    width: 6px; height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width .2s, height .2s, opacity .2s, background .2s;
-  }
-  .cursor-ring {
-    position: fixed;
-    width: 32px; height: 32px;
-    border: 1px solid rgba(201,169,110,0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: width .35s cubic-bezier(.25,.46,.45,.94),
-                height .35s cubic-bezier(.25,.46,.45,.94),
-                opacity .35s,
-                border-color .35s;
-  }
-  /* État magnétique : point disparaît, anneau s'agrandit et se remplit légèrement */
-  .cursor-dot.hovering {
-    width: 4px; height: 4px;
-    background: var(--gold-light);
-    opacity: .6;
-  }
-  .cursor-ring.hovering {
-    width: 52px; height: 52px;
-    border-color: rgba(201,169,110,0.75);
-    opacity: 1;
-  }
-  a, button, [role="button"] { cursor: none; }
-}
 
 /* ─── Typographie ─────────────────────────────────────────────────────── */
 .font-display {
