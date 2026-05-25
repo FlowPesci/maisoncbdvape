@@ -20,7 +20,7 @@ pages_build_output_dir = "public"
 #     EMAIL_FROM             = MaisonCBDVape <noreply@maisoncbdvape.fr>
 #     EMAIL_REPLY_TO         = contact@vapelab.fr
 #     EMAIL_MERCHANT         = vincent.kotowski@ikmail.com,contact@vapelab.fr
-#     GITHUB_OAUTH_CLIENT_ID = (nouveau OAuth App à créer)
+#     GITHUB_OAUTH_CLIENT_ID = Ov23liwMg8Mc7uBdzJj3
 #     GITHUB_REPO            = FlowPesci/maisoncbdvape
 #     ADMIN_GITHUB_USERS     = FlowPesci
 #   SECRETS (chiffrés) :
@@ -34,7 +34,7 @@ VIVA_ENV               = "demo"
 EMAIL_FROM             = "MaisonCBDVape <noreply@vapelab.fr>"
 EMAIL_REPLY_TO         = "contact@vapelab.fr"
 EMAIL_MERCHANT         = "vincent.kotowski@ikmail.com,contact@vapelab.fr"
-GITHUB_OAUTH_CLIENT_ID = ""
+GITHUB_OAUTH_CLIENT_ID = "Ov23liwMg8Mc7uBdzJj3"
 GITHUB_REPO            = "FlowPesci/maisoncbdvape"
 ADMIN_GITHUB_USERS     = "FlowPesci"
 
