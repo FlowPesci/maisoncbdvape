@@ -1,5 +1,5 @@
 import { createOrder, updateOrder } from "../_shared/orders.js";
-import { createCheckoutOrder } from "../_shared/viva.js";
+import { createPaymentOrder } from "../_shared/paygreen.js";
 import { ok, bad, parseJson } from "../_shared/http.js";
 import { lookupPrice } from "../_shared/catalog-index.js";
 
@@ -52,7 +52,7 @@ export async function onRequestPost({ request, env }) {
       items: trustedItems,
       fraisPort: trustedFraisPort,
       creneauRetrait,
-      paiement: { methode: "viva-wallet", vivaTransactionId: null, vivaOrderCode: null, paidAt: null },
+      paiement: { methode: "paygreen", paygreenOrderId: null, paidAt: null },
       status: "pending",
     });
   } catch (err) {
@@ -62,39 +62,43 @@ export async function onRequestPost({ request, env }) {
   const siteUrl = env.SITE_URL || "https://tabacgex.pages.dev";
   const amountCents = Math.round(order.totalTTC * 100);
 
+  // Découper le nom complet en prénom / nom pour PayGreen
+  const nameParts    = (order.client.nom || "").trim().split(/\s+/);
+  const firstName    = nameParts[0] || "Client";
+  const lastName     = nameParts.slice(1).join(" ") || "-";
+
   let checkout;
   try {
-    checkout = await createCheckoutOrder(env, {
+    checkout = await createPaymentOrder(env, {
       amountCents,
-      merchantTrns: order.orderId,
-      customerTrns: "Commande " + order.orderId,
-      customer: {
-        email: order.client.email,
-        fullName: order.client.nom,
-        phone: order.client.telephone || "",
-        requestLang: "fr-FR",
+      reference:   order.orderId,
+      description: "Commande " + order.orderId,
+      buyer: {
+        email:     order.client.email,
+        firstName,
+        lastName,
       },
-      successUrl: siteUrl + "/api/viva-callback?status=success&orderId=" + encodeURIComponent(order.orderId) + "&t={TransactionId}",
-      failureUrl: siteUrl + "/api/viva-callback?status=fail&orderId=" + encodeURIComponent(order.orderId),
+      returnUrl: siteUrl + "/api/paygreen-callback?status=success&orderId=" + encodeURIComponent(order.orderId),
+      cancelUrl: siteUrl + "/api/paygreen-callback?status=cancel&orderId=" + encodeURIComponent(order.orderId),
     });
   } catch (err) {
     try {
       await updateOrder(env.ORDERS_KV, order.orderId, (o) => { o.status = "cancelled"; }, {
         actor: "create-payment",
-        note: "Viva createCheckoutOrder KO : " + err.message,
+        note:  "PayGreen createPaymentOrder KO : " + err.message,
       });
     } catch {}
-    return bad("Erreur creation paiement Viva : " + err.message, 502);
+    return bad("Erreur création paiement PayGreen : " + err.message, 502);
   }
 
-  // Stocker le vivaOrderCode — necessaire pour la verification IDOR dans viva-callback.js
+  // Stocker le paygreenOrderId — nécessaire pour la vérification dans paygreen-callback.js
   try {
     await updateOrder(env.ORDERS_KV, order.orderId, (o) => {
-      o.paiement.vivaOrderCode = checkout.orderCode;
-    }, { actor: "create-payment", note: "vivaOrderCode enregistre" });
+      o.paiement.paygreenOrderId = checkout.paymentOrderId;
+    }, { actor: "create-payment", note: "paygreenOrderId enregistré" });
   } catch (err) {
-    console.error("[create-payment] Mise a jour vivaOrderCode KO :", err.message);
+    console.error("[create-payment] Mise à jour paygreenOrderId KO :", err.message);
   }
 
-  return ok({ checkoutUrl: checkout.checkoutUrl, orderId: order.orderId });
+  return ok({ checkoutUrl: checkout.hostedPaymentUrl, orderId: order.orderId });
 }

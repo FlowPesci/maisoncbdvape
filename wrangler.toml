@@ -16,7 +16,9 @@ pages_build_output_dir = "public"
 # Variables à configurer dans le dashboard :
 #   PLAINTEXT :
 #     SITE_URL               = https://maisoncbdvape.pages.dev  ← temporaire (→ .fr quand domaine connecté)
-#     VIVA_ENV               = demo
+#     PAYGREEN_ENV           = sandbox   (→ "production" au lancement)
+#     PAYGREEN_SHOP_ID       = sh_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#     PAYGREEN_HMAC_KEY      = (depuis le Listener PayGreen dashboard)
 #     EMAIL_FROM             = MaisonCBDVape <noreply@maisoncbdvape.fr>
 #     EMAIL_REPLY_TO         = contact@maisoncbdvape.fr
 #     EMAIL_MERCHANT         = vincent.kotowski@ikmail.com,contact@maisoncbdvape.fr
@@ -26,11 +28,13 @@ pages_build_output_dir = "public"
 #   SECRETS (chiffrés) :
 #     RESEND_API_KEY
 #     GITHUB_OAUTH_CLIENT_SECRET
-#     VIVA_MERCHANT_ID, VIVA_API_KEY, VIVA_SOURCE_CODE, VIVA_WEBHOOK_KEY
+#     PAYGREEN_SECRET_KEY    (clé secrète PayGreen — jamais en clair)
 
 [vars]
 SITE_URL               = "https://maisoncbdvape.pages.dev"
-VIVA_ENV               = "demo"
+PAYGREEN_ENV           = "sandbox"
+PAYGREEN_SHOP_ID       = ""
+PAYGREEN_HMAC_KEY      = ""
 EMAIL_FROM             = "MaisonCBDVape <noreply@maisoncbdvape.fr>"
 EMAIL_REPLY_TO         = "contact@maisoncbdvape.fr"
 EMAIL_MERCHANT         = "vincent.kotowski@ikmail.com,contact@maisoncbdvape.fr"
