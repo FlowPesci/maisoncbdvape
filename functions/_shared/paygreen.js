@@ -27,10 +27,11 @@ async function getAuthToken(env) {
     throw new Error("PAYGREEN_SHOP_ID / PAYGREEN_SECRET_KEY manquants");
   }
 
-  const res = await fetch(`${base}/v1/auth`, {
+  // Endpoint réel : POST /auth/authentication/{shopId}/secret-key
+  // La secret key va dans le header Authorization (sans préfixe)
+  const res = await fetch(`${base}/auth/authentication/${shopId}/secret-key`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id: shopId, secret_key: secretKey }),
+    headers: { Authorization: secretKey },
   });
 
   if (!res.ok) {
