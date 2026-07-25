@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 title: MaisonCBDVape – L'art de savourer autrement
-description: MaisonCBDVape – Boutique premium CBD, Vape, Puffs et Chicha à Gex (01170). Large sélection soigneusement sourcée. Retrait Click & Collect ou livraison 48h.
+description: MaisonCBDVape – Boutique premium CBD, Vape, Puffs et articles fumeurs à Gex (01170). Large sélection soigneusement sourcée. Retrait Click & Collect ou livraison 48h.
 permalink: /index.html
 ---
 
@@ -30,7 +30,7 @@ permalink: /index.html
         </h1>
 
         <p style="font-size:13.5px;letter-spacing:.03em;line-height:1.85;color:rgba(245,240,232,0.5);max-width:400px;margin-bottom:48px;">
-          Une sélection premium de CBD, Vape, Puffs et Chicha soigneusement sourcée.<br/>
+          Une sélection premium de CBD, Vape, Puffs et articles fumeurs soigneusement sourcée.<br/>
           <strong style="color:rgba(245,240,232,0.75);font-weight:400;">Retrait à Gex</strong> ou <strong style="color:rgba(245,240,232,0.75);font-weight:400;">livraison 48h</strong> partout en France.
         </p>
 
@@ -132,7 +132,7 @@ permalink: /index.html
    ═══════════════════════════════════════════════════════════════════════ #}
 <div class="marquee-wrap" aria-hidden="true">
   <div class="marquee-track">
-    {% set items = ["CBD Premium","Vape & E-liquides","Puffs","Chicha","Accessoires","Click & Collect","Livraison 48h","Gex · 01170"] %}
+    {% set items = ["CBD Premium","Vape & E-liquides","Puffs","Articles fumeurs","Click & Collect","Livraison 48h","Gex · 01170"] %}
     {% for i in range(0,3) %}
       {% for item in items %}
         <span class="marquee-item"><span class="mdot"></span>{{ item }}</span>
@@ -157,10 +157,13 @@ permalink: /index.html
 
     {# Grille : 1ère carte grande (col 1-2), les 4 autres en 2×2 #}
     <div class="grid-cat-home" style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:360px 280px;gap:2px;">
-      {% set catEmojis = {"cbd":"🌿","puffs":"💨","vape":"🔋","chicha":"🪔","accessoires":"🔥"} %}
+      {% set catEmojis = {"cbd":"🌿","puffs":"💨","vape":"🔋","accessoires":"🔥"} %}
 
       {% for cat in categories %}
-        <a href="/categories/{{ cat.slug }}/" class="cat-card" style="{% if loop.first %}grid-row:1/3;height:100%;{% endif %}display:block;text-decoration:none;">
+        {# La première carte occupe toute la hauteur. Avec 4 catégories, il
+           resterait une case vide en bas à droite : la dernière carte s'étire
+           alors sur deux colonnes. Se réajuste seul si une catégorie revient. #}
+        <a href="/categories/{{ cat.slug }}/" class="cat-card" style="{% if loop.first %}grid-row:1/3;height:100%;{% elif loop.last and categories | length == 4 %}grid-column:span 2;{% endif %}display:block;text-decoration:none;">
           <div class="cat-card-inner">
             {% if cat.image %}
               <img src="{{ cat.image }}" alt="{{ cat.nom }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;" loading="lazy"/>
@@ -265,7 +268,7 @@ permalink: /index.html
              style="flex:1;padding:14px 20px;background:var(--dark3);border:1px solid var(--borderl);border-right:none;color:var(--cream);font-size:12.5px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .3s;"
              onfocus="this.style.borderColor='rgba(201,169,110,0.45)'" onblur="this.style.borderColor='var(--borderl)'"/>
       <button id="newsletter-btn" type="submit"
-              style="padding:14px 28px;background:var(--gold);color:var(--dark);font-size:9.5px;letter-spacing:.25em;text-transform:uppercase;border:none;cursor:none;font-family:'DM Sans',sans-serif;font-weight:500;transition:opacity .2s;"
+              style="padding:14px 28px;background:var(--gold);color:var(--dark);font-size:9.5px;letter-spacing:.25em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:opacity .2s;"
               onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">S'inscrire</button>
     </form>
     <div id="newsletter-error" class="hidden" style="color:#e57373;font-size:12px;margin-top:12px;"></div>

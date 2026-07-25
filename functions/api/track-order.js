@@ -28,6 +28,7 @@ export async function onRequestPost({ request, env }) {
     modeLivraison: order.modeLivraison || "click-and-collect",
     creneauRetrait: order.creneauRetrait || null,
     adresseLivraison: order.adresseLivraison || null,
+    pointRetrait: order.pointRetrait || null,
     items: order.items.map((it) => ({
       nom: it.nom,
       marque: it.marque,

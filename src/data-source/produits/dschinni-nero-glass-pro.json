@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Dschinni Nero Glass PRO",
-  "actif": true,
+  "actif": false,
   "prix": 24.9,
   "unitePrix": null,
   "note": null,

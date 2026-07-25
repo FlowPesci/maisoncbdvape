@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Manche Molotov X XL",
-  "actif": true,
+  "actif": false,
   "prix": 11.9,
   "unitePrix": null,
   "note": null,

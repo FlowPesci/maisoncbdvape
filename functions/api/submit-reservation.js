@@ -1,12 +1,15 @@
 /**
  * functions/api/submit-reservation.js
- * POST => enregistre une commande (Click & Collect ou Livraison), envoie 2 emails.
+ * POST => enregistre une commande sans paiement en ligne, envoie 2 emails.
+ * Tous modes de livraison : retrait boutique, domicile, point retrait, consigne.
  */
 import { createOrder } from "../_shared/orders.js";
 import { sendEmail, merchantEmail } from "../_shared/email.js";
 import { reservationClient, reservationMerchant } from "../_shared/templates.js";
 import { ok, bad, parseJson } from "../_shared/http.js";
 import { lookupPrice } from "../_shared/catalog-index.js";
+import { computeFraisPort } from "../_shared/livraison.js";
+import { valideLivraison } from "../_shared/valide-livraison.js";
 import { rateLimit, getClientIp } from "../_shared/ratelimit.js";
 
 export async function onRequestPost({ request, env }) {
@@ -18,34 +21,16 @@ export async function onRequestPost({ request, env }) {
   const body = await parseJson(request);
   if (!body) return bad("Corps de requete invalide");
 
-  const { client, items, modeLivraison, creneauRetrait, adresseLivraison } = body;
-  const mode = modeLivraison || "click-and-collect";
+  const { client, items } = body;
 
   if (!client?.nom || client.nom.trim().length < 2) return bad("Nom invalide");
   if (!client?.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(client.email)) return bad("Email invalide");
   if (!client?.telephone || !/^[0-9 +.\-()]{8,}$/.test(client.telephone)) return bad("Telephone invalide");
   if (!Array.isArray(items) || items.length === 0) return bad("Panier vide");
 
-  const VALID_HOURS = new Set(["07:30","08:00","09:00","09:30","10:30","11:00","14:00","15:30","17:00"]);
-
-  if (mode === "click-and-collect") {
-    if (!creneauRetrait?.date || !creneauRetrait?.heure) return bad("Creneau de retrait manquant");
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(creneauRetrait.date)) return bad("Format de date invalide");
-    const retrait = new Date(creneauRetrait.date + "T00:00:00");
-    if (isNaN(retrait.getTime())) return bad("Date invalide");
-    const today = new Date(); today.setHours(0,0,0,0);
-    if (retrait <= today) return bad("La date de retrait doit etre dans le futur");
-    const maxDate = new Date(today.getTime() + 30 * 24 * 3600 * 1000);
-    if (retrait > maxDate) return bad("Date de retrait trop lointaine (max 30 jours)");
-    if (!/^\d{2}:\d{2}$/.test(creneauRetrait.heure)) return bad("Format d'heure invalide");
-    if (!VALID_HOURS.has(creneauRetrait.heure)) return bad("Creneau horaire non valide");
-  } else {
-    if (!adresseLivraison?.adresse || !adresseLivraison?.codePostal || !adresseLivraison?.ville)
-      return bad("Adresse de livraison incomplete");
-    if (!/^\d{5}$/.test(adresseLivraison.codePostal)) return bad("Code postal invalide (5 chiffres)");
-    if (adresseLivraison.adresse.length > 200) return bad("Adresse trop longue");
-    if (adresseLivraison.ville.length > 100) return bad("Ville trop longue");
-  }
+  // Mode de livraison et informations associées — mêmes règles que create-payment.js
+  const liv = valideLivraison(body);
+  if (liv.erreur) return bad(liv.erreur);
 
   const trustedItems = [];
   for (const it of items) {
@@ -71,11 +56,9 @@ export async function onRequestPost({ request, env }) {
     });
   }
 
-  // Frais de port : 3,90 EUR si sous-total < 30 EUR, sinon gratuit (livraison uniquement)
-  const FRAIS_PORT = 3.90;
-  const SEUIL_GRATUIT = 30;
+  // Frais de port recalculés côté serveur (jamais depuis le client)
   const sousTotal = trustedItems.reduce((sum, it) => sum + it.prix * it.qty, 0);
-  const trustedFraisPort = mode === "livraison" && sousTotal < SEUIL_GRATUIT ? FRAIS_PORT : 0;
+  const trustedFraisPort = computeFraisPort(sousTotal, liv.mode);
 
   let order;
   try {
@@ -88,13 +71,10 @@ export async function onRequestPost({ request, env }) {
       },
       items: trustedItems,
       fraisPort: trustedFraisPort,
-      modeLivraison: mode,
-      creneauRetrait: mode === "click-and-collect" ? creneauRetrait : null,
-      adresseLivraison: mode === "livraison" ? {
-        adresse: adresseLivraison.adresse.trim(),
-        codePostal: adresseLivraison.codePostal.trim(),
-        ville: adresseLivraison.ville.trim(),
-      } : null,
+      modeLivraison:    liv.mode,
+      creneauRetrait:   liv.creneauRetrait,
+      adresseLivraison: liv.adresseLivraison,
+      pointRetrait:     liv.pointRetrait,
       paiement: { methode: "en-magasin", moneticoRef: null, paidAt: null },
       status: "pending",
     });

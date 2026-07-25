@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Chicha DUM BOOST L – D01",
-  "actif": true,
+  "actif": false,
   "prix": 89.9,
   "unitePrix": null,
   "note": null,

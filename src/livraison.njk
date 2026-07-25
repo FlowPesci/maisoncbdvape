@@ -29,9 +29,11 @@ description: "Livraison à domicile en 48h et retrait Click &amp; Collect en bou
     Nous expédions vos commandes via <strong class="text-white">La Poste – Colissimo</strong> en France métropolitaine.
   </p>
   <ul class="text-smoke space-y-2 mt-3">
-    <li>🚚 <strong class="text-white">Livraison gratuite</strong> dès 30 € d'achat</li>
-    <li>💶 <strong class="text-white">3,90 €</strong> pour les commandes inférieures à 30 €</li>
-    <li>📦 Délai estimé : <strong class="text-white">2 à 4 jours ouvrés</strong> après expédition</li>
+{% set liv = site.livraison.modes["livraison"] %}
+    <li>🚚 <strong class="text-white">Livraison offerte</strong> dès {{ liv.seuilGratuit | eur }} d'achat</li>
+    <li>💶 <strong class="text-white">{{ liv.fraisPort | eur }}</strong> pour les commandes inférieures à {{ liv.seuilGratuit | eur }}</li>
+    <li>📦 Délai estimé : <strong class="text-white">{{ liv.delai }}</strong> après expédition</li>
+    <li>🚀 Expédition le jour même pour toute commande passée avant 14 h</li>
     <li>📬 Numéro de suivi transmis par email dès l'expédition</li>
     <li>🏠 Livraison en boîte aux lettres ou contre signature selon le format du colis</li>
   </ul>

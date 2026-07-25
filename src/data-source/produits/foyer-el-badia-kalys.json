@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Foyer EL-BADIA KALYS",
-  "actif": true,
+  "actif": false,
   "prix": 14.9,
   "unitePrix": null,
   "note": null,

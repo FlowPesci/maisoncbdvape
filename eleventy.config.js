@@ -8,6 +8,11 @@ import { join } from "path";
 // Cache hash en mémoire pour éviter de relire les fichiers à chaque template
 const _hashCache = {};
 
+// Catégories ouvertes à la vente — source unique pour les collections
+const _cats = JSON.parse(readFileSync("src/data-source/categories.json", "utf8"));
+const categoriesActives = (Array.isArray(_cats) ? _cats : _cats.categories || [])
+  .filter((c) => c.actif !== false);
+
 export default function (eleventyConfig) {
   // ─── Pass-through copy ────────────────────────────────────────────────────
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
@@ -104,7 +109,9 @@ export default function (eleventyConfig) {
   });
 
 // ─── Collections par univers ──────────────────────────────────────────────
-  const UNIVERS = ["cbd", "vape", "puffs", "chicha", "accessoires"];
+  // Dérivé de categories.json plutôt qu'écrit en dur : retirer ou ajouter une
+  // catégorie ne demande aucune modification ici.
+  const UNIVERS = categoriesActives.map((c) => c.slug);
   UNIVERS.forEach((cat) => {
     eleventyConfig.addCollection(cat, (api) => {
       const produits = api.getAll()[0]?.data?.produits || [];

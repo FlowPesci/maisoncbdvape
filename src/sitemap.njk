@@ -18,6 +18,14 @@ eleventyExcludeFromCollections: true
     <priority>0.8</priority>
   </url>
 {%- endfor %}
+{%- for sous in sousCategories %}
+  <url>
+    <loc>{{ site.url }}{{ sous.url }}</loc>
+    <lastmod>{{ page.date | isoDate }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+{%- endfor %}
 {%- for produit in produits %}
 {%- if produit.actif != false %}
   <url>

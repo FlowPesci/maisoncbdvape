@@ -15,7 +15,10 @@ pages_build_output_dir = "public"
 #
 # Variables à configurer dans le dashboard :
 #   PLAINTEXT :
-#     SITE_URL               = https://maisoncbdvape.pages.dev  ← temporaire (→ .fr quand domaine connecté)
+#     SITE_URL               = https://maisoncbdvape.fr
+#       ⚠ Ne basculer sur le .fr QUE lorsque le custom domain est « Active »
+#         dans Cloudflare Pages. Avant cela, garder https://maisoncbdvape.pages.dev,
+#         sinon l'OAuth GitHub de l'admin et les retours de paiement cassent.
 #     MONETICO_ENV           = test   (→ "production" au lancement)
 #     MONETICO_TPE           = 7 caractères alphanumériques (n° de TPE virtuel)
 #     MONETICO_SOCIETE       = code société fourni à la création du contrat

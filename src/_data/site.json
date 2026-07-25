@@ -18,21 +18,150 @@
     "email": "contact@maisoncbdvape.fr"
   },
   "horaires": [
-    { "jours": "Lun, Mar, Jeu, Ven", "heures": "7h30–12h30 / 14h–19h" },
-    { "jours": "Mercredi",           "heures": "7h30–12h00 / 14h–19h" },
-    { "jours": "Samedi",             "heures": "8h–12h30 / 14h–18h40" },
-    { "jours": "Dimanche",           "heures": "8h–12h" }
+    {
+      "jours": "Lun, Mar, Jeu, Ven",
+      "heures": "7h30–12h30 / 14h–19h"
+    },
+    {
+      "jours": "Mercredi",
+      "heures": "7h30–12h00 / 14h–19h"
+    },
+    {
+      "jours": "Samedi",
+      "heures": "8h–12h30 / 14h–18h40"
+    },
+    {
+      "jours": "Dimanche",
+      "heures": "8h–12h"
+    }
   ],
+  "livraison": {
+    "modes": {
+      "click-and-collect": {
+        "libelle": "Click & Collect",
+        "accroche": "Prêt en 1 heure, retrait à Gex",
+        "transporteur": null,
+        "fraisPort": 0,
+        "seuilGratuit": null,
+        "delai": "1 heure",
+        "saisie": "creneau",
+        "actif": true,
+        "delaiPreparationMinutes": 60,
+        "horizonJours": 30,
+        "dureeCreneauMinutes": 90,
+        "horairesRetrait": {
+          "0": [
+            [
+              "08:00",
+              "12:00"
+            ]
+          ],
+          "1": [
+            [
+              "07:30",
+              "12:30"
+            ],
+            [
+              "14:00",
+              "19:00"
+            ]
+          ],
+          "2": [
+            [
+              "07:30",
+              "12:30"
+            ],
+            [
+              "14:00",
+              "19:00"
+            ]
+          ],
+          "3": [
+            [
+              "07:30",
+              "12:00"
+            ],
+            [
+              "14:00",
+              "19:00"
+            ]
+          ],
+          "4": [
+            [
+              "07:30",
+              "12:30"
+            ],
+            [
+              "14:00",
+              "19:00"
+            ]
+          ],
+          "5": [
+            [
+              "07:30",
+              "12:30"
+            ],
+            [
+              "14:00",
+              "19:00"
+            ]
+          ],
+          "6": [
+            [
+              "08:00",
+              "12:30"
+            ],
+            [
+              "14:00",
+              "18:40"
+            ]
+          ]
+        }
+      },
+      "livraison": {
+        "libelle": "Livraison à domicile",
+        "accroche": "Partout en France métropolitaine",
+        "transporteur": "Colissimo",
+        "fraisPort": 4.9,
+        "seuilGratuit": 49.9,
+        "delai": "48h",
+        "saisie": "adresse",
+        "actif": true
+      },
+      "point-retrait": {
+        "libelle": "Point retrait",
+        "accroche": "Bureau de Poste, commerce ou consigne Pickup",
+        "transporteur": "Colissimo Pickup",
+        "fraisPort": 3.9,
+        "seuilGratuit": 49.9,
+        "delai": "48h",
+        "saisie": "point",
+        "actif": false
+      },
+      "consigne": {
+        "libelle": "Consigne 24h/24",
+        "accroche": "Casier automatique, retrait par code",
+        "transporteur": "Mondial Relay",
+        "fraisPort": 4.5,
+        "seuilGratuit": 49.9,
+        "delai": "3 jours ouvrés",
+        "saisie": "point",
+        "actif": false,
+        "widget": {
+          "type": "mondial-relay",
+          "brand": "BDTEST",
+          "colLivMod": "APM",
+          "theme": "mondialrelay",
+          "pays": "FR",
+          "codePostalDefaut": "01170",
+          "nbResultats": 10
+        }
+      }
+    }
+  },
   "social": {
     "instagram": "https://instagram.com/tabacgex",
-    "facebook":  "https://facebook.com/tabacgex",
-    "tiktok":    "https://tiktok.com/@tabacgex"
-  },
-  "navigation": [
-    { "label": "CBD",            "url": "/categories/cbd/",         "couleur": "gold" },
-    { "label": "Puffs",         "url": "/categories/puffs/",       "couleur": "gold" },
-    { "label": "Vape & E-liquides","url": "/categories/vape/",     "couleur": "gold" },
-    { "label": "Chicha",        "url": "/categories/chicha/",      "couleur": "gold" },
-    { "label": "Accessoires",   "url": "/categories/accessoires/", "couleur": "gold" }
-  ]
+    "facebook": "https://facebook.com/tabacgex",
+    "tiktok": "https://tiktok.com/@tabacgex"
+  }
 }

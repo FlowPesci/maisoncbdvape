@@ -18,9 +18,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const PRODUITS_DIR = join(ROOT, "src/data-source/produits");
 
-const produits = readdirSync(PRODUITS_DIR)
+// Les produits retirés de la vente ("actif": false) sortent du catalogue de
+// prix : sans ça, ils resteraient commandables par appel direct à l'API, même
+// sans page ni lien sur le site.
+const tousProduits = readdirSync(PRODUITS_DIR)
   .filter((f) => f.endsWith(".json"))
   .map((f) => JSON.parse(readFileSync(join(PRODUITS_DIR, f), "utf-8")));
+
+const produits = tousProduits.filter((p) => p.actif !== false);
+const retires = tousProduits.length - produits.length;
 
 const entries = {};
 const avecVariantes = [];
@@ -94,4 +100,184 @@ mkdirSync(join(ROOT, "functions/_shared"), { recursive: true });
 writeFileSync(join(ROOT, "functions/_shared/catalog-index.js"), output, "utf-8");
 
 const count = Object.keys(entries).length;
-console.log(`[catalog] ✓ ${count} entrées générées → functions/_shared/catalog-index.js`);
+console.log(
+  `[catalog] ✓ ${count} entrées générées depuis ${produits.length} produits actifs` +
+  (retires ? ` (${retires} retiré${retires > 1 ? "s" : ""} de la vente)` : "") +
+  ` → functions/_shared/catalog-index.js`
+);
+
+/* ───────────────────────────────────────────────────────────────────────────
+ * Modes de livraison — généré depuis src/_data/site.json
+ *
+ * Les mêmes valeurs alimentent les templates (via site.livraison.modes) et les
+ * Workers (via ce fichier). Impossible de les faire diverger : elles ont une
+ * seule source. Modifier un tarif ou un délai = éditer site.json, puis rebuild.
+ * ─────────────────────────────────────────────────────────────────────────── */
+const site = JSON.parse(readFileSync(join(ROOT, "src/_data/site.json"), "utf-8"));
+const modes = site.livraison?.modes;
+
+if (!modes || typeof modes !== "object" || !Object.keys(modes).length) {
+  throw new Error("[livraison] site.json doit contenir livraison.modes (objet non vide)");
+}
+
+for (const [id, m] of Object.entries(modes)) {
+  if (typeof m.fraisPort !== "number") {
+    throw new Error(`[livraison] mode "${id}" : fraisPort doit être un nombre`);
+  }
+  if (m.seuilGratuit !== null && typeof m.seuilGratuit !== "number") {
+    throw new Error(`[livraison] mode "${id}" : seuilGratuit doit être un nombre ou null`);
+  }
+  if (!["creneau", "adresse", "point"].includes(m.saisie)) {
+    throw new Error(`[livraison] mode "${id}" : saisie doit valoir creneau, adresse ou point`);
+  }
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+ * Créneaux de retrait, dérivés des horaires d'ouverture
+ *
+ * Le dernier créneau d'une plage se termine à l'heure de fermeture, jamais
+ * avant : une commande reste retirable jusqu'à ce que la boutique ferme.
+ * Un reliquat trop court est absorbé par le créneau précédent plutôt que de
+ * créer une tranche de quelques minutes.
+ * ─────────────────────────────────────────────────────────────────────────── */
+const cc = modes["click-and-collect"] || {};
+const DUREE = cc.dureeCreneauMinutes ?? 90;
+const RELIQUAT_MIN = 45; // en deçà, on rallonge le créneau précédent
+
+const enMinutes = (hhmm) => {
+  const [h, m] = hhmm.split(":").map(Number);
+  return h * 60 + m;
+};
+const enTexte = (min) => {
+  const h = Math.floor(min / 60), m = min % 60;
+  return m === 0 ? `${h} h` : `${h} h ${String(m).padStart(2, "0")}`;
+};
+
+function creneauxDePlage([ouverture, fermeture]) {
+  const debut = enMinutes(ouverture), fin = enMinutes(fermeture);
+  const bornes = [];
+  for (let t = debut; t < fin; t += DUREE) bornes.push(t);
+
+  return bornes.map((t, i) => {
+    const suivant = bornes[i + 1];
+    // Dernier créneau, ou avant-dernier si le reliquat est trop court
+    const estDernier = suivant === undefined || (fin - suivant) < RELIQUAT_MIN;
+    return {
+      value: `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`,
+      label: `${enTexte(t)} – ${enTexte(estDernier ? fin : suivant)}`,
+      _fin: estDernier ? fin : suivant,
+    };
+  }).filter((c, i, arr) => {
+    // Un créneau absorbé par le précédent ne doit pas réapparaître
+    const precedent = arr[i - 1];
+    return !precedent || enMinutes(c.value) >= precedent._fin;
+  }).map(({ value, label }) => ({ value, label }));
+}
+
+const horaires = cc.horairesRetrait || {};
+const creneaux = {};
+for (const [jour, plages] of Object.entries(horaires)) {
+  creneaux[jour] = plages.flatMap(creneauxDePlage);
+}
+
+const livraisonOutput = `/**
+ * functions/_shared/livraison.js
+ * ⚠ FICHIER GÉNÉRÉ AUTOMATIQUEMENT — ne pas éditer manuellement
+ * Source de vérité : src/_data/site.json → "livraison.modes"
+ * Regénérer via : node scripts/build-catalog-index.js
+ */
+
+// @ts-check
+
+/**
+ * Modes de livraison proposés, indexés par identifiant.
+ * \`saisie\` indique ce que le client doit renseigner :
+ *   "creneau" → date et heure de retrait en boutique
+ *   "adresse" → adresse postale complète
+ *   "point"   → identité d'un point retrait ou d'une consigne
+ * \`actif\` à false = mode connu mais pas encore ouvert à la vente.
+ */
+export const MODES = ${JSON.stringify(modes, null, 2)};
+
+/** Un mode existe-t-il et est-il ouvert à la vente ? */
+export function modeValide(mode) {
+  const m = MODES[mode];
+  return Boolean(m && m.actif);
+}
+
+/** Ce mode exige-t-il que le client ait choisi un point retrait ? */
+export function besoinPointRetrait(mode) {
+  return MODES[mode]?.saisie === "point";
+}
+
+/** Ce mode exige-t-il une adresse postale ? */
+export function besoinAdresse(mode) {
+  return MODES[mode]?.saisie === "adresse";
+}
+
+/** Ce mode exige-t-il un créneau de retrait en boutique ? */
+export function besoinCreneau(mode) {
+  return MODES[mode]?.saisie === "creneau";
+}
+
+/**
+ * Frais de port applicables à une commande.
+ *
+ * Un mode inconnu renvoie 0 : la validation du mode est faite en amont par
+ * modeValide(), on ne facture jamais sur la foi d'une valeur non reconnue.
+ *
+ * @param {number} sousTotal - Total TTC des articles, hors frais de port
+ * @param {string} mode - Identifiant du mode de livraison
+ * @returns {number} Frais de port en euros (0 si offerts)
+ */
+export function computeFraisPort(sousTotal, mode) {
+  const m = MODES[mode];
+  if (!m) return 0;
+  if (!m.fraisPort) return 0;
+  if (m.seuilGratuit !== null && sousTotal >= m.seuilGratuit) return 0;
+  return m.fraisPort;
+}
+
+/** Transporteur d'un mode, ou chaîne vide s'il n'y en a pas. */
+export function transporteur(mode) {
+  return MODES[mode]?.transporteur || "";
+}
+
+/** Délai annoncé pour un mode, ou chaîne vide. */
+export function delai(mode) {
+  return MODES[mode]?.delai || "";
+}
+
+/** Libellé lisible d'un mode, pour les emails et le back-office. */
+export function libelle(mode) {
+  return MODES[mode]?.libelle || mode;
+}
+
+/**
+ * Créneaux de retrait par jour de la semaine (0 = dimanche).
+ * Dérivés des horaires d'ouverture : le dernier créneau d'une plage se termine
+ * à l'heure de fermeture, la commande reste donc retirable jusqu'au bout.
+ * @type {Record<string, {value: string, label: string}[]>}
+ */
+export const CRENEAUX = ${JSON.stringify(creneaux, null, 2)};
+
+/** Créneaux d'un jour donné (0 = dimanche). */
+export function creneauxDuJour(jour) {
+  return CRENEAUX[String(jour)] || [];
+}
+
+/** Cette heure de début est-elle un créneau valide ce jour-là ? */
+export function creneauValide(jour, heure) {
+  return creneauxDuJour(jour).some((c) => c.value === heure);
+}
+`;
+
+writeFileSync(join(ROOT, "functions/_shared/livraison.js"), livraisonOutput, "utf-8");
+
+const actifs = Object.entries(modes).filter(([, m]) => m.actif).map(([id]) => id);
+const inactifs = Object.entries(modes).filter(([, m]) => !m.actif).map(([id]) => id);
+console.log(
+  `[livraison] ✓ ${Object.keys(modes).length} modes → functions/_shared/livraison.js\n` +
+  `            actifs   : ${actifs.join(", ") || "aucun"}\n` +
+  `            inactifs : ${inactifs.join(", ") || "aucun"}`
+);

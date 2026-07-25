@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Pinces à charbon Dschinni",
-  "actif": true,
+  "actif": false,
   "prix": 6.9,
   "unitePrix": null,
   "note": null,

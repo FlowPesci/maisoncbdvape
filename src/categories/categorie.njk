@@ -239,7 +239,7 @@ eleventyComputed:
       <div style="background:var(--dark3);padding:32px 28px;grid-column:3;grid-row:2;">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
           <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Mélanges Végétaux</div>
-          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:6px 13px;border:1px solid var(--gold);color:var(--gold);white-space:nowrap;flex-shrink:0;">Infusions</div>
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:6px 13px;border:1px solid var(--gold);color:var(--gold);white-space:nowrap;flex-shrink:0;">Sans tabac</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
           <span>Produit</span><span></span><span></span><span style="text-align:right;">Prix</span>
@@ -349,9 +349,9 @@ eleventyComputed:
               <div style="display:flex;flex-direction:column;gap:10px;">
                 {% for marque in marquesCat %}
                   {% set countMarque = produitsCat | where("marque", marque) | count %}
-                  <label style="display:flex;align-items:center;gap:10px;cursor:none;">
+                  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
                     <input type="checkbox" data-filter-brand="{{ marque }}"
-                           style="width:14px;height:14px;accent-color:var(--gold);cursor:none;"/>
+                           style="width:14px;height:14px;accent-color:var(--gold);cursor:pointer;"/>
                     <span style="font-size:12.5px;color:var(--text);">{{ marque }} <span style="color:var(--muted);font-size:11px;">({{ countMarque }})</span></span>
                   </label>
                 {% endfor %}

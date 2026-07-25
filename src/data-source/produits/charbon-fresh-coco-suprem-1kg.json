@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Charbon Fresh Coco Suprem 1kg",
-  "actif": true,
+  "actif": false,
   "prix": 6.9,
   "unitePrix": null,
   "note": null,

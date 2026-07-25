@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Kaloud I",
-  "actif": true,
+  "actif": false,
   "prix": 19.9,
   "unitePrix": null,
   "note": null,

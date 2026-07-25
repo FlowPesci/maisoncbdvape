@@ -96,11 +96,41 @@ collections:
         name: "categorie"
         widget: "select"
         options:
-          - { label: "CBD",         value: "cbd" }
+          - { label: "CBD",               value: "cbd" }
           - { label: "Vape & E-liquides", value: "vape" }
-          - { label: "Puffs",       value: "puffs" }
-          - { label: "Chicha",      value: "chicha" }
-          - { label: "Accessoires", value: "accessoires" }
+          - { label: "Puffs",             value: "puffs" }
+          - { label: "Articles fumeurs",  value: "accessoires" }
+
+      - label: "Sous-catégorie"
+        name: "sousCategorie"
+        widget: "select"
+        required: false
+        hint: "Doit appartenir à la catégorie choisie ci-dessus. Laisser vide place le produit uniquement dans la catégorie."
+        options:
+          - { label: "CBD › Fleurs indoor", value: "fleurs-indoor" }
+          - { label: "CBD › Pollens & résines", value: "pollens-resines" }
+          - { label: "CBD › Small buds", value: "small-buds" }
+          - { label: "CBD › Substituts de tabac", value: "substituts-tabac" }
+          - { label: "Puffs › JNR", value: "jnr" }
+          - { label: "Puffs › Al Fakher", value: "al-fakher" }
+          - { label: "Puffs › Starbuzz", value: "starbuzz" }
+          - { label: "Puffs › Adalya", value: "adalya" }
+          - { label: "Puffs › Pods & recharges", value: "pods-recharges" }
+          - { label: "Vape & E-liquides › Le Petit Verger", value: "e-liquides-petit-verger" }
+          - { label: "Vape & E-liquides › Curieux", value: "e-liquides-curieux" }
+          - { label: "Vape & E-liquides › Le Petit Gourmet", value: "e-liquides-petit-gourmet" }
+          - { label: "Vape & E-liquides › Autres e-liquides", value: "e-liquides-autres" }
+          - { label: "Vape & E-liquides › Kits & cigarettes électroniques", value: "kits" }
+          - { label: "Vape & E-liquides › Box", value: "box" }
+          - { label: "Vape & E-liquides › Clearomiseurs", value: "clearomiseurs" }
+          - { label: "Vape & E-liquides › DIY & bases", value: "diy-bases" }
+          - { label: "Articles fumeurs › Grinders", value: "grinders" }
+          - { label: "Articles fumeurs › Plateaux", value: "plateaux" }
+          - { label: "Articles fumeurs › Balances", value: "balances" }
+          - { label: "Articles fumeurs › Bangs & verrerie", value: "bangs" }
+          - { label: "Articles fumeurs › Cendriers", value: "cendriers" }
+          - { label: "Articles fumeurs › Allume-charbons", value: "allume-charbons" }
+          - { label: "Articles fumeurs › Boîtes", value: "boites" }
 
       - label: "Sous-catégorie"
         name: "sousCategorie"

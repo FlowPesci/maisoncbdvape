@@ -242,6 +242,61 @@ h1, h2, h3, .heading {
   color: var(--gold); opacity: 0.85;
 }
 .mdot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: .55; }
+/* ─── Méga-menu ───────────────────────────────────────────────────────── */
+.nav-item { position: relative; display: flex; align-items: center; height: 72px; }
+
+.mega-panel {
+  position: absolute;
+  left: 0; right: 0;
+  top: 100%;
+  background: rgba(26, 23, 20, 0.985);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--borderl);
+  border-bottom: 1px solid var(--borderl);
+  /* Fermé par défaut. On évite display:none pour garder une transition. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .22s ease, transform .22s ease, visibility 0s .22s;
+  z-index: 45;
+}
+.mega-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity .22s ease, transform .22s ease;
+}
+
+.mega-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px 32px;
+}
+@media (max-width: 1279px) { .mega-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.mega-link {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  font-size: 12.5px;
+  letter-spacing: .06em;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color .25s, border-color .25s;
+}
+.mega-link:hover { color: var(--gold); border-bottom-color: var(--borderl); }
+.mega-link-nom { text-transform: uppercase; font-size: 11.5px; letter-spacing: .12em; }
+.mega-link-nb {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  opacity: .7;
+}
+
 /* ─── Sélecteurs de variante (saveur, grammage) ───────────────────────── */
 .variante-btn,
 .gram-btn {

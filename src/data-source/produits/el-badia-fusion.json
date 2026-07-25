@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "El Badia Fusion",
-  "actif": true,
+  "actif": false,
   "prix": 49.9,
   "unitePrix": null,
   "note": null,

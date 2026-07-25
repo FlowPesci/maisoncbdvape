@@ -47,6 +47,36 @@ description: "Suivez votre commande MaisonCBDVape en temps réel grâce à votre
     return [a.adresse, a.codePostal, a.ville].filter(Boolean).map(esc).join(', ');
   }
 
+  // Modes injectés par le layout depuis src/_data/site.json
+  const MODES = (window.MCV_LIVRAISON && window.MCV_LIVRAISON.modes) || {};
+
+  /** Bloc « où récupérer la commande », adapté aux quatre modes. */
+  function blocLivraison(o) {
+    const m = MODES[o.modeLivraison] || {};
+    const titre = (m.libelle || 'Livraison');
+
+    if (o.modeLivraison === 'livraison') {
+      return `
+        <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-2">${esc(titre)}</p>
+        <p class="text-white">🚚 ${fmtAdresse(o.adresseLivraison)}</p>
+        <p class="text-smoke text-xs mt-1">${esc(m.transporteur || '')} — livraison en ${esc(m.delai || '')} après expédition</p>`;
+    }
+
+    if (o.pointRetrait) {
+      const p = o.pointRetrait;
+      return `
+        <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-2">${esc(titre)}</p>
+        <p class="text-white">📍 ${esc(p.nom || '')}</p>
+        <p class="text-smoke text-sm">${[p.adresse, p.cp, p.ville].filter(Boolean).map(esc).join(', ')}</p>
+        <p class="text-smoke text-xs mt-1">${esc(m.transporteur || '')} — livraison en ${esc(m.delai || '')}</p>`;
+    }
+
+    return `
+      <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-2">Retrait prévu</p>
+      <p class="text-white">📅 ${esc(o.creneauRetrait?.date)} à partir de ${esc(o.creneauRetrait?.heure)}</p>
+      <p class="text-smoke text-xs mt-1">📍 48 Rue de Genève, 01170 Gex</p>`;
+  }
+
   const STATUS_LABEL = {
     pending:    { label: 'En attente de préparation', color: '#FFA500', desc: 'Votre commande est enregistrée. Le commerçant la prend en charge dans les 24 h ouvrées.' },
     paid:       { label: 'Paiement confirmé',         color: 'var(--green)', desc: 'Votre paiement est validé. Préparation imminente.' },
@@ -94,17 +124,7 @@ description: "Suivez votre commande MaisonCBDVape en temps réel grâce à votre
             <p class="font-display text-2xl" style="color:${s.color};">${esc(s.label)}</p>
             <p class="text-smoke text-xs mt-2 max-w-md mx-auto">${esc(s.desc)}</p>
           </div>
-          <div>
-            ${o.modeLivraison === 'livraison' ? `
-            <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-2">Livraison à domicile</p>
-            <p class="text-white">🚚 ${fmtAdresse(o.adresseLivraison)}</p>
-            <p class="text-smoke text-xs mt-1">Colissimo — 2 à 4 jours ouvrés après expédition</p>
-            ` : `
-            <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-2">Retrait prévu</p>
-            <p class="text-white">📅 ${esc(o.creneauRetrait?.date)} à partir de ${esc(o.creneauRetrait?.heure)}</p>
-            <p class="text-smoke text-xs mt-1">📍 48 Rue de Genève, 01170 Gex</p>
-            `}
-          </div>
+          <div>${blocLivraison(o)}</div>
           <div>
             <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-2">Articles</p>
             <ul>${items}</ul>

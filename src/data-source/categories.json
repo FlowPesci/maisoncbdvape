@@ -7,20 +7,69 @@
       "ordre": 1,
       "image": "/assets/img/produits/f7d83d44591093a46efddebe80425d5d4856af56.png",
       "couleurHex": "#39FF14",
-      "description": "Fleurs CBD indoor & outdoor, résines, huiles et infusions. Sélection rigoureuse de producteurs européens, taux de THC < 0,3% conforme à la législation.",
+      "description": "Fleurs CBD indoor & outdoor, résines, pollens et substituts de tabac sans nicotine. Sélection rigoureuse de producteurs européens, taux de THC < 0,3% conforme à la législation.",
       "nomCourt": "CBD",
-      "couleur": "green"
+      "couleur": "green",
+      "sousCategories": [
+        {
+          "slug": "fleurs-indoor",
+          "nom": "Fleurs indoor",
+          "ordre": 1
+        },
+        {
+          "slug": "pollens-resines",
+          "nom": "Pollens & résines",
+          "ordre": 2
+        },
+        {
+          "slug": "small-buds",
+          "nom": "Small buds",
+          "ordre": 3
+        },
+        {
+          "slug": "substituts-tabac",
+          "nom": "Substituts de tabac",
+          "ordre": 4
+        }
+      ]
     },
     {
       "slug": "puffs",
-      "nom": "Puffs Jetables",
+      "nom": "Puffs",
       "icone": "bolt",
       "ordre": 2,
       "image": "/assets/img/produits/ac96b7cf800a435506efa12bc9213f7a1dba2402.png",
       "couleurHex": "#BF5FFF",
-      "description": "Puffs jetables nouvelle génération : Al Fakher Crown Bar, JNR, Lost Mary. De 600 à 30 000 bouffées, plus de 50 saveurs disponibles.",
+      "description": "Puffs rechargeables nouvelle génération : Al Fakher Crown Bar, JNR, Lost Mary. De 600 à 30 000 bouffées, plus de 50 saveurs disponibles.",
       "nomCourt": "Puffs",
-      "couleur": "violet"
+      "couleur": "violet",
+      "sousCategories": [
+        {
+          "slug": "jnr",
+          "nom": "JNR",
+          "ordre": 1
+        },
+        {
+          "slug": "al-fakher",
+          "nom": "Al Fakher",
+          "ordre": 2
+        },
+        {
+          "slug": "starbuzz",
+          "nom": "Starbuzz",
+          "ordre": 3
+        },
+        {
+          "slug": "adalya",
+          "nom": "Adalya",
+          "ordre": 4
+        },
+        {
+          "slug": "pods-recharges",
+          "nom": "Pods & recharges",
+          "ordre": 5
+        }
+      ]
     },
     {
       "slug": "vape",
@@ -31,7 +80,49 @@
       "couleurHex": "#BF5FFF",
       "description": "Box, pods, kits débutants et avancés. E-liquides Le Petit Verger, Curieux, E-CG. Marques expertes : Vaporesso, Geek Vape, Justfog.",
       "nomCourt": "Vape & E-liquides",
-      "couleur": "violet"
+      "couleur": "violet",
+      "sousCategories": [
+        {
+          "slug": "e-liquides-petit-verger",
+          "nom": "Le Petit Verger",
+          "ordre": 1
+        },
+        {
+          "slug": "e-liquides-curieux",
+          "nom": "Curieux",
+          "ordre": 2
+        },
+        {
+          "slug": "e-liquides-petit-gourmet",
+          "nom": "Le Petit Gourmet",
+          "ordre": 3
+        },
+        {
+          "slug": "e-liquides-autres",
+          "nom": "Autres e-liquides",
+          "ordre": 4
+        },
+        {
+          "slug": "kits",
+          "nom": "Kits & cigarettes électroniques",
+          "ordre": 5
+        },
+        {
+          "slug": "box",
+          "nom": "Box",
+          "ordre": 6
+        },
+        {
+          "slug": "clearomiseurs",
+          "nom": "Clearomiseurs",
+          "ordre": 7
+        },
+        {
+          "slug": "diy-bases",
+          "nom": "DIY & bases",
+          "ordre": 8
+        }
+      ]
     },
     {
       "slug": "chicha",
@@ -42,18 +133,56 @@
       "couleurHex": "#00D4FF",
       "description": "Chichas TSAR, Khalil Mamoon, Cyborg Hookah. Charbons naturels, tabac à chicha, foyers Phunnel et accessoires premium.",
       "nomCourt": "Chicha",
-      "couleur": "blue"
+      "couleur": "blue",
+      "actif": false
     },
     {
       "slug": "accessoires",
-      "nom": "Accessoires Fumeurs",
+      "nom": "Articles Fumeurs",
       "icone": "tool",
-      "ordre": 5,
+      "ordre": 4,
       "image": "/assets/img/produits/accessoires.jpg",
       "couleurHex": "#8A8A9A",
-      "description": "Briquets, grinders, feuilles, cendriers, étuis. Tout l'essentiel pour le fumeur exigeant.",
-      "nomCourt": "Accessoires",
-      "couleur": "smoke"
+      "description": "Briquets, allume-charbons, grinders, plateaux, balances de précision et accessoires pour fumeurs. Sélection pratique et durable.",
+      "nomCourt": "Articles fumeurs",
+      "couleur": "smoke",
+      "sousCategories": [
+        {
+          "slug": "grinders",
+          "nom": "Grinders",
+          "ordre": 1
+        },
+        {
+          "slug": "plateaux",
+          "nom": "Plateaux",
+          "ordre": 2
+        },
+        {
+          "slug": "balances",
+          "nom": "Balances",
+          "ordre": 3
+        },
+        {
+          "slug": "bangs",
+          "nom": "Bangs & verrerie",
+          "ordre": 4
+        },
+        {
+          "slug": "cendriers",
+          "nom": "Cendriers",
+          "ordre": 5
+        },
+        {
+          "slug": "allume-charbons",
+          "nom": "Allume-charbons",
+          "ordre": 6
+        },
+        {
+          "slug": "boites",
+          "nom": "Boîtes",
+          "ordre": 7
+        }
+      ]
     }
   ]
 }

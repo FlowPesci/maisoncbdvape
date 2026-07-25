@@ -14,7 +14,7 @@
   "prixBarre": null,
   "stock": 10,
   "descriptionCourte": "Simple d&rsquo;utilisation, il permet d&rsquo;obtenir des charbons uniform&eacute;ment incandescents pour des sessions ma&icirc;tris&eacute;es et efficaces.",
-  "categorie": "chicha",
+  "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
   "saveurs": [],
@@ -26,5 +26,6 @@
   "seo": {
     "title": "",
     "description": "Simple d&rsquo;utilisation, il permet d&rsquo;obtenir des charbons uniform&eacute;ment incandescents pour des sessions ma&icirc;tris&eacute;es et efficaces."
-  }
+  },
+  "sousCategorie": "allume-charbons"
 }

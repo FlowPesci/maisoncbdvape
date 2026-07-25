@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Foyer Russe Céramique + Kaloud",
-  "actif": true,
+  "actif": false,
   "prix": 29.9,
   "unitePrix": null,
   "note": null,

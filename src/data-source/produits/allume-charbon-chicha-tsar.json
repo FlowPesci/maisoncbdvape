@@ -14,7 +14,7 @@
   "prixBarre": null,
   "stock": 10,
   "descriptionCourte": "Compact, robuste et simple d&rsquo;utilisation, il s&rsquo;int&egrave;gre parfaitement dans un environnement domestique.",
-  "categorie": "chicha",
+  "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
   "saveurs": [],
@@ -26,5 +26,6 @@
   "seo": {
     "title": "",
     "description": "Compact, robuste et simple d&rsquo;utilisation, il s&rsquo;int&egrave;gre parfaitement dans un environnement domestique."
-  }
+  },
+  "sousCategorie": "allume-charbons"
 }

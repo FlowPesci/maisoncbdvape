@@ -1,1 +1,29 @@
+# Redirections Cloudflare Pages
+# Format : /source  /destination  code
 
+# ── Univers Chicha retiré de la vente le 2026-07-25 ──
+# Les allume-charbons ont rejoint les Articles fumeurs, le reste est retiré.
+# 301 : l'URL ne reviendra pas, on transmet le signal aux moteurs.
+/categories/chicha  /categories/accessoires  301
+
+# Fiches produits retirées → catégorie de remplacement
+/produits/charbon-fresh-coco-suprem-1kg  /categories/accessoires  301
+/produits/charbons-tom-cococha-gold-1kg  /categories/accessoires  301
+/produits/chicha-celeste-edition-black  /categories/accessoires  301
+/produits/chicha-dum-boost-l-d01  /categories/accessoires  301
+/produits/chicha-dum-boost-m-d02  /categories/accessoires  301
+/produits/chicha-el-badia-z6  /categories/accessoires  301
+/produits/chicha-tsar-h-one-evolution  /categories/accessoires  301
+/produits/dschinni-nero-glass-pro  /categories/accessoires  301
+/produits/el-badia-fusion  /categories/accessoires  301
+/produits/foyer-ceramique-blanche  /categories/accessoires  301
+/produits/foyer-dum-phunnel  /categories/accessoires  301
+/produits/foyer-el-badia-kalys  /categories/accessoires  301
+/produits/foyer-russe-ceramique-kaloud  /categories/accessoires  301
+/produits/foyer-russe-kaloud  /categories/accessoires  301
+/produits/kaloud-i  /categories/accessoires  301
+/produits/manche-molotov-x-xl  /categories/accessoires  301
+/produits/pinces-a-charbon-dschinni  /categories/accessoires  301
+/produits/quasar-raas-2  /categories/accessoires  301
+/produits/smoke-island  /categories/accessoires  301
+/produits/tuyaux-silicones  /categories/accessoires  301

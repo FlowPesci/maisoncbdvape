@@ -607,13 +607,17 @@
       }).filter(Boolean);
     }
 
-    const SHIPPING_THRESHOLD = 30;
-    const SHIPPING_COST      = 3.90;
+    // Modes de livraison injectés par le layout depuis src/_data/site.json,
+    // c'est-à-dire la même source que la validation serveur. Cette fonction
+    // doit rester le miroir exact de computeFraisPort() côté Workers.
+    const MODES_LIVRAISON = window.MCV_LIVRAISON?.modes || {};
 
     function getShippingCost(totalTTC) {
       const mode = document.getElementById('mode-livraison-hidden')?.value || 'click-and-collect';
-      if (mode !== 'livraison') return 0;
-      return totalTTC >= SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+      const m = MODES_LIVRAISON[mode];
+      if (!m || !m.fraisPort) return 0;
+      if (m.seuilGratuit !== null && totalTTC >= m.seuilGratuit) return 0;
+      return m.fraisPort;
     }
 
     function renderRecap() {
@@ -644,13 +648,15 @@
       document.getElementById('checkout-total-tva').textContent = formatEur(totalTVA);
       document.getElementById('checkout-total-ttc').textContent = formatEur(totalTTC);
 
-      // Frais de port
+      // Frais de port — la ligne s'affiche pour tout mode facturé (livraison,
+      // point retrait, consigne), pas seulement la livraison à domicile.
       const fraisRow = document.getElementById('frais-port-row');
       const fraisVal = document.getElementById('frais-port-value');
       const mode = document.getElementById('mode-livraison-hidden')?.value || 'click-and-collect';
+      const modeFacture = (MODES_LIVRAISON[mode]?.fraisPort || 0) > 0;
       if (fraisRow) {
-        fraisRow.classList.toggle('hidden', mode !== 'livraison');
-        if (fraisVal) fraisVal.textContent = shipping === 0 ? 'Gratuit' : formatEur(shipping);
+        fraisRow.classList.toggle('hidden', !modeFacture);
+        if (fraisVal) fraisVal.textContent = shipping === 0 ? 'Offerte' : formatEur(shipping);
       }
     }
 
@@ -690,24 +696,40 @@
       if (!isEmail(email)) { showError('email', 'Adresse email invalide.'); ok = false; }
       if (!isPhone(tel)) { showError('telephone', 'Numéro de téléphone invalide.'); ok = false; }
 
-      if (mode === 'click-and-collect') {
+      // Ce que le client doit renseigner dépend du type de saisie du mode
+      const saisie = MODES_LIVRAISON[mode]?.saisie || 'creneau';
+
+      if (saisie === 'creneau') {
         const date  = formData.get('creneauDate');
         const heure = formData.get('creneauHeure');
         if (!date) { showError('creneauDate', 'Date de retrait requise.'); ok = false; }
-        else {
-          const minDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
-          if (new Date(date) < new Date(minDate.toISOString().slice(0, 10))) {
-            showError('creneauDate', 'La date doit être au plus tôt demain.'); ok = false;
+        if (!heure) { showError('creneauHeure', 'Créneau horaire requis.'); ok = false; }
+
+        // Le retrait le jour même est possible, mais pas dans l'immédiat : il
+        // faut laisser à la boutique le temps de préparer. Le calendrier
+        // n'expose déjà que des créneaux valides — ceci rattrape le cas d'un
+        // formulaire resté ouvert le temps que le créneau choisi soit dépassé.
+        if (date && heure) {
+          const delaiMin = MODES_LIVRAISON['click-and-collect']?.delaiPreparationMinutes ?? 60;
+          const [h, mn] = heure.split(':').map(Number);
+          const creneau = new Date(date + 'T00:00:00');
+          creneau.setHours(h, mn, 0, 0);
+          if (creneau.getTime() < Date.now() + delaiMin * 60000) {
+            showError('creneauHeure', 'Ce créneau est trop proche. Choisissez-en un plus tard.');
+            ok = false;
           }
         }
-        if (!heure) { showError('creneauHeure', 'Créneau horaire requis.'); ok = false; }
-      } else {
+      } else if (saisie === 'adresse') {
         const adresse = (formData.get('livraisonAdresse') || '').trim();
         const cp      = (formData.get('livraisonCodePostal') || '').trim();
         const ville   = (formData.get('livraisonVille') || '').trim();
         if (!adresse) { showError('livraisonAdresse', 'Adresse requise.'); ok = false; }
         if (!cp) { showError('livraisonCodePostal', 'Code postal requis.'); ok = false; }
         if (!ville) { showError('livraisonVille', 'Ville requise.'); ok = false; }
+      } else if (saisie === 'point') {
+        if (!(formData.get('pointRetraitId') || '').trim()) {
+          showError('pointRetrait', 'Choisissez un point de retrait.'); ok = false;
+        }
       }
 
       if (!cgv) { showError('cgv', 'Acceptation des CGV requise.'); ok = false; }
@@ -729,6 +751,7 @@
       if (!items.length) return;
 
       const modeLiv = fd.get('modeLivraison') || 'click-and-collect';
+      const saisie  = MODES_LIVRAISON[modeLiv]?.saisie || 'creneau';
       const subTTC  = items.reduce((sum, it) => sum + it.prix * it.qty, 0);
       const shipping = getShippingCost(subTTC);
       const payload = {
@@ -740,14 +763,23 @@
         },
         items,
         modeLivraison: modeLiv,
-        creneauRetrait: modeLiv === 'click-and-collect' ? {
+        creneauRetrait: saisie === 'creneau' ? {
           date: fd.get('creneauDate'),
           heure: fd.get('creneauHeure'),
         } : null,
-        adresseLivraison: modeLiv === 'livraison' ? {
+        adresseLivraison: saisie === 'adresse' ? {
           adresse: (fd.get('livraisonAdresse') || '').trim(),
           codePostal: (fd.get('livraisonCodePostal') || '').trim(),
           ville: (fd.get('livraisonVille') || '').trim(),
+        } : null,
+        // Renseigné par le callback du widget transporteur (lots B et C)
+        pointRetrait: saisie === 'point' ? {
+          transporteur: (fd.get('pointRetraitTransporteur') || '').trim(),
+          id:           (fd.get('pointRetraitId') || '').trim(),
+          nom:          (fd.get('pointRetraitNom') || '').trim(),
+          adresse:      (fd.get('pointRetraitAdresse') || '').trim(),
+          cp:           (fd.get('pointRetraitCp') || '').trim(),
+          ville:        (fd.get('pointRetraitVille') || '').trim(),
         } : null,
         fraisPort: shipping,
         mode: submitMode,

@@ -79,6 +79,44 @@ eleventyExcludeFromCollections: true
     return ({ pending: 'En attente', paid: 'Payée', preparing: 'En préparation', ready: 'Prête à récupérer', completed: 'Récupérée', cancelled: 'Annulée' })[s] || s;
   }
 
+  // Modes de livraison, injectés par le layout depuis src/_data/site.json
+  const MODES = (window.MCV_LIVRAISON && window.MCV_LIVRAISON.modes) || {};
+
+  function livraisonTitre(order) {
+    return (MODES[order.modeLivraison]?.libelle || 'LIVRAISON').toUpperCase();
+  }
+
+  /** Ce que le commerçant doit voir pour préparer et expédier la commande. */
+  function livraisonDetail(order) {
+    const mode = order.modeLivraison;
+    const transporteur = MODES[mode]?.transporteur || '';
+
+    if (mode === 'livraison') {
+      const a = order.adresseLivraison || {};
+      return `
+        <p class="text-sm text-white">${esc(a.adresse || '—')}</p>
+        <p class="text-sm text-white">${esc(a.codePostal || '')} ${esc(a.ville || '')}</p>
+        <p class="text-xs text-smoke mt-2">📦 ${esc(transporteur)}</p>`;
+    }
+
+    if (mode === 'point-retrait' || mode === 'consigne') {
+      const p = order.pointRetrait || {};
+      return `
+        <p class="text-sm text-white font-semibold">${esc(p.nom || '—')}</p>
+        <p class="text-sm text-white">${esc(p.adresse || '')}</p>
+        <p class="text-sm text-white">${esc(p.cp || '')} ${esc(p.ville || '')}</p>
+        <p class="text-xs text-smoke mt-2">📦 ${esc(transporteur)}</p>
+        <p class="text-xs font-mono mt-1" style="color:#39FF14;">ID ${esc(p.id || '—')}</p>
+        <p class="text-xs text-smoke mt-1">⚠ Reporter cet identifiant sur l'étiquette</p>`;
+    }
+
+    const c = order.creneauRetrait || {};
+    return `
+      <p class="text-sm text-white">📅 ${esc(c.date || '—')}</p>
+      <p class="text-sm text-white">🕐 ${esc(c.heure || '—')}</p>
+      <p class="text-xs text-smoke mt-2">48 Rue de Genève, 01170 Gex</p>`;
+  }
+
   function render(order) {
     document.getElementById('page-title').textContent = order.orderId;
     const itemsRows = order.items.map((it) => `
@@ -134,10 +172,8 @@ eleventyExcludeFromCollections: true
       </div>
       <aside class="space-y-6">
         <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
-          <h2 class="font-display text-base tracking-widest text-white mb-3">RETRAIT</h2>
-          <p class="text-sm text-white">📅 ${order.creneauRetrait?.date || '—'}</p>
-          <p class="text-sm text-white">🕐 ${order.creneauRetrait?.heure || '—'}</p>
-          <p class="text-xs text-smoke mt-2">48 Rue de Genève, 01170 Gex</p>
+          <h2 class="font-display text-base tracking-widest text-white mb-3">${livraisonTitre(order)}</h2>
+          ${livraisonDetail(order)}
         </div>
         <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
           <h2 class="font-display text-base tracking-widest text-white mb-3">PAIEMENT</h2>

@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://vapelab.fr/sitemap.xml
+Sitemap: https://maisoncbdvape.pages.dev/sitemap.xml

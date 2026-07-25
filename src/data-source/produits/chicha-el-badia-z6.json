@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Chicha EL-BADIA Z6",
-  "actif": true,
+  "actif": false,
   "prix": 149.9,
   "unitePrix": null,
   "note": null,

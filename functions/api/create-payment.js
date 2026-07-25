@@ -13,17 +13,19 @@ import {
 } from "../_shared/monetico.js";
 import { ok, bad, parseJson } from "../_shared/http.js";
 import { lookupPrice } from "../_shared/catalog-index.js";
-
-// Frais de port : 3,90 EUR si sous-total < 30 EUR, sinon gratuit (livraison uniquement)
-const FRAIS_PORT    = 3.90;
-const SEUIL_GRATUIT = 30;
+import { computeFraisPort } from "../_shared/livraison.js";
+import { valideLivraison } from "../_shared/valide-livraison.js";
 
 export async function onRequestPost({ request, env }) {
   const body = await parseJson(request);
   if (!body) return bad("Corps invalide");
 
-  const { client, items, creneauRetrait, modeLivraison, adresseLivraison } = body;
+  const { client, items } = body;
   if (!client?.email || !Array.isArray(items) || !items.length) return bad("Données invalides");
+
+  // ── Mode de livraison et informations associées, validés côté serveur ──
+  const liv = valideLivraison(body);
+  if (liv.erreur) return bad(liv.erreur);
 
   // ── Validation des articles + résolution des prix depuis le catalogue serveur ──
   const trustedItems = [];
@@ -50,10 +52,8 @@ export async function onRequestPost({ request, env }) {
   }
 
   // ── Frais de port recalculés côté serveur (jamais depuis le client) ──
-  const modeLiv    = modeLivraison === "livraison" ? "livraison" : "click-and-collect";
-  const sousTotal  = trustedItems.reduce((sum, it) => sum + it.prix * it.qty, 0);
-  const trustedFraisPort =
-    modeLiv === "livraison" && sousTotal < SEUIL_GRATUIT ? FRAIS_PORT : 0;
+  const sousTotal = trustedItems.reduce((sum, it) => sum + it.prix * it.qty, 0);
+  const trustedFraisPort = computeFraisPort(sousTotal, liv.mode);
 
   let order;
   try {
@@ -64,11 +64,12 @@ export async function onRequestPost({ request, env }) {
         telephone: client.telephone.trim(),
         notes:     (client.notes || "").trim(),
       },
-      items:         trustedItems,
-      fraisPort:     trustedFraisPort,
-      modeLivraison: modeLiv,
-      creneauRetrait:   modeLiv === "click-and-collect" ? creneauRetrait : null,
-      adresseLivraison: modeLiv === "livraison" ? adresseLivraison : null,
+      items:            trustedItems,
+      fraisPort:        trustedFraisPort,
+      modeLivraison:    liv.mode,
+      creneauRetrait:   liv.creneauRetrait,
+      adresseLivraison: liv.adresseLivraison,
+      pointRetrait:     liv.pointRetrait,
       paiement: { methode: "monetico", moneticoRef: null, paidAt: null },
       status:   "pending",
     });

@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Chicha DUM BOOST M – D02",
-  "actif": true,
+  "actif": false,
   "prix": 74.9,
   "unitePrix": null,
   "note": null,

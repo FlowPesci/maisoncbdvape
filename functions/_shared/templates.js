@@ -1,5 +1,5 @@
 /**
- * netlify/functions/_shared/templates.js
+ * functions/_shared/templates.js
  * ─────────────────────────────────────────────────────────────────────────────
  * Templates HTML + texte des emails transactionnels MaisonCBDVape.
  *
@@ -14,6 +14,8 @@
  * Style email : compatible clients mail (inline styles, pas de Tailwind).
  * ─────────────────────────────────────────────────────────────────────────────
  */
+
+import { transporteur, delai, libelle } from "./livraison.js";
 
 const formatEur = (n) => new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(n);
 
@@ -120,19 +122,73 @@ function escapeHtml(s) {
     .replace(/"/g, "&quot;");
 }
 
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Rendu du bloc « livraison » selon le mode
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Le colis part-il de la boutique, ou le client vient-il le chercher ? */
+function estExpedie(order) {
+  return order.modeLivraison !== "click-and-collect";
+}
+
+/** Bloc HTML décrivant la livraison, adapté aux quatre modes. */
+function blocLivraison(order, couleur) {
+  const mode = order.modeLivraison;
+  const t = transporteur(mode);
+  const d = delai(mode);
+
+  if (mode === "livraison") {
+    const a = order.adresseLivraison || {};
+    return infoBox("Livraison",
+      `📦 Expédition ${t} à :<br/>${escapeHtml(a.adresse || "")}<br/>${escapeHtml(a.codePostal || "")} ${escapeHtml(a.ville || "")}` +
+      `<br/><span style="color:#666;font-size:13px;">Délai estimé : ${d}</span>`, couleur);
+  }
+
+  if (mode === "point-retrait" || mode === "consigne") {
+    const p = order.pointRetrait || {};
+    return infoBox(libelle(mode),
+      `📍 <strong>${escapeHtml(p.nom || "")}</strong><br/>${escapeHtml(p.adresse || "")}<br/>${escapeHtml(p.cp || "")} ${escapeHtml(p.ville || "")}` +
+      `<br/><span style="color:#666;font-size:13px;">${t} — délai estimé : ${d}</span>` +
+      (mode === "consigne"
+        ? `<br/><span style="color:#666;font-size:13px;">Vous recevrez un code de retrait par email et SMS.</span>`
+        : ``), couleur);
+  }
+
+  const c = order.creneauRetrait || {};
+  return infoBox("Retrait prévu",
+    `📅 ${c.date || "—"} à partir de <strong>${c.heure || "—"}</strong><br/>📍 48 Rue de Genève, 01170 Gex`, couleur);
+}
+
+/** Même information, en texte brut pour la version non-HTML des emails. */
+function texteLivraison(order) {
+  const mode = order.modeLivraison;
+  const t = transporteur(mode);
+
+  if (mode === "livraison") {
+    const a = order.adresseLivraison || {};
+    return `Livraison ${t} à : ${a.adresse || ""}, ${a.codePostal || ""} ${a.ville || ""}`;
+  }
+  if (mode === "point-retrait" || mode === "consigne") {
+    const p = order.pointRetrait || {};
+    return `${libelle(mode)} (${t}) : ${p.nom || ""}, ${p.adresse || ""} ${p.cp || ""} ${p.ville || ""}`;
+  }
+  const c = order.creneauRetrait || {};
+  return `Retrait : ${c.date || "—"} à partir de ${c.heure || "—"}
+Adresse : MaisonCBDVape, 48 Rue de Genève, 01170 Gex`;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Templates publics
 // ─────────────────────────────────────────────────────────────────────────────
 
 /** Confirmation Click & Collect → client */
 export function reservationClient(order) {
-  const isLiv = order.modeLivraison === "livraison";
+  const isLiv = estExpedie(order);
   const subject = isLiv
     ? `Commande confirmée — ${order.orderId}`
     : `Réservation confirmée — ${order.orderId}`;
-  const livraisonBlock = isLiv
-    ? infoBox("Livraison", `📦 Expédition Colissimo à :<br/>${escapeHtml(order.adresseLivraison.adresse)}<br/>${escapeHtml(order.adresseLivraison.codePostal)} ${escapeHtml(order.adresseLivraison.ville)}<br/><span style="color:#666;font-size:13px;">Délai estimé : 2 à 4 jours ouvrés</span>`, C.violet)
-    : infoBox("Retrait prévu", `📅 ${order.creneauRetrait.date} à partir de <strong>${order.creneauRetrait.heure}</strong><br/>📍 48 Rue de Genève, 01170 Gex`, C.violet);
+  const livraisonBlock = blocLivraison(order, C.violet);
   const fraisLine = isLiv && order.fraisPort > 0
     ? `<p style="color:#666;font-size:13px;margin-top:4px;">+ Frais de port : ${formatEur(order.fraisPort)}</p>` : "";
   const paymentNote = isLiv
@@ -152,10 +208,7 @@ export function reservationClient(order) {
     `,
     footer: "Question ? Répondez à cet email — l'équipe MaisonCBDVape.",
   });
-  const livText = isLiv
-    ? `Livraison Colissimo à : ${order.adresseLivraison.adresse}, ${order.adresseLivraison.codePostal} ${order.adresseLivraison.ville}`
-    : `Retrait : ${order.creneauRetrait.date} à partir de ${order.creneauRetrait.heure}
-Adresse : MaisonCBDVape, 48 Rue de Genève, 01170 Gex`;
+  const livText = texteLivraison(order);
   const text = `Bonjour ${order.client.nom},
 
 Votre commande ${order.orderId} est enregistrée.
@@ -173,20 +226,18 @@ Total : ${formatEur(order.totalTTC)}
 
 /** Notification nouvelle commande → commerçant */
 export function reservationMerchant(order, siteUrl = "https://maisoncbdvape.fr") {
-  const isLiv = order.modeLivraison === "livraison";
+  const isLiv = estExpedie(order);
   const subject = isLiv
-    ? `🚚 Nouvelle commande Livraison — ${order.orderId}`
+    ? `🚚 Nouvelle commande ${libelle(order.modeLivraison)} — ${order.orderId}`
     : `🆕 Nouvelle réservation Click & Collect — ${order.orderId}`;
-  const livraisonBlock = isLiv
-    ? infoBox("Livraison à expédier", `📦 ${escapeHtml(order.adresseLivraison.adresse)}<br/>${escapeHtml(order.adresseLivraison.codePostal)} ${escapeHtml(order.adresseLivraison.ville)}`, C.blue)
-    : infoBox("Retrait demandé", `📅 ${order.creneauRetrait.date} — ${order.creneauRetrait.heure}`, C.blue);
+  const livraisonBlock = blocLivraison(order, C.blue);
   const paymentNote = isLiv
-    ? `📦 À expédier par Colissimo — frais de port : ${order.fraisPort > 0 ? formatEur(order.fraisPort) : "Gratuit"}`
+    ? `📦 À expédier par ${transporteur(order.modeLivraison)} — frais de port : ${order.fraisPort > 0 ? formatEur(order.fraisPort) : "Gratuit"}`
     : `⚠️ Paiement en boutique — encaissez ${formatEur(order.totalTTC)} au moment du retrait.`;
   const html = shell({
-    preheader: `${order.client.nom} — ${formatEur(order.totalTTC)} — ${isLiv ? "Livraison" : "Click & Collect"}`,
-    title: isLiv ? "Nouvelle commande Livraison 🚚" : "Nouvelle réservation Click & Collect 🆕",
-    intro: `<p>${isLiv ? "Une commande avec livraison à domicile vient d'être enregistrée." : "Une nouvelle commande Click &amp; Collect vient d'être enregistrée."}</p>`,
+    preheader: `${order.client.nom} — ${formatEur(order.totalTTC)} — ${libelle(order.modeLivraison)}`,
+    title: isLiv ? `Nouvelle commande ${libelle(order.modeLivraison)} 🚚` : "Nouvelle réservation Click & Collect 🆕",
+    intro: `<p>${isLiv ? `Une commande à expédier (${libelle(order.modeLivraison)}) vient d'être enregistrée.` : "Une nouvelle commande Click &amp; Collect vient d'être enregistrée."}</p>`,
     body: `
       ${infoBox("Commande", `<strong>${order.orderId}</strong> — ${formatEur(order.totalTTC)}`)}
       ${infoBox("Client", `${escapeHtml(order.client.nom)}<br/>📞 ${escapeHtml(order.client.telephone)}<br/>✉️ ${escapeHtml(order.client.email)}${order.client.notes ? "<br/>📝 " + escapeHtml(order.client.notes) : ""}`, C.violet)}
@@ -197,9 +248,7 @@ export function reservationMerchant(order, siteUrl = "https://maisoncbdvape.fr")
     `,
     cta: ctaButton("Ouvrir le back-office", `${siteUrl}/admin/commande/?id=${encodeURIComponent(order.orderId)}`, C.green),
   });
-  const modeTxt = isLiv
-    ? `Livraison : ${order.adresseLivraison.adresse}, ${order.adresseLivraison.codePostal} ${order.adresseLivraison.ville}`
-    : `Retrait : ${order.creneauRetrait.date} à ${order.creneauRetrait.heure}`;
+  const modeTxt = texteLivraison(order);
   const text = `${subject}
 Client : ${order.client.nom} (${order.client.email}, ${order.client.telephone})
 Notes : ${order.client.notes || "—"}
@@ -218,12 +267,10 @@ Back-office : ${siteUrl}/admin/commande/?id=${encodeURIComponent(order.orderId)}
 export function paiementClient(order) {
   // Montant réellement débité = articles + frais de port éventuels
   const montantPaye = order.totalAPayer ?? (order.totalTTC + (order.fraisPort || 0));
-  const isLiv = order.modeLivraison === "livraison";
+  const isLiv = estExpedie(order);
   const subject = `Paiement confirmé — ${order.orderId}`;
 
-  const modeBox = isLiv
-    ? infoBox("Livraison", `📦 Expédition Colissimo sous 2 à 4 jours ouvrés.<br/>${escapeHtml(order.adresseLivraison?.adresse || "")}<br/>${escapeHtml(order.adresseLivraison?.codePostal || "")} ${escapeHtml(order.adresseLivraison?.ville || "")}`, C.violet)
-    : infoBox("Retrait prévu", `📅 ${order.creneauRetrait?.date || "—"} à partir de <strong>${order.creneauRetrait?.heure || "—"}</strong><br/>📍 48 Rue de Genève, 01170 Gex`, C.violet);
+  const modeBox = blocLivraison(order, C.violet);
 
   const html = shell({
     preheader: `Votre paiement de ${formatEur(montantPaye)} est validé. Préparation en cours.`,
@@ -239,9 +286,7 @@ export function paiementClient(order) {
     footer: "Paiement sécurisé par Monetico Paiement — Crédit Mutuel.",
   });
 
-  const modeTxt = isLiv
-    ? `Livraison : ${order.adresseLivraison?.adresse || ""}, ${order.adresseLivraison?.codePostal || ""} ${order.adresseLivraison?.ville || ""}`
-    : `Retrait prévu : ${order.creneauRetrait?.date || "—"} à partir de ${order.creneauRetrait?.heure || "—"}\nAdresse : MaisonCBDVape, 48 Rue de Genève, 01170 Gex`;
+  const modeTxt = texteLivraison(order);
 
   const text = `Bonjour ${order.client.nom},
 
@@ -258,12 +303,10 @@ A bientot !`;
 /** Notification paiement reçu → commerçant */
 export function paiementMerchant(order, siteUrl = "https://maisoncbdvape.fr") {
   const montantPaye = order.totalAPayer ?? (order.totalTTC + (order.fraisPort || 0));
-  const isLiv = order.modeLivraison === "livraison";
+  const isLiv = estExpedie(order);
   const subject = `💰 Paiement reçu — ${order.orderId} (${formatEur(montantPaye)})`;
 
-  const modeBox = isLiv
-    ? infoBox("À expédier", `📦 Colissimo — ${escapeHtml(order.adresseLivraison?.adresse || "")}, ${escapeHtml(order.adresseLivraison?.codePostal || "")} ${escapeHtml(order.adresseLivraison?.ville || "")}`, C.blue)
-    : infoBox("Retrait demandé", `📅 ${order.creneauRetrait?.date || "—"} — ${order.creneauRetrait?.heure || "—"}`, C.blue);
+  const modeBox = blocLivraison(order, C.blue);
 
   const html = shell({
     preheader: `${order.client.nom} a payé ${formatEur(montantPaye)} en ligne — commande à préparer`,
@@ -279,9 +322,7 @@ export function paiementMerchant(order, siteUrl = "https://maisoncbdvape.fr") {
     cta: ctaButton("Ouvrir le back-office", `${siteUrl}/admin/commande/?id=${encodeURIComponent(order.orderId)}`, C.green),
   });
 
-  const modeTxt = isLiv
-    ? `A expedier : ${order.adresseLivraison?.adresse || ""}, ${order.adresseLivraison?.codePostal || ""} ${order.adresseLivraison?.ville || ""}`
-    : `Retrait : ${order.creneauRetrait?.date || "—"} a ${order.creneauRetrait?.heure || "—"}`;
+  const modeTxt = texteLivraison(order);
 
   return { subject, html, text: `Paiement recu : ${order.orderId} — ${formatEur(montantPaye)}\nClient : ${order.client.nom} (${order.client.email})\n${modeTxt}` };
 }
@@ -289,25 +330,21 @@ export function paiementMerchant(order, siteUrl = "https://maisoncbdvape.fr") {
 /** "Votre commande est prête" → client (envoyé quand statut → ready) */
 export function readyClient(order) {
   const isPaid = order.paiement?.methode === "monetico";
-  const isLiv = order.modeLivraison === "livraison";
+  const isLiv = estExpedie(order);
   const subject = `Votre commande est prête — ${order.orderId}`;
-  const livraisonBlock = isLiv
-    ? infoBox("Livraison", `📦 Votre colis est en cours d'expédition Colissimo.<br/>${escapeHtml(order.adresseLivraison?.adresse || "")}<br/>${escapeHtml(order.adresseLivraison?.codePostal || "")} ${escapeHtml(order.adresseLivraison?.ville || "")}`, C.violet)
-    : infoBox("Retrait en boutique", `📍 MaisonCBDVape, 48 Rue de Genève, 01170 Gex<br/>📅 Créneau prévu : ${order.creneauRetrait?.date || "—"} à partir de <strong>${order.creneauRetrait?.heure || "—"}</strong>`, C.violet);
+  const livraisonBlock = blocLivraison(order, C.violet);
   const html = shell({
     preheader: isLiv ? `Votre colis est expédié — commande ${order.orderId}` : `Vous pouvez venir récupérer votre commande en boutique.`,
     title: isLiv ? "Votre commande est expédiée ! 📦" : "Votre commande est prête ! 🎁",
-    intro: `<p>Bonjour <strong>${escapeHtml(order.client.nom)}</strong>,</p><p>${isLiv ? "Votre commande a été expédiée par Colissimo." : "Votre commande est prête à être récupérée à la boutique."}</p>`,
+    intro: `<p>Bonjour <strong>${escapeHtml(order.client.nom)}</strong>,</p><p>${isLiv ? `Votre commande a été expédiée par ${transporteur(order.modeLivraison)}.` : "Votre commande est prête à être récupérée à la boutique."}</p>`,
     body: `
       ${infoBox("Numéro de commande", `<span style="font-family:monospace;">${order.orderId}</span>`)}
       ${livraisonBlock}
       ${infoBox("Total", `${formatEur(order.totalTTC)}<br/><span style="color:#666;font-size:13px;">${isPaid ? "✓ Déjà réglé en ligne" : "À régler en boutique (CB, espèces, sans contact)"}</span>`, C.green)}
-      <p style="color:#666;font-size:13px;margin-top:16px;">${isLiv ? "Délai estimé : 2 à 4 jours ouvrés." : "Présentez votre numéro de commande à votre arrivée. À tout de suite !"}</p>
+      <p style="color:#666;font-size:13px;margin-top:16px;">${isLiv ? `Délai estimé : ${delai(order.modeLivraison)}.` : "Présentez votre numéro de commande à votre arrivée. À tout de suite !"}</p>
     `,
   });
-  const livraisonText = isLiv
-    ? `Expédié par Colissimo à : ${order.adresseLivraison?.adresse || ""}, ${order.adresseLivraison?.codePostal || ""} ${order.adresseLivraison?.ville || ""}`
-    : `Retrait : MaisonCBDVape, 48 Rue de Genève, 01170 Gex\nCréneau : ${order.creneauRetrait?.date || "—"} à partir de ${order.creneauRetrait?.heure || "—"}`;
+  const livraisonText = texteLivraison(order);
   const text = `Bonjour ${order.client.nom},
 
 Votre commande ${order.orderId} est ${isLiv ? "expédiée" : "prête à être récupérée"}.

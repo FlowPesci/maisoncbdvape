@@ -5,7 +5,7 @@
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Quasar Raas 2",
-  "actif": true,
+  "actif": false,
   "prix": 69.9,
   "unitePrix": null,
   "note": null,

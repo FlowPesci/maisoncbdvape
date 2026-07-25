@@ -25,7 +25,7 @@ export function computeTotals(items) {
   };
 }
 
-export async function createOrder(kv, { client, items, fraisPort, modeLivraison, creneauRetrait, adresseLivraison, paiement, status = "pending" }) {
+export async function createOrder(kv, { client, items, fraisPort, modeLivraison, creneauRetrait, adresseLivraison, pointRetrait, paiement, status = "pending" }) {
   const totals  = computeTotals(items);
   const orderId = generateOrderId();
   const now     = new Date().toISOString();
@@ -44,6 +44,9 @@ export async function createOrder(kv, { client, items, fraisPort, modeLivraison,
     modeLivraison: modeLivraison || "click-and-collect",
     creneauRetrait: creneauRetrait || null,
     adresseLivraison: adresseLivraison || null,
+    // Point retrait ou consigne choisi par le client :
+    // { transporteur, id, nom, adresse, cp, ville }
+    pointRetrait: pointRetrait || null,
     paiement: paiement || { methode: "en-magasin", moneticoRef: null, paidAt: null },
     history: [{ at: now, status, by: "system", note: "Commande creee" }],
   };

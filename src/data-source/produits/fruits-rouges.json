@@ -1,5 +1,5 @@
 {
-  "marque": "Curieux ",
+  "marque": "Curieux",
   "statutStock": "en-stock",
   "pointsForts": [],
   "devise": "EUR",
@@ -26,5 +26,6 @@
   "seo": {
     "title": "",
     "description": "E-liquide Curieux Fruits rouges 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
-  }
+  },
+  "sousCategorie": "e-liquides-curieux"
 }
