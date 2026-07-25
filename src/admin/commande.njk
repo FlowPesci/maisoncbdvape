@@ -2,7 +2,7 @@
 layout: layouts/base.njk
 permalink: /admin/commande/index.html
 title: "Détail commande"
-description: "Back-office Tabac Gex"
+description: "Back-office MaisonCBDVape"
 eleventyExcludeFromCollections: true
 ---
 <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
@@ -60,6 +60,8 @@ eleventyExcludeFromCollections: true
     statusEl.classList.remove('hidden');
   }
 
+  // ⚠ Les couleurs doivent rester des hex littéraux : le template ci-dessous
+  //   concatène un suffixe d'opacité (`${m.color}22`), ce qu'une var() ne permet pas.
   function statusBadge(status) {
     const map = {
       pending: { label: 'En attente', color: '#FFA500' }, paid: { label: 'Payée', color: '#39FF14' },
@@ -122,7 +124,7 @@ eleventyExcludeFromCollections: true
           <div class="mt-4 pt-4 border-t border-dark-border space-y-1 text-sm">
             <div class="flex justify-between"><span class="text-smoke">Sous-total HT</span><span class="font-mono text-white">${formatEur(order.totalHT)}</span></div>
             <div class="flex justify-between"><span class="text-smoke">TVA (20 %)</span><span class="font-mono text-white">${formatEur(order.totalTVA)}</span></div>
-            <div class="flex justify-between pt-2 border-t border-dark-border"><span class="font-display text-base text-white tracking-wider">TOTAL TTC</span><span class="font-display text-xl" style="color:#39FF14;">${formatEur(order.totalTTC)}</span></div>
+            <div class="flex justify-between pt-2 border-t border-dark-border"><span class="font-display text-base text-white tracking-wider">TOTAL TTC</span><span class="font-display text-xl" style="color:var(--green);">${formatEur(order.totalTTC)}</span></div>
           </div>
         </div>
         <div class="rounded-2xl bg-dark-card border border-dark-border p-6">

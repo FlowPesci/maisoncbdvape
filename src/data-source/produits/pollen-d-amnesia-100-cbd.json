@@ -12,23 +12,18 @@
   "ficheTechnique": {},
   "variantes": [
     {
-      "label": "1g",
-      "prix": 4.2,
+      "label": "2g",
+      "prix": 8.4,
       "stock": 10
     },
     {
-      "label": "3g",
-      "prix": 12.6,
+      "label": "4g",
+      "prix": 16.8,
       "stock": 10
     },
     {
-      "label": "5g",
-      "prix": 21,
-      "stock": 10
-    },
-    {
-      "label": "10g",
-      "prix": 42,
+      "label": "8g",
+      "prix": 33.6,
       "stock": 10
     }
   ],

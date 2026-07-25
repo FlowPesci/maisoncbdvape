@@ -39,13 +39,13 @@ export async function onRequestPost({ request, env }) {
   try {
     await sendEmail(env, {
       to: email,
-      subject: "Bienvenue chez Tabac Gex !",
+      subject: "Bienvenue chez MaisonCBDVape !",
       html: "<div style=\"font-family:sans-serif;max-width:480px;margin:0 auto;color:#1a1a2e;\">"
         + "<h2 style=\"color:#39FF14;font-size:1.5rem;margin-bottom:0.5rem;\">Inscription confirmee</h2>"
         + "<p>Bienvenue ! Vous recevrez desormais nos bons plans, nouveautes et offres exclusives en avant-premiere.</p>"
-        + "<p style=\"margin-top:1.5rem;font-size:0.8rem;color:#888;\">Tabac Gex &middot; 48 Rue de Geneve, 01170 Gex<br>"
+        + "<p style=\"margin-top:1.5rem;font-size:0.8rem;color:#888;\">MaisonCBDVape &middot; 48 Rue de Geneve, 01170 Gex<br>"
         + "Pour vous desinscrire, repondez a cet email avec \"Desinscription\".</p></div>",
-      text: "Bienvenue chez Tabac Gex ! Vous etes bien inscrit(e) a notre newsletter.",
+      text: "Bienvenue chez MaisonCBDVape ! Vous etes bien inscrit(e) a notre newsletter.",
     });
   } catch {
     // L'inscription est enregistree meme si l'email echoue

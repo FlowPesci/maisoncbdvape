@@ -2,7 +2,7 @@
 layout: layouts/base.njk
 permalink: /admin/commandes/index.html
 title: "Gestion des commandes"
-description: "Back-office Tabac Gex"
+description: "Back-office MaisonCBDVape"
 eleventyExcludeFromCollections: true
 ---
 <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
@@ -103,6 +103,8 @@ eleventyExcludeFromCollections: true
   }
   logoutBtn?.addEventListener('click', logout);
 
+  // ⚠ Les couleurs doivent rester des hex littéraux : le template ci-dessous
+  //   concatène un suffixe d'opacité (`${m.color}22`), ce qu'une var() ne permet pas.
   function statusBadge(status) {
     const map = {
       pending:    { label: 'En attente', color: '#FFA500' },

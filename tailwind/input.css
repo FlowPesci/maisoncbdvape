@@ -12,7 +12,9 @@
   --gold-light: #E8D5A3;
   --muted:      #8A8070;
   --text:       #D8D0C4;
-  --green:      #4A7C59;
+  --green:      #39FF14;   /* vert prix — accent produit */
+  --green-rgb:  57,255,20; /* même vert, pour les rgba() */
+  --green-deep: #00C853;   /* fin de dégradé des boutons verts */
   --border:     rgba(201,169,110,0.22);
   --borderl:    rgba(201,169,110,0.13);
 }
@@ -37,7 +39,7 @@ body {
 .hero-inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 80px 40px 80px 100px;
+  padding: 80px 40px 48px 100px;
   position: relative;
   z-index: 2;
   width: 100%;
@@ -50,7 +52,7 @@ body {
 }
 @media (max-width: 1023px) {
   .hero-inner {
-    padding: 64px 20px 72px;
+    padding: 64px 20px 40px;
   }
   .hero-grid-2col {
     grid-template-columns: 1fr;
@@ -225,8 +227,8 @@ h1, h2, h3, .heading {
 .marquee-wrap {
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  overflow: hidden; padding: 14px 0;
-  background: rgba(201,169,110,0.02);
+  overflow: hidden; padding: 22px 0;
+  background: rgba(201,169,110,0.05);
 }
 .marquee-track {
   display: flex;
@@ -236,10 +238,56 @@ h1, h2, h3, .heading {
 .marquee-item {
   display: inline-flex; align-items: center; gap: 18px;
   padding: 0 40px;
-  font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--gold); opacity: 0.5;
+  font-size: 16px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); opacity: 0.85;
 }
-.mdot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold); opacity: .4; }
+.mdot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: .55; }
+/* ─── Sélecteurs de variante (saveur, grammage) ───────────────────────── */
+.variante-btn,
+.gram-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 82px;
+  padding: 11px 18px;
+  background: transparent;
+  border: 1px solid var(--borderl);
+  color: var(--text);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: border-color .25s, color .25s, background .25s;
+}
+.variante-btn:hover,
+.gram-btn:hover {
+  border-color: var(--gold);
+  color: var(--cream);
+}
+.variante-btn.active,
+.gram-btn.active {
+  border-color: var(--gold);
+  background: rgba(201,169,110,0.08);
+  color: var(--gold);
+}
+.gram-btn-poids {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+.gram-btn-prix {
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.gram-btn.active .gram-btn-prix { color: var(--gold-light); }
+.variante-btn:disabled,
+.gram-btn:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
 /* ─── Section tags ────────────────────────────────────────────────────── */
 .section-tag {
   font-size: 10px; letter-spacing: .4em; text-transform: uppercase;
@@ -425,10 +473,6 @@ h1, h2, h3, .heading {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-@keyframes pulse-gold {
-  0%, 100% { opacity: .35; }
-  50%       { opacity: .8;  }
-}
 .fade-up {
   opacity: 0;
   transform: translateY(20px);
@@ -445,7 +489,6 @@ h1, h2, h3, .heading {
 @media (max-width: 1023px) {
   /* Hero — déjà géré par .hero-inner et .hero-grid-2col ci-dessus */
   .hero-deco-line   { display: none !important; }
-  .hero-scroll-hint { display: none !important; }
   /* Grille catégories homepage → 2 colonnes */
   .grid-cat-home {
     grid-template-columns: 1fr 1fr !important;

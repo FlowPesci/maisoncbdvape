@@ -1,7 +1,7 @@
 /**
  * scripts/generate-placeholders.js
  * ----------------------------------------------------------------------------
- * Génère des SVG placeholders aux couleurs du thème Tabac Gex pour chaque
+ * Génère des SVG placeholders aux couleurs du thème MaisonCBDVape pour chaque
  * image référencée dans `produits.json` et `categories.json`.
  *
  * Comportement :
@@ -27,7 +27,7 @@ const ROOT       = path.resolve(__dirname, "..");
 const PRODUITS_JSON   = path.join(ROOT, "src", "data-source", "produits.json");
 const CATEGORIES_JSON = path.join(ROOT, "src", "data-source", "categories.json");
 
-// Couleurs Tabac Gex
+// Couleurs MaisonCBDVape
 const NEON_GREEN  = "#39FF14";
 const NEON_VIOLET = "#BF5FFF";
 const NEON_BLUE   = "#00D4FF";
@@ -138,10 +138,10 @@ function buildSvg({ title, subtitle, accentColor, ratio = "card" }) {
   <rect x="24" y="24" width="${w - 48}" height="${h - 48}" rx="16" ry="16"
         fill="none" stroke="${accentColor}" stroke-opacity="0.35" stroke-width="2"/>
 
-  <!-- Mention TABAC GEX en haut à gauche -->
+  <!-- Mention MAISONCBDVAPE en haut à gauche -->
   <text x="48" y="68" fill="${accentColor}"
         font-family="'Space Mono', monospace" font-size="14"
-        letter-spacing="6" style="text-transform:uppercase;">// TABAC GEX</text>
+        letter-spacing="6" style="text-transform:uppercase;">// MAISONCBDVAPE</text>
 
   <!-- Indicateur "PLACEHOLDER" en haut à droite -->
   <text x="${w - 48}" y="68" text-anchor="end" fill="#8A8A9A"

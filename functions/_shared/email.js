@@ -12,7 +12,7 @@ export async function sendEmail(env, { to, subject, html, text, from, replyTo })
     console.warn("[email] RESEND_API_KEY absent — email non envoye. To:", to, "—", subject);
     return { stubbed: true };
   }
-  const fromAddr = from || env.EMAIL_FROM || "VapeLab <noreply@vapelab.fr>";
+  const fromAddr = from || env.EMAIL_FROM || "MaisonCBDVape <noreply@maisoncbdvape.fr>";
 
   const res = await fetch(RESEND_API, {
     method: "POST",

@@ -14,23 +14,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 0.99,
+          "label": "2g",
+          "prix": 1.98,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 2.97,
+          "label": "4g",
+          "prix": 3.96,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 4.95,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 9.9,
+          "label": "8g",
+          "prix": 7.92,
           "stock": 10
         }
       ],
@@ -68,23 +63,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 0.99,
+          "label": "2g",
+          "prix": 1.98,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 2.97,
+          "label": "4g",
+          "prix": 3.96,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 4.95,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 9.9,
+          "label": "8g",
+          "prix": 7.92,
           "stock": 10
         }
       ],
@@ -154,23 +144,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -208,23 +193,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -262,23 +242,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -316,23 +291,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -370,23 +340,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 7.9,
+          "label": "2g",
+          "prix": 15.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 23.7,
+          "label": "4g",
+          "prix": 31.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 39.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 79,
+          "label": "8g",
+          "prix": 63.2,
           "stock": 10
         }
       ],
@@ -424,23 +389,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -478,23 +438,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -530,23 +485,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -584,23 +534,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -638,23 +583,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -692,23 +632,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -748,23 +683,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 6.9,
+          "label": "2g",
+          "prix": 13.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 20.7,
+          "label": "4g",
+          "prix": 27.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 34.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 69,
+          "label": "8g",
+          "prix": 55.2,
           "stock": 10
         }
       ],
@@ -802,23 +732,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.2,
+          "label": "2g",
+          "prix": 8.4,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 12.6,
+          "label": "4g",
+          "prix": 16.8,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 21,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 42,
+          "label": "8g",
+          "prix": 33.6,
           "stock": 10
         }
       ],
@@ -856,23 +781,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.2,
+          "label": "2g",
+          "prix": 8.4,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 12.6,
+          "label": "4g",
+          "prix": 16.8,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 21,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 42,
+          "label": "8g",
+          "prix": 33.6,
           "stock": 10
         }
       ],
@@ -910,23 +830,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 9.9,
+          "label": "2g",
+          "prix": 19.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 29.7,
+          "label": "4g",
+          "prix": 39.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 49.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 99,
+          "label": "8g",
+          "prix": 79.2,
           "stock": 10
         }
       ],
@@ -964,23 +879,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -1016,23 +926,18 @@
       "ficheTechnique": {},
       "variantes": [
         {
-          "label": "1g",
-          "prix": 4.9,
+          "label": "2g",
+          "prix": 9.8,
           "stock": 10
         },
         {
-          "label": "3g",
-          "prix": 14.7,
+          "label": "4g",
+          "prix": 19.6,
           "stock": 10
         },
         {
-          "label": "5g",
-          "prix": 24.5,
-          "stock": 10
-        },
-        {
-          "label": "10g",
-          "prix": 49,
+          "label": "8g",
+          "prix": 39.2,
           "stock": 10
         }
       ],
@@ -2884,7 +2789,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "Découvrez E Liquide Curieux Noisette, un produit de qualité dans la catégorie Curieux. Disponible chez Tabacgex.fr à Gex.",
+      "descriptionCourte": "Découvrez E Liquide Curieux Noisette, un produit de qualité dans la catégorie Curieux. Disponible chez MaisonCBDVape à Gex.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -2896,7 +2801,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "Découvrez E Liquide Curieux Noisette, un produit de qualité dans la catégorie Curieux. Disponible chez Tabacgex.fr à Gex."
+        "description": "Découvrez E Liquide Curieux Noisette, un produit de qualité dans la catégorie Curieux. Disponible chez MaisonCBDVape à Gex."
       }
     },
     {
@@ -2914,7 +2819,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "E-liquide Curieux Le Pêche 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+      "descriptionCourte": "E-liquide Curieux Le Pêche 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -2926,7 +2831,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "E-liquide Curieux Le Pêche 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+        "description": "E-liquide Curieux Le Pêche 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape."
       }
     },
     {
@@ -2944,7 +2849,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "E-liquide Curieux L&#039;elixir 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+      "descriptionCourte": "E-liquide Curieux L&#039;elixir 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -2956,7 +2861,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "E-liquide Curieux L&#039;elixir 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+        "description": "E-liquide Curieux L&#039;elixir 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape."
       }
     },
     {
@@ -2974,7 +2879,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "E-liquide Curieux Le Druide 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+      "descriptionCourte": "E-liquide Curieux Le Druide 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -2986,7 +2891,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "E-liquide Curieux Le Druide 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+        "description": "E-liquide Curieux Le Druide 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape."
       }
     },
     {
@@ -3004,7 +2909,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "E-liquide Curieux Amazonien 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+      "descriptionCourte": "E-liquide Curieux Amazonien 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -3016,7 +2921,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "E-liquide Curieux Amazonien 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+        "description": "E-liquide Curieux Amazonien 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape."
       }
     },
     {
@@ -3034,7 +2939,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "Découvrez Le Texan, un produit de qualité dans la catégorie Curieux. Disponible chez Tabacgex.fr à Gex.",
+      "descriptionCourte": "Découvrez Le Texan, un produit de qualité dans la catégorie Curieux. Disponible chez MaisonCBDVape à Gex.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -3046,7 +2951,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "Découvrez Le Texan, un produit de qualité dans la catégorie Curieux. Disponible chez Tabacgex.fr à Gex."
+        "description": "Découvrez Le Texan, un produit de qualité dans la catégorie Curieux. Disponible chez MaisonCBDVape à Gex."
       }
     },
     {
@@ -3064,7 +2969,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "E-liquide Curieux Menthe Douce 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+      "descriptionCourte": "E-liquide Curieux Menthe Douce 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -3076,7 +2981,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "E-liquide Curieux Menthe Douce 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+        "description": "E-liquide Curieux Menthe Douce 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape."
       }
     },
     {
@@ -3094,7 +2999,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "E-liquide Curieux Menthe Intense 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+      "descriptionCourte": "E-liquide Curieux Menthe Intense 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -3106,7 +3011,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "E-liquide Curieux Menthe Intense 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+        "description": "E-liquide Curieux Menthe Intense 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape."
       }
     },
     {
@@ -3124,7 +3029,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "E-liquide Curieux Le Vanille 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+      "descriptionCourte": "E-liquide Curieux Le Vanille 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -3136,7 +3041,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "E-liquide Curieux Le Vanille 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+        "description": "E-liquide Curieux Le Vanille 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape."
       }
     },
     {
@@ -3154,7 +3059,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "E-liquide Curieux Cassis 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+      "descriptionCourte": "E-liquide Curieux Cassis 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -3166,7 +3071,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "E-liquide Curieux Cassis 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+        "description": "E-liquide Curieux Cassis 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape."
       }
     },
     {
@@ -3184,7 +3089,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "E-liquide Curieux Fraise 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+      "descriptionCourte": "E-liquide Curieux Fraise 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -3196,7 +3101,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "E-liquide Curieux Fraise 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+        "description": "E-liquide Curieux Fraise 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape."
       }
     },
     {
@@ -3214,7 +3119,7 @@
       "couleurs": [],
       "prixBarre": null,
       "stock": 10,
-      "descriptionCourte": "E-liquide Curieux Fruits rouges 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+      "descriptionCourte": "E-liquide Curieux Fruits rouges 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape.",
       "categorie": "vape",
       "dateAjout": "2026-05-09",
       "tags": [],
@@ -3226,7 +3131,7 @@
       "contenuKit": [],
       "seo": {
         "title": "",
-        "description": "E-liquide Curieux Fruits rouges 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+        "description": "E-liquide Curieux Fruits rouges 50 ml, arôme fidèle et équilibré. Disponible sur MaisonCBDVape."
       }
     },
     {
@@ -4062,7 +3967,7 @@
       "galerie": [],
       "id": "smoke-island",
       "image": "/media/produits/1778342720640-smoke-island.png",
-      "description": "Smoke Island – Accessoire chicha.\n\nPrésentation\nSmoke Island est un accessoire indispensable pour une session de chicha propre et confortable. Conçu pour offrir une expérience de tirage agréable et durable, fabriqué avec des matériaux de qualité.\n\nCaractéristiques\nConstruction solide et durable. Design pratique et ergonomique. Compatible avec les chichas standard du marché. Entretien simple.\n\nDisponible en boutique VapeLab à Gex (01170) ou en livraison.",
+      "description": "Smoke Island – Accessoire chicha.\n\nPrésentation\nSmoke Island est un accessoire indispensable pour une session de chicha propre et confortable. Conçu pour offrir une expérience de tirage agréable et durable, fabriqué avec des matériaux de qualité.\n\nCaractéristiques\nConstruction solide et durable. Design pratique et ergonomique. Compatible avec les chichas standard du marché. Entretien simple.\n\nDisponible en boutique MaisonCBDVape à Gex (01170) ou en livraison.",
       "contenuKit": [],
       "seo": {
         "title": "",

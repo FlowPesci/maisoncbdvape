@@ -46,7 +46,7 @@ export async function onRequestPost({ request, env }) {
 
   await sendEmail(env, {
     to: merchant,
-    subject: "[Contact Tabac Gex] " + sujet,
+    subject: "[Contact MaisonCBDVape] " + sujet,
     html,
     text,
     replyTo: nom + " <" + email + ">",

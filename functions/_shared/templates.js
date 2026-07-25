@@ -50,7 +50,7 @@ function shell({ preheader, title, intro, body, cta, footer }) {
       <!-- Header sombre MaisonCBDVape -->
       <tr><td style="background:${C.bg};padding:24px;text-align:center;">
         <div style="display:inline-block;background:linear-gradient(135deg,${C.green},${C.violet});width:38px;height:38px;border-radius:8px;line-height:38px;color:${C.bg};font-weight:bold;font-size:18px;">VL</div>
-        <div style="color:${C.white};font-family:'Bebas Neue',Impact,sans-serif;font-size:22px;letter-spacing:3px;margin-top:8px;">VAPELAB</div>
+        <div style="color:${C.white};font-family:'Bebas Neue',Impact,sans-serif;font-size:22px;letter-spacing:3px;margin-top:8px;">MAISONCBDVAPE</div>
         <div style="color:${C.smoke};font-size:11px;letter-spacing:4px;text-transform:uppercase;font-family:monospace;">CBD &amp; Vape</div>
       </td></tr>
 

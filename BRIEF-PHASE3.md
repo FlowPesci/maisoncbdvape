@@ -114,7 +114,7 @@ const data = JSON.parse(raw);
 | `MONETICO_SOCIETE`          | Plain     | code société                                     |
 | `MONETICO_CLE_MAC`          | Encrypted | clé de sécurité — 40 car. hexadécimaux           |
 | `RESEND_API_KEY`            | Encrypted |                                                  |
-| `EMAIL_FROM`                | Plain     | `Tabac Gex <onboarding@resend.dev>`              |
+| `EMAIL_FROM`                | Plain     | `MaisonCBDVape <onboarding@resend.dev>`              |
 | `EMAIL_MERCHANT`            | Plain     | `leblanc.florian.8@gmail.com`                    |
 | `SITE_URL`                  | Plain     | `https://tabacgex.pages.dev`                     |
 | `GITHUB_OAUTH_CLIENT_ID`    | Plain     | (créé sur github.com/settings/developers)        |
@@ -145,7 +145,7 @@ const data = JSON.parse(raw);
 
 ### Création de la GitHub OAuth App (étape manuelle)
 1. github.com → Settings → Developer settings → **OAuth Apps** → **New OAuth App**
-2. Application name : `Tabac Gex Admin`
+2. Application name : `MaisonCBDVape Admin`
 3. Homepage URL : `https://tabacgex.pages.dev`
 4. Authorization callback URL : `https://tabacgex.pages.dev/api/auth/callback`
 5. Récupérer **Client ID** + **Client Secret** → mettre dans env vars Cloudflare

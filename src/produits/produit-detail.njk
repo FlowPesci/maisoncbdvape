@@ -141,21 +141,26 @@ eleventyComputed:
         <p style="color:var(--muted);font-size:.9rem;line-height:1.7;margin-bottom:1.5rem;">{{ produit.descriptionCourte }}</p>
       {% endif %}
 
-      {# Sélecteur CBD : quantité en grammes #}
-      {% if produit.unitePrix == 'g' %}
-        <div style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.25rem;margin-bottom:1.25rem;"
-             data-prix-par-gramme="{{ produit.prix }}">
+      {# Sélecteur CBD : contenants au gramme (2g / 4g / 8g) #}
+      {% if produit.unitePrix == 'g' and produit.variantes and produit.variantes | length > 0 %}
+        <div style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.25rem;margin-bottom:1.25rem;">
           <div class="flex items-center justify-between mb-4">
-            <label style="font-size:.875rem;font-weight:600;color:var(--cream);">Quantité</label>
+            <label style="font-size:.875rem;font-weight:600;color:var(--cream);">Contenant</label>
             <span style="font-size:.75rem;font-family:'DM Sans',sans-serif;color:var(--muted);">{{ produit.prix | eur }} / g</span>
           </div>
-          <div class="flex items-center gap-4">
-            <button id="gram-minus" class="qty-btn w-10 h-10 text-xl flex-none" aria-label="Moins">−</button>
-            <div class="flex-1 text-center">
-              <span id="gram-display" style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--cream);">1</span>
-              <span style="color:var(--muted);font-size:1rem;margin-left:.25rem;">g</span>
-            </div>
-            <button id="gram-plus" class="qty-btn w-10 h-10 text-xl flex-none" aria-label="Plus">+</button>
+          <div class="flex items-center gap-2 flex-wrap" role="group" aria-label="Choix du contenant">
+            {% for v in produit.variantes %}
+              <button type="button"
+                      class="gram-btn {% if loop.first %}active{% endif %}"
+                      data-gram-label="{{ v.label }}"
+                      data-gram-prix="{{ v.prix }}"
+                      data-gram-stock="{{ v.stock }}"
+                      aria-pressed="{% if loop.first %}true{% else %}false{% endif %}"
+                      {% if v.stock == 0 %}disabled aria-disabled="true"{% endif %}>
+                <span class="gram-btn-poids">{{ v.label }}</span>
+                <span class="gram-btn-prix">{{ v.prix | eur }}</span>
+              </button>
+            {% endfor %}
           </div>
         </div>
 
@@ -183,9 +188,7 @@ eleventyComputed:
       <div style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.25rem;margin-bottom:1.25rem;">
         <div class="flex items-end gap-4 mb-3 flex-wrap">
           <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--gold);">
-            {% if produit.unitePrix == 'g' %}
-              <span id="prix-display">{{ produit.prix | eur }}</span>
-            {% elif produit.variantes and produit.variantes | length > 0 %}
+            {% if produit.variantes and produit.variantes | length > 0 %}
               <span id="prix-display">{{ produit.variantes[0].prix | eur }}</span>
             {% else %}
               {{ produit.prix | eur }}{% if produit.unitePrix %}<span style="font-size:1.5rem;">/{{ produit.unitePrix }}</span>{% endif %}
@@ -494,7 +497,7 @@ eleventyComputed:
     <div class="flex items-center gap-3">
       <div>
         <div style="color:var(--muted);font-size:.7rem;font-family:'DM Sans',sans-serif;max-width:140px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{ produit.nom }}</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--gold);">{% if produit.unitePrix == 'g' %}<span id="prix-display-sticky">{{ produit.prix | eur }}</span>{% elif produit.variantes and produit.variantes | length > 0 %}<span id="prix-display-sticky">{{ produit.variantes[0].prix | eur }}</span>{% else %}{{ produit.prix | eur }}{% endif %}</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--gold);">{% if produit.variantes and produit.variantes | length > 0 %}<span id="prix-display-sticky">{{ produit.variantes[0].prix | eur }}</span>{% else %}{{ produit.prix | eur }}{% endif %}</div>
       </div>
       <button data-add-to-cart="{{ produit.id }}"
               class="btn-gold flex-1 py-3.5 text-sm uppercase tracking-widest font-semibold flex items-center justify-center gap-2">

@@ -20,6 +20,10 @@ export default function (eleventyConfig) {
   // ─── Watch targets ────────────────────────────────────────────────────────
   eleventyConfig.addWatchTarget("src/assets/");
   eleventyConfig.addWatchTarget("src/_data/");
+  // Les fiches produits/catégories sont lues par src/_data/*.js mais vivent
+  // ailleurs : sans ce watch, `npm start` ne voit pas leurs modifications et
+  // continue de servir l'ancien catalogue.
+  eleventyConfig.addWatchTarget("src/data-source/");
 
   // ─── Filtres Nunjucks ─────────────────────────────────────────────────────
   eleventyConfig.addFilter("eur", (value) => {

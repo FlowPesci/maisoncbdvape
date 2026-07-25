@@ -92,9 +92,9 @@ eleventyComputed:
 
       {# ── PREMIUM INDOOR (grande colonne gauche) ── #}
       <div style="background:var(--dark2);padding:32px 28px;grid-column:1;grid-row:1/3;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
           <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Premium Indoor</div>
-          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--gold);color:var(--gold);">★ Top Shelf</div>
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:6px 13px;border:1px solid var(--gold);color:var(--gold);white-space:nowrap;flex-shrink:0;">★ Best Sellers</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
           <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
@@ -119,13 +119,13 @@ eleventyComputed:
         <div style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding:12px 0 6px;opacity:.6;">Sélection Indoor</div>
 
         {% set indoorSel = [
-          {nom: "Amnésia Hydro Indoor CBD",   id: "amnesia-hydro-indoor-cbd",   flag: "🇫🇷", prix: "4,30"},
-          {nom: "Banana Hydro Indoor CBD",    id: "banana-hydro-indoor-cbd",    flag: "🇫🇷", prix: "4,50"},
-          {nom: "Bubba Kush Hydro Indoor CBD", id: "bubba-kush-hydro-indoor-cbd", flag: "🇫🇷", prix: "4,30"},
+          {nom: "Amnésia Hydro Indoor CBD",   id: "amnesia-hydro-indoor-cbd",   flag: "🇫🇷", prix: "4,90"},
+          {nom: "Banana Hydro Indoor CBD",    id: "banana-hydro-indoor-cbd",    flag: "🇫🇷", prix: "4,90"},
+          {nom: "Bubba Kush Hydro Indoor CBD", id: "bubba-kush-hydro-indoor-cbd", flag: "🇫🇷", prix: "4,90"},
           {nom: "Burn Baby Burn Indoor CBD",  id: "burn-baby-burn-indoor-cbd",  flag: "🇫🇷", prix: "4,90"},
-          {nom: "Candy Hydro Indoor CBD",     id: "candy-hydro-indoor-cbd",     flag: "🇫🇷", prix: "4,50"},
+          {nom: "Candy Hydro Indoor CBD",     id: "candy-hydro-indoor-cbd",     flag: "🇫🇷", prix: "4,90"},
           {nom: "Dutch Punch Indoor CBD",     id: "dutch-punch-indoor-cbd",     flag: "🇫🇷", prix: "4,90"},
-          {nom: "Gelato Hydro Indoor CBD",    id: "gelato-hydro-indoor-cbd",    flag: "🇫🇷", prix: "4,50"},
+          {nom: "Gelato Hydro Indoor CBD",    id: "gelato-hydro-indoor-cbd",    flag: "🇫🇷", prix: "4,90"},
           {nom: "Jack Herer Hydro Indoor CBD", id: "jack-herer-hydro-indoor-cbd", flag: "🇫🇷", prix: "4,90"},
           {nom: "Lemon Hydro Indoor CBD",     id: "lemon-hydro-indoor-cbd",     flag: "🇫🇷", prix: "4,90"},
           {nom: "Moby Dick Hydro Indoor CBD", id: "moby-dick-hydro-indoor-cbd", flag: "🇫🇷", prix: "4,90"},
@@ -147,9 +147,9 @@ eleventyComputed:
 
       {# ── GREENHOUSE ── #}
       <div style="background:var(--dark2);padding:32px 28px;grid-column:2;grid-row:1;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
           <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Greenhouse</div>
-          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">Fleurs CBD</div>
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:6px 13px;border:1px solid var(--gold);color:var(--gold);white-space:nowrap;flex-shrink:0;">Fleurs CBD</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
           <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
@@ -178,16 +178,16 @@ eleventyComputed:
 
       {# ── RÉSINES & POLLENS ── #}
       <div style="background:var(--dark2);padding:32px 28px;grid-column:3;grid-row:1;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
           <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Résines &amp; Pollens</div>
-          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">Concentrés</div>
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:6px 13px;border:1px solid var(--gold);color:var(--gold);white-space:nowrap;flex-shrink:0;">Concentrés</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
           <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
         </div>
         {% set resines = [
           {nom:"Extract Crumble",           id:"extract-crumble",           flag:"🇨🇭", cbd:"—",    prix:"9,90", crown:true, top:true},
-          {nom:"Charas CBD",                id:"charas-cbd",                flag:"🇫🇷", cbd:"—",    prix:"4,50"},
+          {nom:"Charas CBD",                id:"charas-cbd",                flag:"🇫🇷", cbd:"—",    prix:"4,90"},
           {nom:"Hash Primero",              id:"hash-primero",              flag:"🇫🇷", cbd:"—",    prix:"4,90"},
           {nom:"Pollen d'Amnésia 100% CBD", id:"pollen-d-amnesia-100-cbd",  flag:"🇫🇷", cbd:"100%", prix:"4,20"},
           {nom:"Pollen d'Or 100% CBD",      id:"pollen-d-or-100-cbd",       flag:"🇫🇷", cbd:"100%", prix:"4,20"}
@@ -207,9 +207,9 @@ eleventyComputed:
 
       {# ── SMALL BUDS ── #}
       <div style="background:var(--dark3);padding:32px 28px;grid-column:2;grid-row:2;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
           <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Small Buds</div>
-          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;background:var(--gold);color:var(--dark);font-weight:500;">PROMO</div>
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:6px 13px;background:var(--gold);color:var(--dark);font-weight:500;white-space:nowrap;flex-shrink:0;">PROMO</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
           <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
@@ -237,9 +237,9 @@ eleventyComputed:
 
       {# ── MÉLANGES VÉGÉTAUX ── #}
       <div style="background:var(--dark3);padding:32px 28px;grid-column:3;grid-row:2;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--borderl);">
           <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);">Mélanges Végétaux</div>
-          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">Infusions</div>
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:6px 13px;border:1px solid var(--gold);color:var(--gold);white-space:nowrap;flex-shrink:0;">Infusions</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
           <span>Produit</span><span></span><span></span><span style="text-align:right;">Prix</span>

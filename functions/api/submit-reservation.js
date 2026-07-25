@@ -102,9 +102,9 @@ export async function onRequestPost({ request, env }) {
     return bad("Erreur creation commande : " + err.message, 500);
   }
 
-  const siteUrl = env.SITE_URL || "https://vapelab.fr";
+  const siteUrl = env.SITE_URL || "https://maisoncbdvape.fr";
 
-  const replyTo = env.EMAIL_REPLY_TO || "contact@vapelab.fr";
+  const replyTo = env.EMAIL_REPLY_TO || "contact@maisoncbdvape.fr";
 
   try {
     const tpl = reservationClient(order, siteUrl);

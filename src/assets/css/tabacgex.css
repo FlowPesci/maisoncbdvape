@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   Tabac Gex — Design System
+   MaisonCBDVape — Design System
    ───────────────────────────────────────────────────────────────────────────
    Centralise tous les styles custom hors classes Tailwind.
    Tailwind reste chargé via CDN dans <head> avec son tailwind.config inline
@@ -27,19 +27,19 @@ body::before {
 }
 
 /* ─── Glow texte néon ────────────────────────────────────────────────────── */
-.neon-green-glow  { text-shadow: 0 0 20px #39FF14, 0 0 40px #39FF1466; }
+.neon-green-glow  { text-shadow: 0 0 20px var(--green), 0 0 40px rgba(var(--green-rgb),0.4); }
 .neon-violet-glow { text-shadow: 0 0 20px #BF5FFF, 0 0 40px #BF5FFF66; }
 .neon-blue-glow   { text-shadow: 0 0 20px #00D4FF, 0 0 40px #00D4FF66; }
 
 /* ─── Boutons signature ──────────────────────────────────────────────────── */
 .btn-neon-green {
-  background: linear-gradient(135deg, #39FF14 0%, #00C853 100%);
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-deep) 100%);
   color: #0A0A0F;
-  box-shadow: 0 0 20px #39FF1466, 0 4px 24px rgba(57, 255, 20, 0.3);
+  box-shadow: 0 0 20px rgba(var(--green-rgb),0.4), 0 4px 24px rgba(var(--green-rgb),0.3);
   transition: all 0.3s ease;
 }
 .btn-neon-green:hover {
-  box-shadow: 0 0 40px #39FF1499, 0 8px 32px rgba(57, 255, 20, 0.5);
+  box-shadow: 0 0 40px rgba(var(--green-rgb),0.6), 0 8px 32px rgba(var(--green-rgb),0.5);
   transform: translateY(-2px);
 }
 
@@ -81,7 +81,7 @@ body::before {
   left: 0;
   right: 0;
   height: 1.5px;
-  background: linear-gradient(90deg, #39FF14, #BF5FFF);
+  background: linear-gradient(90deg, var(--green), #BF5FFF);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -94,7 +94,7 @@ body::before {
 /* ─── Hero mesh gradient (3 ellipses néon sur fond noir) ─────────────────── */
 .hero-bg {
   background:
-    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(57, 255, 20, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(var(--green-rgb),0.08) 0%, transparent 60%),
     radial-gradient(ellipse 60% 70% at 80% 30%, rgba(191, 95, 255, 0.10) 0%, transparent 60%),
     radial-gradient(ellipse 50% 50% at 60% 80%, rgba(0, 212, 255, 0.06) 0%, transparent 50%),
     #0A0A0F;
@@ -121,7 +121,7 @@ body::before {
   inset: 0;
   border-radius: 16px;
   padding: 1px;
-  background: linear-gradient(135deg, #39FF1400, #BF5FFF00);
+  background: linear-gradient(135deg, rgba(var(--green-rgb),0), #BF5FFF00);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -135,7 +135,7 @@ body::before {
   border-color: #BF5FFF44;
 }
 .product-card:hover::before {
-  background: linear-gradient(135deg, #39FF1444, #BF5FFF44);
+  background: linear-gradient(135deg, rgba(var(--green-rgb),0.27), #BF5FFF44);
 }
 
 /* ─── Carte catégorie avec overlay sombre + reveal CTA ───────────────────── */
@@ -157,7 +157,7 @@ body::before {
   background: linear-gradient(180deg, rgba(10, 10, 15, 0.3) 0%, rgba(10, 10, 15, 0.92) 100%);
 }
 .cat-card:hover {
-  border-color: #39FF1455;
+  border-color: rgba(var(--green-rgb),0.33);
   transform: translateY(-4px);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
 }
@@ -182,9 +182,9 @@ body::before {
 
 /* ─── Badges produit ─────────────────────────────────────────────────────── */
 .stock-badge {
-  background: rgba(57, 255, 20, 0.12);
-  color: #39FF14;
-  border: 1px solid rgba(57, 255, 20, 0.3);
+  background: rgba(var(--green-rgb),0.12);
+  color: var(--green);
+  border: 1px solid rgba(var(--green-rgb),0.3);
 }
 
 .badge-rupture {
@@ -211,16 +211,16 @@ body::before {
 }
 
 .badge-cbd {
-  background: rgba(57, 255, 20, 0.2);
-  color: #39FF14;
-  border: 1px solid rgba(57, 255, 20, 0.3);
+  background: rgba(var(--green-rgb),0.2);
+  color: var(--green);
+  border: 1px solid rgba(var(--green-rgb),0.3);
 }
 
 /* ─── Bouton "Ajouter au panier" ─────────────────────────────────────────── */
 .add-cart-btn {
   background: transparent;
-  border: 1.5px solid #39FF1444;
-  color: #39FF14;
+  border: 1.5px solid rgba(var(--green-rgb),0.27);
+  color: var(--green);
   font-weight: 600;
   letter-spacing: 0.04em;
   font-size: 0.78rem;
@@ -229,10 +229,10 @@ body::before {
   border-radius: 8px;
 }
 .add-cart-btn:hover {
-  background: #39FF14;
+  background: var(--green);
   color: #0A0A0F;
-  border-color: #39FF14;
-  box-shadow: 0 0 20px #39FF1466;
+  border-color: var(--green);
+  box-shadow: 0 0 20px rgba(var(--green-rgb),0.4);
 }
 .add-cart-btn:disabled {
   background: transparent;
@@ -281,7 +281,7 @@ body::before {
 /* ─── Divider gradient ───────────────────────────────────────────────────── */
 .neon-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, #39FF1444, #BF5FFF44, transparent);
+  background: linear-gradient(90deg, transparent, rgba(var(--green-rgb),0.27), #BF5FFF44, transparent);
 }
 
 /* ─── Sidebar filtres (page catégorie) ───────────────────────────────────── */
@@ -296,7 +296,7 @@ body::before {
   color: #fff;
 }
 .filter-pill.is-active {
-  background: linear-gradient(135deg, #BF5FFF22, #39FF1422);
+  background: linear-gradient(135deg, #BF5FFF22, rgba(var(--green-rgb),0.13));
   border-color: #BF5FFF;
   color: #fff;
 }
@@ -316,8 +316,8 @@ body::before {
   flex-shrink: 0;
 }
 .custom-checkbox:checked {
-  background: #39FF14;
-  border-color: #39FF14;
+  background: var(--green);
+  border-color: var(--green);
 }
 .custom-checkbox:checked::after {
   content: '✓';
@@ -348,7 +348,7 @@ body::before {
   font-size: 0.75rem;
   transition: color 0.2s ease;
 }
-.breadcrumb-link:hover { color: #39FF14; }
+.breadcrumb-link:hover { color: var(--green); }
 
 /* ─── Galerie : image principale + miniatures ────────────────────────────── */
 #main-image-wrap { overflow: hidden; border-radius: 20px; }
@@ -519,8 +519,8 @@ body::before {
 .assoc-card:hover img { transform: scale(1.07); }
 .assoc-add-btn {
   background: transparent;
-  border: 1.5px solid rgba(57, 255, 20, 0.35);
-  color: #39FF14;
+  border: 1.5px solid rgba(var(--green-rgb),0.35);
+  color: var(--green);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -538,10 +538,10 @@ body::before {
 }
 .assoc-card:hover .assoc-add-btn { opacity: 1; transform: translateY(0); }
 .assoc-add-btn:hover {
-  background: #39FF14;
+  background: var(--green);
   color: #0A0A0F;
-  border-color: #39FF14;
-  box-shadow: 0 0 18px rgba(57, 255, 20, 0.4);
+  border-color: var(--green);
+  box-shadow: 0 0 18px rgba(var(--green-rgb),0.4);
 }
 
 /* ─── Floating product badge ─────────────────────────────────────────────── */
@@ -627,9 +627,9 @@ body::before {
 }
 .subcat-pill:hover,
 .subcat-pill.active {
-  background: rgba(57, 255, 20, 0.08);
-  border-color: rgba(57, 255, 20, 0.3);
-  color: #39FF14;
+  background: rgba(var(--green-rgb),0.08);
+  border-color: rgba(var(--green-rgb),0.3);
+  color: var(--green);
 }
 
 /* Checkbox custom (sidebar marques) */
@@ -652,8 +652,8 @@ body::before {
   flex-shrink: 0;
 }
 .check-row input[type="checkbox"]:checked {
-  background: #39FF14;
-  border-color: #39FF14;
+  background: var(--green);
+  border-color: var(--green);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%230A0A0F' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
@@ -746,9 +746,9 @@ body::before {
   background: transparent;
 }
 .page-next:hover {
-  border-color: rgba(57, 255, 20, 0.33);
-  color: #39FF14;
-  background: rgba(57, 255, 20, 0.07);
+  border-color: rgba(var(--green-rgb),0.33);
+  color: var(--green);
+  background: rgba(var(--green-rgb),0.07);
 }
 
 /* Mobile filter drawer */

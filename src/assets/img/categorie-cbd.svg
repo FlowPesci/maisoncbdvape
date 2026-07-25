@@ -24,10 +24,10 @@
   <rect x="24" y="24" width="1152" height="582" rx="16" ry="16"
         fill="none" stroke="#39FF14" stroke-opacity="0.35" stroke-width="2"/>
 
-  <!-- Mention TABAC GEX en haut à gauche -->
+  <!-- Mention MAISONCBDVAPE en haut à gauche -->
   <text x="48" y="68" fill="#39FF14"
         font-family="'Space Mono', monospace" font-size="14"
-        letter-spacing="6" style="text-transform:uppercase;">// TABAC GEX</text>
+        letter-spacing="6" style="text-transform:uppercase;">// MAISONCBDVAPE</text>
 
   <!-- Indicateur "PLACEHOLDER" en haut à droite -->
   <text x="1152" y="68" text-anchor="end" fill="#8A8A9A"

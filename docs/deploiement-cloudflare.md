@@ -1,9 +1,9 @@
 # 🚀 Guide de déploiement Cloudflare Pages
 
-Étapes à faire **dans l'ordre** pour déployer Tabac Gex sur Cloudflare Pages,
+Étapes à faire **dans l'ordre** pour déployer MaisonCBDVape sur Cloudflare Pages,
 en remplacement de Netlify.
 
-> Toutes les étapes sont **gratuites** au volume Tabac Gex.
+> Toutes les étapes sont **gratuites** au volume MaisonCBDVape.
 
 ---
 
@@ -12,7 +12,7 @@ en remplacement de Netlify.
 Dans PowerShell, depuis le dossier du projet :
 
 ```powershell
-cd "C:\Users\bad-g\OneDrive\Bureau\Pulsar Web\Tabac Gex\tabacgex-eleventy"
+cd "C:\Users\bad-g\OneDrive\Bureau\Pulsar Web\MaisonCBDVape\tabacgex-eleventy"
 git add .
 git commit -m "Migration Cloudflare Pages : Functions + KV + OAuth GitHub"
 git push
@@ -46,7 +46,7 @@ Dans le dashboard Cloudflare :
 1. **Workers & Pages** → bouton **"Create application"** → onglet **"Pages"**
 2. **"Connect to Git"** → autorise Cloudflare à accéder à GitHub
 3. Sélectionne le repo `FlowPesci/tabacgex` → **Begin setup**
-4. **Project name** : `tabacgex` (deviendra `https://tabacgex.pages.dev`)
+4. **Project name** : `maisoncbdvape` (deviendra `https://maisoncbdvape.pages.dev`)
 5. **Production branch** : `main`
 6. **Build settings** :
    - Framework preset : **None** (on a déjà notre config)
@@ -95,9 +95,9 @@ Pour chacune, clique **"Add variable"**, choisis **"Plain text"** ou **"Encrypte
 ## 7. Créer la GitHub OAuth App (admin Decap CMS)
 
 1. Va sur **[github.com/settings/developers](https://github.com/settings/developers)** → **OAuth Apps** → **New OAuth App**
-2. Application name : `Tabac Gex Admin`
-3. Homepage URL : `https://tabacgex.pages.dev`
-4. Authorization callback URL : `https://tabacgex.pages.dev/api/auth/callback`
+2. Application name : `MaisonCBDVape Admin`
+3. Homepage URL : `https://maisoncbdvape.fr`
+4. Authorization callback URL : `https://maisoncbdvape.fr/api/auth/callback`
 5. **Register application**
 6. Sur la page de l'app : **note le Client ID**Ov23li1GlWpYhtctKhgS, puis bouton **"Generate a new client secret"** → **note le secret**616d67c24c0e9f793791d20c437f5a5ce1cd58ab
 7. Renseigne ces 2 valeurs dans Cloudflare (étape 6) : `GITHUB_OAUTH_CLIENT_ID` + `GITHUB_OAUTH_CLIENT_SECRET`
@@ -126,15 +126,15 @@ Cette fois le build doit réussir car les env vars sont en place.
 
 ## 10. Tester le site
 
-URLs à vérifier (remplace `tabacgex.pages.dev` par ton URL si elle diffère) :
+URLs à vérifier :
 
-- **Site public** : `https://tabacgex.pages.dev/`
-- **Catalogue** : `https://tabacgex.pages.dev/categories/cbd/`
-- **Recherche** : `https://tabacgex.pages.dev/recherche/`
-- **Suivi commande** : `https://tabacgex.pages.dev/suivi-commande/` (vide tant qu'aucune commande)
-- **Contact** : `https://tabacgex.pages.dev/contact/`
-- **Admin Decap** : `https://tabacgex.pages.dev/admin/` (login GitHub)
-- **Back-office** : `https://tabacgex.pages.dev/admin/commandes/` (login GitHub)
+- **Site public** : `https://maisoncbdvape.fr/`
+- **Catalogue** : `https://maisoncbdvape.fr/categories/cbd/`
+- **Recherche** : `https://maisoncbdvape.fr/recherche/`
+- **Suivi commande** : `https://maisoncbdvape.fr/suivi-commande/` (vide tant qu'aucune commande)
+- **Contact** : `https://maisoncbdvape.fr/contact/`
+- **Admin Decap** : `https://maisoncbdvape.fr/admin/` (login GitHub)
+- **Back-office** : `https://maisoncbdvape.fr/admin/commandes/` (login GitHub)
 
 ---
 
@@ -161,15 +161,67 @@ La banque fournit trois éléments : **n° de TPE virtuel**, **code société** 
 
 ---
 
-## 12. (Plus tard) Connecter le domaine `maisoncbdvape.fr`
+## 12. Connecter le domaine `maisoncbdvape.fr`
 
-Dans Cloudflare → projet tabacgex → **Custom domains** → **Set up a custom domain**.
-Cloudflare te donne les DNS à configurer chez ton registrar (OVH, Gandi, etc.). HTTPS automatique.
+Le domaine est enregistré chez un registrar externe (OVH, Gandi…). Deux options :
+la **délégation complète à Cloudflare** (recommandée — indispensable pour gérer
+les DNS emails au même endroit) ou un simple **CNAME** laissé chez le registrar.
 
-Une fois le domaine actif, **mets à jour** :
-- Cloudflare env var `SITE_URL` = `https://maisoncbdvape.fr`
-- GitHub OAuth App → Homepage URL et Callback URL → `https://maisoncbdvape.fr/api/auth/callback`
+### 12.1 — Ajouter le domaine à Cloudflare (délégation, recommandé)
+
+1. Cloudflare → **Add a site** → saisir `maisoncbdvape.fr` → plan **Free**
+2. Cloudflare scanne les DNS existants. Vérifier que rien d'important ne manque
+   (notamment les MX si une messagerie est déjà en place sur le domaine).
+3. Cloudflare affiche **deux nameservers** du type `xxx.ns.cloudflare.com`
+4. Chez le registrar → zone DNS / serveurs de noms → remplacer les nameservers
+   actuels par ceux de Cloudflare
+5. Attendre la propagation (de 15 min à 24 h). Le statut passe à **Active**
+   dans Cloudflare quand c'est bon.
+
+### 12.2 — Rattacher le domaine au projet Pages
+
+1. Cloudflare → Pages → projet `maisoncbdvape` → **Custom domains**
+2. **Set up a custom domain** → `maisoncbdvape.fr` → Cloudflare crée le CNAME
+3. Recommencer avec `www.maisoncbdvape.fr` (ou créer une règle de redirection
+   `www` → apex)
+4. Attendre que le statut passe à **Active** — le certificat HTTPS est automatique
+
+### 12.3 — Une fois le domaine actif, et pas avant
+
+⚠ Tant que le domaine ne répond pas, garder `SITE_URL` sur `.pages.dev` :
+sinon l'OAuth GitHub de l'admin et les redirections de paiement pointent dans le vide.
+
+- Cloudflare env var `SITE_URL` = `https://maisoncbdvape.fr` → **Re-deploy**
+- GitHub OAuth App → Homepage URL = `https://maisoncbdvape.fr`
+  et Callback URL = `https://maisoncbdvape.fr/api/auth/callback`
+- Pousser le commit qui bascule `wrangler.toml`, `admin/config.yml` et `src/robots.txt`
 - Back-office Monetico → URL de retour → `https://maisoncbdvape.fr/api/monetico-notification`
+
+### 12.4 — Vérifier le domaine dans Resend (emails transactionnels)
+
+Sans cette étape, **aucun email de commande ne part** : Resend renvoie une 403
+si le domaine du champ `EMAIL_FROM` n'est pas vérifié.
+
+1. Resend → **Domains** → **Add Domain** → `maisoncbdvape.fr` → région `eu-west-1`
+2. Resend fournit trois enregistrements. Les créer dans Cloudflare → DNS :
+
+| Type | Nom | Valeur | Proxy |
+| ---- | --- | ------ | ----- |
+| TXT  | `resend._domainkey` | (clé DKIM fournie par Resend) | DNS only |
+| TXT  | `send`              | `v=spf1 include:amazonses.com ~all` | DNS only |
+| MX   | `send`              | `feedback-smtp.eu-west-1.amazonses.com` (priorité 10) | DNS only |
+
+3. Ajouter aussi un DMARC (recommandé, améliore la délivrabilité) :
+
+| Type | Nom | Valeur |
+| ---- | --- | ------ |
+| TXT  | `_dmarc` | `v=DMARC1; p=none; rua=mailto:contact@maisoncbdvape.fr` |
+
+4. Resend → **Verify DNS Records** → attendre le statut **Verified**
+5. Vérifier que `EMAIL_FROM` vaut bien `MaisonCBDVape <noreply@maisoncbdvape.fr>`
+
+> Les enregistrements DKIM/SPF doivent être en **DNS only** (nuage gris), pas
+> proxifiés. Un 403 Resend = domaine FROM non vérifié ; un 401 = clé API invalide.
 
 ---
 
@@ -179,7 +231,7 @@ Une fois le domaine actif, **mets à jour** :
 → Tu as oublié de pull les derniers changements. `git pull` puis push de nouveau.
 
 **`/admin/` affiche "Config Errors"**
-→ Vérifie que le `Authorization callback URL` de la GitHub OAuth App est exact : `https://tabacgex.pages.dev/api/auth/callback`.
+→ Vérifie que le `Authorization callback URL` de la GitHub OAuth App est exact : `https://maisoncbdvape.fr/api/auth/callback`.
 
 **`/admin/commandes/` reste sur "Connexion via GitHub" en boucle après login**
 → Ton compte GitHub n'est pas collaborateur du repo. Va dans Settings → Collaborators et ajoute-toi (auto-invite).
@@ -218,7 +270,7 @@ Pour que les uploads d'images via Decap CMS ne déclenchent **plus de rebuilds C
 
 ### D. Tester l'upload
 
-1. Va sur `https://tabacgex.pages.dev/admin/`
+1. Va sur `https://maisoncbdvape.fr/admin/`
 2. Login GitHub
 3. Édite un produit → champ "Image principale" → clique le bouton image
 4. Une fenêtre modale s'ouvre : **"Bibliothèque images (Cloudflare R2)"**

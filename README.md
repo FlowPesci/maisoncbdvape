@@ -1,6 +1,6 @@
-# 🚀 Tabac Gex — Mode d'emploi Cowork
+# 🚀 MaisonCBDVape — Mode d'emploi Cowork
 
-Ce dossier contient ton site e-commerce Tabac Gex en cours de construction. Voici comment démarrer la suite avec **Claude Cowork**.
+Ce dossier contient ton site e-commerce MaisonCBDVape en cours de construction. Voici comment démarrer la suite avec **Claude Cowork**.
 
 ---
 
@@ -19,10 +19,10 @@ Décompresse l'archive et place le dossier `tabacgex-eleventy` à un endroit que
 - Si tu ne la vois pas, télécharge-la sur [claude.com/download](https://claude.com/download).
 - Connecte-toi avec ton compte Pro.
 
-### 3. Crée un Projet Cowork pour Tabac Gex
+### 3. Crée un Projet Cowork pour MaisonCBDVape
 
 - Clique sur l'onglet **Cowork** en haut de la fenêtre Claude Desktop.
-- Crée un **nouveau projet** appelé `Tabac Gex`.
+- Crée un **nouveau projet** appelé `MaisonCBDVape`.
 - Dans les paramètres du projet, ajoute le **dossier de travail** : `~/Documents/tabacgex-eleventy/` (ou ton chemin équivalent).
 - Tu donneras à Claude la permission de lire / écrire dans ce dossier — c'est sandboxé, il ne touchera à rien d'autre sur ton ordi.
 

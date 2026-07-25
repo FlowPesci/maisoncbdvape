@@ -1,6 +1,6 @@
-# 📖 Manuel — Tabac Gex (côté commerçant)
+# 📖 Manuel — MaisonCBDVape (côté commerçant)
 
-Ce manuel explique comment gérer le site `vapelab.fr` au quotidien : modifier
+Ce manuel explique comment gérer le site `maisoncbdvape.fr` au quotidien : modifier
 un produit, suivre les commandes, traiter une réservation Click & Collect.
 
 ---
@@ -11,8 +11,8 @@ L'administration du site se trouve à deux adresses :
 
 | Adresse                                         | Pour quoi ?                              |
 | ----------------------------------------------- | ---------------------------------------- |
-| `https://vapelab.fr/admin/`                    | Modifier les produits, catégories, infos |
-| `https://vapelab.fr/admin/commandes/`          | Voir et gérer les commandes              |
+| `https://maisoncbdvape.fr/admin/`                    | Modifier les produits, catégories, infos |
+| `https://maisoncbdvape.fr/admin/commandes/`          | Voir et gérer les commandes              |
 
 **Identifiant** : ton email + le mot de passe que tu as choisi à l'invitation.
 
@@ -103,8 +103,8 @@ Dashboard `https://resend.com/` → onglet "Logs" :
 
 | Souci                                   | Que faire                                              |
 | --------------------------------------- | ------------------------------------------------------ |
-| Le site est en panne                    | Va sur Netlify → Deploys → vérifier le dernier build   |
-| Une commande n'apparaît pas             | Vérifier les logs Netlify Functions (onglet Functions) |
+| Le site est en panne                    | Va sur Cloudflare → Deploys → vérifier le dernier build   |
+| Une commande n'apparaît pas             | Vérifier les logs Cloudflare Functions (onglet Functions) |
 | Un client n'a pas reçu son email        | Resend → Logs → chercher l'adresse                     |
 | Le paiement en ligne ne marche pas      | Vérifier `MONETICO_ENV`, le n° de TPE et la clé MAC     |
 | Modification CMS qui ne se voit pas     | Attendre 2-3 min (rebuild), forcer Ctrl+Shift+R        |

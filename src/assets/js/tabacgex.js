@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   Tabac Gex — JS global
+   MaisonCBDVape — JS global
    ───────────────────────────────────────────────────────────────────────────
    Sans framework. Vanilla ES2022. Chargé en defer.
    Modules :
@@ -109,9 +109,9 @@
   const flashButton = (btn) => {
     const original = btn.innerHTML;
     btn.innerHTML = '✓ Ajouté !';
-    btn.style.background = '#39FF14';
+    btn.style.background = 'var(--green)';
     btn.style.color = '#0A0A0F';
-    btn.style.borderColor = '#39FF14';
+    btn.style.borderColor = 'var(--green)';
     setTimeout(() => {
       btn.innerHTML = original;
       btn.style.cssText = '';
@@ -204,32 +204,42 @@
       syncVariante(varianteBtns[0]);
     }
 
-    // Sélecteur grammes CBD
-    const gramMinus   = document.getElementById('gram-minus');
-    const gramPlus    = document.getElementById('gram-plus');
-    const gramDisplay = document.getElementById('gram-display');
-    const gramWrap    = document.querySelector('[data-prix-par-gramme]');
+    // Sélecteur de contenant CBD (2g / 4g / 8g)
+    // Les poids et prix proposés viennent des variantes du produit : aucune
+    // valeur libre n'est possible, ce qui garantit que le label envoyé au
+    // serveur existe toujours dans le catalogue.
+    const gramBtns = document.querySelectorAll('.gram-btn');
 
-    if (gramMinus && gramPlus && gramDisplay && gramWrap) {
-      const prixParGramme = parseFloat(gramWrap.dataset.prixParGramme);
-      let gramQty = 1;
-
-      const syncGram = () => {
-        gramDisplay.textContent = gramQty;
-        const prix = Math.round(gramQty * prixParGramme * 100) / 100;
+    if (gramBtns.length) {
+      const syncGram = (btn) => {
+        const label = btn.dataset.gramLabel;
+        const prix  = parseFloat(btn.dataset.gramPrix);
         const prixFormatted = formatEur(prix);
         if (prixDisplay)       prixDisplay.textContent       = prixFormatted;
         if (prixDisplaySticky) prixDisplaySticky.textContent = prixFormatted;
-        const label = gramQty + 'g';
         document.querySelectorAll('[data-add-to-cart]').forEach((cartBtn) => {
           cartBtn.dataset.varianteLabel = label;
           cartBtn.dataset.variantePrix  = prix;
         });
       };
 
-      gramMinus.addEventListener('click', () => { gramQty = Math.max(1, gramQty - 1); syncGram(); });
-      gramPlus.addEventListener('click',  () => { gramQty = Math.min(50, gramQty + 1); syncGram(); });
-      syncGram();
+      const selectGram = (btn) => {
+        gramBtns.forEach((b) => {
+          const actif = b === btn;
+          b.classList.toggle('active', actif);
+          b.setAttribute('aria-pressed', String(actif));
+        });
+        syncGram(btn);
+      };
+
+      gramBtns.forEach((btn) => {
+        if (btn.disabled) return;
+        btn.addEventListener('click', () => selectGram(btn));
+      });
+
+      // Sélection initiale : le premier contenant disponible
+      const premierDispo = [...gramBtns].find((b) => !b.disabled);
+      if (premierDispo) selectGram(premierDispo);
     }
 
     // Sélecteur de couleurs
@@ -488,7 +498,7 @@
             <h3 class="text-white font-semibold text-sm sm:text-base leading-snug mb-2 flex items-center flex-wrap gap-1">
               <a href="/produits/${p.id}/" class="hover:text-neon-violet transition-colors">${p.nom}</a>${varianteLine}
             </h3>
-            <div class="font-display text-xl sm:text-2xl mb-3" style="color:#39FF14;">${formatEur(unitPrix)}</div>
+            <div class="font-display text-xl sm:text-2xl mb-3" style="color:var(--green);">${formatEur(unitPrix)}</div>
             <div class="mt-auto flex items-center justify-between flex-wrap gap-3">
               <div class="flex items-center gap-2">
                 <button class="qty-btn" data-cart-dec="${entry.id}" aria-label="Diminuer la quantité">−</button>
@@ -833,7 +843,7 @@
             <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">${(p.categorie || '').toUpperCase()} · ${p.marque || ''}</div>
             <h3 class="text-white font-semibold text-sm leading-snug mb-3"><a href="/produits/${p.id}/" class="hover:text-neon-violet transition-colors">${safeNom}</a></h3>
             <div class="flex-1"></div>
-            <div class="font-display text-2xl mt-auto" style="color:#39FF14;">${formatEur(p.prix)}</div>
+            <div class="font-display text-2xl mt-auto" style="color:var(--green);">${formatEur(p.prix)}</div>
           </div>
         </article>`;
     }
