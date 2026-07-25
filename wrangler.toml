@@ -16,9 +16,9 @@ pages_build_output_dir = "public"
 # Variables à configurer dans le dashboard :
 #   PLAINTEXT :
 #     SITE_URL               = https://maisoncbdvape.pages.dev  ← temporaire (→ .fr quand domaine connecté)
-#     PAYGREEN_ENV           = sandbox   (→ "production" au lancement)
-#     PAYGREEN_SHOP_ID       = sh_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#     PAYGREEN_HMAC_KEY      = (depuis le Listener PayGreen dashboard)
+#     MONETICO_ENV           = test   (→ "production" au lancement)
+#     MONETICO_TPE           = 7 caractères alphanumériques (n° de TPE virtuel)
+#     MONETICO_SOCIETE       = code société fourni à la création du contrat
 #     EMAIL_FROM             = MaisonCBDVape <noreply@maisoncbdvape.fr>
 #     EMAIL_REPLY_TO         = contact@maisoncbdvape.fr
 #     EMAIL_MERCHANT         = vincent.kotowski@ikmail.com,contact@maisoncbdvape.fr
@@ -28,13 +28,17 @@ pages_build_output_dir = "public"
 #   SECRETS (chiffrés) :
 #     RESEND_API_KEY
 #     GITHUB_OAUTH_CLIENT_SECRET
-#     PAYGREEN_SECRET_KEY    (clé secrète PayGreen — jamais en clair)
+#     MONETICO_CLE_MAC       (clé de sécurité 40 caractères hex — JAMAIS en clair)
+#
+# ⚠ Monetico — back-office Crédit Mutuel, à renseigner côté banque :
+#     URL de retour (notification serveur) : https://maisoncbdvape.fr/api/monetico-notification
+#     URL de retour OK / KO                : renseignées dynamiquement par le site
 
 [vars]
 SITE_URL               = "https://maisoncbdvape.pages.dev"
-PAYGREEN_ENV           = "production"
-PAYGREEN_SHOP_ID       = "sh_1c1feed3ab46464bb9efb870320acc71"
-PAYGREEN_HMAC_KEY      = "d575f1a0-740a-4f77-81a0-cd952fca3671"
+MONETICO_ENV           = "test"
+MONETICO_TPE           = ""
+MONETICO_SOCIETE       = ""
 EMAIL_FROM             = "MaisonCBDVape <noreply@maisoncbdvape.fr>"
 EMAIL_REPLY_TO         = "contact@maisoncbdvape.fr"
 EMAIL_MERCHANT         = "vincent.kotowski@ikmail.com,contact@maisoncbdvape.fr"

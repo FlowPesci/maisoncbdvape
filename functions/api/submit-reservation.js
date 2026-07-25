@@ -95,7 +95,7 @@ export async function onRequestPost({ request, env }) {
         codePostal: adresseLivraison.codePostal.trim(),
         ville: adresseLivraison.ville.trim(),
       } : null,
-      paiement: { methode: "en-magasin", vivaTransactionId: null, vivaOrderCode: null, paidAt: null },
+      paiement: { methode: "en-magasin", moneticoRef: null, paidAt: null },
       status: "pending",
     });
   } catch (err) {

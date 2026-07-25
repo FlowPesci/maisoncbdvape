@@ -74,20 +74,21 @@ Toujours dans le projet Pages → **Settings** → **Environment variables**.
 
 Pour chacune, clique **"Add variable"**, choisis **"Plain text"** ou **"Encrypted"** selon le tableau, et coche **"Production"** + **"Preview"** :
 
-| Variable                       | Type      | Valeur                                    |
-| ------------------------------ | --------- | ----------------------------------------- |
-| `SITE_URL`                     | Plain     | `https://tabacgex.pages.dev`              |
-| `EMAIL_FROM`                   | Plain     | `Tabac Gex <onboarding@resend.dev>`       |
-| `EMAIL_MERCHANT`               | Plain     | `leblanc.florian.8@gmail.com`             |
-| `RESEND_API_KEY`               | Encrypted | (Phase 0 — Resend dashboard)              |
-| `VIVA_MERCHANT_ID`             | Plain     | (Phase 0 — Viva dashboard)                |
-| `VIVA_API_KEY`                 | Encrypted |                                           |
-| `VIVA_SOURCE_CODE`             | Plain     |                                           |
-| `VIVA_ENV`                     | Plain     | `demo`                                    |
-| `VIVA_WEBHOOK_KEY`             | Encrypted |                                           |
-| `GITHUB_OAUTH_CLIENT_ID`       | Plain     | (étape 7 ci-dessous)                      |
-| `GITHUB_OAUTH_CLIENT_SECRET`   | Encrypted |                                           |
-| `GITHUB_REPO`                  | Plain     | `FlowPesci/tabacgex`                      |
+| Variable                       | Type      | Valeur                                          |
+| ------------------------------ | --------- | ----------------------------------------------- |
+| `SITE_URL`                     | Plain     | `https://maisoncbdvape.pages.dev`               |
+| `EMAIL_FROM`                   | Plain     | `MaisonCBDVape <noreply@maisoncbdvape.fr>`      |
+| `EMAIL_REPLY_TO`               | Plain     | `contact@maisoncbdvape.fr`                      |
+| `EMAIL_MERCHANT`               | Plain     | `contact@maisoncbdvape.fr`                      |
+| `RESEND_API_KEY`               | Encrypted | (Resend dashboard)                              |
+| `MONETICO_ENV`                 | Plain     | `test` puis `production`                        |
+| `MONETICO_TPE`                 | Plain     | n° de TPE virtuel (7 car. alphanum.)            |
+| `MONETICO_SOCIETE`             | Plain     | code société                                    |
+| `MONETICO_CLE_MAC`             | Encrypted | clé de sécurité — 40 car. hexadécimaux          |
+| `GITHUB_OAUTH_CLIENT_ID`       | Plain     | (étape 7 ci-dessous)                            |
+| `GITHUB_OAUTH_CLIENT_SECRET`   | Encrypted |                                                 |
+| `GITHUB_REPO`                  | Plain     | `FlowPesci/maisoncbdvape`                       |
+| `ADMIN_GITHUB_USERS`           | Plain     | `FlowPesci`                                     |
 
 ---
 
@@ -137,24 +138,38 @@ URLs à vérifier (remplace `tabacgex.pages.dev` par ton URL si elle diffère) :
 
 ---
 
-## 11. Configurer le webhook Viva (quand le compte Viva est prêt)
+## 11. Configurer Monetico Paiement (Crédit Mutuel)
 
-1. Dashboard Viva Wallet → **Webhooks** → **Add**
-2. URL : `https://tabacgex.pages.dev/api/viva-webhook`
-3. Events : "Transaction Payment Created"
-4. Récupérer la **Webhook Key** → ajouter dans Cloudflare env vars : `VIVA_WEBHOOK_KEY`
+Le contrat Monetico Paiement s'ouvre auprès de ton conseiller Crédit Mutuel.
+La banque fournit trois éléments : **n° de TPE virtuel**, **code société** et
+**clé de sécurité** (40 caractères hexadécimaux, dans un fichier « clé HMAC-SHA1 »).
+
+1. Renseigner `MONETICO_TPE`, `MONETICO_SOCIETE` (Plain) et `MONETICO_CLE_MAC`
+   (**Encrypted** — cette clé ne doit jamais apparaître en clair dans le repo).
+2. Back-office Monetico → **Paramètres** → **URL de retour** :
+   `https://maisoncbdvape.fr/api/monetico-notification`
+   C'est la notification serveur à serveur : elle seule fait foi pour valider
+   un paiement. Elle doit répondre en moins de 30 secondes.
+3. Laisser `MONETICO_ENV=test` tant que la recette n'est pas validée. En test,
+   le formulaire pointe vers `p.monetico-services.com/test/paiement.cgi` et le
+   code-retour est `payetest` au lieu de `paiement`.
+4. Effectuer les paiements de recette demandés par la banque (accepté, refusé,
+   annulé), puis basculer `MONETICO_ENV=production`.
+
+> ⚠ Monetico attend trois accusés de réception valides (`version=2` / `cdr=0`)
+> sur les derniers tests avant d'activer le contrat en production.
 
 ---
 
-## 12. (Plus tard) Connecter le domaine `vapelab.fr`
+## 12. (Plus tard) Connecter le domaine `maisoncbdvape.fr`
 
 Dans Cloudflare → projet tabacgex → **Custom domains** → **Set up a custom domain**.
 Cloudflare te donne les DNS à configurer chez ton registrar (OVH, Gandi, etc.). HTTPS automatique.
 
 Une fois le domaine actif, **mets à jour** :
-- Cloudflare env var `SITE_URL` = `https://vapelab.fr`
-- GitHub OAuth App → Homepage URL et Callback URL → `https://vapelab.fr/api/auth/callback`
-- Viva Webhook → `https://vapelab.fr/api/viva-webhook`
+- Cloudflare env var `SITE_URL` = `https://maisoncbdvape.fr`
+- GitHub OAuth App → Homepage URL et Callback URL → `https://maisoncbdvape.fr/api/auth/callback`
+- Back-office Monetico → URL de retour → `https://maisoncbdvape.fr/api/monetico-notification`
 
 ---
 

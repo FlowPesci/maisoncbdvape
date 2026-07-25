@@ -33,8 +33,10 @@
                     │                 │
                     │ - submit-resa   │
                     │ - create-pay    │
-                    │ - viva-callback │
-                    │ - viva-webhook  │
+                    │ - monetico-     │
+                    │   notification  │
+                    │ - monetico-     │
+                    │   retour-client │
                     │ - track-order   │
                     │ - list-orders   │
                     │ - get-order     │
@@ -44,7 +46,7 @@
                     └─────────────────┘
                             ▲
                             │
-                    [Viva Wallet API]
+              [Monetico Paiement — Crédit Mutuel]
 ```
 
 ---
@@ -107,11 +109,10 @@ const data = JSON.parse(raw);
 
 | Clé                         | Type      | Valeur                                           |
 | --------------------------- | --------- | ------------------------------------------------ |
-| `VIVA_MERCHANT_ID`          | Plain     | (sandbox d'abord)                                |
-| `VIVA_API_KEY`              | Encrypted |                                                  |
-| `VIVA_SOURCE_CODE`          | Plain     |                                                  |
-| `VIVA_ENV`                  | Plain     | `demo` ou `live`                                 |
-| `VIVA_WEBHOOK_KEY`          | Encrypted |                                                  |
+| `MONETICO_ENV`              | Plain     | `test` ou `production`                           |
+| `MONETICO_TPE`              | Plain     | n° de TPE virtuel (7 car. alphanum.)             |
+| `MONETICO_SOCIETE`          | Plain     | code société                                     |
+| `MONETICO_CLE_MAC`          | Encrypted | clé de sécurité — 40 car. hexadécimaux           |
 | `RESEND_API_KEY`            | Encrypted |                                                  |
 | `EMAIL_FROM`                | Plain     | `Tabac Gex <onboarding@resend.dev>`              |
 | `EMAIL_MERCHANT`            | Plain     | `leblanc.florian.8@gmail.com`                    |

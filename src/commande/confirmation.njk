@@ -2,7 +2,7 @@
 layout: layouts/base.njk
 permalink: /commande/confirmation/index.html
 title: "Commande confirmée"
-description: "Votre commande VapeLab est confirmée. Merci pour votre achat chez VapeLab à Gex (01170)."
+description: "Votre commande est confirmée. Merci pour votre achat chez {{ site.nom }}."
 ---
 <section class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center">
 
@@ -26,8 +26,8 @@ description: "Votre commande VapeLab est confirmée. Merci pour votre achat chez
       <li>Vous recevez un <strong class="text-white">email de confirmation</strong> sous quelques minutes.</li>
       <li>Le commerçant prépare votre commande sous <strong class="text-white">24 h ouvrées</strong>.</li>
       <li>Quand elle est prête, vous recevez un <strong class="text-white">email "Prête à récupérer"</strong>.</li>
-      <li>Présentez-vous au <strong class="text-white">48 Rue de Genève, 01170 Gex</strong> au créneau choisi, avec votre numéro de commande.</li>
-      <li>Réglez sur place (CB, espèces, paiement sans contact).</li>
+      <li>Présentez-vous au <strong class="text-white">{{ site.adresse.rue }}, {{ site.adresse.codePostal }} {{ site.adresse.ville }}</strong> au créneau choisi, avec votre numéro de commande.</li>
+      <li id="etape-paiement">Réglez sur place (CB, espèces, paiement sans contact).</li>
     </ol>
   </div>
 
@@ -35,18 +35,38 @@ description: "Votre commande VapeLab est confirmée. Merci pour votre achat chez
     <a href="/" class="btn-neon-green inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">
       Retour à la boutique
     </a>
-    <a href="mailto:contact@vapelab.fr" class="text-smoke text-sm hover:text-white transition-colors">
+    <a href="mailto:{{ site.contact.email }}" class="text-smoke text-sm hover:text-white transition-colors">
       Une question ? Contactez-nous
     </a>
   </div>
 </section>
 
 <script>
-  // Récupère l'orderId depuis ?id=...
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
-  if (id) {
-    document.getElementById('order-id').textContent = id;
-    document.title = 'Commande ' + id + ' — VapeLab';
-  }
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const id   = params.get('id');
+    const paid = params.get('paid') === '1';
+
+    if (id) {
+      document.getElementById('order-id').textContent = id;
+      document.title = 'Commande ' + id + ' — {{ site.nom }}';
+    }
+
+    // Commande réglée en ligne : on adapte la dernière étape
+    if (paid) {
+      const etape = document.getElementById('etape-paiement');
+      if (etape) etape.innerHTML = '<strong class="text-white">Rien à régler sur place</strong> — votre paiement en ligne est déjà validé.';
+    }
+
+    // Le panier n'est vidé qu'ici : si le client abandonne le paiement Monetico,
+    // il retrouve son panier intact en revenant sur la boutique.
+    try {
+      localStorage.removeItem('tabacgex_cart_v1');
+      sessionStorage.removeItem('mcv-pending-order');
+      document.querySelectorAll('.cart-badge, [data-cart-count]').forEach((el) => {
+        el.textContent = '0';
+        el.style.display = 'none';
+      });
+    } catch (_) {}
+  })();
 </script>

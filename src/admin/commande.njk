@@ -139,7 +139,7 @@ eleventyExcludeFromCollections: true
         </div>
         <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
           <h2 class="font-display text-base tracking-widest text-white mb-3">PAIEMENT</h2>
-          <p class="text-sm">${order.paiement?.methode === 'viva-wallet' ? '💳 Viva Wallet (en ligne)' : '🏪 En boutique'}</p>
+          <p class="text-sm">${order.paiement?.methode === 'monetico' ? '💳 Monetico / Crédit Mutuel (en ligne)' : '🏪 En boutique'}</p>
           ${order.paiement?.paidAt ? `<p class="text-xs text-smoke mt-2">Réglé le ${formatDate(order.paiement.paidAt)}</p>` : ''}
         </div>
         <div class="rounded-2xl bg-dark-card border border-dark-border p-6">

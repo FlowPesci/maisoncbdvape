@@ -752,7 +752,7 @@
       statusEl?.classList.add('hidden');
 
       try {
-        const endpoint = submitMode === 'viva-wallet' ? '/api/create-payment' : '/api/submit-reservation';
+        const endpoint = submitMode === 'monetico' ? '/api/create-payment' : '/api/submit-reservation';
         const res = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -761,9 +761,26 @@
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data.error || ('Erreur ' + res.status));
 
-        if (submitMode === 'viva-wallet' && data.checkoutUrl) {
-          // Redirection vers la page Viva Smart Checkout
-          window.location.href = data.checkoutUrl;
+        if (submitMode === 'monetico' && data.paymentUrl && data.fields) {
+          // Monetico Paiement attend un POST de formulaire scellé (pas une
+          // simple redirection) : on construit un formulaire caché et on le
+          // soumet. Le panier est vidé au retour, pas ici — si le client
+          // abandonne le paiement, il retrouve son panier intact.
+          const mForm = document.createElement('form');
+          mForm.method = 'post';
+          mForm.action = data.paymentUrl;
+          mForm.style.display = 'none';
+          Object.entries(data.fields).forEach(([name, value]) => {
+            const input = document.createElement('input');
+            input.type  = 'hidden';
+            input.name  = name;
+            input.value = value;
+            mForm.appendChild(input);
+          });
+          document.body.appendChild(mForm);
+          // On mémorise la commande en cours pour vider le panier au retour
+          try { sessionStorage.setItem('mcv-pending-order', data.orderId); } catch (_) {}
+          mForm.submit();
           return;
         }
 

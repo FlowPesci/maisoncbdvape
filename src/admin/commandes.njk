@@ -152,7 +152,7 @@ eleventyExcludeFromCollections: true
             <div class="text-smoke text-xs">${esc(o.client.email)}</div>
           </td>
           <td class="py-3 px-4 font-mono text-white">${formatEur(o.totalTTC)}</td>
-          <td class="py-3 px-4 text-xs text-smoke">${o.paiement?.methode === 'viva-wallet' ? '💳 Viva' : '🏪 Magasin'}</td>
+          <td class="py-3 px-4 text-xs text-smoke">${o.paiement?.methode === 'monetico' ? '💳 Monetico' : '🏪 Magasin'}</td>
           <td class="py-3 px-4">${statusBadge(esc(o.status))}</td>
           <td class="py-3 px-4 text-right">
             <a href="/admin/commande/?id=${encodeURIComponent(o.orderId)}" class="text-neon-violet text-xs hover:underline">Détail →</a>

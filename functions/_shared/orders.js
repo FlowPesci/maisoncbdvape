@@ -38,10 +38,13 @@ export async function createOrder(kv, { client, items, fraisPort, modeLivraison,
     items,
     ...totals,
     fraisPort: fraisPort || 0,
+    // Montant réellement encaissé : articles + frais de port.
+    // `totalTTC` reste le total articles seul (affiché comme tel dans les emails).
+    totalAPayer: Math.round((totals.totalTTC + (fraisPort || 0)) * 100) / 100,
     modeLivraison: modeLivraison || "click-and-collect",
     creneauRetrait: creneauRetrait || null,
     adresseLivraison: adresseLivraison || null,
-    paiement: paiement || { methode: "en-magasin", vivaTransactionId: null, vivaOrderCode: null, paidAt: null },
+    paiement: paiement || { methode: "en-magasin", moneticoRef: null, paidAt: null },
     history: [{ at: now, status, by: "system", note: "Commande creee" }],
   };
 

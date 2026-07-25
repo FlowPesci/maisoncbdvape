@@ -1,3 +1,10 @@
+> ⚠️ **DOCUMENT D'ARCHIVE — NE PLUS UTILISER COMME RÉFÉRENCE**
+>
+> Ce brief décrit l'architecture de paiement initialement prévue avec
+> **Viva Wallet**, abandonnée (puis PayGreen, également abandonné).
+> Le prestataire de paiement retenu est **Monetico Paiement (Crédit Mutuel)**.
+> Se référer à `BRIEF-PHASE3.md` et `docs/deploiement-cloudflare.md`.
+
 # 📋 BRIEF — Phase 2 : Paiement Viva Wallet + Click & Collect + Back-office
 
 **Date** : 2026-04-28

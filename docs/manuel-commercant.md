@@ -44,7 +44,7 @@ L'administration du site se trouve à deux adresses :
 | Statut          | Sens                                                                   |
 | --------------- | ---------------------------------------------------------------------- |
 | En attente      | Réservation créée (en magasin) ou paiement en attente                  |
-| Payée           | Le client a payé en ligne via Viva Wallet                              |
+| Payée           | Le client a payé en ligne par carte (Monetico / Crédit Mutuel)         |
 | En préparation  | Tu commences à préparer la commande                                    |
 | Prête           | Commande prête → email "à récupérer" envoyé automatiquement au client   |
 | Récupérée       | Le client est passé chercher                                           |
@@ -69,7 +69,7 @@ Pas grave : la commande passe en "Annulée" automatiquement, aucun montant n'est
 
 ### Annuler une commande après coup
 Dans la fiche commande → bouton "Annulée" dans la sidebar Actions.
-**Si paiement en ligne** : pour rembourser, va dans le dashboard Viva Wallet, retrouve la transaction et fais "Refund".
+**Si paiement en ligne** : pour rembourser, connecte-toi au back-office Monetico du Crédit Mutuel, retrouve la transaction par sa référence (visible dans la fiche commande) et lance un **recrédit**.
 
 ### Modifier le prix d'un produit alors que des commandes sont en cours
 Pas de problème : les commandes sont figées au prix au moment de l'achat. Le nouveau prix s'applique uniquement aux nouvelles commandes.
@@ -84,12 +84,12 @@ Pas de problème : les commandes sont figées au prix au moment de l'achat. Le n
 - **CA jour** : compter manuellement (futur : page stats)
 - **Taux d'abandon paiement** : nombre d'"Annulée" vs total
 
-### Côté Viva Wallet
+### Côté Monetico (Crédit Mutuel)
 
-Dashboard `https://www.vivapayments.com/` → onglet "Transactions" :
-- Voir les paiements réels
-- Faire un remboursement si nécessaire
-- Télécharger un relevé bancaire
+Back-office Monetico Paiement → onglet "Transactions" :
+- Voir les paiements réels et leur numéro d'autorisation
+- Faire un recrédit (remboursement) si nécessaire
+- Télécharger les remises et le relevé bancaire
 
 ### Côté Resend (emails)
 
@@ -106,7 +106,7 @@ Dashboard `https://resend.com/` → onglet "Logs" :
 | Le site est en panne                    | Va sur Netlify → Deploys → vérifier le dernier build   |
 | Une commande n'apparaît pas             | Vérifier les logs Netlify Functions (onglet Functions) |
 | Un client n'a pas reçu son email        | Resend → Logs → chercher l'adresse                     |
-| Le paiement Viva ne marche pas          | Viva Wallet → Settings → vérifier l'API Key            |
+| Le paiement en ligne ne marche pas      | Vérifier `MONETICO_ENV`, le n° de TPE et la clé MAC     |
 | Modification CMS qui ne se voit pas     | Attendre 2-3 min (rebuild), forcer Ctrl+Shift+R        |
 
 **Si rien ne marche → contacte le développeur** (Florian — leblanc.florian.8@gmail.com).

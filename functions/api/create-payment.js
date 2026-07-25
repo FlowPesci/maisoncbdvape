@@ -1,16 +1,31 @@
+/**
+ * functions/api/create-payment.js
+ * Crée la commande en KV puis retourne le formulaire scellé Monetico Paiement.
+ *
+ * Monetico fonctionne par POST de formulaire depuis le navigateur du client
+ * (et non par redirection vers une URL d'API). On renvoie donc au front les
+ * champs à poster ; le JS construit un formulaire caché et le soumet.
+ */
+
 import { createOrder, updateOrder } from "../_shared/orders.js";
-import { createPaymentOrder } from "../_shared/paygreen.js";
+import {
+  buildPaymentForm, moneticoMontant, moneticoReference,
+} from "../_shared/monetico.js";
 import { ok, bad, parseJson } from "../_shared/http.js";
 import { lookupPrice } from "../_shared/catalog-index.js";
+
+// Frais de port : 3,90 EUR si sous-total < 30 EUR, sinon gratuit (livraison uniquement)
+const FRAIS_PORT    = 3.90;
+const SEUIL_GRATUIT = 30;
 
 export async function onRequestPost({ request, env }) {
   const body = await parseJson(request);
   if (!body) return bad("Corps invalide");
 
-  const { client, items, creneauRetrait } = body;
+  const { client, items, creneauRetrait, modeLivraison, adresseLivraison } = body;
   if (!client?.email || !Array.isArray(items) || !items.length) return bad("Données invalides");
 
-  // Validation des articles + résolution des prix depuis le catalogue serveur
+  // ── Validation des articles + résolution des prix depuis le catalogue serveur ──
   const trustedItems = [];
   for (const it of items) {
     if (!it.id || !it.nom)
@@ -19,7 +34,7 @@ export async function onRequestPost({ request, env }) {
       return bad("Quantité invalide pour " + it.id);
 
     const varianteLabel = it.varianteLabel || null;
-    const trustedPrix = lookupPrice(it.id, varianteLabel);
+    const trustedPrix   = lookupPrice(it.id, varianteLabel);
     if (trustedPrix === null)
       return bad("Article inconnu ou prix introuvable : " + it.id + (varianteLabel ? ` (${varianteLabel})` : ""));
 
@@ -34,71 +49,79 @@ export async function onRequestPost({ request, env }) {
     });
   }
 
-  // Frais de port : 3,90 EUR si sous-total < 30 EUR, sinon gratuit (livraison uniquement)
-  const FRAIS_PORT = 3.90;
-  const SEUIL_GRATUIT = 30;
-  const sousTotal = trustedItems.reduce((sum, it) => sum + it.prix * it.qty, 0);
-  const trustedFraisPort = sousTotal < SEUIL_GRATUIT ? FRAIS_PORT : 0;
+  // ── Frais de port recalculés côté serveur (jamais depuis le client) ──
+  const modeLiv    = modeLivraison === "livraison" ? "livraison" : "click-and-collect";
+  const sousTotal  = trustedItems.reduce((sum, it) => sum + it.prix * it.qty, 0);
+  const trustedFraisPort =
+    modeLiv === "livraison" && sousTotal < SEUIL_GRATUIT ? FRAIS_PORT : 0;
 
   let order;
   try {
     order = await createOrder(env.ORDERS_KV, {
       client: {
-        nom: client.nom.trim(),
-        email: client.email.trim().toLowerCase(),
+        nom:       client.nom.trim(),
+        email:     client.email.trim().toLowerCase(),
         telephone: client.telephone.trim(),
-        notes: (client.notes || "").trim(),
+        notes:     (client.notes || "").trim(),
       },
-      items: trustedItems,
-      fraisPort: trustedFraisPort,
-      creneauRetrait,
-      paiement: { methode: "paygreen", paygreenOrderId: null, paidAt: null },
-      status: "pending",
+      items:         trustedItems,
+      fraisPort:     trustedFraisPort,
+      modeLivraison: modeLiv,
+      creneauRetrait:   modeLiv === "click-and-collect" ? creneauRetrait : null,
+      adresseLivraison: modeLiv === "livraison" ? adresseLivraison : null,
+      paiement: { methode: "monetico", moneticoRef: null, paidAt: null },
+      status:   "pending",
     });
   } catch (err) {
-    return bad("Erreur creation commande : " + err.message, 500);
+    return bad("Erreur création commande : " + err.message, 500);
   }
 
-  const siteUrl = env.SITE_URL || "https://tabacgex.pages.dev";
-  const amountCents = Math.round(order.totalTTC * 100);
+  const siteUrl = env.SITE_URL || "https://maisoncbdvape.pages.dev";
 
-  // Découper le nom complet en prénom / nom pour PayGreen
-  const nameParts    = (order.client.nom || "").trim().split(/\s+/);
-  const firstName    = nameParts[0] || "Client";
-  const lastName     = nameParts.slice(1).join(" ") || "-";
+  // Montant réellement débité = articles + frais de port
+  const montant   = moneticoMontant(order.totalAPayer);
+  const reference = moneticoReference(order.orderId);
 
-  let checkout;
+  // Index inverse référence Monetico → orderId, lu par l'interface « Retour ».
+  // La notification serveur ne renvoie que la référence, pas notre orderId.
   try {
-    checkout = await createPaymentOrder(env, {
-      amountCents,
-      reference:   order.orderId,
-      description: "Commande " + order.orderId,
-      buyer: {
-        email:     order.client.email,
-        firstName,
-        lastName,
-      },
-      returnUrl: siteUrl + "/api/paygreen-callback?status=success&orderId=" + encodeURIComponent(order.orderId),
-      cancelUrl: siteUrl + "/api/paygreen-callback?status=cancel&orderId=" + encodeURIComponent(order.orderId),
+    await env.ORDERS_KV.put("mtc:" + reference, order.orderId, { expirationTtl: 60 * 60 * 24 * 30 });
+  } catch (err) {
+    console.error("[create-payment] Index mtc: KO :", err.message);
+    return bad("Erreur d'initialisation du paiement", 500);
+  }
+
+  let form;
+  try {
+    form = await buildPaymentForm(env, {
+      montant,
+      reference,
+      mail:        order.client.email,
+      texteLibre:  order.orderId,
+      urlRetourOk:  siteUrl + "/api/monetico-retour-client?statut=ok&ref="  + encodeURIComponent(reference),
+      urlRetourErr: siteUrl + "/api/monetico-retour-client?statut=err&ref=" + encodeURIComponent(reference),
     });
   } catch (err) {
     try {
       await updateOrder(env.ORDERS_KV, order.orderId, (o) => { o.status = "cancelled"; }, {
         actor: "create-payment",
-        note:  "PayGreen createPaymentOrder KO : " + err.message,
+        note:  "Formulaire Monetico non généré : " + err.message,
       });
     } catch {}
-    return bad("Erreur création paiement PayGreen : " + err.message, 502);
+    return bad("Erreur création paiement : " + err.message, 502);
   }
 
-  // Stocker le paygreenOrderId — nécessaire pour la vérification dans paygreen-callback.js
   try {
     await updateOrder(env.ORDERS_KV, order.orderId, (o) => {
-      o.paiement.paygreenOrderId = checkout.paymentOrderId;
-    }, { actor: "create-payment", note: "paygreenOrderId enregistré" });
+      o.paiement.moneticoRef = reference;
+    }, { actor: "create-payment", note: "Référence Monetico " + reference });
   } catch (err) {
-    console.error("[create-payment] Mise à jour paygreenOrderId KO :", err.message);
+    console.error("[create-payment] Enregistrement moneticoRef KO :", err.message);
   }
 
-  return ok({ checkoutUrl: checkout.hostedPaymentUrl, orderId: order.orderId });
+  return ok({
+    orderId:    order.orderId,
+    paymentUrl: form.url,
+    fields:     form.fields,
+  });
 }
