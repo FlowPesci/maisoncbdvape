@@ -11,6 +11,59 @@
 (() => {
   'use strict';
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // Dates en français
+  //
+  // Les créneaux sont stockés en ISO (« 2026-07-27 ») : c'est ce qui se trie
+  // et se compare. Mais ce format n'a rien à faire sous les yeux d'un client
+  // français. Exposé en global parce que les scripts en ligne des pages
+  // (suivi de commande, back-office) en ont besoin et ne peuvent pas importer
+  // de module.
+  //
+  // ⚠ Pendant serveur : functions/_shared/dates.js, pour les e-mails. Les
+  //   deux ne peuvent pas partager de fichier — l'un tourne dans un Worker —
+  //   mais ils doivent rendre le même texte.
+  // ═══════════════════════════════════════════════════════════════════════
+  const FUSEAU_BOUTIQUE = 'Europe/Paris';
+
+  function versDate(valeur) {
+    if (valeur instanceof Date) return isNaN(valeur.getTime()) ? null : valeur;
+    if (typeof valeur === 'number') {
+      const n = new Date(valeur);
+      return isNaN(n.getTime()) ? null : n;
+    }
+    const texte = String(valeur || '').trim();
+    if (!texte) return null;
+    // Une date seule est lue en UTC par le moteur JS : on la ramène à minuit
+    // local, sinon un créneau du 27 s'affiche le 26 au soir.
+    const d = new Date(/^\d{4}-\d{2}-\d{2}$/.test(texte) ? texte + 'T00:00:00' : texte);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function formateDate(valeur, options, repli) {
+    const d = versDate(valeur);
+    if (!d) return repli === undefined ? '—' : repli;
+    return new Intl.DateTimeFormat('fr-FR', { timeZone: FUSEAU_BOUTIQUE, ...options }).format(d);
+  }
+
+  window.MCV_DATE = {
+    /** « lundi 27 juillet 2026 » — pour ce que lit un client. */
+    longue: (v, repli) =>
+      formateDate(v, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }, repli),
+    /** « 27/07/2026 » — pour les tableaux, où la place manque. */
+    courte: (v, repli) =>
+      formateDate(v, { day: '2-digit', month: '2-digit', year: 'numeric' }, repli),
+    /** « 07:30 ». */
+    heure: (v, repli) =>
+      formateDate(v, { hour: '2-digit', minute: '2-digit' }, repli),
+    /** « 27/07/2026 à 07:30 ». */
+    dateHeure(v, repli) {
+      const d = versDate(v);
+      if (!d) return repli === undefined ? '—' : repli;
+      return this.courte(d) + ' à ' + this.heure(d);
+    },
+  };
+
   // ─── 1. Menu mobile ───────────────────────────────────────────────────────
   const menuToggle = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');

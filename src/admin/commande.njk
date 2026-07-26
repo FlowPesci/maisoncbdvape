@@ -111,7 +111,7 @@ eleventyExcludeFromCollections: true
 
     const c = order.creneauRetrait || {};
     return `
-      <p class="text-sm text-white">📅 ${esc(c.date || '—')}</p>
+      <p class="text-sm text-white">📅 ${esc(window.MCV_DATE.longue(c.date))}</p>
       <p class="text-sm text-white">🕐 ${esc(c.heure || '—')}</p>
       <p class="text-xs text-smoke mt-2">48 Rue de Genève, 01170 Gex</p>`;
   }

@@ -73,7 +73,7 @@ description: "Suivez votre commande MaisonCBDVape en temps réel grâce à votre
 
     return `
       <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-2">Retrait prévu</p>
-      <p class="text-white">📅 ${esc(o.creneauRetrait?.date)} à partir de ${esc(o.creneauRetrait?.heure)}</p>
+      <p class="text-white">📅 ${esc(window.MCV_DATE.longue(o.creneauRetrait?.date))} à partir de ${esc(o.creneauRetrait?.heure || '—')}</p>
       <p class="text-smoke text-xs mt-1">📍 48 Rue de Genève, 01170 Gex</p>`;
   }
 

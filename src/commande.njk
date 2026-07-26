@@ -237,7 +237,9 @@ description: "Coordonnées et mode de livraison — MaisonCBDVape, boutique CBD 
           });
         }
         function isoStr(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-        function frStr(d) { return d.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' }); }
+        // Mise en forme commune à tout le site — voir window.MCV_DATE
+        // dans assets/js/tabacgex.js.
+        function frStr(d) { return window.MCV_DATE.longue(d); }
         function renderHeure(dow, forDate) {
           const slots = slotsDisponibles(forDate);
           const bg = '#161410', fg = '#D8D0C4';

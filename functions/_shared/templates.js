@@ -16,6 +16,7 @@
  */
 
 import { transporteur, delai, libelle } from "./livraison.js";
+import { dateLongue } from "./dates.js";
 
 const formatEur = (n) => new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(n);
 
@@ -157,7 +158,7 @@ function blocLivraison(order, couleur) {
 
   const c = order.creneauRetrait || {};
   return infoBox("Retrait prévu",
-    `📅 ${c.date || "—"} à partir de <strong>${c.heure || "—"}</strong><br/>📍 48 Rue de Genève, 01170 Gex`, couleur);
+    `📅 ${dateLongue(c.date)} à partir de <strong>${c.heure || "—"}</strong><br/>📍 48 Rue de Genève, 01170 Gex`, couleur);
 }
 
 /** Même information, en texte brut pour la version non-HTML des emails. */
@@ -174,7 +175,7 @@ function texteLivraison(order) {
     return `${libelle(mode)} (${t}) : ${p.nom || ""}, ${p.adresse || ""} ${p.cp || ""} ${p.ville || ""}`;
   }
   const c = order.creneauRetrait || {};
-  return `Retrait : ${c.date || "—"} à partir de ${c.heure || "—"}
+  return `Retrait : ${dateLongue(c.date)} à partir de ${c.heure || "—"}
 Adresse : MaisonCBDVape, 48 Rue de Genève, 01170 Gex`;
 }
 

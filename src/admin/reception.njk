@@ -239,7 +239,7 @@ eleventyExcludeFromCollections: true
       if (!res.ok) throw new Error(d.error || 'HTTP ' + res.status);
 
       if (d.dejaTraite) {
-        const quand = d.traiteLe ? new Date(d.traiteLe).toLocaleDateString('fr-FR') : '';
+        const quand = d.traiteLe ? window.MCV_DATE.courte(d.traiteLe) : '';
         info('⚠ Ce document a déjà été réceptionné' + (quand ? ' le ' + quand : '') +
              ' (' + d.lignesAppliquees + ' lignes). Rien n\'a été modifié.', '#FFA500');
         return;
@@ -461,7 +461,7 @@ eleventyExcludeFromCollections: true
             (r.reference ? '<span class="text-smoke text-xs font-mono ml-2">' + esc(r.reference) + '</span>' : '') +
           '</div>' +
           '<div class="text-smoke text-xs font-mono">' + r.lignes + ' lignes · ' +
-            new Date(r.creeLe).toLocaleDateString('fr-FR') + '</div>' +
+            window.MCV_DATE.courte(r.creeLe) + '</div>' +
         '</div>').join('') +
       '</div>';
   }
