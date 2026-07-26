@@ -669,8 +669,23 @@
     // doit rester le miroir exact de computeFraisPort() côté Workers.
     const MODES_LIVRAISON = window.MCV_LIVRAISON?.modes || {};
 
+    /**
+     * Mode de livraison en cours.
+     *
+     * Le champ caché est vide tant que le sélecteur n'a pas rendu la page :
+     * on retombe alors sur le PREMIER mode actif de site.json, celui-là même
+     * que le sélecteur présélectionne. Écrire un mode en dur ici en ferait un
+     * second endroit à corriger le jour où l'ordre change dans les données.
+     */
+    function modeCourant(valeur) {
+      if (valeur) return valeur;
+      const premierActif = Object.keys(MODES_LIVRAISON)
+        .find((id) => MODES_LIVRAISON[id]?.actif);
+      return premierActif || Object.keys(MODES_LIVRAISON)[0] || '';
+    }
+
     function getShippingCost(totalTTC) {
-      const mode = document.getElementById('mode-livraison-hidden')?.value || 'click-and-collect';
+      const mode = modeCourant(document.getElementById('mode-livraison-hidden')?.value);
       const m = MODES_LIVRAISON[mode];
       if (!m || !m.fraisPort) return 0;
       if (m.seuilGratuit !== null && totalTTC >= m.seuilGratuit) return 0;
@@ -709,7 +724,7 @@
       // point retrait, consigne), pas seulement la livraison à domicile.
       const fraisRow = document.getElementById('frais-port-row');
       const fraisVal = document.getElementById('frais-port-value');
-      const mode = document.getElementById('mode-livraison-hidden')?.value || 'click-and-collect';
+      const mode = modeCourant(document.getElementById('mode-livraison-hidden')?.value);
       const modeFacture = (MODES_LIVRAISON[mode]?.fraisPort || 0) > 0;
       if (fraisRow) {
         fraisRow.classList.toggle('hidden', !modeFacture);
@@ -747,7 +762,7 @@
       const email = (formData.get('email') || '').trim();
       const tel   = (formData.get('telephone') || '').trim();
       const cgv   = formData.get('cgv');
-      const mode  = formData.get('modeLivraison') || 'click-and-collect';
+      const mode  = modeCourant(formData.get('modeLivraison'));
 
       if (nom.length < 2) { showError('nom', 'Nom requis (minimum 2 caractères).'); ok = false; }
       if (!isEmail(email)) { showError('email', 'Adresse email invalide.'); ok = false; }
@@ -807,7 +822,7 @@
       const items = buildOrderItems();
       if (!items.length) return;
 
-      const modeLiv = fd.get('modeLivraison') || 'click-and-collect';
+      const modeLiv = modeCourant(fd.get('modeLivraison'));
       const saisie  = MODES_LIVRAISON[modeLiv]?.saisie || 'creneau';
       const subTTC  = items.reduce((sum, it) => sum + it.prix * it.qty, 0);
       const shipping = getShippingCost(subTTC);

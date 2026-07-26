@@ -70,7 +70,14 @@ description: "Coordonnées et mode de livraison — MaisonCBDVape, boutique CBD 
   <form id="checkout-form" class="hidden grid lg:grid-cols-3 gap-8" novalidate>
 
     {# Champ caché : mode choisi #}
-    <input type="hidden" name="modeLivraison" id="mode-livraison-hidden" value="click-and-collect"/>
+    {# Volontairement sans valeur : le script du sélecteur la renseigne au
+       chargement, à partir du PREMIER mode actif de site.json. Y écrire un
+       mode en dur créerait un second endroit à corriger le jour où l'ordre
+       change — c'est exactement ce qui a fait diverger les frais de port et
+       les créneaux par le passé. Sans JavaScript, le serveur refuse la
+       commande avec un message explicite plutôt que d'appliquer un mode
+       que le client n'a pas choisi. #}
+    <input type="hidden" name="modeLivraison" id="mode-livraison-hidden" value=""/>
 
     {# Colonne gauche : formulaire #}
     <div class="lg:col-span-2 space-y-6">

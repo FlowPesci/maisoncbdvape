@@ -16,6 +16,16 @@
  * `actif` à false = mode connu mais pas encore ouvert à la vente.
  */
 export const MODES = {
+  "livraison": {
+    "libelle": "Livraison à domicile",
+    "accroche": "Partout en France métropolitaine",
+    "transporteur": "Colissimo",
+    "fraisPort": 4.9,
+    "seuilGratuit": 49.9,
+    "delai": "48h",
+    "saisie": "adresse",
+    "actif": true
+  },
   "click-and-collect": {
     "libelle": "Click & Collect",
     "accroche": "Prêt en 1 heure, retrait à Gex",
@@ -96,16 +106,6 @@ export const MODES = {
         ]
       ]
     }
-  },
-  "livraison": {
-    "libelle": "Livraison à domicile",
-    "accroche": "Partout en France métropolitaine",
-    "transporteur": "Colissimo",
-    "fraisPort": 4.9,
-    "seuilGratuit": 49.9,
-    "delai": "48h",
-    "saisie": "adresse",
-    "actif": true
   },
   "point-retrait": {
     "libelle": "Point retrait",
