@@ -28,6 +28,7 @@ eleventyExcludeFromCollections: true
       <input type="search" id="stocks-filtre" placeholder="Rechercher une référence…"
              class="flex-1 min-w-[200px] bg-dark-bg border border-dark-border rounded-xl px-4 py-2.5 text-white text-sm placeholder-smoke focus:outline-none"/>
       <button id="stocks-ruptures" class="filter-pill px-3 py-2 rounded-lg text-xs font-mono uppercase tracking-wider">Ruptures seules</button>
+      <button id="stocks-variantes" class="filter-pill px-3 py-2 rounded-lg text-xs font-mono uppercase tracking-wider">Variantes seules</button>
     </div>
 
     <div class="rounded-2xl border border-dark-border bg-dark-card overflow-hidden">
@@ -65,7 +66,7 @@ eleventyExcludeFromCollections: true
   const filtre   = document.getElementById('stocks-filtre');
   const btnRupt  = document.getElementById('stocks-ruptures');
 
-  let stocks = [], ruptureSeules = false;
+  let stocks = [], ruptureSeules = false, variantesSeules = false;
 
   function esc(s) {
     return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
@@ -86,29 +87,61 @@ eleventyExcludeFromCollections: true
     return 'var(--green)';
   }
 
+  /** Sépare « produit-id::4g » en produit et variante. */
+  function decoupe(s) {
+    const i = s.cle.indexOf('::');
+    if (i === -1) return { produit: s.cle, variante: null, nom: s.libelle || s.cle };
+    return {
+      produit: s.cle.slice(0, i),
+      variante: s.cle.slice(i + 2),
+      // Le libellé semé vaut « Nom — 4g » : on retire le suffixe pour l'affichage
+      nom: (s.libelle || '').split(' — ')[0] || s.cle.slice(0, i),
+    };
+  }
+
   function render() {
     const q = (filtre.value || '').trim().toLowerCase();
     const vue = stocks.filter((s) =>
       (!ruptureSeules || s.dispo <= 0) &&
+      (!variantesSeules || s.cle.includes('::')) &&
       (!q || s.libelle.toLowerCase().includes(q) || s.cle.toLowerCase().includes(q))
     );
 
-    tbody.innerHTML = vue.map((s) => `
-      <tr class="border-b border-dark-border last:border-0">
-        <td class="py-3 px-4">
-          <div class="text-white">${esc(s.libelle || s.cle)}</div>
-          <div class="text-smoke text-xs font-mono">${esc(s.cle)}</div>
-        </td>
-        <td class="py-3 px-4 text-right font-mono font-bold" style="color:${couleur(s.dispo)};">${s.dispo}</td>
-        <td class="py-3 px-4 text-right font-mono text-smoke">${s.reserve || 0}</td>
-        <td class="py-3 px-4 text-right">
-          <div class="flex items-center gap-2 justify-end">
-            <input type="number" min="0" step="1" value="${s.dispo}" data-cle="${esc(s.cle)}"
-                   class="w-20 bg-dark-bg border border-dark-border rounded-lg px-2 py-1.5 text-white text-sm text-right focus:outline-none"/>
-            <button data-save="${esc(s.cle)}" class="btn-outline-violet px-3 py-1.5 rounded-lg text-xs font-bold uppercase">OK</button>
-          </div>
-        </td>
-      </tr>`).join('') ||
+    let html = '', produitPrecedent = null;
+
+    for (const s of vue) {
+      const d = decoupe(s);
+      // Nouvelle ligne d'en-tête dès qu'on change de produit à variantes
+      const nouveauProduit = d.produit !== produitPrecedent;
+      produitPrecedent = d.produit;
+
+      const libelle = d.variante
+        ? `${nouveauProduit ? `<div class="text-white">${esc(d.nom)}</div>` : ''}
+           <div class="flex items-center gap-2 ${nouveauProduit ? 'mt-1' : ''}">
+             <span class="text-smoke text-xs">↳</span>
+             <span class="text-xs font-mono px-2 py-0.5 rounded-full"
+                   style="border:1px solid var(--gold);color:var(--gold);">${esc(d.variante)}</span>
+           </div>`
+        : `<div class="text-white">${esc(d.nom)}</div>
+           <div class="text-smoke text-xs font-mono">${esc(s.cle)}</div>`;
+
+      html += `
+        <tr class="border-b border-dark-border last:border-0"
+            ${d.variante && !nouveauProduit ? 'style="border-top:0;"' : ''}>
+          <td class="py-3 px-4">${libelle}</td>
+          <td class="py-3 px-4 text-right font-mono font-bold" style="color:${couleur(s.dispo)};">${s.dispo}</td>
+          <td class="py-3 px-4 text-right font-mono text-smoke">${s.reserve || 0}</td>
+          <td class="py-3 px-4 text-right">
+            <div class="flex items-center gap-2 justify-end">
+              <input type="number" min="0" step="1" value="${s.dispo}" data-cle="${esc(s.cle)}"
+                     class="w-20 bg-dark-bg border border-dark-border rounded-lg px-2 py-1.5 text-white text-sm text-right focus:outline-none"/>
+              <button data-save="${esc(s.cle)}" class="btn-outline-violet px-3 py-1.5 rounded-lg text-xs font-bold uppercase">OK</button>
+            </div>
+          </td>
+        </tr>`;
+    }
+
+    tbody.innerHTML = html ||
       `<tr><td colspan="4" class="py-10 text-center text-smoke text-sm">Aucune référence.</td></tr>`;
   }
 
@@ -131,7 +164,16 @@ eleventyExcludeFromCollections: true
       const d = await res.json();
       if (!res.ok) throw new Error(d.error || 'HTTP ' + res.status);
 
-      stocks = d.stocks || [];
+      // Tri par produit puis par variante, pour que les grammages d'une même
+      // fleur se suivent dans l'ordre plutôt que dans l'ordre alphabétique
+      // (« 2g, 4g, 8g » et non « 2g, 8g, 4g »).
+      stocks = (d.stocks || []).sort((a, b) => {
+        const da = decoupe(a), db_ = decoupe(b);
+        if (da.nom !== db_.nom) return da.nom.localeCompare(db_.nom, 'fr');
+        const na = parseInt(da.variante, 10), nb = parseInt(db_.variante, 10);
+        if (Number.isFinite(na) && Number.isFinite(nb)) return na - nb;
+        return String(da.variante || '').localeCompare(String(db_.variante || ''), 'fr');
+      });
       renderKpi(d);
       render();
       statusEl.classList.add('hidden');
@@ -169,6 +211,11 @@ eleventyExcludeFromCollections: true
   });
 
   filtre.addEventListener('input', render);
+  document.getElementById('stocks-variantes').addEventListener('click', (e) => {
+    variantesSeules = !variantesSeules;
+    e.currentTarget.classList.toggle('is-active', variantesSeules);
+    render();
+  });
   btnRupt.addEventListener('click', () => {
     ruptureSeules = !ruptureSeules;
     btnRupt.classList.toggle('is-active', ruptureSeules);
