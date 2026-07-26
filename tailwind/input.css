@@ -587,8 +587,15 @@ h1, h2, h3, .heading {
   .grid-cat-home {
     grid-template-columns: 1fr !important;
   }
-  .grid-cat-home > a:first-child {
+  /* Sur une seule colonne, aucune carte ne peut s'étendre sur deux.
+     La dernière catégorie porte `grid-column: span 2` en style en ligne
+     (utile en 2 ou 3 colonnes pour combler la case vide) : sans cette
+     annulation, la grille se crée une deuxième colonne implicite et la
+     carte suivante part hors de l'écran — les Puffs disparaissaient.
+     Le `!important` est indispensable : on écrase un style en ligne. */
+  .grid-cat-home > a {
     grid-column: auto !important;
+    grid-row: auto !important;
   }
 }
 
