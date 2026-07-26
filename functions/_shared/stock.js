@@ -21,6 +21,8 @@
  * quand Monetico rejoue une notification.
  * ─────────────────────────────────────────────────────────────────────────── */
 
+import { resoudreStock, uniteStock } from "./catalog-index.js";
+
 /** Durée de vie d'une réservation non confirmée, en minutes. */
 const EXPIRATION_MINUTES = 30;
 
@@ -37,9 +39,21 @@ function exigeBase(db) {
   }
 }
 
-/** Clé de stock d'un article du panier. */
-export function cleStock(id, varianteLabel) {
-  return varianteLabel ? `${id}::${varianteLabel}` : String(id);
+/**
+ * Traduit un article du panier en opération de stock.
+ *
+ * Deux modèles coexistent, et la différence est invisible pour l'appelant :
+ *  · à l'unité — 1 article retire 1 du stock de sa propre clé
+ *  · au poids  — les fleurs CBD sont pesées à la commande depuis un vrac.
+ *                Le stock est en grammes sur le produit, et un sachet de 4 g
+ *                en retire 4. Commander deux sachets de 4 g rend donc
+ *                indisponible un sachet de 8 g s'il ne reste pas assez.
+ *
+ * @returns {{cle: string, quantite: number, unite: string}}
+ */
+export function operationStock(id, varianteLabel, qty) {
+  const r = resoudreStock(id, varianteLabel || null);
+  return { cle: r.cle, quantite: Number(qty) * r.facteur, unite: r.unite };
 }
 
 const maintenant = () => Date.now();
@@ -110,31 +124,34 @@ export async function reserverPanier(db, orderId, items) {
   const reserves = [];
 
   for (const it of items) {
-    const cle = cleStock(it.id, it.varianteLabel);
-    const qty = Number(it.qty);
+    const op = operationStock(it.id, it.varianteLabel, it.qty);
 
     // Le cœur du dispositif : atomique, sans lecture préalable.
     const res = await db
       .prepare("UPDATE stocks SET dispo = dispo - ?1, reserve = reserve + ?1, majLe = ?2 WHERE cle = ?3 AND dispo >= ?1")
-      .bind(qty, maintenant(), cle)
+      .bind(op.quantite, maintenant(), op.cle)
       .run();
 
     if (!res.meta.changes) {
       // Échec : on rend ce qui vient d'être pris pour cette commande
       await relacherPanier(db, orderId, reserves, "relache");
 
-      const ligne = await db.prepare("SELECT dispo FROM stocks WHERE cle = ?1").bind(cle).first();
+      const ligne = await db.prepare("SELECT dispo FROM stocks WHERE cle = ?1").bind(op.cle).first();
       const dispo = ligne?.dispo ?? 0;
-      return {
-        ok: false,
-        article: it.nom,
-        erreur: dispo <= 0
-          ? `« ${it.nom} » vient d'être épuisé.`
-          : `Il ne reste que ${dispo} exemplaire${dispo > 1 ? "s" : ""} de « ${it.nom} ».`,
-      };
+
+      // Un produit au poids se raconte en grammes restants, pas en exemplaires
+      let erreur;
+      if (dispo <= 0) {
+        erreur = `« ${it.nom} » vient d'être épuisé.`;
+      } else if (op.unite === "g") {
+        erreur = `Il ne reste que ${dispo} g de « ${it.nom} ».`;
+      } else {
+        erreur = `Il ne reste que ${dispo} exemplaire${dispo > 1 ? "s" : ""} de « ${it.nom} ».`;
+      }
+      return { ok: false, article: it.nom, erreur };
     }
 
-    reserves.push({ cle, qty });
+    reserves.push({ cle: op.cle, qty: op.quantite });
   }
 
   // Réservations enregistrées en une fois, une fois le panier entier sécurisé
@@ -277,7 +294,9 @@ export async function listerStocks(db) {
   const { results } = await db
     .prepare("SELECT cle, dispo, reserve, libelle, majLe FROM stocks ORDER BY libelle")
     .all();
-  return results || [];
+  // L'unité ne vit pas en base : elle découle du catalogue. Une fleur pesée au
+  // gramme et un pod à l'unité se comptent différemment à l'écran.
+  return (results || []).map((l) => ({ ...l, unite: uniteStock(l.cle) }));
 }
 
 /**
@@ -300,4 +319,123 @@ export async function ajusterStock(db, cle, nouveauDispo, { auteur = "admin", mo
     tracer(db, { cle, delta: n - avant.dispo, motif, auteur }),
   ]);
   return { ok: true, avant: avant.dispo, apres: n };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Réception de marchandise
+// Voir docs/etude-reception-marchandise.md
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Entrée de marchandise — ajoute au stock existant.
+ *
+ * ⚠ À ne pas confondre avec `ajusterStock()`, qui FIXE une valeur absolue.
+ * Une livraison s'ajoute : si deux réceptions arrivent le même jour, la
+ * seconde ne doit pas effacer la première. C'est la distinction la plus
+ * importante de ce module.
+ *
+ * L'empreinte du document rend l'opération idempotente : redéposer le même
+ * bon de livraison ne double pas le stock. La ligne `receptions` est insérée
+ * EN PREMIER et sert de verrou — c'est la clé primaire qui arbitre, pas une
+ * lecture préalable qui laisserait une fenêtre de course.
+ *
+ * @param {Array<{cle: string, quantite: number, libelle?: string}>} entrees
+ * @returns {Promise<{ok: boolean, appliquees?: number, dejaTraite?: boolean, traiteLe?: number, erreur?: string}>}
+ */
+export async function entrerStock(db, entrees, {
+  empreinte = null, reference = null, fournisseur = null, auteur = "admin",
+} = {}) {
+  exigeBase(db);
+
+  const lignes = (entrees || [])
+    .map((e) => ({
+      cle: String(e.cle || "").trim(),
+      quantite: Math.trunc(Number(e.quantite)),
+      libelle: e.libelle || "",
+    }))
+    .filter((e) => e.cle && Number.isFinite(e.quantite) && e.quantite !== 0);
+
+  if (!lignes.length) return { ok: false, erreur: "Aucune ligne à entrer" };
+
+  // Verrou : la première insertion gagne, les suivantes ne changent rien.
+  if (empreinte) {
+    const pose = await db
+      .prepare("INSERT OR IGNORE INTO receptions (empreinte, fournisseur, reference, lignes, auteur, creeLe) VALUES (?1, ?2, ?3, ?4, ?5, ?6)")
+      .bind(empreinte, fournisseur, reference, lignes.length, auteur, maintenant())
+      .run();
+
+    if (!pose.meta.changes) {
+      const deja = await db
+        .prepare("SELECT creeLe FROM receptions WHERE empreinte = ?1").bind(empreinte).first();
+      return { ok: false, dejaTraite: true, traiteLe: deja?.creeLe || null,
+               erreur: "Ce document a déjà été réceptionné." };
+    }
+  }
+
+  const t = maintenant();
+  const ops = [];
+  for (const l of lignes) {
+    // Un produit jamais semé n'a pas de ligne : on la crée à zéro plutôt que
+    // de perdre la marchandise. INSERT OR IGNORE ne touche pas l'existant.
+    ops.push(
+      db.prepare("INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES (?1, 0, 0, ?2, ?3)")
+        .bind(l.cle, l.libelle || l.cle, t)
+    );
+    ops.push(
+      db.prepare("UPDATE stocks SET dispo = dispo + ?1, majLe = ?2 WHERE cle = ?3")
+        .bind(l.quantite, t, l.cle)
+    );
+    ops.push(tracer(db, { cle: l.cle, delta: l.quantite, motif: "reception",
+                          orderId: reference, auteur }));
+  }
+
+  await db.batch(ops);
+  return { ok: true, appliquees: lignes.length };
+}
+
+/**
+ * Mémorise l'association « libellé du bon → produit », ou la renforce.
+ *
+ * `vus` compte les confirmations : un alias vu cinq fois est une certitude,
+ * un alias vu une fois reste révisable. Le compteur sert aussi à repérer
+ * une association posée par erreur — elle restera à 1.
+ */
+export async function memoriserAlias(db, associations, { fournisseur = null } = {}) {
+  exigeBase(db);
+  const liste = (associations || []).filter((a) => a?.libelle && a?.cle);
+  if (!liste.length) return { ok: true, memorises: 0 };
+
+  const t = maintenant();
+  await db.batch(liste.map((a) =>
+    db.prepare(
+      `INSERT INTO alias_fournisseur (libelle, cle, brut, fournisseur, vus, majLe)
+       VALUES (?1, ?2, ?3, ?4, 1, ?5)
+       ON CONFLICT(libelle) DO UPDATE SET
+         cle  = excluded.cle,
+         brut = excluded.brut,
+         vus  = CASE WHEN alias_fournisseur.cle = excluded.cle
+                     THEN alias_fournisseur.vus + 1 ELSE 1 END,
+         majLe = excluded.majLe`
+    ).bind(a.libelle, a.cle, a.brut || a.libelle, fournisseur, t)
+  ));
+  return { ok: true, memorises: liste.length };
+}
+
+/** Alias connus, indexés par libellé normalisé. */
+export async function lireAlias(db) {
+  exigeBase(db);
+  const { results } = await db
+    .prepare("SELECT libelle, cle, vus FROM alias_fournisseur").all();
+  const map = {};
+  for (const r of results || []) map[r.libelle] = { cle: r.cle, vus: r.vus };
+  return map;
+}
+
+/** Dernières réceptions, pour l'historique de l'écran. */
+export async function listerReceptions(db, limite = 20) {
+  exigeBase(db);
+  const { results } = await db
+    .prepare("SELECT empreinte, fournisseur, reference, lignes, auteur, creeLe FROM receptions ORDER BY creeLe DESC LIMIT ?1")
+    .bind(Math.min(100, Math.max(1, Number(limite) || 20))).all();
+  return results || [];
 }

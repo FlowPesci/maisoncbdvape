@@ -264,12 +264,27 @@
     // La quantité n'est plus plafonnée arbitrairement : la seule limite est le
     // stock disponible, celui de la variante sélectionnée le cas échéant.
     // Le serveur revalide de toute façon.
+    // Deux modèles de stock cohabitent :
+    //  · à l'unité — chaque variante a son propre stock (saveurs de puffs) ;
+    //  · au poids  — un vrac unique en grammes au niveau du produit, dans
+    //                lequel tous les contenants puisent. Un sachet de 4 g en
+    //                retire 4, donc 10 g de vrac = deux sachets de 4 g au plus.
     const stockDispo = () => {
-      const btn = document.querySelector('.gram-btn.active, .variante-btn.active');
-      const s = btn ? Number(btn.dataset.gramStock ?? btn.dataset.varianteStock)
-                    : Number(document.querySelector('[data-stock]')?.dataset.stock);
+      const bloc  = document.querySelector('[data-stock]');
+      const vrac  = Number(bloc?.dataset.stock);
+      const btn   = document.querySelector('.gram-btn.active, .variante-btn.active');
+      const poids = Number(btn?.dataset.gramPoids);
+
+      if (Number.isFinite(poids) && poids > 0) {
+        return Number.isFinite(vrac) ? Math.floor(vrac / poids) : Infinity;
+      }
+      const s = btn ? Number(btn.dataset.varianteStock) : vrac;
       return Number.isFinite(s) && s > 0 ? s : Infinity;
     };
+
+    /** Unité d'affichage du plafond : « 3 sachets » ou « 3 ». */
+    const uniteStock = () =>
+      document.querySelector('[data-stock]')?.dataset.stockUnite || '';
 
     const renderQty = () => {
       if (qtyDisplay) qtyDisplay.textContent = qty;
@@ -278,7 +293,11 @@
         const auMax = qty >= max;
         qtyInc.disabled = auMax;
         qtyInc.style.opacity = auMax ? '.35' : '';
-        qtyInc.title = auMax && max !== Infinity ? `Stock disponible : ${max}` : '';
+        qtyInc.title = auMax && max !== Infinity
+          ? (uniteStock() === 'g'
+              ? `Le vrac restant ne permet que ${max} contenant${max > 1 ? 's' : ''}`
+              : `Stock disponible : ${max}`)
+          : '';
       }
       if (qtyDec) {
         qtyDec.disabled = qty <= 1;
@@ -291,7 +310,7 @@
       qtyInc.addEventListener('click', () => { qty = Math.min(stockDispo(), qty + 1); renderQty(); });
       // Changer de variante peut réduire le stock sous la quantité déjà choisie
       document.querySelectorAll('.gram-btn, .variante-btn').forEach((b) =>
-        b.addEventListener('click', () => { qty = Math.min(qty, stockDispo()); renderQty(); }));
+        b.addEventListener('click', () => { qty = Math.max(1, Math.min(qty, stockDispo())); renderQty(); }));
       renderQty();
     }
 
@@ -583,11 +602,15 @@
       } else if (dec) {
         cart[idx].qty = Math.max(1, (cart[idx].qty || 1) - 1);
       } else if (inc) {
-        // Plafond = stock de la variante concernée, ou du produit sinon
+        // Plafond : pour un produit vendu au poids, le vrac restant divisé par
+        // le poids du contenant ; sinon le stock de la variante ou du produit.
         const p = findProduct(id);
         const lbl = cart[idx].varianteLabel;
         const v = lbl && p?.variantes ? p.variantes.find((x) => x.label === lbl) : null;
-        const max = Number(v ? v.stock : p?.stock);
+        const poids = p?.unitePrix === 'g' && lbl ? parseFloat(String(lbl).replace(',', '.')) : NaN;
+        const max = Number.isFinite(poids) && poids > 0
+          ? Math.floor(Number(p?.stock) / poids)
+          : Number(v ? v.stock : p?.stock);
         cart[idx].qty = Math.min(
           Number.isFinite(max) && max > 0 ? max : Infinity,
           (cart[idx].qty || 1) + 1

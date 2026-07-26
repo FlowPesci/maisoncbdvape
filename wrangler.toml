@@ -65,6 +65,13 @@ binding = "STOCKS_DB"
 database_name = "maisoncbdvape-stocks"
 database_id = "eea5faac-df29-4e87-8856-34a987637f41"
 
+# ─── Binding Workers AI (lecture des bons de livraison) ───────────────────
+# Aucune ressource à créer : le binding suffit. Offre gratuite de 10 000
+# neurones par jour, remise à zéro à 00 h 00 UTC — voir
+# docs/etude-reception-marchandise.md pour le calcul du coût réel.
+[ai]
+binding = "AI"
+
 # ─── Bindings KV (commandes + état OAuth) ─────────────────────────────────
 [[kv_namespaces]]
 binding = "ORDERS_KV"

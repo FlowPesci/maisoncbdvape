@@ -15,7 +15,9 @@
     "db:schema": "wrangler d1 execute maisoncbdvape-stocks --file=db/schema.sql --remote",
     "db:seed": "npm run stocks:seed && wrangler d1 execute maisoncbdvape-stocks --file=db/seed.sql --remote",
     "db:schema:local": "wrangler d1 execute maisoncbdvape-stocks --file=db/schema.sql --local",
-    "db:seed:local": "npm run stocks:seed && wrangler d1 execute maisoncbdvape-stocks --file=db/seed.sql --local"
+    "db:seed:local": "npm run stocks:seed && wrangler d1 execute maisoncbdvape-stocks --file=db/seed.sql --local",
+    "test:reception": "node scripts/test-reception.mjs",
+    "db:migrate:reception": "wrangler d1 execute maisoncbdvape-stocks --file=db/migration-reception.sql --remote"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",

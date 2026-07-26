@@ -14,6 +14,7 @@ eleventyExcludeFromCollections: true
     </div>
     <div class="flex items-center gap-3 flex-wrap">
       <a href="/admin/commandes/" class="text-smoke text-xs hover:text-white transition-colors">← Commandes</a>
+      <a href="/admin/reception/" class="btn-outline-violet px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider">Réceptionner une livraison</a>
     </div>
   </div>
 
@@ -28,7 +29,7 @@ eleventyExcludeFromCollections: true
       <input type="search" id="stocks-filtre" placeholder="Rechercher une référence…"
              class="flex-1 min-w-[200px] bg-dark-bg border border-dark-border rounded-xl px-4 py-2.5 text-white text-sm placeholder-smoke focus:outline-none"/>
       <button id="stocks-ruptures" class="filter-pill px-3 py-2 rounded-lg text-xs font-mono uppercase tracking-wider">Ruptures seules</button>
-      <button id="stocks-variantes" class="filter-pill px-3 py-2 rounded-lg text-xs font-mono uppercase tracking-wider">Variantes seules</button>
+      <button id="stocks-poids" class="filter-pill px-3 py-2 rounded-lg text-xs font-mono uppercase tracking-wider">Vrac au gramme</button>
     </div>
 
     <div class="rounded-2xl border border-dark-border bg-dark-card overflow-hidden">
@@ -66,7 +67,14 @@ eleventyExcludeFromCollections: true
   const filtre   = document.getElementById('stocks-filtre');
   const btnRupt  = document.getElementById('stocks-ruptures');
 
-  let stocks = [], ruptureSeules = false, variantesSeules = false;
+  let stocks = [], ruptureSeules = false, poidsSeuls = false;
+
+  /**
+   * Les fleurs CBD sont pesées à la commande depuis un vrac : leur stock se
+   * compte en grammes, pas en sachets. Un sachet de 4 g en retire 4.
+   */
+  function unite(s) { return s.unite === 'g' ? 'g' : null; }
+  function quantite(s, n) { const u = unite(s); return u ? `${n} ${u}` : String(n); }
 
   function esc(s) {
     return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
@@ -103,7 +111,7 @@ eleventyExcludeFromCollections: true
     const q = (filtre.value || '').trim().toLowerCase();
     const vue = stocks.filter((s) =>
       (!ruptureSeules || s.dispo <= 0) &&
-      (!variantesSeules || s.cle.includes('::')) &&
+      (!poidsSeuls || unite(s) === 'g') &&
       (!q || s.libelle.toLowerCase().includes(q) || s.cle.toLowerCase().includes(q))
     );
 
@@ -123,18 +131,21 @@ eleventyExcludeFromCollections: true
                    style="border:1px solid var(--gold);color:var(--gold);">${esc(d.variante)}</span>
            </div>`
         : `<div class="text-white">${esc(d.nom)}</div>
-           <div class="text-smoke text-xs font-mono">${esc(s.cle)}</div>`;
+           <div class="text-smoke text-xs font-mono">${esc(s.cle)}${
+             unite(s) ? ' · <span style="color:var(--gold);">vrac au gramme</span>' : ''}</div>`;
 
       html += `
         <tr class="border-b border-dark-border last:border-0"
             ${d.variante && !nouveauProduit ? 'style="border-top:0;"' : ''}>
           <td class="py-3 px-4">${libelle}</td>
-          <td class="py-3 px-4 text-right font-mono font-bold" style="color:${couleur(s.dispo)};">${s.dispo}</td>
-          <td class="py-3 px-4 text-right font-mono text-smoke">${s.reserve || 0}</td>
+          <td class="py-3 px-4 text-right font-mono font-bold" style="color:${couleur(s.dispo)};">${quantite(s, s.dispo)}</td>
+          <td class="py-3 px-4 text-right font-mono text-smoke">${quantite(s, s.reserve || 0)}</td>
           <td class="py-3 px-4 text-right">
             <div class="flex items-center gap-2 justify-end">
               <input type="number" min="0" step="1" value="${s.dispo}" data-cle="${esc(s.cle)}"
+                     aria-label="Stock disponible${unite(s) ? ' en grammes' : ''}"
                      class="w-20 bg-dark-bg border border-dark-border rounded-lg px-2 py-1.5 text-white text-sm text-right focus:outline-none"/>
+              ${unite(s) ? '<span class="text-smoke text-xs font-mono w-3">g</span>' : '<span class="w-3"></span>'}
               <button data-save="${esc(s.cle)}" class="btn-outline-violet px-3 py-1.5 rounded-lg text-xs font-bold uppercase">OK</button>
             </div>
           </td>
@@ -211,9 +222,9 @@ eleventyExcludeFromCollections: true
   });
 
   filtre.addEventListener('input', render);
-  document.getElementById('stocks-variantes').addEventListener('click', (e) => {
-    variantesSeules = !variantesSeules;
-    e.currentTarget.classList.toggle('is-active', variantesSeules);
+  document.getElementById('stocks-poids').addEventListener('click', (e) => {
+    poidsSeuls = !poidsSeuls;
+    e.currentTarget.classList.toggle('is-active', poidsSeuls);
     render();
   });
   btnRupt.addEventListener('click', () => {

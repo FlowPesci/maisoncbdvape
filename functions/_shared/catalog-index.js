@@ -190,8 +190,8 @@ export const CATALOG = {
 };
 
 /**
- * Stocks disponibles, mêmes clés que CATALOG.
- * C'est la seule limite de quantité : il n'y a pas de plafond arbitraire.
+ * Stocks de référence issus du catalogue — utilisés uniquement pour semer la
+ * base la première fois. Le stock vivant est en D1.
  * @type {Record<string, number>}
  */
 export const STOCKS = {
@@ -200,18 +200,12 @@ export const STOCKS = {
   "allume-charbon-gaz-blackcoco-s": 10,
   "amazonien": 10,
   "amnesia-hydro-indoor-cbd": 10,
-  "amnesia-hydro-indoor-cbd::2g": 10,
-  "amnesia-hydro-indoor-cbd::4g": 10,
-  "amnesia-hydro-indoor-cbd::8g": 10,
   "ananas-coco-50ml-le-petit-verger": 10,
   "ananas-coco-frais": 10,
   "baba-au-rhum-50-ml": 10,
   "balance-de-precision-hudson-300g-x-0-01g": 10,
   "balance-de-precision-java-100g-x-0-01g": 10,
   "banana-hydro-indoor-cbd": 10,
-  "banana-hydro-indoor-cbd::2g": 10,
-  "banana-hydro-indoor-cbd::4g": 10,
-  "banana-hydro-indoor-cbd::8g": 10,
   "bang-en-verre-30-cm-percolateur": 10,
   "bang-verre-20-cm-percolateur": 10,
   "base-neutre-aromazon-vbase-50-50-1l-sans-nicotine": 10,
@@ -220,18 +214,9 @@ export const STOCKS = {
   "box-voopoo-vinci-spark-100": 10,
   "brugnon-orange-sanguine-50-ml": 10,
   "bubba-kush-hydro-indoor-cbd": 10,
-  "bubba-kush-hydro-indoor-cbd::2g": 10,
-  "bubba-kush-hydro-indoor-cbd::4g": 10,
-  "bubba-kush-hydro-indoor-cbd::8g": 10,
   "burn-baby-burn-indoor-cbd": 10,
-  "burn-baby-burn-indoor-cbd::2g": 10,
-  "burn-baby-burn-indoor-cbd::4g": 10,
-  "burn-baby-burn-indoor-cbd::8g": 10,
   "cake-noisettes-50-ml": 10,
   "candy-hydro-indoor-cbd": 10,
-  "candy-hydro-indoor-cbd::2g": 10,
-  "candy-hydro-indoor-cbd::4g": 10,
-  "candy-hydro-indoor-cbd::8g": 10,
   "cannele-50-ml": 10,
   "cassis-framboise-50ml-le-petit-verger": 10,
   "cassis-framboise-frais": 10,
@@ -240,24 +225,15 @@ export const STOCKS = {
   "cendrier-astronaute": 10,
   "cerise-pasteque-frais": 10,
   "charas-cbd": 10,
-  "charas-cbd::2g": 10,
-  "charas-cbd::4g": 10,
-  "charas-cbd::8g": 10,
   "clearomiseur-zeus-nano-2-geekvape": 10,
   "clearomiseur-zeus-subohm-5-ml-geekvape": 10,
   "concentre-biggy-bear-30ml": 10,
   "corossol-peche-frais": 10,
   "dutch-punch-indoor-cbd": 10,
-  "dutch-punch-indoor-cbd::2g": 10,
-  "dutch-punch-indoor-cbd::4g": 10,
-  "dutch-punch-indoor-cbd::8g": 10,
   "e-cg-50ml": 10,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine": 10,
   "eclair-vanille-50-ml": 10,
   "extract-crumble": 10,
-  "extract-crumble::2g": 10,
-  "extract-crumble::4g": 10,
-  "extract-crumble::8g": 10,
   "frais-peche-litchi-frais": 10,
   "fraise-litchi": 10,
   "fraise-poire-50ml-le-petit-verger": 10,
@@ -269,21 +245,12 @@ export const STOCKS = {
   "fruits-rouges": 10,
   "geekvape-zeus-nano-3": 10,
   "gelato-hydro-indoor-cbd": 10,
-  "gelato-hydro-indoor-cbd::2g": 10,
-  "gelato-hydro-indoor-cbd::4g": 10,
-  "gelato-hydro-indoor-cbd::8g": 10,
   "goyave-coco": 10,
   "grinder-champignon-3-parties-metal-effet-holographique": 10,
   "grinder-gold": 10,
   "grinder-sensky-4-parties-en-aluminium": 10,
   "hash-primero": 10,
-  "hash-primero::2g": 10,
-  "hash-primero::4g": 10,
-  "hash-primero::8g": 10,
   "jack-herer-hydro-indoor-cbd": 10,
-  "jack-herer-hydro-indoor-cbd::2g": 10,
-  "jack-herer-hydro-indoor-cbd::4g": 10,
-  "jack-herer-hydro-indoor-cbd::8g": 10,
   "jnr-28000-puffs": 10,
   "jnr-32000-puffs": 10,
   "jnr-crystalglow-love-66-adalya": 10,
@@ -301,9 +268,6 @@ export const STOCKS = {
   "le-texan": 10,
   "le-vanille": 10,
   "lemon-hydro-indoor-cbd": 10,
-  "lemon-hydro-indoor-cbd::2g": 10,
-  "lemon-hydro-indoor-cbd::4g": 10,
-  "lemon-hydro-indoor-cbd::8g": 10,
   "luxe-xr-max-2-vaporesso": 10,
   "melange-vegetal-bergamote": 10,
   "melange-vegetal-menthe": 10,
@@ -311,13 +275,7 @@ export const STOCKS = {
   "melon-fraise-des-bois-frais": 10,
   "menthe-intense": 10,
   "moby-dick-hydro-indoor-cbd": 10,
-  "moby-dick-hydro-indoor-cbd::2g": 10,
-  "moby-dick-hydro-indoor-cbd::4g": 10,
-  "moby-dick-hydro-indoor-cbd::8g": 10,
   "moon-rock-cbd-indoor": 10,
-  "moon-rock-cbd-indoor::2g": 10,
-  "moon-rock-cbd-indoor::4g": 10,
-  "moon-rock-cbd-indoor::8g": 10,
   "mousse-chocolat-blanc-noisettes-50-ml": 10,
   "mure-myrtille-50ml-le-petit-verger": 10,
   "mure-myrtille-frais": 10,
@@ -336,13 +294,7 @@ export const STOCKS = {
   "pod-de-remplacement-aerox-32k-jnr": 10,
   "pod-recharge": 10,
   "pollen-d-amnesia-100-cbd": 10,
-  "pollen-d-amnesia-100-cbd::2g": 10,
-  "pollen-d-amnesia-100-cbd::4g": 10,
-  "pollen-d-amnesia-100-cbd::8g": 10,
   "pollen-d-or-100-cbd": 10,
-  "pollen-d-or-100-cbd::2g": 10,
-  "pollen-d-or-100-cbd::4g": 10,
-  "pollen-d-or-100-cbd::8g": 10,
   "pomme-citron-50ml-le-petit-verger": 10,
   "pomme-citron-frais": 10,
   "pomme-rouge-pomme-verte": 10,
@@ -351,17 +303,8 @@ export const STOCKS = {
   "raisin-rouge-grenade": 10,
   "riz-au-lait-50-ml": 10,
   "robin-cherry-cbd": 10,
-  "robin-cherry-cbd::2g": 10,
-  "robin-cherry-cbd::4g": 10,
-  "robin-cherry-cbd::8g": 10,
   "small-bud-lemon": 10,
-  "small-bud-lemon::2g": 10,
-  "small-bud-lemon::4g": 10,
-  "small-bud-lemon::8g": 10,
   "small-bud-strawberry": 10,
-  "small-bud-strawberry::2g": 10,
-  "small-bud-strawberry::4g": 10,
-  "small-bud-strawberry::8g": 10,
   "snowing-in-dam": 10,
   "spliff-box-l": 10,
   "spliff-box-m": 10,
@@ -374,6 +317,1814 @@ export const STOCKS = {
   "xros-5-vaporesso": 10,
   "zpluse-jnr-42k": 10
 };
+
+/**
+ * Pour chaque article vendable : sur quelle clé prélever, et combien.
+ *
+ * Une fleur vendue au poids a un stock unique en grammes au niveau du produit.
+ * Commander deux sachets de 4 g retire 8 g de ce vrac — et rend donc
+ * indisponibles les sachets de 8 g si le reste ne suffit plus.
+ *
+ * @type {Record<string, {cle: string, facteur: number, unite: string}>}
+ */
+export const CLES_STOCK = {
+  "al-fakher-crown-bar-30k-20mg": {
+    "cle": "al-fakher-crown-bar-30k-20mg",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "allume-charbon-chicha-tsar": {
+    "cle": "allume-charbon-chicha-tsar",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "allume-charbon-gaz-blackcoco-s": {
+    "cle": "allume-charbon-gaz-blackcoco-s",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "amazonien": {
+    "cle": "amazonien",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "amnesia-hydro-indoor-cbd::2g": {
+    "cle": "amnesia-hydro-indoor-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "amnesia-hydro-indoor-cbd::4g": {
+    "cle": "amnesia-hydro-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "amnesia-hydro-indoor-cbd::8g": {
+    "cle": "amnesia-hydro-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "ananas-coco-50ml-le-petit-verger": {
+    "cle": "ananas-coco-50ml-le-petit-verger",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "ananas-coco-frais": {
+    "cle": "ananas-coco-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "baba-au-rhum-50-ml": {
+    "cle": "baba-au-rhum-50-ml",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "balance-de-precision-hudson-300g-x-0-01g": {
+    "cle": "balance-de-precision-hudson-300g-x-0-01g",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "balance-de-precision-java-100g-x-0-01g": {
+    "cle": "balance-de-precision-java-100g-x-0-01g",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "banana-hydro-indoor-cbd::2g": {
+    "cle": "banana-hydro-indoor-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "banana-hydro-indoor-cbd::4g": {
+    "cle": "banana-hydro-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "banana-hydro-indoor-cbd::8g": {
+    "cle": "banana-hydro-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "bang-en-verre-30-cm-percolateur": {
+    "cle": "bang-en-verre-30-cm-percolateur",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "bang-verre-20-cm-percolateur": {
+    "cle": "bang-verre-20-cm-percolateur",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "base-neutre-aromazon-vbase-50-50-1l-sans-nicotine": {
+    "cle": "base-neutre-aromazon-vbase-50-50-1l-sans-nicotine",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "box-erato-230-smoktech": {
+    "cle": "box-erato-230-smoktech",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "box-gen-se-vaporesso": {
+    "cle": "box-gen-se-vaporesso",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "box-voopoo-vinci-spark-100": {
+    "cle": "box-voopoo-vinci-spark-100",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "brugnon-orange-sanguine-50-ml": {
+    "cle": "brugnon-orange-sanguine-50-ml",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "bubba-kush-hydro-indoor-cbd::2g": {
+    "cle": "bubba-kush-hydro-indoor-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "bubba-kush-hydro-indoor-cbd::4g": {
+    "cle": "bubba-kush-hydro-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "bubba-kush-hydro-indoor-cbd::8g": {
+    "cle": "bubba-kush-hydro-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "burn-baby-burn-indoor-cbd::2g": {
+    "cle": "burn-baby-burn-indoor-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "burn-baby-burn-indoor-cbd::4g": {
+    "cle": "burn-baby-burn-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "burn-baby-burn-indoor-cbd::8g": {
+    "cle": "burn-baby-burn-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "cake-noisettes-50-ml": {
+    "cle": "cake-noisettes-50-ml",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "candy-hydro-indoor-cbd::2g": {
+    "cle": "candy-hydro-indoor-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "candy-hydro-indoor-cbd::4g": {
+    "cle": "candy-hydro-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "candy-hydro-indoor-cbd::8g": {
+    "cle": "candy-hydro-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "cannele-50-ml": {
+    "cle": "cannele-50-ml",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "cassis-framboise-50ml-le-petit-verger": {
+    "cle": "cassis-framboise-50ml-le-petit-verger",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "cassis-framboise-frais": {
+    "cle": "cassis-framboise-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "cassis": {
+    "cle": "cassis",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "cendrier-alien": {
+    "cle": "cendrier-alien",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "cendrier-astronaute": {
+    "cle": "cendrier-astronaute",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "cerise-pasteque-frais": {
+    "cle": "cerise-pasteque-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "charas-cbd::2g": {
+    "cle": "charas-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "charas-cbd::4g": {
+    "cle": "charas-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "charas-cbd::8g": {
+    "cle": "charas-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "clearomiseur-zeus-nano-2-geekvape": {
+    "cle": "clearomiseur-zeus-nano-2-geekvape",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "clearomiseur-zeus-subohm-5-ml-geekvape": {
+    "cle": "clearomiseur-zeus-subohm-5-ml-geekvape",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "concentre-biggy-bear-30ml": {
+    "cle": "concentre-biggy-bear-30ml",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "corossol-peche-frais": {
+    "cle": "corossol-peche-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "dutch-punch-indoor-cbd::2g": {
+    "cle": "dutch-punch-indoor-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "dutch-punch-indoor-cbd::4g": {
+    "cle": "dutch-punch-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "dutch-punch-indoor-cbd::8g": {
+    "cle": "dutch-punch-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "e-cg-50ml": {
+    "cle": "e-cg-50ml",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "eclair-vanille-50-ml": {
+    "cle": "eclair-vanille-50-ml",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "extract-crumble::2g": {
+    "cle": "extract-crumble",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "extract-crumble::4g": {
+    "cle": "extract-crumble",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "extract-crumble::8g": {
+    "cle": "extract-crumble",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "frais-peche-litchi-frais": {
+    "cle": "frais-peche-litchi-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "fraise-litchi": {
+    "cle": "fraise-litchi",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "fraise-poire-50ml-le-petit-verger": {
+    "cle": "fraise-poire-50ml-le-petit-verger",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "fraise-poire-frais": {
+    "cle": "fraise-poire-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "fraise": {
+    "cle": "fraise",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "fruit-du-dragon-fruits-rouges-frais": {
+    "cle": "fruit-du-dragon-fruits-rouges-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "fruit-du-dragon-jaune-framboise-bleue-frais": {
+    "cle": "fruit-du-dragon-jaune-framboise-bleue-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "fruit-du-serpent-grenade-frais": {
+    "cle": "fruit-du-serpent-grenade-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "fruits-rouges": {
+    "cle": "fruits-rouges",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "geekvape-zeus-nano-3": {
+    "cle": "geekvape-zeus-nano-3",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "gelato-hydro-indoor-cbd::2g": {
+    "cle": "gelato-hydro-indoor-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "gelato-hydro-indoor-cbd::4g": {
+    "cle": "gelato-hydro-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "gelato-hydro-indoor-cbd::8g": {
+    "cle": "gelato-hydro-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "goyave-coco": {
+    "cle": "goyave-coco",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "grinder-champignon-3-parties-metal-effet-holographique": {
+    "cle": "grinder-champignon-3-parties-metal-effet-holographique",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "grinder-gold": {
+    "cle": "grinder-gold",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "grinder-sensky-4-parties-en-aluminium": {
+    "cle": "grinder-sensky-4-parties-en-aluminium",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "hash-primero::2g": {
+    "cle": "hash-primero",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "hash-primero::4g": {
+    "cle": "hash-primero",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "hash-primero::8g": {
+    "cle": "hash-primero",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "jack-herer-hydro-indoor-cbd::2g": {
+    "cle": "jack-herer-hydro-indoor-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "jack-herer-hydro-indoor-cbd::4g": {
+    "cle": "jack-herer-hydro-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "jack-herer-hydro-indoor-cbd::8g": {
+    "cle": "jack-herer-hydro-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "jnr-28000-puffs": {
+    "cle": "jnr-28000-puffs",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "jnr-32000-puffs": {
+    "cle": "jnr-32000-puffs",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "jnr-crystalglow-love-66-adalya": {
+    "cle": "jnr-crystalglow-love-66-adalya",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "jnr-falcon-gem-30k": {
+    "cle": "jnr-falcon-gem-30k",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape": {
+    "cle": "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "kit-gtx-one-pro-vaporesso": {
+    "cle": "kit-gtx-one-pro-vaporesso",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "kit-q16-pro-plus-de-justfog": {
+    "cle": "kit-q16-pro-plus-de-justfog",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "kiwi-cactus-frais": {
+    "cle": "kiwi-cactus-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "kiwi-mangue-50ml-le-petit-verger": {
+    "cle": "kiwi-mangue-50ml-le-petit-verger",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "kiwi-mangue-frais": {
+    "cle": "kiwi-mangue-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "l-elixir": {
+    "cle": "l-elixir",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "le-druide": {
+    "cle": "le-druide",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "le-menthe-verte": {
+    "cle": "le-menthe-verte",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "le-peche": {
+    "cle": "le-peche",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "le-texan": {
+    "cle": "le-texan",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "le-vanille": {
+    "cle": "le-vanille",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "lemon-hydro-indoor-cbd::2g": {
+    "cle": "lemon-hydro-indoor-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "lemon-hydro-indoor-cbd::4g": {
+    "cle": "lemon-hydro-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "lemon-hydro-indoor-cbd::8g": {
+    "cle": "lemon-hydro-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "luxe-xr-max-2-vaporesso": {
+    "cle": "luxe-xr-max-2-vaporesso",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "melange-vegetal-bergamote": {
+    "cle": "melange-vegetal-bergamote",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "melange-vegetal-menthe": {
+    "cle": "melange-vegetal-menthe",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "melange-vegetal-natura": {
+    "cle": "melange-vegetal-natura",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "melon-fraise-des-bois-frais": {
+    "cle": "melon-fraise-des-bois-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "menthe-intense": {
+    "cle": "menthe-intense",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "moby-dick-hydro-indoor-cbd::2g": {
+    "cle": "moby-dick-hydro-indoor-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "moby-dick-hydro-indoor-cbd::4g": {
+    "cle": "moby-dick-hydro-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "moby-dick-hydro-indoor-cbd::8g": {
+    "cle": "moby-dick-hydro-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "moon-rock-cbd-indoor::2g": {
+    "cle": "moon-rock-cbd-indoor",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "moon-rock-cbd-indoor::4g": {
+    "cle": "moon-rock-cbd-indoor",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "moon-rock-cbd-indoor::8g": {
+    "cle": "moon-rock-cbd-indoor",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "mousse-chocolat-blanc-noisettes-50-ml": {
+    "cle": "mousse-chocolat-blanc-noisettes-50-ml",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "mure-myrtille-50ml-le-petit-verger": {
+    "cle": "mure-myrtille-50ml-le-petit-verger",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "mure-myrtille-frais": {
+    "cle": "mure-myrtille-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "nectarine-fruit-du-dragon-50ml-le-petit-verger": {
+    "cle": "nectarine-fruit-du-dragon-50ml-le-petit-verger",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "nectarine-fruit-du-dragon-frais": {
+    "cle": "nectarine-fruit-du-dragon-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "noisette": {
+    "cle": "noisette",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "palet-breton-50-ml": {
+    "cle": "palet-breton-50-ml",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pasteque-citron-vert": {
+    "cle": "pasteque-citron-vert",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pasteque-melon-frais": {
+    "cle": "pasteque-melon-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "peche-litchi-50ml-le-petit-verger": {
+    "cle": "peche-litchi-50ml-le-petit-verger",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "plateau-beuz-arctic-grower": {
+    "cle": "plateau-beuz-arctic-grower",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "plateau-beuz-crazy-koala": {
+    "cle": "plateau-beuz-crazy-koala",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "plateau-beuz-purple-gorilla": {
+    "cle": "plateau-beuz-purple-gorilla",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "plateau-euphoria": {
+    "cle": "plateau-euphoria",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "plateau-gangsta-panda": {
+    "cle": "plateau-gangsta-panda",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-recharge": {
+    "cle": "pod-recharge",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pollen-d-amnesia-100-cbd::2g": {
+    "cle": "pollen-d-amnesia-100-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "pollen-d-amnesia-100-cbd::4g": {
+    "cle": "pollen-d-amnesia-100-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "pollen-d-amnesia-100-cbd::8g": {
+    "cle": "pollen-d-amnesia-100-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "pollen-d-or-100-cbd::2g": {
+    "cle": "pollen-d-or-100-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "pollen-d-or-100-cbd::4g": {
+    "cle": "pollen-d-or-100-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "pollen-d-or-100-cbd::8g": {
+    "cle": "pollen-d-or-100-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "pomme-citron-50ml-le-petit-verger": {
+    "cle": "pomme-citron-50ml-le-petit-verger",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pomme-citron-frais": {
+    "cle": "pomme-citron-frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pomme-rouge-pomme-verte": {
+    "cle": "pomme-rouge-pomme-verte",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-adalya-30k": {
+    "cle": "puff-adalya-30k",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "raisin-rouge-grenade": {
+    "cle": "raisin-rouge-grenade",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "riz-au-lait-50-ml": {
+    "cle": "riz-au-lait-50-ml",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "robin-cherry-cbd::2g": {
+    "cle": "robin-cherry-cbd",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "robin-cherry-cbd::4g": {
+    "cle": "robin-cherry-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "robin-cherry-cbd::8g": {
+    "cle": "robin-cherry-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "small-bud-lemon::2g": {
+    "cle": "small-bud-lemon",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "small-bud-lemon::4g": {
+    "cle": "small-bud-lemon",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "small-bud-lemon::8g": {
+    "cle": "small-bud-lemon",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "small-bud-strawberry::2g": {
+    "cle": "small-bud-strawberry",
+    "facteur": 2,
+    "unite": "g"
+  },
+  "small-bud-strawberry::4g": {
+    "cle": "small-bud-strawberry",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "small-bud-strawberry::8g": {
+    "cle": "small-bud-strawberry",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "snowing-in-dam": {
+    "cle": "snowing-in-dam",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "spliff-box-l": {
+    "cle": "spliff-box-l",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "spliff-box-m": {
+    "cle": "spliff-box-m",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "starbuzz-ultra-max-25k": {
+    "cle": "starbuzz-ultra-max-25k",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "tiramisu-cafe-50-ml": {
+    "cle": "tiramisu-cafe-50-ml",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "vaporesso-vibe-se-2": {
+    "cle": "vaporesso-vibe-se-2",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "vaporesso-vibe-se": {
+    "cle": "vaporesso-vibe-se",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "wiz": {
+    "cle": "wiz",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "xros-5-mini-vaporesso": {
+    "cle": "xros-5-mini-vaporesso",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "xros-5-vaporesso": {
+    "cle": "xros-5-vaporesso",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "zpluse-jnr-42k": {
+    "cle": "zpluse-jnr-42k",
+    "facteur": 1,
+    "unite": "pcs"
+  }
+};
+
+/**
+ * Résout l'article en une opération de stock.
+ * @returns {{cle: string, facteur: number, unite: string}}
+ */
+/**
+ * Unité de chaque ligne de stock.
+ * @type {Record<string, string>}
+ */
+export const UNITES_STOCK = {
+  "al-fakher-crown-bar-30k-20mg": "pcs",
+  "allume-charbon-chicha-tsar": "pcs",
+  "allume-charbon-gaz-blackcoco-s": "pcs",
+  "amazonien": "pcs",
+  "amnesia-hydro-indoor-cbd": "g",
+  "ananas-coco-50ml-le-petit-verger": "pcs",
+  "ananas-coco-frais": "pcs",
+  "baba-au-rhum-50-ml": "pcs",
+  "balance-de-precision-hudson-300g-x-0-01g": "pcs",
+  "balance-de-precision-java-100g-x-0-01g": "pcs",
+  "banana-hydro-indoor-cbd": "g",
+  "bang-en-verre-30-cm-percolateur": "pcs",
+  "bang-verre-20-cm-percolateur": "pcs",
+  "base-neutre-aromazon-vbase-50-50-1l-sans-nicotine": "pcs",
+  "box-erato-230-smoktech": "pcs",
+  "box-gen-se-vaporesso": "pcs",
+  "box-voopoo-vinci-spark-100": "pcs",
+  "brugnon-orange-sanguine-50-ml": "pcs",
+  "bubba-kush-hydro-indoor-cbd": "g",
+  "burn-baby-burn-indoor-cbd": "g",
+  "cake-noisettes-50-ml": "pcs",
+  "candy-hydro-indoor-cbd": "g",
+  "cannele-50-ml": "pcs",
+  "cassis-framboise-50ml-le-petit-verger": "pcs",
+  "cassis-framboise-frais": "pcs",
+  "cassis": "pcs",
+  "cendrier-alien": "pcs",
+  "cendrier-astronaute": "pcs",
+  "cerise-pasteque-frais": "pcs",
+  "charas-cbd": "g",
+  "clearomiseur-zeus-nano-2-geekvape": "pcs",
+  "clearomiseur-zeus-subohm-5-ml-geekvape": "pcs",
+  "concentre-biggy-bear-30ml": "pcs",
+  "corossol-peche-frais": "pcs",
+  "dutch-punch-indoor-cbd": "g",
+  "e-cg-50ml": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine": "pcs",
+  "eclair-vanille-50-ml": "pcs",
+  "extract-crumble": "g",
+  "frais-peche-litchi-frais": "pcs",
+  "fraise-litchi": "pcs",
+  "fraise-poire-50ml-le-petit-verger": "pcs",
+  "fraise-poire-frais": "pcs",
+  "fraise": "pcs",
+  "fruit-du-dragon-fruits-rouges-frais": "pcs",
+  "fruit-du-dragon-jaune-framboise-bleue-frais": "pcs",
+  "fruit-du-serpent-grenade-frais": "pcs",
+  "fruits-rouges": "pcs",
+  "geekvape-zeus-nano-3": "pcs",
+  "gelato-hydro-indoor-cbd": "g",
+  "goyave-coco": "pcs",
+  "grinder-champignon-3-parties-metal-effet-holographique": "pcs",
+  "grinder-gold": "pcs",
+  "grinder-sensky-4-parties-en-aluminium": "pcs",
+  "hash-primero": "g",
+  "jack-herer-hydro-indoor-cbd": "g",
+  "jnr-28000-puffs": "pcs",
+  "jnr-32000-puffs": "pcs",
+  "jnr-crystalglow-love-66-adalya": "pcs",
+  "jnr-falcon-gem-30k": "pcs",
+  "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape": "pcs",
+  "kit-gtx-one-pro-vaporesso": "pcs",
+  "kit-q16-pro-plus-de-justfog": "pcs",
+  "kiwi-cactus-frais": "pcs",
+  "kiwi-mangue-50ml-le-petit-verger": "pcs",
+  "kiwi-mangue-frais": "pcs",
+  "l-elixir": "pcs",
+  "le-druide": "pcs",
+  "le-menthe-verte": "pcs",
+  "le-peche": "pcs",
+  "le-texan": "pcs",
+  "le-vanille": "pcs",
+  "lemon-hydro-indoor-cbd": "g",
+  "luxe-xr-max-2-vaporesso": "pcs",
+  "melange-vegetal-bergamote": "pcs",
+  "melange-vegetal-menthe": "pcs",
+  "melange-vegetal-natura": "pcs",
+  "melon-fraise-des-bois-frais": "pcs",
+  "menthe-intense": "pcs",
+  "moby-dick-hydro-indoor-cbd": "g",
+  "moon-rock-cbd-indoor": "g",
+  "mousse-chocolat-blanc-noisettes-50-ml": "pcs",
+  "mure-myrtille-50ml-le-petit-verger": "pcs",
+  "mure-myrtille-frais": "pcs",
+  "nectarine-fruit-du-dragon-50ml-le-petit-verger": "pcs",
+  "nectarine-fruit-du-dragon-frais": "pcs",
+  "noisette": "pcs",
+  "palet-breton-50-ml": "pcs",
+  "pasteque-citron-vert": "pcs",
+  "pasteque-melon-frais": "pcs",
+  "peche-litchi-50ml-le-petit-verger": "pcs",
+  "plateau-beuz-arctic-grower": "pcs",
+  "plateau-beuz-crazy-koala": "pcs",
+  "plateau-beuz-purple-gorilla": "pcs",
+  "plateau-euphoria": "pcs",
+  "plateau-gangsta-panda": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr": "pcs",
+  "pod-recharge": "pcs",
+  "pollen-d-amnesia-100-cbd": "g",
+  "pollen-d-or-100-cbd": "g",
+  "pomme-citron-50ml-le-petit-verger": "pcs",
+  "pomme-citron-frais": "pcs",
+  "pomme-rouge-pomme-verte": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher": "pcs",
+  "puff-adalya-30k": "pcs",
+  "raisin-rouge-grenade": "pcs",
+  "riz-au-lait-50-ml": "pcs",
+  "robin-cherry-cbd": "g",
+  "small-bud-lemon": "g",
+  "small-bud-strawberry": "g",
+  "snowing-in-dam": "pcs",
+  "spliff-box-l": "pcs",
+  "spliff-box-m": "pcs",
+  "starbuzz-ultra-max-25k": "pcs",
+  "tiramisu-cafe-50-ml": "pcs",
+  "vaporesso-vibe-se-2": "pcs",
+  "vaporesso-vibe-se": "pcs",
+  "wiz": "pcs",
+  "xros-5-mini-vaporesso": "pcs",
+  "xros-5-vaporesso": "pcs",
+  "zpluse-jnr-42k": "pcs"
+};
+
+/**
+ * Toutes les lignes de stock réceptionnables, avec de quoi les reconnaître
+ * sur un bon de livraison. Généré depuis le catalogue : une référence retirée
+ * de la vente n'y figure pas.
+ * @type {Array<{cle: string, nom: string, marque: string, categorie: string, unite: string}>}
+ */
+export const REFERENCES = [
+  {
+    "cle": "al-fakher-crown-bar-30k-20mg",
+    "nom": "Al Fakher Crown Bar 30K 20MG",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "allume-charbon-chicha-tsar",
+    "nom": "Allume charbon Chicha Tsar",
+    "marque": "Tsar",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "allume-charbon-gaz-blackcoco-s",
+    "nom": "Allume charbon Gaz Blackcoco’s",
+    "marque": "Blackcoco’s",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "amazonien",
+    "nom": "Amazonien",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "amnesia-hydro-indoor-cbd",
+    "nom": "Amnésia Hydro Indoor CBD",
+    "marque": "Amnésia Hydro Indoor CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "ananas-coco-50ml-le-petit-verger",
+    "nom": "Ananas Coco 50ml - Le Petit Verger",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "ananas-coco-frais",
+    "nom": "Ananas Coco FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "baba-au-rhum-50-ml",
+    "nom": "Baba au Rhum – 50 ml",
+    "marque": "Le Petit Gourmet",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "balance-de-precision-hudson-300g-x-0-01g",
+    "nom": "Balance de précision HUDSON 300g x 0.01g",
+    "marque": "LogicScale",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "balance-de-precision-java-100g-x-0-01g",
+    "nom": "Balance de précision JAVA 100g x 0.01g",
+    "marque": "LogicScale",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "banana-hydro-indoor-cbd",
+    "nom": "Banana Hydro Indoor CBD",
+    "marque": "Banana Hydro Indoor CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "bang-en-verre-30-cm-percolateur",
+    "nom": "Bang en Verre 30 cm Percolateur",
+    "marque": "Bang ",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "bang-verre-20-cm-percolateur",
+    "nom": "Bang verre 20 cm Percolateur",
+    "marque": "Bang ",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "base-neutre-aromazon-vbase-50-50-1l-sans-nicotine",
+    "nom": "Base Neutre Aromazon VBASE 50/50 – 1L (Sans Nicotine)",
+    "marque": "Aromazon",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "box-erato-230-smoktech",
+    "nom": "Box Erato 230 – Smoktech",
+    "marque": "Smoktech",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "box-gen-se-vaporesso",
+    "nom": "Box Gen SE Vaporesso",
+    "marque": "Vaporesso",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "box-voopoo-vinci-spark-100",
+    "nom": "Box Voopoo Vinci Spark 100",
+    "marque": "Voopoo ",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "brugnon-orange-sanguine-50-ml",
+    "nom": "Brugnon – Orange sanguine 50 ml",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "bubba-kush-hydro-indoor-cbd",
+    "nom": "Bubba Kush Hydro Indoor CBD",
+    "marque": "Bubba Kush Hydro Indoor CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "burn-baby-burn-indoor-cbd",
+    "nom": "Burn Baby Burn Indoor CBD",
+    "marque": "Indoor Hydro LED",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "cake-noisettes-50-ml",
+    "nom": "Cake Noisettes – 50 ml",
+    "marque": "Le Petit Gourmet",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "candy-hydro-indoor-cbd",
+    "nom": "Candy Hydro Indoor CBD",
+    "marque": "Candy Hydro Indoor CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "cannele-50-ml",
+    "nom": "Cannelé – 50 ml",
+    "marque": "Le Petit Gourmet",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "cassis-framboise-50ml-le-petit-verger",
+    "nom": "Cassis Framboise 50ml - Le Petit Verger",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "cassis-framboise-frais",
+    "nom": "Cassis Framboise FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "cassis",
+    "nom": "Cassis",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "cendrier-alien",
+    "nom": "Cendrier Alien",
+    "marque": "Alien",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "cendrier-astronaute",
+    "nom": "Cendrier Astronaute",
+    "marque": "Astronaute",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "cerise-pasteque-frais",
+    "nom": "Cerise Pastéque FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "charas-cbd",
+    "nom": "Charas CBD",
+    "marque": "Charas CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "clearomiseur-zeus-nano-2-geekvape",
+    "nom": "Clearomiseur Zeus Nano 2 GeekVape",
+    "marque": "GeekVape",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "clearomiseur-zeus-subohm-5-ml-geekvape",
+    "nom": "Clearomiseur Zeus Subohm 5 ml Geekvape",
+    "marque": "GeekVape",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "concentre-biggy-bear-30ml",
+    "nom": "Concentré Biggy bear 30ml",
+    "marque": "Diy",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "corossol-peche-frais",
+    "nom": "Corossol Pêche FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "dutch-punch-indoor-cbd",
+    "nom": "Dutch Punch Indoor CBD",
+    "marque": "Dutch Punch Indoor CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "e-cg-50ml",
+    "nom": "E-CG 50ml",
+    "marque": "E-CG",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "eclair-vanille-50-ml",
+    "nom": "Éclair Vanille – 50 ml",
+    "marque": "Le Petit Gourmet",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "extract-crumble",
+    "nom": "Extract Crumble",
+    "marque": "Extract Crumble",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "frais-peche-litchi-frais",
+    "nom": "Frais Pêche – Litchi FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "fraise-litchi",
+    "nom": "Fraise – Litchi",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "fraise-poire-50ml-le-petit-verger",
+    "nom": "Fraise Poire 50ml - Le Petit Verger",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "fraise-poire-frais",
+    "nom": "Fraise Poire FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "fraise",
+    "nom": "Fraise",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "fruit-du-dragon-fruits-rouges-frais",
+    "nom": "Fruit Du Dragon - Fruits Rouges FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "fruit-du-dragon-jaune-framboise-bleue-frais",
+    "nom": "Fruit du Dragon Jaune – Framboise Bleue FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "fruit-du-serpent-grenade-frais",
+    "nom": "Fruit du Serpent – Grenade FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "fruits-rouges",
+    "nom": "Fruits rouges",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "geekvape-zeus-nano-3",
+    "nom": "Geekvape Zeus Nano 3",
+    "marque": "GeekVape",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "gelato-hydro-indoor-cbd",
+    "nom": "Gelato Hydro Indoor CBD",
+    "marque": "Gelato Hydro Indoor CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "goyave-coco",
+    "nom": "Goyave - coco",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "grinder-champignon-3-parties-metal-effet-holographique",
+    "nom": "Grinder Champignon – 3 parties métal effet holographique",
+    "marque": "Grinder",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "grinder-gold",
+    "nom": "Grinder Gold",
+    "marque": "Grinder",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "grinder-sensky-4-parties-en-aluminium",
+    "nom": "Grinder Sensky – 4 parties en aluminium",
+    "marque": "Grinder",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "hash-primero",
+    "nom": "Hash Primero",
+    "marque": "Hash Primero",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "jack-herer-hydro-indoor-cbd",
+    "nom": "Jack Herer Hydro Indoor CBD",
+    "marque": "Jack Herer Hydro Indoor CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "jnr-28000-puffs",
+    "nom": "JNR 28000 Puffs",
+    "marque": "JNR ",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "jnr-32000-puffs",
+    "nom": "JNR 32000 Puffs",
+    "marque": "JNR ",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "jnr-crystalglow-love-66-adalya",
+    "nom": "JNR CRYSTALGLOW LOVE 66 Adalya",
+    "marque": "JNR ",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "jnr-falcon-gem-30k",
+    "nom": "JNR Falcon Gem+ 30K",
+    "marque": "JNR",
+    "categorie": "cbd",
+    "unite": "pcs"
+  },
+  {
+    "cle": "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape",
+    "nom": "Kit Box Gen SE Vaporesso + Clearomiseur Zeus Nano 2 Geek Vape",
+    "marque": "Vaporesso",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "kit-gtx-one-pro-vaporesso",
+    "nom": "Kit GTX One Pro Vaporesso",
+    "marque": "Vaporesso",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "kit-q16-pro-plus-de-justfog",
+    "nom": "Kit Q16 Pro Plus de Justfog",
+    "marque": "Justfog",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "kiwi-cactus-frais",
+    "nom": "Kiwi – Cactus FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "kiwi-mangue-50ml-le-petit-verger",
+    "nom": "Kiwi Mangue 50ml - Le Petit Verger",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "kiwi-mangue-frais",
+    "nom": "Kiwi – Mangue FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "l-elixir",
+    "nom": "L'elixir",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "le-druide",
+    "nom": "Le Druide",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "le-menthe-verte",
+    "nom": "Le Menthe Verte",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "le-peche",
+    "nom": "Le Pêche",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "le-texan",
+    "nom": "Le Texan",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "le-vanille",
+    "nom": "Le Vanille",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "lemon-hydro-indoor-cbd",
+    "nom": "Lemon Hydro Indoor CBD",
+    "marque": "Lemon Hydro Indoor CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "luxe-xr-max-2-vaporesso",
+    "nom": "Luxe XR Max 2 - Vaporesso",
+    "marque": "Vaporesso",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "melange-vegetal-bergamote",
+    "nom": "Mélange végétal Bergamote",
+    "marque": "Mélange végétal Bergamote",
+    "categorie": "cbd",
+    "unite": "pcs"
+  },
+  {
+    "cle": "melange-vegetal-menthe",
+    "nom": "Mélange végétal Menthe",
+    "marque": "Mélange végétal Menthe",
+    "categorie": "cbd",
+    "unite": "pcs"
+  },
+  {
+    "cle": "melange-vegetal-natura",
+    "nom": "Mélange végétal Natura",
+    "marque": "Mélange végétal Natura",
+    "categorie": "cbd",
+    "unite": "pcs"
+  },
+  {
+    "cle": "melon-fraise-des-bois-frais",
+    "nom": "Melon – Fraise des Bois FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "menthe-intense",
+    "nom": "Menthe Intense",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "moby-dick-hydro-indoor-cbd",
+    "nom": "Moby Dick Hydro Indoor CBD",
+    "marque": "Moby Dick Hydro Indoor CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "moon-rock-cbd-indoor",
+    "nom": "Moon Rock CBD Indoor",
+    "marque": "Moon Rock CBD Indoor",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "mousse-chocolat-blanc-noisettes-50-ml",
+    "nom": "Mousse Chocolat Blanc Noisettes – 50 ml",
+    "marque": "Le Petit Gourmet",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "mure-myrtille-50ml-le-petit-verger",
+    "nom": "Mûre Myrtille 50ml - Le Petit Verger",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "mure-myrtille-frais",
+    "nom": "Mûre – Myrtille FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "nectarine-fruit-du-dragon-50ml-le-petit-verger",
+    "nom": "Nectarine Fruit du Dragon 50ml - Le Petit Verger",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "nectarine-fruit-du-dragon-frais",
+    "nom": "Nectarine – Fruit du Dragon FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "noisette",
+    "nom": "Noisette",
+    "marque": "Curieux",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "palet-breton-50-ml",
+    "nom": "Palet Breton – 50 ml",
+    "marque": "Le Petit Gourmet",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pasteque-citron-vert",
+    "nom": "Pastèque – Citron vert",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pasteque-melon-frais",
+    "nom": "Pastèque – Melon FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "peche-litchi-50ml-le-petit-verger",
+    "nom": "Pêche Litchi 50ml - Le Petit Verger",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "plateau-beuz-arctic-grower",
+    "nom": "Plateau BEUZ – Arctic Grower",
+    "marque": "BEUZ",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "plateau-beuz-crazy-koala",
+    "nom": "Plateau BEUZ – Crazy Koala",
+    "marque": "BEUZ",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "plateau-beuz-purple-gorilla",
+    "nom": "Plateau BEUZ – Purple Gorilla",
+    "marque": "Purple Gorilla",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "plateau-euphoria",
+    "nom": "Plateau Euphoria",
+    "marque": "Euphoria",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "plateau-gangsta-panda",
+    "nom": "Plateau Gangsta Panda",
+    "marque": "Gangsta Panda",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr",
+    "nom": "Pod de Remplacement AeroX 32K – JNR",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-recharge",
+    "nom": "Pod Recharge",
+    "marque": "Wiz Pod",
+    "categorie": "cbd",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pollen-d-amnesia-100-cbd",
+    "nom": "Pollen D'Amnésia 100% CBD",
+    "marque": "Pollen d’Amnésia pur CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "pollen-d-or-100-cbd",
+    "nom": "Pollen D'or 100% CBD",
+    "marque": "Cannatonic",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "pomme-citron-50ml-le-petit-verger",
+    "nom": "Pomme Citron 50ml - Le Petit Verger",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pomme-citron-frais",
+    "nom": "Pomme – Citron FRAIS",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pomme-rouge-pomme-verte",
+    "nom": "Pomme rouge – Pomme verte",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-adalya-30k",
+    "nom": "PUFF Adalya 30K",
+    "marque": "Adalya",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "raisin-rouge-grenade",
+    "nom": "Raisin rouge – Grenade",
+    "marque": "Le Petit Verger",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "riz-au-lait-50-ml",
+    "nom": "Riz au Lait – 50 ml",
+    "marque": "Le Petit Gourmet",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "robin-cherry-cbd",
+    "nom": "Robin Cherry CBD",
+    "marque": "Robin Cherry CBD",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "small-bud-lemon",
+    "nom": "Small Bud Lemon",
+    "marque": "Greenhouse",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "small-bud-strawberry",
+    "nom": "Small Bud Strawberry",
+    "marque": "Greenhouse",
+    "categorie": "cbd",
+    "unite": "g"
+  },
+  {
+    "cle": "snowing-in-dam",
+    "nom": "Snowing In Dam",
+    "marque": "CBD Indoor Hybrid",
+    "categorie": "cbd",
+    "unite": "pcs"
+  },
+  {
+    "cle": "spliff-box-l",
+    "nom": "Spliff Box L ! ?",
+    "marque": "Spliff Box",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "spliff-box-m",
+    "nom": "Spliff Box M ! ?",
+    "marque": "Spliff Box",
+    "categorie": "accessoires",
+    "unite": "pcs"
+  },
+  {
+    "cle": "starbuzz-ultra-max-25k",
+    "nom": "Starbuzz Ultra Max 25K",
+    "marque": "Starbuzz ",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "tiramisu-cafe-50-ml",
+    "nom": "Tiramisu Café – 50 ml",
+    "marque": "Le Petit Gourmet",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "vaporesso-vibe-se-2",
+    "nom": "Vaporesso Vibe SE  2",
+    "marque": "Vaporesso",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "vaporesso-vibe-se",
+    "nom": "Vaporesso Vibe SE",
+    "marque": "Vaporesso",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "wiz",
+    "nom": "Sunakin Wiz Go",
+    "marque": "Wiz",
+    "categorie": "cbd",
+    "unite": "pcs"
+  },
+  {
+    "cle": "xros-5-mini-vaporesso",
+    "nom": "XROS 5 Mini Vaporesso",
+    "marque": "Vaporesso",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "xros-5-vaporesso",
+    "nom": "XROS 5 Vaporesso",
+    "marque": "Vaporesso",
+    "categorie": "vape",
+    "unite": "pcs"
+  },
+  {
+    "cle": "zpluse-jnr-42k",
+    "nom": "Zpluse JNR 42K+",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  }
+];
+
+/**
+ * Unité d'une ligne de stock — « g » ou « pcs ».
+ * Une clé inconnue est comptée en pièces : c'est le cas le plus courant.
+ */
+export function uniteStock(cle) {
+  return UNITES_STOCK[String(cle)] || "pcs";
+}
+
+export function resoudreStock(id, label) {
+  const k = label ? `${id}::${label}` : String(id);
+  return CLES_STOCK[k] || { cle: String(id), facteur: 1, unite: "pcs" };
+}
 
 /**
  * Produits déclinés en variantes (grammages, saveurs).

@@ -32,8 +32,19 @@ const lignes = [];
 let n = 0;
 
 for (const p of produits) {
-  if (Array.isArray(p.variantes) && p.variantes.length) {
-    // Produit à variantes : le stock se tient au niveau de chaque variante.
+  // Produit vendu au poids : un seul stock, en grammes, au niveau du produit.
+  // Ses variantes (2g, 4g, 8g) puisent toutes dans ce vrac.
+  const auPoids = p.unitePrix === "g" && Array.isArray(p.variantes) && p.variantes.length;
+
+  if (auPoids) {
+    lignes.push(
+      `INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) ` +
+      `VALUES ('${echappe(p.id)}', ${entier(p.stock)}, 0, ` +
+      `'${echappe(p.nom)} (vrac, en g)', unixepoch() * 1000);`
+    );
+    n++;
+  } else if (Array.isArray(p.variantes) && p.variantes.length) {
+    // Produit à variantes vendues à l'unité : un stock par variante.
     for (const v of p.variantes) {
       if (!v.label) continue;
       lignes.push(

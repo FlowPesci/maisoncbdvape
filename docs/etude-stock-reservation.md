@@ -237,11 +237,38 @@ database_id = "le-vrai-identifiant"
 
 ```powershell
 npm run db:schema     # crée stocks, reservations, mouvements
-npm run db:seed       # insère les 159 références, sans écraser l'existant
+npm run db:seed       # insère les 121 références, sans écraser l'existant
 ```
 
 `db:seed` est rejouable sans risque : il n'insère que les références absentes.
 À relancer après chaque ajout de produit au catalogue.
+
+### Deux façons de compter
+
+| Type de produit | Ligne de stock | Unité |
+| --- | --- | --- |
+| Fleur CBD (pesée à la commande) | une seule, au niveau du produit | **grammes** |
+| Tout le reste | une par référence vendable | pièces |
+
+Les 19 fleurs CBD sont pesées depuis un vrac : leur stock ne se tient pas par
+sachet mais en grammes. Un sachet de 4 g retire 4 g du vrac, et un vrac de 10 g
+ne permet donc **pas** de vendre un sachet de 8 g et un de 4 g. La fiche produit
+grise d'elle-même les contenants que le reste ne permet plus.
+
+### Migration depuis l'ancien modèle
+
+Une base semée **avant** ce changement contient 57 lignes par sachet
+(`id::2g`, `id::4g`, `id::8g`) devenues fausses. À passer une seule fois :
+
+```powershell
+npx wrangler d1 execute maisoncbdvape-stocks --file=db/migration-vrac.sql --remote
+npx wrangler d1 execute maisoncbdvape-stocks --file=db/seed.sql --remote
+```
+
+La migration trace ce qu'elle retire dans `mouvements` (motif `migration-vrac`)
+et relâche les réservations concernées. Le semis crée ensuite les 19 lignes
+produit. **Les grammages réels sont à saisir dans `/admin/stocks/` après coup** :
+les lignes créées partent à la valeur du catalogue, pas au stock physique.
 
 ## Étape 3 — Déployer
 
@@ -266,7 +293,8 @@ fichier — vérifier que `wrangler.toml` est bien poussé.
 ## Étape 4 — Saisir les stocks réels
 
 `/admin/stocks/` — recherche, filtre sur les ruptures, édition en place.
-Les 159 références partent à 10, valeur héritée du catalogue. **Tant que cet
+Les 121 références partent à 10, valeur héritée du catalogue — pour les fleurs,
+cela signifie 10 **grammes**, soit un seul sachet de 8 g. **Tant que cet
 inventaire n'est pas fait, le site vend sur des chiffres faux.**
 
 ## Vérification
@@ -294,6 +322,7 @@ et le journal `mouvements` porter une ligne `reservation` puis `consommation`.
 | Annulation d'une commande non payée | restitution | oui |
 | **Annulation d'une commande payée** | **restitution** | oui |
 | Panier partiellement disponible | tout ou rien, rien n'est réservé | — |
+| Sachets d'une même fleur dans un panier | prélèvent tous sur le même vrac | — |
 | Binding D1 absent | commande refusée, jamais de vente à l'aveugle | — |
 
 ## Vers une gestion automatisée

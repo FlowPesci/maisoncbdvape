@@ -26,6 +26,10 @@ eleventyComputed:
 {% endif %}
 {% set isOutOfStock      = (produit.stock or 0) <= 0 or produit.statutStock == "rupture" %}
 {% set isLowStock        = not isOutOfStock and (produit.stock or 0) <= 5 %}
+{# Fleur pesée à la commande : un seul stock, en grammes, dans lequel puisent
+   tous les contenants. Un sachet de 4 g en retire 4. #}
+{% set auPoids           = produit.unitePrix == 'g' and produit.variantes and produit.variantes | length > 0 %}
+{% set uniteStock        = 'g' if auPoids else '' %}
 {% set produitsAssocies  = produits | where("categorie", produit.categorie) | rejectId(produit.id) | limit(4) %}
 {% set fullStars         = (produit.note or 0) | int %}
 
@@ -150,13 +154,16 @@ eleventyComputed:
           </div>
           <div class="flex items-center gap-2 flex-wrap" role="group" aria-label="Choix du contenant">
             {% for v in produit.variantes %}
+              {# Poids du contenant, déduit du libellé : « 4g » → 4. Le stock
+                 n'est PAS porté par la variante : elle prélève sur le vrac. #}
+              {% set poids = v.label | replace('g', '') | replace(',', '.') | float %}
               <button type="button"
                       class="gram-btn {% if loop.first %}active{% endif %}"
                       data-gram-label="{{ v.label }}"
                       data-gram-prix="{{ v.prix }}"
-                      data-gram-stock="{{ v.stock }}"
+                      data-gram-poids="{{ poids }}"
                       aria-pressed="{% if loop.first %}true{% else %}false{% endif %}"
-                      {% if v.stock == 0 %}disabled aria-disabled="true"{% endif %}>
+                      {% if poids > (produit.stock or 0) %}disabled aria-disabled="true" title="Il reste {{ produit.stock or 0 }} g"{% endif %}>
                 <span class="gram-btn-poids">{{ v.label }}</span>
                 <span class="gram-btn-prix">{{ v.prix | eur }}</span>
               </button>
@@ -210,7 +217,7 @@ eleventyComputed:
           {% if isOutOfStock %}
             <span class="badge-rupture text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">✕ Rupture</span>
           {% elif isLowStock %}
-            <span class="stock-low text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">⚠ Stock faible — {{ produit.stock }} restant{% if produit.stock > 1 %}s{% endif %}</span>
+            <span class="stock-low text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">⚠ Stock faible — {% if auPoids %}{{ produit.stock }} g restants{% else %}{{ produit.stock }} restant{% if produit.stock > 1 %}s{% endif %}{% endif %}</span>
           {% else %}
             <span class="stock-badge text-xs font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">✓ En stock</span>
           {% endif %}
@@ -270,13 +277,13 @@ eleventyComputed:
         {% if not isOutOfStock %}
           {# data-stock : stock de base, utilisé quand le produit n'a pas de
              variante. Avec variantes, le JS lit celui du bouton sélectionné. #}
-          <div data-stock="{{ produit.stock or 0 }}">
+          <div data-stock="{{ produit.stock or 0 }}"{% if auPoids %} data-stock-unite="g"{% endif %}>
             <label style="font-size:.875rem;font-weight:600;color:var(--cream);display:block;margin-bottom:.75rem;">Quantité</label>
             <div class="flex items-center gap-3 flex-wrap">
               <button class="qty-btn" data-qty-dec aria-label="Diminuer la quantité">−</button>
               <span id="qty-display" class="w-10 text-center font-bold text-lg" style="font-family:'DM Sans',sans-serif;color:var(--cream);">1</span>
               <button class="qty-btn" data-qty-inc aria-label="Augmenter la quantité">+</button>
-              <span style="color:var(--muted);font-size:.75rem;margin-left:.5rem;">{{ produit.stock or 0 }} disponible{% if (produit.stock or 0) > 1 %}s{% endif %}</span>
+              <span id="stock-dispo-label" style="color:var(--muted);font-size:.75rem;margin-left:.5rem;">{% if auPoids %}{{ produit.stock or 0 }} g en stock{% else %}{{ produit.stock or 0 }} disponible{% if (produit.stock or 0) > 1 %}s{% endif %}{% endif %}</span>
             </div>
           </div>
         {% endif %}

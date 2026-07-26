@@ -32,6 +32,39 @@ const entries = {};
 const stocks = {};
 const avecVariantes = [];
 
+/**
+ * Où et combien prélever pour chaque article vendable.
+ *
+ * Deux modèles coexistent :
+ *  · à l'unité   — une variante a son propre stock, on en retire 1 par article
+ *  · au poids    — le stock est en grammes au niveau du produit ; une variante
+ *                  « 4g » en retire 4 par article. C'est le cas des fleurs CBD,
+ *                  pesées à la commande depuis un vrac.
+ */
+const clesStock = {};
+
+/**
+ * Unité de chaque ligne de stock : « g » pour un vrac pesé, « pcs » sinon.
+ * Sert aux écrans (inventaire, fiche produit) à afficher « 250 g » plutôt
+ * que « 250 disponibles ».
+ * @type {Record<string, string>}
+ */
+const unitesStock = {};
+
+/**
+ * Fiche minimale de chaque ligne de stock, pour l'appariement d'un bon de
+ * livraison : le serveur doit pouvoir rapprocher « AMNES. HYDRO IND. » d'un
+ * produit sans lire le catalogue complet.
+ * @type {Array<{cle: string, nom: string, marque: string, categorie: string, unite: string}>}
+ */
+const referencesStock = [];
+
+/** Nombre de grammes d'un libellé de variante : « 4g » → 4. */
+const grammesDe = (label) => {
+  const m = String(label).match(/^([\d.,]+)\s*g$/i);
+  return m ? parseFloat(m[1].replace(",", ".")) : null;
+};
+
 // Un stock absent est traité comme 0 : mieux vaut refuser une vente que
 // promettre un produit qu'on n'a pas.
 const stockDe = (v) => (Number.isFinite(Number(v)) ? Math.max(0, Math.trunc(Number(v))) : 0);
@@ -39,9 +72,29 @@ const stockDe = (v) => (Number.isFinite(Number(v)) ? Math.max(0, Math.trunc(Numb
 for (const p of produits) {
   if (!p.id) continue;
 
-  // Prix et stock de base
+  // Prix de base
   entries[p.id] = Number(p.prix);
-  stocks[p.id] = stockDe(p.stock);
+
+  // Un produit vendu au poids tient son stock en grammes, au niveau du produit :
+  // ses variantes puisent dans le même vrac.
+  const auPoids = p.unitePrix === "g" && Array.isArray(p.variantes) && p.variantes.length;
+
+  if (auPoids) {
+    stocks[p.id] = stockDe(p.stock);
+    unitesStock[p.id] = "g";
+    referencesStock.push({ cle: p.id, nom: p.nom || p.id, marque: p.marque || "",
+                           categorie: p.categorie || "", unite: "g" });
+  } else {
+    stocks[p.id] = stockDe(p.stock);
+    clesStock[p.id] = { cle: p.id, facteur: 1, unite: "pcs" };
+    unitesStock[p.id] = "pcs";
+    // Un produit décliné en variantes vendues à l'unité tient son stock par
+    // variante : c'est chaque variante qui est réceptionnable, pas le produit.
+    if (!(Array.isArray(p.variantes) && p.variantes.length)) {
+      referencesStock.push({ cle: p.id, nom: p.nom || p.id, marque: p.marque || "",
+                             categorie: p.categorie || "", unite: "pcs" });
+    }
+  }
 
   // Prix et stock des variantes (clé : "id::label")
   if (Array.isArray(p.variantes)) {
@@ -49,7 +102,21 @@ for (const p of produits) {
     for (const v of p.variantes) {
       if (v.label && typeof v.prix === "number") {
         entries[`${p.id}::${v.label}`] = Number(v.prix);
-        stocks[`${p.id}::${v.label}`] = stockDe(v.stock);
+
+        if (auPoids) {
+          const g = grammesDe(v.label);
+          clesStock[`${p.id}::${v.label}`] = {
+            cle: p.id,
+            facteur: g ?? 1,   // un libellé non numérique retombe sur 1
+            unite: "g",
+          };
+        } else {
+          stocks[`${p.id}::${v.label}`] = stockDe(v.stock);
+          clesStock[`${p.id}::${v.label}`] = { cle: `${p.id}::${v.label}`, facteur: 1, unite: "pcs" };
+          unitesStock[`${p.id}::${v.label}`] = "pcs";
+          referencesStock.push({ cle: `${p.id}::${v.label}`, nom: `${p.nom || p.id} ${v.label}`,
+                                 marque: p.marque || "", categorie: p.categorie || "", unite: "pcs" });
+        }
         n++;
       }
     }
@@ -73,11 +140,53 @@ const output = `/**
 export const CATALOG = ${JSON.stringify(entries, null, 2)};
 
 /**
- * Stocks disponibles, mêmes clés que CATALOG.
- * C'est la seule limite de quantité : il n'y a pas de plafond arbitraire.
+ * Stocks de référence issus du catalogue — utilisés uniquement pour semer la
+ * base la première fois. Le stock vivant est en D1.
  * @type {Record<string, number>}
  */
 export const STOCKS = ${JSON.stringify(stocks, null, 2)};
+
+/**
+ * Pour chaque article vendable : sur quelle clé prélever, et combien.
+ *
+ * Une fleur vendue au poids a un stock unique en grammes au niveau du produit.
+ * Commander deux sachets de 4 g retire 8 g de ce vrac — et rend donc
+ * indisponibles les sachets de 8 g si le reste ne suffit plus.
+ *
+ * @type {Record<string, {cle: string, facteur: number, unite: string}>}
+ */
+export const CLES_STOCK = ${JSON.stringify(clesStock, null, 2)};
+
+/**
+ * Résout l'article en une opération de stock.
+ * @returns {{cle: string, facteur: number, unite: string}}
+ */
+/**
+ * Unité de chaque ligne de stock.
+ * @type {Record<string, string>}
+ */
+export const UNITES_STOCK = ${JSON.stringify(unitesStock, null, 2)};
+
+/**
+ * Toutes les lignes de stock réceptionnables, avec de quoi les reconnaître
+ * sur un bon de livraison. Généré depuis le catalogue : une référence retirée
+ * de la vente n'y figure pas.
+ * @type {Array<{cle: string, nom: string, marque: string, categorie: string, unite: string}>}
+ */
+export const REFERENCES = ${JSON.stringify(referencesStock, null, 2)};
+
+/**
+ * Unité d'une ligne de stock — « g » ou « pcs ».
+ * Une clé inconnue est comptée en pièces : c'est le cas le plus courant.
+ */
+export function uniteStock(cle) {
+  return UNITES_STOCK[String(cle)] || "pcs";
+}
+
+export function resoudreStock(id, label) {
+  const k = label ? \`\${id}::\${label}\` : String(id);
+  return CLES_STOCK[k] || { cle: String(id), facteur: 1, unite: "pcs" };
+}
 
 /**
  * Produits déclinés en variantes (grammages, saveurs).

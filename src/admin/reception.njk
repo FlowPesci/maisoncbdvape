@@ -1,0 +1,476 @@
+---
+layout: layouts/base.njk
+permalink: /admin/reception/index.html
+title: "Réception de marchandise"
+description: "Back-office MaisonCBDVape"
+eleventyExcludeFromCollections: true
+---
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+    <div>
+      <p class="font-mono text-xs text-smoke uppercase tracking-widest mb-1">Back-office</p>
+      <h1 class="font-display text-4xl lg:text-5xl text-white tracking-wide">RÉCEPTION</h1>
+    </div>
+    <div class="flex items-center gap-3 flex-wrap">
+      <a href="/admin/stocks/" class="text-smoke text-xs hover:text-white transition-colors">← Stocks</a>
+      <a href="/admin/commandes/" class="text-smoke text-xs hover:text-white transition-colors">Commandes</a>
+    </div>
+  </div>
+
+  <div id="rec-status" class="rounded-2xl border border-dashed border-dark-border bg-dark-card/40 py-20 text-center">
+    <p class="text-smoke text-sm">Chargement…</p>
+  </div>
+
+  <div id="rec-panel" class="hidden">
+
+    {# Dépôt du document #}
+    <label id="rec-drop" for="rec-fichier"
+           class="block rounded-2xl border-2 border-dashed border-dark-border bg-dark-card/40 px-6 py-10 text-center cursor-pointer transition-colors mb-6">
+      <svg class="w-8 h-8 mx-auto mb-3" style="color:var(--gold);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"/>
+      </svg>
+      <p class="text-white text-sm font-semibold mb-1">Déposer le bon de livraison</p>
+      <p class="text-smoke text-xs">PDF ou photo — glisser ici, ou cliquer pour choisir</p>
+      <input type="file" id="rec-fichier" accept="application/pdf,image/*" class="hidden"/>
+    </label>
+
+    <div id="rec-lecture" class="hidden rounded-xl border border-dark-border bg-dark-card px-4 py-3 mb-6 text-sm text-smoke"></div>
+
+    {# Lignes à valider #}
+    <div id="rec-travail" class="hidden">
+
+      <div class="grid sm:grid-cols-2 gap-3 mb-4">
+        <div>
+          <label class="block text-smoke text-xs font-mono uppercase tracking-wider mb-1">Fournisseur</label>
+          <input id="rec-fournisseur" type="text" placeholder="optionnel"
+                 class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-2.5 text-white text-sm placeholder-smoke focus:outline-none"/>
+        </div>
+        <div>
+          <label class="block text-smoke text-xs font-mono uppercase tracking-wider mb-1">N° du bon</label>
+          <input id="rec-reference" type="text" placeholder="optionnel"
+                 class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-2.5 text-white text-sm placeholder-smoke focus:outline-none"/>
+        </div>
+      </div>
+
+      <div id="rec-resume" class="flex items-center gap-2 flex-wrap mb-4"></div>
+
+      <div id="rec-lignes" class="space-y-3"></div>
+
+      <div class="flex items-center gap-3 flex-wrap mt-5">
+        <button id="rec-ajouter" class="btn-outline-violet px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider">+ Ajouter une ligne</button>
+        <div class="flex-1"></div>
+        <button id="rec-valider" class="btn-gold px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">Valider la réception</button>
+      </div>
+
+      <p id="rec-erreur" class="hidden text-red-300 text-sm mt-3"></p>
+    </div>
+
+    {# Historique #}
+    <div id="rec-historique" class="mt-10"></div>
+  </div>
+</section>
+
+<datalist id="rec-catalogue"></datalist>
+
+<script>
+(function () {
+  const TOKEN_KEY = 'tabacgex-admin-token';
+  let token = localStorage.getItem(TOKEN_KEY);
+  if (window.location.hash.startsWith('#token=')) {
+    token = decodeURIComponent(window.location.hash.slice(7));
+    localStorage.setItem(TOKEN_KEY, token);
+    history.replaceState({}, '', window.location.pathname);
+  }
+
+  // pdf.js n'est chargé qu'au moment où un PDF est déposé : inutile de faire
+  // payer 400 ko à une saisie manuelle. unpkg est déjà autorisé par la CSP.
+  const PDFJS_VERSION = '4.10.38';
+  const PDFJS_BASE = 'https://unpkg.com/pdfjs-dist@' + PDFJS_VERSION + '/build/';
+
+  const statusEl = document.getElementById('rec-status');
+  const panel    = document.getElementById('rec-panel');
+  const drop     = document.getElementById('rec-drop');
+  const input    = document.getElementById('rec-fichier');
+  const lecture  = document.getElementById('rec-lecture');
+  const travail  = document.getElementById('rec-travail');
+  const listeEl  = document.getElementById('rec-lignes');
+  const resumeEl = document.getElementById('rec-resume');
+  const erreurEl = document.getElementById('rec-erreur');
+  const btnValider = document.getElementById('rec-valider');
+
+  let references = [], parCle = new Map(), parLibelle = new Map();
+  let lignes = [], empreinte = null, pdfjsLib = null;
+
+  const esc = (s) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');
+
+  function showLogin() {
+    panel.classList.add('hidden');
+    statusEl.innerHTML =
+      '<p class="text-smoke text-sm mb-4">Connexion requise.</p>' +
+      '<a href="/api/auth/login?mode=admin&return=/admin/reception/" class="btn-neon-green inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">Se connecter via GitHub</a>';
+    statusEl.classList.remove('hidden');
+  }
+
+  function info(html, couleur) {
+    lecture.innerHTML = html;
+    lecture.style.color = couleur || 'var(--muted)';
+    lecture.classList.remove('hidden');
+  }
+
+  // ─── Chargement ─────────────────────────────────────────────────────────
+  async function charger() {
+    if (!token) return showLogin();
+    try {
+      const res = await fetch('/api/reception', { headers: { Authorization: 'Bearer ' + token } });
+      if (res.status === 401 || res.status === 403) { localStorage.removeItem(TOKEN_KEY); return showLogin(); }
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || 'HTTP ' + res.status);
+
+      references = d.references || [];
+      parCle = new Map(references.map((r) => [r.cle, r]));
+      parLibelle = new Map();
+      const dl = document.getElementById('rec-catalogue');
+      dl.innerHTML = references.map((r) => {
+        const lib = libelleRef(r);
+        parLibelle.set(lib.toLowerCase(), r.cle);
+        return '<option value="' + esc(lib) + '"></option>';
+      }).join('');
+
+      if (!d.lectureDisponible) {
+        info('⚠ La lecture automatique est indisponible (binding AI absent). La saisie manuelle fonctionne.', '#FFA500');
+      }
+
+      rendreHistorique(d.historique || []);
+      statusEl.classList.add('hidden');
+      panel.classList.remove('hidden');
+    } catch (e) {
+      statusEl.innerHTML = '<p class="text-red-300 text-sm">' + esc(e.message) + '</p>';
+      statusEl.classList.remove('hidden');
+    }
+  }
+
+  function libelleRef(r) {
+    return r.marque && !r.nom.toLowerCase().startsWith(r.marque.toLowerCase())
+      ? r.marque + ' ' + r.nom : r.nom;
+  }
+
+  // ─── Lecture du document ────────────────────────────────────────────────
+  async function empreinteDe(buffer) {
+    const hash = await crypto.subtle.digest('SHA-256', buffer);
+    return Array.from(new Uint8Array(hash)).map((b) => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function chargerPdfjs() {
+    if (pdfjsLib) return pdfjsLib;
+    pdfjsLib = await import(PDFJS_BASE + 'pdf.min.mjs');
+    // Le worker ne peut pas être instancié depuis un autre domaine : on le
+    // récupère et on le relance depuis un blob local. D'où `worker-src blob:`
+    // dans la CSP.
+    const src = await fetch(PDFJS_BASE + 'pdf.worker.min.mjs').then((r) => r.text());
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      URL.createObjectURL(new Blob([src], { type: 'text/javascript' }));
+    return pdfjsLib;
+  }
+
+  /** Réduit une page ou une photo à une image lisible mais légère. */
+  function versJpeg(source, largeurMax) {
+    const canvas = document.createElement('canvas');
+    const ratio = Math.min(1, largeurMax / source.width);
+    canvas.width = Math.round(source.width * ratio);
+    canvas.height = Math.round(source.height * ratio);
+    canvas.getContext('2d').drawImage(source, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL('image/jpeg', 0.82);
+  }
+
+  async function extraireDuPdf(buffer) {
+    const lib = await chargerPdfjs();
+    const pdf = await lib.getDocument({ data: buffer }).promise;
+
+    // 1 — La couche texte, si elle existe.
+    let texte = '';
+    for (let n = 1; n <= pdf.numPages; n++) {
+      const page = await pdf.getPage(n);
+      const contenu = await page.getTextContent();
+      texte += contenu.items.map((i) => i.str).join(' ') + '\n';
+    }
+    if (texte.replace(/\s/g, '').length > 120) return { texte };
+
+    // 2 — Sinon c'est un scan : on rend les pages en image.
+    info('Document scanné — rendu des pages…');
+    const images = [];
+    for (let n = 1; n <= Math.min(pdf.numPages, 8); n++) {
+      const page = await pdf.getPage(n);
+      const vp = page.getViewport({ scale: 2 });
+      const canvas = document.createElement('canvas');
+      canvas.width = vp.width; canvas.height = vp.height;
+      await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+      images.push(versJpeg(canvas, 1600));
+    }
+    return { images };
+  }
+
+  function chargerImage(fichier) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve({ images: [versJpeg(img, 1600)] });
+      img.onerror = () => reject(new Error('Image illisible'));
+      img.src = URL.createObjectURL(fichier);
+    });
+  }
+
+  async function traiter(fichier) {
+    if (!fichier) return;
+    erreurEl.classList.add('hidden');
+    info('Lecture de « ' + esc(fichier.name) + ' »…');
+
+    try {
+      const buffer = await fichier.arrayBuffer();
+      empreinte = await empreinteDe(buffer);
+
+      const charge = fichier.type === 'application/pdf' || /\.pdf$/i.test(fichier.name)
+        ? await extraireDuPdf(buffer)
+        : await chargerImage(fichier);
+
+      info(charge.images ? 'Lecture des pages scannées…' : 'Analyse du texte du document…');
+
+      const res = await fetch('/api/reception/lire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+        body: JSON.stringify(Object.assign({ empreinte: empreinte }, charge)),
+      });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || 'HTTP ' + res.status);
+
+      if (d.dejaTraite) {
+        const quand = d.traiteLe ? new Date(d.traiteLe).toLocaleDateString('fr-FR') : '';
+        info('⚠ Ce document a déjà été réceptionné' + (quand ? ' le ' + quand : '') +
+             ' (' + d.lignesAppliquees + ' lignes). Rien n\'a été modifié.', '#FFA500');
+        return;
+      }
+
+      document.getElementById('rec-fournisseur').value = d.fournisseur || '';
+      document.getElementById('rec-reference').value   = d.reference || '';
+      lignes = (d.lignes || []).map((l) => Object.assign({ ignoree: false }, l));
+
+      if (!lignes.length) {
+        info('⚠ ' + esc(d.avertissement || 'Aucune ligne reconnue.') +
+             ' Tu peux saisir les lignes à la main.', '#FFA500');
+        travail.classList.remove('hidden');
+        rendre();
+        return;
+      }
+
+      const r = d.resume || {};
+      info('Document lu : ' + r.total + ' lignes — ' + (r.certaines || 0) + ' reconnues, ' +
+           (r.probables || 0) + ' proposées, ' + (r.incertaines || 0) + ' à vérifier.', 'var(--green)');
+      travail.classList.remove('hidden');
+      rendre();
+    } catch (e) {
+      info('✕ ' + esc(e.message), '#FF5050');
+      travail.classList.remove('hidden');
+      rendre();
+    }
+  }
+
+  // ─── Rendu des lignes ───────────────────────────────────────────────────
+  const PASTILLES = {
+    certain:   ['Reconnu',    'var(--green)'],
+    probable:  ['Proposé',    '#FFA500'],
+    incertain: ['À vérifier', '#FF5050'],
+    manuel:    ['Saisie',     'var(--gold)'],
+  };
+
+  function rendre() {
+    resumeEl.innerHTML = '';
+    if (!lignes.length) {
+      listeEl.innerHTML =
+        '<p class="text-smoke text-sm py-6 text-center border border-dashed border-dark-border rounded-xl">' +
+        'Aucune ligne. Utilise « Ajouter une ligne » pour saisir à la main.</p>';
+      return;
+    }
+
+    const actives = lignes.filter((l) => !l.ignoree);
+    const prete = actives.filter((l) => l.cle && l.quantite > 0).length;
+    resumeEl.innerHTML =
+      '<span class="text-xs font-mono px-3 py-1.5 rounded-full border border-dark-border text-smoke">' +
+      prete + ' / ' + actives.length + ' prêtes</span>';
+
+    listeEl.innerHTML = lignes.map((l, i) => {
+      const [texte, couleur] = PASTILLES[l.confiance] || PASTILLES.manuel;
+      const ref = l.cle ? parCle.get(l.cle) : null;
+      const unite = ref ? ref.unite : (l.unite || 'pcs');
+
+      const chips = (l.candidats || [])
+        .filter((c) => c.cle !== l.cle)
+        .slice(0, 3)
+        .map((c) => '<button type="button" data-choisir="' + i + '" data-cle="' + esc(c.cle) + '" ' +
+             'class="text-xs px-2.5 py-1 rounded-full border border-dark-border text-smoke hover:text-white transition-colors">' +
+             esc(c.libelle) + ' <span class="opacity-60">' + Math.round(c.score * 100) + '%</span></button>')
+        .join(' ');
+
+      return '' +
+      '<div class="rounded-xl border border-dark-border bg-dark-card p-4' + (l.ignoree ? ' opacity-40' : '') + '">' +
+        '<div class="flex items-start justify-between gap-3 mb-3 flex-wrap">' +
+          '<div class="min-w-0">' +
+            '<p class="text-white text-sm font-semibold">' + esc(l.designation || 'Ligne manuelle') + '</p>' +
+            (l.quantiteBon ? '<p class="text-smoke text-xs font-mono">bon : ' + esc(l.quantiteBon) + ' ' + esc(l.uniteBon || '') + '</p>' : '') +
+          '</div>' +
+          '<div class="flex items-center gap-2">' +
+            '<span class="text-xs font-mono px-2.5 py-1 rounded-full" style="border:1px solid ' + couleur + ';color:' + couleur + ';">' + texte + '</span>' +
+            '<button type="button" data-ignorer="' + i + '" class="text-smoke hover:text-white text-xs underline">' +
+              (l.ignoree ? 'Reprendre' : 'Ignorer') + '</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="grid sm:grid-cols-[1fr_auto] gap-3 items-end">' +
+          '<div>' +
+            '<label class="block text-smoke text-xs font-mono uppercase tracking-wider mb-1">Produit</label>' +
+            '<input list="rec-catalogue" data-produit="' + i + '" value="' + esc(ref ? libelleRef(ref) : '') + '" ' +
+              'placeholder="Chercher une référence…" ' +
+              'class="w-full bg-dark-bg border rounded-xl px-4 py-2.5 text-white text-sm placeholder-smoke focus:outline-none" ' +
+              'style="border-color:' + (l.cle ? 'var(--borderl)' : '#FF5050') + ';"/>' +
+          '</div>' +
+          '<div>' +
+            '<label class="block text-smoke text-xs font-mono uppercase tracking-wider mb-1">Quantité</label>' +
+            '<div class="flex items-center gap-2">' +
+              '<input type="number" min="1" step="1" data-qte="' + i + '" value="' + (l.quantite || '') + '" ' +
+                'class="w-28 bg-dark-bg border border-dark-border rounded-xl px-3 py-2.5 text-white text-sm text-right focus:outline-none"/>' +
+              '<span class="text-smoke text-xs font-mono w-8">' + esc(unite === 'g' ? 'g' : 'pcs') + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        (l.ambigu ? '<p class="text-xs mt-2" style="color:#FFA500;">⚠ ' + esc(l.ambigu) + '</p>' : '') +
+        (chips ? '<div class="flex items-center gap-2 flex-wrap mt-3">' + chips + '</div>' : '') +
+      '</div>';
+    }).join('');
+  }
+
+  // ─── Interactions ───────────────────────────────────────────────────────
+  listeEl.addEventListener('input', (e) => {
+    const pi = e.target.dataset.produit, qi = e.target.dataset.qte;
+    if (pi !== undefined) {
+      const cle = parLibelle.get(e.target.value.trim().toLowerCase());
+      lignes[pi].cle = cle || null;
+      if (cle) {
+        lignes[pi].confiance = lignes[pi].confiance === 'certain' ? 'certain' : 'manuel';
+        e.target.style.borderColor = 'var(--borderl)';
+      } else {
+        e.target.style.borderColor = '#FF5050';
+      }
+    } else if (qi !== undefined) {
+      lignes[qi].quantite = parseInt(e.target.value, 10) || 0;
+    }
+  });
+
+  listeEl.addEventListener('click', (e) => {
+    const choisir = e.target.closest('[data-choisir]');
+    const ignorer = e.target.closest('[data-ignorer]');
+    if (choisir) {
+      const i = choisir.dataset.choisir;
+      lignes[i].cle = choisir.dataset.cle;
+      lignes[i].confiance = 'manuel';
+      rendre();
+    } else if (ignorer) {
+      const i = ignorer.dataset.ignorer;
+      lignes[i].ignoree = !lignes[i].ignoree;
+      rendre();
+    }
+  });
+
+  document.getElementById('rec-ajouter').addEventListener('click', () => {
+    lignes.push({ designation: '', cle: null, quantite: 0, confiance: 'manuel',
+                  candidats: [], ignoree: false });
+    travail.classList.remove('hidden');
+    rendre();
+    listeEl.querySelector('[data-produit="' + (lignes.length - 1) + '"]')?.focus();
+  });
+
+  // ─── Validation ─────────────────────────────────────────────────────────
+  btnValider.addEventListener('click', async () => {
+    erreurEl.classList.add('hidden');
+    const aEnvoyer = lignes.filter((l) => !l.ignoree);
+
+    const incompletes = aEnvoyer.filter((l) => !l.cle || !(l.quantite > 0));
+    if (incompletes.length) {
+      erreurEl.textContent = incompletes.length + ' ligne(s) sans produit ou sans quantité. ' +
+        'Complète-les, ou coche « Ignorer ».';
+      erreurEl.classList.remove('hidden');
+      return;
+    }
+    if (!aEnvoyer.length) {
+      erreurEl.textContent = 'Aucune ligne à réceptionner.';
+      erreurEl.classList.remove('hidden');
+      return;
+    }
+
+    btnValider.disabled = true;
+    const libelle = btnValider.textContent;
+    btnValider.textContent = 'Enregistrement…';
+
+    try {
+      const res = await fetch('/api/reception/valider', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+        body: JSON.stringify({
+          empreinte: empreinte,
+          fournisseur: document.getElementById('rec-fournisseur').value,
+          reference: document.getElementById('rec-reference').value,
+          lignes: aEnvoyer.map((l) => ({
+            cle: l.cle, quantite: l.quantite,
+            libelleNorme: l.libelleNorme || null, designation: l.designation || null,
+          })),
+        }),
+      });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || 'HTTP ' + res.status);
+
+      info('✓ ' + d.appliquees + ' ligne(s) entrées en stock' +
+           (d.memorises ? ', ' + d.memorises + ' libellé(s) mémorisé(s) pour la prochaine fois' : '') +
+           '.', 'var(--green)');
+      lignes = []; empreinte = null;
+      document.getElementById('rec-fournisseur').value = '';
+      document.getElementById('rec-reference').value = '';
+      travail.classList.add('hidden');
+      charger();
+    } catch (e) {
+      erreurEl.textContent = 'Réception refusée : ' + e.message;
+      erreurEl.classList.remove('hidden');
+    } finally {
+      btnValider.disabled = false;
+      btnValider.textContent = libelle;
+    }
+  });
+
+  // ─── Dépôt du fichier ───────────────────────────────────────────────────
+  input.addEventListener('change', () => traiter(input.files[0]));
+  ['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => {
+    e.preventDefault(); drop.style.borderColor = 'var(--gold)';
+  }));
+  ['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => {
+    e.preventDefault(); drop.style.borderColor = '';
+  }));
+  drop.addEventListener('drop', (e) => traiter(e.dataTransfer.files[0]));
+
+  // ─── Historique ─────────────────────────────────────────────────────────
+  function rendreHistorique(liste) {
+    const el = document.getElementById('rec-historique');
+    if (!liste.length) { el.innerHTML = ''; return; }
+    el.innerHTML =
+      '<h2 class="font-display text-2xl text-white mb-3">Dernières réceptions</h2>' +
+      '<div class="rounded-2xl border border-dark-border bg-dark-card divide-y divide-dark-border">' +
+      liste.map((r) =>
+        '<div class="flex items-center justify-between gap-3 px-4 py-3 text-sm flex-wrap">' +
+          '<div>' +
+            '<span class="text-white">' + esc(r.fournisseur || 'Sans fournisseur') + '</span>' +
+            (r.reference ? '<span class="text-smoke text-xs font-mono ml-2">' + esc(r.reference) + '</span>' : '') +
+          '</div>' +
+          '<div class="text-smoke text-xs font-mono">' + r.lignes + ' lignes · ' +
+            new Date(r.creeLe).toLocaleDateString('fr-FR') + '</div>' +
+        '</div>').join('') +
+      '</div>';
+  }
+
+  charger();
+})();
+</script>

@@ -59,3 +59,43 @@ CREATE TABLE IF NOT EXISTS mouvements (
 );
 
 CREATE INDEX IF NOT EXISTS idx_mouvements_cle ON mouvements (cle, creeLe);
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- Réception de marchandise — voir docs/etude-reception-marchandise.md
+-- ═══════════════════════════════════════════════════════════════════════════
+
+-- Mémoire des libellés fournisseurs.
+-- « AMNES. HYDRO IND. 500G » n'est associé à un produit qu'une seule fois :
+-- la fois suivante, la ligne est reconnue sans IA et sans doute possible.
+-- C'est ce qui fait qu'une deuxième réception du même fournisseur ne demande
+-- pratiquement plus rien.
+CREATE TABLE IF NOT EXISTS alias_fournisseur (
+  -- Libellé du bon, normalisé (minuscules, sans accents ni ponctuation)
+  libelle    TEXT PRIMARY KEY,
+  -- Clé de stock visée : "produit-id" ou "produit-id::4g"
+  cle        TEXT NOT NULL,
+  -- Texte d'origine, gardé tel quel pour pouvoir relire l'historique
+  brut       TEXT NOT NULL DEFAULT '',
+  fournisseur TEXT,
+  -- Nombre de fois où l'association a été confirmée : sert à départager
+  -- deux alias concurrents et à repérer une association douteuse.
+  vus        INTEGER NOT NULL DEFAULT 1,
+  majLe      INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE INDEX IF NOT EXISTS idx_alias_cle ON alias_fournisseur (cle);
+
+-- Documents déjà traités. Redéposer le même bon de livraison est l'erreur la
+-- plus naturelle qui soit : sans cette table, le stock doublerait en silence.
+CREATE TABLE IF NOT EXISTS receptions (
+  -- SHA-256 du fichier déposé
+  empreinte   TEXT PRIMARY KEY,
+  fournisseur TEXT,
+  reference   TEXT,
+  -- Nombre de lignes réellement appliquées
+  lignes      INTEGER NOT NULL DEFAULT 0,
+  auteur      TEXT NOT NULL DEFAULT 'admin',
+  creeLe      INTEGER NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_receptions_date ON receptions (creeLe);
