@@ -29,8 +29,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=optional" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=optional"></noscript>
 
-{# ─── Favicon ──────────────────────────────────────────────────────── #}
+{# ─── Icônes ───────────────────────────────────────────────────────────
+   Le SVG couvre les navigateurs modernes et reste net à toutes les tailles.
+   Les PNG servent aux plateformes qui ne lisent pas le SVG : iOS pour
+   l'écran d'accueil, Android pour l'installation depuis le manifeste. #}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#1A1714" />
 
 {# ─── JSON-LD structuré ───────────────────────────────────────────── #}
 <script type="application/ld+json">

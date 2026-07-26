@@ -1,4 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#0A0A0F"/>
-  <path d="M7 9L16 23L25 9" fill="none" stroke="#39FF14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<!--
+  favicon.svg — monogramme MaisonCBDVape
+
+  Reprend l'identité du site : fond brun profond, M doré aux empattements
+  marqués, dans l'esprit du Cormorant Garamond de l'en-tête. Les couleurs sont
+  écrites en dur (#1A1714 et #C9A96E) : un favicon est lu hors du contexte de
+  la page, les variables CSS n'y sont pas disponibles.
+
+  Dessiné au trait plutôt qu'avec du texte : une police n'est pas garantie
+  dans le rendu d'un favicon, un tracé l'est toujours.
+
+  Attention : un commentaire XML ne supporte pas deux tirets consécutifs.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="MaisonCBDVape">
+  <rect width="32" height="32" rx="6" fill="#1A1714"/>
+  <g fill="none" stroke="#C9A96E" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7.9 23V9.4L16 18.6 24.1 9.4V23"/>
+    <path d="M5.9 23h4M20.1 23h4"/>
+  </g>
 </svg>
