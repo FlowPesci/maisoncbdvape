@@ -749,3 +749,12 @@ h1, h2, h3, .heading {
   .raccourci-admin.est-au-dessus-barre { bottom: 76px; }
   .raccourci-admin span:not(.raccourci-admin-pastille) { display: none; }
 }
+
+/* ─── Pas d'italique sur le site ────────────────────────────────────────
+   Les mots mis en valeur le sont par la couleur dorée et la graisse, jamais
+   par l'inclinaison. Cette règle couvre les balises que le navigateur incline
+   par défaut, y compris celles qui peuvent venir d'une description saisie
+   dans l'éditeur de contenu. */
+em, i, cite, dfn, address, blockquote, q {
+  font-style: normal;
+}

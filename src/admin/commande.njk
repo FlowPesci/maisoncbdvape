@@ -127,7 +127,7 @@ eleventyExcludeFromCollections: true
       <li class="text-xs py-1.5 border-b border-dark-border last:border-0">
         <span class="font-mono text-smoke">${formatDate(h.at)}</span> · ${statusBadge(esc(h.status))} ·
         <span class="text-smoke">${esc(h.by)}</span>
-        ${h.note ? `<div class="text-smoke italic mt-0.5">${esc(h.note)}</div>` : ''}
+        ${h.note ? `<div class="text-smoke mt-0.5">${esc(h.note)}</div>` : ''}
       </li>`).join('');
 
     const nextOptions = nextStatusOptions(order.status);
@@ -136,7 +136,7 @@ eleventyExcludeFromCollections: true
            <p class="text-smoke text-xs uppercase tracking-wider font-mono">Changer le statut</p>
            ${nextOptions.map((s) => `<button data-new-status="${s}" class="btn-outline-violet w-full py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest">→ ${statusLabel(s)}</button>`).join('')}
          </div>`
-      : `<p class="text-smoke text-xs italic">Pas de transition possible depuis ce statut.</p>`;
+      : `<p class="text-smoke text-xs">Pas de transition possible depuis ce statut.</p>`;
 
     detailEl.innerHTML = `
       <div class="lg:col-span-2 space-y-6">
@@ -152,7 +152,7 @@ eleventyExcludeFromCollections: true
             <p><span class="text-smoke">Nom :</span> <span class="text-white">${esc(order.client.nom)}</span></p>
             <p><span class="text-smoke">Email :</span> <a href="mailto:${esc(order.client.email)}" class="text-neon-violet hover:underline">${esc(order.client.email)}</a></p>
             <p><span class="text-smoke">Téléphone :</span> <a href="tel:${esc(order.client.telephone)}" class="text-neon-violet hover:underline">${esc(order.client.telephone)}</a></p>
-            ${order.client.notes ? `<p><span class="text-smoke">Notes :</span> <span class="text-white italic">${esc(order.client.notes)}</span></p>` : ''}
+            ${order.client.notes ? `<p><span class="text-smoke">Notes :</span> <span class="text-white">${esc(order.client.notes)}</span></p>` : ''}
           </div>
         </div>
         <div class="rounded-2xl bg-dark-card border border-dark-border p-6">
