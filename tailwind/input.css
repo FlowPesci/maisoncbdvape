@@ -179,6 +179,46 @@ h1, h2, h3, .heading {
   }
   .icon-btn:hover { opacity: 1; color: var(--gold); }
 }
+/* ─── Burger du menu mobile ────────────────────────────────────────────
+   Deux barres inégales, alignées à droite : signature discrète qui évite
+   l'icône à trois barres égales qu'on voit partout. Même épaisseur de
+   trait (1 px) que les icônes de l'en-tête, pour rester cohérent. */
+.menu-burger {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 6px 2px;
+}
+.menu-burger-barre {
+  display: block;
+  height: 1px;
+  width: 22px;
+  background: currentColor;
+  transition: width .3s ease, transform .3s ease, opacity .2s ease;
+}
+/* La seconde barre est plus courte : c'est ce décalage qui fait la marque. */
+.menu-burger-barre:last-child { width: 14px; }
+
+/* Au survol, la courte rejoint la longue — mouvement minuscule, mais il
+   signale que l'élément est actionnable sans changer de couleur. */
+.menu-burger:hover .menu-burger-barre:last-child { width: 22px; }
+
+/* Ouvert : les deux barres se croisent. `aria-expanded` est déjà basculé
+   par le script du menu, on s'y accroche plutôt que d'ajouter une classe. */
+.menu-burger[aria-expanded="true"] .menu-burger-barre {
+  width: 21px;
+}
+.menu-burger[aria-expanded="true"] .menu-burger-barre:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+.menu-burger[aria-expanded="true"] .menu-burger-barre:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-burger-barre { transition: none; }
+}
+
 /* ─── Boutons ─────────────────────────────────────────────────────────── */
 .btn-gold {
   display: inline-flex; align-items: center; gap: 12px;
