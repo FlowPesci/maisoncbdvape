@@ -51,12 +51,31 @@ body {
   align-items: center;
 }
 @media (max-width: 1023px) {
+  /* Le hero est en `min-height:100vh` + `align-items:center` (style en ligne).
+     Sur ordinateur, les deux colonnes remplissent cette hauteur. Sur téléphone
+     il n'y a plus qu'une colonne : le contenu, plus court que l'écran, se
+     retrouve centré dans une boîte pleine hauteur — d'où le grand vide au-dessus
+     du titre. On rend donc la hauteur au contenu.
+     Le `!important` est nécessaire : on écrase des styles en ligne. */
+  .hero-bg {
+    min-height: 0 !important;
+    align-items: flex-start !important;
+  }
   .hero-inner {
-    padding: 64px 20px 40px;
+    padding: 28px 20px 40px;
   }
   .hero-grid-2col {
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: 28px;
+  }
+  /* Le visuel repasse sous le texte, sans les marges pensées pour la
+     colonne de droite. */
+  .hero-visuel {
+    padding: 0 !important;
+  }
+  /* Un 4/5 vertical occuperait presque tout l'écran : format paysage. */
+  .hero-showcase {
+    aspect-ratio: 4 / 3 !important;
   }
 }
 /* ─── Typographie ─────────────────────────────────────────────────────── */

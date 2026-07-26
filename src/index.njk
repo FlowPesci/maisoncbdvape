@@ -61,8 +61,10 @@ permalink: /index.html
         </div>
       </div>
 
-      {# ─── Visuel droit (showcase catégories) ──────────────────── #}
-      <div class="hidden lg:block" style="position:relative;padding:2rem 1rem 1rem 2rem;">
+      {# ─── Visuel droit (showcase catégories) ──────────────────────
+         Sur téléphone il passe SOUS le texte plutôt que de disparaître :
+         c'est lui qui donne sa respiration au haut de page. #}
+      <div class="hero-visuel" style="position:relative;padding:2rem 1rem 1rem 2rem;">
         {% set cbdProduct  = (collections.bestsellers | where("categorie","cbd")   | first) or (collections.cbd   | first) %}
         {% set puffProduct = (collections.bestsellers | where("categorie","puffs") | first) or (collections.puffs | first) %}
 
@@ -85,7 +87,7 @@ permalink: /index.html
 
         {# Showcase central #}
         {% set vapecat = categories | where("slug","vape") | first %}
-        <div style="position:relative;z-index:10;border:1px solid var(--borderl);overflow:hidden;aspect-ratio:4/5;">
+        <div class="hero-showcase" style="position:relative;z-index:10;border:1px solid var(--borderl);overflow:hidden;aspect-ratio:4/5;">
           {% if vapecat and vapecat.image %}
             <img src="{{ vapecat.image }}" alt="Collection Vape" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" loading="eager"/>
           {% endif %}
