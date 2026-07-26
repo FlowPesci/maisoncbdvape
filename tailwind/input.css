@@ -576,10 +576,42 @@ h1, h2, h3, .heading {
     grid-row: auto !important;
     height: 240px !important;
   }
-  /* Grille réassurance → 2×2 */
+  /* Grille réassurance → 2×2, et nettement plus compacte.
+     Chaque cellule porte un `border-right` : en 4 colonnes il sert de
+     séparateur, mais en 2 colonnes celui de la cellule de droite se retrouve
+     collé au bord de l'écran et donne un trait orphelin. On le retire donc
+     une ligne sur deux. */
   .grid-reassurance {
     grid-template-columns: 1fr 1fr !important;
     border-left: none !important;
+  }
+  .grid-reassurance > .reassurance-item:nth-child(2n) {
+    border-right: none !important;
+  }
+  .reassurance-strip {
+    padding: 24px 0 !important;
+    margin-top: 40px !important;
+  }
+  .reassurance-inner {
+    padding: 0 12px !important;
+  }
+  /* 28px de rembourrage latéral sur un demi-écran forçaient « Paiement
+     sécurisé » et « Click & Collect » à passer sur deux lignes. */
+  .reassurance-item {
+    padding: 18px 10px !important;
+  }
+  .reassurance-item > div:first-child {
+    font-size: 20px !important;
+    margin-bottom: 8px !important;
+  }
+  .reassurance-item > div:nth-child(2) {
+    font-size: .95rem !important;
+    margin-bottom: 3px !important;
+    line-height: 1.25;
+  }
+  .reassurance-item > div:last-child {
+    font-size: 10.5px !important;
+    line-height: 1.5 !important;
   }
   /* Grilles produits → 2 colonnes */
   .grid-bestsellers,
