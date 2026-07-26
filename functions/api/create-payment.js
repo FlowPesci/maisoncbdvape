@@ -13,6 +13,7 @@ import {
 } from "../_shared/monetico.js";
 import { ok, bad, parseJson } from "../_shared/http.js";
 import { lookupPrice } from "../_shared/catalog-index.js";
+import { reserverPanier, relacherReservation } from "../_shared/stock.js";
 import { computeFraisPort } from "../_shared/livraison.js";
 import { valideLivraison } from "../_shared/valide-livraison.js";
 
@@ -32,7 +33,7 @@ export async function onRequestPost({ request, env }) {
   for (const it of items) {
     if (!it.id || !it.nom)
       return bad("Article invalide : " + (it?.id || "?"));
-    if (!Number.isInteger(it.qty) || it.qty < 1 || it.qty > 99)
+    if (!Number.isInteger(it.qty) || it.qty < 1)
       return bad("Quantité invalide pour " + it.id);
 
     const varianteLabel = it.varianteLabel || null;
@@ -77,6 +78,20 @@ export async function onRequestPost({ request, env }) {
     return bad("Erreur création commande : " + err.message, 500);
   }
 
+  // ── Réservation du stock ──
+  // Après la création de la commande, pour disposer de son identifiant, mais
+  // AVANT d'envoyer le client chez Monetico : il ne doit jamais payer un
+  // article qui vient d'être vendu à quelqu'un d'autre.
+  const resa = await reserverPanier(env.STOCKS_DB, order.orderId, trustedItems);
+  if (!resa.ok) {
+    try {
+      await updateOrder(env.ORDERS_KV, order.orderId, (o) => { o.status = "cancelled"; }, {
+        actor: "create-payment", note: "Stock indisponible : " + resa.erreur,
+      });
+    } catch {}
+    return bad(resa.erreur, 409);
+  }
+
   const siteUrl = env.SITE_URL || "https://maisoncbdvape.pages.dev";
 
   // Montant réellement débité = articles + frais de port
@@ -103,6 +118,9 @@ export async function onRequestPost({ request, env }) {
       urlRetourErr: siteUrl + "/api/monetico-retour-client?statut=err&ref=" + encodeURIComponent(reference),
     });
   } catch (err) {
+    // Le stock a déjà été réservé : sans cette relâche il resterait bloqué
+    // jusqu'à expiration alors que la commande n'ira jamais au paiement.
+    try { await relacherReservation(env.STOCKS_DB, order.orderId, "relache"); } catch {}
     try {
       await updateOrder(env.ORDERS_KV, order.orderId, (o) => { o.status = "cancelled"; }, {
         actor: "create-payment",

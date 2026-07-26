@@ -8,13 +8,16 @@ compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "public"
 
 # ─── Variables d'environnement ────────────────────────────────────────────
-# ⚠ Pour les projets Pages connectés à GitHub, les [vars] ci-dessous
-#   ne s'appliquent qu'en LOCAL (wrangler pages dev).
-#   En PRODUCTION, toutes les variables doivent être dans le dashboard :
-#   Cloudflare Pages → Settings → Environment variables
+# ✅ Ce projet Pages est en « configuration par fichier » : le tableau de bord
+#    indique « managed through wrangler.toml » et y est en lecture seule.
+#    Les [vars] et les bindings ci-dessous s'appliquent donc AUSSI en
+#    production, au déploiement suivant. Ce fichier fait autorité.
 #
-# Variables à configurer dans le dashboard :
-#   PLAINTEXT :
+# ⚠ Les SECRETS font exception : chiffrés, ils ne peuvent pas vivre ici et
+#   restent à saisir dans Cloudflare Pages → Settings → Variables and secrets.
+#
+# Récapitulatif des valeurs :
+#   PLAINTEXT (gérées ici, dans [vars]) :
 #     SITE_URL               = https://maisoncbdvape.fr
 #       ⚠ Ne basculer sur le .fr QUE lorsque le custom domain est « Active »
 #         dans Cloudflare Pages. Avant cela, garder https://maisoncbdvape.pages.dev,
@@ -48,6 +51,19 @@ EMAIL_MERCHANT         = "vincent.kotowski@ikmail.com,contact@maisoncbdvape.fr"
 GITHUB_OAUTH_CLIENT_ID = "Ov23liwMg8Mc7uBdzJj3"
 GITHUB_REPO            = "FlowPesci/maisoncbdvape"
 ADMIN_GITHUB_USERS     = "FlowPesci"
+
+# ─── Binding D1 (stocks) ──────────────────────────────────────────────────
+# Créer la base :  npx wrangler d1 create maisoncbdvape-stocks
+#
+# ✅ Ce projet Pages lit sa configuration DEPUIS ce fichier — le tableau de
+#    bord Cloudflare affiche « Bindings for this project are being managed
+#    through wrangler.toml » et y est en lecture seule. Le binding ci-dessous
+#    s'applique donc en production au prochain déploiement, sans manipulation
+#    dans l'interface.
+[[d1_databases]]
+binding = "STOCKS_DB"
+database_name = "maisoncbdvape-stocks"
+database_id = "eea5faac-df29-4e87-8856-34a987637f41"
 
 # ─── Bindings KV (commandes + état OAuth) ─────────────────────────────────
 [[kv_namespaces]]

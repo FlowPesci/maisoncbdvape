@@ -70,9 +70,13 @@ Dans le dashboard Cloudflare :
 
 ## 6. Configurer les variables d'environnement
 
-Toujours dans le projet Pages → **Settings** → **Environment variables**.
+⚠ **Ce projet est en configuration par fichier.** Le tableau de bord affiche
+« managed through wrangler.toml » et y est en lecture seule : les variables en clair
+et les bindings (KV, R2, D1) se déclarent dans `wrangler.toml` et s'appliquent au
+déploiement suivant.
 
-Pour chacune, clique **"Add variable"**, choisis **"Plain text"** ou **"Encrypted"** selon le tableau, et coche **"Production"** + **"Preview"** :
+**Seuls les secrets** se saisissent dans l'interface, Pages → **Settings** →
+**Variables and secrets**, car ils sont chiffrés et ne peuvent pas être versionnés.
 
 | Variable                       | Type      | Valeur                                          |
 | ------------------------------ | --------- | ----------------------------------------------- |

@@ -8,6 +8,7 @@ import { sendEmail, merchantEmail } from "../_shared/email.js";
 import { reservationClient, reservationMerchant } from "../_shared/templates.js";
 import { ok, bad, parseJson } from "../_shared/http.js";
 import { lookupPrice } from "../_shared/catalog-index.js";
+import { reserverPanier, consommerReservation } from "../_shared/stock.js";
 import { computeFraisPort } from "../_shared/livraison.js";
 import { valideLivraison } from "../_shared/valide-livraison.js";
 import { rateLimit, getClientIp } from "../_shared/ratelimit.js";
@@ -36,7 +37,7 @@ export async function onRequestPost({ request, env }) {
   for (const it of items) {
     if (!it.id || !it.nom)
       return bad("Article invalide : " + (it?.id || "?"));
-    if (!Number.isInteger(it.qty) || it.qty < 1 || it.qty > 99)
+    if (!Number.isInteger(it.qty) || it.qty < 1)
       return bad("Quantite invalide pour " + it.id);
     // Accepte les deux formats : id composite "produit--variante" OU id + varianteLabel separes
     const rawId = it.id;
@@ -45,6 +46,7 @@ export async function onRequestPost({ request, env }) {
     const trustedPrix = lookupPrice(baseId, varianteLabel);
     if (trustedPrix === null)
       return bad("Article inconnu ou prix introuvable : " + baseId + (varianteLabel ? " (" + varianteLabel + ")" : ""));
+
     trustedItems.push({
       id: baseId,
       nom: it.nom,
@@ -80,6 +82,16 @@ export async function onRequestPost({ request, env }) {
     });
   } catch (err) {
     return bad("Erreur creation commande : " + err.message, 500);
+  }
+
+  // ── Stock ──
+  // Aucun paiement en ligne ici : la commande est ferme dès sa création, on
+  // réserve puis on consomme dans la foulée plutôt que de laisser une
+  // réservation expirer au bout de 30 minutes.
+  const resa = await reserverPanier(env.STOCKS_DB, order.orderId, trustedItems);
+  if (!resa.ok) return bad(resa.erreur, 409);
+  try { await consommerReservation(env.STOCKS_DB, order.orderId); } catch (e) {
+    console.error("[submit-reservation] Consommation stock KO :", e.message);
   }
 
   const siteUrl = env.SITE_URL || "https://maisoncbdvape.fr";

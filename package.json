@@ -9,8 +9,13 @@
     "catalog": "node scripts/build-catalog-index.js",
     "build": "npm run clean && npm run css && npm run catalog && eleventy",
     "start": "concurrently \"npm run css -- --watch\" \"eleventy --serve --incremental\"",
-    "dev": "wrangler pages dev public --kv ORDERS_KV --kv OAUTH_KV --r2 MEDIA",
-    "deploy": "npm run build && wrangler pages deploy public"
+    "dev": "wrangler pages dev public --kv ORDERS_KV --kv OAUTH_KV --r2 MEDIA --d1 STOCKS_DB",
+    "deploy": "npm run build && wrangler pages deploy public",
+    "stocks:seed": "node scripts/seed-stocks.js",
+    "db:schema": "wrangler d1 execute maisoncbdvape-stocks --file=db/schema.sql --remote",
+    "db:seed": "npm run stocks:seed && wrangler d1 execute maisoncbdvape-stocks --file=db/seed.sql --remote",
+    "db:schema:local": "wrangler d1 execute maisoncbdvape-stocks --file=db/schema.sql --local",
+    "db:seed:local": "npm run stocks:seed && wrangler d1 execute maisoncbdvape-stocks --file=db/seed.sql --local"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",

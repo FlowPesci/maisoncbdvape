@@ -29,20 +29,27 @@ const produits = tousProduits.filter((p) => p.actif !== false);
 const retires = tousProduits.length - produits.length;
 
 const entries = {};
+const stocks = {};
 const avecVariantes = [];
+
+// Un stock absent est traité comme 0 : mieux vaut refuser une vente que
+// promettre un produit qu'on n'a pas.
+const stockDe = (v) => (Number.isFinite(Number(v)) ? Math.max(0, Math.trunc(Number(v))) : 0);
 
 for (const p of produits) {
   if (!p.id) continue;
 
-  // Prix de base
+  // Prix et stock de base
   entries[p.id] = Number(p.prix);
+  stocks[p.id] = stockDe(p.stock);
 
-  // Prix des variantes (clé : "id::label")
+  // Prix et stock des variantes (clé : "id::label")
   if (Array.isArray(p.variantes)) {
     let n = 0;
     for (const v of p.variantes) {
       if (v.label && typeof v.prix === "number") {
         entries[`${p.id}::${v.label}`] = Number(v.prix);
+        stocks[`${p.id}::${v.label}`] = stockDe(v.stock);
         n++;
       }
     }
@@ -64,6 +71,13 @@ const output = `/**
 
 /** @type {Record<string, number>} */
 export const CATALOG = ${JSON.stringify(entries, null, 2)};
+
+/**
+ * Stocks disponibles, mêmes clés que CATALOG.
+ * C'est la seule limite de quantité : il n'y a pas de plafond arbitraire.
+ * @type {Record<string, number>}
+ */
+export const STOCKS = ${JSON.stringify(stocks, null, 2)};
 
 /**
  * Produits déclinés en variantes (grammages, saveurs).
@@ -93,6 +107,25 @@ export function lookupPrice(id, label) {
   }
   if (id in CATALOG) return CATALOG[id];
   return null;
+}
+
+/**
+ * Quantité disponible pour un article, variante comprise.
+ *
+ * Un article inconnu renvoie 0 plutôt que null : l'appelant n'a pas à
+ * distinguer « inconnu » de « épuisé », les deux interdisent la vente.
+ *
+ * @param {string} id
+ * @param {string|null} label
+ * @returns {number} quantité commandable, 0 si indisponible
+ */
+export function lookupStock(id, label) {
+  if (label) {
+    const key = \`\${id}::\${label}\`;
+    if (key in STOCKS) return STOCKS[key];
+    if (PRODUITS_A_VARIANTES.has(id)) return 0;
+  }
+  return id in STOCKS ? STOCKS[id] : 0;
 }
 `;
 

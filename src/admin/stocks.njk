@@ -1,0 +1,180 @@
+---
+layout: layouts/base.njk
+permalink: /admin/stocks/index.html
+title: "Gestion des stocks"
+description: "Back-office MaisonCBDVape"
+eleventyExcludeFromCollections: true
+---
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+    <div>
+      <p class="font-mono text-xs text-smoke uppercase tracking-widest mb-1">Back-office</p>
+      <h1 class="font-display text-4xl lg:text-5xl text-white tracking-wide">STOCKS</h1>
+    </div>
+    <div class="flex items-center gap-3 flex-wrap">
+      <a href="/admin/commandes/" class="text-smoke text-xs hover:text-white transition-colors">← Commandes</a>
+    </div>
+  </div>
+
+  <div id="stocks-status" class="rounded-2xl border border-dashed border-dark-border bg-dark-card/40 py-20 text-center">
+    <p class="text-smoke text-sm">Chargement…</p>
+  </div>
+
+  <div id="stocks-panel" class="hidden">
+    <div class="grid grid-cols-3 gap-3 mb-6" id="stocks-kpi"></div>
+
+    <div class="flex items-center gap-3 mb-4 flex-wrap">
+      <input type="search" id="stocks-filtre" placeholder="Rechercher une référence…"
+             class="flex-1 min-w-[200px] bg-dark-bg border border-dark-border rounded-xl px-4 py-2.5 text-white text-sm placeholder-smoke focus:outline-none"/>
+      <button id="stocks-ruptures" class="filter-pill px-3 py-2 rounded-lg text-xs font-mono uppercase tracking-wider">Ruptures seules</button>
+    </div>
+
+    <div class="rounded-2xl border border-dark-border bg-dark-card overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-smoke text-xs font-mono uppercase tracking-wider border-b border-dark-border">
+              <th class="text-left py-3 px-4">Référence</th>
+              <th class="text-right py-3 px-4">Disponible</th>
+              <th class="text-right py-3 px-4">Réservé</th>
+              <th class="text-right py-3 px-4">Ajuster</th>
+            </tr>
+          </thead>
+          <tbody id="stocks-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  const TOKEN_KEY = 'tabacgex-admin-token';
+  let token = localStorage.getItem(TOKEN_KEY);
+  if (window.location.hash.startsWith('#token=')) {
+    token = decodeURIComponent(window.location.hash.slice(7));
+    localStorage.setItem(TOKEN_KEY, token);
+    history.replaceState({}, '', window.location.pathname);
+  }
+
+  const statusEl = document.getElementById('stocks-status');
+  const panel    = document.getElementById('stocks-panel');
+  const tbody    = document.getElementById('stocks-tbody');
+  const kpi      = document.getElementById('stocks-kpi');
+  const filtre   = document.getElementById('stocks-filtre');
+  const btnRupt  = document.getElementById('stocks-ruptures');
+
+  let stocks = [], ruptureSeules = false;
+
+  function esc(s) {
+    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');
+  }
+
+  function showLogin() {
+    panel.classList.add('hidden');
+    statusEl.innerHTML = `
+      <p class="text-smoke text-sm mb-4">Connexion requise.</p>
+      <a href="/api/auth/login?mode=admin&return=/admin/stocks/" class="btn-neon-green inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">Se connecter via GitHub</a>`;
+    statusEl.classList.remove('hidden');
+  }
+
+  function couleur(n) {
+    if (n <= 0) return '#FF5050';
+    if (n <= 3) return '#FFA500';
+    return 'var(--green)';
+  }
+
+  function render() {
+    const q = (filtre.value || '').trim().toLowerCase();
+    const vue = stocks.filter((s) =>
+      (!ruptureSeules || s.dispo <= 0) &&
+      (!q || s.libelle.toLowerCase().includes(q) || s.cle.toLowerCase().includes(q))
+    );
+
+    tbody.innerHTML = vue.map((s) => `
+      <tr class="border-b border-dark-border last:border-0">
+        <td class="py-3 px-4">
+          <div class="text-white">${esc(s.libelle || s.cle)}</div>
+          <div class="text-smoke text-xs font-mono">${esc(s.cle)}</div>
+        </td>
+        <td class="py-3 px-4 text-right font-mono font-bold" style="color:${couleur(s.dispo)};">${s.dispo}</td>
+        <td class="py-3 px-4 text-right font-mono text-smoke">${s.reserve || 0}</td>
+        <td class="py-3 px-4 text-right">
+          <div class="flex items-center gap-2 justify-end">
+            <input type="number" min="0" step="1" value="${s.dispo}" data-cle="${esc(s.cle)}"
+                   class="w-20 bg-dark-bg border border-dark-border rounded-lg px-2 py-1.5 text-white text-sm text-right focus:outline-none"/>
+            <button data-save="${esc(s.cle)}" class="btn-outline-violet px-3 py-1.5 rounded-lg text-xs font-bold uppercase">OK</button>
+          </div>
+        </td>
+      </tr>`).join('') ||
+      `<tr><td colspan="4" class="py-10 text-center text-smoke text-sm">Aucune référence.</td></tr>`;
+  }
+
+  function renderKpi(d) {
+    const carte = (label, val, col) => `
+      <div class="rounded-xl bg-dark-card border border-dark-border p-4">
+        <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-1">${label}</p>
+        <p class="font-display text-3xl" style="color:${col};">${val}</p>
+      </div>`;
+    kpi.innerHTML = carte('Références', d.total, 'var(--cream)')
+                  + carte('Stock faible', d.faibles, '#FFA500')
+                  + carte('Ruptures', d.ruptures, '#FF5050');
+  }
+
+  async function charger() {
+    if (!token) return showLogin();
+    try {
+      const res = await fetch('/api/stocks', { headers: { Authorization: 'Bearer ' + token } });
+      if (res.status === 401 || res.status === 403) { localStorage.removeItem(TOKEN_KEY); return showLogin(); }
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || 'HTTP ' + res.status);
+
+      stocks = d.stocks || [];
+      renderKpi(d);
+      render();
+      statusEl.classList.add('hidden');
+      panel.classList.remove('hidden');
+    } catch (e) {
+      statusEl.innerHTML = `<p class="text-red-300 text-sm">${esc(e.message)}</p>`;
+      statusEl.classList.remove('hidden');
+    }
+  }
+
+  tbody.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-save]');
+    if (!btn) return;
+    const cle = btn.dataset.save;
+    const input = tbody.querySelector(`input[data-cle="${CSS.escape(cle)}"]`);
+    const val = parseInt(input.value, 10);
+    if (!Number.isInteger(val) || val < 0) return;
+
+    btn.disabled = true; btn.textContent = '…';
+    try {
+      const res = await fetch('/api/stocks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+        body: JSON.stringify({ cle, dispo: val }),
+      });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || 'Erreur');
+      const ligne = stocks.find((s) => s.cle === cle);
+      if (ligne) ligne.dispo = val;
+      render();
+    } catch (err) {
+      alert('Ajustement refusé : ' + err.message);
+      btn.disabled = false; btn.textContent = 'OK';
+    }
+  });
+
+  filtre.addEventListener('input', render);
+  btnRupt.addEventListener('click', () => {
+    ruptureSeules = !ruptureSeules;
+    btnRupt.classList.toggle('is-active', ruptureSeules);
+    render();
+  });
+
+  charger();
+})();
+</script>

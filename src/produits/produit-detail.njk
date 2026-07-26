@@ -268,13 +268,15 @@ eleventyComputed:
         {% endif %}
 
         {% if not isOutOfStock %}
-          <div>
+          {# data-stock : stock de base, utilisé quand le produit n'a pas de
+             variante. Avec variantes, le JS lit celui du bouton sélectionné. #}
+          <div data-stock="{{ produit.stock or 0 }}">
             <label style="font-size:.875rem;font-weight:600;color:var(--cream);display:block;margin-bottom:.75rem;">Quantité</label>
             <div class="flex items-center gap-3 flex-wrap">
               <button class="qty-btn" data-qty-dec aria-label="Diminuer la quantité">−</button>
               <span id="qty-display" class="w-10 text-center font-bold text-lg" style="font-family:'DM Sans',sans-serif;color:var(--cream);">1</span>
               <button class="qty-btn" data-qty-inc aria-label="Augmenter la quantité">+</button>
-              <span style="color:var(--muted);font-size:.75rem;margin-left:.5rem;">Max. 5 par commande</span>
+              <span style="color:var(--muted);font-size:.75rem;margin-left:.5rem;">{{ produit.stock or 0 }} disponible{% if (produit.stock or 0) > 1 %}s{% endif %}</span>
             </div>
           </div>
         {% endif %}

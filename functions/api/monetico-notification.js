@@ -16,6 +16,7 @@
 
 import { getOrder, updateOrder } from "../_shared/orders.js";
 import { verifyRetourMac, isPaiementAccepte, ackResponse } from "../_shared/monetico.js";
+import { consommerReservation, relacherReservation } from "../_shared/stock.js";
 import { sendEmail, merchantEmail } from "../_shared/email.js";
 import { paiementClient, paiementMerchant } from "../_shared/templates.js";
 
@@ -74,6 +75,10 @@ export async function onRequestPost({ request, env }) {
       return ackResponse(true);
     }
     if (existing.status === "pending") {
+      // Le stock réservé doit repartir en vente sans attendre l'expiration
+      try { await relacherReservation(env.STOCKS_DB, orderId, "relache"); }
+      catch (err) { console.error("[monetico-notification] Relâche stock KO :", err.message); }
+
       try {
         await updateOrder(env.ORDERS_KV, orderId, (o) => { o.status = "cancelled"; }, {
           actor: "monetico-notification",
@@ -105,6 +110,12 @@ export async function onRequestPost({ request, env }) {
     console.error("[monetico-notification] updateOrder KO :", err.message);
     return ackResponse(false);
   }
+
+  // ── 6 bis. Le stock réservé devient définitivement vendu ──
+  // consommerReservation est idempotent : une notification rejouée par
+  // Monetico ne décrémente pas le stock une seconde fois.
+  try { await consommerReservation(env.STOCKS_DB, orderId); }
+  catch (err) { console.error("[monetico-notification] Consommation stock KO :", err.message); }
 
   // ── 7. Emails (ne doivent jamais faire échouer l'accusé de réception) ─────
   const siteUrl = env.SITE_URL || "https://maisoncbdvape.pages.dev";

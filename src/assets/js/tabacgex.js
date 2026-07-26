@@ -260,13 +260,39 @@
     const qtyDec     = document.querySelector('[data-qty-dec]');
     const qtyInc     = document.querySelector('[data-qty-inc]');
     let qty = 1;
-    const QTY_MAX = 5;
+
+    // La quantité n'est plus plafonnée arbitrairement : la seule limite est le
+    // stock disponible, celui de la variante sélectionnée le cas échéant.
+    // Le serveur revalide de toute façon.
+    const stockDispo = () => {
+      const btn = document.querySelector('.gram-btn.active, .variante-btn.active');
+      const s = btn ? Number(btn.dataset.gramStock ?? btn.dataset.varianteStock)
+                    : Number(document.querySelector('[data-stock]')?.dataset.stock);
+      return Number.isFinite(s) && s > 0 ? s : Infinity;
+    };
+
     const renderQty = () => {
       if (qtyDisplay) qtyDisplay.textContent = qty;
+      const max = stockDispo();
+      if (qtyInc) {
+        const auMax = qty >= max;
+        qtyInc.disabled = auMax;
+        qtyInc.style.opacity = auMax ? '.35' : '';
+        qtyInc.title = auMax && max !== Infinity ? `Stock disponible : ${max}` : '';
+      }
+      if (qtyDec) {
+        qtyDec.disabled = qty <= 1;
+        qtyDec.style.opacity = qty <= 1 ? '.35' : '';
+      }
     };
+
     if (qtyDec && qtyInc && qtyDisplay) {
       qtyDec.addEventListener('click', () => { qty = Math.max(1, qty - 1); renderQty(); });
-      qtyInc.addEventListener('click', () => { qty = Math.min(QTY_MAX, qty + 1); renderQty(); });
+      qtyInc.addEventListener('click', () => { qty = Math.min(stockDispo(), qty + 1); renderQty(); });
+      // Changer de variante peut réduire le stock sous la quantité déjà choisie
+      document.querySelectorAll('.gram-btn, .variante-btn').forEach((b) =>
+        b.addEventListener('click', () => { qty = Math.min(qty, stockDispo()); renderQty(); }));
+      renderQty();
     }
 
     // Onglets fiche technique / contenu / avis
@@ -557,7 +583,15 @@
       } else if (dec) {
         cart[idx].qty = Math.max(1, (cart[idx].qty || 1) - 1);
       } else if (inc) {
-        cart[idx].qty = Math.min(5, (cart[idx].qty || 1) + 1);
+        // Plafond = stock de la variante concernée, ou du produit sinon
+        const p = findProduct(id);
+        const lbl = cart[idx].varianteLabel;
+        const v = lbl && p?.variantes ? p.variantes.find((x) => x.label === lbl) : null;
+        const max = Number(v ? v.stock : p?.stock);
+        cart[idx].qty = Math.min(
+          Number.isFinite(max) && max > 0 ? max : Infinity,
+          (cart[idx].qty || 1) + 1
+        );
       }
       setCart(cart);
       rerender();

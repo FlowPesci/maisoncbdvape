@@ -2,6 +2,7 @@ import { getOrder, updateOrder } from "../_shared/orders.js";
 import { requireGithubUser } from "../_shared/auth.js";
 import { sendEmail } from "../_shared/email.js";
 import { readyClient } from "../_shared/templates.js";
+import { restituerCommande } from "../_shared/stock.js";
 import { ok, bad, parseJson } from "../_shared/http.js";
 
 const VALID = new Set(["pending", "paid", "preparing", "ready", "completed", "cancelled"]);
@@ -25,6 +26,17 @@ export async function onRequestPost({ request, env }) {
       actor: auth.user.login || auth.user.email,
       note: note || `Changement par ${auth.user.login}`,
     });
+
+    // ── Annulation : le stock retourne en vente ──
+    // restituerCommande traite aussi les commandes déjà payées, dont la
+    // réservation est « consommée » — le cas du remboursement. Idempotente :
+    // repasser deux fois en « Annulée » ne crédite pas deux fois.
+    if (status === "cancelled" && before.status !== "cancelled") {
+      try {
+        const n = await restituerCommande(env.STOCKS_DB, orderId, auth.user.login || "admin");
+        if (n) console.log(`[update-order-status] ${n} ligne(s) de stock rendue(s) — ${orderId}`);
+      } catch (e) { console.error("[update-order-status] Relâche stock KO :", e.message); }
+    }
 
     if (status === "ready" && before.status !== "ready") {
       try {
