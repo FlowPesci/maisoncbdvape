@@ -5,7 +5,10 @@ title: "Gestion des stocks"
 description: "Back-office MaisonCBDVape"
 eleventyExcludeFromCollections: true
 ---
+{% set adminSection = "stocks" %}
 <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  {% include "partials/admin-nav.njk" %}
 
   <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
     <div>
@@ -13,7 +16,6 @@ eleventyExcludeFromCollections: true
       <h1 class="font-display text-4xl lg:text-5xl text-white tracking-wide">STOCKS</h1>
     </div>
     <div class="flex items-center gap-3 flex-wrap">
-      <a href="/admin/commandes/" class="text-smoke text-xs hover:text-white transition-colors">← Commandes</a>
       <a href="/admin/reception/" class="btn-outline-violet px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider">Réceptionner une livraison</a>
     </div>
   </div>
@@ -52,13 +54,9 @@ eleventyExcludeFromCollections: true
 
 <script>
 (function () {
-  const TOKEN_KEY = 'tabacgex-admin-token';
-  let token = localStorage.getItem(TOKEN_KEY);
-  if (window.location.hash.startsWith('#token=')) {
-    token = decodeURIComponent(window.location.hash.slice(7));
-    localStorage.setItem(TOKEN_KEY, token);
-    history.replaceState({}, '', window.location.pathname);
-  }
+  // Jeton fourni par la barre d'admin : elle accepte aussi celui de l'éditeur
+  // de contenu, ce qui évite une seconde connexion. Voir partials/admin-nav.njk.
+  let token = window.MCV_ADMIN.token();
 
   const statusEl = document.getElementById('stocks-status');
   const panel    = document.getElementById('stocks-panel');
@@ -171,7 +169,7 @@ eleventyExcludeFromCollections: true
     if (!token) return showLogin();
     try {
       const res = await fetch('/api/stocks', { headers: { Authorization: 'Bearer ' + token } });
-      if (res.status === 401 || res.status === 403) { localStorage.removeItem(TOKEN_KEY); return showLogin(); }
+      if (res.status === 401 || res.status === 403) { window.MCV_ADMIN.oublier(); return showLogin(); }
       const d = await res.json();
       if (!res.ok) throw new Error(d.error || 'HTTP ' + res.status);
 

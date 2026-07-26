@@ -591,3 +591,161 @@ h1, h2, h3, .heading {
     grid-column: auto !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Back-office — navigation et tuiles du tableau de bord
+   Le commerçant passe d'un écran à l'autre toute la journée : la barre est
+   identique partout et la section courante se voit sans lire les libellés.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.admin-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid var(--borderl);
+  border-radius: 16px;
+  background: var(--dark2);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.admin-nav::-webkit-scrollbar { display: none; }
+
+.admin-nav-home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  color: var(--gold);
+  border: 1px solid var(--borderl);
+  transition: background .2s, color .2s;
+}
+.admin-nav-home:hover { background: rgba(201, 169, 110, .12); }
+
+.admin-nav-liens {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1 1 auto;
+}
+
+.admin-nav-lien {
+  white-space: nowrap;
+  padding: 9px 14px;
+  border-radius: 10px;
+  font-size: .8125rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: background .2s, color .2s;
+}
+.admin-nav-lien:hover { color: var(--cream); background: rgba(255, 255, 255, .04); }
+.admin-nav-lien.is-active {
+  color: var(--dark);
+  background: var(--gold);
+}
+
+.admin-nav-sortie {
+  flex: 0 0 auto;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: .75rem;
+  font-family: 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+  transition: color .2s;
+}
+.admin-nav-sortie:hover { color: #FF6060; }
+
+/* ─── Tuiles du tableau de bord ─── */
+.admin-tuile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  border: 1px solid var(--borderl);
+  border-radius: 18px;
+  background: var(--dark2);
+  transition: border-color .2s, transform .2s;
+  min-height: 128px;
+}
+.admin-tuile:hover { border-color: var(--gold); transform: translateY(-2px); }
+.admin-tuile-titre {
+  color: var(--cream);
+  font-size: 1rem;
+  font-weight: 600;
+}
+.admin-tuile-texte {
+  color: var(--muted);
+  font-size: .8125rem;
+  line-height: 1.5;
+}
+.admin-tuile-chiffre {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--gold);
+}
+.admin-tuile-alerte { color: #FF5050; }
+
+@media (max-width: 640px) {
+  /* Sur téléphone la barre défile, et les tuiles passent à une colonne :
+     on vise le pouce, pas la densité. */
+  .admin-nav { border-radius: 14px; }
+  .admin-tuile { min-height: 104px; padding: 16px; }
+}
+
+/* ─── Raccourci vers le back-office ─────────────────────────────────────
+   Injecté par partials/raccourci-admin.njk, uniquement quand un jeton
+   d'administration est présent. Invisible pour les clients. */
+.raccourci-admin {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  background: rgba(10, 10, 15, .92);
+  backdrop-filter: blur(8px);
+  color: var(--gold);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .45);
+  transition: background .2s, color .2s, transform .2s;
+}
+.raccourci-admin:hover {
+  background: var(--gold);
+  color: var(--dark);
+  transform: translateY(-2px);
+}
+
+.raccourci-admin-pastille {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #FF5050;
+  color: #fff;
+  font-size: .6875rem;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .raccourci-admin { right: 12px; padding: 9px 12px; }
+  /* Les fiches produits ont une barre d'achat fixe en bas sur téléphone :
+     là, et seulement là, le raccourci remonte pour ne pas la recouvrir. */
+  .raccourci-admin.est-au-dessus-barre { bottom: 76px; }
+  .raccourci-admin span:not(.raccourci-admin-pastille) { display: none; }
+}

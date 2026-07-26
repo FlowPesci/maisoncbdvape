@@ -184,10 +184,30 @@
     function registerWhenReady() {
       if (window.CMS && typeof window.CMS.registerMediaLibrary === 'function') {
         window.CMS.registerMediaLibrary(r2MediaLibrary);
+        ajouterLiensBackOffice();
       } else {
         setTimeout(registerWhenReady, 200);
       }
     }
+
+    /**
+     * L'éditeur de contenu occupe tout l'écran : sans ces liens, on y reste
+     * coincé et il faut retaper l'adresse pour revenir aux stocks ou aux
+     * commandes. Ils apparaissent dans la barre latérale de Decap.
+     */
+    function ajouterLiensBackOffice() {
+      if (typeof window.CMS.registerAdditionalLink !== 'function') return;
+      [
+        { id: 'tableau-de-bord', title: '← Tableau de bord', data: '/admin/' },
+        { id: 'commandes',       title: 'Commandes',         data: '/admin/commandes/' },
+        { id: 'stocks',          title: 'Stocks',            data: '/admin/stocks/' },
+        { id: 'reception',       title: 'Réception',         data: '/admin/reception/' },
+        { id: 'boutique',        title: 'Voir la boutique',  data: '/' },
+      ].forEach(function (lien) {
+        try { window.CMS.registerAdditionalLink(lien); } catch (e) {}
+      });
+    }
+
     registerWhenReady();
   })();
   </script>

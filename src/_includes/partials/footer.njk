@@ -113,6 +113,10 @@
     <div class="gold-divider" style="margin:40px 0 24px;"></div>
     <div style="display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;">
       <p style="font-size:11px;color:var(--muted);">© {% year %} {{ site.nom }} – Tous droits réservés.</p>
+      {# Sert à la première connexion sur un appareil : sans jeton, le raccourci
+         flottant ne peut pas apparaître. Volontairement discret et sans intérêt
+         pour un visiteur — l'accès reste protégé par GitHub. #}
+      <a href="/admin/" rel="nofollow" style="font-size:10px;color:var(--muted);opacity:.55;letter-spacing:.08em;">Espace pro</a>
     </div>
   </div>
 </footer>

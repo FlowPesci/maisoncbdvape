@@ -96,7 +96,7 @@ déploiement suivant.
 
 ---
 
-## 7. Créer la GitHub OAuth App (admin Decap CMS)
+## 7. Créer la GitHub OAuth App (back-office)
 
 1. Va sur **[github.com/settings/developers](https://github.com/settings/developers)** → **OAuth Apps** → **New OAuth App**
 2. Application name : `MaisonCBDVape Admin`
@@ -110,13 +110,14 @@ déploiement suivant.
 
 ## 8. (Si applicable) Inviter le commerçant comme collaborateur
 
-Pour qu'il puisse modifier les produits via Decap CMS, il a besoin :
+Pour qu'il puisse modifier les produits via l'éditeur de contenu, il a besoin :
 1. **Un compte GitHub** (gratuit, 5 min sur github.com/signup)
 2. **D'être collaborateur** du repo `tabacgex` :
    - GitHub → repo `tabacgex` → **Settings** → **Collaborators** → **Add people**
    - Tape le username GitHub du commerçant → choisir rôle **"Write"**
    - Le commerçant accepte par email
-3. Il pourra ensuite se connecter à `/admin/` via son compte GitHub.
+3. Il pourra ensuite se connecter à `/admin/` via son compte GitHub : c'est le
+   tableau de bord, d'où partent toutes les sections.
 
 ---
 
@@ -137,8 +138,11 @@ URLs à vérifier :
 - **Recherche** : `https://maisoncbdvape.fr/recherche/`
 - **Suivi commande** : `https://maisoncbdvape.fr/suivi-commande/` (vide tant qu'aucune commande)
 - **Contact** : `https://maisoncbdvape.fr/contact/`
-- **Admin Decap** : `https://maisoncbdvape.fr/admin/` (login GitHub)
-- **Back-office** : `https://maisoncbdvape.fr/admin/commandes/` (login GitHub)
+- **Back-office (tableau de bord)** : `https://maisoncbdvape.fr/admin/` (login GitHub)
+  - Commandes : `/admin/commandes/`
+  - Stocks : `/admin/stocks/`
+  - Réception de marchandise : `/admin/reception/`
+  - Éditeur de contenu (Decap) : `/admin/contenu/`
 
 ---
 
@@ -234,7 +238,7 @@ si le domaine du champ `EMAIL_FROM` n'est pas vérifié.
 **Le build échoue avec "Cannot find module @netlify/blobs"**
 → Tu as oublié de pull les derniers changements. `git pull` puis push de nouveau.
 
-**`/admin/` affiche "Config Errors"**
+**`/admin/contenu/` affiche "Config Errors"**
 → Vérifie que le `Authorization callback URL` de la GitHub OAuth App est exact : `https://maisoncbdvape.fr/api/auth/callback`.
 
 **`/admin/commandes/` reste sur "Connexion via GitHub" en boucle après login**
@@ -274,7 +278,7 @@ Pour que les uploads d'images via Decap CMS ne déclenchent **plus de rebuilds C
 
 ### D. Tester l'upload
 
-1. Va sur `https://maisoncbdvape.fr/admin/`
+1. Va sur `https://maisoncbdvape.fr/admin/contenu/`
 2. Login GitHub
 3. Édite un produit → champ "Image principale" → clique le bouton image
 4. Une fenêtre modale s'ouvre : **"Bibliothèque images (Cloudflare R2)"**
@@ -285,3 +289,22 @@ Pour que les uploads d'images via Decap CMS ne déclenchent **plus de rebuilds C
 ### E. (Optionnel) Vérifier dans R2
 
 Cloudflare → R2 → `tabacgex-media` → tu vois tes photos uploadées avec une clé du genre `produits/1714305600-photo.jpg`.
+
+---
+
+## Contrôle de la configuration de l'éditeur
+
+Decap ne valide sa configuration **qu'au chargement, dans le navigateur**. Une faute
+passe le build, passe le déploiement, et ne se découvre qu'en ouvrant l'admin —
+remplacée par « Error loading the CMS configuration », sans plus aucun accès aux fiches
+produits. C'est arrivé le 2026-07-26 avec un champ `sousCategorie` déclaré deux fois.
+
+`npm run build` lance désormais `npm run verify:cms` avant Eleventy : deux champs de
+même nom, une collection dupliquée ou un `backend.repo` manquant font échouer le build
+en moins d'une seconde, avant tout déploiement.
+
+Pour le lancer seul :
+
+```powershell
+npm run verify:cms
+```

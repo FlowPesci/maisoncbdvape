@@ -5,21 +5,15 @@ title: "Gestion des commandes"
 description: "Back-office MaisonCBDVape"
 eleventyExcludeFromCollections: true
 ---
+{% set adminSection = "commandes" %}
 <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  {% include "partials/admin-nav.njk" %}
 
   <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
     <div>
       <p class="font-mono text-xs text-smoke uppercase tracking-widest mb-1">Back-office</p>
       <h1 class="font-display text-4xl lg:text-5xl text-white tracking-wide">COMMANDES</h1>
-    </div>
-    <div class="flex items-center gap-3 flex-wrap">
-      <button id="logout-btn" class="hidden text-smoke text-xs hover:text-white transition-colors flex items-center gap-1">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"/></svg>
-        Déconnexion
-      </button>
-      <a href="/admin/stocks/" class="text-smoke text-xs hover:text-white transition-colors">Stocks →</a>
-      <a href="/admin/reception/" class="text-smoke text-xs hover:text-white transition-colors">Réception →</a>
-      <a href="/admin/" class="text-smoke text-xs hover:text-white transition-colors">Decap CMS →</a>
     </div>
   </div>
 
@@ -59,8 +53,9 @@ eleventyExcludeFromCollections: true
 
 <script>
 (function() {
-  const TOKEN_KEY = 'tabacgex-admin-token';
-  let token = localStorage.getItem(TOKEN_KEY);
+  // Jeton fourni par la barre d'admin : elle accepte aussi celui de l'éditeur
+  // de contenu, ce qui évite une seconde connexion. Voir partials/admin-nav.njk.
+  let token = window.MCV_ADMIN.token();
 
   /** Échappe les caractères HTML pour prévenir les injections XSS */
   function esc(str) {
@@ -73,23 +68,23 @@ eleventyExcludeFromCollections: true
       .replace(/'/g, '&#x27;');
   }
 
-  // Si on revient d'un OAuth callback : extrait le token du hash
-  if (window.location.hash.startsWith('#token=')) {
-    token = decodeURIComponent(window.location.hash.slice(7));
-    localStorage.setItem(TOKEN_KEY, token);
-    history.replaceState({}, '', window.location.pathname); // efface le hash
-  }
 
   const statusEl = document.getElementById('orders-status');
   const tableEl  = document.getElementById('orders-table');
   const tbody    = document.getElementById('orders-tbody');
   const filters  = document.getElementById('status-filters');
-  const logoutBtn = document.getElementById('logout-btn');
+  // Déconnexion : gérée par la barre d'admin commune (partials/admin-nav.njk).
+
+  /** Jeton périmé ou révoqué : on l'oublie et on redemande la connexion. */
+  function logout() {
+    window.MCV_ADMIN.oublier();
+    token = null;
+    showLogin();
+  }
 
   function showLogin() {
     filters.classList.add('hidden');
     tableEl.classList.add('hidden');
-    logoutBtn.classList.add('hidden');
     statusEl.innerHTML = `
       <p class="text-smoke text-sm mb-4">Connexion via GitHub requise pour accéder à la gestion des commandes.</p>
       <a href="/api/auth/login?mode=admin&return=/admin/commandes/" class="btn-neon-green inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">
@@ -98,12 +93,6 @@ eleventyExcludeFromCollections: true
     statusEl.classList.remove('hidden');
   }
 
-  function logout() {
-    localStorage.removeItem(TOKEN_KEY);
-    token = null;
-    showLogin();
-  }
-  logoutBtn?.addEventListener('click', logout);
 
   // ⚠ Les couleurs doivent rester des hex littéraux : le template ci-dessous
   //   concatène un suffixe d'opacité (`${m.color}22`), ce qu'une var() ne permet pas.
@@ -141,7 +130,6 @@ eleventyExcludeFromCollections: true
 
       filters.classList.remove('hidden');
       filters.classList.add('flex');
-      logoutBtn.classList.remove('hidden');
 
       if (!orders.length) {
         statusEl.innerHTML = '<p class="text-smoke text-sm">Aucune commande pour ce filtre.</p>';

@@ -5,7 +5,10 @@ title: "Détail commande"
 description: "Back-office MaisonCBDVape"
 eleventyExcludeFromCollections: true
 ---
+{% set adminSection = "commandes" %}
 <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  {% include "partials/admin-nav.njk" %}
 
   <div class="mb-6">
     <a href="/admin/commandes/" class="text-smoke text-xs hover:text-white transition-colors flex items-center gap-1 mb-2">
@@ -24,8 +27,9 @@ eleventyExcludeFromCollections: true
 
 <script>
 (function() {
-  const TOKEN_KEY = 'tabacgex-admin-token';
-  let token = localStorage.getItem(TOKEN_KEY);
+  // Jeton fourni par la barre d'admin : elle accepte aussi celui de l'éditeur
+  // de contenu, ce qui évite une seconde connexion. Voir partials/admin-nav.njk.
+  let token = window.MCV_ADMIN.token();
 
   /** Échappe les caractères HTML pour prévenir les injections XSS */
   function esc(str) {
@@ -36,11 +40,6 @@ eleventyExcludeFromCollections: true
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#x27;');
-  }
-  if (window.location.hash.startsWith('#token=')) {
-    token = decodeURIComponent(window.location.hash.slice(7));
-    localStorage.setItem(TOKEN_KEY, token);
-    history.replaceState({}, '', window.location.pathname + window.location.search);
   }
 
   const params = new URLSearchParams(window.location.search);
@@ -201,7 +200,7 @@ eleventyExcludeFromCollections: true
             body: JSON.stringify({ orderId: order.orderId, status: newStatus }),
           });
           if (res.status === 401 || res.status === 403) {
-            localStorage.removeItem(TOKEN_KEY);
+            window.MCV_ADMIN.oublier();
             token = null;
             showLogin();
             return;
@@ -232,7 +231,7 @@ eleventyExcludeFromCollections: true
     try {
       const res = await fetch('/api/get-order?id=' + encodeURIComponent(orderId), { headers: { Authorization: 'Bearer ' + token } });
       if (res.status === 401 || res.status === 403) {
-        localStorage.removeItem(TOKEN_KEY);
+        window.MCV_ADMIN.oublier();
         token = null;
         showLogin();
         return;

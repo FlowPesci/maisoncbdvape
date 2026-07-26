@@ -132,12 +132,6 @@ collections:
           - { label: "Articles fumeurs › Allume-charbons", value: "allume-charbons" }
           - { label: "Articles fumeurs › Boîtes", value: "boites" }
 
-      - label: "Sous-catégorie"
-        name: "sousCategorie"
-        widget: "string"
-        required: false
-        hint: "Ex : kits-debutants, fleurs-indoor, e-liquides... (optionnel)"
-
       # ─── Prix & stock ──────────────────────────────────────────
       - label: "Prix (€)"
         name: "prix"

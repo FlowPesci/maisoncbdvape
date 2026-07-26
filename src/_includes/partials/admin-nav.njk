@@ -1,0 +1,91 @@
+{# ───────────────────────────────────────────────────────────────────────────
+   Barre de navigation commune à tous les écrans du back-office.
+
+   À inclure en haut de chaque page d'admin avec la section courante :
+     {% set adminSection = "stocks" %}
+     {% include "partials/admin-nav.njk" %}
+
+   Elle définit aussi `window.MCV_ADMIN`, le point unique d'accès au jeton.
+   Deux jetons GitHub cohabitaient — celui de l'éditeur de contenu et celui
+   des écrans internes — ce qui obligeait à se connecter deux fois. Ils
+   viennent de la même application OAuth : on accepte donc l'un ou l'autre.
+   ─────────────────────────────────────────────────────────────────────── #}
+
+{% set adminLiens = [
+  { id: "commandes", url: "/admin/commandes/", label: "Commandes" },
+  { id: "stocks",    url: "/admin/stocks/",    label: "Stocks" },
+  { id: "reception", url: "/admin/reception/", label: "Réception" },
+  { id: "contenu",   url: "/admin/contenu/",   label: "Fiches produits" }
+] %}
+
+<nav class="admin-nav mb-8" aria-label="Sections du back-office">
+  <a href="/admin/" class="admin-nav-home" aria-label="Tableau de bord">
+    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955a1.5 1.5 0 012.122 0L22.28 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75"/>
+    </svg>
+  </a>
+  <div class="admin-nav-liens">
+    {% for lien in adminLiens %}
+      <a href="{{ lien.url }}"
+         class="admin-nav-lien{% if adminSection == lien.id %} is-active{% endif %}"
+         {% if adminSection == lien.id %}aria-current="page"{% endif %}>{{ lien.label }}</a>
+    {% endfor %}
+  </div>
+  <button type="button" id="admin-deconnexion" class="admin-nav-sortie" hidden>Déconnexion</button>
+</nav>
+
+<script>
+(function () {
+  /**
+   * Accès unique au jeton d'administration.
+   *
+   * `tabacgex-admin-token` est posé par nos écrans, `decap-cms-user` par
+   * l'éditeur de contenu. Les deux viennent de la même application OAuth
+   * GitHub : accepter l'un ou l'autre évite une seconde connexion, et
+   * recopier celui de l'éditeur évite d'y revenir à chaque fois.
+   */
+  var CLE = 'tabacgex-admin-token';
+
+  function depuisDecap() {
+    try {
+      var u = JSON.parse(localStorage.getItem('decap-cms-user') || '{}');
+      return u && u.token ? u.token : null;
+    } catch (e) { return null; }
+  }
+
+  function token() {
+    // Un jeton passé dans l'URL après OAuth est prioritaire et se range aussitôt.
+    if (location.hash.indexOf('#token=') === 0) {
+      var t = decodeURIComponent(location.hash.slice(7));
+      localStorage.setItem(CLE, t);
+      history.replaceState({}, '', location.pathname + location.search);
+      return t;
+    }
+    var propre = localStorage.getItem(CLE);
+    if (propre) return propre;
+
+    var emprunte = depuisDecap();
+    if (emprunte) { localStorage.setItem(CLE, emprunte); return emprunte; }
+    return null;
+  }
+
+  function oublier() {
+    localStorage.removeItem(CLE);
+    localStorage.removeItem('decap-cms-user');
+  }
+
+  window.MCV_ADMIN = {
+    token: token,
+    oublier: oublier,
+    lienConnexion: function (retour) {
+      return '/api/auth/login?mode=admin&return=' + encodeURIComponent(retour || location.pathname);
+    },
+  };
+
+  var sortie = document.getElementById('admin-deconnexion');
+  if (sortie && token()) {
+    sortie.hidden = false;
+    sortie.addEventListener('click', function () { oublier(); location.reload(); });
+  }
+})();
+</script>

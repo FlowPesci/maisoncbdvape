@@ -1,0 +1,160 @@
+---
+layout: layouts/base.njk
+permalink: /admin/index.html
+title: "Back-office"
+description: "Administration MaisonCBDVape"
+eleventyExcludeFromCollections: true
+---
+{% set adminSection = "accueil" %}
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  {% include "partials/admin-nav.njk" %}
+
+  <div class="mb-8">
+    <p class="font-mono text-xs text-smoke uppercase tracking-widest mb-1">MaisonCBDVape</p>
+    <h1 class="font-display text-4xl lg:text-5xl text-white tracking-wide">BACK-OFFICE</h1>
+    <p id="admin-salut" class="text-smoke text-sm mt-2"></p>
+  </div>
+
+  {# Connexion — affiché seulement si aucun jeton n'est disponible #}
+  <div id="admin-login" class="hidden rounded-2xl border border-dashed border-dark-border bg-dark-card/40 py-16 text-center mb-8">
+    <p class="text-smoke text-sm mb-4">Connexion requise pour accéder au back-office.</p>
+    <a id="admin-login-lien" href="#" class="btn-neon-green inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">
+      Se connecter via GitHub
+    </a>
+  </div>
+
+  <div id="admin-contenu">
+
+    {# ─── Ce qui demande une action aujourd'hui ─── #}
+    <h2 class="font-display text-2xl text-white mb-3">Aujourd'hui</h2>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
+      <a href="/admin/commandes/" class="admin-tuile">
+        <span class="admin-tuile-chiffre" id="kpi-commandes">—</span>
+        <span class="admin-tuile-titre">Commandes à traiter</span>
+        <span class="admin-tuile-texte">En attente, payées ou en préparation</span>
+      </a>
+      <a href="/admin/stocks/" class="admin-tuile">
+        <span class="admin-tuile-chiffre" id="kpi-ruptures">—</span>
+        <span class="admin-tuile-titre">Ruptures</span>
+        <span class="admin-tuile-texte">Références à zéro, invendables en ligne</span>
+      </a>
+      <a href="/admin/stocks/" class="admin-tuile">
+        <span class="admin-tuile-chiffre" id="kpi-faibles">—</span>
+        <span class="admin-tuile-titre">Stocks faibles</span>
+        <span class="admin-tuile-texte">Trois unités ou moins</span>
+      </a>
+      <a href="/admin/reception/" class="admin-tuile">
+        <span class="admin-tuile-chiffre" id="kpi-receptions">—</span>
+        <span class="admin-tuile-titre">Réceptions</span>
+        <span class="admin-tuile-texte">Bons de livraison déjà traités</span>
+      </a>
+    </div>
+
+    {# ─── Les sections, par métier ─── #}
+    <h2 class="font-display text-2xl text-white mb-3">Ventes</h2>
+    <div class="grid sm:grid-cols-2 gap-3 mb-10">
+      <a href="/admin/commandes/" class="admin-tuile">
+        <span class="admin-tuile-titre">Commandes</span>
+        <span class="admin-tuile-texte">Suivre, changer le statut, prévenir le client. Une annulation remet
+          automatiquement la marchandise en stock.</span>
+      </a>
+      <a href="/suivi-commande/" class="admin-tuile">
+        <span class="admin-tuile-titre">Suivi client</span>
+        <span class="admin-tuile-texte">La page que voit le client avec son numéro de commande.</span>
+      </a>
+    </div>
+
+    <h2 class="font-display text-2xl text-white mb-3">Stock</h2>
+    <div class="grid sm:grid-cols-2 gap-3 mb-10">
+      <a href="/admin/reception/" class="admin-tuile">
+        <span class="admin-tuile-titre">Réception de marchandise</span>
+        <span class="admin-tuile-texte">Déposer un bon de livraison, vérifier les lignes reconnues, valider.
+          Les quantités s'ajoutent au stock existant.</span>
+      </a>
+      <a href="/admin/stocks/" class="admin-tuile">
+        <span class="admin-tuile-titre">Inventaire</span>
+        <span class="admin-tuile-texte">Corriger une quantité à la main. Les fleurs se comptent en grammes,
+          le reste à l'unité.</span>
+      </a>
+    </div>
+
+    <h2 class="font-display text-2xl text-white mb-3">Catalogue</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
+      <a href="/admin/contenu/#/collections/produits" class="admin-tuile">
+        <span class="admin-tuile-titre">Fiches produits</span>
+        <span class="admin-tuile-texte">Nom, prix, photos, description, catégorie. Retirer un produit de la
+          vente sans le supprimer.</span>
+      </a>
+      <a href="/admin/contenu/#/collections/categories" class="admin-tuile">
+        <span class="admin-tuile-titre">Catégories</span>
+        <span class="admin-tuile-texte">Univers et sous-catégories du menu de la boutique.</span>
+      </a>
+      <a href="/admin/contenu/#/collections/site" class="admin-tuile">
+        <span class="admin-tuile-titre">Réglages du site</span>
+        <span class="admin-tuile-texte">Horaires, coordonnées, frais de port, modes de livraison.</span>
+      </a>
+    </div>
+
+    <div class="rounded-2xl border border-dark-border bg-dark-card p-5">
+      <p class="text-smoke text-sm">
+        Une modification du catalogue est publiée après un court redéploiement automatique
+        (une à deux minutes). Les stocks, eux, sont immédiats.
+      </p>
+      <a href="/" class="text-xs font-mono uppercase tracking-wider mt-3 inline-block" style="color:var(--gold);">
+        Voir la boutique →
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var login    = document.getElementById('admin-login');
+  var contenu  = document.getElementById('admin-contenu');
+  var token    = window.MCV_ADMIN.token();
+
+  if (!token) {
+    document.getElementById('admin-login-lien').href = window.MCV_ADMIN.lienConnexion('/admin/');
+    login.classList.remove('hidden');
+    contenu.classList.add('hidden');
+    return;
+  }
+
+  var entetes = { Authorization: 'Bearer ' + token };
+  var poser = function (id, valeur, alerte) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = valeur;
+    if (alerte && Number(valeur) > 0) el.classList.add('admin-tuile-alerte');
+  };
+
+  // Les compteurs sont indicatifs : un service indisponible laisse un tiret
+  // plutôt qu'un chiffre faux ou un écran d'erreur.
+  fetch('/api/list-orders', { headers: entetes }).then(function (r) {
+    if (r.status === 401 || r.status === 403) { window.MCV_ADMIN.oublier(); location.reload(); return null; }
+    return r.ok ? r.json() : null;
+  }).then(function (d) {
+    if (!d) return;
+    var aTraiter = (d.orders || []).filter(function (o) {
+      return ['pending', 'paid', 'preparing'].indexOf(o.status) !== -1;
+    }).length;
+    poser('kpi-commandes', aTraiter);
+  }).catch(function () {});
+
+  fetch('/api/stocks', { headers: entetes })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d) return;
+      poser('kpi-ruptures', d.ruptures, true);
+      poser('kpi-faibles', d.faibles);
+    }).catch(function () {});
+
+  fetch('/api/reception', { headers: entetes })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d) return;
+      poser('kpi-receptions', (d.historique || []).length);
+    }).catch(function () {});
+})();
+</script>

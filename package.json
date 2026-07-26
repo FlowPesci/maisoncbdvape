@@ -7,7 +7,7 @@
     "clean": "node -e \"require('fs').rmSync('public',{recursive:true,force:true})\"",
     "css": "tailwindcss -i ./tailwind/input.css -o ./src/assets/css/tailwind.css --minify",
     "catalog": "node scripts/build-catalog-index.js",
-    "build": "npm run clean && npm run css && npm run catalog && eleventy",
+    "build": "npm run clean && npm run css && npm run catalog && npm run verify:cms && eleventy",
     "start": "concurrently \"npm run css -- --watch\" \"eleventy --serve --incremental\"",
     "dev": "wrangler pages dev public --kv ORDERS_KV --kv OAUTH_KV --r2 MEDIA --d1 STOCKS_DB",
     "deploy": "npm run build && wrangler pages deploy public",
@@ -17,7 +17,8 @@
     "db:schema:local": "wrangler d1 execute maisoncbdvape-stocks --file=db/schema.sql --local",
     "db:seed:local": "npm run stocks:seed && wrangler d1 execute maisoncbdvape-stocks --file=db/seed.sql --local",
     "test:reception": "node scripts/test-reception.mjs",
-    "db:migrate:reception": "wrangler d1 execute maisoncbdvape-stocks --file=db/migration-reception.sql --remote"
+    "db:migrate:reception": "wrangler d1 execute maisoncbdvape-stocks --file=db/migration-reception.sql --remote",
+    "verify:cms": "node scripts/verifier-config-cms.mjs"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",
