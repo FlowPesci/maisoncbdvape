@@ -216,6 +216,57 @@ h1, h2, h3, .heading {
   border-color: var(--gold);
   color: var(--cream);
 }
+/* ─── Bouton « Ajouter au panier » des cartes produit ──────────────────
+   ⚠ La classe `.add-cart-btn` était définie dans `src/assets/css/tabacgex.css`,
+   feuille héritée de l'ancien site qui n'est plus chargée par `head.njk` :
+   le bouton se retrouvait donc sans aucun style propre, sans cadre. La règle
+   vit désormais ici, dans la seule feuille réellement servie.
+
+   Même grammaire que `.btn-gold` : filet doré, remplissage au survol. */
+.add-cart-btn {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color .3s, border-color .3s;
+}
+.add-cart-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: translateX(-101%);
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+  z-index: -1;
+}
+.add-cart-btn:hover { color: var(--dark); }
+.add-cart-btn:hover::before { transform: translateX(0); }
+
+/* Une rupture ne doit pas se présenter comme une invitation à acheter :
+   filet éteint, pas de remplissage au survol. */
+.add-cart-btn:disabled {
+  border-color: var(--borderl);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+.add-cart-btn:disabled::before { display: none; }
+
+@media (max-width: 479px) {
+  /* Deux cartes par ligne : « Ajouter au panier » avec 0.16em d'interlettrage
+     passerait sur deux lignes. */
+  .add-cart-btn {
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+  }
+}
+
 /* ─── Cart badge ──────────────────────────────────────────────────────── */
 .cart-badge {
   background: var(--gold);
