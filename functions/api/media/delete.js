@@ -14,9 +14,24 @@ export async function onRequestPost({ request, env }) {
   const body = await parseJson(request);
   if (!body?.key) return bad("Champ 'key' requis");
 
-  // Sécurité : empêche de quitter le préfixe attendu
-  if (body.key.includes("..") || body.key.startsWith("/")) return bad("Clé invalide");
+  const key = String(body.key);
 
-  await env.MEDIA.delete(body.key);
-  return ok({ deleted: body.key });
+  // Sécurité : empêche de quitter le préfixe attendu
+  if (key.includes("..") || key.startsWith("/") || key.includes("\\")) {
+    return bad("Clé invalide");
+  }
+
+  // Le bucket ne contient pas que des médias de la boutique. La lecture
+  // publique (functions/media/[[key]].js) est déjà restreinte à ces deux
+  // préfixes ; la suppression, elle, acceptait n'importe quelle clé. Un
+  // compte d'administration est nécessaire pour l'atteindre, mais l'écart
+  // entre les deux règles est exactement le genre de détail qui devient un
+  // problème le jour où un second compte est ajouté.
+  const PREFIXES_AUTORISES = ["produits/", "ui/"];
+  if (!PREFIXES_AUTORISES.some((p) => key.startsWith(p))) {
+    return bad("Suppression hors des dossiers autorisés : " + key, 403);
+  }
+
+  await env.MEDIA.delete(key);
+  return ok({ deleted: key });
 }

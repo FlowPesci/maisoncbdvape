@@ -11,6 +11,7 @@ import { lookupPrice } from "../_shared/catalog-index.js";
 import { reserverPanier, consommerReservation } from "../_shared/stock.js";
 import { computeFraisPort } from "../_shared/livraison.js";
 import { valideLivraison } from "../_shared/valide-livraison.js";
+import { valideClient } from "../_shared/valide-client.js";
 import { rateLimit, getClientIp } from "../_shared/ratelimit.js";
 
 export async function onRequestPost({ request, env }) {
@@ -24,9 +25,9 @@ export async function onRequestPost({ request, env }) {
 
   const { client, items } = body;
 
-  if (!client?.nom || client.nom.trim().length < 2) return bad("Nom invalide");
-  if (!client?.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(client.email)) return bad("Email invalide");
-  if (!client?.telephone || !/^[0-9 +.\-()]{8,}$/.test(client.telephone)) return bad("Telephone invalide");
+  // Règles communes aux deux chemins de commande — voir _shared/valide-client.js
+  const cli = valideClient(client);
+  if (cli.erreur) return bad(cli.erreur);
   if (!Array.isArray(items) || items.length === 0) return bad("Panier vide");
 
   // Mode de livraison et informations associées — mêmes règles que create-payment.js
@@ -65,12 +66,7 @@ export async function onRequestPost({ request, env }) {
   let order;
   try {
     order = await createOrder(env.ORDERS_KV, {
-      client: {
-        nom: client.nom.trim(),
-        email: client.email.trim().toLowerCase(),
-        telephone: client.telephone.trim(),
-        notes: (client.notes || "").trim(),
-      },
+      client: cli.client,
       items: trustedItems,
       fraisPort: trustedFraisPort,
       modeLivraison:    liv.mode,

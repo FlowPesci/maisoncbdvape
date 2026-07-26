@@ -16,13 +16,30 @@ import { lookupPrice } from "../_shared/catalog-index.js";
 import { reserverPanier, relacherReservation } from "../_shared/stock.js";
 import { computeFraisPort } from "../_shared/livraison.js";
 import { valideLivraison } from "../_shared/valide-livraison.js";
+import { valideClient } from "../_shared/valide-client.js";
+import { rateLimit, getClientIp } from "../_shared/ratelimit.js";
 
 export async function onRequestPost({ request, env }) {
+  // ── Limite de débit ──
+  // C'est le SEUL endpoint public qui réserve du stock : sans plafond,
+  // quelques centaines d'appels immobilisent tout le catalogue pendant la
+  // durée de réservation, sans qu'aucune vente n'ait lieu. Les autres
+  // endpoints publics (contact, newsletter, réservation, suivi) sont déjà
+  // protégés — celui-ci avait été oublié.
+  const ip = getClientIp(request);
+  if (await rateLimit(env.ORDERS_KV, "paiement", ip, { max: 10, windowSecs: 600 })) {
+    return bad("Trop de tentatives de commande. Réessayez dans quelques minutes.", 429);
+  }
+
   const body = await parseJson(request);
   if (!body) return bad("Corps invalide");
 
   const { client, items } = body;
-  if (!client?.email || !Array.isArray(items) || !items.length) return bad("Données invalides");
+  if (!Array.isArray(items) || !items.length) return bad("Panier vide");
+
+  // Mêmes règles que submit-reservation : les deux chemins créent une commande.
+  const cli = valideClient(client);
+  if (cli.erreur) return bad(cli.erreur);
 
   // ── Mode de livraison et informations associées, validés côté serveur ──
   const liv = valideLivraison(body);
@@ -59,12 +76,7 @@ export async function onRequestPost({ request, env }) {
   let order;
   try {
     order = await createOrder(env.ORDERS_KV, {
-      client: {
-        nom:       client.nom.trim(),
-        email:     client.email.trim().toLowerCase(),
-        telephone: client.telephone.trim(),
-        notes:     (client.notes || "").trim(),
-      },
+      client: cli.client,
       items:            trustedItems,
       fraisPort:        trustedFraisPort,
       modeLivraison:    liv.mode,
