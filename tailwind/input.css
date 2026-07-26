@@ -169,7 +169,10 @@ h1, h2, h3, .heading {
 @layer components {
   .icon-btn {
     color: var(--text);
-    opacity: 0.55;
+    /* 0.55 rendait les icônes ternes avant même le survol. Le trait est
+       passé de 1.6 à 1.1 : il faut plus d'opacité pour compenser, sinon
+       elles s'effacent sur le fond brun. */
+    opacity: 0.72;
     transition: opacity .3s, color .3s;
     display: flex;
     align-items: center;
@@ -274,10 +277,16 @@ h1, h2, h3, .heading {
   font-family: 'DM Sans', sans-serif;
   font-weight: 600;
   font-size: 9px;
-  width: 16px; height: 16px;
-  border-radius: 50%;
+  line-height: 1;
+  min-width: 15px; height: 15px;
+  padding: 0 4px;
+  border-radius: 999px;
   display: flex; align-items: center; justify-content: center;
-  position: absolute; top: -6px; right: -6px;
+  position: absolute;
+  /* Détachée du sac plutôt que collée dessus : un liseré de la couleur du
+     fond isole le disque doré du tracé de l'anse, qui passe juste dessous. */
+  top: -7px; right: -8px;
+  box-shadow: 0 0 0 2px var(--dark);
 }
 /* ─── Hero ────────────────────────────────────────────────────────────── */
 .hero-bg {
