@@ -1,22 +1,11 @@
 {
-  "nom": "MaisonCBDVape",
-  "baseline": "CBD & Vape Premium",
-  "tagline": "L'art de savourer autrement",
-  "description": "MaisonCBDVape – Boutique premium CBD, Vape, Puffs, Chicha et articles fumeurs à Gex (01170). Retrait en magasin ou livraison rapide 48h.",
-  "url": "https://maisoncbdvape.fr",
-  "lang": "fr",
-  "locale": "fr_FR",
-  "adresse": {
-    "rue": "48 Rue de Genève",
-    "codePostal": "01170",
-    "ville": "Gex",
-    "pays": "France"
-  },
   "contact": {
     "telephone": "04 50 41 51 50",
     "telephoneE164": "+33450415150",
     "email": "contact@maisoncbdvape.fr"
   },
+  "baseline": "CBD & Vape Premium",
+  "nom": "MaisonCBDVape",
   "horaires": [
     {
       "jours": "Lun, Mar, Jeu, Ven",
@@ -35,6 +24,20 @@
       "heures": "8h–12h"
     }
   ],
+  "social": {
+    "instagram": "https://instagram.com/tabaccbdvapechichagex",
+    "facebook": "https://facebook.com/tabacgex",
+    "tiktok": "https://tiktok.com/@tabacgex"
+  },
+  "lang": "fr",
+  "tagline": "L'art de savourer autrement",
+  "adresse": {
+    "rue": "48 Rue de Genève",
+    "codePostal": "01170",
+    "ville": "Gex",
+    "pays": "France"
+  },
+  "url": "https://maisoncbdvape.fr",
   "livraison": {
     "modes": {
       "livraison": {
@@ -48,17 +51,9 @@
         "actif": true
       },
       "click-and-collect": {
-        "libelle": "Click & Collect",
-        "accroche": "Prêt en 1 heure, retrait à Gex",
-        "transporteur": null,
         "fraisPort": 0,
-        "seuilGratuit": null,
-        "delai": "1 heure",
-        "saisie": "creneau",
-        "actif": true,
-        "delaiPreparationMinutes": 60,
-        "horizonJours": 30,
-        "dureeCreneauMinutes": 90,
+        "accroche": "Prêt en 1 heure, retrait à Gex",
+        "libelle": "Click & Collect",
         "horairesRetrait": {
           "0": [
             [
@@ -126,7 +121,15 @@
               "18:40"
             ]
           ]
-        }
+        },
+        "actif": true,
+        "delai": "1 heure",
+        "saisie": "creneau",
+        "horizonJours": 30,
+        "transporteur": null,
+        "delaiPreparationMinutes": 60,
+        "seuilGratuit": null,
+        "dureeCreneauMinutes": 90
       },
       "point-retrait": {
         "libelle": "Point retrait",
@@ -139,14 +142,8 @@
         "actif": false
       },
       "consigne": {
-        "libelle": "Consigne 24h/24",
-        "accroche": "Casier automatique, retrait par code",
-        "transporteur": "Mondial Relay",
         "fraisPort": 4.5,
-        "seuilGratuit": 49.9,
-        "delai": "3 jours ouvrés",
-        "saisie": "point",
-        "actif": false,
+        "accroche": "Casier automatique, retrait par code",
         "widget": {
           "type": "mondial-relay",
           "brand": "BDTEST",
@@ -155,13 +152,16 @@
           "pays": "FR",
           "codePostalDefaut": "01170",
           "nbResultats": 10
-        }
+        },
+        "libelle": "Consigne 24h/24",
+        "actif": false,
+        "delai": "3 jours ouvrés",
+        "saisie": "point",
+        "transporteur": "Mondial Relay",
+        "seuilGratuit": 49.9
       }
     }
   },
-  "social": {
-    "instagram": "https://instagram.com/tabacgex",
-    "facebook": "https://facebook.com/tabacgex",
-    "tiktok": "https://tiktok.com/@tabacgex"
-  }
+  "locale": "fr_FR",
+  "description": "MaisonCBDVape – Boutique premium CBD, Vape, Puffs, Chicha et articles fumeurs à Gex (01170). Retrait en magasin ou livraison rapide 48h."
 }
