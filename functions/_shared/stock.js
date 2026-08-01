@@ -321,6 +321,89 @@ export async function ajusterStock(db, cle, nouveauDispo, { auteur = "admin", mo
   return { ok: true, avant: avant.dispo, apres: n };
 }
 
+/**
+ * Ajustement groupé — le même travail que `ajusterStock()`, mais pour un
+ * inventaire entier.
+ *
+ * Écrit pour un cas précis : la mise en service, où les 121 références sont
+ * à leur valeur de semis et doivent recevoir leur quantité réelle. Une
+ * requête par ligne, c'est 121 allers-retours et autant d'occasions qu'une
+ * coupure laisse l'inventaire à moitié saisi.
+ *
+ * Trois partis pris, dans l'ordre où ils comptent :
+ *
+ *  1. **Tout ou rien sur les clés.** Si une seule référence est inconnue, le
+ *     lot entier est refusé. Une clé inconnue signifie que la page a été
+ *     ouverte avant une modification du catalogue : appliquer les autres
+ *     lignes donnerait un inventaire partiel que personne ne saurait
+ *     rattraper. Mieux vaut recharger.
+ *  2. **Les lignes inchangées ne sont pas écrites.** L'écran renvoie tout ce
+ *     qu'il affiche ; sans ce filtre, un enregistrement tracerait 121
+ *     mouvements de zéro et noierait le journal.
+ *  3. **`dispo` seul est touché.** `reserve` appartient aux réservations en
+ *     cours ; l'écraser depuis un inventaire relâcherait des paniers en
+ *     cours de paiement.
+ *
+ * @param {Array<{cle: string, dispo: number}>} ajustements
+ * @returns {Promise<{ok: boolean, appliquees?: number, inchangees?: number, erreur?: string, inconnues?: string[]}>}
+ */
+export async function ajusterStocks(db, ajustements, { auteur = "admin", motif = "inventaire" } = {}) {
+  exigeBase(db);
+
+  // Dédoublonnage : si l'appelant envoie deux fois la même clé, la dernière
+  // valeur gagne. Silencieux, parce que c'est le comportement attendu d'un
+  // formulaire, pas une anomalie à signaler.
+  const voulu = new Map();
+  for (const a of ajustements || []) {
+    const cle = String(a?.cle || "").trim();
+    if (!cle) return { ok: false, erreur: "Référence vide dans le lot" };
+    const n = Number(a?.dispo);
+    if (!Number.isInteger(n) || n < 0) {
+      return { ok: false, erreur: `Quantité invalide pour ${cle} : entier positif ou nul attendu` };
+    }
+    if (n > 1000000) return { ok: false, erreur: `Quantité irréaliste pour ${cle}` };
+    voulu.set(cle, n);
+  }
+  if (!voulu.size) return { ok: false, erreur: "Aucun ajustement à appliquer" };
+  if (voulu.size > 500) return { ok: false, erreur: "Lot trop volumineux (500 références au maximum)" };
+
+  const cles = [...voulu.keys()];
+  const trous = cles.map((_, i) => "?" + (i + 1)).join(",");
+  const { results = [] } = await db
+    .prepare(`SELECT cle, dispo FROM stocks WHERE cle IN (${trous})`)
+    .bind(...cles)
+    .all();
+
+  const actuel = new Map(results.map((r) => [r.cle, r.dispo]));
+  const inconnues = cles.filter((c) => !actuel.has(c));
+  if (inconnues.length) {
+    return {
+      ok: false,
+      inconnues,
+      erreur: `${inconnues.length} référence(s) inconnue(s) — la page date d'avant une modification du catalogue, la recharger`,
+    };
+  }
+
+  const t = maintenant();
+  const ops = [];
+  let inchangees = 0;
+  for (const [cle, n] of voulu) {
+    if (actuel.get(cle) === n) { inchangees++; continue; }
+    ops.push(db.prepare("UPDATE stocks SET dispo = ?1, majLe = ?2 WHERE cle = ?3").bind(n, t, cle));
+    ops.push(tracer(db, { cle, delta: n - actuel.get(cle), motif, auteur }));
+  }
+  if (!ops.length) return { ok: true, appliquees: 0, inchangees };
+
+  // D1 borne la taille d'un batch : on découpe. Chaque tranche reste
+  // atomique, ce qui suffit ici — les clés ont déjà toutes été validées, le
+  // seul échec possible est une panne, et une tranche appliquée reste juste.
+  const TRANCHE = 100;
+  for (let i = 0; i < ops.length; i += TRANCHE) {
+    await db.batch(ops.slice(i, i + TRANCHE));
+  }
+  return { ok: true, appliquees: ops.length / 2, inchangees };
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
 // Réception de marchandise
 // Voir docs/etude-reception-marchandise.md

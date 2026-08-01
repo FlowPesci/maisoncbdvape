@@ -27,17 +27,9 @@ export const MODES = {
     "actif": true
   },
   "click-and-collect": {
-    "libelle": "Click & Collect",
-    "accroche": "Prêt en 1 heure, retrait à Gex",
-    "transporteur": null,
     "fraisPort": 0,
-    "seuilGratuit": null,
-    "delai": "1 heure",
-    "saisie": "creneau",
-    "actif": true,
-    "delaiPreparationMinutes": 60,
-    "horizonJours": 30,
-    "dureeCreneauMinutes": 90,
+    "accroche": "Prêt en 1 heure, retrait à Gex",
+    "libelle": "Click & Collect",
     "horairesRetrait": {
       "0": [
         [
@@ -105,7 +97,15 @@ export const MODES = {
           "18:40"
         ]
       ]
-    }
+    },
+    "actif": true,
+    "delai": "1 heure",
+    "saisie": "creneau",
+    "horizonJours": 30,
+    "transporteur": null,
+    "delaiPreparationMinutes": 60,
+    "seuilGratuit": null,
+    "dureeCreneauMinutes": 90
   },
   "point-retrait": {
     "libelle": "Point retrait",
@@ -118,14 +118,8 @@ export const MODES = {
     "actif": false
   },
   "consigne": {
-    "libelle": "Consigne 24h/24",
-    "accroche": "Casier automatique, retrait par code",
-    "transporteur": "Mondial Relay",
     "fraisPort": 4.5,
-    "seuilGratuit": 49.9,
-    "delai": "3 jours ouvrés",
-    "saisie": "point",
-    "actif": false,
+    "accroche": "Casier automatique, retrait par code",
     "widget": {
       "type": "mondial-relay",
       "brand": "BDTEST",
@@ -134,7 +128,13 @@ export const MODES = {
       "pays": "FR",
       "codePostalDefaut": "01170",
       "nbResultats": 10
-    }
+    },
+    "libelle": "Consigne 24h/24",
+    "actif": false,
+    "delai": "3 jours ouvrés",
+    "saisie": "point",
+    "transporteur": "Mondial Relay",
+    "seuilGratuit": 49.9
   }
 };
 

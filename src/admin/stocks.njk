@@ -49,8 +49,24 @@ eleventyExcludeFromCollections: true
         </table>
       </div>
     </div>
+
+    {# Réservé à la barre d'enregistrement, qui est fixée en bas de l'écran :
+       sans cette réserve, elle masquerait les dernières lignes du tableau. #}
+    <div id="stocks-reserve" class="hidden" style="height:5.5rem;"></div>
   </div>
 </section>
+
+{# Barre d'enregistrement — n'apparaît qu'en cas de saisie en attente. #}
+<div id="stocks-barre" class="barre-enregistrer" hidden>
+  <div class="barre-enregistrer-contenu">
+    <p id="stocks-compte" class="text-sm text-white"></p>
+    <div class="flex items-center gap-3">
+      <button id="stocks-annuler" class="btn-outline-violet px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider">Annuler</button>
+      <button id="stocks-enregistrer" class="btn-gold px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest">Tout enregistrer</button>
+    </div>
+  </div>
+  <p id="stocks-erreur" class="barre-enregistrer-erreur" hidden></p>
+</div>
 
 <script>
 (function () {
@@ -64,8 +80,25 @@ eleventyExcludeFromCollections: true
   const kpi      = document.getElementById('stocks-kpi');
   const filtre   = document.getElementById('stocks-filtre');
   const btnRupt  = document.getElementById('stocks-ruptures');
+  const barre    = document.getElementById('stocks-barre');
+  const reserve  = document.getElementById('stocks-reserve');
+  const compte   = document.getElementById('stocks-compte');
+  const erreurEl = document.getElementById('stocks-erreur');
 
   let stocks = [], ruptureSeules = false, poidsSeuls = false;
+
+  /**
+   * Saisies en attente d'enregistrement — clé → quantité voulue.
+   *
+   * Elle vit en dehors du tableau parce que le tableau se reconstruit à
+   * chaque frappe dans le filtre. Une valeur tapée puis masquée par une
+   * recherche doit se retrouver telle quelle quand la recherche est effacée,
+   * sans quoi l'inventaire se perdrait par petits bouts.
+   *
+   * Une valeur ramenée à sa quantité d'origine en sort : ce n'est plus une
+   * modification, et la compter en ferait tracer une de zéro.
+   */
+  const enAttente = new Map();
 
   /**
    * Les fleurs CBD sont pesées à la commande depuis un vrac : leur stock se
@@ -132,19 +165,24 @@ eleventyExcludeFromCollections: true
            <div class="text-smoke text-xs font-mono">${esc(s.cle)}${
              unite(s) ? ' · <span style="color:var(--gold);">vrac au gramme</span>' : ''}</div>`;
 
+      // La valeur affichée est celle en cours de saisie s'il y en a une : le
+      // tableau se redessine à chaque filtre, et une saisie effacée par un
+      // changement de filtre serait perdue sans que rien ne le signale.
+      const enCours = enAttente.has(s.cle);
+      const valeur  = enCours ? enAttente.get(s.cle) : s.dispo;
+
       html += `
-        <tr class="border-b border-dark-border last:border-0"
+        <tr class="border-b border-dark-border last:border-0${enCours ? ' ligne-modifiee' : ''}"
             ${d.variante && !nouveauProduit ? 'style="border-top:0;"' : ''}>
           <td class="py-3 px-4">${libelle}</td>
           <td class="py-3 px-4 text-right font-mono font-bold" style="color:${couleur(s.dispo)};">${quantite(s, s.dispo)}</td>
           <td class="py-3 px-4 text-right font-mono text-smoke">${quantite(s, s.reserve || 0)}</td>
           <td class="py-3 px-4 text-right">
             <div class="flex items-center gap-2 justify-end">
-              <input type="number" min="0" step="1" value="${s.dispo}" data-cle="${esc(s.cle)}"
+              <input type="number" min="0" step="1" value="${valeur}" data-cle="${esc(s.cle)}"
                      aria-label="Stock disponible${unite(s) ? ' en grammes' : ''}"
-                     class="w-20 bg-dark-bg border border-dark-border rounded-lg px-2 py-1.5 text-white text-sm text-right focus:outline-none"/>
+                     class="champ-stock w-20 bg-dark-bg border border-dark-border rounded-lg px-2 py-1.5 text-white text-sm text-right focus:outline-none"/>
               ${unite(s) ? '<span class="text-smoke text-xs font-mono w-3">g</span>' : '<span class="w-3"></span>'}
-              <button data-save="${esc(s.cle)}" class="btn-outline-violet px-3 py-1.5 rounded-lg text-xs font-bold uppercase">OK</button>
             </div>
           </td>
         </tr>`;
@@ -193,30 +231,94 @@ eleventyExcludeFromCollections: true
     }
   }
 
-  tbody.addEventListener('click', async (e) => {
-    const btn = e.target.closest('[data-save]');
-    if (!btn) return;
-    const cle = btn.dataset.save;
-    const input = tbody.querySelector(`input[data-cle="${CSS.escape(cle)}"]`);
-    const val = parseInt(input.value, 10);
-    if (!Number.isInteger(val) || val < 0) return;
+  // ─── Saisie groupée ───────────────────────────────────────────────────────
 
-    btn.disabled = true; btn.textContent = '…';
+  /** Reflète l'état de `enAttente` dans la barre du bas. */
+  function majBarre() {
+    const n = enAttente.size;
+    reserve.classList.toggle('hidden', n === 0);
+    barre.hidden = n === 0;
+    if (!n) return;
+    compte.textContent = n === 1
+      ? '1 référence modifiée, pas encore enregistrée'
+      : `${n} références modifiées, pas encore enregistrées`;
+  }
+
+  function erreur(message) {
+    erreurEl.textContent = message || '';
+    erreurEl.hidden = !message;
+  }
+
+  // Une saisie n'écrit rien tant qu'elle n'est pas enregistrée : on se
+  // contente de la retenir. `change` plutôt que `input` laisserait passer une
+  // valeur tapée puis validée par la touche Entrée sans quitter le champ.
+  tbody.addEventListener('input', (e) => {
+    const champ = e.target.closest('input[data-cle]');
+    if (!champ) return;
+    const cle = champ.dataset.cle;
+    const ligne = stocks.find((s) => s.cle === cle);
+    if (!ligne) return;
+
+    const val = parseInt(champ.value, 10);
+    if (!Number.isInteger(val) || val < 0) return;   // saisie en cours, on attend
+
+    if (val === ligne.dispo) enAttente.delete(cle);
+    else enAttente.set(cle, val);
+
+    champ.closest('tr').classList.toggle('ligne-modifiee', enAttente.has(cle));
+    erreur('');
+    majBarre();
+  });
+
+  document.getElementById('stocks-annuler').addEventListener('click', () => {
+    if (!enAttente.size) return;
+    if (!confirm(`Abandonner les ${enAttente.size} modification(s) non enregistrées ?`)) return;
+    enAttente.clear();
+    erreur('');
+    majBarre();
+    render();
+  });
+
+  document.getElementById('stocks-enregistrer').addEventListener('click', async (e) => {
+    if (!enAttente.size) return;
+    const btn = e.currentTarget;
+    const ajustements = [...enAttente].map(([cle, dispo]) => ({ cle, dispo }));
+
+    btn.disabled = true;
+    const libelleBtn = btn.textContent;
+    btn.textContent = 'Enregistrement…';
+    erreur('');
     try {
       const res = await fetch('/api/stocks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
-        body: JSON.stringify({ cle, dispo: val }),
+        body: JSON.stringify({ ajustements }),
       });
       const d = await res.json();
-      if (!res.ok) throw new Error(d.error || 'Erreur');
-      const ligne = stocks.find((s) => s.cle === cle);
-      if (ligne) ligne.dispo = val;
-      render();
+
+      // 409 : une référence a disparu du catalogue depuis l'ouverture de la
+      // page. Rien n'a été écrit — on le dit, et on garde la saisie intacte
+      // pour que le travail ne soit pas perdu.
+      if (res.status === 409) throw new Error(d.error);
+      if (!res.ok) throw new Error(d.error || 'HTTP ' + res.status);
+
+      enAttente.clear();
+      majBarre();
+      await charger();            // relit l'inventaire plutôt que de le deviner
     } catch (err) {
-      alert('Ajustement refusé : ' + err.message);
-      btn.disabled = false; btn.textContent = 'OK';
+      erreur(err.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = libelleBtn;
     }
+  });
+
+  // Dernier garde-fou : un inventaire saisi puis perdu par une fermeture
+  // d'onglet représente une heure de travail.
+  window.addEventListener('beforeunload', (e) => {
+    if (!enAttente.size) return;
+    e.preventDefault();
+    e.returnValue = '';
   });
 
   filtre.addEventListener('input', render);

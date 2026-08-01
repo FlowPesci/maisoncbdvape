@@ -18,8 +18,11 @@
     "db:seed:local": "npm run stocks:seed && wrangler d1 execute maisoncbdvape-stocks --file=db/seed.sql --local",
     "test:reception": "node scripts/test-reception.mjs",
     "db:migrate:reception": "wrangler d1 execute maisoncbdvape-stocks --file=db/migration-reception.sql --remote",
+    "db:migrate:vrac": "wrangler d1 execute maisoncbdvape-stocks --file=db/migration-vrac.sql --remote",
+    "db:etat": "wrangler d1 execute maisoncbdvape-stocks --remote --command \"SELECT (SELECT COUNT(*) FROM stocks) AS references_total, (SELECT COUNT(*) FROM stocks WHERE cle LIKE '%::%g') AS variantes_restantes, (SELECT COUNT(*) FROM stocks WHERE dispo = 10) AS encore_a_10, (SELECT COUNT(*) FROM mouvements) AS mouvements;\"",
     "verify:cms": "node scripts/verifier-config-cms.mjs",
-    "verify:css": "node scripts/verifier-classes-css.mjs"
+    "verify:css": "node scripts/verifier-classes-css.mjs",
+    "test:inventaire": "node scripts/test-inventaire.mjs"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",

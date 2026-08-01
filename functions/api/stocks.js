@@ -2,8 +2,13 @@
  * functions/api/stocks.js
  * Inventaire — lecture et ajustement, réservés au commerçant authentifié.
  *
- * GET  /api/stocks              → inventaire complet
- * POST /api/stocks  { cle, dispo }  → fixe le stock d'une référence
+ * GET  /api/stocks                        → inventaire complet
+ * POST /api/stocks  { cle, dispo }        → fixe le stock d'une référence
+ * POST /api/stocks  { ajustements: [ … ] } → fixe un inventaire entier
+ *
+ * Les deux formes du POST se distinguent par la présence de `ajustements`.
+ * La forme groupée existe pour la saisie d'inventaire, où 121 requêtes
+ * successives laisseraient un état à moitié écrit en cas de coupure.
  *
  * Ces deux endpoints sont aussi le point d'entrée prévu pour une future
  * synchronisation automatisée : un import de caisse appellera le même POST
@@ -12,8 +17,8 @@
  */
 
 import { requireGithubUser } from "../_shared/auth.js";
-import { listerStocks, ajusterStock } from "../_shared/stock.js";
-import { ok, bad, parseJson } from "../_shared/http.js";
+import { listerStocks, ajusterStock, ajusterStocks } from "../_shared/stock.js";
+import { ok, bad, parseJson, jsonResponse } from "../_shared/http.js";
 
 export async function onRequestGet({ request, env }) {
   const auth = await requireGithubUser(request, env);
@@ -41,6 +46,24 @@ export async function onRequestPost({ request, env }) {
   if (!env.STOCKS_DB) return bad("Base de stocks non configurée (binding STOCKS_DB)", 503);
 
   const body = await parseJson(request);
+
+  // Forme groupée — saisie d'inventaire.
+  if (Array.isArray(body?.ajustements)) {
+    try {
+      const r = await ajusterStocks(env.STOCKS_DB, body.ajustements, {
+        auteur: auth.user.login || auth.user.email,
+        motif:  body.motif === "sync" ? "sync" : "inventaire",
+      });
+      // 409 plutôt que 400 : la demande est bien formée, c'est l'état de la
+      // page qui a divergé de celui de la base. L'écran sait alors qu'il doit
+      // se recharger plutôt qu'inviter à corriger une saisie.
+      if (!r.ok) return jsonResponse(r.inconnues ? 409 : 400, { error: r.erreur, inconnues: r.inconnues });
+      return ok(r);
+    } catch (err) {
+      return bad("Enregistrement groupé impossible : " + err.message, 500);
+    }
+  }
+
   if (!body?.cle) return bad("Référence manquante");
 
   const n = Number(body.dispo);

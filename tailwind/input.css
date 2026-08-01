@@ -1236,3 +1236,59 @@ em, i, cite, dfn, address, blockquote, q {
 /* Étoile creuse d'une notation — assez visible pour compter, assez discrète
    pour ne pas rivaliser avec les étoiles pleines. */
 .star-empty { color: var(--dark4); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Saisie groupée des stocks — /admin/stocks/
+   Un inventaire de mise en service, c'est 121 quantités à corriger. Chaque
+   ligne enregistrée séparément, c'est 121 allers-retours et autant
+   d'occasions d'en oublier une. La saisie se fait donc d'un trait, et cette
+   barre est le seul endroit qui écrit.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.barre-enregistrer {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 40;
+  background: rgba(26, 23, 20, 0.96);
+  border-top: 1px solid var(--gold);
+  /* Le fond translucide laisse deviner le tableau qui défile dessous, ce qui
+     rattache la barre à la page plutôt que de la poser par-dessus. */
+  backdrop-filter: blur(8px);
+  padding: 0.9rem 1rem calc(0.9rem + env(safe-area-inset-bottom));
+}
+
+.barre-enregistrer-contenu {
+  max-width: 64rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.barre-enregistrer-erreur {
+  max-width: 64rem;
+  margin: 0.6rem auto 0;
+  color: #FF8A8A;
+  font-size: 0.82rem;
+}
+
+/* Ligne dont la quantité a été retouchée sans être encore enregistrée.
+   Le liseré dépasse à gauche du tableau : il se repère en balayant la
+   colonne du regard, sans avoir à lire les chiffres. */
+.ligne-modifiee {
+  background: rgba(201, 169, 110, 0.07);
+  box-shadow: inset 3px 0 0 var(--gold);
+}
+.ligne-modifiee .champ-stock {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.champ-stock { transition: border-color .15s ease, color .15s ease; }
+/* Les flèches natives du champ numérique volent la place du chiffre sur une
+   colonne de 5 rem, et se déclenchent à la molette pendant le défilement. */
+.champ-stock::-webkit-outer-spin-button,
+.champ-stock::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.champ-stock { -moz-appearance: textfield; appearance: textfield; }
