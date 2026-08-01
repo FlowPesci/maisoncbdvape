@@ -77,11 +77,25 @@ Ordre qui fonctionne :
 Tout ce qui est mesurable : capacité, autonomie, dimensions, matériau,
 connectique, ratio PG/VG. Sort de la prose, entre ici.
 
-### `saveurs`, `couleurs`, `contenuKit`
+### `variantes` — tout ce que le client peut choisir
 
-Les déclinaisons ne se racontent pas, elles se listent. Sur l'Al Fakher Crown
-Bar, quatre saveurs sont décrites en prose avec un emoji chacune : elles
-appartiennent à `saveurs`.
+⚠ **C'est le seul champ sélectionnable.** Grammages des fleurs, saveurs des
+puffs et des e-liquides : tout ce qui constitue un choix d'achat se déclare
+ici, avec son prix et son propre stock.
+
+Un champ `saveurs` a existé, purement décoratif. Le gabarit en faisait des
+puces dorées qui ressemblaient à des boutons, sans que rien n'écoute le clic :
+sur l'Al Fakher Crown Bar, le client voyait quatre saveurs et ne pouvait en
+choisir aucune. Le champ a été supprimé, et `verify:redaction` refuse
+désormais sa réapparition.
+
+La règle générale qu'il faut en retenir : **ce qui ressemble à un choix doit
+en être un.** C'est le même défaut que le bouton « Me prévenir lors du retour
+en stock », qui était désactivé et ne prévenait personne.
+
+### `couleurs`, `contenuKit`
+
+Les déclinaisons qui ne sont pas des choix d'achat se listent ici.
 
 ---
 

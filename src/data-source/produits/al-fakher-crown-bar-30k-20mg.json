@@ -22,7 +22,28 @@
     "Affichage": "Écran charge et niveau de liquide",
     "Puissance": "Réglable"
   },
-  "variantes": [],
+  "variantes": [
+    {
+      "label": "Peach Ice",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Strawberry Punch",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Space Dream",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Cherry Ice",
+      "prix": 19.9,
+      "stock": 10
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
@@ -32,12 +53,6 @@
   "tags": [
     "bestseller",
     "hot"
-  ],
-  "saveurs": [
-    "Peach Ice",
-    "Strawberry Punch",
-    "Space Dream",
-    "Cherry Ice"
   ],
   "galerie": [],
   "id": "al-fakher-crown-bar-30k-20mg",

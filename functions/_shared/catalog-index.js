@@ -10,6 +10,10 @@
 /** @type {Record<string, number>} */
 export const CATALOG = {
   "al-fakher-crown-bar-30k-20mg": 19.9,
+  "al-fakher-crown-bar-30k-20mg::Peach Ice": 19.9,
+  "al-fakher-crown-bar-30k-20mg::Strawberry Punch": 19.9,
+  "al-fakher-crown-bar-30k-20mg::Space Dream": 19.9,
+  "al-fakher-crown-bar-30k-20mg::Cherry Ice": 19.9,
   "allume-charbon-chicha-tsar": 19.9,
   "allume-charbon-gaz-blackcoco-s": 24.9,
   "amazonien": 19.9,
@@ -67,6 +71,28 @@ export const CATALOG = {
   "dutch-punch-indoor-cbd::8g": 39.2,
   "e-cg-50ml": 11.9,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise bleue Cranberry": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise glacée": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Ananas Mangue Pastèque Passion": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise Cerise": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Mangue Pêche": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise Kiwi": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mangue Fruit de la passion": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Framboise": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Grenade glacée": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pomme verte Pêche": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise pastèque glacée": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche Fruits des bois": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Chewing-gum": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cola Cerise": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise glacée": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Fruit du dragon frais": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche glacée": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Cerise": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fruits rouges": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque glacée": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Fraise glacée": 3.9,
   "eclair-vanille-50-ml": 16.9,
   "extract-crumble": 9.9,
   "extract-crumble::2g": 19.8,
@@ -161,6 +187,23 @@ export const CATALOG = {
   "pomme-citron-frais": 16.9,
   "pomme-rouge-pomme-verte": 16.9,
   "puff-30k-hyper-max-crown-bar-by-al-fakher": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint": 19.9,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint": 19.9,
   "puff-adalya-30k": 19.9,
   "raisin-rouge-grenade": 16.9,
   "riz-au-lait-50-ml": 16.9,
@@ -196,6 +239,10 @@ export const CATALOG = {
  */
 export const STOCKS = {
   "al-fakher-crown-bar-30k-20mg": 10,
+  "al-fakher-crown-bar-30k-20mg::Peach Ice": 10,
+  "al-fakher-crown-bar-30k-20mg::Strawberry Punch": 10,
+  "al-fakher-crown-bar-30k-20mg::Space Dream": 10,
+  "al-fakher-crown-bar-30k-20mg::Cherry Ice": 10,
   "allume-charbon-chicha-tsar": 10,
   "allume-charbon-gaz-blackcoco-s": 10,
   "amazonien": 10,
@@ -232,6 +279,28 @@ export const STOCKS = {
   "dutch-punch-indoor-cbd": 10,
   "e-cg-50ml": 10,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise bleue Cranberry": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise glacée": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Ananas Mangue Pastèque Passion": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise Cerise": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Mangue Pêche": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise Kiwi": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mangue Fruit de la passion": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Framboise": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Grenade glacée": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pomme verte Pêche": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise pastèque glacée": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche Fruits des bois": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Chewing-gum": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cola Cerise": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise glacée": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Fruit du dragon frais": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche glacée": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Cerise": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fruits rouges": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque glacée": 10,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Fraise glacée": 10,
   "eclair-vanille-50-ml": 10,
   "extract-crumble": 10,
   "frais-peche-litchi-frais": 10,
@@ -299,6 +368,23 @@ export const STOCKS = {
   "pomme-citron-frais": 10,
   "pomme-rouge-pomme-verte": 10,
   "puff-30k-hyper-max-crown-bar-by-al-fakher": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint": 10,
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint": 10,
   "puff-adalya-30k": 10,
   "raisin-rouge-grenade": 10,
   "riz-au-lait-50-ml": 10,
@@ -330,6 +416,26 @@ export const STOCKS = {
 export const CLES_STOCK = {
   "al-fakher-crown-bar-30k-20mg": {
     "cle": "al-fakher-crown-bar-30k-20mg",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "al-fakher-crown-bar-30k-20mg::Peach Ice": {
+    "cle": "al-fakher-crown-bar-30k-20mg::Peach Ice",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "al-fakher-crown-bar-30k-20mg::Strawberry Punch": {
+    "cle": "al-fakher-crown-bar-30k-20mg::Strawberry Punch",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "al-fakher-crown-bar-30k-20mg::Space Dream": {
+    "cle": "al-fakher-crown-bar-30k-20mg::Space Dream",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "al-fakher-crown-bar-30k-20mg::Cherry Ice": {
+    "cle": "al-fakher-crown-bar-30k-20mg::Cherry Ice",
     "facteur": 1,
     "unite": "pcs"
   },
@@ -580,6 +686,116 @@ export const CLES_STOCK = {
   },
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine": {
     "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise bleue Cranberry": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise bleue Cranberry",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise glacée": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise glacée",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Ananas Mangue Pastèque Passion": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Ananas Mangue Pastèque Passion",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise Cerise": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise Cerise",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Mangue Pêche": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Mangue Pêche",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise Kiwi": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise Kiwi",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mangue Fruit de la passion": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mangue Fruit de la passion",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Framboise": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Framboise",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Grenade glacée": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Grenade glacée",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pomme verte Pêche": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pomme verte Pêche",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise pastèque glacée": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise pastèque glacée",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche Fruits des bois": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche Fruits des bois",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Chewing-gum": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Chewing-gum",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cola Cerise": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cola Cerise",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise glacée": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise glacée",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Fruit du dragon frais": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Fruit du dragon frais",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche glacée": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche glacée",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Cerise": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Cerise",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fruits rouges": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fruits rouges",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque glacée": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque glacée",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Fraise glacée": {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Fraise glacée",
     "facteur": 1,
     "unite": "pcs"
   },
@@ -1008,6 +1224,91 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint": {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint",
+    "facteur": 1,
+    "unite": "pcs"
+  },
   "puff-adalya-30k": {
     "cle": "puff-adalya-30k",
     "facteur": 1,
@@ -1135,6 +1436,10 @@ export const CLES_STOCK = {
  */
 export const UNITES_STOCK = {
   "al-fakher-crown-bar-30k-20mg": "pcs",
+  "al-fakher-crown-bar-30k-20mg::Peach Ice": "pcs",
+  "al-fakher-crown-bar-30k-20mg::Strawberry Punch": "pcs",
+  "al-fakher-crown-bar-30k-20mg::Space Dream": "pcs",
+  "al-fakher-crown-bar-30k-20mg::Cherry Ice": "pcs",
   "allume-charbon-chicha-tsar": "pcs",
   "allume-charbon-gaz-blackcoco-s": "pcs",
   "amazonien": "pcs",
@@ -1171,6 +1476,28 @@ export const UNITES_STOCK = {
   "dutch-punch-indoor-cbd": "g",
   "e-cg-50ml": "pcs",
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise bleue Cranberry": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise glacée": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Ananas Mangue Pastèque Passion": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise Cerise": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Mangue Pêche": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise Kiwi": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mangue Fruit de la passion": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Framboise": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Grenade glacée": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pomme verte Pêche": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise pastèque glacée": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche Fruits des bois": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Chewing-gum": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cola Cerise": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise glacée": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Fruit du dragon frais": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche glacée": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Cerise": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fruits rouges": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque glacée": "pcs",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Fraise glacée": "pcs",
   "eclair-vanille-50-ml": "pcs",
   "extract-crumble": "g",
   "frais-peche-litchi-frais": "pcs",
@@ -1238,6 +1565,23 @@ export const UNITES_STOCK = {
   "pomme-citron-frais": "pcs",
   "pomme-rouge-pomme-verte": "pcs",
   "puff-30k-hyper-max-crown-bar-by-al-fakher": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint": "pcs",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint": "pcs",
   "puff-adalya-30k": "pcs",
   "raisin-rouge-grenade": "pcs",
   "riz-au-lait-50-ml": "pcs",
@@ -1265,8 +1609,29 @@ export const UNITES_STOCK = {
  */
 export const REFERENCES = [
   {
-    "cle": "al-fakher-crown-bar-30k-20mg",
-    "nom": "Al Fakher Crown Bar 30K 20MG",
+    "cle": "al-fakher-crown-bar-30k-20mg::Peach Ice",
+    "nom": "Al Fakher Crown Bar 30K 20MG Peach Ice",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "al-fakher-crown-bar-30k-20mg::Strawberry Punch",
+    "nom": "Al Fakher Crown Bar 30K 20MG Strawberry Punch",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "al-fakher-crown-bar-30k-20mg::Space Dream",
+    "nom": "Al Fakher Crown Bar 30K 20MG Space Dream",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "al-fakher-crown-bar-30k-20mg::Cherry Ice",
+    "nom": "Al Fakher Crown Bar 30K 20MG Cherry Ice",
     "marque": "Al Fakher",
     "categorie": "puffs",
     "unite": "pcs"
@@ -1517,8 +1882,155 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
-    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
-    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine",
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Myrtille Framboise acidulée",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise bleue Cranberry",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Cerise bleue Cranberry",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise glacée",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Cerise glacée",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Ananas Mangue Pastèque Passion",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Ananas Mangue Pastèque Passion",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise Cerise",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Myrtille Framboise Cerise",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Mangue Pêche",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Pastèque Mangue Pêche",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise Kiwi",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Fraise Kiwi",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mangue Fruit de la passion",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Mangue Fruit de la passion",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Framboise",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Mûre Framboise",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Grenade glacée",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Myrtille Grenade glacée",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pomme verte Pêche",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Pomme verte Pêche",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise pastèque glacée",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Cerise pastèque glacée",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche Fruits des bois",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Pêche Fruits des bois",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Chewing-gum",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Pastèque Chewing-gum",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cola Cerise",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Cola Cerise",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise glacée",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Fraise glacée",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Fruit du dragon frais",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Mûre Fruit du dragon frais",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche glacée",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Pêche glacée",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Cerise",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Myrtille Cerise",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fruits rouges",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Fruits rouges",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque glacée",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Pastèque glacée",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Fraise glacée",
+    "nom": "E-liquide JNR 10ml - 20mg sel de nicotine Pastèque Fraise glacée",
     "marque": "JNR",
     "categorie": "puffs",
     "unite": "pcs"
@@ -1986,8 +2498,120 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher",
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Blueberry Raspberry",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Mixed Berry",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Peach Ice",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Menthol",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Strawberry Punch",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Magic Love",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Gum Mint",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Watermelon Kiwi",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Mango Pineapple",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Cherry Fiesta",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Blueberry Cherry",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Strawberry Cherry",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Spearmint",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Berry Blue",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Summer Dream",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Mint",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint",
+    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Blueberry Mint",
     "marque": "Al Fakher",
     "categorie": "puffs",
     "unite": "pcs"
@@ -2176,6 +2800,7 @@ export function resoudreStock(id, label) {
  * @type {Set<string>}
  */
 export const PRODUITS_A_VARIANTES = new Set([
+  "al-fakher-crown-bar-30k-20mg",
   "amnesia-hydro-indoor-cbd",
   "banana-hydro-indoor-cbd",
   "bubba-kush-hydro-indoor-cbd",
@@ -2183,6 +2808,7 @@ export const PRODUITS_A_VARIANTES = new Set([
   "candy-hydro-indoor-cbd",
   "charas-cbd",
   "dutch-punch-indoor-cbd",
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
   "extract-crumble",
   "gelato-hydro-indoor-cbd",
   "hash-primero",
@@ -2192,6 +2818,7 @@ export const PRODUITS_A_VARIANTES = new Set([
   "moon-rock-cbd-indoor",
   "pollen-d-amnesia-100-cbd",
   "pollen-d-or-100-cbd",
+  "puff-30k-hyper-max-crown-bar-by-al-fakher",
   "robin-cherry-cbd",
   "small-bud-lemon",
   "small-bud-strawberry"

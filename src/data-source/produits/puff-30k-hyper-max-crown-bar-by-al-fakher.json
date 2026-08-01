@@ -20,7 +20,93 @@
     "Batterie": "Rechargeable",
     "Type": "Prérempli, longue durée"
   },
-  "variantes": [],
+  "variantes": [
+    {
+      "label": "Blueberry Raspberry",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Mixed Berry",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Peach Ice",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Menthol",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Strawberry Punch",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Magic Love",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Gum Mint",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Watermelon Kiwi",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Mango Pineapple",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Cherry Fiesta",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Blueberry Cherry",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Strawberry Cherry",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Spearmint",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Berry Blue",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Summer Dream",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Mint",
+      "prix": 19.9,
+      "stock": 10
+    },
+    {
+      "label": "Blueberry Mint",
+      "prix": 19.9,
+      "stock": 10
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
@@ -28,25 +114,6 @@
   "categorie": "puffs",
   "dateAjout": "2026-05-09",
   "tags": [],
-  "saveurs": [
-    "Blueberry Raspberry",
-    "Mixed Berry",
-    "Peach Ice",
-    "Menthol",
-    "Strawberry Punch",
-    "Magic Love",
-    "Gum Mint",
-    "Watermelon Kiwi",
-    "Mango Pineapple",
-    "Cherry Fiesta",
-    "Blueberry Cherry",
-    "Strawberry Cherry",
-    "Spearmint",
-    "Berry Blue",
-    "Summer Dream",
-    "Mint",
-    "Blueberry Mint"
-  ],
   "galerie": [],
   "id": "puff-30k-hyper-max-crown-bar-by-al-fakher",
   "image": "/media/produits/1778340784512-puff-30k-hyper-max-crown-bar-by-al-fakher.png",

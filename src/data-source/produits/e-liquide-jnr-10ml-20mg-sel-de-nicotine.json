@@ -21,7 +21,118 @@
     "Compatibilité": "Puffs rechargeables JNR, pods MTL",
     "Saveurs au catalogue": "22"
   },
-  "variantes": [],
+  "variantes": [
+    {
+      "label": "Myrtille Framboise acidulée",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Cerise bleue Cranberry",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Cerise glacée",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Ananas Mangue Pastèque Passion",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Myrtille Framboise Cerise",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Pastèque Mangue Pêche",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Fraise Kiwi",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Mangue Fruit de la passion",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Mûre Framboise",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Myrtille Grenade glacée",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Pomme verte Pêche",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Cerise pastèque glacée",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Pêche Fruits des bois",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Pastèque Chewing-gum",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Cola Cerise",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Fraise glacée",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Mûre Fruit du dragon frais",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Pêche glacée",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Myrtille Cerise",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Fruits rouges",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Pastèque glacée",
+      "prix": 3.9,
+      "stock": 10
+    },
+    {
+      "label": "Pastèque Fraise glacée",
+      "prix": 3.9,
+      "stock": 10
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
@@ -29,30 +140,6 @@
   "categorie": "puffs",
   "dateAjout": "2026-05-09",
   "tags": [],
-  "saveurs": [
-    "Myrtille Framboise acidulée",
-    "Cerise bleue Cranberry",
-    "Cerise glacée",
-    "Ananas Mangue Pastèque Passion",
-    "Myrtille Framboise Cerise",
-    "Pastèque Mangue Pêche",
-    "Fraise Kiwi",
-    "Mangue Fruit de la passion",
-    "Mûre Framboise",
-    "Myrtille Grenade glacée",
-    "Pomme verte Pêche",
-    "Cerise pastèque glacée",
-    "Pêche Fruits des bois",
-    "Pastèque Chewing-gum",
-    "Cola Cerise",
-    "Fraise glacée",
-    "Mûre Fruit du dragon frais",
-    "Pêche glacée",
-    "Myrtille Cerise",
-    "Fruits rouges",
-    "Pastèque glacée",
-    "Pastèque Fraise glacée"
-  ],
   "galerie": [],
   "id": "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
   "image": "/media/produits/1778340783120-e-liquide-jnr-10ml-20mg-sel-de-nicotine.jpeg",

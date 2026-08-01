@@ -219,19 +219,14 @@ eleventyComputed:
       </div>
 
       {# Points forts #}
-      {# Saveurs disponibles — le champ existait dans l'éditeur de contenu
-         mais n'était affiché nulle part. Sur l'Al Fakher Crown Bar, les
-         quatre saveurs étaient racontées en prose dans la description. #}
-      {% if produit.saveurs and produit.saveurs | length > 0 %}
-        <div class="mb-6">
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.15em;color:var(--cream);margin-bottom:.6rem;font-weight:400;">SAVEURS DISPONIBLES</h3>
-          <div class="flex flex-wrap gap-2">
-            {% for saveur in produit.saveurs %}
-              <span class="puce-saveur">{{ saveur }}</span>
-            {% endfor %}
-          </div>
-        </div>
-      {% endif %}
+      {# ⚠ Un bloc « Saveurs disponibles » affichait ici le champ `saveurs`
+         sous forme de puces dorées. Elles ressemblaient à des boutons, et
+         aucune n'était cliquable : le client voyait quatre saveurs sans
+         pouvoir en choisir une.
+
+         Les saveurs sont désormais des VARIANTES, rendues par le sélecteur
+         ci-dessus — le seul mécanisme qui transporte un choix jusqu'au
+         panier. Ne pas réintroduire d'affichage purement décoratif ici. #}
 
       {% if produit.pointsForts and produit.pointsForts | length > 0 %}
         <div style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.25rem;margin-bottom:1.5rem;">

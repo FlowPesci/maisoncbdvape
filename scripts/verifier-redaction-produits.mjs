@@ -113,6 +113,24 @@ for (const p of produits) {
     }
   }
 
+  // ── Bloquant : un choix affiché doit être un choix réel ──
+  //
+  // Le champ `saveurs` était purement décoratif : le gabarit en faisait des
+  // puces dorées qui ressemblaient à des boutons, alors que rien n'écoutait
+  // le clic. Un client voyait quatre saveurs sur l'Al Fakher Crown Bar sans
+  // pouvoir en choisir une — et achetait donc à l'aveugle, ou renonçait.
+  //
+  // Le champ a été supprimé au profit de `variantes`, seul mécanisme qui
+  // transporte un choix jusqu'au panier. Ce contrôle empêche sa réapparition,
+  // par un import de fournisseur ou par un ancien fichier repris.
+  if ((p.saveurs || []).length) {
+    bloquants.push({
+      id: p.id,
+      quoi: `champ « saveurs » (${p.saveurs.length} entrées)`,
+      pourquoi: "champ décoratif — les saveurs achetables vont dans `variantes`",
+    });
+  }
+
   // ── Signalé : qualité rédactionnelle ──
   const dire = (quoi) => signales.push({ id: p.id, quoi });
 
@@ -132,7 +150,7 @@ for (const p of produits) {
 
 // ── Rapport ────────────────────────────────────────────────────────────────
 if (bloquants.length) {
-  console.error(`[rédaction] ✕ ${bloquants.length} allégation(s) interdite(s) sur un produit :\n`);
+  console.error(`[rédaction] ✕ ${bloquants.length} problème(s) bloquant(s) :\n`);
   const parProduit = new Map();
   for (const b of bloquants) {
     if (!parProduit.has(b.id)) parProduit.set(b.id, []);
@@ -142,10 +160,12 @@ if (bloquants.length) {
     console.error(`       ${id}`);
     for (const l of lignes) console.error(`         · ${l.quoi} — ${l.pourquoi}`);
   }
-  console.error("\n       Un produit au CBD ne peut porter aucune allégation de santé ou");
-  console.error("       thérapeutique (règl. CE 1924/2006, art. L121-2 code de la conso.).");
-  console.error("       Décrire ce qu'on perçoit, jamais ce que le produit fait.");
-  console.error("       Tournures de remplacement : docs/charte-fiches-produits.md\n");
+  console.error("\n       · Allégations : un produit au CBD ne peut porter aucune mention de");
+  console.error("         santé ou thérapeutique (règl. CE 1924/2006, art. L121-2 code de");
+  console.error("         la conso.). Décrire ce qu'on perçoit, jamais ce que le produit fait.");
+  console.error("       · Champ `saveurs` : décoratif, il n'était pas cliquable. Les saveurs");
+  console.error("         achetables se déclarent dans `variantes`, avec leur propre stock.");
+  console.error("       Voir docs/charte-fiches-produits.md\n");
 }
 
 if (signales.length) {

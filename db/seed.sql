@@ -1,12 +1,15 @@
 -- ═══════════════════════════════════════════════════════════════════════════
 -- GÉNÉRÉ AUTOMATIQUEMENT par scripts/seed-stocks.js — ne pas éditer
--- 121 entrées de stock, 121 produits actifs
+-- 161 entrées de stock, 121 produits actifs
 --
 -- Rejouable sans risque : INSERT OR IGNORE laisse intacts les stocks déjà
 -- présents. Ce fichier ne sert qu'à faire entrer les NOUVEAUX produits.
 -- ═══════════════════════════════════════════════════════════════════════════
 
-INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('al-fakher-crown-bar-30k-20mg', 10, 0, 'Al Fakher Crown Bar 30K 20MG', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('al-fakher-crown-bar-30k-20mg::Peach Ice', 10, 0, 'Al Fakher Crown Bar 30K 20MG — Peach Ice', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('al-fakher-crown-bar-30k-20mg::Strawberry Punch', 10, 0, 'Al Fakher Crown Bar 30K 20MG — Strawberry Punch', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('al-fakher-crown-bar-30k-20mg::Space Dream', 10, 0, 'Al Fakher Crown Bar 30K 20MG — Space Dream', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('al-fakher-crown-bar-30k-20mg::Cherry Ice', 10, 0, 'Al Fakher Crown Bar 30K 20MG — Cherry Ice', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('allume-charbon-chicha-tsar', 10, 0, 'Allume charbon Chicha Tsar', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('allume-charbon-gaz-blackcoco-s', 10, 0, 'Allume charbon Gaz Blackcoco’s', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('amazonien', 10, 0, 'Amazonien', unixepoch() * 1000);
@@ -42,7 +45,28 @@ INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('conc
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('corossol-peche-frais', 10, 0, 'Corossol Pêche FRAIS', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('dutch-punch-indoor-cbd', 10, 0, 'Dutch Punch Indoor CBD (vrac, en g)', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-cg-50ml', 10, 0, 'E-CG 50ml', unixepoch() * 1000);
-INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Myrtille Framboise acidulée', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise bleue Cranberry', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Cerise bleue Cranberry', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise glacée', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Cerise glacée', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Ananas Mangue Pastèque Passion', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Ananas Mangue Pastèque Passion', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise Cerise', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Myrtille Framboise Cerise', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Mangue Pêche', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Pastèque Mangue Pêche', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise Kiwi', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Fraise Kiwi', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mangue Fruit de la passion', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Mangue Fruit de la passion', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Framboise', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Mûre Framboise', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Grenade glacée', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Myrtille Grenade glacée', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pomme verte Pêche', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Pomme verte Pêche', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise pastèque glacée', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Cerise pastèque glacée', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche Fruits des bois', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Pêche Fruits des bois', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Chewing-gum', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Pastèque Chewing-gum', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cola Cerise', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Cola Cerise', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fraise glacée', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Fraise glacée', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Mûre Fruit du dragon frais', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Mûre Fruit du dragon frais', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pêche glacée', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Pêche glacée', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Cerise', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Myrtille Cerise', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Fruits rouges', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Fruits rouges', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque glacée', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Pastèque glacée', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('e-liquide-jnr-10ml-20mg-sel-de-nicotine::Pastèque Fraise glacée', 10, 0, 'E-liquide JNR 10ml - 20mg sel de nicotine — Pastèque Fraise glacée', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('eclair-vanille-50-ml', 10, 0, 'Éclair Vanille – 50 ml', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('extract-crumble', 10, 0, 'Extract Crumble (vrac, en g)', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('frais-peche-litchi-frais', 10, 0, 'Frais Pêche – Litchi FRAIS', unixepoch() * 1000);
@@ -109,7 +133,23 @@ INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('poll
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('pomme-citron-50ml-le-petit-verger', 10, 0, 'Pomme Citron 50ml - Le Petit Verger', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('pomme-citron-frais', 10, 0, 'Pomme – Citron FRAIS', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('pomme-rouge-pomme-verte', 10, 0, 'Pomme rouge – Pomme verte', unixepoch() * 1000);
-INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Blueberry Raspberry', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Mixed Berry', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Peach Ice', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Menthol', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Strawberry Punch', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Magic Love', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Gum Mint', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Watermelon Kiwi', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Mango Pineapple', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Cherry Fiesta', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Blueberry Cherry', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Strawberry Cherry', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Spearmint', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Berry Blue', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Summer Dream', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Mint', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Mint', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint', 10, 0, 'Puff 30k Hyper Max - Crown Bar by Al Fakher — Blueberry Mint', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('puff-adalya-30k', 10, 0, 'PUFF Adalya 30K', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('raisin-rouge-grenade', 10, 0, 'Raisin rouge – Grenade', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('riz-au-lait-50-ml', 10, 0, 'Riz au Lait – 50 ml', unixepoch() * 1000);
@@ -117,8 +157,8 @@ INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('robi
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('small-bud-lemon', 10, 0, 'Small Bud Lemon (vrac, en g)', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('small-bud-strawberry', 10, 0, 'Small Bud Strawberry (vrac, en g)', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('snowing-in-dam', 10, 0, 'Snowing In Dam', unixepoch() * 1000);
-INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('spliff-box-l', 10, 0, 'Spliff Box L ! ?', unixepoch() * 1000);
-INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('spliff-box-m', 10, 0, 'Spliff Box M ! ?', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('spliff-box-l', 10, 0, 'Spliff Box L', unixepoch() * 1000);
+INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('spliff-box-m', 10, 0, 'Spliff Box M', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('starbuzz-ultra-max-25k', 10, 0, 'Starbuzz Ultra Max 25K', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('tiramisu-cafe-50-ml', 10, 0, 'Tiramisu Café – 50 ml', unixepoch() * 1000);
 INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) VALUES ('vaporesso-vibe-se-2', 10, 0, 'Vaporesso Vibe SE  2', unixepoch() * 1000);

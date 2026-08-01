@@ -237,21 +237,13 @@ collections:
           - { label: "Nom de la couleur", name: "nom", widget: "string" }
           - { label: "Code couleur (hex)", name: "hex", widget: "color", allowInput: true }
 
-      # ─── Saveurs ───────────────────────────────────────────────
-      - label: "Saveurs disponibles"
-        name: "saveurs"
-        widget: "list"
-        field: { label: "Saveur", name: "saveur", widget: "string" }
-        required: false
-        hint: "Pour les puffs et e-liquides"
-
       # ─── Variantes ─────────────────────────────────────────────
       - label: "Variantes"
         name: "variantes"
         widget: "list"
         summary: "{{fields.label}}{% if fields.prix %} — {{fields.prix}} €{% endif %}"
         required: false
-        hint: "CBD : formats 1g / 3g / 5g / 10g avec prix calculé. Puffs : une entrée par saveur."
+        hint: "Une entrée par choix ACHETABLE, chacun avec son stock. CBD : les grammages (2g, 4g, 8g). Puffs et e-liquides : une entrée par saveur. C'est le seul champ que le client peut sélectionner."
         fields:
           - { label: "Label", name: "label", widget: "string", hint: "Ex : 1g, 3g, Fraise, Mangue…" }
           - { label: "Prix (€)", name: "prix", widget: "number", value_type: "float", required: false }
