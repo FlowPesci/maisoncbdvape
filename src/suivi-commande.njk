@@ -78,7 +78,7 @@ description: "Suivez votre commande MaisonCBDVape en temps réel grâce à votre
   }
 
   const STATUS_LABEL = {
-    pending:    { label: 'En attente de préparation', color: '#FFA500', desc: 'Votre commande est enregistrée. Le commerçant la prend en charge dans les 24 h ouvrées.' },
+    pending:    { label: 'En attente de préparation', color: '#FFA500', desc: 'Votre commande est enregistrée. Le commerçant la prépare — comptez {{ site.livraison.modes["click-and-collect"].delai }} pour un retrait en boutique.' },
     paid:       { label: 'Paiement confirmé',         color: 'var(--gold)', desc: 'Votre paiement est validé. Préparation imminente.' },
     preparing:  { label: 'En préparation',            color: 'var(--gold)', desc: 'Le commerçant prépare votre commande. Vous recevrez un email dès qu\'elle sera prête.' },
     ready:      { label: 'Prête à récupérer',         color: 'var(--gold-light)', desc: 'Votre commande vous attend en boutique au créneau choisi !' },

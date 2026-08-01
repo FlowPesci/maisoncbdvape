@@ -24,7 +24,8 @@ description: "Votre commande est confirmée. Merci pour votre achat chez {{ site
     <h2 class="font-display text-lg tracking-widest text-white mb-3">PROCHAINES ÉTAPES</h2>
     <ol class="space-y-3 text-sm text-smoke list-decimal list-inside">
       <li>Vous recevez un <strong class="text-white">email de confirmation</strong> sous quelques minutes.</li>
-      <li>Le commerçant prépare votre commande sous <strong class="text-white">24 h ouvrées</strong>.</li>
+      {# Délai piloté par site.json → livraison.modes["click-and-collect"].delai #}
+      <li>Le commerçant prépare votre commande en <strong class="text-white">{{ site.livraison.modes["click-and-collect"].delai }}</strong>.</li>
       <li>Quand elle est prête, vous recevez un <strong class="text-white">email "Prête à récupérer"</strong>.</li>
       <li>Présentez-vous au <strong class="text-white">{{ site.adresse.rue }}, {{ site.adresse.codePostal }} {{ site.adresse.ville }}</strong> au créneau choisi, avec votre numéro de commande.</li>
       <li id="etape-paiement">Réglez sur place (CB, espèces, paiement sans contact).</li>
