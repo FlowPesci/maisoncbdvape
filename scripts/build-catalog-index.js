@@ -18,6 +18,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const PRODUITS_DIR = join(ROOT, "src/data-source/produits");
 
+/**
+ * Réglages du site. Lu ici, en tête, parce que deux fichiers générés en
+ * dépendent : le catalogue (seuils d'alerte) et les modes de livraison.
+ */
+const site = JSON.parse(readFileSync(join(ROOT, "src/_data/site.json"), "utf-8"));
+
+/** Seuils d'alerte par unité, avec un repli si site.json ne les déclare pas. */
+const seuilsAlerte = { pcs: 3, g: 30, ...(site.stocks?.seuilAlerte || {}) };
+
 // Les produits retirés de la vente ("actif": false) sortent du catalogue de
 // prix : sans ça, ils resteraient commandables par appel direct à l'API, même
 // sans page ni lien sur le site.
@@ -58,6 +67,13 @@ const unitesStock = {};
  * @type {Array<{cle: string, nom: string, marque: string, categorie: string, unite: string}>}
  */
 const referencesStock = [];
+
+/**
+ * Nom lisible par clé de stock. Rempli en même temps que `referencesStock`,
+ * dont il est l'index — la même information, mais consultable sans parcourir
+ * 121 entrées à chaque e-mail.
+ */
+const nomsStock = {};
 
 /** Nombre de grammes d'un libellé de variante : « 4g » → 4. */
 const grammesDe = (label) => {
@@ -183,6 +199,47 @@ export function uniteStock(cle) {
   return UNITES_STOCK[String(cle)] || "pcs";
 }
 
+/**
+ * Seuils d'alerte, par unité.
+ *
+ * Un seuil unique serait faux, et faux du mauvais côté. Trois boîtes de
+ * résistances, c'est une alerte légitime. Trois grammes de fleur, c'est
+ * qu'il ne reste plus rien depuis longtemps — et surtout, une fleur à 20 g
+ * ne déclencherait rien alors qu'elle ne peut déjà plus honorer trois
+ * sachets de 8 g. L'alerte arriverait trop tard précisément sur les
+ * références qui tournent le plus.
+ *
+ * Source de vérité : src/_data/site.json → "stocks.seuilAlerte".
+ * @type {Record<string, number>}
+ */
+export const SEUILS_ALERTE = ${JSON.stringify(seuilsAlerte, null, 2)};
+
+/**
+ * Nom lisible de chaque ligne de stock.
+ *
+ * Le libellé existe aussi en base, mais il y est figé au semis : un produit
+ * renommé garderait son ancien nom dans les e-mails. Celui-ci suit le
+ * catalogue.
+ * @type {Record<string, string>}
+ */
+export const NOMS_STOCK = ${JSON.stringify(nomsStock, null, 2)};
+
+/** Nom lisible d'une clé de stock, avec repli sur la clé elle-même. */
+export function nomStock(cle) {
+  const k = String(cle);
+  return NOMS_STOCK[k] || NOMS_STOCK[k.split("::")[0]] || k;
+}
+
+/** Seuil en dessous duquel une ligne de stock demande un réassort. */
+export function seuilAlerte(cle) {
+  return SEUILS_ALERTE[uniteStock(cle)] ?? 3;
+}
+
+/** Cette quantité est-elle basse pour cette référence ? Zéro est une rupture, pas un stock faible. */
+export function stockFaible(cle, dispo) {
+  return dispo > 0 && dispo <= seuilAlerte(cle);
+}
+
 export function resoudreStock(id, label) {
   const k = label ? \`\${id}::\${label}\` : String(id);
   return CLES_STOCK[k] || { cle: String(id), facteur: 1, unite: "pcs" };
@@ -239,6 +296,8 @@ export function lookupStock(id, label) {
 `;
 
 mkdirSync(join(ROOT, "functions/_shared"), { recursive: true });
+for (const r of referencesStock) nomsStock[r.cle] = r.nom;
+
 writeFileSync(join(ROOT, "functions/_shared/catalog-index.js"), output, "utf-8");
 
 const count = Object.keys(entries).length;
@@ -255,7 +314,6 @@ console.log(
  * Workers (via ce fichier). Impossible de les faire diverger : elles ont une
  * seule source. Modifier un tarif ou un délai = éditer site.json, puis rebuild.
  * ─────────────────────────────────────────────────────────────────────────── */
-const site = JSON.parse(readFileSync(join(ROOT, "src/_data/site.json"), "utf-8"));
 const modes = site.livraison?.modes;
 
 if (!modes || typeof modes !== "object" || !Object.keys(modes).length) {

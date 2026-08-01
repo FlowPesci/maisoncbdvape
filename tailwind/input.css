@@ -1292,3 +1292,186 @@ em, i, cite, dfn, address, blockquote, q {
 .champ-stock::-webkit-outer-spin-button,
 .champ-stock::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .champ-stock { -moz-appearance: textfield; appearance: textfield; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Retour en stock — fiche produit en rupture
+   La fiche affichait « Me prévenir lors du retour en stock » sur un bouton
+   désactivé : une promesse que le site ne tenait pas. Ce bloc la tient.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.attente-bloc {
+  border: 1px solid rgba(201, 169, 110, 0.35);
+  background: rgba(201, 169, 110, 0.06);
+  border-radius: 2px;
+  padding: 1.25rem;
+}
+
+.attente-titre {
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.attente-texte {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  margin-bottom: 0.9rem;
+}
+
+.attente-champs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.attente-input {
+  flex: 1 1 12rem;
+  background: var(--dark2);
+  border: 1px solid var(--borderl);
+  border-radius: 2px;
+  color: var(--text);
+  padding: 0.75rem 0.9rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color .2s ease;
+}
+.attente-input::placeholder { color: var(--muted); }
+.attente-input:focus        { border-color: var(--gold); }
+
+.attente-envoi {
+  flex: 0 0 auto;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.attente-message {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--gold);
+}
+/* L'erreur se distingue par la couleur seule ne suffirait pas : le message
+   lui-même dit ce qui ne va pas. La teinte n'est qu'un renfort. */
+.attente-message.est-erreur { color: #FF8A8A; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Avis clients — /produits/…
+   Ce bloc remplace deux avis qui étaient écrits en dur dans le gabarit et
+   affichés à l'identique sur les 121 fiches. Tout vient désormais de la base,
+   après validation manuelle. Voir functions/api/avis.js.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.avis-chargement,
+.avis-vide {
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 1.5rem 0;
+}
+
+.avis-initiales {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--dark);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.avis-lien {
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color .2s ease;
+}
+.avis-lien:hover { color: var(--cream); }
+
+/* Le dépôt est replié par défaut : la plupart des visiteurs viennent lire
+   des avis, pas en écrire. Le déplier est un geste, pas un obstacle. */
+.avis-depot {
+  margin-top: 2rem;
+  border-top: 1px solid var(--borderl);
+  padding-top: 1.5rem;
+}
+.avis-depot > summary {
+  cursor: pointer;
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 600;
+  list-style: none;
+}
+.avis-depot > summary::-webkit-details-marker { display: none; }
+.avis-depot > summary::before { content: "+ "; }
+.avis-depot[open] > summary::before { content: "− "; }
+
+.avis-depot-aide {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin: 0.75rem 0 1rem;
+}
+
+.avis-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0.75rem;
+}
+
+.avis-depot label,
+.avis-large {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.avis-large { margin-top: 0.75rem; }
+
+.avis-depot input,
+.avis-depot select,
+.avis-depot textarea {
+  display: block;
+  width: 100%;
+  margin-top: 0.3rem;
+  background: var(--dark2);
+  border: 1px solid var(--borderl);
+  border-radius: 2px;
+  color: var(--text);
+  padding: 0.6rem 0.75rem;
+  font-size: 0.85rem;
+  text-transform: none;
+  letter-spacing: normal;
+  outline: none;
+  transition: border-color .2s ease;
+}
+.avis-depot input:focus,
+.avis-depot select:focus,
+.avis-depot textarea:focus { border-color: var(--gold); }
+.avis-depot select option { background: var(--dark2); color: var(--text); }
+
+.avis-envoi {
+  margin-top: 1rem;
+  padding: 0.7rem 1.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.avis-message {
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--gold);
+}
+.avis-message.est-erreur { color: #FF8A8A; }

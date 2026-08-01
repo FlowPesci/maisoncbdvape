@@ -9,6 +9,7 @@ import { reservationClient, reservationMerchant } from "../_shared/templates.js"
 import { ok, bad, parseJson } from "../_shared/http.js";
 import { lookupPrice } from "../_shared/catalog-index.js";
 import { reserverPanier, consommerReservation } from "../_shared/stock.js";
+import { signalerReassort } from "../_shared/reassort.js";
 import { computeFraisPort } from "../_shared/livraison.js";
 import { valideLivraison } from "../_shared/valide-livraison.js";
 import { valideClient } from "../_shared/valide-client.js";
@@ -110,6 +111,10 @@ export async function onRequestPost({ request, env }) {
       console.error("[submit-reservation] Email commercant KO :", e.message);
     }
   }
+
+  // Après les e-mails de commande, jamais avant : une alerte de réassort ne
+  // doit pas retarder la confirmation que le client attend.
+  await signalerReassort(env, resa.cles);
 
   return ok({ orderId: order.orderId });
 }

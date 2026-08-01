@@ -50,6 +50,16 @@ eleventyExcludeFromCollections: true
       </div>
     </div>
 
+    {# Ce que les clients réclament — n'apparaît que s'il y a des inscrits. #}
+    <div id="stocks-attentes" class="mt-10" hidden>
+      <h2 class="font-display text-2xl text-white tracking-wide mb-1">CE QU'ON VOUS RÉCLAME</h2>
+      <p class="text-smoke text-xs mb-4">
+        Clients inscrits au retour en stock. Ils seront prévenus automatiquement
+        à la réception de la marchandise — ou dès que vous remonterez la quantité ici.
+      </p>
+      <div id="stocks-attentes-liste" class="rounded-2xl border border-dark-border bg-dark-card overflow-hidden"></div>
+    </div>
+
     {# Réservé à la barre d'enregistrement, qui est fixée en bas de l'écran :
        sans cette réserve, elle masquerait les dernières lignes du tableau. #}
     <div id="stocks-reserve" class="hidden" style="height:5.5rem;"></div>
@@ -120,9 +130,12 @@ eleventyExcludeFromCollections: true
     statusEl.classList.remove('hidden');
   }
 
-  function couleur(n) {
-    if (n <= 0) return '#FF5050';
-    if (n <= 3) return '#FFA500';
+  // Le seuil vient du serveur, ligne par ligne : il dépend de l'unité. Trois
+  // grammes de fleur, ce n'est pas un stock faible, c'est un stock fini —
+  // l'alerte doit se déclencher bien avant, vers 30 g.
+  function couleur(s) {
+    if (s.dispo <= 0) return '#FF5050';
+    if (s.faible)     return '#FFA500';
     return 'var(--green)';
   }
 
@@ -175,7 +188,7 @@ eleventyExcludeFromCollections: true
         <tr class="border-b border-dark-border last:border-0${enCours ? ' ligne-modifiee' : ''}"
             ${d.variante && !nouveauProduit ? 'style="border-top:0;"' : ''}>
           <td class="py-3 px-4">${libelle}</td>
-          <td class="py-3 px-4 text-right font-mono font-bold" style="color:${couleur(s.dispo)};">${quantite(s, s.dispo)}</td>
+          <td class="py-3 px-4 text-right font-mono font-bold" style="color:${couleur(s)};">${quantite(s, s.dispo)}</td>
           <td class="py-3 px-4 text-right font-mono text-smoke">${quantite(s, s.reserve || 0)}</td>
           <td class="py-3 px-4 text-right">
             <div class="flex items-center gap-2 justify-end">
@@ -203,6 +216,30 @@ eleventyExcludeFromCollections: true
                   + carte('Ruptures', d.ruptures, '#FF5050');
   }
 
+  /**
+   * Ce que les clients réclament.
+   *
+   * Le bloc reste caché tant que personne n'attend : une section vide sur un
+   * tableau de bord fait douter de sa fiabilité plus qu'elle n'informe.
+   */
+  function renderAttentes(liste) {
+    const bloc = document.getElementById('stocks-attentes');
+    if (!liste.length) { bloc.hidden = true; return; }
+
+    document.getElementById('stocks-attentes-liste').innerHTML = liste.map((a) => `
+      <div class="flex items-center justify-between gap-4 px-4 py-3 border-b border-dark-border last:border-0">
+        <div class="min-w-0">
+          <div class="text-white text-sm truncate">${esc(a.nom)}</div>
+          <div class="text-smoke text-xs font-mono truncate">${esc(a.cle)}</div>
+        </div>
+        <div class="text-right shrink-0">
+          <div class="font-mono font-bold text-lg" style="color:var(--gold);">${a.attendus}</div>
+          <div class="text-smoke text-xs">${a.attendus > 1 ? 'clients' : 'client'}</div>
+        </div>
+      </div>`).join('');
+    bloc.hidden = false;
+  }
+
   async function charger() {
     if (!token) return showLogin();
     try {
@@ -222,6 +259,7 @@ eleventyExcludeFromCollections: true
         return String(da.variante || '').localeCompare(String(db_.variante || ''), 'fr');
       });
       renderKpi(d);
+      renderAttentes(d.attentes || []);
       render();
       statusEl.classList.add('hidden');
       panel.classList.remove('hidden');

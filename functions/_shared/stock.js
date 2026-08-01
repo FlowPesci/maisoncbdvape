@@ -21,7 +21,7 @@
  * quand Monetico rejoue une notification.
  * ─────────────────────────────────────────────────────────────────────────── */
 
-import { resoudreStock, uniteStock } from "./catalog-index.js";
+import { resoudreStock, uniteStock, seuilAlerte, stockFaible } from "./catalog-index.js";
 
 /** Durée de vie d'une réservation non confirmée, en minutes. */
 const EXPIRATION_MINUTES = 30;
@@ -166,7 +166,9 @@ export async function reserverPanier(db, orderId, items) {
     ),
   ]);
 
-  return { ok: true };
+  // Les clés servent à l'alerte de réassort. Le calcul n'est pas fait ici :
+  // une commande ne doit pas dépendre d'un service de messagerie.
+  return { ok: true, cles: reserves.map((r) => r.cle) };
 }
 
 /**
@@ -194,7 +196,9 @@ export async function consommerReservation(db, orderId) {
     ),
     ...results.map((r) => tracer(db, { cle: r.cle, delta: 0, motif: "consommation", orderId })),
   ]);
-  return results.length;
+  // Les clés remontent pour l'alerte de réassort. Aucun appelant n'utilisait
+  // le nombre renvoyé auparavant ; il reste disponible sous `lignes`.
+  return { lignes: results.length, cles: results.map((r) => r.cle) };
 }
 
 /**
@@ -228,6 +232,10 @@ async function relacherPanier(db, orderId, lignes, motif) {
     ),
     ...lignes.map((r) => tracer(db, { cle: r.cle, delta: r.qty, motif, orderId })),
   ]);
+  // Le stock revient en vente : une référence remontée au-dessus de son seuil
+  // doit pouvoir alerter de nouveau. Sans cela, une commande annulée
+  // condamnerait définitivement l'alerte de ses références.
+  await rearmerAlerte(db, lignes.map((r) => r.cle));
 }
 
 /**
@@ -287,6 +295,86 @@ export async function lireStocks(db, cles) {
   return Object.fromEntries((results || []).map((r) => [r.cle, r.dispo]));
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// Alerte de réassort
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Références qui viennent de passer sous leur seuil et n'ont pas encore été
+ * signalées.
+ *
+ * ⚠ Cette fonction ne lit pas un état, elle repère un **franchissement**.
+ * La distinction est tout : une référence qui reste basse pendant trois jours
+ * ne doit produire qu'un seul e-mail. Sans cela le commerçant apprendrait à
+ * filtrer ces messages, et l'alerte utile partirait avec les autres.
+ * `alerteLe` est l'interrupteur qui tient cette promesse ; il est remis à
+ * NULL dès que le stock repasse au-dessus du seuil (voir `rearmerAlerte`).
+ *
+ * Appelée après une réservation, donc dans le chemin d'une commande : elle
+ * ne doit jamais faire échouer celle-ci. L'appelant l'enveloppe.
+ *
+ * @param {string[]} cles  Références touchées par la commande
+ * @returns {Promise<Array<{cle, dispo, libelle, unite, seuil}>>}
+ */
+export async function alertesAEmettre(db, cles) {
+  const liste = [...new Set((cles || []).map(String))];
+  if (!liste.length) return [];
+
+  const trous = liste.map((_, i) => "?" + (i + 1)).join(",");
+  const { results = [] } = await db
+    .prepare(`SELECT cle, dispo, libelle, alerteLe FROM stocks WHERE cle IN (${trous})`)
+    .bind(...liste)
+    .all();
+
+  // Une rupture franche compte aussi : `stockFaible` exclut le zéro, mais
+  // « il n'en reste plus » est précisément ce qu'il faut savoir.
+  const aSignaler = results.filter(
+    (l) => !l.alerteLe && (l.dispo <= 0 || stockFaible(l.cle, l.dispo))
+  );
+  if (!aSignaler.length) return [];
+
+  const t = maintenant();
+  await db.batch(
+    aSignaler.map((l) =>
+      db.prepare("UPDATE stocks SET alerteLe = ?1 WHERE cle = ?2 AND alerteLe IS NULL").bind(t, l.cle)
+    )
+  );
+
+  return aSignaler.map((l) => ({
+    cle: l.cle,
+    dispo: l.dispo,
+    libelle: l.libelle || l.cle,
+    unite: uniteStock(l.cle),
+    seuil: seuilAlerte(l.cle),
+  }));
+}
+
+/**
+ * Rouvre le droit d'alerter les références repassées au-dessus de leur seuil.
+ *
+ * Appelée après toute entrée de stock — réception ou saisie d'inventaire.
+ * Sans elle, une référence alertée une fois ne le serait plus jamais.
+ */
+async function rearmerAlerte(db, cles) {
+  const liste = [...new Set((cles || []).map(String))];
+  if (!liste.length) return;
+
+  const trous = liste.map((_, i) => "?" + (i + 1)).join(",");
+  const { results = [] } = await db
+    .prepare(`SELECT cle, dispo FROM stocks WHERE cle IN (${trous}) AND alerteLe IS NOT NULL`)
+    .bind(...liste)
+    .all();
+
+  const remontees = results.filter((l) => l.dispo > seuilAlerte(l.cle));
+  if (!remontees.length) return;
+
+  await db.batch(
+    remontees.map((l) =>
+      db.prepare("UPDATE stocks SET alerteLe = NULL WHERE cle = ?1").bind(l.cle)
+    )
+  );
+}
+
 /** Inventaire complet, pour l'écran de gestion. */
 export async function listerStocks(db) {
   exigeBase(db);
@@ -294,9 +382,15 @@ export async function listerStocks(db) {
   const { results } = await db
     .prepare("SELECT cle, dispo, reserve, libelle, majLe FROM stocks ORDER BY libelle")
     .all();
-  // L'unité ne vit pas en base : elle découle du catalogue. Une fleur pesée au
-  // gramme et un pod à l'unité se comptent différemment à l'écran.
-  return (results || []).map((l) => ({ ...l, unite: uniteStock(l.cle) }));
+  // L'unité et le seuil ne vivent pas en base : ils découlent du catalogue.
+  // Une fleur pesée au gramme et un pod à l'unité ne se comptent pas de la
+  // même façon, et ne deviennent donc pas « faibles » au même moment.
+  return (results || []).map((l) => ({
+    ...l,
+    unite:  uniteStock(l.cle),
+    seuil:  seuilAlerte(l.cle),
+    faible: stockFaible(l.cle, l.dispo),
+  }));
 }
 
 /**
@@ -318,6 +412,7 @@ export async function ajusterStock(db, cle, nouveauDispo, { auteur = "admin", mo
     db.prepare("UPDATE stocks SET dispo = ?1, majLe = ?2 WHERE cle = ?3").bind(n, maintenant(), cle),
     tracer(db, { cle, delta: n - avant.dispo, motif, auteur }),
   ]);
+  await rearmerAlerte(db, [cle]);
   return { ok: true, avant: avant.dispo, apres: n };
 }
 
@@ -401,6 +496,8 @@ export async function ajusterStocks(db, ajustements, { auteur = "admin", motif =
   for (let i = 0; i < ops.length; i += TRANCHE) {
     await db.batch(ops.slice(i, i + TRANCHE));
   }
+  // Une référence remontée au-dessus de son seuil redevient alertable.
+  await rearmerAlerte(db, [...voulu.keys()]);
   return { ok: true, appliquees: ops.length / 2, inchangees };
 }
 
@@ -473,7 +570,12 @@ export async function entrerStock(db, entrees, {
   }
 
   await db.batch(ops);
-  return { ok: true, appliquees: lignes.length };
+  // Une référence réapprovisionnée redevient alertable, et ses clients en
+  // attente sont à prévenir. La liste est rendue à l'appelant, qui décide
+  // d'envoyer — envoyer ici ferait dépendre l'entrée en stock d'un service
+  // de messagerie.
+  await rearmerAlerte(db, lignes.map((l) => l.cle));
+  return { ok: true, appliquees: lignes.length, cles: lignes.map((l) => l.cle) };
 }
 
 /**

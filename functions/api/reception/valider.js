@@ -17,6 +17,7 @@
 import { requireGithubUser } from "../../_shared/auth.js";
 import { ok, bad, parseJson } from "../../_shared/http.js";
 import { entrerStock, memoriserAlias } from "../../_shared/stock.js";
+import { prevenirAttentes } from "../../_shared/attentes.js";
 import { REFERENCES } from "../../_shared/catalog-index.js";
 
 export async function onRequestPost({ request, env }) {
@@ -89,5 +90,11 @@ export async function onRequestPost({ request, env }) {
     console.error("[reception/valider] Mémorisation des alias KO :", err.message);
   }
 
-  return ok({ appliquees: resultat.appliquees, memorises });
+  // Les clients qui attendaient ces références sont prévenus maintenant :
+  // c'est le seul moment où l'on sait, de source sûre, que la marchandise
+  // est physiquement là. Un échec d'envoi ne remet pas la réception en
+  // cause — elle est déjà écrite.
+  const prevenus = await prevenirAttentes(env, resultat.cles || []);
+
+  return ok({ appliquees: resultat.appliquees, memorises, prevenus });
 }

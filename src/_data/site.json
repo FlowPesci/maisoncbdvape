@@ -163,5 +163,13 @@
     }
   },
   "locale": "fr_FR",
-  "description": "MaisonCBDVape – Boutique premium CBD, Vape, Puffs, Chicha et articles fumeurs à Gex (01170). Retrait en magasin ou livraison rapide 48h."
+  "description": "MaisonCBDVape – Boutique premium CBD, Vape, Puffs, Chicha et articles fumeurs à Gex (01170). Retrait en magasin ou livraison rapide 48h.",
+  "stocks": {
+    "_commentaire": "Seuils d alerte. Un seuil unique serait faux : 3 boites est une alerte, 3 grammes veut dire qu il ne reste rien. Exprimes par unite.",
+    "seuilAlerte": {
+      "pcs": 3,
+      "g": 30
+    },
+    "destinataireAlerte": ""
+  }
 }

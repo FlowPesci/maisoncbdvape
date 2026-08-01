@@ -20,6 +20,10 @@ CREATE TABLE IF NOT EXISTS stocks (
   -- Libellé lisible, pour l'écran de gestion (évite une jointure au catalogue)
   libelle    TEXT NOT NULL DEFAULT '',
   majLe      INTEGER NOT NULL DEFAULT 0,
+  -- Date du dernier e-mail de réassort, ou NULL. Interrupteur, pas journal :
+  -- remis à NULL dès que le stock repasse au-dessus du seuil, pour que ce
+  -- soit le franchissement qui alerte et non l'état. Voir db/migration-alertes.sql
+  alerteLe   INTEGER,
 
   CHECK (dispo >= 0),
   CHECK (reserve >= 0)
@@ -99,3 +103,42 @@ CREATE TABLE IF NOT EXISTS receptions (
 );
 
 CREATE INDEX IF NOT EXISTS idx_receptions_date ON receptions (creeLe);
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- Attentes de retour en stock
+-- Une rupture est une vente perdue en silence. Ces lignes disent ce que les
+-- clients attendent — donc quoi recommander en priorité.
+-- ═══════════════════════════════════════════════════════════════════════════
+CREATE TABLE IF NOT EXISTS attentes (
+  cle       TEXT NOT NULL,
+  email     TEXT NOT NULL,
+  creeLe    INTEGER NOT NULL,
+  -- Horodatage de l'avis de retour, ou NULL si la personne attend encore
+  prevenuLe INTEGER,
+  PRIMARY KEY (cle, email)
+);
+
+CREATE INDEX IF NOT EXISTS idx_attentes_cle ON attentes (cle, prevenuLe);
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- Avis clients
+-- ⚠ Uniquement des avis déposés par un client dont la commande a été
+-- retrouvée, et validés à la main. Voir db/migration-alertes.sql.
+-- ═══════════════════════════════════════════════════════════════════════════
+CREATE TABLE IF NOT EXISTS avis (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  produitId   TEXT NOT NULL,
+  orderId     TEXT NOT NULL,
+  auteur      TEXT NOT NULL,
+  note        INTEGER NOT NULL,
+  commentaire TEXT NOT NULL DEFAULT '',
+  etat        TEXT NOT NULL DEFAULT 'attente',
+  creeLe      INTEGER NOT NULL,
+  modereLe   INTEGER,
+  UNIQUE (orderId, produitId),
+  CHECK (note BETWEEN 1 AND 5),
+  CHECK (etat IN ('attente', 'publie', 'refuse'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_avis_produit ON avis (produitId, etat);
+CREATE INDEX IF NOT EXISTS idx_avis_etat    ON avis (etat, creeLe);

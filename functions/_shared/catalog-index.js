@@ -2121,6 +2121,50 @@ export function uniteStock(cle) {
   return UNITES_STOCK[String(cle)] || "pcs";
 }
 
+/**
+ * Seuils d'alerte, par unité.
+ *
+ * Un seuil unique serait faux, et faux du mauvais côté. Trois boîtes de
+ * résistances, c'est une alerte légitime. Trois grammes de fleur, c'est
+ * qu'il ne reste plus rien depuis longtemps — et surtout, une fleur à 20 g
+ * ne déclencherait rien alors qu'elle ne peut déjà plus honorer trois
+ * sachets de 8 g. L'alerte arriverait trop tard précisément sur les
+ * références qui tournent le plus.
+ *
+ * Source de vérité : src/_data/site.json → "stocks.seuilAlerte".
+ * @type {Record<string, number>}
+ */
+export const SEUILS_ALERTE = {
+  "pcs": 3,
+  "g": 30
+};
+
+/**
+ * Nom lisible de chaque ligne de stock.
+ *
+ * Le libellé existe aussi en base, mais il y est figé au semis : un produit
+ * renommé garderait son ancien nom dans les e-mails. Celui-ci suit le
+ * catalogue.
+ * @type {Record<string, string>}
+ */
+export const NOMS_STOCK = {};
+
+/** Nom lisible d'une clé de stock, avec repli sur la clé elle-même. */
+export function nomStock(cle) {
+  const k = String(cle);
+  return NOMS_STOCK[k] || NOMS_STOCK[k.split("::")[0]] || k;
+}
+
+/** Seuil en dessous duquel une ligne de stock demande un réassort. */
+export function seuilAlerte(cle) {
+  return SEUILS_ALERTE[uniteStock(cle)] ?? 3;
+}
+
+/** Cette quantité est-elle basse pour cette référence ? Zéro est une rupture, pas un stock faible. */
+export function stockFaible(cle, dispo) {
+  return dispo > 0 && dispo <= seuilAlerte(cle);
+}
+
 export function resoudreStock(id, label) {
   const k = label ? `${id}::${label}` : String(id);
   return CLES_STOCK[k] || { cle: String(id), facteur: 1, unite: "pcs" };

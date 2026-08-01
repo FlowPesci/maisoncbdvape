@@ -17,6 +17,7 @@
 import { getOrder, updateOrder } from "../_shared/orders.js";
 import { verifyRetourMac, isPaiementAccepte, ackResponse } from "../_shared/monetico.js";
 import { consommerReservation, relacherReservation } from "../_shared/stock.js";
+import { signalerReassort } from "../_shared/reassort.js";
 import { sendEmail, merchantEmail } from "../_shared/email.js";
 import { paiementClient, paiementMerchant } from "../_shared/templates.js";
 
@@ -114,8 +115,14 @@ export async function onRequestPost({ request, env }) {
   // ── 6 bis. Le stock réservé devient définitivement vendu ──
   // consommerReservation est idempotent : une notification rejouée par
   // Monetico ne décrémente pas le stock une seconde fois.
-  try { await consommerReservation(env.STOCKS_DB, orderId); }
+  let clesVendues = [];
+  try { clesVendues = (await consommerReservation(env.STOCKS_DB, orderId)).cles; }
   catch (err) { console.error("[monetico-notification] Consommation stock KO :", err.message); }
+
+  // Alerte de réassort ici plutôt qu'à la réservation : c'est le paiement
+  // accepté qui fait la vente. Alerter plus tôt signalerait des ruptures qui
+  // n'en sont pas, dès qu'un client abandonne devant le formulaire bancaire.
+  await signalerReassort(env, clesVendues);
 
   // ── 7. Emails (ne doivent jamais faire échouer l'accusé de réception) ─────
   const siteUrl = env.SITE_URL || "https://maisoncbdvape.pages.dev";

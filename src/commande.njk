@@ -4,6 +4,7 @@ permalink: /commande/index.html
 title: "Finaliser ma commande"
 description: "Coordonnées et mode de livraison — MaisonCBDVape, boutique CBD & Vape à Gex (01170)"
 ---
+{% from "components/icone.njk" import icone %}
 {# ──────────────────────────────────────────────────────────────────────────
    commande.njk — Formulaire de commande — MaisonCBDVape gold luxury
    ────────────────────────────────────────────────────────────────────────── #}
@@ -61,7 +62,7 @@ description: "Coordonnées et mode de livraison — MaisonCBDVape, boutique CBD 
 
   {# Empty state si panier vide #}
   <div id="checkout-empty" class="hidden text-center py-20" style="border:1px dashed var(--borderl);background:rgba(201,169,110,.03);border-radius:2px;">
-    <div class="text-5xl mb-4">🛒</div>
+    <div class="mb-3">{{ icone("panier", "w-8 h-8") }}</div>
     <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:300;color:var(--cream);margin-bottom:.5rem;">Panier vide</h3>
     <p style="color:var(--muted);font-size:.875rem;max-width:26rem;margin:0 auto 1.5rem;">Ajoutez d'abord des produits avant de passer commande.</p>
     <a href="/" class="btn-gold inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold uppercase tracking-widest">Découvrir la boutique</a>
@@ -120,7 +121,7 @@ description: "Coordonnées et mode de livraison — MaisonCBDVape, boutique CBD 
       <div id="section-cc" style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.5rem;">
         <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;letter-spacing:.12em;color:var(--cream);margin-bottom:.5rem;font-weight:400;">CRÉNEAU DE RETRAIT</h2>
         <p style="font-size:.75rem;color:var(--muted);margin-bottom:1.25rem;font-family:'DM Sans',sans-serif;line-height:1.6;">
-          📍 {{ site.adresse.rue }}, {{ site.adresse.codePostal }} {{ site.adresse.ville }}<br/>
+          {{ icone("position", "w-4 h-4 inline-block align-text-bottom") }} {{ site.adresse.rue }}, {{ site.adresse.codePostal }} {{ site.adresse.ville }}<br/>
           <strong style="color:var(--cream);">Votre commande est prête en 1 heure.</strong> Choisissez un créneau à partir de maintenant, aujourd'hui compris.
         </p>
 
@@ -296,7 +297,7 @@ description: "Coordonnées et mode de livraison — MaisonCBDVape, boutique CBD 
         <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;letter-spacing:.12em;color:var(--cream);margin-bottom:.5rem;font-weight:400;">ADRESSE DE LIVRAISON</h2>
         <p style="font-size:.75rem;color:var(--muted);margin-bottom:1.25rem;font-family:'DM Sans',sans-serif;line-height:1.6;">
 {% set liv = site.livraison.modes["livraison"] %}
-          📦 Expédition {{ liv.transporteur }}, livraison en {{ liv.delai }}.<br/>
+          {{ icone("colis", "w-4 h-4 inline-block align-text-bottom") }} Expédition {{ liv.transporteur }}, livraison en {{ liv.delai }}.<br/>
           Livraison offerte dès {{ liv.seuilGratuit | eur }} d'achat, sinon {{ liv.fraisPort | eur }}.
         </p>
         <div class="space-y-4">

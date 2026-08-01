@@ -19,6 +19,7 @@
 import { requireGithubUser } from "../_shared/auth.js";
 import { listerStocks, ajusterStock, ajusterStocks } from "../_shared/stock.js";
 import { ok, bad, parseJson, jsonResponse } from "../_shared/http.js";
+import { prevenirAttentes, listerAttentes } from "../_shared/attentes.js";
 
 export async function onRequestGet({ request, env }) {
   const auth = await requireGithubUser(request, env);
@@ -28,11 +29,21 @@ export async function onRequestGet({ request, env }) {
 
   try {
     const lignes = await listerStocks(env.STOCKS_DB);
+
+    // Ce que les clients réclament. Silencieux si la table n'existe pas
+    // encore : l'inventaire doit rester consultable avant la migration.
+    let attentes = [];
+    try { attentes = await listerAttentes(env.STOCKS_DB); }
+    catch (e) { console.warn("[stocks] Attentes indisponibles :", e.message); }
+
     return ok({
       stocks: lignes,
+      attentes,
       total: lignes.length,
       ruptures: lignes.filter((l) => l.dispo <= 0).length,
-      faibles:  lignes.filter((l) => l.dispo > 0 && l.dispo <= 3).length,
+      // `faible` est calculé par ligne, en tenant compte de son unité : un
+      // seuil unique alerterait trop tard sur les fleurs au gramme.
+      faibles:  lignes.filter((l) => l.faible).length,
     });
   } catch (err) {
     return bad("Lecture des stocks impossible : " + err.message, 500);
@@ -58,7 +69,12 @@ export async function onRequestPost({ request, env }) {
       // page qui a divergé de celui de la base. L'écran sait alors qu'il doit
       // se recharger plutôt qu'inviter à corriger une saisie.
       if (!r.ok) return jsonResponse(r.inconnues ? 409 : 400, { error: r.erreur, inconnues: r.inconnues });
-      return ok(r);
+
+      // Une saisie d'inventaire peut faire repasser une référence au-dessus
+      // de zéro : ceux qui l'attendaient méritent d'être prévenus, au même
+      // titre que si elle était revenue par un bon de livraison.
+      const prevenus = await prevenirAttentes(env, body.ajustements.map((a) => a?.cle).filter(Boolean));
+      return ok({ ...r, prevenus });
     } catch (err) {
       return bad("Enregistrement groupé impossible : " + err.message, 500);
     }

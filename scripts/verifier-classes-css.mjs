@@ -85,6 +85,15 @@ for (const fichier of fichiers("src", [".njk", ".html", ".js"])) {
     .replace(/\{#[\s\S]*?#\}/g, " ");
 
   for (const m of contenu.matchAll(/class(?:Name)?="([^"]+)"/g)) {
+    // Une apostrophe ou un accent grave dans un attribut délimité par des
+    // guillemets ne peut pas faire partie d'un nom de classe : c'est une
+    // concaténation JavaScript, du type
+    //     '<span class="' + (i <= n ? 'star-filled' : 'star-empty') + '">'
+    // dont les fragments (`n`, `i`, un nom de variable) passeraient pour des
+    // classes orphelines. On saute l'attribut entier plutôt que de tenter
+    // d'en démêler les morceaux.
+    if (/['`]/.test(m[1])) continue;
+
     for (const brut of m[1].split(/\s+/)) {
       // On ignore ce qui vient d'un template : `${…}` n'est pas une classe.
       if (!brut || brut.includes("{") || brut.includes("$")) continue;

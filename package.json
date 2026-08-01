@@ -7,7 +7,7 @@
     "clean": "node -e \"require('fs').rmSync('public',{recursive:true,force:true})\"",
     "css": "tailwindcss -i ./tailwind/input.css -o ./src/assets/css/tailwind.css --minify",
     "catalog": "node scripts/build-catalog-index.js",
-    "build": "npm run clean && npm run css && npm run catalog && npm run verify:css && npm run verify:cms && eleventy",
+    "build": "npm run clean && npm run css && npm run catalog && npm run verify:css && npm run verify:cms && npm run verify:api && eleventy",
     "start": "concurrently \"npm run css -- --watch\" \"eleventy --serve --incremental\"",
     "dev": "wrangler pages dev public --kv ORDERS_KV --kv OAUTH_KV --r2 MEDIA --d1 STOCKS_DB",
     "deploy": "npm run build && wrangler pages deploy public",
@@ -22,7 +22,10 @@
     "db:etat": "wrangler d1 execute maisoncbdvape-stocks --remote --command \"SELECT (SELECT COUNT(*) FROM stocks) AS references_total, (SELECT COUNT(*) FROM stocks WHERE cle LIKE '%::%g') AS variantes_restantes, (SELECT COUNT(*) FROM stocks WHERE dispo = 10) AS encore_a_10, (SELECT COUNT(*) FROM mouvements) AS mouvements;\"",
     "verify:cms": "node scripts/verifier-config-cms.mjs",
     "verify:css": "node scripts/verifier-classes-css.mjs",
-    "test:inventaire": "node scripts/test-inventaire.mjs"
+    "test:inventaire": "node scripts/test-inventaire.mjs",
+    "db:migrate:alertes": "wrangler d1 execute maisoncbdvape-stocks --file=db/migration-alertes.sql --remote",
+    "test:alertes": "node scripts/test-alertes.mjs",
+    "verify:api": "node scripts/verifier-api-navigateur.mjs"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",

@@ -4,6 +4,7 @@ permalink: /livraison/index.html
 title: "Politique de livraison & retrait"
 description: "Livraison à domicile en 48h et retrait Click &amp; Collect en boutique — MaisonCBDVape à Gex (01170). Tarifs et délais détaillés."
 ---
+{% from "components/icone.njk" import icone %}
 <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
 
   <h1 class="font-display text-5xl lg:text-6xl text-white tracking-wide mb-3">LIVRAISON &amp; RETRAIT</h1>
@@ -20,14 +21,14 @@ description: "Livraison à domicile en 48h et retrait Click &amp; Collect en bou
     Le retrait en boutique est <strong class="text-white">gratuit et disponible pour toutes les commandes</strong>. Votre commande est préparée en <strong class="text-white">{{ cc.delai }}</strong> : vous choisissez un créneau de retrait dès aujourd'hui, à partir de {{ cc.delai }} après la validation et jusqu'à la fermeture. Vous recevez un email « Commande prête » dès qu'elle vous attend en boutique.
   </p>
   <ul class="text-smoke space-y-2 mt-3">
-    <li>📍 <strong class="text-white">48 Rue de Genève, 01170 Gex, France</strong></li>
-    <li>🕐 Lun, Mar, Jeu, Ven : 7h30–12h30 / 14h–19h</li>
-    <li>🕐 Mercredi : 7h30–12h00 / 14h–19h</li>
-    <li>🕐 Samedi : 8h–12h30 / 14h–18h40</li>
-    <li>🕐 Dimanche : 8h–12h</li>
-    <li>🆔 Présentez votre numéro de commande à votre arrivée</li>
-    <li>💳 Si vous avez réglé en ligne par carte : pas de paiement supplémentaire</li>
-    <li>💵 Si vous avez choisi "Réserver et payer en boutique" : règlement sur place (CB, espèces, paiement sans contact)</li>
+    <li class="flex items-start gap-2.5">{{ icone("position", "w-4 h-4 shrink-0 mt-0.5") }}<span><strong class="text-white">48 Rue de Genève, 01170 Gex, France</strong></span></li>
+    <li class="flex items-start gap-2.5">{{ icone("horloge", "w-4 h-4 shrink-0 mt-0.5") }}<span>Lun, Mar, Jeu, Ven : 7h30–12h30 / 14h–19h</span></li>
+    <li class="flex items-start gap-2.5">{{ icone("horloge", "w-4 h-4 shrink-0 mt-0.5") }}<span>Mercredi : 7h30–12h00 / 14h–19h</span></li>
+    <li class="flex items-start gap-2.5">{{ icone("horloge", "w-4 h-4 shrink-0 mt-0.5") }}<span>Samedi : 8h–12h30 / 14h–18h40</span></li>
+    <li class="flex items-start gap-2.5">{{ icone("horloge", "w-4 h-4 shrink-0 mt-0.5") }}<span>Dimanche : 8h–12h</span></li>
+    <li class="flex items-start gap-2.5">{{ icone("question", "w-4 h-4 shrink-0 mt-0.5") }}<span>Présentez votre numéro de commande à votre arrivée</span></li>
+    <li class="flex items-start gap-2.5">{{ icone("carte", "w-4 h-4 shrink-0 mt-0.5") }}<span>Si vous avez réglé en ligne par carte : pas de paiement supplémentaire</span></li>
+    <li class="flex items-start gap-2.5">{{ icone("especes", "w-4 h-4 shrink-0 mt-0.5") }}<span>Si vous avez choisi "Réserver et payer en boutique" : règlement sur place (CB, espèces, paiement sans contact)</span></li>
   </ul>
 
   <h2 class="font-display text-2xl tracking-widest text-white mt-12 mb-3">LIVRAISON À DOMICILE (COLISSIMO)</h2>
@@ -36,12 +37,12 @@ description: "Livraison à domicile en 48h et retrait Click &amp; Collect en bou
   </p>
   <ul class="text-smoke space-y-2 mt-3">
 {% set liv = site.livraison.modes["livraison"] %}
-    <li>🚚 <strong class="text-white">Livraison offerte</strong> dès {{ liv.seuilGratuit | eur }} d'achat</li>
-    <li>💶 <strong class="text-white">{{ liv.fraisPort | eur }}</strong> pour les commandes inférieures à {{ liv.seuilGratuit | eur }}</li>
-    <li>📦 Délai estimé : <strong class="text-white">{{ liv.delai }}</strong> après expédition</li>
-    <li>🚀 Expédition le jour même pour toute commande passée avant 14 h</li>
-    <li>📬 Numéro de suivi transmis par email dès l'expédition</li>
-    <li>🏠 Livraison en boîte aux lettres ou contre signature selon le format du colis</li>
+    <li class="flex items-start gap-2.5">{{ icone("camion", "w-4 h-4 shrink-0 mt-0.5") }}<span><strong class="text-white">Livraison offerte</strong> dès {{ liv.seuilGratuit | eur }} d'achat</span></li>
+    <li class="flex items-start gap-2.5">{{ icone("especes", "w-4 h-4 shrink-0 mt-0.5") }}<span><strong class="text-white">{{ liv.fraisPort | eur }}</strong> pour les commandes inférieures à {{ liv.seuilGratuit | eur }}</span></li>
+    <li class="flex items-start gap-2.5">{{ icone("colis", "w-4 h-4 shrink-0 mt-0.5") }}<span>Délai estimé : <strong class="text-white">{{ liv.delai }}</strong> après expédition</span></li>
+    <li class="flex items-start gap-2.5">{{ icone("fusee", "w-4 h-4 shrink-0 mt-0.5") }}<span>Expédition le jour même pour toute commande passée avant 14 h</span></li>
+    <li class="flex items-start gap-2.5">{{ icone("boite-lettres", "w-4 h-4 shrink-0 mt-0.5") }}<span>Numéro de suivi transmis par email dès l'expédition</span></li>
+    <li class="flex items-start gap-2.5">{{ icone("maison", "w-4 h-4 shrink-0 mt-0.5") }}<span>Livraison en boîte aux lettres ou contre signature selon le format du colis</span></li>
   </ul>
   <p class="text-smoke leading-relaxed mt-3">
     En cas d'absence lors du passage du facteur, un avis de passage est déposé. Le colis est disponible en bureau de poste pendant <strong class="text-white">15 jours calendaires</strong>.
