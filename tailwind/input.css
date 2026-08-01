@@ -951,3 +951,288 @@ h1, h2, h3, .heading {
 em, i, cite, dfn, address, blockquote, q {
   font-style: normal;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMPOSANTS RAPATRIÉS DE L'ANCIENNE FEUILLE
+   ───────────────────────────────────────────────────────────────────────────
+   Ces classes vivaient dans `src/assets/css/tabacgex.css`, feuille héritée du
+   site précédent qui n'est plus chargée par `head.njk`. Le jour où elle a été
+   débranchée, tous ces composants ont perdu leur habillage en silence :
+   badges de stock, boutons de quantité, onglets de fiche produit, cartes
+   d'avis, miniatures de galerie… et la barre d'achat mobile, qui restait
+   affichée en permanence faute de son état masqué.
+
+   Elles sont réécrites ici aux couleurs actuelles : l'or remplace le violet
+   et le cyan néon, les bruns remplacent les noirs bleutés.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Fil d'Ariane ─────────────────────────────────────────────────────── */
+.breadcrumb-link {
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.breadcrumb-link:hover { color: var(--gold); }
+
+/* ─── Badges d'état d'une fiche ou d'une carte produit ─────────────────── */
+.stock-badge {
+  background: rgba(74, 158, 92, 0.12);
+  color: #4A9E5C;
+  border: 1px solid rgba(74, 158, 92, 0.32);
+}
+.stock-low {
+  background: rgba(255, 165, 0, 0.14);
+  color: #FFA500;
+  border: 1px solid rgba(255, 165, 0, 0.32);
+}
+.badge-rupture {
+  background: rgba(138, 128, 112, 0.14);
+  color: var(--muted);
+  border: 1px solid rgba(138, 128, 112, 0.32);
+}
+/* Délai d'expédition : information, pas alerte — d'où l'or plutôt que le cyan. */
+.dispatch-badge {
+  background: rgba(201, 169, 110, 0.09);
+  color: var(--gold);
+  border: 1px solid rgba(201, 169, 110, 0.28);
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: 'Space Mono', monospace;
+}
+.product-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+  background: var(--gold);
+  color: var(--dark);
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 50px;
+}
+
+/* ─── Stepper de quantité ──────────────────────────────────────────────── */
+.qty-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--dark2);
+  border: 1px solid var(--borderl);
+  color: var(--cream);
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color .22s, background .22s, color .22s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qty-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  background: rgba(201, 169, 110, 0.08);
+  color: var(--gold);
+}
+
+/* ─── Onglets de la fiche produit ──────────────────────────────────────── */
+.tab-btn {
+  padding: 10px 20px;
+  border-radius: 10px 10px 0 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid transparent;
+  border-bottom: none;
+  cursor: pointer;
+  transition: color .22s, background .22s, border-color .22s;
+  background: transparent;
+  white-space: nowrap;
+}
+.tab-btn.active {
+  color: var(--gold);
+  border-color: var(--borderl);
+  background: var(--dark2);
+}
+.tab-btn:not(.active):hover { color: var(--cream); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ─── Galerie : miniatures ─────────────────────────────────────────────── */
+.thumb-btn {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color .25s, transform .25s;
+  cursor: pointer;
+  background: var(--dark2);
+}
+.thumb-btn:hover {
+  border-color: rgba(201, 169, 110, 0.45);
+  transform: translateY(-2px);
+}
+.thumb-btn.active { border-color: var(--gold); }
+.thumb-btn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+.thumb-btn:hover img { transform: scale(1.08); }
+
+/* ─── Sélecteur de couleurs ────────────────────────────────────────────── */
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+  transition: transform .2s, box-shadow .2s;
+}
+.color-swatch:hover { transform: scale(1.15); }
+/* Le liseré crème détache la pastille active quelle que soit sa couleur. */
+.color-swatch.active {
+  border-color: var(--cream);
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.5);
+}
+
+/* ─── Points forts ─────────────────────────────────────────────────────── */
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--borderl);
+}
+.feature-item:last-child { border-bottom: none; }
+.feature-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Avis et notation ─────────────────────────────────────────────────── */
+.review-card {
+  background: var(--dark2);
+  border: 1px solid var(--borderl);
+  border-radius: 14px;
+  transition: border-color .3s, transform .3s;
+}
+.review-card:hover {
+  border-color: rgba(201, 169, 110, 0.28);
+  transform: translateY(-3px);
+}
+.rating-bar-track {
+  background: var(--dark3);
+  border-radius: 99px;
+  height: 5px;
+  flex: 1;
+}
+/* Les étoiles restent ambrées : c'est une convention que le doré ne remplace
+   pas sans perdre en lisibilité. */
+.rating-bar-fill {
+  background: linear-gradient(90deg, #FBBF24, #F59E0B);
+  border-radius: 99px;
+  height: 5px;
+}
+.star-filled { color: #FBBF24; }
+
+/* ─── Tableau de spécifications ────────────────────────────────────────── */
+.spec-row {
+  border-bottom: 1px solid var(--borderl);
+  transition: background .2s ease;
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-row:hover { background: rgba(255, 255, 255, 0.025); }
+
+/* ─── Pastilles de filtre ──────────────────────────────────────────────── */
+.filter-pill {
+  background: transparent;
+  border: 1px solid var(--borderl);
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color .25s, color .25s, background .25s;
+}
+.filter-pill:hover {
+  border-color: rgba(201, 169, 110, 0.4);
+  color: var(--cream);
+}
+.filter-pill.is-active {
+  border-color: var(--gold);
+  background: rgba(201, 169, 110, 0.12);
+  color: var(--gold);
+}
+
+/* ─── Bouton secondaire (nom hérité `btn-outline-violet`) ──────────────── */
+.btn-outline-violet {
+  border: 1px solid var(--borderl);
+  color: var(--text);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color .25s, color .25s, background .25s;
+}
+.btn-outline-violet:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(201, 169, 110, 0.06);
+}
+
+/* ─── Barre d'achat mobile de la fiche produit ─────────────────────────────
+   ⚠ Ce n'était pas qu'une question d'apparence : sans `.hidden-bar`, la barre
+   restait affichée en permanence, par-dessus le contenu. Le script bascule
+   cette classe selon que le bouton d'achat principal est visible ou non. */
+#sticky-buy {
+  transition: transform .35s ease, opacity .35s ease;
+}
+#sticky-buy.hidden-bar {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── Trois derniers composants de l'ancienne feuille ──────────────────── */
+
+/* Quadrillage très discret derrière le fil d'Ariane de la boutique. */
+.grid-lines {
+  background-image:
+    linear-gradient(rgba(201, 169, 110, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 169, 110, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Menu de tri des listes de produits. */
+.sort-select {
+  background: var(--dark2);
+  border: 1px solid var(--borderl);
+  color: var(--text);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color .2s ease;
+}
+.sort-select:hover  { border-color: rgba(201, 169, 110, 0.45); }
+.sort-select:focus  { border-color: var(--gold); }
+/* Les options héritent du fond du système sur certains navigateurs : on
+   les force, sinon le menu déroulant s'ouvre en blanc sur fond sombre. */
+.sort-select option { background: var(--dark2); color: var(--text); }
+
+/* Étoile creuse d'une notation — assez visible pour compter, assez discrète
+   pour ne pas rivaliser avec les étoiles pleines. */
+.star-empty { color: var(--dark4); }
