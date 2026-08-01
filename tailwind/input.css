@@ -12,9 +12,14 @@
   --gold-light: #E8D5A3;
   --muted:      #8A8070;
   --text:       #D8D0C4;
-  --green:      #39FF14;   /* vert prix — accent produit */
-  --green-rgb:  57,255,20; /* même vert, pour les rgba() */
-  --green-deep: #00C853;   /* fin de dégradé des boutons verts */
+  /* Le vert ne fait plus partie de la charte : les prix et les totaux sont
+     passés en doré. Il ne sert plus que de code d'état dans le back-office
+     — « en stock », « ligne reconnue » — où un vert reste le signal le plus
+     lisible. Ramené d'un fluo d'ancienne charte à un vert sobre.
+     ⚠ Ne pas le réintroduire côté boutique. */
+  --green:      #4A9E5C;   /* état positif, back-office uniquement */
+  --green-rgb:  74,158,92;
+  --green-deep: #2F7A42;
   --border:     rgba(201,169,110,0.22);
   --borderl:    rgba(201,169,110,0.13);
 }

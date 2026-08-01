@@ -598,7 +598,7 @@
             <h3 class="text-white font-semibold text-sm sm:text-base leading-snug mb-2 flex items-center flex-wrap gap-1">
               <a href="/produits/${p.id}/" class="hover:text-neon-violet transition-colors">${p.nom}</a>${varianteLine}
             </h3>
-            <div class="font-display text-xl sm:text-2xl mb-3" style="color:var(--green);">${formatEur(unitPrix)}</div>
+            <div class="font-display text-xl sm:text-2xl mb-3" style="color:var(--gold);">${formatEur(unitPrix)}</div>
             <div class="mt-auto flex items-center justify-between flex-wrap gap-3">
               <div class="flex items-center gap-2">
                 <button class="qty-btn" data-cart-dec="${entry.id}" aria-label="Diminuer la quantité">−</button>
@@ -1002,7 +1002,7 @@
             <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">${(p.categorie || '').toUpperCase()} · ${p.marque || ''}</div>
             <h3 class="text-white font-semibold text-sm leading-snug mb-3"><a href="/produits/${p.id}/" class="hover:text-neon-violet transition-colors">${safeNom}</a></h3>
             <div class="flex-1"></div>
-            <div class="font-display text-2xl mt-auto" style="color:var(--green);">${formatEur(p.prix)}</div>
+            <div class="font-display text-2xl mt-auto" style="color:var(--gold);">${formatEur(p.prix)}</div>
           </div>
         </article>`;
     }

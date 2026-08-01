@@ -79,7 +79,7 @@ description: "Suivez votre commande MaisonCBDVape en temps réel grâce à votre
 
   const STATUS_LABEL = {
     pending:    { label: 'En attente de préparation', color: '#FFA500', desc: 'Votre commande est enregistrée. Le commerçant la prend en charge dans les 24 h ouvrées.' },
-    paid:       { label: 'Paiement confirmé',         color: 'var(--green)', desc: 'Votre paiement est validé. Préparation imminente.' },
+    paid:       { label: 'Paiement confirmé',         color: 'var(--gold)', desc: 'Votre paiement est validé. Préparation imminente.' },
     preparing:  { label: 'En préparation',            color: 'var(--gold)', desc: 'Le commerçant prépare votre commande. Vous recevrez un email dès qu\'elle sera prête.' },
     ready:      { label: 'Prête à récupérer',         color: 'var(--gold-light)', desc: 'Votre commande vous attend en boutique au créneau choisi !' },
     completed:  { label: 'Récupérée',                 color: 'var(--muted)', desc: 'Merci pour votre achat. À très vite !' },
@@ -128,7 +128,7 @@ description: "Suivez votre commande MaisonCBDVape en temps réel grâce à votre
           <div>
             <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-2">Articles</p>
             <ul>${items}</ul>
-            <p class="mt-3 text-right font-display text-2xl" style="color:var(--green);">${formatEur(o.totalTTC)}</p>
+            <p class="mt-3 text-right font-display text-2xl" style="color:var(--gold);">${formatEur(o.totalTTC)}</p>
           </div>
           <div class="pt-4 border-t border-dark-border">
             <a href="/contact/" class="text-smoke text-xs hover:text-white transition-colors">❓ Une question sur votre commande ? Contactez-nous →</a>
