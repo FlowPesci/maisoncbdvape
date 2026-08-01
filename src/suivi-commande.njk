@@ -80,9 +80,9 @@ description: "Suivez votre commande MaisonCBDVape en temps réel grâce à votre
   const STATUS_LABEL = {
     pending:    { label: 'En attente de préparation', color: '#FFA500', desc: 'Votre commande est enregistrée. Le commerçant la prend en charge dans les 24 h ouvrées.' },
     paid:       { label: 'Paiement confirmé',         color: 'var(--green)', desc: 'Votre paiement est validé. Préparation imminente.' },
-    preparing:  { label: 'En préparation',            color: '#BF5FFF', desc: 'Le commerçant prépare votre commande. Vous recevrez un email dès qu\'elle sera prête.' },
-    ready:      { label: 'Prête à récupérer',         color: '#00D4FF', desc: 'Votre commande vous attend en boutique au créneau choisi !' },
-    completed:  { label: 'Récupérée',                 color: '#8A8A9A', desc: 'Merci pour votre achat. À très vite !' },
+    preparing:  { label: 'En préparation',            color: 'var(--gold)', desc: 'Le commerçant prépare votre commande. Vous recevrez un email dès qu\'elle sera prête.' },
+    ready:      { label: 'Prête à récupérer',         color: 'var(--gold-light)', desc: 'Votre commande vous attend en boutique au créneau choisi !' },
+    completed:  { label: 'Récupérée',                 color: 'var(--muted)', desc: 'Merci pour votre achat. À très vite !' },
     cancelled:  { label: 'Annulée',                   color: '#FF5050', desc: 'Cette commande a été annulée.' },
   };
 
@@ -106,7 +106,7 @@ description: "Suivez votre commande MaisonCBDVape en temps réel grâce à votre
       if (!res.ok) throw new Error(data.error || 'Erreur ' + res.status);
 
       const o = data.order;
-      const s = STATUS_LABEL[o.status] || { label: o.status, color: '#8A8A9A', desc: '' };
+      const s = STATUS_LABEL[o.status] || { label: o.status, color: 'var(--muted)', desc: '' };
       const items = o.items.map((it) => `
         <li class="flex justify-between gap-3 py-2 border-b border-dark-border last:border-0">
           <span class="text-smoke">${esc(it.qty)} × ${esc(it.nom)}</span>

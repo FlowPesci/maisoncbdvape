@@ -310,6 +310,36 @@ h1, h2, h3, .heading {
   }
 }
 
+/* ─── Bouton d'action principal (nom hérité `btn-neon-green`) ──────────
+   Onze pages l'utilisent pour leur appel à l'action : envoyer le formulaire
+   de contact, suivre une commande, revenir à l'accueil depuis une 404. La
+   classe n'était définie nulle part : ces boutons s'affichaient sans aucun
+   habillage. Version dorée pleine, pour se distinguer de `.btn-gold` qui
+   est le bouton au filet. */
+.btn-neon-green {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--gold);
+  color: var(--dark);
+  border: 1px solid var(--gold);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .25s, color .25s;
+}
+.btn-neon-green:hover {
+  background: transparent;
+  color: var(--gold);
+}
+.btn-neon-green:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
 /* ─── Cart badge ──────────────────────────────────────────────────────── */
 .cart-badge {
   background: var(--gold);

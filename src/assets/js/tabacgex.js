@@ -162,9 +162,11 @@
   const flashButton = (btn) => {
     const original = btn.innerHTML;
     btn.innerHTML = '✓ Ajouté !';
-    btn.style.background = 'var(--green)';
-    btn.style.color = '#0A0A0F';
-    btn.style.borderColor = 'var(--green)';
+    // Confirmation dorée : le même vocabulaire que le survol du bouton,
+    // pour que l'ajout se lise comme un aboutissement et non comme une alerte.
+    btn.style.background = 'var(--gold)';
+    btn.style.color = 'var(--dark)';
+    btn.style.borderColor = 'var(--gold)';
     setTimeout(() => {
       btn.innerHTML = original;
       btn.style.cssText = '';
