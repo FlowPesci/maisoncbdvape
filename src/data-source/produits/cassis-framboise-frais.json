@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Cassis Framboise FRAIS",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Oui",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Un duo de baies audacieux : le cassis intense, l&eacute;g&egrave;rement acidul&eacute;, s&rsquo;allie &agrave; la framboise sucr&eacute;e et pulpeuse pour une e",
+  "descriptionCourte": "Cassis et framboise relevés d'une pointe glacée. Le duo de baies, version fraîche.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "cassis-framboise-frais",
   "image": "/media/produits/1778341709743-cassis-framboise-frais.jpeg",
-  "description": "E-liquide Cassis Framboise FRAIS de la collection fraîcheur Le Petit Verger.\n\nProfil aromatique\nUn duo de baies audacieux : le cassis intense et légèrement acidulé s'allie à la framboise sucrée et pulpeuse, le tout sublimé par une touche de fraîcheur. Une explosion de fruits rouges.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour les amateurs de fruits rouges frais et intenses.",
+  "description": "Cassis acidulé et framboise sucrée, avec une fraîcheur qui vient en fin de bouche resserrer l'ensemble. Sur des baies aussi rondes, le froid a un effet net : il tranche le sucre et rend l'acidité plus franche.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Un duo de baies audacieux : le cassis intense, l&eacute;g&egrave;rement acidul&eacute;, s&rsquo;allie &agrave; la framboise sucr&eacute;e et pulpeuse pour une e"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

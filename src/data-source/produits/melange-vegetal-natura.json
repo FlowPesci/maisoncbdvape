@@ -1,7 +1,12 @@
 {
   "marque": "Mélange végétal Natura",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Sans tabac ni nicotine",
+    "100 % plantes",
+    "Sans menthe, goût neutre",
+    "Roulage classique"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Mélange végétal Natura",
@@ -9,11 +14,17 @@
   "prix": 6.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Composition": "Bouillon blanc, calendula, chanvre",
+    "Tabac": "Aucun",
+    "Nicotine": "Aucune",
+    "Additifs": "Aucun",
+    "Usage": "Roulage"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Bouillon blanc, Calendula & Chanvre",
+  "descriptionCourte": "Bouillon blanc, calendula et chanvre. Une fumée légère et florale, sans menthe, sans tabac ni nicotine.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "melange-vegetal-natura",
   "image": "/media/produits/1778340655602-melange-vegetal-natura.png",
-  "description": "Substitut de tabac naturel – Bouillon blanc, Calendula & Chanvre\n\nRedécouvrez le plaisir du rituel sans nicotine grâce à cette synergie végétale apaisante.\nComposé de Bouillon blanc, Calendula et Chanvre, ce mélange doux et aromatique offre une fumée légère, au goût rond et légèrement floral.\nLe Bouillon blanc adoucit la gorge, le Calendula apporte des notes ensoleillées et bienfaisantes, tandis que le Chanvre procure une sensation de détente et d’équilibre.\n\n✨ Sans tabac – Sans nicotine – 100 % naturel\nIdéal pour accompagner un sevrage en douceur ou savourer un moment de relaxation consciente.\n\n🌿 Un mélange harmonieux pour respirer la liberté, une bouffée à la fois.",
+  "description": "Le Natura est le mélange sans menthe : trois plantes seulement, pour une fumée légère au goût rond et légèrement floral. C'est celui qu'on choisit quand on ne veut pas d'arôme dominant.\n\nLe bouillon blanc constitue la base — c'est la plante à fumer traditionnelle, dont les feuilles larges donnent une combustion lente et régulière. Le calendula apporte ses notes florales, le chanvre un fond végétal plus ample.\n\nNi tabac, ni nicotine, ni additif. Il se roule comme du tabac et peut aussi servir de base à mélanger avec les deux autres.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Bouillon blanc, Calendula & Chanvre"
+    "description": ""
   },
   "sousCategorie": "substituts-tabac"
 }

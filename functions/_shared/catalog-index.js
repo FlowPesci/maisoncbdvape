@@ -1681,7 +1681,7 @@ export const REFERENCES = [
     "cle": "jnr-falcon-gem-30k",
     "nom": "JNR Falcon Gem+ 30K",
     "marque": "JNR",
-    "categorie": "cbd",
+    "categorie": "puffs",
     "unite": "pcs"
   },
   {
@@ -1947,7 +1947,7 @@ export const REFERENCES = [
     "cle": "pod-recharge",
     "nom": "Pod Recharge",
     "marque": "Wiz Pod",
-    "categorie": "cbd",
+    "categorie": "vape",
     "unite": "pcs"
   },
   {
@@ -2043,14 +2043,14 @@ export const REFERENCES = [
   },
   {
     "cle": "spliff-box-l",
-    "nom": "Spliff Box L ! ?",
+    "nom": "Spliff Box L",
     "marque": "Spliff Box",
     "categorie": "accessoires",
     "unite": "pcs"
   },
   {
     "cle": "spliff-box-m",
-    "nom": "Spliff Box M ! ?",
+    "nom": "Spliff Box M",
     "marque": "Spliff Box",
     "categorie": "accessoires",
     "unite": "pcs"
@@ -2087,7 +2087,7 @@ export const REFERENCES = [
     "cle": "wiz",
     "nom": "Sunakin Wiz Go",
     "marque": "Wiz",
-    "categorie": "cbd",
+    "categorie": "vape",
     "unite": "pcs"
   },
   {

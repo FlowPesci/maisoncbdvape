@@ -1,7 +1,12 @@
 {
   "marque": "JNR",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "10 ml, sels de nicotine 20 mg/ml",
+    "22 saveurs au catalogue",
+    "Compatible puffs rechargeables JNR",
+    "3,90 € le flacon"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "E-liquide JNR 10ml - 20mg sel de nicotine",
@@ -9,24 +14,53 @@
   "prix": 3.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "10 ml",
+    "Taux de nicotine": "20 mg/ml",
+    "Type de nicotine": "Sels",
+    "Compatibilité": "Puffs rechargeables JNR, pods MTL",
+    "Saveurs au catalogue": "22"
+  },
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "E-liquide JNR 10ml - 20mg sel de nicotine",
+  "descriptionCourte": "Le flacon de recharge des puffs JNR. 10 ml en sels de nicotine, 22 saveurs au catalogue.",
   "categorie": "puffs",
   "dateAjout": "2026-05-09",
   "tags": [],
-  "saveurs": [],
+  "saveurs": [
+    "Myrtille Framboise acidulée",
+    "Cerise bleue Cranberry",
+    "Cerise glacée",
+    "Ananas Mangue Pastèque Passion",
+    "Myrtille Framboise Cerise",
+    "Pastèque Mangue Pêche",
+    "Fraise Kiwi",
+    "Mangue Fruit de la passion",
+    "Mûre Framboise",
+    "Myrtille Grenade glacée",
+    "Pomme verte Pêche",
+    "Cerise pastèque glacée",
+    "Pêche Fruits des bois",
+    "Pastèque Chewing-gum",
+    "Cola Cerise",
+    "Fraise glacée",
+    "Mûre Fruit du dragon frais",
+    "Pêche glacée",
+    "Myrtille Cerise",
+    "Fruits rouges",
+    "Pastèque glacée",
+    "Pastèque Fraise glacée"
+  ],
   "galerie": [],
   "id": "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
   "image": "/media/produits/1778340783120-e-liquide-jnr-10ml-20mg-sel-de-nicotine.jpeg",
-  "description": "Myrtille Framboise acidulée\n\nCerise bleue Cranberry\n\nCerise glacée\n\nAnanas Mangue Pastèque Passion\n\nMyrtille Framboise Cerise\n\nPastèque Mangue Pêche\n\nFraise Kiwi\n\nMangue Fruit de la passion\n\nMure Framboise\n\nMyrtille Grenade glacée\n\nPomme verte Pèche\n\nCerise pastèque glacée\n\nPèche Fruits des bois\n\nPastèque Chewing gum\n\nCola Cerise\n\nFraise glacée\n\nMure Fruit du dragon frais\n\nPèche glacée\n\nMyrtille Cerise\n\nFruits rouges\n\nPastèque glacée\n\nPastèque Fraise glacée\n\nFruit de la passion Kiwi\n\nMyrtille Framboise",
+  "description": "C'est le flacon qui rend les puffs rechargeables intéressantes : à 3,90 € les 10 ml, le coût d'usage n'a plus rien à voir avec celui d'un dispositif jetable.\n\nLe liquide est formulé en sels de nicotine à 20 mg/ml — le dosage qui reproduit le mieux la sensation d'une cigarette en gorge, sans agressivité. Il convient aux puffs rechargeables JNR comme à la plupart des pods à tirage serré.\n\nVingt-deux saveurs au catalogue, majoritairement fruitées et glacées. Nous ne les tenons pas toutes en permanence : demandez-nous ce qui est en rayon.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "E-liquide JNR 10ml - 20mg sel de nicotine"
+    "description": ""
   },
   "sousCategorie": "pods-recharges"
 }

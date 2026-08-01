@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Mûre – Myrtille FRAIS",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Oui",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Une promenade en for&ecirc;t : la m&ucirc;re sauvage et la myrtille fondante s&rsquo;unissent pour une vape douce, florale et pleine de caract&egrave;re.",
+  "descriptionCourte": "Mûre et myrtille avec une pointe glacée. Doux, floral, avec du caractère.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "mure-myrtille-frais",
   "image": "/media/produits/1778341469100-mure-myrtille-frais.jpeg",
-  "description": "E-liquide Mûre – Myrtille FRAIS de la collection fraîcheur Le Petit Verger.\n\nProfil aromatique\nUne promenade en forêt revisitée : la mûre sauvage et la myrtille fondante s'unissent pour une vape douce et florale, avec une touche fraîcheur finale. Des fruits des bois authentiques et rafraîchissants.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nParfait pour les amateurs de fruits des bois avec une sensation de fraîcheur.",
+  "description": "Mûre sauvage et myrtille fondante, dans un accord doux et floral que la fraîcheur vient réveiller. Sur ces baies foncées, le froid fait ressortir l'acidité discrète de la mûre.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Une promenade en for&ecirc;t : la m&ucirc;re sauvage et la myrtille fondante s&rsquo;unissent pour une vape douce, florale et pleine de caract&egrave;re."
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

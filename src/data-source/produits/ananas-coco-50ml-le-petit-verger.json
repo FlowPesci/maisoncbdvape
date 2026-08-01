@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Sans effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Ananas Coco 50ml - Le Petit Verger",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Non",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Celui-ci est disponible en flacon de 70ml rempli &agrave; 50ml sans nicotine et propose un taux PG/VG de 50/50. Cet e-liquide est boost&eacute; en ar&ocirc;mes.",
+  "descriptionCourte": "Ananas mûr et noix de coco crémeuse. Le classique tropical, rond et ensoleillé.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "ananas-coco-50ml-le-petit-verger",
   "image": "/media/produits/1778341367973-ananas-coco-50ml-le-petit-verger.jpeg",
-  "description": "E-liquide Ananas Coco de la gamme Le Petit Verger.\n\nProfil aromatique\nUn classique tropical : l'ananas mûr et juteux s'accorde parfaitement avec la douceur crémeuse de la noix de coco. Une vape généreuse et ensoleillée, idéale en toutes saisons.\n\nFormat & composition\nFlacon shortfill 50 ml (contenant 70 ml) – sans nicotine. Compatible avec les shots nicotinés (10 ml). Ratio PG/VG 50/50. E-liquide boosté en arômes.\n\nUsage recommandé\nConvient à tous types de clearomiseurs MTL et pods.",
+  "description": "L'ananas arrive le premier, mûr et juteux, presque confit. La noix de coco vient ensuite l'adoucir et lui donner ce fond crémeux qui empêche l'acidité de dominer. C'est un accord classique, et s'il l'est devenu c'est qu'il fonctionne : le mélange reste lisible du début à la fin, sans se brouiller.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Celui-ci est disponible en flacon de 70ml rempli &agrave; 50ml sans nicotine et propose un taux PG/VG de 50/50. Cet e-liquide est boost&eacute; en ar&ocirc;mes."
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

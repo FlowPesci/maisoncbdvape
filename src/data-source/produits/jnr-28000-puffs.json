@@ -1,7 +1,12 @@
 {
   "marque": "JNR ",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "28 000 bouffées annoncées",
+    "Deux flacons de 10 ml fournis",
+    "Batterie 950 mAh rechargeable",
+    "Sels de nicotine 20 mg/ml"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "JNR 28000 Puffs",
@@ -9,12 +14,19 @@
   "prix": 18.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Bouffées annoncées": "28 000",
+    "Batterie": "950 mAh, rechargeable",
+    "Réservoir": "2 ml",
+    "Fourni": "2 flacons de 10 ml",
+    "Taux de nicotine": "20 mg/ml (sels)",
+    "Recharge": "USB-C"
+  },
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Un format innovant combinant la praticité d’une puff et la longévité d’un système rechargeable !",
+  "descriptionCourte": "28 000 bouffées, livrée avec deux flacons de 10 ml. On recharge au lieu de racheter.",
   "categorie": "puffs",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -22,11 +34,11 @@
   "galerie": [],
   "id": "jnr-28000-puffs",
   "image": "/media/produits/1778340742308-jnr-28000-puffs.jpeg",
-  "description": "Découvrez la Puff JNR Falcon-X 28000, une vape rechargeable offrant jusqu'à 28 000 bouffées, avec 2 ml de liquide intégré accompagné de deux flacons de 10 ml 20mg pour prolonger votre expérience de vapotage\n\n✅ Capacité : Jusqu’à 28 000 puffs\n✅ Recharge e-liquide : Livrée avec 2 flacons de 10 ml\n✅ Dosage en nicotine : 20 mg/ml (sel de nicotine)\n✅ Rechargeable : Oui\n✅ Batterie : Haute autonomie 950 mAh pour une utilisation prolongée\n✅ Utilisation : Simple et pratique, sans réglages compliqués\n\nUn format innovant combinant la praticité d’une puff et la longévité d’un système rechargeable !\n\nWatermelon Ice (Pastèque – Frais)\n\nStrawberry Ice (Fraise – Frais)\n\nBlue Razz Cherry (Framboise bleue – Cerise)\n\nStrawberry Kiwi (Fraise – Kiwi)\n\nMixed Berries (Baies sauvages)\n\nWatermelon Bubble Gum (Pastèque – Bubble Gum)\n\nStrawberry Watermelon Ice (Fraise – Pastèque – Frais)\n\nBlueberry Red Raspberry (Myrtille – Framboise rouge)\n\nFizzy Cherry Cola (Cola cerise pétillant)\n\nPassion Fruit Kiwi (Fruit de la passion – Kiwi)\n\nSummer Peach Ice (Pêche – Frais)\n\nBlueberry Pomegranate Ice (Myrtille – Grenade – Frais)\n\nBlueberry Raspberry Cherry (Myrtille – Framboise – Cerise)\n\nWatermelon Mango Peach (Pastèque – Mangue – Pêche)\n\nPeach Berry (Pêche – Baies)",
+  "description": "La Falcon-X n'est pas une puff jetable : elle se recharge en liquide comme en batterie. Les deux flacons de 10 ml livrés avec l'appareil couvrent déjà une bonne partie des 28 000 bouffées annoncées, et se rachètent ensuite à l'unité.\n\nLe calcul se fait vite. Une puff jetable de 600 bouffées coûte quelques euros ; ici, l'appareil se garde et seul le liquide se renouvelle. C'est aussi beaucoup moins de déchets électroniques.\n\nAucun réglage : on inhale, elle chauffe. La batterie de 950 mAh se recharge en USB-C et tient largement la journée.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Un format innovant combinant la praticité d’une puff et la longévité d’un système rechargeable !"
+    "description": ""
   },
   "sousCategorie": "jnr"
 }

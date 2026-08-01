@@ -1,7 +1,12 @@
 {
   "marque": "Blackcoco’s",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Flamme gaz directionnelle",
+    "Format S, transportable",
+    "Rechargeable au gaz",
+    "Aucune prise nécessaire"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Allume charbon Gaz Blackcoco’s",
@@ -9,11 +14,16 @@
   "prix": 24.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Type": "Allume-charbon à gaz",
+    "Format": "S, transportable",
+    "Recharge": "Gaz à briquet standard",
+    "Marque": "Blackcoco's"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Simple d&rsquo;utilisation, il permet d&rsquo;obtenir des charbons uniform&eacute;ment incandescents pour des sessions ma&icirc;tris&eacute;es et efficaces.",
+  "descriptionCourte": "Flamme gaz directionnelle, format S. Des charbons incandescents en quelques minutes, partout.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +31,11 @@
   "galerie": [],
   "id": "allume-charbon-gaz-blackcoco-s",
   "image": "/media/produits/1778342764373-allume-charbon-gaz-blackcoco-s.jpeg",
-  "description": "Allume Charbon Gaz Blackcoco's – Format S.\n\nPrésentation\nSimple d'utilisation, l'allume charbon gaz Blackcoco's permet d'obtenir des charbons uniformément incandescents en quelques minutes. Format compact S, idéal pour les déplacements et les soirées.\n\nCaractéristiques\nFlamme gaz puissante et directionnelle. Format S compact. Recharge gaz standard. Allumage rapide des charbons naturels et rapides. Sécurité enfant. Corps résistant.\n\nUtilisation\nDiriger la flamme sur chaque face des charbons jusqu'à incandescence complète.",
+  "description": "Là où un allume-charbon électrique demande une prise, celui-ci n'a besoin de rien. C'est ce qui le rend indispensable en extérieur, en terrasse ou en déplacement.\n\nLa flamme est directionnelle et puissante : elle porte le charbon à incandescence en quelques minutes, uniformément, sans qu'il faille le retourner sans arrêt.\n\nLe format S se glisse dans un sac. Il se recharge avec du gaz à briquet standard, trouvable partout.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Simple d&rsquo;utilisation, il permet d&rsquo;obtenir des charbons uniform&eacute;ment incandescents pour des sessions ma&icirc;tris&eacute;es et efficaces."
+    "description": ""
   },
   "sousCategorie": "allume-charbons"
 }

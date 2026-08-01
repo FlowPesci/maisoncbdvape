@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Gourmet",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en shortfill",
+    "Sans nicotine, shots compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Arôme pâtissier"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Palet Breton – 50 ml",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Compatibilité": "Clearomiseurs MTL et pods",
+    "Format": "Shortfill"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le Petit Gourmet",
+  "descriptionCourte": "Biscuit sablé au beurre salé. Sec, salé-sucré, très net.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +32,7 @@
   "galerie": [],
   "id": "palet-breton-50-ml",
   "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/bb46d0179a5ebc1020dd7aa4f75da5c15613a90a-lg.png",
-  "description": "E-liquide Palet Breton de la gamme Le Petit Gourmet.\n\nProfil aromatique\nLe biscuit emblématique de Bretagne en e-liquide : beurre salé généreux, pâte sablée légèrement dorée et sucre cristallisé. Un arôme authentique et terriblement gourmand.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour les amateurs de biscuits et de vape gourmande.",
+  "description": "Le beurre salé est ce qui fait ce liquide : sans lui, c'est un sablé de plus. La pointe de sel tranche le sucre et rend l'ensemble beaucoup moins fatigant qu'un gourmand classique. Sec, franc, bien exécuté.\n\nShortfill de 50 ml sans nicotine, compatible avec les shots nicotinés. Ratio PG/VG 50/50.\n\nIl donne son meilleur en clearomiseur à tirage serré ou en pod, pour une vape de tous les jours.",
   "contenuKit": [],
   "seo": {
     "title": "",

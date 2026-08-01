@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Sans effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Brugnon – Orange sanguine 50 ml",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Non",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le brugnon fondant d&eacute;voile une douceur velout&eacute;e, rehauss&eacute;e par l&rsquo;&eacute;clat acidul&eacute; et l&eacute;g&egrave;rement amer de l&rs",
+  "descriptionCourte": "Brugnon fondant et orange sanguine. Douceur veloutée, éclat amer en finale.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "brugnon-orange-sanguine-50-ml",
   "image": "/media/produits/1778341359180-brugnon-orange-sanguine-50-ml.png",
-  "description": "E-liquide Brugnon – Orange Sanguine de la gamme Le Petit Verger.\n\nProfil aromatique\nLe brugnon fondant dévoile une douceur veloutée, rehaussée par l'éclat acidulé et légèrement amer de l'orange sanguine. Une association fruitée raffinée, entre douceur et vivacité.\n\nFormat & composition\nFlacon shortfill 50 ml (contenant 70 ml) – sans nicotine. Compatible avec les shots nicotinés (10 ml). Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour une vape fruitée et complexe, en clearomiseur MTL.",
+  "description": "Le brugnon donne la texture : douce, veloutée, presque charnue. L'orange sanguine apporte le contraste — acidulée d'abord, puis cette amertume légère qui lui est propre et qui empêche l'ensemble de tomber dans le sucré. Un accord plus adulte que la moyenne des fruités.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Le brugnon fondant d&eacute;voile une douceur velout&eacute;e, rehauss&eacute;e par l&rsquo;&eacute;clat acidul&eacute; et l&eacute;g&egrave;rement amer de l&rs"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

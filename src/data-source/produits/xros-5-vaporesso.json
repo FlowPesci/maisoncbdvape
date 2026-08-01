@@ -1,7 +1,12 @@
 {
   "marque": "Vaporesso",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Écran d'information",
+    "Puissance réglable",
+    "Design fin, plusieurs coloris",
+    "Résistances XROS"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "XROS 5 Vaporesso",
@@ -9,11 +14,17 @@
   "prix": 24.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Affichage": "Écran, puissance et autonomie",
+    "Puissance": "Réglable",
+    "Tirage": "Serré à modéré",
+    "Résistances": "Vaporesso XROS",
+    "Recharge": "USB-C"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Découvrez le Vaporesso XROS 5, la nouvelle génération de la célèbre gamme XROS, pensée pour offrir une expérience de vape encore plus intuitive, performante et raffinée. ",
+  "descriptionCourte": "Écran d'information et puissance réglable, dans un boîtier fin. Le XROS complet.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "xros-5-vaporesso",
   "image": "/media/produits/1778341090941-xros-5-vaporesso.jpeg",
-  "description": "Découvrez le Vaporesso XROS 5, la nouvelle génération de la célèbre gamme XROS, pensée pour offrir une expérience de vape encore plus intuitive, performante et raffinée. Grâce à son design fin, moderne et décliné en plusieurs coloris, ce pod combine parfaitement esthétique, ergonomie et technologie avancée.\n\nDoté d’un écran intelligent, le XROS 5 permet de visualiser facilement la puissance, l’autonomie et toutes les informations essentielles. Son contrôle de puissance (PWR) offre un réglage précis pour adapter la vape à vos préférences, que vous recherchiez une bouffée douce ou plus intense. La technologie COREX intégrée assure un rendu aromatique supérieur et une durée de vie prolongée des résistances.\n\nAvec sa batterie intégrée longue autonomie, son tirage automatique, et les célèbres cartouches XROS compatibles, ce modèle offre une utilisation simple, propre et efficace tout en garantissant une vapeur dense et des saveurs fidèles.\n\n✔ Caractéristiques principales :\nÉcran intégré pour un suivi clair et intuitif\n\nMode Power (PWR) pour ajuster facilement la puissance\n\nTechnologie COREX : saveurs amplifiées & durée de vie améliorée\n\nActivation automatique ou via bouton\n\nDesign premium décliné en multiples couleurs\n\nCompatible avec toute la gamme XROS Pods\n\nAutonomie longue durée & USB-C\n\nLe Vaporesso XROS 5 s’adresse autant aux débutants recherchant simplicité et fiabilité, qu’aux vapoteurs expérimentés souhaitant un pod compact mais performant.",
+  "description": "Là où le Mini va à l'essentiel, le XROS 5 ajoute ce qui manque quand on commence à savoir ce qu'on veut : un écran qui affiche puissance et autonomie, et un réglage pour ajuster la chauffe selon la résistance montée.\n\nLe boîtier reste fin et se glisse en poche sans gêner. C'est l'étape logique après un premier pod, avant de passer à une box.\n\nIl utilise les mêmes résistances XROS que le reste de la gamme, très largement disponibles.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Découvrez le Vaporesso XROS 5, la nouvelle génération de la célèbre gamme XROS, pensée pour offrir une expérience de vape encore plus intuitive, performante et raffinée. "
+    "description": ""
   },
   "sousCategorie": "kits"
 }

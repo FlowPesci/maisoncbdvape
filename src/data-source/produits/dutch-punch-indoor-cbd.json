@@ -1,7 +1,12 @@
 {
   "marque": "Dutch Punch Indoor CBD",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Nez fruité et floral",
+    "Touche d'agrume en finale",
+    "Buds denses et résineux",
+    "Pesée devant vous, de 2 à 8 g"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Dutch Punch Indoor CBD",
@@ -9,7 +14,13 @@
   "prix": 4.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Culture": "Indoor, environnement contrôlé",
+    "Origine": "Union européenne",
+    "Taux de THC": "< 0,3 %",
+    "Séchage": "Lent, en chambre ventilée",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +41,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Notes sucrées et florales, accompagnées d’une légère touche d’agrumes et de fruits tropicaux.",
+  "descriptionCourte": "Fruits tropicaux et agrumes sur fond floral, sur une fleur dense et très résineuse.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
@@ -40,11 +51,11 @@
   "galerie": [],
   "id": "dutch-punch-indoor-cbd",
   "image": "/media/produits/1778340406476-dutch-punch-indoor-cbd.jpeg",
-  "description": "🌿 Aspect visuel\n\nBuds compacts, parfaitement manucurés et résineux.\n\nTeinte vert profond avec des pistils orangés et une belle couverture de trichomes cristallins.\n\nAspect dense et soigné, typique d’une culture indoor maîtrisée.\n\n👃 Arômes & saveurs\n\nProfil aromatique intense et fruité.\n\nNotes sucrées et florales, accompagnées d’une légère touche d’agrumes et de fruits tropicaux.\n\nEn bouche : une saveur douce, gourmande et persistante, à la fois fraîche et équilibrée.\n\n⚡ Effets (CBD)\n\nEffet relaxant rapide et durable, sans altérer la clarté mentale.\n\nAide à réduire le stress, favorise le bien-être et la détente corporelle.\n\nIdéale pour un moment de calme et de sérénité en fin de journée.\n\n💧 Culture indoor premium\n\nCultivée en intérieur, dans un environnement parfaitement contrôlé (lumière, humidité, nutriments).\n\nPermet d’obtenir une fleur propre, riche en terpènes et d’une qualité constante.\n\n👉 En résumé, la CBD Dutch Punch Indoor est une fleur d’exception, aux arômes fruités et floraux intenses, aux effets relaxants équilibrés et issue d’une culture indoor soignée garantissant une qualité irréprochable.",
+  "description": "Un profil fruité franc, sucré sans être lourd : fruits tropicaux d'abord, fleurs ensuite, puis une pointe d'agrume qui vient rafraîchir la fin de bouche. L'équilibre est ce qui la distingue — assez marquée pour être intéressante, assez douce pour être quotidienne.\n\nVert profond, pistils orangés, et une belle couverture de trichomes cristallins. Les buds sont compacts et parfaitement manucurés, comme le permet une culture intérieure maîtrisée.\n\nSéchage lent en chambre ventilée. Pesée depuis le bocal, de 2 à 8 grammes.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Notes sucrées et florales, accompagnées d’une légère touche d’agrumes et de fruits tropicaux."
+    "description": ""
   },
   "sousCategorie": "fleurs-indoor"
 }

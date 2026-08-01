@@ -1,7 +1,12 @@
 {
   "marque": "E-CG",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Tabac blond légèrement fruité",
+    "50 ml, sans nicotine",
+    "PG/VG 50/50, pods et MTL",
+    "11,90 € le flacon"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "E-CG 50ml",
@@ -9,11 +14,16 @@
   "prix": 11.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "E-CG",
+  "descriptionCourte": "Tabac blond légèrement fruité, fidèle et sans surprise. Le classique à 11,90 €.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +31,7 @@
   "galerie": [],
   "id": "e-cg-50ml",
   "image": "/media/produits/1778342428576-e-cg-50ml.png",
-  "description": "E-liquide E-CG 50 ml.\n\nPrésentation\nL'e-liquide E-CG est un incontournable pour les amateurs d'arômes tabac blond légèrement fruité. Un profil aromatique classique, fidèle et équilibré, apprécié des anciens fumeurs.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés 10 ml. PG/VG 50/50.\n\nUsage recommandé\nIdéal en clearomiseur MTL ou en pod pour une vape quotidienne.",
+  "description": "Un tabac blond classique, relevé d'une légère note fruitée qui l'adoucit. C'est le profil que cherchent la plupart de ceux qui viennent de la cigarette : familier, sans amertume, sans effet de manche.\n\nFlacon de 50 ml sans nicotine, compatible avec les boosters de 10 ml. Ratio PG/VG 50/50.\n\nÀ 11,90 €, c'est le flacon de 50 ml le moins cher du rayon. Il donne son meilleur en clearomiseur à tirage serré ou en pod, pour une vape de tous les jours.",
   "contenuKit": [],
   "seo": {
     "title": "",

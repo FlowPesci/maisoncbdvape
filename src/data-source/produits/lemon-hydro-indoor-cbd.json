@@ -1,7 +1,12 @@
 {
   "marque": "Lemon Hydro Indoor CBD",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Nez citronné, très franc",
+    "Fond herbacé en finale",
+    "Fleurs denses et manucurées",
+    "Pesée devant vous, de 2 à 8 g"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Lemon Hydro Indoor CBD",
@@ -9,7 +14,13 @@
   "prix": 4.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Culture": "Hydroponique, indoor",
+    "Origine": "Union européenne",
+    "Taux de THC": "< 0,3 %",
+    "Séchage": "Lent, en chambre ventilée",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +41,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Notes dominantes de citron et d’agrumes, avec une pointe herbacée.",
+  "descriptionCourte": "Citron vif et agrumes, avec un fond herbacé. La plus fraîche de nos hydroponiques.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
@@ -40,11 +51,11 @@
   "galerie": [],
   "id": "lemon-hydro-indoor-cbd",
   "image": "/media/produits/1778340449454-lemon-hydro-indoor-cbd.jpeg",
-  "description": "Aspect visuel\n\nFleurs compactes, denses et soigneusement manucurées.\n\nJoli vert clair avec des pistils orangés qui apportent de belles nuances.\n\nRecouvertes d’une fine couche de trichomes brillants, signe de pureté et de richesse en CBD.\n\nArômes & saveurs\n\nProfil aromatique frais et acidulé.\n\nNotes dominantes de citron et d’agrumes, avec une pointe herbacée.\n\nEn bouche, un goût vif, fruité et rafraîchissant qui reste longtemps.\n\n⚡ Effets (CBD)\n\nApporte une sensation de détente et de bien-être sans effet planant.\n\nFavorise la relaxation tout en laissant l’esprit clair.\n\nIdéale pour réduire le stress ou accompagner des moments calmes en journée comme en soirée.\n\nCulture indoor hydroponique\n\nCultivée en intérieur via hydroponie, pour un contrôle optimal de la nutrition et de l’environnement.\n\nPermet d’obtenir une fleur propre, régulière et d’une qualité supérieure, riche en terpènes.\n\nEn résumé, la CBD Lemon Indoor Hydro est une fleur premium au parfum d’agrumes intense, aux effets relaxants équilibrés et à la culture soignée, parfaite pour les amateurs de goûts frais et fruités.",
+  "description": "Du citron, immédiatement, et sans ambiguïté. La Lemon ouvre sur l'agrume vif, presque zesté, puis laisse venir un fond herbacé qui l'empêche d'être monotone. En bouche, c'est vif et rafraîchissant, avec une persistance surprenante pour un profil aussi léger.\n\nLes fleurs sont compactes et denses, d'un vert clair relevé de pistils orangés, sous une fine couche de trichomes brillants.\n\nCulture hydroponique indoor, manucure à la main, séchage lent. Pesée de 2 à 8 grammes.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Notes dominantes de citron et d’agrumes, avec une pointe herbacée."
+    "description": ""
   },
   "sousCategorie": "fleurs-indoor"
 }

@@ -1,7 +1,12 @@
 {
   "marque": "Astronaute",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Sculpture astronaute",
+    "Base stable",
+    "Matériau résistant",
+    "9,90 €"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Cendrier Astronaute",
@@ -9,11 +14,16 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Type": "Cendrier décoratif",
+    "Forme": "Astronaute sculpté",
+    "Base": "Large, stable",
+    "Entretien": "Éponge humide"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Astronaute",
+  "descriptionCourte": "Un astronaute qui tient le cendrier. Solide, stable, et nettement plus gai qu'un cendrier ordinaire.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +31,7 @@
   "galerie": [],
   "id": "cendrier-astronaute",
   "image": "/media/produits/1778342770289-cendrier-astronaute.png",
-  "description": "Cendrier Astronaute – Accessoire décoratif.\n\nPrésentation\nUn cendrier original en forme d'astronaute, alliant utilité et décoration. Fabriqué dans un matériau résistant, il apporte une touche d'originalité et de style à votre bureau, salon ou espace fumeur.\n\nCaractéristiques\nDesign astronaute original et ludique. Matériau résistant et durable. Facile à nettoyer. Format compact.\n\nIdéal pour\nOffrir en cadeau ou pour agrémenter votre espace fumeur d'une pièce décorative amusante.",
+  "description": "L'astronaute tient la coupelle, et l'ensemble fait davantage figurine que cendrier — ce qui est exactement l'idée. Posé sur un bureau ou une étagère, il passe pour un objet de décoration.\n\nLa base est suffisamment large pour qu'il ne bascule pas, et le matériau encaisse la chaleur sans marquer.\n\nÀ 9,90 €, c'est aussi le moins cher des deux cendriers du comptoir.",
   "contenuKit": [],
   "seo": {
     "title": "",

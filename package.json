@@ -7,7 +7,7 @@
     "clean": "node -e \"require('fs').rmSync('public',{recursive:true,force:true})\"",
     "css": "tailwindcss -i ./tailwind/input.css -o ./src/assets/css/tailwind.css --minify",
     "catalog": "node scripts/build-catalog-index.js",
-    "build": "npm run clean && npm run css && npm run catalog && npm run verify:css && npm run verify:cms && npm run verify:api && eleventy",
+    "build": "npm run clean && npm run css && npm run catalog && npm run verify:css && npm run verify:cms && npm run verify:api && npm run verify:redaction && eleventy",
     "start": "concurrently \"npm run css -- --watch\" \"eleventy --serve --incremental\"",
     "dev": "wrangler pages dev public --kv ORDERS_KV --kv OAUTH_KV --r2 MEDIA --d1 STOCKS_DB",
     "deploy": "npm run build && wrangler pages deploy public",
@@ -26,8 +26,8 @@
     "db:migrate:alertes": "wrangler d1 execute maisoncbdvape-stocks --file=db/migration-alertes.sql --remote",
     "test:alertes": "node scripts/test-alertes.mjs",
     "verify:api": "node scripts/verifier-api-navigateur.mjs",
-    "verify:redaction": "node scripts/verifier-redaction-produits.mjs",
-    "verify:redaction:strict": "node scripts/verifier-redaction-produits.mjs --strict"
+    "verify:redaction": "node scripts/verifier-redaction-produits.mjs --strict",
+    "verify:redaction:rapport": "node scripts/verifier-redaction-produits.mjs"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",

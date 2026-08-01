@@ -1,7 +1,12 @@
 {
   "marque": "LogicScale",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Capacité 300 g",
+    "Précision 0,01 g",
+    "Écran LCD rétroéclairé",
+    "Fonction tare"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Balance de précision HUDSON 300g x 0.01g",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Capacité": "300 g",
+    "Précision": "0,01 g",
+    "Écran": "LCD rétroéclairé",
+    "Tare": "Oui",
+    "Marque": "Hudson LogicScale"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "&Eacute;cran LCD clair et lumineux",
+  "descriptionCourte": "300 g de capacité au centième de gramme près, avec un écran lisible en toutes conditions.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "balance-de-precision-hudson-300g-x-0-01g",
   "image": "/media/produits/1778342984933-balance-de-precision-hudson-300g-x-0-01g.jpeg",
-  "description": "Balance de Précision HUDSON – 300g x 0,01g.\n\nPrésentation\nLa balance HUDSON LogicScale offre une capacité plus grande (300g) avec une précision au centième de gramme. Son écran LCD lumineux assure une lecture facile dans toutes les conditions.\n\nCaractéristiques\nCapacité : 300g. Précision : 0,01g. Écran LCD clair et lumineux. Tare intégrée. Calibration automatique. Surface de pesée amovible et facile à nettoyer. Piles incluses.\n\nIdéal pour\nLes utilisateurs nécessitant une plus grande capacité de pesée avec une précision maximale.",
+  "description": "Trois cents grammes de capacité, c'est le double de la plupart des balances de poche — assez pour peser un contenant plein sans faire le calcul deux fois.\n\nLa précision au centième de gramme est celle qu'on attend d'une balance de précision, et la fonction tare permet de retirer le poids du récipient d'une pression.\n\nL'écran LCD est rétroéclairé : il reste lisible en pleine lumière comme dans une pièce sombre, ce qui n'est pas le cas des modèles bas de gamme.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "&Eacute;cran LCD clair et lumineux"
+    "description": ""
   },
   "sousCategorie": "balances"
 }

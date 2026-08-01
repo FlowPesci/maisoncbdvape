@@ -1,7 +1,12 @@
 {
   "marque": "Vaporesso",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "9,90 €",
+    "Format plume",
+    "Batterie longue durée",
+    "Nombreux coloris"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Vaporesso Vibe SE",
@@ -9,11 +14,17 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Type": "Pod électronique",
+    "Batterie": "Intégrée",
+    "Activation": "Automatique, à l'inhalation",
+    "Recharge": "USB-C",
+    "Marque": "Vaporesso"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le Vaporesso Vibe SE est un pod nouvelle génération pensé pour offrir une expérience de vape intuitive, stable et riche en saveurs.",
+  "descriptionCourte": "Le pod le plus simple du rayon, à 9,90 €. Format plume, batterie qui tient la journée.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "vaporesso-vibe-se",
   "image": "/media/produits/1778341083492-vaporesso-vibe-se.jpeg",
-  "description": "Le Vaporesso Vibe SE est un pod nouvelle génération pensé pour offrir une expérience de vape intuitive, stable et riche en saveurs. Son format compact et son poids plume le rendent parfait pour une utilisation quotidienne, tandis que son design premium décliné en de nombreuses couleurs apporte une touche de style à chaque utilisateur.\n\nÉquipé d’une batterie intégrée longue durée, le Vibe SE garantit une autonomie confortable tout au long de la journée. Le tirage automatique permet une utilisation sans bouton : inhalez, et le pod s’active instantanément. Grâce à la technologie Vaporesso, les arômes sont restitués avec intensité et constance du premier au dernier puff.\n\nLe réservoir est simple à remplir et la cartouche offre une bonne longévité, rendant ce pod idéal aussi bien pour les débutants souhaitant arrêter la cigarette que pour les vapoteurs expérimentés cherchant un appareil pratique et performant.\n\nPoints clés :\n\nDesign moderne, fin et ergonomique\n\nActivation automatique sans bouton\n\nBatterie intégrée durable\n\nRestitution des saveurs optimisée\n\nNombreux coloris pour tous les styles\n\nSimple d’utilisation et d’entretien\n\nLe Vaporesso Vibe SE combine performance, simplicité et élégance, pour une vape agréable, fluide et accessible à tous.\n\nCouleurs Disponibles :\n\nBlack\n\nBlanc\n\nBleu\n\nGrape Purple\n\nFrozen mint\n\nStrawberry red\n\nIce cream pink\n\nGrapefruit soda\n\nIce blueberry",
+  "description": "À 9,90 €, le Vibe SE est le pod le plus accessible du comptoir — et le plus simple. Aucun réglage, aucun écran : on inhale, il chauffe.\n\nSon poids est ce qui frappe en premier. On l'oublie dans une poche, ce qui en fait un excellent appareil d'appoint, à garder en second au bureau ou dans une voiture.\n\nLa batterie intégrée tient la journée et le rendu aromatique est stable. Nombreux coloris disponibles. La version SE 2 offre une plus grande cartouche.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Le Vaporesso Vibe SE est un pod nouvelle génération pensé pour offrir une expérience de vape intuitive, stable et riche en saveurs."
+    "description": ""
   },
   "sousCategorie": "kits"
 }

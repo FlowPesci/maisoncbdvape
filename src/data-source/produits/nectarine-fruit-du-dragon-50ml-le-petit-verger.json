@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Sans effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Nectarine Fruit du Dragon 50ml - Le Petit Verger",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Non",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le e-liquide Nectarine Fruit du Dragon de&nbsp;Le Petit Verger&nbsp;rassemble des fruits du dragon venant d'Asie, et des nectarines venant d'Europe. Un choc des",
+  "descriptionCourte": "Nectarine veloutée et pitaya asiatique. Une rencontre entre Europe et Asie.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "nectarine-fruit-du-dragon-50ml-le-petit-verger",
   "image": "/media/produits/1778341426988-nectarine-fruit-du-dragon-50ml-le-petit-verger.jpeg",
-  "description": "E-liquide Nectarine Fruit du Dragon de la gamme Le Petit Verger.\n\nProfil aromatique\nUn choc des continents savoureux : la nectarine veloutée d'Europe rencontre le fruit du dragon exotique d'Asie. Une vape raffinée, légèrement sucrée et pleine de surprise.\n\nFormat & composition\nFlacon shortfill 50 ml (contenant 70 ml) – sans nicotine. Compatible avec les shots nicotinés (10 ml). Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour les curieux et les amateurs de saveurs originales.",
+  "description": "La nectarine européenne apporte la chair veloutée et le sucre franc ; le fruit du dragon asiatique, sa douceur florale et son côté légèrement aqueux. Deux fruits que rien ne rapprochait, et qui s'accordent mieux qu'on ne l'attend.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Le e-liquide Nectarine Fruit du Dragon de&nbsp;Le Petit Verger&nbsp;rassemble des fruits du dragon venant d'Asie, et des nectarines venant d'Europe. Un choc des"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

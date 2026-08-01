@@ -1,7 +1,12 @@
 {
   "marque": "Robin Cherry CBD",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Nez de cerise et fruits rouges",
+    "Trichomes cristallins abondants",
+    "Culture indoor contrôlée",
+    "Pesée devant vous, de 2 à 8 g"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Robin Cherry CBD",
@@ -9,7 +14,13 @@
   "prix": 6.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Culture": "Indoor, environnement contrôlé",
+    "Origine": "Union européenne",
+    "Taux de THC": "< 0,3 %",
+    "Séchage": "Lent, en chambre ventilée",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +41,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Notes dominantes de cerise et de fruits rouges, relevées d’une touche sucrée et florale.",
+  "descriptionCourte": "Cerise et fruits rouges sur une fleur indoor très résineuse. La plus gourmande du comptoir.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
@@ -40,11 +51,11 @@
   "galerie": [],
   "id": "robin-cherry-cbd",
   "image": "/media/produits/1778340567309-robin-cherry-cbd.jpeg",
-  "description": "Aspect visuel\n\nBuds compacts et résineux, d’un vert intense parsemé de pistils orangés.\n\nPrésence abondante de trichomes cristallins qui apportent brillance et richesse aromatique.\n\nAspect soigné et premium grâce à une culture indoor contrôlée.\n\nArômes & saveurs\n\nProfil gourmand et fruité.\n\nNotes dominantes de cerise et de fruits rouges, relevées d’une touche sucrée et florale.\n\nSaveur douce, agréable et persistante en bouche, idéale pour les amateurs de fleurs fruitées.\n\n⚡ Effets (CBD)\n\nRelaxation apaisante sans effet psychotrope.\n\nFavorise le bien-être, la détente musculaire et mentale.\n\nIdéale pour accompagner un moment calme en fin de journée ou pour relâcher le stress.\n\nCulture indoor hydroponique\n\nCultivée en intérieur sous hydroponie, avec un contrôle précis de l’eau, des nutriments et de la lumière.\n\nRésultat : une fleur propre, stable, riche en terpènes et d’une qualité constante.\n\nEn résumé, la Robin-Cherry CBD Indoor Hydro est une fleur haut de gamme au parfum fruité et sucré de cerise, aux effets relaxants équilibrés et issue d’une culture minutieuse qui garantit une qualité irréprochable.",
+  "description": "La Robin Cherry est une fleur franchement fruitée : cerise d'abord, fruits rouges ensuite, avec une touche sucrée et florale qui prolonge la fin de bouche. Douce, persistante, elle s'adresse à ceux qui cherchent le plaisir aromatique plutôt que le caractère.\n\nLes buds sont compacts et très résineux, d'un vert intense parsemé de pistils orangés, sous une couverture abondante de trichomes cristallins. La culture se fait en intérieur, en environnement contrôlé.\n\nManucurée à la main, séchée lentement. Pesée depuis le bocal, de 2 à 8 grammes.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Notes dominantes de cerise et de fruits rouges, relevées d’une touche sucrée et florale."
+    "description": ""
   },
   "sousCategorie": "pollens-resines"
 }

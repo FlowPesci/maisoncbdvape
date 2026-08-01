@@ -1,7 +1,12 @@
 {
   "marque": "Greenhouse",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "15 à 20 % de CBD",
+    "Citron et agrumes",
+    "Culture sous serre",
+    "0,99 € le gramme"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Small Bud Lemon",
@@ -9,7 +14,14 @@
   "prix": 0.99,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Taux de CBD": "15 à 20 %",
+    "Profil": "Hybride, dominante sativa",
+    "Culture": "Sous serre (greenhouse)",
+    "Calibre": "Small buds",
+    "Taux de THC": "< 0,3 %",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +42,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Parfum citronné vif, notes fraîches et légèrement herbacées",
+  "descriptionCourte": "Les mêmes arômes citronnés que les grandes fleurs, en petits calibres — et à un cinquième du prix.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
@@ -40,11 +52,11 @@
   "galerie": [],
   "id": "small-bud-lemon",
   "image": "/media/produits/1778340406323-small-bud-lemon.jpeg",
-  "description": "≈ 15–20 % CBD\n\nProfil dominant : Hybride Sativa\n\nCulture Greenhouse : arômes plus précis et fleurs mieux structurées\n\nSmall buds légères mais très aromatiques\n\nEffet clair et équilibré, parfait pour la journée",
+  "description": "Les small buds sont les fleurs de petit calibre issues de la même récolte que les grandes. Elles pèsent moins, se manucurent moins bien, et se vendent donc nettement moins cher — mais le profil aromatique est celui de la variété, pas celui d'un sous-produit.\n\nCette Lemon ouvre sur l'agrume franc, avec un fond herbacé léger. Le taux de CBD se situe entre 15 et 20 %, sur un profil hybride à dominante sativa.\n\nCulture sous serre : plus de lumière naturelle qu'en intérieur, plus de contrôle qu'en extérieur. À 0,99 € le gramme, c'est le tarif le plus bas du comptoir.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Parfum citronné vif, notes fraîches et légèrement herbacées"
+    "description": ""
   },
   "sousCategorie": "small-buds"
 }

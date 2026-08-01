@@ -1,7 +1,12 @@
 {
   "marque": "Curieux",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml, sans nicotine",
+    "Boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Fabriqué en France"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Le Vanille",
@@ -9,11 +14,17 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Compatibilité": "Clearomiseurs MTL et pods",
+    "Fabrication": "France"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "E-liquide Curieux Le Vanille 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+  "descriptionCourte": "Une vanille ronde et crémeuse. Le classique gourmand.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "le-vanille",
   "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/733502e45dd53a45a2547e1eaa6edf4686c7c0c2-lg.png",
-  "description": "E-liquide Le Vanille de la gamme Curieux.\n\nProfil aromatique\nUne vanille douce, crémeuse et généreuse : sans être écœurante, Le Vanille restitue fidèlement les notes rondes et chaudes de la vanille Bourbon. Une vape gourmande et apaisante.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés. Ratio PG/VG 50/50. Fabrication française.\n\nUsage recommandé\nIdéal pour une vape gourmande et sucrée, en clearomiseur ou en pod.",
+  "description": "La vanille est l'arôme gourmand par excellence, et celui qu'on rate le plus souvent — trop sucré, il devient écœurant. Celui-ci reste rond et crémeux, avec une longueur qui tient sans saturer le palais.\n\nFlacon de 50 ml sans nicotine, compatible avec les boosters de 10 ml. Ratio PG/VG 50/50, fabrication française.\n\nIl donne son meilleur en clearomiseur à tirage serré ou en pod, pour une vape de tous les jours.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "E-liquide Curieux Le Vanille 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+    "description": ""
   },
   "sousCategorie": "e-liquides-curieux"
 }

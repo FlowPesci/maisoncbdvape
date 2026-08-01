@@ -1,7 +1,12 @@
 {
   "marque": "Moon Rock CBD Indoor",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Fleur enrobée de pollen",
+    "Taux de CBD au-dessus de la moyenne",
+    "Texture riche et collante",
+    "Pesée devant vous, de 2 à 8 g"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Moon Rock CBD Indoor",
@@ -9,7 +14,13 @@
   "prix": 7.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Type": "Fleur indoor enrobée de pollen",
+    "Origine": "Union européenne",
+    "Taux de THC": "< 0,3 %",
+    "Texture": "Dense et collante",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +41,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Notes terreuses et épicées, relevées d’une pointe sucrée et légèrement citronnée.",
+  "descriptionCourte": "Une fleur roulée dans le pollen, dense et collante. Le format le plus concentré du comptoir.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
@@ -40,11 +51,11 @@
   "galerie": [],
   "id": "moon-rock-cbd-indoor",
   "image": "/media/produits/1778340406550-moon-rock-cbd-indoor.jpeg",
-  "description": "Aspect visuel\n\nBuds denses et généreux, roulés dans du pollen pour un rendu spectaculaire.\n\nCouleur vert foncé recouverte d’une couche résineuse qui leur donne un aspect rocheux unique.\n\nTexture riche et collante, signe d’une forte concentration en CBD et en terpènes.\n\nArômes & saveurs\n\nProfil intense, puissant et complexe.\n\nNotes terreuses et épicées, relevées d’une pointe sucrée et légèrement citronnée.\n\nSaveur riche, persistante et profonde en bouche, idéale pour les amateurs d’expériences intenses.\n\n⚡ Effets (CBD)\n\nTeneur en CBD plus élevée que la moyenne, procurant une relaxation profonde et durable.\n\nApaise efficacement le stress et les tensions physiques.\n\nIdéal pour les consommateurs recherchant une fleur plus puissante sans effet psychotrope.\n\nCulture indoor hydroponique\n\nCultivée en intérieur sous hydroponie, garantissant un contrôle optimal et une pureté exemplaire.\n\nRésultat : un produit haut de gamme, riche en principes actifs et en arômes.\n\nEn résumé, la CBD Moonrock Indoor Hydro est une fleur premium exceptionnelle, réputée pour son aspect unique, ses saveurs intenses et ses effets relaxants puissants, parfaite pour les amateurs de produits CBD d’exception.",
+  "description": "Le Moon Rock n'est pas une fleur ordinaire : c'est un bud indoor enrobé de pollen, ce qui lui donne cet aspect rocheux et cette texture collante reconnaissable au toucher. La concentration est nettement supérieure à celle d'une fleur seule.\n\nAu nez, c'est terreux et épicé, avec une pointe sucrée et citronnée derrière. La fumée est riche et persistante — un format qu'on aborde après avoir fait le tour des fleurs classiques, et qui se consomme en petite quantité.\n\nUn grinder est déconseillé : la texture colle. Émietter à la main. Pesée de 2 à 8 grammes.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Notes terreuses et épicées, relevées d’une pointe sucrée et légèrement citronnée."
+    "description": ""
   },
   "sousCategorie": "fleurs-indoor"
 }

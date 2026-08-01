@@ -1,7 +1,12 @@
 {
   "marque": "Aromazon",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "1 litre",
+    "Ratio PG/VG 50/50",
+    "Sans nicotine ni arôme",
+    "Fabrication européenne"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Base Neutre Aromazon VBASE 50/50 – 1L (Sans Nicotine)",
@@ -9,11 +14,17 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Volume": "1 litre",
+    "Ratio PG/VG": "50/50",
+    "Nicotine": "Aucune",
+    "Arôme": "Aucun",
+    "Fabrication": "Européenne"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Restitution optimale des ar&ocirc;mes",
+  "descriptionCourte": "Un litre de base neutre 50/50, sans nicotine ni arôme. Le point de départ du DIY.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "base-neutre-aromazon-vbase-50-50-1l-sans-nicotine",
   "image": "/media/produits/1778342481097-base-neutre-aromazon-vbase-50-50-1l-sans-nicotine.jpeg",
-  "description": "Base Neutre Aromazon VBASE 50/50 – 1 Litre (Sans Nicotine).\n\nPrésentation\nLa base neutre idéale pour les créateurs de e-liquides DIY. La VBASE 50/50 d'Aromazon garantit une restitution optimale des arômes grâce à son équilibre parfait entre propylène glycol (PG) et végétal glycérine (VG).\n\nCaractéristiques\nRatio PG/VG : 50/50. Volume : 1 litre. Sans nicotine. Sans arôme. Fabrication européenne.\n\nUtilisation\nÀ mélanger avec vos concentrés aromatiques et vos shots nicotinés selon vos recettes DIY. Idéal pour les clearomiseurs MTL et les setups intermédiaires.",
+  "description": "Faire ses e-liquides soi-même commence ici : une base neutre, sans arôme ni nicotine, dans laquelle on dilue ses concentrés. Le ratio 50/50 est le plus polyvalent — assez de propylène glycol pour porter les arômes, assez de glycérine végétale pour la vapeur.\n\nLe litre change l'économie du DIY : à ce volume, le coût au flacon devient sans commune mesure avec un e-liquide prêt à l'emploi.\n\nFabrication européenne. À mélanger avec un concentré selon le taux d'incorporation indiqué par le fabricant, généralement 15 à 20 %.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Restitution optimale des ar&ocirc;mes"
+    "description": ""
   },
   "sousCategorie": "diy-bases"
 }

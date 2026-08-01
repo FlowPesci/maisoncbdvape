@@ -1,7 +1,12 @@
 {
   "marque": "Starbuzz ",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "25 000 bouffées annoncées",
+    "Écran d'information intégré",
+    "Finition texturée antidérapante",
+    "Aucun réglage"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Starbuzz Ultra Max 25K",
@@ -9,12 +14,17 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Bouffées annoncées": "25 000",
+    "Affichage": "Écran LED, batterie et liquide",
+    "Activation": "Automatique, à l'inhalation",
+    "Finition": "Texturée, antidérapante"
+  },
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le Starbuzz Ultra Max 25K est un dispositif de vape conçu pour offrir une expérience simple.",
+  "descriptionCourte": "25 000 bouffées, écran de contrôle et finition texturée. La plus facile à prendre en main.",
   "categorie": "puffs",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -22,11 +32,11 @@
   "galerie": [],
   "id": "starbuzz-ultra-max-25k",
   "image": "/media/produits/1778340832257-starbuzz-ultra-max-25k.jpeg",
-  "description": "Starbuzz Ultra Max 25K \nLe Starbuzz Ultra Max 25K est un dispositif de vape conçu pour offrir une expérience simple, efficace et accessible. Avec son design moderne, sa finition texturée et sa forme ergonomique, il assure une prise en main confortable au quotidien.\n\nCe modèle se distingue par sa grande autonomie et son utilisation intuitive : aucun réglage n’est nécessaire, il suffit d’inhaler pour l’activer. L’écran LED intégré fournit des informations utiles sur l’état du dispositif et permet un suivi pratique lors de son utilisation.\n\nCaractéristiques principales :\nModèle : Starbuzz Ultra Max 25K\n\nType : Dispositif de vape\n\nDesign ergonomique et esthétique premium\n\nIndicateurs LED intégrés pour un suivi en temps réel\n\nPrêt à l’emploi, sans entretien ni recharge nécessaire\n\nConstruction robuste et format compact pour un transport facile\n\nAvertissement :\nCe produit contient de la nicotine, une substance créant une forte dépendance. Il est réservé aux adultes consommateurs de nicotine. L’utilisation par les non-fumeurs n’est pas recommandée.\n\nSex on the Beach\n➤ Saveur inspirée du cocktail : pêche, cranberry et une touche d’agrumes.\n\nPineapple\n➤ Un ananas sucré et juteux, très exotique.\n\nSpearmint\n➤ Menthe douce, fraîche mais pas trop forte.\n\nMixed berries\n➤ Mélange de fruits rouges : framboise, myrtille, fraise, mûre.\n\nBlueberry Raspberry\n➤ Douceur de myrtille mêlée à l’acidité framboise.\n\nSimply Mint\n➤ Une menthe pure et classique, très fraîche.\n\nCherry Fizz\n➤ Cerise pétillante, effet soda fruité.\n\nGum Mint\n➤ Menthe type chewing-gum, sucrée et fraîche.\n\nBlue Mist\n➤ Saveur fruitée bleue typée myrtille/raisin avec une pointe de fraîcheur.\n\nWhite Bear\n➤ Saveur glaciale très intense, type menthol polaire.\n\nSafari Melon Dew\n➤ Mélon doux et rafraîchissant, style honeydew.",
+  "description": "L'Ultra Max mise sur la prise en main : forme ergonomique, finition texturée qui ne glisse pas, et un poids bien réparti. Des détails qui ne se voient pas sur une photo mais qui se sentent au bout de trois jours.\n\nL'écran LED affiche l'état de la batterie et du liquide — on n'est jamais surpris par une fin de course. Aucun réglage n'est nécessaire : il suffit d'inhaler.\n\nUn format d'entrée dans les grandes autonomies, plus accessible que les modèles à 30 000 bouffées et plus.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Le Starbuzz Ultra Max 25K est un dispositif de vape conçu pour offrir une expérience simple."
+    "description": ""
   },
   "sousCategorie": "starbuzz"
 }

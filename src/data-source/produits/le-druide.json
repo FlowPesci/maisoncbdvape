@@ -1,7 +1,12 @@
 {
   "marque": "Curieux",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml, sans nicotine",
+    "Boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Fabriqué en France"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Le Druide",
@@ -9,11 +14,17 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Compatibilité": "Clearomiseurs MTL et pods",
+    "Fabrication": "France"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "E-liquide Curieux Le Druide 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+  "descriptionCourte": "Plantes aromatiques, menthe et herbes fraîches. Herbacé et naturel.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "le-druide",
   "image": "/media/produits/1778341893894-le-druide.jpeg",
-  "description": "E-liquide Le Druide de la gamme Curieux.\n\nProfil aromatique\nInspiré des recettes ancestrales, Le Druide dévoile un mélange de plantes aromatiques, de menthe et d'herbes fraîches. Une vape herbacée, légèrement mentholée, fraîche et naturelle.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés. Ratio PG/VG 50/50. Fabrication française.\n\nUsage recommandé\nIdéal pour les amateurs de saveurs naturelles et herbacées.",
+  "description": "Un profil rare en e-liquide : herbacé plutôt que fruité ou gourmand. Plantes aromatiques, menthe légère, herbes fraîches — l'ensemble évoque une infusion plus qu'un dessert. Pour ceux qui saturent du sucré.\n\nFlacon de 50 ml sans nicotine, compatible avec les boosters de 10 ml. Ratio PG/VG 50/50, fabrication française.\n\nIl donne son meilleur en clearomiseur à tirage serré ou en pod, pour une vape de tous les jours.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "E-liquide Curieux Le Druide 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+    "description": ""
   },
   "sousCategorie": "e-liquides-curieux"
 }

@@ -1,7 +1,12 @@
 {
   "marque": "Curieux",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml, sans nicotine",
+    "Boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Fabriqué en France"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Amazonien",
@@ -9,11 +14,17 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Compatibilité": "Clearomiseurs MTL et pods",
+    "Fabrication": "France"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "E-liquide Curieux Amazonien 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+  "descriptionCourte": "Fruits exotiques et notes vertes. Dense, complexe, franchement dépaysant.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "amazonien",
   "image": "/media/produits/1778341894253-amazonien.jpeg",
-  "description": "E-liquide Amazonien de la gamme Curieux.\n\nProfil aromatique\nUn voyage au cœur de la forêt tropicale : fruits exotiques, notes vertes et arômes luxuriants se mêlent pour une vape dense, complexe et dépaysante. Un arôme qui transporte.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés. Ratio PG/VG 50/50. Fabriqué en France.\n\nUsage recommandé\nPour les amateurs d'arômes exotiques et enveloppants.",
+  "description": "L'Amazonien ne joue pas la carte du fruité facile. Les fruits exotiques y sont accompagnés de notes vertes, presque végétales, qui donnent au mélange une densité inhabituelle. C'est un liquide de caractère, pour ceux qui trouvent les tropicaux classiques trop lisses.\n\nFlacon de 50 ml sans nicotine, compatible avec les boosters de 10 ml. Ratio PG/VG 50/50, fabrication française.\n\nIl donne son meilleur en clearomiseur à tirage serré ou en pod, pour une vape de tous les jours.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "E-liquide Curieux Amazonien 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+    "description": ""
   },
   "sousCategorie": "e-liquides-curieux"
 }

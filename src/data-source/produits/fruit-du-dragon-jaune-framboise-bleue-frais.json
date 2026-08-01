@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Fruit du Dragon Jaune – Framboise Bleue FRAIS",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Oui",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Osez l&rsquo;originalit&eacute; ! Le fruit du dragon jaune, doux et tropical, s&rsquo;accorde &agrave; la framboise bleue acidul&eacute;e &mdash; un duo vibrant",
+  "descriptionCourte": "Fruit du dragon jaune et framboise bleue. Original, doux et acidulé.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "fruit-du-dragon-jaune-framboise-bleue-frais",
   "image": "/media/produits/1778341655765-fruit-du-dragon-jaune-framboise-bleue-frais.jpeg",
-  "description": "E-liquide Fruit du Dragon Jaune – Framboise Bleue FRAIS de la collection fraîcheur Le Petit Verger.\n\nProfil aromatique\nOsez l'originalité : le fruit du dragon jaune, doux et tropical, s'accorde à la framboise bleue acidulée pour un duo vibrant et coloré, adouci par une note fraîcheur.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour les amateurs de saveurs audacieuses et fruitées.",
+  "description": "Le fruit du dragon jaune est plus sucré et plus parfumé que le rose — presque miellé. La framboise bleue lui répond par une acidité franche et un côté bonbon assumé. Un accord vibrant, qui sort des sentiers battus.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Osez l&rsquo;originalit&eacute; ! Le fruit du dragon jaune, doux et tropical, s&rsquo;accorde &agrave; la framboise bleue acidul&eacute;e &mdash; un duo vibrant"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

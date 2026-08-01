@@ -1,7 +1,12 @@
 {
   "marque": "Alien",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Sculpture originale",
+    "Fond lourd et stable",
+    "Matériau résistant",
+    "Se nettoie facilement"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Cendrier Alien",
@@ -9,11 +14,16 @@
   "prix": 14.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Type": "Cendrier décoratif",
+    "Forme": "Alien sculpté",
+    "Base": "Lestée, antibascule",
+    "Entretien": "Éponge humide"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Alien",
+  "descriptionCourte": "Un cendrier sculpté en alien, fond lourd et stable. Pièce de décoration autant qu'objet utile.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +31,7 @@
   "galerie": [],
   "id": "cendrier-alien",
   "image": "/media/produits/1778342773018-cendrier-alien.png",
-  "description": "Cendrier Alien – Accessoire décoratif.\n\nPrésentation\nUn cendrier au design alien unique, parfait pour les amateurs de décoration originale et décalée. Matériau robuste, facile à entretenir, il devient une pièce décorative à part entière.\n\nCaractéristiques\nDesign alien original et collectible. Matériau résistant. Fond stable pour éviter les renversements. Facile à nettoyer.\n\nIdéal pour\nUn cadeau original ou une pièce déco dans votre espace fumeur ou bureau.",
+  "description": "Un cendrier passe ses journées en évidence sur une table : autant qu'il tienne debout comme objet. Celui-ci est sculpté en alien, avec assez de détail pour qu'on le regarde de près.\n\nLe fond est lourd, ce qui compte davantage qu'on ne l'imagine — un cendrier léger se renverse au moindre geste.\n\nLe matériau résiste à la chaleur et se nettoie d'un coup d'éponge.",
   "contenuKit": [],
   "seo": {
     "title": "",

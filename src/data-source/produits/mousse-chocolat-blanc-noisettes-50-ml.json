@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Gourmet",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en shortfill",
+    "Sans nicotine, shots compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Arôme pâtissier"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Mousse Chocolat Blanc Noisettes – 50 ml",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Compatibilité": "Clearomiseurs MTL et pods",
+    "Format": "Shortfill"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le Petit Gourmet",
+  "descriptionCourte": "Chocolat blanc mousseux et noisettes. Le plus sucré de la gamme.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +32,7 @@
   "galerie": [],
   "id": "mousse-chocolat-blanc-noisettes-50-ml",
   "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/eb8c6c3df03cc0b67307f721b1ae822658874b1f-lg.png",
-  "description": "E-liquide Mousse Chocolat Blanc Noisettes de la gamme Le Petit Gourmet.\n\nProfil aromatique\nUn dessert aérien et luxueux : la douceur crémeuse du chocolat blanc s'entremêle aux éclats grillés de noisettes pour une mousse légère et gourmande d'exception.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50. Arôme pâtissier premium.\n\nUsage recommandé\nParfait pour une vape gourmande et sucrée après le repas.",
+  "description": "Le chocolat blanc apporte le lacté et le sucre, la noisette torréfiée le contrepoint grillé. C'est franchement le plus sucré des gourmands que nous proposons — à réserver aux amateurs assumés, en flacon d'appoint plutôt qu'en quotidien.\n\nShortfill de 50 ml sans nicotine, compatible avec les shots nicotinés. Ratio PG/VG 50/50.\n\nIl donne son meilleur en clearomiseur à tirage serré ou en pod, pour une vape de tous les jours.",
   "contenuKit": [],
   "seo": {
     "title": "",

@@ -1,7 +1,12 @@
 {
   "marque": "Voopoo ",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "100 watts",
+    "Chipset GENE.AI",
+    "Éclairage LED intégré",
+    "Format compact"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Box Voopoo Vinci Spark 100",
@@ -9,11 +14,17 @@
   "prix": 39.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Puissance maximale": "100 W",
+    "Chipset": "GENE.AI",
+    "Éclairage": "LED, désactivable",
+    "Connectique": "510",
+    "Marque": "Voopoo"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "La Vinci Spark 100 de Voopoo est une box électronique compacte et puissante, conçue pour offrir une expérience de vape personnalisée avec un design moderne et lumineux.",
+  "descriptionCourte": "100 watts, chipset GENE.AI et éclairage LED. Compacte, réactive, un peu démonstrative.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "box-voopoo-vinci-spark-100",
   "image": "/media/produits/1778341169025-box-voopoo-vinci-spark-100.png",
-  "description": "Box Voopoo Vinci Spark 100\nLa Vinci Spark 100 de Voopoo est une box électronique compacte et puissante, conçue pour offrir une expérience de vape personnalisée avec un design moderne et lumineux.\n\nÉquipée du chipset GENE.AI, elle garantit une réactivité instantanée, une gestion intelligente de la puissance et une sécurité optimale. Son format ergonomique et ses effets lumineux LED intégrés en font une box aussi performante que stylée.\n\nIdéale pour les vapoteurs recherchant une box fiable, évolutive et élégante, compatible avec la majorité des clearomiseurs du marché.\n\nCaractéristiques\n⚡ Puissance : jusqu’à 100W\n\n🔋 Fonctionne avec 1 accu 18650 (non fourni)\n\n🧠 Chipset GENE.AI\n\n💡 Effets lumineux LED personnalisables\n\n📱 Écran couleur intuitif\n\n🎯 Modes : SMART / RBA\n\n🔌 Recharge USB-C\n\n🔒 Protections électroniques complètes\n\n🔗 Connexion 510 universelle\n\nDesign & Coloris\nDisponible en plusieurs finitions premium :\n\nNoir\n\nArgent\n\nRose\n\nGold / Orange\n\nGris\n\nBleu\n\nUn design unique avec panneaux texturés et effets lumineux scintillants, pour une box qui se démarque clairement en vitrine.\n\nContenu du pack\n1 Box Voopoo Vinci Spark 100\n\n1 câble USB-C\n\n1 manuel d’utilisation\n\nPourquoi choisir cette box ?\n✔ Format compact et puissant\n✔ Compatible avec tous vos atomiseurs (connexion 510)\n✔ Chipset intelligent ultra fiable\n✔ Design lumineux différenciant en boutique\n\n⚠️ Accu non inclus. Produit réservé aux adultes.",
+  "description": "Le chipset GENE.AI de Voopoo est ce qui distingue cette box : il identifie la résistance montée et ajuste la puissance de départ tout seul. Sur une première box, cela évite les erreurs de réglage qui brûlent un coton neuf.\n\nCent watts suffisent très largement pour un clearomiseur du commerce, et le format reste compact — elle se glisse dans une poche, ce qu'aucune box 200 W ne fait vraiment.\n\nL'éclairage LED est un parti pris : on aime ou pas, mais il se désactive.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "La Vinci Spark 100 de Voopoo est une box électronique compacte et puissante, conçue pour offrir une expérience de vape personnalisée avec un design moderne et lumineux."
+    "description": ""
   },
   "sousCategorie": "box"
 }

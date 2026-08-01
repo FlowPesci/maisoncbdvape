@@ -1,7 +1,12 @@
 {
   "marque": "Curieux",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml, sans nicotine",
+    "Boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Fabriqué en France"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Fraise",
@@ -9,11 +14,17 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Compatibilité": "Clearomiseurs MTL et pods",
+    "Fabrication": "France"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "E-liquide Curieux Fraise 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+  "descriptionCourte": "Une fraise seule, mûre et sucrée. Le mono-arôme de référence.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "fraise",
   "image": "/media/produits/1778342024106-fraise.jpeg",
-  "description": "E-liquide Fraise de la gamme Curieux.\n\nProfil aromatique\nLa fraise dans toute sa simplicité : un arôme fruité, sucré et naturel, fidèle à la fraise des champs bien mûre. Un incontournable des e-liquides fruités français.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés. Ratio PG/VG 50/50. Fabriqué en France.\n\nUsage recommandé\nIdéal pour une vape fruitée simple et agréable au quotidien.",
+  "description": "La fraise est l'arôme le plus difficile à réussir seul : trop sucrée elle devient bonbon, trop naturelle elle disparaît. Curieux tient l'équilibre — une fraise mûre, charnue, reconnaissable, qu'on peut vaper toute la journée.\n\nFlacon de 50 ml sans nicotine, compatible avec les boosters de 10 ml. Ratio PG/VG 50/50, fabrication française.\n\nIl donne son meilleur en clearomiseur à tirage serré ou en pod, pour une vape de tous les jours.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "E-liquide Curieux Fraise 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+    "description": ""
   },
   "sousCategorie": "e-liquides-curieux"
 }

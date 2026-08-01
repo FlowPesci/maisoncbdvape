@@ -1,7 +1,12 @@
 {
   "marque": "Curieux",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml, sans nicotine",
+    "Boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Fabriqué en France"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "L'elixir",
@@ -9,11 +14,17 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Compatibilité": "Clearomiseurs MTL et pods",
+    "Fabrication": "France"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "E-liquide Curieux L&#039;elixir 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr.",
+  "descriptionCourte": "Agrumes, fruits exotiques et une fraîcheur discrète. Complexe et changeant.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "l-elixir",
   "image": "/media/produits/1778341882667-l-elixir.jpeg",
-  "description": "E-liquide L'Elixir de la gamme Curieux.\n\nProfil aromatique\nUne recette mystérieuse et complexe : L'Elixir Curieux révèle des notes d'agrumes, de fruits exotiques et d'une touche de fraîcheur subtilement dosée. Un arôme envoûtant aux multiples facettes.\n\nFormat & composition\nFlacon 50 ml – sans nicotine. Compatible avec les boosters nicotinés. Ratio PG/VG 50/50. Fabriqué en France.\n\nUsage recommandé\nPour les vapers en quête d'un profil aromatique original et complexe.",
+  "description": "Voilà la recette la plus difficile à décrire de la gamme, et c'est voulu : agrumes en attaque, fruits exotiques au cœur, et une fraîcheur si finement dosée qu'on l'identifie à peine. Le profil change selon la puissance — un liquide qui se redécouvre.\n\nFlacon de 50 ml sans nicotine, compatible avec les boosters de 10 ml. Ratio PG/VG 50/50, fabrication française.\n\nIl donne son meilleur en clearomiseur à tirage serré ou en pod, pour une vape de tous les jours.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "E-liquide Curieux L&#039;elixir 50 ml, arôme fidèle et équilibré. Disponible sur Tabacgex.fr."
+    "description": ""
   },
   "sousCategorie": "e-liquides-curieux"
 }

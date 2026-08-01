@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Sans effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Pomme Citron 50ml - Le Petit Verger",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Non",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Une pomme verte bien croquante, un citron bien juteux.. Ce sont les deux ingr&eacute;dients qui ont &eacute;t&eacute; utilis&eacute;s par&nbsp;Le Petit Verger&n",
+  "descriptionCourte": "Pomme verte croquante et citron juteux. Vif, acidulé, sans sucre inutile.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "pomme-citron-50ml-le-petit-verger",
   "image": "/media/produits/1778341447694-pomme-citron-50ml-le-petit-verger.jpeg",
-  "description": "E-liquide Pomme Citron de la gamme Le Petit Verger.\n\nProfil aromatique\nUne pomme verte bien croquante et un citron bien juteux : deux ingrédients simples pour un résultat pétillant. Une vape fraîche, tonique et parfaitement équilibrée entre douceur et acidité.\n\nFormat & composition\nFlacon shortfill 50 ml (contenant 70 ml) – sans nicotine. Compatible avec les shots nicotinés (10 ml). Ratio PG/VG 50/50.\n\nUsage recommandé\nParfait pour une vape tonique et rafraîchissante en toutes occasions.",
+  "description": "Deux ingrédients, pas un de plus : la pomme verte pour le croquant et l'acidité, le citron pour le jus et le zeste. C'est un liquide vif, franchement acidulé, qui plaira à ceux que les fruités sucrés fatiguent.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Une pomme verte bien croquante, un citron bien juteux.. Ce sont les deux ingr&eacute;dients qui ont &eacute;t&eacute; utilis&eacute;s par&nbsp;Le Petit Verger&n"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Gourmet",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en shortfill",
+    "Sans nicotine, shots compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Arôme pâtissier"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Cannelé – 50 ml",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Compatibilité": "Clearomiseurs MTL et pods",
+    "Format": "Shortfill"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le Petit Gourmet",
+  "descriptionCourte": "Caramel croustillant, cœur vanillé et rhum. Le cannelé bordelais.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +32,7 @@
   "galerie": [],
   "id": "cannele-50-ml",
   "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/474bd767dab496e5934e3f2419e7d1ad6acb79b9-lg.png",
-  "description": "E-liquide Cannelé de la gamme Le Petit Gourmet.\n\nProfil aromatique\nLa spécialité bordelaise en e-liquide : une croûte caramélisée légèrement croquante, un cœur moelleux à la vanille et au rhum, avec des notes de beurre et de caramel ambré.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50. Arôme pâtissier artisanal.\n\nUsage recommandé\nPour les amateurs de vapes gourmandes et authentiquement françaises.",
+  "description": "Tout l'intérêt du cannelé tient dans son contraste, et l'arôme le reproduit : la croûte caramélisée, presque brûlée, contre le cœur mou à la vanille et au rhum. C'est le plus typé des gourmands du comptoir.\n\nShortfill de 50 ml sans nicotine, compatible avec les shots nicotinés. Ratio PG/VG 50/50.\n\nIl donne son meilleur en clearomiseur à tirage serré ou en pod, pour une vape de tous les jours.",
   "contenuKit": [],
   "seo": {
     "title": "",

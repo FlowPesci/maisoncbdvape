@@ -1,7 +1,12 @@
 {
   "marque": "Gelato Hydro Indoor CBD",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Nez crémeux et fruité",
+    "Aspect givré, trichomes abondants",
+    "Reflets violets naturels",
+    "Pesée devant vous, de 2 à 8 g"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Gelato Hydro Indoor CBD",
@@ -9,7 +14,13 @@
   "prix": 4.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Culture": "Hydroponique, indoor",
+    "Origine": "Union européenne",
+    "Taux de THC": "< 0,3 %",
+    "Séchage": "Lent, en chambre ventilée",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +41,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Notes sucrées rappelant la crème glacée, avec des touches fruitées (fruits rouges, agrumes) et légèrement terreuses.",
+  "descriptionCourte": "Crème glacée, fruits rouges et fond terreux. Une fleur givrée de trichomes, complexe en bouche.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
@@ -40,11 +51,11 @@
   "galerie": [],
   "id": "gelato-hydro-indoor-cbd",
   "image": "/media/produits/1778340493029-gelato-hydro-indoor-cbd.jpeg",
-  "description": "Aspect visuel\n\nFleurs compactes, denses et parfaitement taillées.\n\nCouleur vert profond rehaussée de nuances violettes et orangées.\n\nTrichomes abondants, donnant un aspect givré et cristallin, signe d’une grande richesse en terpènes et cannabinoïdes.\n\nArômes & saveurs\n\nProfil gourmand et complexe.\n\nNotes sucrées rappelant la crème glacée, avec des touches fruitées (fruits rouges, agrumes) et légèrement terreuses.\n\nSaveur douce et persistante en bouche, à la fois crémeuse et rafraîchissante.\n\n⚡ Effets\n\nSensation d’équilibre parfait entre relaxation corporelle et stimulation cérébrale.\n\nDétente profonde sans lourdeur excessive, tout en gardant une clarté mentale.\n\nIdéale pour la créativité, la convivialité et les moments de détente.\n\nCulture hydroponique indoor\n\nMéthode hydroponique permettant une nutrition précise et un environnement parfaitement contrôlé.\n\nRésultat : une fleur d’une propreté irréprochable, riche en arômes et d’une qualité constante.\n\nEn résumé, la Gelato Indoor Hydro premium est une fleur d’exception, au profil aromatique sucré et raffiné, réputée pour sa puissance équilibrée et son intensité gustative.",
+  "description": "La Gelato tient sa réputation de son nez : sucré, crémeux, avec des fruits rouges et des agrumes en second plan, et juste ce qu'il faut de terreux pour l'empêcher de tomber dans le confit. La fumée est douce et persistante, à la fois onctueuse et fraîche.\n\nVisuellement, c'est l'une des plus belles fleurs du bocal : vert profond, nuances violettes et orangées, et une couche de trichomes assez épaisse pour lui donner cet aspect givré caractéristique.\n\nCulture hydroponique indoor, manucure à la main. Pesée de 2 à 8 grammes.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Notes sucrées rappelant la crème glacée, avec des touches fruitées (fruits rouges, agrumes) et légèrement terreuses."
+    "description": ""
   },
   "sousCategorie": "fleurs-indoor"
 }

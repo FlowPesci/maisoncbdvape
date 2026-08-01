@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Fruit du Serpent – Grenade FRAIS",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Oui",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Myst&eacute;rieux et intense : la grenade juteuse et l&eacute;g&egrave;rement acidul&eacute;e s&rsquo;allie &agrave; l&rsquo;&eacute;tonnant fruit du serpent po",
+  "descriptionCourte": "Grenade juteuse et salak. Intense, acidulé, franchement inhabituel.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "fruit-du-serpent-grenade-frais",
   "image": "/media/produits/1778341652600-fruit-du-serpent-grenade-frais.jpeg",
-  "description": "E-liquide Fruit du Serpent – Grenade FRAIS de la collection fraîcheur Le Petit Verger.\n\nProfil aromatique\nMystérieux et intense : la grenade juteuse et légèrement acidulée s'allie à l'étonnant fruit du serpent pour une vape exotique et complexe, sublimée par une touche fraîcheur.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nPour les curieux en quête de saveurs exotiques et fraîches.",
+  "description": "Le salak — fruit du serpent — a un goût difficile à décrire : entre l'ananas, la banane et une pointe astringente. La grenade lui apporte le jus et l'acidité. Le résultat est intense et inhabituel, à réserver aux curieux.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Myst&eacute;rieux et intense : la grenade juteuse et l&eacute;g&egrave;rement acidul&eacute;e s&rsquo;allie &agrave; l&rsquo;&eacute;tonnant fruit du serpent po"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

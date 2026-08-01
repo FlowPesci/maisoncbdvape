@@ -1,7 +1,12 @@
 {
   "marque": "Mélange végétal Menthe",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Sans tabac ni nicotine",
+    "100 % plantes",
+    "Menthe nanah dominante",
+    "Roulage classique"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Mélange végétal Menthe",
@@ -9,11 +14,17 @@
   "prix": 6.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Composition": "Menthe nanah, bouillon blanc, calendula, chanvre",
+    "Tabac": "Aucun",
+    "Nicotine": "Aucune",
+    "Additifs": "Aucun",
+    "Usage": "Roulage"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Menthe Nanah, Bouillon blanc, Calendula & Chanvre",
+  "descriptionCourte": "Menthe nanah, bouillon blanc, calendula et chanvre. Le plus mentholé des trois, sans tabac ni nicotine.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "melange-vegetal-menthe",
   "image": "/media/produits/1778340653012-melange-vegetal-menthe.png",
-  "description": "🌿 Substitut de tabac naturel – Menthe Nanah, Bouillon blanc, Calendula & Chanvre\nSavourez une expérience douce et rafraîchissante, sans tabac ni nicotine.\nCe mélange harmonieux associe la Menthe Nanah, au parfum frais et vivifiant, au Bouillon blanc, qui adoucit la gorge, au Calendula, aux vertus apaisantes et florales, et au Chanvre, reconnu pour son effet relaxant et équilibrant.\n\n✨ 100 % plantes naturelles – Sans tabac – Sans nicotine\nParfait pour un sevrage en douceur ou un moment de détente aromatique et conscient.\n\n🌿 Une bouffée fraîche et apaisante, entre légèreté et sérénité.",
+  "description": "La menthe nanah est celle du thé marocain : franche, très parfumée, plus ronde que la menthe poivrée. Elle domine ici largement, portée par le bouillon blanc qui donne au mélange son volume et sa combustion régulière.\n\nLe calendula apporte une note florale en arrière-plan, et le chanvre un fond végétal plus large. L'ensemble se roule exactement comme du tabac.\n\nNi tabac, ni nicotine, ni additif. C'est le plus mentholé des trois mélanges : le Bergamote est plus citronné, le Natura sans menthe du tout.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Menthe Nanah, Bouillon blanc, Calendula & Chanvre"
+    "description": ""
   },
   "sousCategorie": "substituts-tabac"
 }

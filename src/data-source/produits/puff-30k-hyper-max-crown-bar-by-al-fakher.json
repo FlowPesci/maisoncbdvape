@@ -1,7 +1,12 @@
 {
   "marque": "Al Fakher",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "30 000 bouffées annoncées",
+    "17 saveurs disponibles",
+    "Batterie rechargeable",
+    "Arômes signés Al Fakher"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher",
@@ -9,24 +14,47 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Bouffées annoncées": "30 000",
+    "Saveurs au catalogue": "17",
+    "Batterie": "Rechargeable",
+    "Type": "Prérempli, longue durée"
+  },
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "La gamme Hyper Max Advanced propose 17 saveurs différentes, offrant un large choix pour tous les goûts.",
+  "descriptionCourte": "30 000 bouffées et 17 saveurs au catalogue. Le plus large choix aromatique du rayon.",
   "categorie": "puffs",
   "dateAjout": "2026-05-09",
   "tags": [],
-  "saveurs": [],
+  "saveurs": [
+    "Blueberry Raspberry",
+    "Mixed Berry",
+    "Peach Ice",
+    "Menthol",
+    "Strawberry Punch",
+    "Magic Love",
+    "Gum Mint",
+    "Watermelon Kiwi",
+    "Mango Pineapple",
+    "Cherry Fiesta",
+    "Blueberry Cherry",
+    "Strawberry Cherry",
+    "Spearmint",
+    "Berry Blue",
+    "Summer Dream",
+    "Mint",
+    "Blueberry Mint"
+  ],
   "galerie": [],
   "id": "puff-30k-hyper-max-crown-bar-by-al-fakher",
   "image": "/media/produits/1778340784512-puff-30k-hyper-max-crown-bar-by-al-fakher.png",
-  "description": "Référence : Crown Bar Hyper Max 30K\nMarque : Al Fakher\nUsage : dispositif prérempli « longue durée », batterie rechargeable\n\nSaveurs disponibles\nLa gamme Hyper Max Advanced propose 17 saveurs différentes, offrant un large choix pour tous les goûts :\n\nBlueberry Raspberry\nMixed Berry\nPeach Ice\nMenthol\nStrawberry Punch\nMagic Love\nGum Mint\nWatermelon Kiwi\nMango Pineapple\nCherry Fiesta\nBlueberry Cherry\nStrawberry Cherry\nSpearmint\nBerry Blue\nSummer Dream\nMint\nBlueberry Mint\nContenu du kit Hyper Max Advanced 30K Crown Bar\n1 Puff Hyper Max Advanced Crown Bar\n2 Cartouches de 10 ml\n1 Manuel d’utilisation\nCaractéristiques principales\nJusqu’à 30 000 puffs annoncés, pour un usage prolongé.\n\nCapacité d’e-liquide très élevée (≈ 20 ml) pour certains exemplaires. \n\nBatterie rechargeable intégrée via port USB-C (par exemple 650 mAh pour certains marchés). \n\nTechnologie de coil « mesh » (maillage) pour meilleure restitution des arômes et production de vapeur. \n\nRésistance d’environ 0,6 Ω selon certains modèles.\n\nTirage majoritairement « Tirage ouvert » (DTL) pour certains modèles, avec airflow ajustable .\n\nDiverses saveurs proposées, inspirées de l’univers chicha / fruité / mentholé. \n\nAtouts pour le client\nProduit « longue durée » : la forte capacité de puffs permet de limiter les remplacements fréquents de dispositif.\n\nRechargeable via USB-C : batterie réutilisable tout au long de la durée de vie du pod.\n\nSaveurs « premium » de la marque Al Fakher : l’expérience est pensée pour approcher la qualité des arômes chicha traditionnels dans un format vape.\n\nFacilité d’usage : fonctionnement simple (souvent activation à l’inhalation, sans réglages complexes).\n\nPour les amateurs de tirage large (DTL) ou de vapeur conséquente, c’est une option performante.",
+  "description": "Al Fakher travaille les arômes depuis la chicha, et la Hyper Max en tire son principal argument : dix-sept saveurs au catalogue, franches et distinctes les unes des autres, là où beaucoup de gammes se ressemblent sous un fond sucré commun.\n\nLe dispositif est prérempli et sa batterie se recharge, ce qui permet d'aller au bout des 30 000 bouffées annoncées sans que la charge devienne la limite.\n\nNous ne tenons pas les dix-sept saveurs en permanence : demandez-nous ce qui est disponible, ou passez en boutique.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "La gamme Hyper Max Advanced propose 17 saveurs différentes, offrant un large choix pour tous les goûts."
+    "description": ""
   },
   "sousCategorie": "al-fakher"
 }

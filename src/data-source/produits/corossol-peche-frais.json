@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Corossol Pêche FRAIS",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Oui",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Un mariage inattendu entre la p&ecirc;che fondante et le corossol exotique : un parfum original, rond et fruit&eacute;, pour une vape douce et d&eacute;paysante",
+  "descriptionCourte": "Pêche fondante et corossol exotique. Un accord inattendu, doux et dépaysant.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "corossol-peche-frais",
   "image": "/media/produits/1778341678874-corossol-peche-frais.jpeg",
-  "description": "E-liquide Corossol Pêche FRAIS de la collection fraîcheur Le Petit Verger.\n\nProfil aromatique\nUn mariage inattendu entre la pêche fondante et le corossol exotique et crémeux : un parfum original, rond et fruité, pour une vape douce et dépaysante avec une touche de fraîcheur.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nPour les amateurs de saveurs exotiques douces et originales.",
+  "description": "Le corossol est peu courant en e-liquide, et c'est ce qui rend ce mélange intéressant : un fruit crémeux, légèrement acidulé, entre l'ananas et la fraise. La pêche fondante lui donne un socle familier, la fraîcheur allège l'ensemble. À essayer si vous avez fait le tour des fruits rouges.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Un mariage inattendu entre la p&ecirc;che fondante et le corossol exotique : un parfum original, rond et fruit&eacute;, pour une vape douce et d&eacute;paysante"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

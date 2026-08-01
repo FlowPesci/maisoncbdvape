@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Sans effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Goyave - coco",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Non",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le Petit Verger",
+  "descriptionCourte": "Goyave parfumée et coco crémeuse. Un tropical plus rond que l'ananas.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +32,7 @@
   "galerie": [],
   "id": "goyave-coco",
   "image": "/media/produits/1778341315583-goyave-coco.png",
-  "description": "E-liquide Goyave – Coco de la gamme Le Petit Verger.\n\nProfil aromatique\nUn voyage tropical en deux temps : la goyave rosée, sucrée et légèrement acidulée, s'unit à la noix de coco crémeuse et douce. Un e-liquide exotique, round et enveloppant.\n\nFormat & composition\nFlacon shortfill 50 ml (contenant 70 ml) – sans nicotine. Compatible avec les shots nicotinés (10 ml). Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour une vape gourmande et tropicale, en MTL ou setup intermédiaire.",
+  "description": "La goyave est plus florale et moins acide que l'ananas, ce qui donne un tropical nettement plus rond. La noix de coco prolonge cette douceur avec son gras caractéristique. Un mélange enveloppant, à réserver à ceux qui aiment les profils crémeux.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",

@@ -1,7 +1,12 @@
 {
   "marque": "Euphoria",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Métal, indéformable",
+    "Bords relevés",
+    "Surface parfaitement plane",
+    "Se nettoie d'un coup d'éponge"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Plateau Euphoria",
@@ -9,11 +14,16 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Matériau": "Métal",
+    "Bords": "Relevés sur tout le pourtour",
+    "Surface": "Plane, indéformable",
+    "Entretien": "Éponge humide"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Fabriqu&eacute; en m&eacute;tal robuste, ce plateau est extr&ecirc;mement solide et durable. Sa conception l&eacute;g&egrave;re (170g) permet de le transporter ",
+  "descriptionCourte": "Plateau à rouler en métal, indéformable. Le seul du comptoir qui ne ploie pas.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +31,11 @@
   "galerie": [],
   "id": "plateau-euphoria",
   "image": "/media/produits/1778342913134-plateau-euphoria.jpeg",
-  "description": "Plateau Euphoria – Plateau à rouler en métal.\n\nPrésentation\nLe plateau Euphoria se distingue par sa construction en métal robuste, extrêmement solide et durable. Sa conception soignée garantit une surface stable et un usage prolongé sans déformation.\n\nCaractéristiques\nMatériau : métal robuste. Construction solide et durable. Bords relevés. Design Euphoria élégant. Résistant aux chocs et rayures.\n\nIdéal pour\nLes utilisateurs cherchant un plateau à rouler durable et premium.",
+  "description": "Un plateau en plastique finit toujours par se voiler légèrement, et la surface cesse d'être plane. Le métal ne bouge pas : celui-ci reste rigoureusement plat des années.\n\nIl est aussi plus lourd, ce qui l'empêche de glisser quand on travaille dessus. Les bords sont relevés sur tout le pourtour.\n\nLe nettoyage est immédiat — un coup d'éponge suffit, sans rien qui s'incruste dans une matière poreuse.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Fabriqu&eacute; en m&eacute;tal robuste, ce plateau est extr&ecirc;mement solide et durable. Sa conception l&eacute;g&egrave;re (170g) permet de le transporter "
+    "description": ""
   },
   "sousCategorie": "plateaux"
 }

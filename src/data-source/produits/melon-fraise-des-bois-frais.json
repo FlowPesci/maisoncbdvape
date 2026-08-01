@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Melon – Fraise des Bois FRAIS",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Oui",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Une combinaison fra&icirc;che et fruit&eacute;e : le melon gorg&eacute; de soleil et la fraise des bois d&eacute;licatement sucr&eacute;e offrent une vape estiv",
+  "descriptionCourte": "Melon gorgé de soleil et fraise des bois. Frais, sucré, très estival.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "melon-fraise-des-bois-frais",
   "image": "/media/produits/1778341477739-melon-fraise-des-bois-frais.jpeg",
-  "description": "E-liquide Melon – Fraise des Bois FRAIS de la collection fraîcheur Le Petit Verger.\n\nProfil aromatique\nUne combinaison fraîche et fruitée : le melon gorgé de soleil et la fraise des bois délicatement sucrée offrent une vape estivale et légère, avec une touche de fraîcheur mentholée.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour une vape légère et fraîche en toutes saisons.",
+  "description": "Le melon est ce qu'il y a de plus désaltérant en e-liquide : aqueux, doux, sans acidité. La fraise des bois lui ajoute un parfum plus concentré et légèrement acidulé que la fraise classique. Un accord d'été, que la fraîcheur pousse encore.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Une combinaison fra&icirc;che et fruit&eacute;e : le melon gorg&eacute; de soleil et la fraise des bois d&eacute;licatement sucr&eacute;e offrent une vape estiv"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

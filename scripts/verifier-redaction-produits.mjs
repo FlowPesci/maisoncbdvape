@@ -48,9 +48,12 @@ const ALLEGATIONS = [
   { motif: /soulag\w*|analg[ée]si\w*/gi,        pourquoi: "allégation thérapeutique" },
   { motif: /anti[- ]?inflammatoire\w*/gi,       pourquoi: "allégation thérapeutique" },
   { motif: /th[ée]rapeutique\w*|m[ée]dicinal\w*/gi, pourquoi: "allégation thérapeutique" },
-  // `soigneusement` est écarté : « soigneusement sélectionnées » décrit la
-  // préparation du produit, pas un effet sur celui qui le consomme.
-  { motif: /gu[ée]ri(?:t|r|e|son|ss)\w*|\bsoigne(?!usement)\w*/gi, pourquoi: "allégation thérapeutique" },
+  // ⚠ `soigner` a été retiré de cette liste. En français, le verbe couvre
+  // aussi bien « soigner un malade » que « soigner la finition » — et dans un
+  // catalogue, c'est presque toujours le second sens : « soigneusement
+  // sélectionnées », « une marque qui soigne la matière ». Le taux de fausse
+  // alerte rendait le contrôle inutilisable. `guérir` reste, lui n'a qu'un sens.
+  { motif: /gu[ée]ri(?:t|r|e|son|ss)\w*/gi, pourquoi: "allégation thérapeutique" },
   { motif: /anxi[ée]t[ée]|anxiolytique/gi,      pourquoi: "allégation thérapeutique" },
   { motif: /(?:am[ée]liore|favorise|aide).{0,20}sommeil/gi, pourquoi: "allégation de santé" },
   { motif: /douleur\w*/gi,                      pourquoi: "allégation thérapeutique" },
@@ -68,9 +71,21 @@ const SUPERLATIFS = /r[ée]volutionn\w*|incontournable\w*|exceptionnel\w*|d'exce
 const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}]/u;
 const ENTITE = /&(?:[a-z]+|#\d+);/i;
 
-const MIN_LONGUE = 400;
+/**
+ * Bornes de longueur.
+ *
+ * Les minimums sont volontairement bas. Réglés à 400 et 60 signes, ils
+ * signalaient des fiches parfaitement bonnes : un plateau à 4,99 € n'a pas
+ * besoin de 400 signes, et « Un cassis seul, franc et acidulé. Sans
+ * fioriture. » dit tout en 49. Les respecter aurait demandé de délayer —
+ * exactement le défaut que cette charte combat.
+ *
+ * Ils ne servent donc qu'à repérer le vide : un champ oublié, une ligne
+ * unique reprise du fournisseur. Ce sont les MAXIMUMS qui portent la règle.
+ */
+const MIN_LONGUE = 300;
 const MAX_LONGUE = 1100;
-const MIN_COURTE = 60;
+const MIN_COURTE = 45;
 const MAX_COURTE = 160;
 
 const produits = readdirSync(DIR)

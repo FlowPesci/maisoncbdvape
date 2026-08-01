@@ -1,7 +1,12 @@
 {
   "marque": "Grinder",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Finition dorée",
+    "Dents affûtées",
+    "Fermeture magnétique",
+    "9,90 €"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Grinder Gold",
@@ -9,11 +14,15 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Matériau": "Métal, finition dorée",
+    "Fermeture": "Magnétique",
+    "Dents": "Affûtées, broyage homogène"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Grinder",
+  "descriptionCourte": "Finition dorée, dents affûtées et fermeture magnétique. Un grinder simple, bien fait.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +30,7 @@
   "galerie": [],
   "id": "grinder-gold",
   "image": "/media/produits/1778343032973-grinder-gold.png",
-  "description": "Grinder Gold – Broyeur à herbes.\n\nPrésentation\nLe Grinder Gold est un broyeur à herbes aux finitions dorées premium, alliant robustesse et esthétique. Un accessoire incontournable pour un broyage efficace et homogène.\n\nCaractéristiques\nFinition dorée élégante. Dents broyeuses affûtées pour un broyage homogène. Fermeture magnétique sécurisée. Matériau : métal résistant. Format pratique.\n\nIdéal pour\nUn broyage efficace et régulier avec un accessoire au design premium et élégant.",
+  "description": "Un grinder se juge à deux choses : ses dents et sa fermeture. Celles-ci sont affûtées et disposées pour broyer régulièrement, sans laisser de morceaux entiers au centre.\n\nL'aimant du couvercle tient franchement — il ne s'ouvre pas dans une poche, ce qui est le défaut habituel des modèles à vis lâche.\n\nLa finition dorée ne s'écaille pas au frottement. À 9,90 €, c'est un bon rapport solidité-prix.",
   "contenuKit": [],
   "seo": {
     "title": "",

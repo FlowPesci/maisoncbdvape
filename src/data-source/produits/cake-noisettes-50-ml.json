@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Gourmet",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en shortfill",
+    "Sans nicotine, shots compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Arôme pâtissier"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Cake Noisettes – 50 ml",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Compatibilité": "Clearomiseurs MTL et pods",
+    "Format": "Shortfill"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le Petit Gourmet",
+  "descriptionCourte": "Gâteau moelleux et noisettes torréfiées. Beurré, sec juste ce qu'il faut.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +32,7 @@
   "galerie": [],
   "id": "cake-noisettes-50-ml",
   "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/a9624be3002df6b14050a149e11478fbf8516ef3-lg.png",
-  "description": "E-liquide Cake Noisettes de la gamme Le Petit Gourmet.\n\nProfil aromatique\nUn cake moelleux aux noisettes grillées : la noisette dorée et caramélisée, les notes beurrées d'une pâte dorée et un cœur fondant. Un arôme simple, généreux et réconfortant.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour une vape gourmande et douce en toutes occasions.",
+  "description": "Un quatre-quarts aux noisettes : la pâte beurrée donne le fond, les noisettes torréfiées apportent le grillé et une sécheresse bienvenue qui empêche l'ensemble de coller. Un gourmand sobre, moins sucré que la moyenne de la gamme.\n\nShortfill de 50 ml sans nicotine, compatible avec les shots nicotinés. Ratio PG/VG 50/50.\n\nIl donne son meilleur en clearomiseur à tirage serré ou en pod, pour une vape de tous les jours.",
   "contenuKit": [],
   "seo": {
     "title": "",

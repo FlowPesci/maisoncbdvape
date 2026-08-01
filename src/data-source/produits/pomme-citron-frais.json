@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Pomme – Citron FRAIS",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Oui",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Un duo plein de pep&rsquo;s : la pomme verte croquante et le citron acidul&eacute; s&rsquo;accordent dans un m&eacute;lange frais, tonique et parfaitement &eacu",
+  "descriptionCourte": "Pomme verte et citron acidulé, sur fond frais. Tonique et net.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "pomme-citron-frais",
   "image": "/media/produits/1778341450743-pomme-citron-frais.jpeg",
-  "description": "E-liquide Pomme – Citron FRAIS de la collection fraîcheur Le Petit Verger.\n\nProfil aromatique\nUn duo plein de pep's : la pomme verte croquante et le citron acidulé s'accordent dans un mélange frais, tonique et légèrement mentholé. Idéal pour une sensation de fraîcheur à chaque bouffée.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50. Saveur fraîcheur (note menthol/cool).\n\nUsage recommandé\nParfait pour une vape fraîche et énergisante en MTL ou en pod.",
+  "description": "La pomme verte croquante et le citron acidulé, resserrés par une fraîcheur franche. C'est tonique, net, sans rondeur — un liquide qui réveille plutôt qu'il ne réconforte.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Un duo plein de pep&rsquo;s : la pomme verte croquante et le citron acidul&eacute; s&rsquo;accordent dans un m&eacute;lange frais, tonique et parfaitement &eacu"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

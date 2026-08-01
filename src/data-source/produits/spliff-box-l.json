@@ -1,19 +1,28 @@
 {
   "marque": "Spliff Box",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Format L, grande capacité",
+    "Compartiments séparés",
+    "Se ferme complètement",
+    "Transportable"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
-  "nom": "Spliff Box L ! ?",
+  "nom": "Spliff Box L",
   "actif": true,
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Format": "L, grande capacité",
+    "Compartiments": "Séparés (papiers, filtres, briquet, tabac)",
+    "Fermeture": "Complète"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Compartiments int&eacute;gr&eacute;s pour une organisation optimale",
+  "descriptionCourte": "La grande boîte de rangement : papiers, filtres, briquet et tabac, chacun à sa place.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +30,11 @@
   "galerie": [],
   "id": "spliff-box-l",
   "image": "/media/produits/1778342923568-spliff-box-l.jpeg",
-  "description": "Spliff Box L – Boîte de rangement accessoires fumeur.\n\nPrésentation\nLa Spliff Box L est la version grand format de la boîte de rangement pour accessoires fumeur. Ses compartiments intégrés offrent une organisation optimale pour papiers, filtres, briquet, tabac et plus encore.\n\nCaractéristiques\nFormat L : plus d'espace de rangement. Compartiments intégrés pour organisation optimale. Fermeture sécurisée. Matériau résistant. Design discret.\n\nIdéal pour\nLes utilisateurs qui souhaitent regrouper tous leurs accessoires dans un seul contenant pratique.",
+  "description": "Tout finit par traîner : papiers cornés au fond d'une poche, filtres éparpillés, briquet introuvable. Cette boîte règle le problème en donnant un compartiment à chaque chose.\n\nLe format L offre assez de place pour un paquet de tabac entier en plus des accessoires — c'est ce qui la distingue du format M.\n\nElle se ferme complètement et se transporte sans que le contenu se mélange.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Compartiments int&eacute;gr&eacute;s pour une organisation optimale"
+    "description": ""
   },
   "sousCategorie": "boites"
 }

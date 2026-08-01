@@ -1,7 +1,12 @@
 {
   "marque": "Extract Crumble",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "95 % de CBD",
+    "Texture friable, dosage précis",
+    "Teinte dorée naturelle",
+    "Pesée devant vous, de 2 à 8 g"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Extract Crumble",
@@ -9,7 +14,14 @@
   "prix": 9.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Type": "Extrait, texture crumble",
+    "Taux de CBD": "95 %",
+    "Texture": "Sèche et friable",
+    "Couleur": "Dorée naturelle",
+    "Taux de THC": "< 0,3 %",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +42,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Ce Crumble Extract 95 % est un extrait hautement concentré, destiné à une clientèle avertie recherchant un produit puissant, stable et visuellement qualitatif.",
+  "descriptionCourte": "95 % de CBD dans un extrait doré et friable. La concentration la plus élevée du comptoir.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
@@ -40,11 +52,11 @@
   "galerie": [],
   "id": "extract-crumble",
   "image": "/media/produits/1778340623724-extract-crumble.jpeg",
-  "description": "Sa texture crumble sèche et friable, à la teinte dorée naturelle, témoigne d’un procédé d’extraction maîtrisé et d’une haute pureté. Facile à manipuler, il permet un dosage précis et constant, apprécié aussi bien pour la revente spécialisée que pour l’usage en lounge.\n\nGrâce à sa concentration élevée (95 %), ce crumble se distingue par son rendement, sa régularité et sa présentation premium, parfaitement adaptée aux établissements exigeants souhaitant proposer une gamme d’extraits haut de niveau.",
+  "description": "Un crumble est un extrait poussé jusqu'à la texture friable — sèche, cassante, d'une teinte dorée naturelle. C'est ce qui le rend facile à doser : il s'émiette au gramme près, sans coller à l'outil ni s'étirer.\n\nÀ 95 % de CBD, c'est de loin la concentration la plus élevée que nous proposons. Une quantité minime suffit, et le format ne s'aborde qu'après avoir fait le tour des fleurs et des résines classiques.\n\nLa régularité du procédé d'extraction se voit à l'œil : couleur homogène, texture constante d'un lot à l'autre. Pesée de 2 à 8 grammes.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Ce Crumble Extract 95 % est un extrait hautement concentré, destiné à une clientèle avertie recherchant un produit puissant, stable et visuellement qualitatif."
+    "description": ""
   },
   "sousCategorie": "pollens-resines"
 }

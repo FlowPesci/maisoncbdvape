@@ -1,19 +1,28 @@
 {
   "marque": "Spliff Box",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Format M, compact",
+    "Compartiments séparés",
+    "Tient en poche de veste",
+    "16,90 €"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
-  "nom": "Spliff Box M ! ?",
+  "nom": "Spliff Box M",
   "actif": true,
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Format": "M, compact",
+    "Compartiments": "Séparés (papiers, filtres, briquet)",
+    "Fermeture": "Complète"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Compartiments int&eacute;gr&eacute;s pour une organisation optimale",
+  "descriptionCourte": "La version compacte : mêmes compartiments, format qui tient dans une poche de veste.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +30,11 @@
   "galerie": [],
   "id": "spliff-box-m",
   "image": "/media/produits/1778342920741-spliff-box-m.jpeg",
-  "description": "Spliff Box M – Boîte de rangement accessoires fumeur.\n\nPrésentation\nLa Spliff Box M est une boîte de rangement compacte et bien organisée pour tous vos accessoires fumeur. Ses compartiments intégrés permettent une organisation optimale de vos papiers, filtres, briquet et tabac.\n\nCaractéristiques\nFormat M : compact et transportable. Compartiments intégrés pour organisation optimale. Fermeture sécurisée. Matériau résistant. Design discret.\n\nIdéal pour\nUn rangement ordonné de vos accessoires à la maison ou en déplacement.",
+  "description": "Même principe que la Spliff Box L — un compartiment par accessoire — dans un encombrement nettement moindre. Elle tient dans une poche de veste, ce que la grande ne fait pas.\n\nPapiers, filtres et briquet trouvent leur place ; pour un paquet de tabac entier, il faut passer au format L.\n\nC'est le bon choix si la boîte vous suit dehors plutôt qu'elle ne reste sur une table.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Compartiments int&eacute;gr&eacute;s pour une organisation optimale"
+    "description": ""
   },
   "sousCategorie": "boites"
 }

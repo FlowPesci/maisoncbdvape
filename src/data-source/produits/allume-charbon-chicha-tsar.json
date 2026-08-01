@@ -1,7 +1,12 @@
 {
   "marque": "Tsar",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Chauffe électrique, sans flamme",
+    "Aucun goût de briquet",
+    "Chauffe uniforme",
+    "Format compact"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Allume charbon Chicha Tsar",
@@ -9,11 +14,16 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Type": "Chauffe-charbon électrique",
+    "Alimentation": "Secteur",
+    "Flamme": "Aucune",
+    "Usage": "Intérieur, sur surface non inflammable"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Compact, robuste et simple d&rsquo;utilisation, il s&rsquo;int&egrave;gre parfaitement dans un environnement domestique.",
+  "descriptionCourte": "Une résistance électrique qui porte les charbons à incandescence sans flamme ni goût de gaz.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +31,11 @@
   "galerie": [],
   "id": "allume-charbon-chicha-tsar",
   "image": "/media/produits/1778342744804-allume-charbon-chicha-tsar.jpeg",
-  "description": "Allume Charbon Chicha Tsar – Électrique.\n\nPrésentation\nCompact, robuste et simple d'utilisation, l'allume charbon Tsar s'intègre parfaitement dans un environnement salon ou lounge. Il permet d'allumer vos charbons de chicha rapidement et uniformément, sans résidu de briquet ni de flamme.\n\nCaractéristiques\nChauffe-charbon électrique résistant. Allumage rapide et homogène. Surface de chauffe antirayures. Design compact. Prise européenne standard.\n\nUtilisation\nPlacer les charbons sur la résistance, allumer l'appareil, retirer lorsque les charbons sont entièrement incandescents (5 à 10 min).",
+  "description": "Allumer un charbon au briquet laisse toujours un goût — de gaz, d'essence — que la première bouffée révèle. Une résistance électrique règle le problème : elle monte le charbon à incandescence par le seul rayonnement, sans rien y déposer.\n\nLa chauffe est aussi plus uniforme. Un charbon allumé au briquet brûle par un coin et se consume de travers ; ici, il rougit sur toute la face en contact.\n\nLe format compact se pose sur une table sans encombrer. À usage intérieur, sur surface stable et non inflammable.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Compact, robuste et simple d&rsquo;utilisation, il s&rsquo;int&egrave;gre parfaitement dans un environnement domestique."
+    "description": ""
   },
   "sousCategorie": "allume-charbons"
 }

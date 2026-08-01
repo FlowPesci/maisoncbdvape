@@ -1,7 +1,12 @@
 {
   "marque": "Bang ",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Verre borosilicaté épais",
+    "Percolateur intégré",
+    "30 cm, colonne haute",
+    "Bol fourni"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Bang en Verre 30 cm Percolateur",
@@ -9,11 +14,17 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Hauteur": "30 cm",
+    "Matériau": "Verre borosilicaté",
+    "Filtration": "Percolateur intégré",
+    "Fourni": "Bol",
+    "Entretien": "Eau chaude ou alcool isopropylique"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Une construction solide adapt&eacute;e aux utilisateurs recherchant durabilit&eacute; et simplicit&eacute;",
+  "descriptionCourte": "30 cm de verre borosilicaté et un percolateur : plus de volume, plus de filtration.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "bang-en-verre-30-cm-percolateur",
   "image": "/media/produits/1778343033675-bang-en-verre-30-cm-percolateur.jpeg",
-  "description": "Bang en Verre 30 cm Percolateur.\n\nPrésentation\nUn bang en verre borosilicaté de 30 cm avec percolateur intégré pour une filtration optimale de la fumée. Sa construction solide est adaptée aux utilisateurs recherchant durabilité et simplicité d'utilisation.\n\nCaractéristiques\nHauteur : 30 cm. Verre borosilicaté résistant aux chocs thermiques. Percolateur pour refroidissement et filtration de la fumée. Bol inclus. Diffuseur amovible facile à nettoyer.\n\nEntretien\nNettoyer régulièrement à l'alcool isopropylique ou à l'eau chaude pour conserver la transparence du verre.",
+  "description": "Dix centimètres de plus que le modèle de 20 cm, et cela change deux choses : la colonne plus haute laisse à la fumée le temps de refroidir davantage, et le volume d'eau plus important filtre mieux.\n\nLe verre est du borosilicaté, celui de la verrerie de laboratoire : il encaisse les écarts de température et ne blanchit pas au nettoyage. Le percolateur distribue la fumée en plusieurs filets à travers l'eau.\n\nBol fourni. Rinçage à l'eau chaude après chaque usage, alcool isopropylique pour les dépôts installés.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Une construction solide adapt&eacute;e aux utilisateurs recherchant durabilit&eacute; et simplicit&eacute;"
+    "description": ""
   },
   "sousCategorie": "bangs"
 }

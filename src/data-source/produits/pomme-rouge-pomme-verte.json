@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Sans effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Pomme rouge – Pomme verte",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Non",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "La douceur gourmande de la pomme rouge se m&ecirc;le au pep&rsquo;s acidul&eacute; de la pomme verte. Une explosion croquante et rafra&icirc;chissante, id&eacut",
+  "descriptionCourte": "Pomme rouge douce et pomme verte acidulée. Deux pommes, deux caractères.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "pomme-rouge-pomme-verte",
   "image": "/media/produits/1778341283187-pomme-rouge-pomme-verte.png",
-  "description": "E-liquide Pomme Rouge – Pomme Verte de la gamme Le Petit Verger.\n\nProfil aromatique\nLa douceur gourmande de la pomme rouge se mêle au pep's acidulé de la pomme verte. Une explosion croquante et rafraîchissante, idéale pour les amateurs de pomme dans toute sa complexité.\n\nFormat & composition\nFlacon shortfill 50 ml (contenant 70 ml) – sans nicotine. Compatible avec les shots nicotinés (10 ml). Ratio PG/VG 50/50.\n\nUsage recommandé\nParfait pour une vape fruitée toute la journée, en MTL ou en pod.",
+  "description": "L'idée est simple et bien vue : la pomme rouge pour la douceur gourmande, la pomme verte pour le peps acidulé. Le même fruit dans ses deux extrêmes, ce qui donne un relief que la pomme seule n'a jamais. Croquant et rafraîchissant.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "La douceur gourmande de la pomme rouge se m&ecirc;le au pep&rsquo;s acidul&eacute; de la pomme verte. Une explosion croquante et rafra&icirc;chissante, id&eacut"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

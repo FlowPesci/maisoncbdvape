@@ -1,7 +1,12 @@
 {
   "marque": "Diy",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "30 ml de concentré",
+    "Dilution à 15-20 %",
+    "Profil sucré et fruité",
+    "Compatible toutes bases"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Concentré Biggy bear 30ml",
@@ -9,11 +14,17 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Volume": "30 ml",
+    "Type": "Concentré aromatique DIY",
+    "Dilution conseillée": "15 à 20 %",
+    "Rendement": "150 à 200 ml de e-liquide",
+    "Compatibilité": "Toutes bases neutres"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Un profil aromatique travaill&eacute; pour des recettes DIY riches et expressives",
+  "descriptionCourte": "Un concentré sucré et fruité, à diluer à 15-20 %. De quoi faire 150 à 200 ml.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "concentre-biggy-bear-30ml",
   "image": "/media/produits/1778342469189-concentre-biggy-bear-30ml.png",
-  "description": "Concentré Biggy Bear 30 ml – Arôme DIY.\n\nPrésentation\nUn concentré aromatique de qualité supérieure pour les passionnés de DIY (Do It Yourself) en e-liquide. Le Biggy Bear offre un profil aromatique travaillé, sucré et fruité, pour des recettes riches et expressives.\n\nUtilisation\nÀ diluer dans une base neutre PG/VG selon vos préférences. Taux d'incorporation recommandé : 15 à 20 %. Compatible avec toutes les bases neutres du marché.\n\nContenu : 30 ml de concentré pur – sans nicotine, sans base.",
+  "description": "Un concentré est un arôme pur : il ne se vape pas tel quel, il se dilue dans une base neutre. Celui-ci a un profil travaillé, sucré et fruité, assez expressif pour tenir sans être complété.\n\nLe taux d'incorporation conseillé est de 15 à 20 % : les 30 ml donnent donc entre 150 et 200 ml de e-liquide fini. C'est là que le DIY devient intéressant financièrement.\n\nCompatible avec toutes les bases. Un temps de maturation de quelques jours améliore nettement le rendu.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Un profil aromatique travaill&eacute; pour des recettes DIY riches et expressives"
+    "description": ""
   },
   "sousCategorie": "diy-bases"
 }

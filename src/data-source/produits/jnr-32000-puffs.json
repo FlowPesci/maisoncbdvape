@@ -1,7 +1,12 @@
 {
   "marque": "JNR ",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "32 000 bouffées annoncées",
+    "Deux flacons de 10 ml fournis",
+    "Batterie 850 mAh rechargeable",
+    "Sels de nicotine 20 mg/ml"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "JNR 32000 Puffs",
@@ -9,12 +14,19 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Bouffées annoncées": "32 000",
+    "Batterie": "850 mAh, rechargeable",
+    "Fourni": "2 flacons de 10 ml",
+    "Taux de nicotine": "20 mg/ml (sels)",
+    "Pod": "Remplaçable, vendu séparément",
+    "Recharge": "USB-C"
+  },
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Découvrez la JNR AeroX 32K , une cigarette électronique rechargeable pour les amateurs de vape qui veulent puissance, simplicité et endurance.",
+  "descriptionCourte": "32 000 bouffées et deux flacons fournis. Le format le plus endurant de la gamme JNR.",
   "categorie": "puffs",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -22,11 +34,11 @@
   "galerie": [],
   "id": "jnr-32000-puffs",
   "image": "/media/produits/1778340756441-jnr-32000-puffs.png",
-  "description": "Découvrez la JNR AeroX 32K , une cigarette électronique rechargeable pour les amateurs de vape qui veulent puissance, simplicité et endurance. Avec ses 32 000 bouffées annoncées, ce modèle repousse les limites de l'autonomie !\n\n✅ Capacité : Jusqu’à 32 000 puffs\n✅ Recharge e-liquide : Livrée avec 2 flacons de 10 ml\n✅ Dosage en nicotine : 20 mg/ml (sel de nicotine)\n✅ Rechargeable : Oui\n✅ Batterie : Haute autonomie 850 mAh pour une utilisation prolongée\n✅ Utilisation : Simple et pratique, sans réglages compliqués\n✅ Format compact et moderne : une prise en main agréable, avec un design épuré.\n\nWatermelon Ice (Pastèque – Frais)\n\nStrawberry Ice (Fraise – Frais)\n\nBlue Razz Cherry (Framboise bleue – Cerise)\n\nStrawberry Kiwi (Fraise – Kiwi)\n\nMixed Berries (Baies sauvages)\n\nWatermelon Bubble Gum (Pastèque – Bubble Gum)\n\nStrawberry Watermelon Ice (Fraise – Pastèque – Frais)\n\nBlueberry Red Raspberry (Myrtille – Framboise rouge)\n\nFizzy Cherry Cola (Cola cerise pétillant)\n\nPassion Fruit Kiwi (Fruit de la passion – Kiwi)\n\nSummer Peach Ice (Pêche – Frais)\n\nBlueberry Pomegranate Ice (Myrtille – Grenade – Frais)\n\nBlueberry Raspberry Cherry (Myrtille – Framboise – Cerise)\n\nWatermelon Mango Peach (Pastèque – Mangue – Pêche)\n\nPeach Berry (Pêche – Baies)",
+  "description": "L'AeroX 32K pousse l'autonomie plus loin que la Falcon-X, avec le même principe : un appareil qu'on garde, un liquide qu'on renouvelle. Deux flacons de 10 ml sont livrés d'origine.\n\nLe pod se remplace séparément, ce qui prolonge encore la durée de vie de l'ensemble — une résistance fatiguée ne condamne pas l'appareil. Nous tenons le pod de rechange en boutique.\n\nUtilisation sans réglage, batterie de 850 mAh rechargeable en USB-C.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Découvrez la JNR AeroX 32K , une cigarette électronique rechargeable pour les amateurs de vape qui veulent puissance, simplicité et endurance."
+    "description": ""
   },
   "sousCategorie": "jnr"
 }

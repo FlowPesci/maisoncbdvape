@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Gourmet",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en shortfill",
+    "Sans nicotine, shots compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Arôme pâtissier"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Éclair Vanille – 50 ml",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Compatibilité": "Clearomiseurs MTL et pods",
+    "Format": "Shortfill"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le Petit Gourmet",
+  "descriptionCourte": "Crème pâtissière vanillée et pâte à choux. Doux, crémeux, familier.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +32,7 @@
   "galerie": [],
   "id": "eclair-vanille-50-ml",
   "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/3257fc9af40cebe37c84c61e494b7d3b6611b0aa-lg.png",
-  "description": "E-liquide Éclair Vanille de la gamme Le Petit Gourmet.\n\nProfil aromatique\nLa pâtisserie parisienne en e-liquide : une pâte à choux légère, une crème pâtissière à la vanille Bourbon et un glaçage fondant. Un classique français réinterprété avec finesse.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour une vape pâtissière raffinée et élégante.",
+  "description": "La crème pâtissière domine — vanille franche, texture grasse — portée par la note de pâte à choux qui donne le côté boulangerie. Un gourmand doux et immédiatement reconnaissable, sans complexité inutile.\n\nShortfill de 50 ml sans nicotine, compatible avec les shots nicotinés. Ratio PG/VG 50/50.\n\nIl donne son meilleur en clearomiseur à tirage serré ou en pod, pour une vape de tous les jours.",
   "contenuKit": [],
   "seo": {
     "title": "",

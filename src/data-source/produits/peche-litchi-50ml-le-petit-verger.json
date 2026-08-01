@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Sans effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Pêche Litchi 50ml - Le Petit Verger",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Non",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le Petit Verger&nbsp;nous en met plein les yeux&nbsp;avec&nbsp;le P&ecirc;che Litchi, un e-liquide m&ecirc;lant fruit jaune et fruit blanc. Un mix&nbsp;surprena",
+  "descriptionCourte": "Pêche jaune charnue et litchi floral. Fruit jaune contre fruit blanc.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "peche-litchi-50ml-le-petit-verger",
   "image": "/media/produits/1778341441002-peche-litchi-50ml-le-petit-verger.jpeg",
-  "description": "E-liquide Pêche Litchi de la gamme Le Petit Verger.\n\nProfil aromatique\nUn mix surprenant entre fruit jaune et fruit blanc : la pêche juteuse et fondante s'associe au litchi délicat et floral. Une vape douce, élégante et inoubliable.\n\nFormat & composition\nFlacon shortfill 50 ml (contenant 70 ml) – sans nicotine. Compatible avec les shots nicotinés (10 ml). Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour une vape douce et raffinée, en MTL ou en pod.",
+  "description": "La pêche jaune est franche, charnue, sucrée ; le litchi plus discret, floral, avec ses notes de rose. L'accord joue sur ce contraste entre un fruit solaire et un fruit délicat, et le tient jusqu'au bout sans que l'un couvre l'autre.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Le Petit Verger&nbsp;nous en met plein les yeux&nbsp;avec&nbsp;le P&ecirc;che Litchi, un e-liquide m&ecirc;lant fruit jaune et fruit blanc. Un mix&nbsp;surprena"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

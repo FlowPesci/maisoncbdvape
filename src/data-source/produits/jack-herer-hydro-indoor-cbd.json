@@ -1,7 +1,12 @@
 {
   "marque": "Jack Herer Hydro Indoor CBD",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Nez boisé, citron et poivre",
+    "Variété de référence",
+    "Buds généreux et manucurés",
+    "Pesée devant vous, de 2 à 8 g"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Jack Herer Hydro Indoor CBD",
@@ -9,7 +14,13 @@
   "prix": 4.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Culture": "Hydroponique, indoor",
+    "Origine": "Union européenne",
+    "Taux de THC": "< 0,3 %",
+    "Séchage": "Lent, en chambre ventilée",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +41,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Notes fraîches et boisées, relevées de touches citronnées et poivrées.",
+  "descriptionCourte": "Bois frais, citron et poivre. Un classique exigeant, à la charge aromatique élevée.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
@@ -40,11 +51,11 @@
   "galerie": [],
   "id": "jack-herer-hydro-indoor-cbd",
   "image": "/media/produits/1778340479400-jack-herer-hydro-indoor-cbd.jpeg",
-  "description": "Aspect visuel\n\nBuds compacts et généreux, parfaitement manucurés.\n\nTeinte vert clair aux reflets orangés grâce à ses pistils.\n\nRecouverts d’une belle couche de trichomes cristallins, gage de richesse en CBD et terpènes.\n\nArômes & saveurs\n\nProfil aromatique puissant et raffiné.\n\nNotes fraîches et boisées, relevées de touches citronnées et poivrées.\n\nSaveur intense et persistante en bouche, à la fois épicée et légèrement sucrée.\n\n⚡ Effets (CBD)\n\nRelaxation profonde sans effet psychotrope.\n\nApaise le stress et favorise un bien-être général.\n\nIdéal en fin de journée pour se détendre tout en gardant l’esprit clair.\n\nCulture indoor hydroponique\n\nCultivée en intérieur sous hydroponie, garantissant un contrôle optimal de la lumière, des nutriments et de l’humidité.\n\nRésultat : une fleur pure, stable et d’une qualité premium, riche en saveurs et en principes actifs.\n\nEn résumé, la Jack Herer CBD Indoor Hydro est une fleur d’exception : arômes boisés et citronnés, effets relaxants et culture soignée pour un produit haut de gamme.",
+  "description": "La Jack Herer est une référence, et elle se comporte comme telle : puissante au nez, précise en bouche. Bois frais d'abord, puis le citron, puis un poivre qui monte lentement. La finale est longue, épicée, très légèrement sucrée.\n\nCe n'est pas une fleur discrète. Elle s'adresse à ceux qui connaissent déjà les variétés marquées et cherchent de la complexité plutôt que de la douceur.\n\nBuds compacts et généreux, vert clair aux reflets orangés, sous une couche de trichomes cristallins. Culture hydroponique indoor, pesée de 2 à 8 grammes.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Notes fraîches et boisées, relevées de touches citronnées et poivrées."
+    "description": ""
   },
   "sousCategorie": "fleurs-indoor"
 }

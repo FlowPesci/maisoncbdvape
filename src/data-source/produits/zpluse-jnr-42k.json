@@ -1,7 +1,12 @@
 {
   "marque": "JNR",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "42 000 bouffées annoncées",
+    "Deux saveurs, un seul appareil",
+    "Bascule instantanée",
+    "Rechargeable USB-C"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Zpluse JNR 42K+",
@@ -9,12 +14,17 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Bouffées annoncées": "42 000",
+    "Saveurs": "2 réservoirs séparés, commutables",
+    "Batterie": "Rechargeable",
+    "Recharge": "USB-C"
+  },
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Son système innovant permet de profiter de deux saveurs distinctes dans un seul dispositif.",
+  "descriptionCourte": "42 000 bouffées et deux saveurs dans un seul appareil, commutables à la volée.",
   "categorie": "puffs",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -22,11 +32,11 @@
   "galerie": [],
   "id": "zpluse-jnr-42k",
   "image": "https://eproshopping.cloud/media/c181cdd433898678ce6a47b45de68d5d07e06caa/produit/f9b2cf390c51ee9fa953a3e5c6a6b0feafb3f4b0-lg.png",
-  "description": "JNR Z Plus+ 42K\nLa JNR Z Plus+ 42K est une cigarette électronique nouvelle génération pensée pour offrir autonomie extrême, double saveur et performance constante. Avec jusqu’à 42 000 bouffées, elle s’impose comme l’une des références du marché pour les utilisateurs recherchant une vape durable et intense.\n\nSon système innovant permet de profiter de deux saveurs distinctes dans un seul dispositif, pour varier les plaisirs à tout moment. Idéale pour une utilisation quotidienne, elle combine puissance, simplicité et efficacité.\n\nPoints forts\n💨 Jusqu’à 42 000 bouffées\n\n🔄 Double saveur intégrée\n\n🔋 Batterie 1000 mAh rechargeable\n\n🔌 Recharge USB-C\n\n💧 E-liquide rechargeable (système E-bottle)\n\n👀 Niveau de liquide visible\n\n⚡ Performance stable et durable\n\n🇪🇺 Version conforme TPD\n\nExpérience de vape\nLa JNR Z Plus+ offre une vape :\n\nIntense et savoureuse\n\nLongue durée sans perte de performance\n\nUltra pratique avec changement de saveur rapide\n\nContenu\n1 dispositif JNR Z Plus+ 42K\n\n2 flacons de e-liquide 10 ml\n\nSystème rechargeable intégré\n\nPourquoi choisir la JNR Z Plus+ ?\n✔ Autonomie énorme (42K puffs)\n✔ Double saveur = plus de plaisir\n✔ Rechargeable = économique\n✔ Idéale pour gros consommateurs\n\n⚠️ Produit réservé aux adultes. Contient de la nicotine.",
+  "description": "La Z Plus+ règle un agacement courant : se lasser d'une saveur avant d'avoir fini l'appareil. Elle en embarque deux, dans deux réservoirs séparés, et l'on bascule de l'une à l'autre sans rien démonter.\n\nAvec 42 000 bouffées annoncées, c'est aussi le format le plus endurant que nous proposons — assez pour que la question de la lassitude se pose vraiment.\n\nLe rendu reste constant du début à la fin, ce qui est le vrai enjeu sur ce type d'autonomie. Recharge en USB-C.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Son système innovant permet de profiter de deux saveurs distinctes dans un seul dispositif"
+    "description": ""
   },
   "sousCategorie": "jnr"
 }

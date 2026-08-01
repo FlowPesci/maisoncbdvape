@@ -1,7 +1,12 @@
 {
   "marque": "Candy Hydro Indoor CBD",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Nez sucré, fruits confits",
+    "Touche florale en finale",
+    "Trichomes brillants et denses",
+    "Pesée devant vous, de 2 à 8 g"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Candy Hydro Indoor CBD",
@@ -9,7 +14,13 @@
   "prix": 4.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Culture": "Hydroponique, indoor",
+    "Origine": "Union européenne",
+    "Taux de THC": "< 0,3 %",
+    "Séchage": "Lent, en chambre ventilée",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +41,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Notes fruitées, douces et légèrement florales.",
+  "descriptionCourte": "Bonbon et fruits confits, avec une touche florale. La plus douce de nos hydroponiques.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -38,11 +49,11 @@
   "galerie": [],
   "id": "candy-hydro-indoor-cbd",
   "image": "/media/produits/1778340429786-candy-hydro-indoor-cbd.jpeg",
-  "description": "Aspect visuel\n\nBuds compacts, bien formés et soigneusement manucurés.\n\nCouleur vert clair avec de subtils reflets orangés et parfois légèrement violets.\n\nRecouverts d’une belle couche de trichomes brillants, garantissant richesse en CBD et intensité aromatique.\n\nArômes & saveurs\n\nProfil sucré et gourmand, rappelant les bonbons et les fruits confits.\n\nNotes fruitées, douces et légèrement florales.\n\nEn bouche : une saveur sucrée, agréable et persistante qui séduit immédiatement.\n\n⚡ Effets (CBD)\n\nRelaxation douce et agréable, sans effet psychotrope.\n\nFavorise un état de bien-être et de détente, idéal pour relâcher les tensions.\n\nParfaite pour un moment de calme, seule ou en convivialité.\n\nCulture indoor hydroponique\n\nCultivée en intérieur via hydroponie, permettant une nutrition précise et un environnement maîtrisé.\n\nRésultat : une fleur stable, pure et d’une qualité premium, riche en terpènes et en arômes.\n\nEn résumé, la CBD Candy Indoor Hydro est une fleur haut de gamme, au parfum sucré et fruité, aux effets relaxants équilibrés et issue d’une culture minutieuse garantissant une qualité irréprochable.",
+  "description": "La Candy porte bien son nom : bonbon, fruits confits, et une note florale qui arrive juste après. C'est une fleur facile, immédiatement agréable, souvent celle qu'on conseille à quelqu'un qui découvre le CBD et se méfie des profils terreux.\n\nLes buds sont bien formés, vert clair avec des reflets orangés et parfois violets. La couche de trichomes est franche et régulière, signe d'une récolte faite au bon moment.\n\nCulture hydroponique indoor, manucure à la main, séchage lent. Pesée de 2 à 8 grammes.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Notes fruitées, douces et légèrement florales."
+    "description": ""
   },
   "sousCategorie": "fleurs-indoor"
 }

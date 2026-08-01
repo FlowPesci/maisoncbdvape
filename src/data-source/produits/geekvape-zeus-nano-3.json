@@ -1,7 +1,12 @@
 {
   "marque": "GeekVape",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Airflow supérieur, anti-fuite",
+    "Tirage réglable, serré à aéré",
+    "Format compact",
+    "S'accorde à la Vinci Spark"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Geekvape Zeus Nano 3",
@@ -9,11 +14,17 @@
   "prix": 24.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Airflow": "Supérieur, réglable",
+    "Tirage": "Serré à aéré",
+    "Remplissage": "Par le haut",
+    "Connectique": "510",
+    "Marque": "Geekvape"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le Zeus Nano 3 de Geekvape est un clearomiseur compact et performant, conçu pour offrir une vape polyvalente, à la fois savoureuse et fluide.",
+  "descriptionCourte": "La troisième génération du Zeus compact. Polyvalent, sans fuite, très facile à vivre.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "geekvape-zeus-nano-3",
   "image": "/media/produits/1778341240799-geekvape-zeus-nano-3.png",
-  "description": "Clearomiseur Geekvape Zeus Nano 3\nLe Zeus Nano 3 de Geekvape est un clearomiseur compact et performant, conçu pour offrir une vape polyvalente, à la fois savoureuse et fluide. Idéal pour accompagner une box comme la Vinci Spark 100, il combine simplicité d’utilisation, anti-fuite et excellent rendu des saveurs.\n\nGrâce à son système top airflow (arrivée d’air par le haut), le Zeus Nano 3 élimine quasiment tout risque de fuite, tout en garantissant un tirage précis et agréable.\n\nPoints forts\n💨 Tirage polyvalent : RDL / DL\n\n🔒 Système anti-fuite top airflow\n\n🍓 Excellent rendu des saveurs\n\n🔄 Remplissage facile par le haut\n\n🧩 Compatibilité résistances B Series Geekvape\n\n🛠️ Montage simple et entretien rapide\n\n🔗 Connexion 510 universelle\n\nExpérience de vape\nLe Zeus Nano 3 est parfait pour une vape équilibrée :\n\nTirage RDL (restrictif) pour plus de saveurs\n\nTirage DL (aérien) pour plus de vapeur\n\nIl s’adapte facilement à ton style grâce à son airflow réglable précis.\n\nCaractéristiques\nContenance : ~4 ml (selon version)\n\nRemplissage : Top fill\n\nAirflow : Réglable par le haut\n\nRésistances compatibles : Geekvape B Series\n\nDrip tip : 510\n\nDiamètre : 22 mm\n\nMatériaux : acier inoxydable + verre\n\nColoris disponibles\nNoir\n\nSilver\n\nGunmetal\n\nRainbow\n\nContenu du pack\n1 Zeus Nano 3\n\n1 résistance préinstallée\n\n1 résistance de rechange\n\n1 verre de remplacement\n\n1 kit de joints\n\n1 manuel\n\nPourquoi choisir le Zeus Nano 3 ?\n✔ Zéro fuite (top airflow)\n✔ Saveurs très propres\n✔ Compatible débutant & confirmé\n✔ Format compact parfait pour box 1 accu\n\n💡 Parfait en combo avec une box type Vinci Spark 100 pour un setup équilibré et performant.\n\n⚠️ Produit réservé aux adultes.",
+  "description": "Le Nano 3 affine ce que le Nano 2 faisait déjà bien : même arrivée d'air par le haut, même absence de fuite, avec un tirage un peu plus progressif dans les réglages intermédiaires.\n\nC'est le clearomiseur polyvalent par excellence : serré, il convient à ceux qui viennent de la cigarette ; ouvert, il tient une vape plus aérienne. Peu d'atomiseurs couvrent aussi bien les deux.\n\nIl s'accorde particulièrement bien avec une box compacte comme la Vinci Spark 100.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Le Zeus Nano 3 de Geekvape est un clearomiseur compact et performant, conçu pour offrir une vape polyvalente, à la fois savoureuse et fluide."
+    "description": ""
   },
   "sousCategorie": "clearomiseurs"
 }

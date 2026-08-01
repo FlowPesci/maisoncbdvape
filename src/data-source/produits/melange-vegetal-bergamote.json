@@ -1,7 +1,12 @@
 {
   "marque": "Mélange végétal Bergamote",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Sans tabac ni nicotine",
+    "100 % plantes",
+    "Menthe bergamote dominante",
+    "Roulage classique"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Mélange végétal Bergamote",
@@ -9,11 +14,17 @@
   "prix": 6.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Composition": "Menthe bergamote, bouillon blanc, calendula, chanvre",
+    "Tabac": "Aucun",
+    "Nicotine": "Aucune",
+    "Additifs": "Aucun",
+    "Usage": "Roulage"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Menthe Bergamote, Bouillon blanc, Calendula & Chanvre",
+  "descriptionCourte": "Menthe bergamote, bouillon blanc, calendula et chanvre. Une fumée fraîche et citronnée, sans tabac ni nicotine.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "melange-vegetal-bergamote",
   "image": "/media/produits/1778340647193-melange-vegetal-bergamote.png",
-  "description": "🌿 Substitut de tabac naturel – Menthe Bergamote, Bouillon blanc, Calendula & Chanvre\nOffrez-vous le plaisir du rituel sans dépendance avec ce mélange végétal doux et rafraîchissant.\nComposé de Menthe Bergamote, Bouillon blanc, Calendula et Chanvre, il unit fraîcheur aromatique, douceur florale et effet apaisant.\nLa Menthe Bergamote apporte une touche vivifiante et légèrement citronnée, le Bouillon blanc adoucit la gorge, le Calendula calme et équilibre, tandis que le Chanvre invite à la détente naturelle.\n\n✨ Sans tabac – Sans nicotine – 100 % plantes naturelles\nIdéal pour accompagner un sevrage ou savourer un moment de sérénité, en toute conscience.\n\n🌸 Une bouffée fraîche et florale pour respirer la liberté.",
+  "description": "Quatre plantes, dosées pour la fraîcheur : la menthe bergamote donne le ton, vivifiante et légèrement citronnée ; le bouillon blanc apporte le volume et une fumée souple ; le calendula ajoute une note florale ; le chanvre referme sur un fond végétal plus ample.\n\nLe mélange se roule comme du tabac, avec la même tenue en cigarette. Il ne contient ni tabac, ni nicotine, ni additif — uniquement des plantes.\n\nC'est le plus frais des trois mélanges du comptoir. Le Natura est plus rond, le Menthe Nanah plus franchement mentholé.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Menthe Bergamote, Bouillon blanc, Calendula & Chanvre"
+    "description": ""
   },
   "sousCategorie": "substituts-tabac"
 }

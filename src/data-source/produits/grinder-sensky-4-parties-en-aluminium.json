@@ -1,7 +1,12 @@
 {
   "marque": "Grinder",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "4 parties avec tamis",
+    "Récupère le pollen",
+    "Aluminium usiné",
+    "Fermeture magnétique"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Grinder Sensky – 4 parties en aluminium",
@@ -9,11 +14,16 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Parties": "4 (couvercle, broyage, tamis, bac à pollen)",
+    "Matériau": "Aluminium usiné",
+    "Fermeture": "Magnétique",
+    "Marque": "Sensky"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Broyage fin et r&eacute;gulier",
+  "descriptionCourte": "Quatre parties en aluminium, avec tamis et bac à pollen. Le grinder complet.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +31,11 @@
   "galerie": [],
   "id": "grinder-sensky-4-parties-en-aluminium",
   "image": "/media/produits/1778343012802-grinder-sensky-4-parties-en-aluminium.jpeg",
-  "description": "Grinder Sensky – 4 parties en aluminium.\n\nPrésentation\nLe grinder Sensky en aluminium offre un broyage fin et régulier grâce à ses dents précises et son tamis intégré. Ses 4 parties permettent de récupérer le pollen (kief) accumulé dans la chambre inférieure.\n\nCaractéristiques\n4 parties : couvercle magnétique + chambre de broyage + tamis + chambre à pollen. Matériau : aluminium anodisé résistant. Dents broyeuses affûtées. Fermeture magnétique sécurisée. Broyage fin et homogène.\n\nIdéal pour\nLes utilisateurs souhaitant un broyage précis et récupérer le kief.",
+  "description": "La quatrième partie est ce qui distingue ce grinder : sous la chambre de broyage, un tamis laisse passer le pollen — le kief — qui s'accumule dans un compartiment séparé. Au bout de quelques semaines, la récolte n'est pas négligeable.\n\nL'aluminium usiné donne un filetage franc et des dents qui restent affûtées. Le couvercle est magnétique.\n\nC'est le format à prendre si vous utilisez un grinder tous les jours : les trois parties suffisent, mais on regrette vite le tamis.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Broyage fin et r&eacute;gulier"
+    "description": ""
   },
   "sousCategorie": "grinders"
 }

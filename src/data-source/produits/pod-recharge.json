@@ -1,7 +1,12 @@
 {
   "marque": "Wiz Pod",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Préremplie, 2 ml",
+    "Compatible Wiz Go",
+    "E-liquide CBD full spectrum",
+    "Aucun entretien"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Pod Recharge",
@@ -9,23 +14,29 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Type": "Cartouche préremplie",
+    "Capacité": "2 ml",
+    "Compatibilité": "Pod Sunakin Wiz Go",
+    "E-liquide": "CBD full spectrum, sans THC",
+    "Entretien": "Aucun, cartouche jetable"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Cartouche préremplie conçue pour offrir une expérience de vape simple.",
-  "categorie": "cbd",
+  "descriptionCourte": "La cartouche du Wiz Go, préremplie de 2 ml. On clipse, on vape, on jette.",
+  "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
   "saveurs": [],
   "galerie": [],
   "id": "pod-recharge",
   "image": "/media/produits/1778340710053-pod-recharge.png",
-  "description": "⭐ Description — « Wiz Pod »\nLe Sunakin Wiz Pod est une cartouche préremplie conçue pour offrir une expérience de vape simple, propre et immédiate. Elle s’intègre parfaitement au pod Wiz Go et propose un tirage fluide, stable et optimisé pour les e-liquides CBD.\n\n✅ Principales caractéristiques\nCartouche préremplie : prête à l’emploi, sans remplissage ni entretien.\n\nCapacité 2 ml — suffisant pour un usage quotidien confortable.\n\nCompatibilité parfaite avec le pod Wiz Go.\n\nTirage doux et fluide, adapté au CBD ou aux liquides légers.\n\nInstallation simple : insérez la cartouche et vapez immédiatement.\n\nUsage discret et pratique : idéal pour ceux qui privilégient la simplicité et la rapidité.\n\n🎯 À qui s’adresse la Wiz Pod ?\nAux utilisateurs débutants qui veulent une vape sans réglage, sans maintenance.\n\nÀ ceux qui recherchent un système discret et nomade.\n\nÀ ceux qui vapotent du CBD ou des liquides simples.\n\nÀ tous ceux qui veulent une solution clé-en-main, prête à l’emploi.",
+  "description": "Cette cartouche est la recharge du pod Wiz Go : elle arrive préremplie, se clipse d'un geste, et se remplace une fois vide. Il n'y a ni résistance à changer, ni flacon à manipuler, ni temps d'amorçage à respecter.\n\nLes 2 ml correspondent à plusieurs jours d'usage courant. Le tirage est calibré pour les e-liquides CBD full spectrum, plus visqueux que les e-liquides classiques : la chauffe est adaptée en conséquence, ce qui évite le goût de brûlé en fin de cartouche.\n\nÀ utiliser exclusivement avec le pod Wiz Go.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Cartouche préremplie conçue pour offrir une expérience de vape simple."
+    "description": ""
   },
-  "sousCategorie": ""
+  "sousCategorie": "pods-recharges"
 }

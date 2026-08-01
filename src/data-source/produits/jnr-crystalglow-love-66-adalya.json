@@ -1,7 +1,12 @@
 {
   "marque": "JNR ",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "33 000 bouffées annoncées",
+    "Réservoir transparent 10 ml",
+    "Éclairage LED multicolore",
+    "Batterie 800 mAh, USB-C"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "JNR CRYSTALGLOW LOVE 66 Adalya",
@@ -9,12 +14,18 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Bouffées annoncées": "33 000",
+    "Batterie": "800 mAh, rechargeable",
+    "Réservoir": "10 ml, transparent et rechargeable",
+    "Éclairage": "LED RGB",
+    "Recharge": "USB-C"
+  },
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Le réservoir est transparent et rechargeable (jusqu’à 10 ml) ou composé de 2 ml “pré-remplis + rechargeables” dans certains packs. ",
+  "descriptionCourte": "33 000 bouffées, réservoir transparent de 10 ml et éclairage LED. La plus démonstrative de la gamme.",
   "categorie": "puffs",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -22,11 +33,11 @@
   "galerie": [],
   "id": "jnr-crystalglow-love-66-adalya",
   "image": "/media/produits/1778340759992-jnr-crystalglow-love-66-adalya.png",
-  "description": "📦 Description générale\nLe Kit Puff Love 66 Crystal Glow 33K de JNR est une cigarette électronique de type “puff rechargeable” (ou “pod puff”) avec éclairage LED RGB. \n\nIl offre une autonomie très élevée : environ 33 000 bouffées annoncées. \n\nLe réservoir est transparent et rechargeable (jusqu’à 10 ml) ou composé de 2 ml “pré-remplis + rechargeables” dans certains packs. \n\nLa batterie intégrée est d’environ 800 mAh, avec charge via USB-C. \n\nIl dispose de résistances en double mesh pour une bonne restitution des arômes et une chaleur homogène. \n\nLa version “Crystal Glow” inclut un éclairage LED RGB qui s’active à chaque bouffée, ajoutant un effet visuel. \n\n🍍 Saveur “LOVE66”\nLe nom “LOVE 66” : agrumes + fruit de la passion. ",
+  "description": "La Crystal Glow joue la carte visuelle : corps translucide, réservoir apparent et éclairage LED qui change de couleur à l'inhalation. C'est un parti pris assumé, qui la distingue nettement des formats sobres.\n\nSous l'apparence, l'appareil est sérieux : 10 ml de réservoir rechargeable, une batterie de 800 mAh en USB-C, et une résistance calibrée pour tenir les 33 000 bouffées annoncées sans perte de rendu.\n\nLe réservoir transparent a un avantage pratique que l'esthétique fait oublier : on voit exactement ce qu'il reste.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Le réservoir est transparent et rechargeable (jusqu’à 10 ml) ou composé de 2 ml “pré-remplis + rechargeables” dans certains packs. "
+    "description": ""
   },
   "sousCategorie": "jnr"
 }

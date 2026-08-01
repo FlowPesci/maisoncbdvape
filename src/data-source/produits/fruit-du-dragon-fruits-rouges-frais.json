@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Fruit Du Dragon - Fruits Rouges FRAIS",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Oui",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Une rencontre entre l&rsquo;exotisme de la pitaya et la puissance des fruits rouges : une vape &eacute;clatante, color&eacute;e et pleine d&rsquo;&eacute;nergie",
+  "descriptionCourte": "Pitaya et fruits rouges, éclatants et frais. Le plus vif de la gamme.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "fruit-du-dragon-fruits-rouges-frais",
   "image": "/media/produits/1778341662127-fruit-du-dragon-fruits-rouges-frais.jpeg",
-  "description": "E-liquide Fruit du Dragon – Fruits Rouges FRAIS de la collection fraîcheur Le Petit Verger.\n\nProfil aromatique\nUne rencontre entre l'exotisme de la pitaya et la puissance des fruits rouges : une vape éclatante et colorée, pleine d'énergie, avec une touche de fraîcheur mentholée.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nParfait pour une vape fruitée, intense et rafraîchissante.",
+  "description": "Le fruit du dragon est doux et légèrement floral ; les fruits rouges lui donnent la puissance et l'acidité qui lui manquent seul. L'ensemble est éclatant, franchement fruité, et la fraîcheur le rend encore plus vif.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Une rencontre entre l&rsquo;exotisme de la pitaya et la puissance des fruits rouges : une vape &eacute;clatante, color&eacute;e et pleine d&rsquo;&eacute;nergie"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

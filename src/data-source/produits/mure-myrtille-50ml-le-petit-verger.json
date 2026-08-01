@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Sans effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Mûre Myrtille 50ml - Le Petit Verger",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Non",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Celui-ci est disponible en flacon de 70ml rempli &agrave; 50ml sans nicotine et propose un taux PG/VG de 50/50. Cet e-liquide est boost&eacute; en ar&ocirc;mes.",
+  "descriptionCourte": "Mûre sauvage et myrtille fondante. Des baies foncées, douces et florales.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "mure-myrtille-50ml-le-petit-verger",
   "image": "/media/produits/1778341425723-mure-myrtille-50ml-le-petit-verger.jpeg",
-  "description": "E-liquide Mûre Myrtille de la gamme Le Petit Verger.\n\nProfil aromatique\nUne promenade en forêt : la mûre sauvage et la myrtille fondante s'unissent pour une vape douce, florale et pleine de caractère. Des fruits des bois authentiques, naturels et généreux.\n\nFormat & composition\nFlacon shortfill 50 ml (contenant 70 ml) – sans nicotine. Compatible avec les shots nicotinés (10 ml). Ratio PG/VG 50/50.\n\nUsage recommandé\nParfait pour les amateurs de fruits des bois, en clearomiseur ou en pod.",
+  "description": "La mûre apporte le côté sauvage, légèrement âpre, et la myrtille la douceur fondante. Ce sont des baies foncées, plus florales et moins acidulées que les fruits rouges classiques. Un profil plus posé, qui se vape longtemps sans lasser.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Celui-ci est disponible en flacon de 70ml rempli &agrave; 50ml sans nicotine et propose un taux PG/VG de 50/50. Cet e-liquide est boost&eacute; en ar&ocirc;mes."
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

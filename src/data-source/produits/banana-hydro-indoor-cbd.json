@@ -1,7 +1,12 @@
 {
   "marque": "Banana Hydro Indoor CBD",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Nez de banane mûre, franc",
+    "Trichomes abondants",
+    "Buds compacts et manucurés",
+    "Pesée devant vous, de 2 à 8 g"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Banana Hydro Indoor CBD",
@@ -9,7 +14,13 @@
   "prix": 4.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Culture": "Hydroponique, indoor",
+    "Origine": "Union européenne",
+    "Taux de THC": "< 0,3 %",
+    "Séchage": "Lent, en chambre ventilée",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +41,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Notes dominantes de banane mûre et de fruits tropicaux.",
+  "descriptionCourte": "Banane mûre et fruits tropicaux, sur une fleur dense et très résineuse. La plus gourmande de la sélection.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
@@ -40,11 +51,11 @@
   "galerie": [],
   "id": "banana-hydro-indoor-cbd",
   "image": "/media/produits/1778340406426-banana-hydro-indoor-cbd.jpeg",
-  "description": "Aspect visuel\n\nBuds compacts, denses et parfaitement manucurés.\n\nTeinte vert clair, rehaussée de pistils orangés et de trichomes cristallins abondants.\n\nAspect soigné et résineux, gage d’une fleur premium.\n\n? Arômes & saveurs\n\nProfil aromatique gourmand et exotique.\n\nNotes dominantes de banane mûre et de fruits tropicaux.\n\nEn bouche : une saveur douce, sucrée et persistante, rappelant un dessert fruité.\n\n⚡ Effets (CBD)\n\nRelaxation profonde et agréable, sans effet psychotrope.\n\nFavorise le bien-être, la détente mentale et physique.\n\nIdéale pour un moment de calme, en journée comme en soirée.\n\n? Culture indoor hydroponique\n\nMéthode hydroponique indoor permettant un contrôle total de l’environnement (lumière, nutriments, humidité).\n\nGarantit une fleur propre, stable, riche en terpènes et en CBD.\n\n? En résumé, la CBD Banana Indoor Hydro est une fleur d’exception, aux arômes tropicaux et sucrés, aux effets relaxants équilibrés et issue d’une culture minutieuse garantissant une qualité premium.",
+  "description": "Peu de fleurs sentent aussi clairement ce qu'elles annoncent. La Banana ouvre sur la banane mûre, presque confite, suivie de fruits tropicaux plus discrets. En bouche la fumée reste douce et sucrée, sans amertume à la fin — un profil qui plaît à ceux qui trouvent les variétés terreuses trop sévères.\n\nVert clair, pistils orangés, et une couche de trichomes assez dense pour coller légèrement aux doigts : la culture hydroponique se lit sur la fleur. Nutrition dosée, hygrométrie tenue, récolte à maturité.\n\nManucurée à la main puis séchée lentement. Pesée depuis le bocal, de 2 à 8 grammes.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Notes dominantes de banane mûre et de fruits tropicaux."
+    "description": ""
   },
   "sousCategorie": "fleurs-indoor"
 }

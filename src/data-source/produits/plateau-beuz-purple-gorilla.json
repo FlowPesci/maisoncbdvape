@@ -1,7 +1,12 @@
 {
   "marque": "Purple Gorilla",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Bords relevés anti-perte",
+    "Motif Purple Gorilla",
+    "Léger et rigide",
+    "4,99 €"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Plateau BEUZ – Purple Gorilla",
@@ -9,11 +14,16 @@
   "prix": 4.99,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Matériau": "Plastique rigide",
+    "Format": "Compact",
+    "Bords": "Relevés",
+    "Marque": "BEUZ"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Compact et l&eacute;ger, il s&rsquo;adapte parfaitement &agrave; un usage quotidien, &agrave; la maison ou en d&eacute;placement.",
+  "descriptionCourte": "Plateau BEUZ compact au motif Purple Gorilla. Léger, rigide, collector. 4,99 €.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +31,11 @@
   "galerie": [],
   "id": "plateau-beuz-purple-gorilla",
   "image": "/media/produits/1778342775212-plateau-beuz-purple-gorilla.png",
-  "description": "Plateau BEUZ – Purple Gorilla.\n\nPrésentation\nLe plateau BEUZ Purple Gorilla est un plateau à rouler compact et léger, idéal pour un usage quotidien à la maison comme en déplacement. Suffisamment rigide pour une utilisation confortable, il arbore un design Purple Gorilla coloré et collector.\n\nCaractéristiques\nMatériau : plastique rigide de qualité. Dimensions : format compact standard. Bords relevés pour éviter les pertes. Design Purple Gorilla exclusif. Léger et facile à transporter.\n\nIdéal pour\nUn usage quotidien ou en déplacement.",
+  "description": "Le troisième motif de la série BEUZ, entre la sobriété de l'Arctic Grower et l'exubérance du Crazy Koala.\n\nLe plateau lui-même est identique : plastique rigide, format compact, bords relevés qui retiennent ce qui tombe. Assez ferme pour travailler dessus, assez léger pour se transporter.\n\nLes trois motifs se collectionnent, à 4,99 € pièce.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Compact et l&eacute;ger, il s&rsquo;adapte parfaitement &agrave; un usage quotidien, &agrave; la maison ou en d&eacute;placement."
+    "description": ""
   },
   "sousCategorie": "plateaux"
 }

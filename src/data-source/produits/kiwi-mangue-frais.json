@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Kiwi – Mangue FRAIS",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Oui",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Une explosion tropicale : le pep&rsquo;s du kiwi s&rsquo;&eacute;quilibre &agrave; merveille avec la douceur juteuse de la mangue &mdash; un pur rayon de soleil",
+  "descriptionCourte": "Kiwi et mangue, rehaussés d'une fraîcheur franche. Un rayon de soleil.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "kiwi-mangue-frais",
   "image": "/media/produits/1778341500246-kiwi-mangue-frais.jpeg",
-  "description": "E-liquide Kiwi – Mangue FRAIS de la collection fraîcheur Le Petit Verger.\n\nProfil aromatique\nUne explosion tropicale et fraîche : le pep's du kiwi s'équilibre à merveille avec la douceur juteuse de la mangue, sublimée par une note de fraîcheur. Un pur rayon de soleil.\n\nFormat & composition\nFlacon shortfill 50 ml – sans nicotine. Compatible shots nicotinés. Ratio PG/VG 50/50.\n\nUsage recommandé\nParfait pour une vape exotique et rafraîchissante.",
+  "description": "Le peps du kiwi contre la douceur juteuse de la mangue, avec un souffle frais qui traverse l'ensemble. La fraîcheur accentue l'acidité du kiwi sans écraser la mangue — l'équilibre reste tenu.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Une explosion tropicale : le pep&rsquo;s du kiwi s&rsquo;&eacute;quilibre &agrave; merveille avec la douceur juteuse de la mangue &mdash; un pur rayon de soleil"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

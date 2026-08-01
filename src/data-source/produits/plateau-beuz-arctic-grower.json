@@ -1,7 +1,12 @@
 {
   "marque": "BEUZ",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Bords relevés anti-perte",
+    "Format compact",
+    "Plastique rigide",
+    "4,99 €"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Plateau BEUZ – Arctic Grower",
@@ -9,11 +14,16 @@
   "prix": 4.99,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Matériau": "Plastique rigide",
+    "Format": "Compact",
+    "Bords": "Relevés",
+    "Marque": "BEUZ"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Compact et l&eacute;ger, il se transporte facilement tout en restant suffisamment rigide pour un usage quotidien.",
+  "descriptionCourte": "Plateau BEUZ compact, bords relevés, design Arctic Grower sobre. 4,99 €.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +31,11 @@
   "galerie": [],
   "id": "plateau-beuz-arctic-grower",
   "image": "/media/produits/1778342809226-plateau-beuz-arctic-grower.png",
-  "description": "Plateau BEUZ – Arctic Grower.\n\nPrésentation\nLe plateau BEUZ Arctic Grower : compact et léger, il se transporte facilement tout en restant suffisamment rigide pour une utilisation quotidienne. Un design Arctic Grower sobre et élégant pour les amateurs discrets.\n\nCaractéristiques\nMatériau : plastique rigide de qualité. Format compact. Bords relevés. Design Arctic Grower. Poids léger.\n\nIdéal pour\nUsage quotidien à domicile et en déplacement.",
+  "description": "Les bords relevés sont tout l'intérêt d'un plateau : ils retiennent ce qui tombe, et c'est ce qui évite de perdre la moitié de ce qu'on manipule.\n\nLe format compact se transporte facilement, et le plastique rigide reste assez ferme pour qu'on puisse travailler dessus sans qu'il ploie.\n\nLe motif Arctic Grower est le plus sobre de la série BEUZ, pour ceux qui préfèrent la discrétion.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Compact et l&eacute;ger, il se transporte facilement tout en restant suffisamment rigide pour un usage quotidien."
+    "description": ""
   },
   "sousCategorie": "plateaux"
 }

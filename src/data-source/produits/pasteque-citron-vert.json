@@ -1,7 +1,12 @@
 {
   "marque": "Le Petit Verger",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "50 ml en flacon de 70 ml",
+    "Sans nicotine, boosters compatibles",
+    "PG/VG 50/50, pods et MTL",
+    "Sans effet frais"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Pastèque – Citron vert",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
+    "Nicotine": "Sans — compatible boosters 10 ml",
+    "Ratio PG/VG": "50/50",
+    "Effet frais": "Non",
+    "Compatibilité": "Clearomiseurs MTL et pods"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Une past&egrave;que juteuse et d&eacute;salt&eacute;rante dynamis&eacute;e par un citron vert vif et p&eacute;tillant. Une recette estivale, fra&icirc;che et hy",
+  "descriptionCourte": "Pastèque désaltérante et citron vert pétillant. La recette d'été par excellence.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "pasteque-citron-vert",
   "image": "/media/produits/1778341306326-pasteque-citron-vert.png",
-  "description": "E-liquide Pastèque – Citron Vert de la gamme Le Petit Verger.\n\nProfil aromatique\nUne pastèque juteuse et désaltérante dynamisée par un citron vert vif et pétillant. Une recette estivale, fraîche et hydratante, parfaite pour les journées chaudes.\n\nFormat & composition\nFlacon shortfill 50 ml (contenant 70 ml) – sans nicotine. Compatible avec les shots nicotinés (10 ml). Ratio PG/VG 50/50.\n\nUsage recommandé\nIdéal pour une vape fraîche et légère, en MTL ou en pod.",
+  "description": "La pastèque donne le volume et le côté aqueux, le citron vert le peps et cette amertume légère du zeste. C'est une recette estivale évidente, et elle marche : rafraîchissante sans avoir besoin d'effet frais ajouté.\n\nLe format est un shortfill : le flacon fait 70 ml et n'est rempli qu'à 50, pour laisser la place à deux boosters de nicotine si vous en voulez. Sans booster, il se vape tel quel, sans nicotine.\n\nLe ratio PG/VG de 50/50 convient à tout : clearomiseurs à tirage serré, pods, cigarettes électroniques d'entrée de gamme. C'est le ratio le plus polyvalent.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Une past&egrave;que juteuse et d&eacute;salt&eacute;rante dynamis&eacute;e par un citron vert vif et p&eacute;tillant. Une recette estivale, fra&icirc;che et hy"
+    "description": ""
   },
   "sousCategorie": "e-liquides-petit-verger"
 }

@@ -1,7 +1,12 @@
 {
   "marque": "LogicScale",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Capacité 100 g",
+    "Précision 0,01 g",
+    "Couvercle-plateau",
+    "Format poche"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Balance de précision JAVA 100g x 0.01g",
@@ -9,11 +14,17 @@
   "prix": 11.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Capacité": "100 g",
+    "Précision": "0,01 g",
+    "Couvercle": "Sert de plateau d'appoint",
+    "Format": "Poche",
+    "Marque": "Java LogicScale"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Couvercle multifonction (protection + plateau)",
+  "descriptionCourte": "100 g au centième de gramme, avec un couvercle qui sert de second plateau.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,11 +32,11 @@
   "galerie": [],
   "id": "balance-de-precision-java-100g-x-0-01g",
   "image": "/media/produits/1778342984588-balance-de-precision-java-100g-x-0-01g.jpeg",
-  "description": "Balance de Précision JAVA – 100g x 0,01g.\n\nPrésentation\nLa balance de précision JAVA LogicScale est un outil de mesure fiable et précis pour tous vos besoins de pesée au centième de gramme. Son couvercle multifonction sert à la fois de protection et de plateau de pesée supplémentaire.\n\nCaractéristiques\nCapacité : 100g. Précision : 0,01g. Couvercle multifonction (protection + plateau). Affichage digital clair. Calibration automatique. Tare intégrée. Piles incluses.\n\nIdéal pour\nMesures précises au quotidien, usage professionnel ou personnel.",
+  "description": "Le couvercle de cette balance a deux fonctions : il protège la surface de pesée quand elle est fermée, et sert de plateau d'appoint quand elle est ouverte. Simple, mais bien vu — on ne cherche pas un support.\n\nCent grammes de capacité au centième près suffisent à tout usage courant, et le format tient dans une poche.\n\nPour de plus grandes quantités, la Hudson monte à 300 g avec la même précision.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Couvercle multifonction (protection + plateau)"
+    "description": ""
   },
-  "sousCategorie": "plateaux"
+  "sousCategorie": "balances"
 }

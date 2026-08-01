@@ -1,7 +1,12 @@
 {
   "marque": "Greenhouse",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "15 à 20 % de CBD",
+    "Nez de fraise et fruits rouges",
+    "Culture sous serre",
+    "0,99 € le gramme"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Small Bud Strawberry",
@@ -9,7 +14,14 @@
   "prix": 0.99,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Taux de CBD": "15 à 20 %",
+    "Profil": "Hybride, dominante indica",
+    "Culture": "Sous serre (greenhouse)",
+    "Calibre": "Small buds",
+    "Taux de THC": "< 0,3 %",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +42,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Parfum fruité et sucré : fraise, fruits rouges, touche florale",
+  "descriptionCourte": "Fraise et fruits rouges en petits calibres, denses et parfumés. Le format quotidien.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
@@ -40,11 +52,11 @@
   "galerie": [],
   "id": "small-bud-strawberry",
   "image": "/media/produits/1778340406518-small-bud-strawberry.jpeg",
-  "description": "≈ 15–20 % CBD\n\nProfil dominant : Hybride Indica\n\nCulture sous serre (Greenhouse) : arômes plus développés et meilleure stabilité\n\nSmall buds denses, propres et parfumées\n\nEffet doux, relaxant et idéal pour une consommation quotidienne",
+  "description": "Les small buds sont les fleurs de petit calibre d'une même récolte : moins spectaculaires à l'œil, aussi parfumées au nez, et nettement moins chères. C'est le format à prendre pour une consommation régulière.\n\nCette Strawberry ouvre sur la fraise mûre, suivie de fruits rouges plus acidulés. Le taux de CBD se situe entre 15 et 20 %, sur un profil hybride à dominante indica.\n\nCulture sous serre, buds denses et propres. À 0,99 € le gramme, c'est la référence la plus accessible du comptoir.",
   "contenuKit": [],
   "seo": {
     "title": "",
-    "description": "Parfum fruité et sucré : fraise, fruits rouges, touche florale"
+    "description": ""
   },
   "sousCategorie": "small-buds"
 }
