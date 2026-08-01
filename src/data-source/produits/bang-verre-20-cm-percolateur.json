@@ -1,7 +1,12 @@
 {
   "marque": "Bang ",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Verre borosilicaté épais",
+    "Percolateur intégré",
+    "20 cm, se range facilement",
+    "Bol fourni"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Bang verre 20 cm Percolateur",
@@ -9,11 +14,17 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Hauteur": "20 cm",
+    "Matériau": "Verre borosilicaté",
+    "Filtration": "Percolateur intégré",
+    "Fourni": "Bol",
+    "Entretien": "Eau chaude ou alcool isopropylique"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Une construction solide adapt&eacute;e aux utilisateurs recherchant durabilit&eacute; et simplicit&eacute;",
+  "descriptionCourte": "20 cm de verre borosilicaté et un percolateur intégré : la filtration d'un grand modèle, dans un format qui se range.",
   "categorie": "accessoires",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +32,7 @@
   "galerie": [],
   "id": "bang-verre-20-cm-percolateur",
   "image": "/media/produits/1778343041321-bang-verre-20-cm-percolateur.jpeg",
-  "description": "Bang en Verre 20 cm Percolateur.\n\nPrésentation\nUn bang en verre borosilicaté compact de 20 cm avec percolateur pour une utilisation à domicile. Format idéal pour une discrétion maximale tout en conservant la qualité de filtration d'un percolateur.\n\nCaractéristiques\nHauteur : 20 cm. Verre borosilicaté résistant. Percolateur intégré pour refroidissement et filtration. Bol inclus. Format compact et facile à ranger.\n\nEntretien\nNettoyer à l'alcool isopropylique ou à l'eau chaude après chaque utilisation.",
+  "description": "Vingt centimètres, c'est le format qui tient dans un tiroir sans renoncer au percolateur. L'eau y circule à travers plusieurs orifices, ce qui refroidit la fumée et retient une partie des particules avant l'inhalation — la différence se sent dès la première utilisation.\n\nLe verre est du borosilicaté, le même que la verrerie de laboratoire : il encaisse les écarts de température et se nettoie sans blanchir. Le bol est fourni.\n\nUn rinçage à l'eau chaude après chaque usage suffit ; l'alcool isopropylique reprend les dépôts installés.",
   "contenuKit": [],
   "seo": {
     "title": "",

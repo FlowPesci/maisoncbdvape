@@ -25,7 +25,9 @@
     "test:inventaire": "node scripts/test-inventaire.mjs",
     "db:migrate:alertes": "wrangler d1 execute maisoncbdvape-stocks --file=db/migration-alertes.sql --remote",
     "test:alertes": "node scripts/test-alertes.mjs",
-    "verify:api": "node scripts/verifier-api-navigateur.mjs"
+    "verify:api": "node scripts/verifier-api-navigateur.mjs",
+    "verify:redaction": "node scripts/verifier-redaction-produits.mjs",
+    "verify:redaction:strict": "node scripts/verifier-redaction-produits.mjs --strict"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",

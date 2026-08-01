@@ -91,6 +91,28 @@ export default function (eleventyConfig) {
     Array.isArray(arr) ? arr.length : 0
   );
 
+  /**
+   * Normalise une fiche technique en couples [libellé, valeur].
+   *
+   * ⚠ Ce filtre existe parce que le champ a deux formes selon qui l'écrit :
+   *   · à la main dans le JSON  → { "Capacité": "4,5 ml" }
+   *   · via Decap CMS           → [ { cle: "Capacité", valeur: "4,5 ml" } ]
+   *
+   * Le gabarit ne connaissait que la première. Une fiche technique remplie
+   * depuis l'éditeur de contenu s'affichait donc en lignes vides — sans
+   * erreur, sans avertissement. Personne ne l'avait vu parce qu'aucun des
+   * 121 produits n'avait jamais rempli ce champ.
+   */
+  eleventyConfig.addFilter("paires", (valeur) => {
+    if (!valeur) return [];
+    if (Array.isArray(valeur)) {
+      return valeur
+        .map((l) => [l?.cle ?? l?.label ?? "", l?.valeur ?? l?.value ?? ""])
+        .filter(([c]) => c);
+    }
+    return Object.entries(valeur);
+  });
+
   eleventyConfig.addFilter("min", (arr) => {
     const nums = (arr || []).map(Number).filter((n) => !isNaN(n));
     return nums.length ? Math.min(...nums) : 0;

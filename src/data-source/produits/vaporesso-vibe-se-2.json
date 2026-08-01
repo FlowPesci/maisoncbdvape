@@ -1,7 +1,12 @@
 {
   "marque": "Vaporesso",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Batterie 1400 mAh, une journée pleine",
+    "Cartouche 4,5 ml",
+    "Activation à l'inhalation, sans bouton",
+    "Recharge rapide USB-C"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Vaporesso Vibe SE  2",
@@ -9,11 +14,19 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Type": "Pod électronique",
+    "Batterie": "1400 mAh intégrée",
+    "Capacité": "4,5 ml",
+    "Activation": "Automatique, à l'inhalation",
+    "Recharge": "USB-C",
+    "E-liquide conseillé": "PG/VG 50/50",
+    "Indicateur": "LED de charge, 3 niveaux"
+  },
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "La Vibe SE 2 de Vaporesso est un pod moderne conçu pour offrir une expérience de vape simple, performante et durable.",
+  "descriptionCourte": "Pas de bouton, pas de réglage : on tire, ça vape. 1400 mAh et 4,5 ml pour tenir la journée.",
   "categorie": "vape",
   "dateAjout": "2026-05-09",
   "tags": [],
@@ -21,7 +34,7 @@
   "galerie": [],
   "id": "vaporesso-vibe-se-2",
   "image": "/media/produits/1778341107090-vaporesso-vibe-se-2.png",
-  "description": "Vaporesso Vibe SE 2 – Pod compact, puissant et simple d’utilisation\nLa Vibe SE 2 de Vaporesso est un pod moderne conçu pour offrir une expérience de vape simple, performante et durable. Avec sa batterie longue autonomie, sa grande capacité en e-liquide et son design compact, elle constitue une solution idéale aussi bien pour les vapoteurs débutants que pour les utilisateurs recherchant un appareil discret et efficace au quotidien.\n\nGrâce à son système automatique à l’inhalation et à sa technologie de chauffe optimisée, la Vibe SE 2 garantit une restitution précise des arômes et une vape régulière, sans réglages compliqués.\n\nAutonomie longue durée\nLa Vibe SE 2 intègre une batterie performante de 1400 mAh, offrant une autonomie confortable pour vapoter toute la journée.\n\nCette capacité permet de profiter d’une utilisation prolongée sans recharge fréquente, tout en assurant une puissance stable et constante pour préserver les saveurs de vos e-liquides.\n\nLa recharge rapide via USB-C permet de retrouver rapidement une batterie pleine.\n\nGrande capacité de e-liquide\nLa cartouche du pod dispose d’un réservoir de 4,5 ml, une capacité généreuse qui permet de vapoter longtemps sans remplissage fréquent.\n\nLe système de remplissage simple rend l’utilisation particulièrement pratique, même pour les vapoteurs débutants.\n\nUtilisation intuitive\nLa Vibe SE 2 fonctionne sans bouton : l’appareil s’active automatiquement lors de l’inhalation.\n\nUn indicateur LED informe du niveau de batterie :\n\n🟢 Vert : batterie élevée\n\n🔵 Bleu : batterie moyenne\n\n🔴 Rouge : batterie faible\n\nCe système permet de surveiller facilement l’autonomie et d’anticiper la recharge.\n\nLes points forts\n✔ Batterie 1400 mAh longue autonomie\n✔ Grande cartouche 4,5 ml\n✔ Activation automatique à l’inhalation\n✔ Recharge rapide USB-C\n✔ Vape douce et restitution fidèle des arômes\n✔ Format compact et design élégant\n\nCaractéristiques techniques\nType : Pod électronique\n\nBatterie : 1400 mAh intégrée\n\nCapacité du pod : 4,5 ml\n\nRecharge : USB-C\n\nActivation : automatique à l’inhalation\n\nIndicateur : LED de batterie\n\nFormat : compact et léger\n\nConseils d’utilisation\nPour une expérience optimale avec la Vibe SE 2, il est recommandé d’utiliser des e-liquides avec un ratio PG/VG de 50/50.\n\nCe pod fonctionne particulièrement bien avec :\n\nles sels de nicotine\n\nles e-liquides classiques en nicotine\n\nAvant la première utilisation, il est conseillé de remplir la cartouche et d’attendre environ 5 minutes afin que la résistance s’imbibe correctement de e-liquide.\n\nPensez également à recharger régulièrement la batterie pour conserver une performance optimale.\n\nÀ qui s’adresse la Vibe SE 2 ?\nLa Vibe SE 2 est idéale pour :\n\nles débutants souhaitant arrêter la cigarette\n\nles vapoteurs recherchant une cigarette électronique simple et fiable\n\nles utilisateurs voulant un pod discret pour la vape quotidienne",
+  "description": "La Vibe SE 2 est pensée pour une première cigarette électronique, ou pour ceux qui ne veulent plus s'occuper de réglages. Aucun bouton : l'appareil s'active à l'inhalation, et une LED indique la charge en trois couleurs. Il n'y a rien d'autre à comprendre.\n\nLes deux chiffres qui comptent au quotidien sont la batterie de 1400 mAh et la cartouche de 4,5 ml : à eux deux, ils évitent la recharge de milieu de journée et le remplissage permanent. La recharge se fait en USB-C.\n\nLa chauffe est volontairement douce, ce qui restitue fidèlement les arômes plutôt que de produire un gros nuage. Elle donne son meilleur avec un e-liquide en 50/50, en sels de nicotine comme en nicotine classique.",
   "contenuKit": [],
   "seo": {
     "title": "",

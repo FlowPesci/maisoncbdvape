@@ -1,7 +1,12 @@
 {
   "marque": "Amnésia Hydro Indoor CBD",
   "statutStock": "en-stock",
-  "pointsForts": [],
+  "pointsForts": [
+    "Culture hydroponique indoor",
+    "Nez citronné, fond terreux",
+    "Têtes denses, manucurées à la main",
+    "Pesée devant vous, de 2 à 8 g"
+  ],
   "devise": "EUR",
   "nombreAvis": null,
   "nom": "Amnésia Hydro Indoor CBD",
@@ -9,7 +14,13 @@
   "prix": 4.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {},
+  "ficheTechnique": {
+    "Culture": "Hydroponique, indoor",
+    "Origine": "Union européenne",
+    "Taux de THC": "< 0,3 %",
+    "Séchage": "Lent, en chambre ventilée",
+    "Conditionnement": "Pesée à la commande, 2 à 8 g"
+  },
   "variantes": [
     {
       "label": "2g",
@@ -30,7 +41,7 @@
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
-  "descriptionCourte": "Notes intenses et complexes, typiques de l’Amnesia.",
+  "descriptionCourte": "Une hydroponique dense et résineuse, au nez citronné franc. La plus vive de nos fleurs indoor.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
@@ -42,7 +53,7 @@
   "galerie": [],
   "id": "amnesia-hydro-indoor-cbd",
   "image": "/media/produits/1778340500386-amnesia-hydro-indoor-cbd.jpeg",
-  "description": "Aspect visuel :\n\nTêtes denses, compactes et parfaitement manucurées.\n\nUne robe verte claire, parfois ponctuée de nuances orangées grâce à ses pistils.\n\nRecouverte d’une épaisse couche de trichomes scintillants, signe d’une forte concentration en cannabinoïdes et terpènes.\n\nArômes & saveurs :\n\nNotes intenses et complexes, typiques de l’Amnesia.\n\nMélange frais et citronné, relevé par des touches terreuses et épicées.\n\nEn bouche, on retrouve un goût persistant, équilibrant fraîcheur et puissance.\n\n⚡ Effets :\n\nConnue pour ses effets énergisants, stimulants et cérébraux.\n\nApporte une sensation de clarté mentale et de créativité.\n\nIdéale en journée pour rester actif et concentré.\n\nCulture hydroponique indoor :\n\nFavorise un développement optimal des fleurs grâce à une nutrition précise et un environnement parfaitement contrôlé.\n\nPermet d’obtenir une fleur pure, propre et particulièrement riche en terpènes.\n\nEn résumé, la Amnesia Indoor Hydro de haute qualité est une fleur prestigieuse, appréciée pour son intensité aromatique, sa puissance et la finesse de sa culture en hydroponie.",
+  "description": "L'Amnésia est la fleur qu'on choisit pour son nez. Citron franc en premier, puis un fond terreux et poivré qui tient en bouche bien après la fumée. Un profil vif, tranché, qui parle aux amateurs de variétés marquées plutôt qu'aux palais qui cherchent la douceur.\n\nElle est cultivée en hydroponie sous serre : la nutrition est dosée au gramme et l'environnement reste stable du semis à la récolte. Cette maîtrise se voit sur la fleur — des têtes compactes, une robe vert clair traversée de pistils orangés, et une couche de trichomes assez épaisse pour accrocher la lumière.\n\nManucurée à la main, puis séchée lentement. Nous la pesons devant vous, de 2 à 8 grammes, depuis le bocal.",
   "contenuKit": [],
   "seo": {
     "title": "",

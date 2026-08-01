@@ -219,6 +219,20 @@ eleventyComputed:
       </div>
 
       {# Points forts #}
+      {# Saveurs disponibles — le champ existait dans l'éditeur de contenu
+         mais n'était affiché nulle part. Sur l'Al Fakher Crown Bar, les
+         quatre saveurs étaient racontées en prose dans la description. #}
+      {% if produit.saveurs and produit.saveurs | length > 0 %}
+        <div class="mb-6">
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.15em;color:var(--cream);margin-bottom:.6rem;font-weight:400;">SAVEURS DISPONIBLES</h3>
+          <div class="flex flex-wrap gap-2">
+            {% for saveur in produit.saveurs %}
+              <span class="puce-saveur">{{ saveur }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
       {% if produit.pointsForts and produit.pointsForts | length > 0 %}
         <div style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.25rem;margin-bottom:1.5rem;">
           <h3 style="font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.15em;color:var(--cream);margin-bottom:.5rem;font-weight:400;">POINTS FORTS</h3>
@@ -336,7 +350,7 @@ eleventyComputed:
    ═══════════════════════════════════════════════════════════════════════════ #}
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 fade-up">
   <div class="flex items-end gap-1 overflow-x-auto" style="border-bottom:1px solid var(--borderl);scrollbar-width:none;">
-    {% set hasFiche = produit.ficheTechnique and (produit.ficheTechnique | length) > 0 %}
+    {% set hasFiche = (produit.ficheTechnique | paires | length) > 0 %}
     {% set hasKit   = produit.contenuKit and produit.contenuKit | length > 0 %}
     {% set hasDesc  = produit.description and produit.description | length > 0 %}
     {% if hasDesc  %}<button class="tab-btn active" data-tab="tab-desc">Description</button>{% endif %}
@@ -368,10 +382,13 @@ eleventyComputed:
               <td class="py-3.5 px-5 font-mono text-xs uppercase tracking-wider" style="color:var(--muted);">Catégorie</td>
               <td class="py-3.5 px-5 font-medium" style="color:var(--cream);">{{ categorieCourante.nom or categorieLabel }}</td>
             </tr>
-            {% for cle, valeur in produit.ficheTechnique %}
+            {# `paires` accepte les deux formes du champ : l'objet écrit à la
+               main dans le JSON, et la liste produite par Decap. Sans lui, une
+               fiche remplie depuis l'éditeur s'affiche en lignes vides. #}
+            {% for ligne in produit.ficheTechnique | paires %}
               <tr class="spec-row">
-                <td class="py-3.5 px-5 font-mono text-xs uppercase tracking-wider" style="color:var(--muted);">{{ cle }}</td>
-                <td class="py-3.5 px-5 font-medium" style="color:var(--cream);">{{ valeur }}</td>
+                <td class="py-3.5 px-5 font-mono text-xs uppercase tracking-wider" style="color:var(--muted);">{{ ligne[0] }}</td>
+                <td class="py-3.5 px-5 font-medium" style="color:var(--cream);">{{ ligne[1] }}</td>
               </tr>
             {% endfor %}
           </tbody>
