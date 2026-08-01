@@ -17,6 +17,12 @@
 
    Les icônes suivent le style Heroicons « outline », déjà utilisé ailleurs
    dans le site : trait de 1.8, extrémités arrondies.
+
+   ⚠ Chaque icône porte la classe `.icone`, qui la rend `inline-block`.
+   C'est indispensable : Tailwind applique `svg { display: block }` par
+   défaut, si bien qu'une icône posée dans un bloc `text-center` se collait
+   À GAUCHE alors que l'emoji qu'elle remplaçait était centré — c'était du
+   texte, elle est un élément. Le panier vide en a fait les frais.
    ─────────────────────────────────────────────────────────────────────── #}
 
 {% macro icone(nom, classe = "w-5 h-5", couleur = "var(--gold)") %}
@@ -46,7 +52,7 @@
 } -%}
 {%- set trace = traces[nom] -%}
 {%- if trace -%}
-<svg class="{{ classe }}" style="color:{{ couleur }};" fill="none" viewBox="0 0 24 24"
+<svg class="icone {{ classe }}" style="color:{{ couleur }};" fill="none" viewBox="0 0 24 24"
      stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
   {%- for d in trace.split(" M") -%}
   <path stroke-linecap="round" stroke-linejoin="round" d="{% if not loop.first %}M{% endif %}{{ d }}"/>

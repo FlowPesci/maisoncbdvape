@@ -1475,3 +1475,17 @@ em, i, cite, dfn, address, blockquote, q {
   color: var(--gold);
 }
 .avis-message.est-erreur { color: #FF8A8A; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Icônes au trait — components/icone.njk
+   ⚠ Tailwind applique `svg { display: block }` dans son preflight. Une icône
+   placée dans un conteneur `text-center` se retrouvait donc collée à gauche,
+   là où l'emoji qu'elle remplace était centré — un emoji est du texte, une
+   icône est un élément. En la remettant en flux inline, elle suit
+   `text-align` comme le faisait l'emoji, et rien d'autre n'est à corriger
+   sur les pages qui l'utilisent.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.icone {
+  display: inline-block;
+  vertical-align: middle;
+}
