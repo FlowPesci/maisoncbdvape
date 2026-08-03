@@ -27,7 +27,8 @@
     "test:alertes": "node scripts/test-alertes.mjs",
     "verify:api": "node scripts/verifier-api-navigateur.mjs",
     "verify:redaction": "node scripts/verifier-redaction-produits.mjs --strict",
-    "verify:redaction:rapport": "node scripts/verifier-redaction-produits.mjs"
+    "verify:redaction:rapport": "node scripts/verifier-redaction-produits.mjs",
+    "test:commandes": "node scripts/test-numeros-commande.mjs"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",

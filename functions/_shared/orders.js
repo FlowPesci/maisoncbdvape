@@ -5,13 +5,36 @@
 
 const TVA_RATE = 0.20;
 
+/**
+ * Préfixe des numéros de commande.
+ *
+ * « TG- » était l'héritage de Tabac Gex, et il s'affichait partout où le
+ * client regarde : accusé de réception, e-mail de commande prête, champ de
+ * suivi. C'était la dernière trace visible de l'ancienne enseigne, et sur le
+ * document qui compte le plus.
+ *
+ * ⚠ L'ancien préfixe reste RECONNU, jamais généré. Il est aussi la clé de
+ * rangement des commandes dans KV : cesser de le lire rendrait invisibles
+ * toutes les commandes passées avant la bascule.
+ *
+ * La référence bancaire n'est pas concernée : `moneticoReference()` prend les
+ * douze derniers caractères alphanumériques, où le préfixe n'entre pas.
+ * Vérifié : « TG-202607251115-K7QM » et « MCV-202607251115-K7QM » donnent
+ * tous deux « 07251115K7QM ».
+ */
+export const PREFIXE_COMMANDE = "MCV-";
+export const PREFIXES_RECONNUS = ["MCV-", "TG-"];
+
+/** Un numéro de commande, quelle que soit l'époque à laquelle il a été émis. */
+export const MOTIF_COMMANDE = /^(?:MCV|TG)-\d{12}-[A-Z0-9]{4}$/;
+
 export function generateOrderId() {
   const now = new Date();
   const pad = (n) => String(n).padStart(2, "0");
   const date = "" + now.getFullYear() + pad(now.getMonth()+1) + pad(now.getDate()) + pad(now.getHours()) + pad(now.getMinutes());
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   const rnd = Array.from({ length: 4 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join("");
-  return "TG-" + date + "-" + rnd;
+  return PREFIXE_COMMANDE + date + "-" + rnd;
 }
 
 export function computeTotals(items) {
@@ -84,13 +107,17 @@ export async function updateOrder(kv, orderId, mutator, { actor = "system", note
 
 export async function listOrders(kv, { status, limit = 500 } = {}) {
   // Pagination via cursor — evite la troncature silencieuse a 1000 cles
+  // Les deux préfixes sont parcourus : les commandes émises avant la bascule
+  // vers « MCV- » portent encore « TG- » et doivent rester dans le back-office.
   const allKeys = [];
-  let cursor = undefined;
-  do {
-    const result = await kv.list({ prefix: "TG-", cursor, limit: 1000 });
-    for (const k of result.keys) allKeys.push(k.name);
-    cursor = result.list_complete ? undefined : result.cursor;
-  } while (cursor);
+  for (const prefix of PREFIXES_RECONNUS) {
+    let cursor = undefined;
+    do {
+      const result = await kv.list({ prefix, cursor, limit: 1000 });
+      for (const k of result.keys) allKeys.push(k.name);
+      cursor = result.list_complete ? undefined : result.cursor;
+    } while (cursor);
+  }
 
   const values  = await Promise.all(allKeys.map((k) => kv.get(k)));
   const orders  = values.filter(Boolean).map((v) => JSON.parse(v));

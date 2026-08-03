@@ -1,4 +1,4 @@
-import { getOrder } from "../_shared/orders.js";
+import { getOrder, MOTIF_COMMANDE } from "../_shared/orders.js";
 import { ok, bad, parseJson } from "../_shared/http.js";
 import { rateLimit, getClientIp } from "../_shared/ratelimit.js";
 
@@ -14,7 +14,9 @@ export async function onRequestPost({ request, env }) {
   const orderId = (body.orderId || "").trim();
   const email   = (body.email   || "").trim().toLowerCase();
   if (!orderId || !email) return bad("orderId et email requis");
-  if (!/^TG-\d{12}-[A-Z0-9]{4}$/.test(orderId)) return bad("Numero invalide", 404);
+  // Le motif vit dans orders.js : un client peut légitimement présenter un
+  // ancien numéro « TG- », émis avant la bascule vers « MCV- ».
+  if (!MOTIF_COMMANDE.test(orderId)) return bad("Numero invalide", 404);
 
   const order = await getOrder(env.ORDERS_KV, orderId);
   if (!order || order.client.email !== email) {

@@ -131,7 +131,9 @@ export function moneticoDate(d = new Date()) {
  * Référence de commande acceptée par Monetico.
  * Contrainte pratique : 12 caractères alphanumériques max pour rester lisible
  * sur le relevé bancaire. On dérive la référence de l'orderId interne
- * (ex. « TG-202607251115-K7QM » → « 2511 15K7QM » → « 07251115K7QM »).
+ * (ex. « MCV-202607251115-K7QM » → « 07251115K7QM »). Le préfixe n'entre
+ * pas dans ces douze caractères : la bascule de « TG- » vers « MCV- » n'a
+ * donc rien changé aux références déjà transmises à la banque.
  */
 export function moneticoReference(orderId) {
   const clean = String(orderId).replace(/[^A-Za-z0-9]/g, "");
