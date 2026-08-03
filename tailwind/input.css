@@ -388,6 +388,23 @@ h1, h2, h3, .heading {
   display: flex;
   white-space: nowrap;
 
+  /* ⚠ SANS CETTE LIGNE, LE BANDEAU SAUTE. Et c'est invisible à la lecture.
+
+     `translateX(-50%)` se calcule sur la LARGEUR DE BOÎTE de l'élément, pas
+     sur celle de son contenu. Or cette piste est un enfant flex : sans
+     `max-content`, sa boîte prend la largeur du conteneur — donc de l'écran —
+     tandis que son contenu, lui, s'étale bien au-delà.
+
+     Mesuré sur la page en ligne : boîte 1 521 px, contenu 7 524 px.
+     L'animation ne parcourait que 761 px, soit moins de trois mentions, puis
+     revenait au début d'un coup. Sur téléphone, le bandeau redémarrait après
+     la deuxième mention.
+
+     Avec `max-content`, la boîte épouse le contenu : -50 % vaut exactement la
+     moitié, soit deux des quatre copies. Vérifié en mesurant la position des
+     mentions avant et après le déplacement — écart de 0,02 px. */
+  width: max-content;
+
   /* La durée se règle ici, et nulle part ailleurs. */
   --marquee-duree: 32s;
   animation: marquee var(--marquee-duree) linear infinite;
@@ -404,14 +421,20 @@ h1, h2, h3, .heading {
    PASSENT PAR SECONDE. On agit sur les deux termes : mentions plus compactes,
    et durée plus courte.
 
-     mention     252 px  →  144 px      (2,7 visibles au lieu d'1,5)
-     cadence     0,81/s  →  1,61/s      (le double)
-     traversée   3,2 s   →  2,3 s       (encore lisible)
+     mention     252 px  →  144 px      (2,6 visibles au lieu d'1,5)
+
+   ⚠ Les vitesses annoncées dans les versions précédentes de ce commentaire
+   étaient FAUSSES : elles étaient calculées sur la largeur du contenu, alors
+   que l'animation se déplaçait sur la largeur de boîte. Voir `width` ci-dessus.
+   Chiffres réels, une fois `max-content` posé :
+
+     bureau  32 s  →  118 px/s,  0,46 mention/s,  5,6 visibles
+     mobile  12 s  →  180 px/s,  1,22 mention/s,  2,6 visibles
 
    Mesuré sur la page en ligne, pas estimé.
    ────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .marquee-track { --marquee-duree: 9s; }
+  .marquee-track { --marquee-duree: 12s; }
 
   .marquee-wrap { padding: 16px 0; }
 
