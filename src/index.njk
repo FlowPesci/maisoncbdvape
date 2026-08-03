@@ -135,8 +135,19 @@ permalink: /index.html
    ═══════════════════════════════════════════════════════════════════════ #}
 <div class="marquee-wrap" aria-hidden="true">
   <div class="marquee-track">
+    {# ⚠ Le nombre de copies doit être PAIR.
+
+       L'animation translate la piste de -50 % de sa propre largeur, puis
+       revient à zéro. Pour que le raccord soit invisible, ce déplacement doit
+       tomber exactement sur une frontière de copie. Avec trois copies, -50 %
+       tombait au MILIEU de la deuxième : la piste sautait à chaque tour, une
+       fois toutes les 24 secondes. Mesuré sur la page : 1,5 copie parcourue.
+
+       Quatre copies : -50 % vaut exactement deux copies. Et deux copies font
+       3 658 px, plus large que n'importe quel écran, donc aucun vide ne peut
+       apparaître en fin de course. #}
     {% set items = ["CBD Premium","Vape & E-liquides","Puffs","Articles fumeurs","Click & Collect","Livraison 48h","Gex · 01170"] %}
-    {% for i in range(0,3) %}
+    {% for i in range(0,4) %}
       {% for item in items %}
         <span class="marquee-item"><span class="mdot"></span>{{ item }}</span>
       {% endfor %}

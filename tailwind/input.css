@@ -386,8 +386,23 @@ h1, h2, h3, .heading {
 }
 .marquee-track {
   display: flex;
-  animation: marquee 24s linear infinite;
   white-space: nowrap;
+
+  /* La durée se règle ici, et nulle part ailleurs.
+     Elle est plus courte sur téléphone : l'écran ne montre que deux ou trois
+     mentions à la fois, et à vitesse égale le bandeau y paraît figé. */
+  --marquee-duree: 32s;
+  animation: marquee var(--marquee-duree) linear infinite;
+}
+
+@media (max-width: 640px) {
+  .marquee-track { --marquee-duree: 18s; }
+}
+
+/* Un bandeau qui défile sans fin est une gêne réelle pour qui souffre de
+   troubles vestibulaires ou de migraines. Le système le signale, on l'écoute. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
 }
 .marquee-item {
   display: inline-flex; align-items: center; gap: 18px;
