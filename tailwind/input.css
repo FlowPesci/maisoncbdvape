@@ -388,15 +388,39 @@ h1, h2, h3, .heading {
   display: flex;
   white-space: nowrap;
 
-  /* La durée se règle ici, et nulle part ailleurs.
-     Elle est plus courte sur téléphone : l'écran ne montre que deux ou trois
-     mentions à la fois, et à vitesse égale le bandeau y paraît figé. */
+  /* La durée se règle ici, et nulle part ailleurs. */
   --marquee-duree: 32s;
   animation: marquee var(--marquee-duree) linear infinite;
 }
 
+/* ─── Vitesse perçue sur téléphone ─────────────────────────────────────────
+   Un premier réglage a porté la vitesse de 114 à 203 px/s sur mobile, et le
+   bandeau paraissait toujours figé. La mesure a expliqué pourquoi : une
+   mention fait 252 px de large, donc un écran de 390 px n'en montre qu'UNE
+   ET DEMIE. Sans repères qui défilent, l'œil ne perçoit pas le mouvement,
+   quelle que soit la vitesse en pixels.
+
+   Ce qui compte n'est donc pas la vitesse, c'est le NOMBRE DE MENTIONS QUI
+   PASSENT PAR SECONDE. On agit sur les deux termes : mentions plus compactes,
+   et durée plus courte.
+
+     mention     252 px  →  144 px      (2,7 visibles au lieu d'1,5)
+     cadence     0,81/s  →  1,61/s      (le double)
+     traversée   3,2 s   →  2,3 s       (encore lisible)
+
+   Mesuré sur la page en ligne, pas estimé.
+   ────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .marquee-track { --marquee-duree: 18s; }
+  .marquee-track { --marquee-duree: 9s; }
+
+  .marquee-wrap { padding: 16px 0; }
+
+  .marquee-item {
+    padding: 0 16px;
+    gap: 10px;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+  }
 }
 
 /* Un bandeau qui défile sans fin est une gêne réelle pour qui souffre de
