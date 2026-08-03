@@ -111,6 +111,47 @@ for (const fichier of fichiers("src", [".njk", ".html", ".js"])) {
   }
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// Tailles passées à la macro `icone()`
+//
+// ⚠ Ces classes échappent au contrôle ci-dessus : `w-` et `h-` sont des
+// préfixes d'utilitaires Tailwind, donc volontairement ignorés. Or une taille
+// que Tailwind n'a pas générée ne donne pas une icône par défaut — elle donne
+// une icône SANS DIMENSION, que le navigateur étire à la largeur disponible.
+// Mesuré sur la vraie page : 958 pixels de côté au lieu de 48.
+//
+// Le cas se produit dès qu'on écrit une taille inédite (`w-16`) dans un
+// fichier que Tailwind ne scanne pas, ou qu'on retire un fichier du scan.
+// Rien ne le signale : ni le build, ni le navigateur.
+// ═══════════════════════════════════════════════════════════════════════════
+const taillesIcones = new Map();
+for (const fichier of fichiers("src", [".njk", ".html", ".js"])) {
+  const contenu = readFileSync(fichier, "utf8");
+  for (const m of contenu.matchAll(/icone\(\s*"[^"]*"\s*,\s*"([^"]+)"/g)) {
+    for (const classe of m[1].split(/\s+/)) {
+      if (!/^[wh]-/.test(classe)) continue;         // seules les dimensions comptent
+      if (!taillesIcones.has(classe)) taillesIcones.set(classe, new Set());
+      taillesIcones.get(classe).add(fichier);
+    }
+  }
+}
+
+const taillesManquantes = [...taillesIcones.entries()].filter(
+  ([classe]) => !new RegExp(`\\.${classe.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}[\\s{,:.>]`).test(feuille)
+);
+
+if (taillesManquantes.length) {
+  console.error(`[css] ✕ ${taillesManquantes.length} taille(s) d'icône absente(s) de la feuille compilée :`);
+  for (const [classe, dans] of taillesManquantes) {
+    console.error(`       · ${classe}  →  ${[...dans].join(", ")}`);
+  }
+  console.error("\n       Sans dimension, le SVG s'étire à la largeur du conteneur —");
+  console.error("       une icône de plusieurs centaines de pixels, sans erreur ni");
+  console.error("       avertissement. Vérifier que le fichier est bien scanné par");
+  console.error("       Tailwind (tailwind.config.js → content).");
+  process.exit(1);
+}
+
 const orphelines = [...utilisees.entries()]
   .filter(([classe]) => !new RegExp(`\\.${classe}[\\s{,:.>]`).test(feuille))
   .sort();
@@ -126,4 +167,4 @@ if (orphelines.length) {
   process.exit(1);
 }
 
-console.log(`[css] ✓ ${utilisees.size} classes de composant, toutes définies`);
+console.log(`[css] ✓ ${utilisees.size} classes de composant et ${taillesIcones.size} tailles d'icône, toutes définies`);

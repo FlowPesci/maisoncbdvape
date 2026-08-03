@@ -224,6 +224,25 @@
     }
 
     // Sélecteur de variantes (taille CBD / saveur puffs)
+    //
+    // ⚠ La variante choisie ne doit être posée QUE sur les boutons d'achat du
+    // produit courant. Une fiche produit contient aussi quatre cartes de
+    // produits associés, chacune avec son propre bouton « Ajouter au panier ».
+    // En marquant tous les `[data-add-to-cart]` de la page, on collait la
+    // saveur et le prix du produit affiché sur ces quatre voisins : cliquer
+    // « Ajouter » sur la JNR 28000 à 18,90 € l'envoyait au panier en
+    // « Peach Ice » à 19,90 €, un couple que le catalogue serveur ne connaît
+    // pas. La commande échouait au paiement sur « Article inconnu ».
+    //
+    // Le bug existait déjà pour les grammages CBD ; il était invisible parce
+    // que les fleurs voisines ont les mêmes grammages au même prix. Les
+    // saveurs l'ont rendu visible.
+    // `#zone-achat` est la colonne du produit affiché, `#sticky-buy` la barre
+    // d'achat mobile. Tout le reste de la page — produits associés compris —
+    // garde ses propres données.
+    const boutonsAchatProduit = () =>
+      document.querySelectorAll('#zone-achat [data-add-to-cart], #sticky-buy [data-add-to-cart]');
+
     const varianteBtns      = document.querySelectorAll('.variante-btn');
     const prixDisplay       = document.getElementById('prix-display');
     const prixDisplaySticky = document.getElementById('prix-display-sticky');
@@ -241,7 +260,7 @@
         const prixFormatted = formatEur(prix);
         if (prixDisplay)       prixDisplay.textContent       = prixFormatted;
         if (prixDisplaySticky) prixDisplaySticky.textContent = prixFormatted;
-        document.querySelectorAll('[data-add-to-cart]').forEach((cartBtn) => {
+        boutonsAchatProduit().forEach((cartBtn) => {
           cartBtn.dataset.varianteLabel = label;
           cartBtn.dataset.variantePrix  = prix;
         });
@@ -272,7 +291,7 @@
         const prixFormatted = formatEur(prix);
         if (prixDisplay)       prixDisplay.textContent       = prixFormatted;
         if (prixDisplaySticky) prixDisplaySticky.textContent = prixFormatted;
-        document.querySelectorAll('[data-add-to-cart]').forEach((cartBtn) => {
+        boutonsAchatProduit().forEach((cartBtn) => {
           cartBtn.dataset.varianteLabel = label;
           cartBtn.dataset.variantePrix  = prix;
         });

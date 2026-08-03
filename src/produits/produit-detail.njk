@@ -105,7 +105,11 @@ eleventyComputed:
 
 
     {# ─────────────────────── DROITE : Infos + Achat ───────────────────────── #}
-    <div class="fade-up" style="transition-delay:.08s;">
+    {# `id="zone-achat"` délimite ce qui appartient au produit affiché. Le
+       sélecteur de variante n'a le droit de marquer que les boutons situés
+       ici — les cartes de produits associés, plus bas, ont leurs propres
+       boutons et ne doivent pas hériter de la saveur choisie. #}
+    <div id="zone-achat" class="fade-up" style="transition-delay:.08s;">
 
       {# Marque + référence #}
       <div class="flex items-center gap-3 mb-3 flex-wrap">
