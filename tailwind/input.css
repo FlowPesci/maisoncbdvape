@@ -405,8 +405,18 @@ h1, h2, h3, .heading {
      mentions avant et après le déplacement — écart de 0,02 px. */
   width: max-content;
 
-  /* La durée se règle ici, et nulle part ailleurs. */
-  --marquee-duree: 32s;
+  /* ─── Réglage de la vitesse ──────────────────────────────────────────────
+     Un seul chiffre à changer, ici et dans la règle mobile plus bas.
+
+     Le déplacement vaut la moitié du contenu : 3 762 px sur ordinateur,
+     2 015 px sur téléphone (mentions plus compactes). D'où :
+
+       ordinateur   40 s → 94 px/s     70 s → 54 px/s     90 s → 42 px/s
+       téléphone    16 s → 135 px/s    24 s → 90 px/s     32 s → 68 px/s
+
+     Repère : en dessous de 40 px/s le bandeau paraît immobile, au-dessus de
+     120 px/s il devient fatigant à suivre. */
+  --marquee-duree: 70s;
   animation: marquee var(--marquee-duree) linear infinite;
 }
 
@@ -428,13 +438,16 @@ h1, h2, h3, .heading {
    que l'animation se déplaçait sur la largeur de boîte. Voir `width` ci-dessus.
    Chiffres réels, une fois `max-content` posé :
 
-     bureau  32 s  →  118 px/s,  0,46 mention/s,  5,6 visibles
-     mobile  12 s  →  180 px/s,  1,22 mention/s,  2,6 visibles
+     bureau  70 s  →   54 px/s,  0,21 mention/s,  5,6 visibles
+     mobile  24 s  →   90 px/s,  0,61 mention/s,  2,6 visibles
+
+   Le téléphone garde une cadence près de trois fois supérieure à celle de
+   l'ordinateur, ce qui compense le peu de mentions visibles à la fois.
 
    Mesuré sur la page en ligne, pas estimé.
    ────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .marquee-track { --marquee-duree: 12s; }
+  .marquee-track { --marquee-duree: 24s; }
 
   .marquee-wrap { padding: 16px 0; }
 
