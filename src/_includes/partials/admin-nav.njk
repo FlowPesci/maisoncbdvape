@@ -5,10 +5,12 @@
      {% set adminSection = "stocks" %}
      {% include "partials/admin-nav.njk" %}
 
-   Elle définit aussi `window.MCV_ADMIN`, le point unique d'accès au jeton.
-   Deux jetons GitHub cohabitaient — celui de l'éditeur de contenu et celui
-   des écrans internes — ce qui obligeait à se connecter deux fois. Ils
-   viennent de la même application OAuth : on accepte donc l'un ou l'autre.
+   Elle définit aussi `window.MCV_ADMIN`. Le jeton GitHub ne transite plus
+   par le navigateur : il reste côté serveur, retrouvé par un cookie de
+   session HttpOnly posé au callback OAuth (functions/api/auth/callback.js).
+   `window.MCV_ADMIN` ne sait donc plus lire de jeton — seulement dire si une
+   session existe (via le cookie non-secret `mcv_admin_hint`) et se
+   déconnecter.
    ─────────────────────────────────────────────────────────────────────── #}
 
 {% set adminLiens = [
@@ -35,58 +37,4 @@
   <button type="button" id="admin-deconnexion" class="admin-nav-sortie" hidden>Déconnexion</button>
 </nav>
 
-<script>
-(function () {
-  /**
-   * Accès unique au jeton d'administration.
-   *
-   * `tabacgex-admin-token` est posé par nos écrans, `decap-cms-user` par
-   * l'éditeur de contenu. Les deux viennent de la même application OAuth
-   * GitHub : accepter l'un ou l'autre évite une seconde connexion, et
-   * recopier celui de l'éditeur évite d'y revenir à chaque fois.
-   */
-  var CLE = 'tabacgex-admin-token';
-
-  function depuisDecap() {
-    try {
-      var u = JSON.parse(localStorage.getItem('decap-cms-user') || '{}');
-      return u && u.token ? u.token : null;
-    } catch (e) { return null; }
-  }
-
-  function token() {
-    // Un jeton passé dans l'URL après OAuth est prioritaire et se range aussitôt.
-    if (location.hash.indexOf('#token=') === 0) {
-      var t = decodeURIComponent(location.hash.slice(7));
-      localStorage.setItem(CLE, t);
-      history.replaceState({}, '', location.pathname + location.search);
-      return t;
-    }
-    var propre = localStorage.getItem(CLE);
-    if (propre) return propre;
-
-    var emprunte = depuisDecap();
-    if (emprunte) { localStorage.setItem(CLE, emprunte); return emprunte; }
-    return null;
-  }
-
-  function oublier() {
-    localStorage.removeItem(CLE);
-    localStorage.removeItem('decap-cms-user');
-  }
-
-  window.MCV_ADMIN = {
-    token: token,
-    oublier: oublier,
-    lienConnexion: function (retour) {
-      return '/api/auth/login?mode=admin&return=' + encodeURIComponent(retour || location.pathname);
-    },
-  };
-
-  var sortie = document.getElementById('admin-deconnexion');
-  if (sortie && token()) {
-    sortie.hidden = false;
-    sortie.addEventListener('click', function () { oublier(); location.reload(); });
-  }
-})();
-</script>
+<script src="/assets/js/admin-nav.js" defer></script>

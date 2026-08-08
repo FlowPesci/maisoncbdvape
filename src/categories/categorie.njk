@@ -28,7 +28,7 @@ eleventyComputed:
     <div>
       {# Fil d'Ariane #}
       <nav aria-label="Fil d'Ariane" style="display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:11px;letter-spacing:.12em;">
-        <a href="/" style="color:var(--muted);text-decoration:none;transition:color .3s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Accueil</a>
+        <a href="/" style="color:var(--muted);text-decoration:none;transition:color .3s;" data-hover="gold">Accueil</a>
         <svg style="width:10px;height:10px;color:var(--borderl);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
         <span style="color:var(--gold);">{{ cat.nom }}</span>
       </nav>
@@ -87,7 +87,17 @@ eleventyComputed:
       La carte · Prix au gramme
     </div>
 
-    {# Grille de panneaux #}
+    {# Grille de panneaux — tout est tiré de `produits` (id, nom, prix, taux de
+       CBD) ; seuls les regroupements par panneau, le drapeau et les badges
+       "coup de cœur" restent des choix éditoriaux posés ici. #}
+    {% set fleursIndoor = produitsCat | where("sousCategorie", "fleurs-indoor") %}
+    {% set indoorSel    = fleursIndoor | rejectId("moon-rock-cbd-indoor") %}
+    {% set resines       = produitsCat | where("sousCategorie", "pollens-resines") %}
+    {% set smallBuds     = produitsCat | where("sousCategorie", "small-buds") %}
+    {% set melanges       = produitsCat | where("sousCategorie", "substituts-tabac") %}
+    {% set smallBudsMin   = smallBuds | pluck("prix") | min %}
+    {% set podRecharge    = (produits | where("id", "pod-recharge"))[0] %}
+
     <div class="grid-cbd-menu">
 
       {# ── PREMIUM INDOOR (grande colonne gauche) ── #}
@@ -101,46 +111,33 @@ eleventyComputed:
         </div>
 
         {% set indoorProducts = [
-          {nom: "Moon Rock CBD Indoor", id: "moon-rock-cbd-indoor", flag: "🇫🇷", cbd: "—", prix: "7,90", crown: true, top: true},
-          {nom: "Extract Crumble",      id: "extract-crumble",      flag: "🇨🇭", cbd: "—", prix: "9,90", star: true, top: true}
+          {id: "moon-rock-cbd-indoor", flag: "🇫🇷", crown: true},
+          {id: "extract-crumble",      flag: "🇨🇭", star: true}
         ] %}
         {% for p in indoorProducts %}
+          {% set prod = (produits | where("id", p.id))[0] %}
           <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:10px 0;border-bottom:1px solid var(--borderl);">
             <div style="display:flex;align-items:center;gap:8px;">
               <span style="font-size:12px;">{% if p.crown %}👑{% elif p.star %}★{% endif %}</span>
-              <a href="/produits/{{ p.id }}/" style="font-size:14.5px;font-weight:500;color:var(--gold-light);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--gold-light)'">{{ p.nom }}</a>
+              <a href="/produits/{{ prod.id }}/" style="font-size:14.5px;font-weight:500;color:var(--gold-light);text-decoration:none;transition:color .2s;" data-hover="cream">{{ prod.nom }}</a>
             </div>
             <div style="text-align:right;font-size:14px;">{{ p.flag }}</div>
-            <div style="text-align:right;font-size:12px;color:var(--gold);">{{ p.cbd }}</div>
-            <div style="text-align:right;font-size:15px;font-weight:500;color:var(--gold-light);">{{ p.prix }}</div>
+            <div style="text-align:right;font-size:12px;color:var(--gold);">{{ prod.ficheTechnique["Taux de CBD"] or "—" }}</div>
+            <div style="text-align:right;font-size:15px;font-weight:500;color:var(--gold-light);">{{ prod.prix | eur | replace("€", "") | trim }}</div>
           </div>
         {% endfor %}
 
         <div style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding:12px 0 6px;opacity:.6;">Sélection Indoor</div>
 
-        {% set indoorSel = [
-          {nom: "Amnésia Hydro Indoor CBD",   id: "amnesia-hydro-indoor-cbd",   flag: "🇫🇷", prix: "4,90"},
-          {nom: "Banana Hydro Indoor CBD",    id: "banana-hydro-indoor-cbd",    flag: "🇫🇷", prix: "4,90"},
-          {nom: "Bubba Kush Hydro Indoor CBD", id: "bubba-kush-hydro-indoor-cbd", flag: "🇫🇷", prix: "4,90"},
-          {nom: "Burn Baby Burn Indoor CBD",  id: "burn-baby-burn-indoor-cbd",  flag: "🇫🇷", prix: "4,90"},
-          {nom: "Candy Hydro Indoor CBD",     id: "candy-hydro-indoor-cbd",     flag: "🇫🇷", prix: "4,90"},
-          {nom: "Dutch Punch Indoor CBD",     id: "dutch-punch-indoor-cbd",     flag: "🇫🇷", prix: "4,90"},
-          {nom: "Gelato Hydro Indoor CBD",    id: "gelato-hydro-indoor-cbd",    flag: "🇫🇷", prix: "4,90"},
-          {nom: "Jack Herer Hydro Indoor CBD", id: "jack-herer-hydro-indoor-cbd", flag: "🇫🇷", prix: "4,90"},
-          {nom: "Lemon Hydro Indoor CBD",     id: "lemon-hydro-indoor-cbd",     flag: "🇫🇷", prix: "4,90"},
-          {nom: "Moby Dick Hydro Indoor CBD", id: "moby-dick-hydro-indoor-cbd", flag: "🇫🇷", prix: "4,90"},
-          {nom: "Robin Cherry CBD",           id: "robin-cherry-cbd",           flag: "🇫🇷", prix: "6,90"},
-          {nom: "Snowing in Dam",             id: "snowing-in-dam",             flag: "🇫🇷", prix: "4,90"}
-        ] %}
-        {% for p in indoorSel %}
+        {% for prod in indoorSel %}
           <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
             <div style="display:flex;align-items:center;gap:8px;">
               <span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>
-              <a href="/produits/{{ p.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream)'">{{ p.nom }}</a>
+              <a href="/produits/{{ prod.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" data-hover="gold">{{ prod.nom }}</a>
             </div>
-            <div style="text-align:right;font-size:13px;">{{ p.flag }}</div>
-            <div style="text-align:right;font-size:12px;color:var(--gold);">—</div>
-            <div style="text-align:right;font-size:13.5px;font-weight:400;color:var(--text);">{{ p.prix }}</div>
+            <div style="text-align:right;font-size:13px;">🇫🇷</div>
+            <div style="text-align:right;font-size:12px;color:var(--gold);">{{ prod.ficheTechnique["Taux de CBD"] or "—" }}</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:400;color:var(--text);">{{ prod.prix | eur | replace("€", "") | trim }}</div>
           </div>
         {% endfor %}
       </div>
@@ -154,19 +151,19 @@ eleventyComputed:
         <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
           <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
         </div>
-        {% for p in [{nom:"Small Bud Lemon",id:"small-bud-lemon",flag:"🇪🇺"},{nom:"Small Bud Strawberry",id:"small-bud-strawberry",flag:"🇪🇺"}] %}
+        {% for prod in smallBuds %}
           <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
             <div style="display:flex;align-items:center;gap:8px;">
               <span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>
-              <a href="/produits/{{ p.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream)'">{{ p.nom }}</a>
+              <a href="/produits/{{ prod.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" data-hover="gold">{{ prod.nom }}</a>
             </div>
-            <div style="text-align:right;font-size:13px;">{{ p.flag }}</div>
-            <div style="text-align:right;font-size:12px;color:var(--gold);">—</div>
-            <div style="text-align:right;font-size:13.5px;font-weight:500;color:var(--gold-light);">0,99</div>
+            <div style="text-align:right;font-size:13px;">🇪🇺</div>
+            <div style="text-align:right;font-size:12px;color:var(--gold);">{{ prod.ficheTechnique["Taux de CBD"] or "—" }}</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:500;color:var(--gold-light);">{{ prod.prix | eur | replace("€", "") | trim }}</div>
           </div>
         {% endfor %}
         <div style="text-align:center;padding:20px 16px 8px;border-top:1px solid var(--borderl);margin-top:8px;">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--cream);letter-spacing:.02em;">À partir de <em style="font-style:normal;color:var(--gold);">0,99 €</em> /g</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--cream);letter-spacing:.02em;">À partir de <em style="font-style:normal;color:var(--gold);">{{ smallBudsMin | eur }}</em> /g</div>
           <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:4px;">Idéal pour découvrir · Qualité garantie</div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;padding-top:14px;border-top:1px solid var(--borderl);">
@@ -185,22 +182,16 @@ eleventyComputed:
         <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
           <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
         </div>
-        {% set resines = [
-          {nom:"Extract Crumble",           id:"extract-crumble",           flag:"🇨🇭", cbd:"—",    prix:"9,90", crown:true, top:true},
-          {nom:"Charas CBD",                id:"charas-cbd",                flag:"🇫🇷", cbd:"—",    prix:"4,90"},
-          {nom:"Hash Primero",              id:"hash-primero",              flag:"🇫🇷", cbd:"—",    prix:"4,90"},
-          {nom:"Pollen d'Amnésia 100% CBD", id:"pollen-d-amnesia-100-cbd",  flag:"🇫🇷", cbd:"100%", prix:"4,20"},
-          {nom:"Pollen d'Or 100% CBD",      id:"pollen-d-or-100-cbd",       flag:"🇫🇷", cbd:"100%", prix:"4,20"}
-        ] %}
-        {% for p in resines %}
+        {% for prod in resines %}
+          {% set top = prod.id == "extract-crumble" %}
           <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
             <div style="display:flex;align-items:center;gap:8px;">
-              {% if p.crown %}<span style="font-size:12px;">👑</span>{% else %}<span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>{% endif %}
-              <a href="/produits/{{ p.id }}/" style="font-size:13px;color:{% if p.top %}var(--gold-light){% else %}var(--cream){% endif %};text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='{% if p.top %}var(--gold-light){% else %}var(--cream){% endif %}'">{{ p.nom }}</a>
+              {% if top %}<span style="font-size:12px;">👑</span>{% else %}<span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>{% endif %}
+              <a href="/produits/{{ prod.id }}/" style="font-size:13px;color:{% if top %}var(--gold-light){% else %}var(--cream){% endif %};text-decoration:none;transition:color .2s;" data-hover="gold">{{ prod.nom }}</a>
             </div>
-            <div style="text-align:right;font-size:13px;">{{ p.flag }}</div>
-            <div style="text-align:right;font-size:12px;color:var(--gold);">{{ p.cbd }}</div>
-            <div style="text-align:right;font-size:{% if p.top %}15px;font-weight:500;color:var(--gold-light){% else %}13.5px;color:var(--text){% endif %};">{{ p.prix }}</div>
+            <div style="text-align:right;font-size:13px;">{% if prod.id == "extract-crumble" %}🇨🇭{% else %}🇫🇷{% endif %}</div>
+            <div style="text-align:right;font-size:12px;color:var(--gold);">{{ prod.ficheTechnique["Taux de CBD"] or "—" }}</div>
+            <div style="text-align:right;font-size:{% if top %}15px;font-weight:500;color:var(--gold-light){% else %}13.5px;color:var(--text){% endif %};">{{ prod.prix | eur | replace("€", "") | trim }}</div>
           </div>
         {% endfor %}
       </div>
@@ -214,24 +205,24 @@ eleventyComputed:
         <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
           <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
         </div>
-        {% for p in [{nom:"Small Bud Lemon",id:"small-bud-lemon",flag:"🇪🇺"},{nom:"Small Bud Strawberry",id:"small-bud-strawberry",flag:"🇪🇺"}] %}
+        {% for prod in smallBuds %}
           <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
             <div style="display:flex;align-items:center;gap:8px;">
               <span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>
-              <a href="/produits/{{ p.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream)'">{{ p.nom }}</a>
+              <a href="/produits/{{ prod.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" data-hover="gold">{{ prod.nom }}</a>
             </div>
-            <div style="text-align:right;font-size:13px;">{{ p.flag }}</div>
-            <div style="text-align:right;font-size:12px;color:var(--gold);">—</div>
-            <div style="text-align:right;font-size:13.5px;font-weight:500;color:var(--gold-light);">0,99</div>
+            <div style="text-align:right;font-size:13px;">🇪🇺</div>
+            <div style="text-align:right;font-size:12px;color:var(--gold);">{{ prod.ficheTechnique["Taux de CBD"] or "—" }}</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:500;color:var(--gold-light);">{{ prod.prix | eur | replace("€", "") | trim }}</div>
           </div>
         {% endfor %}
         <div style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding:12px 0 6px;opacity:.6;margin-top:8px;">Accessoire</div>
         <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--borderl);">
           <div>
-            <a href="/produits/pod-recharge/" style="font-size:12px;color:var(--cream);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream)'">Pod Recharge</a>
+            <a href="/produits/{{ podRecharge.id }}/" style="font-size:12px;color:var(--cream);text-decoration:none;transition:color .2s;" data-hover="gold">{{ podRecharge.nom }}</a>
             <div style="font-size:11px;color:var(--muted);margin-top:2px;">Cigarette électronique</div>
           </div>
-          <div style="font-size:15px;font-weight:500;color:var(--cream);">9,90 €</div>
+          <div style="font-size:15px;font-weight:500;color:var(--cream);">{{ podRecharge.prix | eur }}</div>
         </div>
       </div>
 
@@ -244,25 +235,14 @@ eleventyComputed:
         <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
           <span>Produit</span><span></span><span></span><span style="text-align:right;">Prix</span>
         </div>
-        {% set melanges = [
-          {nom:"Mélange végétal Bergamote", id:"melange-vegetal-bergamote", prix:"6,90 €"},
-          {nom:"Mélange végétal Citron",    id:"",                          prix:"6,90 €"},
-          {nom:"Mélange végétal Menthe",    id:"melange-vegetal-menthe",    prix:"6,90 €"},
-          {nom:"Mélange végétal Natura",    id:"melange-vegetal-natura",    prix:"6,90 €"},
-          {nom:"Mélange végétal Vanille",   id:"",                          prix:"6,90 €"}
-        ] %}
-        {% for p in melanges %}
+        {% for prod in melanges %}
           <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
             <div style="display:flex;align-items:center;gap:8px;">
               <span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>
-              {% if p.id %}
-                <a href="/produits/{{ p.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream)'">{{ p.nom }}</a>
-              {% else %}
-                <span style="font-size:13px;color:var(--cream);">{{ p.nom }}</span>
-              {% endif %}
+              <a href="/produits/{{ prod.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" data-hover="gold">{{ prod.nom }}</a>
             </div>
             <div></div><div></div>
-            <div style="text-align:right;font-size:13.5px;color:var(--text);">{{ p.prix }}</div>
+            <div style="text-align:right;font-size:13.5px;color:var(--text);">{{ prod.prix | eur }}</div>
           </div>
         {% endfor %}
       </div>
@@ -311,7 +291,7 @@ eleventyComputed:
           <span style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);">Filtres</span>
           <button id="toggle-filters" type="button" title="Masquer les filtres"
                   style="display:flex;align-items:center;gap:6px;background:none;border:1px solid var(--borderl);padding:5px 10px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);transition:color .3s,border-color .3s;"
-                  onmouseover="this.style.color='var(--gold)';this.style.borderColor='rgba(201,169,110,0.35)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--borderl)'">
+                  data-hover="gold-border-soft">
             <svg id="toggle-filters-icon" style="width:12px;height:12px;transition:transform .3s;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
             </svg>
@@ -333,7 +313,7 @@ eleventyComputed:
                 {% if autre.slug != cat.slug %}
                   <a href="/categories/{{ autre.slug }}/"
                      style="display:flex;align-items:center;gap:8px;padding:9px 12px;font-size:12px;letter-spacing:.05em;color:var(--muted);border:1px solid transparent;text-decoration:none;transition:color .3s,border-color .3s;"
-                     onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--borderl)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='transparent'">
+                     data-hover="gold-border-default">
                     <span style="color:var(--gold);opacity:.5;">●</span>
                     {{ autre.nomCourt or autre.nom }}
                   </a>
@@ -380,7 +360,7 @@ eleventyComputed:
 
           <button id="reset-filters" type="button"
                   style="padding:11px;border:1px solid var(--borderl);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);background:transparent;transition:color .3s,border-color .3s;"
-                  onmouseover="this.style.color='var(--cream)';this.style.borderColor='rgba(245,240,232,0.2)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--borderl)'">
+                  data-hover="cream-border-soft">
             Réinitialiser les filtres
           </button>
 
@@ -457,182 +437,7 @@ eleventyComputed:
 </aside>
 
 
-<script>
-/* ═══════════════════════════════════════════════════════════════════
-   Filtres catégorie — dual price slider + brand checkboxes + collapse
-   ═══════════════════════════════════════════════════════════════════ */
-(function () {
-
-  /* ─── Refs ─────────────────────────────────────────────────────── */
-  const sidebar      = document.getElementById('filters-sidebar');
-  const panel        = document.getElementById('filters-panel');
-  const toggleBtn    = document.getElementById('toggle-filters');
-  const toggleIcon   = document.getElementById('toggle-filters-icon');
-  const toggleLabel  = document.getElementById('toggle-filters-label');
-  const productsCol  = sidebar ? sidebar.nextElementSibling : null;
-
-  /* ─── Collapse / expand sidebar ────────────────────────────────── */
-  let filtersOpen = true;
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', function () {
-      filtersOpen = !filtersOpen;
-      if (filtersOpen) {
-        panel.style.maxHeight = '2000px';
-        panel.style.opacity   = '1';
-        sidebar.style.width   = '240px';
-        toggleIcon.style.transform = 'rotate(0deg)';
-        toggleLabel.textContent    = 'Masquer';
-      } else {
-        panel.style.maxHeight = '0';
-        panel.style.opacity   = '0';
-        sidebar.style.width   = '0';
-        toggleIcon.style.transform = 'rotate(180deg)';
-        toggleLabel.textContent    = 'Filtres';
-      }
-    });
-  }
-
-  /* ─── Dual price slider ─────────────────────────────────────────── */
-  const wrap     = document.getElementById('price-slider-wrap');
-  const minInput = document.getElementById('price-min');
-  const maxInput = document.getElementById('price-max');
-  const fill     = document.getElementById('price-range-fill');
-  const dispMin  = document.getElementById('price-display-min');
-  const dispMax  = document.getElementById('price-display-max');
-
-  function fmtPrice(v) {
-    return parseFloat(v).toFixed(2).replace('.', ',') + ' €';
-  }
-
-  function updateSlider() {
-    if (!wrap || !fill) return;
-    const pMin  = parseFloat(wrap.dataset.prixMin);
-    const pMax  = parseFloat(wrap.dataset.prixMax);
-    const vMin  = parseFloat(minInput.value);
-    const vMax  = parseFloat(maxInput.value);
-    const range = pMax - pMin || 1;
-
-    const leftPct  = ((vMin - pMin) / range) * 100;
-    const rightPct = ((vMax - pMin) / range) * 100;
-
-    fill.style.left  = leftPct  + '%';
-    fill.style.width = (rightPct - leftPct) + '%';
-
-    if (dispMin) dispMin.textContent = fmtPrice(vMin);
-    if (dispMax) dispMax.textContent = fmtPrice(vMax);
-
-    applyFilters();
-  }
-
-  if (minInput) {
-    minInput.addEventListener('input', function () {
-      const gap = parseFloat(minInput.step) || 0.5;
-      if (parseFloat(this.value) >= parseFloat(maxInput.value) - gap) {
-        this.value = parseFloat(maxInput.value) - gap;
-      }
-      updateSlider();
-    });
-  }
-  if (maxInput) {
-    maxInput.addEventListener('input', function () {
-      const gap = parseFloat(maxInput.step) || 0.5;
-      if (parseFloat(this.value) <= parseFloat(minInput.value) + gap) {
-        this.value = parseFloat(minInput.value) + gap;
-      }
-      updateSlider();
-    });
-  }
-  if (wrap) updateSlider(); /* initial paint */
-
-  /* ─── Brand checkboxes ──────────────────────────────────────────── */
-  const brandChecks = document.querySelectorAll('[data-filter-brand]');
-  brandChecks.forEach(cb => cb.addEventListener('change', applyFilters));
-
-  /* ─── Sort select ───────────────────────────────────────────────── */
-  const sortSel = document.getElementById('sort-select');
-  if (sortSel) sortSel.addEventListener('change', applyFilters);
-
-  /* ─── Apply all filters ─────────────────────────────────────────── */
-  function applyFilters() {
-    const cards = document.querySelectorAll('[data-product-id]');
-    if (!cards.length) return;
-
-    const activeBrands = Array.from(brandChecks)
-      .filter(cb => cb.checked)
-      .map(cb => cb.dataset.filterBrand.toLowerCase());
-
-    const vMin = minInput ? parseFloat(minInput.value) : -Infinity;
-    const vMax = maxInput ? parseFloat(maxInput.value) :  Infinity;
-
-    let visible = [];
-    cards.forEach(card => {
-      const brand = (card.dataset.marque || '').toLowerCase();
-      const price = parseFloat(card.dataset.prix || '0');
-      const brandOk = activeBrands.length === 0 || activeBrands.includes(brand);
-      const priceOk = price >= vMin && price <= vMax;
-      const show    = brandOk && priceOk;
-      card.style.display = show ? '' : 'none';
-      if (show) visible.push({ card, price });
-    });
-
-    /* Sort */
-    if (sortSel && visible.length > 0) {
-      const grid = visible[0].card.parentElement;
-      if (sortSel.value === 'prix-asc')  visible.sort((a, b) => a.price - b.price);
-      if (sortSel.value === 'prix-desc') visible.sort((a, b) => b.price - a.price);
-      visible.forEach(({ card }) => grid.appendChild(card));
-    }
-  }
-
-  /* ─── Reset button ──────────────────────────────────────────────── */
-  const resetBtn = document.getElementById('reset-filters');
-  if (resetBtn) {
-    resetBtn.addEventListener('click', function () {
-      brandChecks.forEach(cb => { cb.checked = false; });
-      if (minInput && wrap) { minInput.value = wrap.dataset.prixMin; }
-      if (maxInput && wrap) { maxInput.value = wrap.dataset.prixMax; }
-      updateSlider();
-      applyFilters();
-    });
-  }
-
-  /* ─── Mobile drawer ─────────────────────────────────────────────── */
-  const openBtn    = document.getElementById('open-filters');
-  const closeBtn   = document.getElementById('close-filters');
-  const overlay    = document.getElementById('drawer-overlay');
-  const drawer     = document.getElementById('filter-drawer');
-
-  function openDrawer() {
-    if (!drawer) return;
-    drawer.classList.remove('hidden-drawer');
-    overlay.classList.remove('hidden-overlay');
-    drawer.style.transform = 'translateX(0)';
-    overlay.style.opacity  = '1';
-    document.body.style.overflow = 'hidden';
-  }
-  function closeDrawer() {
-    if (!drawer) return;
-    drawer.style.transform = 'translateX(-100%)';
-    overlay.style.opacity  = '0';
-    setTimeout(() => {
-      drawer.classList.add('hidden-drawer');
-      overlay.classList.add('hidden-overlay');
-    }, 300);
-    document.body.style.overflow = '';
-  }
-
-  if (openBtn)  openBtn.addEventListener('click', openDrawer);
-  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-  if (overlay)  overlay.addEventListener('click', closeDrawer);
-
-  /* ─── Fade-up observer ──────────────────────────────────────────── */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-})();
-</script>
+<script src="/assets/js/categorie-menu.js" defer></script>
 
 <script type="application/ld+json">
 {

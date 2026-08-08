@@ -86,7 +86,7 @@
           <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--borderl);">
             <span style="font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);">{{ cat.nom }}</span>
             <a href="/categories/{{ cat.slug }}/" style="font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .25s;"
-               onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Tout voir →</a>
+               data-hover="gold">Tout voir →</a>
           </div>
           <div class="mega-grid">
             {% for s in cat.sousCategories %}
@@ -110,7 +110,7 @@
           <div style="display:flex;align-items:center;justify-content:space-between;">
             <a href="/categories/{{ cat.slug }}/"
                style="display:block;padding:10px 0;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;letter-spacing:.06em;text-transform:uppercase;color:var(--text);text-decoration:none;transition:color .3s;flex:1;"
-               onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text)'">
+               data-hover="gold">
               {{ cat.nomCourt or cat.nom }}
             </a>
             {% if cat.sousCategories %}
@@ -128,7 +128,7 @@
               {% for s in cat.sousCategories %}
                 <a href="/categories/{{ cat.slug }}/{{ s.slug }}/"
                    style="display:block;padding:7px 0;font-size:12.5px;letter-spacing:.08em;color:var(--muted);text-decoration:none;transition:color .25s;"
-                   onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">{{ s.nom }}</a>
+                   data-hover="gold">{{ s.nom }}</a>
               {% endfor %}
             </div>
           {% endif %}
@@ -147,55 +147,5 @@
 </header>
 
 {# ─── Comportement du méga-menu ───────────────────────────────────────── #}
-<script>
-(function () {
-  'use strict';
-
-  // ── Desktop : ouverture au survol ──────────────────────────────────────
-  const items   = document.querySelectorAll('.nav-item[data-cat]');
-  const panneaux = document.querySelectorAll('.mega-panel[data-panel]');
-  let fermeture = null;
-
-  function ouvrir(slug) {
-    clearTimeout(fermeture);
-    panneaux.forEach((p) => {
-      const actif = p.dataset.panel === slug;
-      p.classList.toggle('is-open', actif);
-      p.setAttribute('aria-hidden', String(!actif));
-    });
-  }
-  // Petit délai : traverser un autre onglet en diagonale ne doit pas fermer
-  function fermerBientot() {
-    clearTimeout(fermeture);
-    fermeture = setTimeout(() => {
-      panneaux.forEach((p) => { p.classList.remove('is-open'); p.setAttribute('aria-hidden', 'true'); });
-    }, 160);
-  }
-
-  items.forEach((item) => {
-    item.addEventListener('mouseenter', () => ouvrir(item.dataset.cat));
-    item.addEventListener('mouseleave', fermerBientot);
-    // Accessibilité clavier : le panneau s'ouvre à la tabulation
-    item.querySelector('a')?.addEventListener('focus', () => ouvrir(item.dataset.cat));
-  });
-  panneaux.forEach((p) => {
-    p.addEventListener('mouseenter', () => { clearTimeout(fermeture); });
-    p.addEventListener('mouseleave', fermerBientot);
-  });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fermerBientot(); });
-
-  // ── Mobile : accordéon ─────────────────────────────────────────────────
-  document.querySelectorAll('.mobile-sub-toggle').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const cible = document.querySelector(`.mobile-sub[data-sub="${btn.dataset.cat}"]`);
-      if (!cible) return;
-      const ouvert = !cible.classList.contains('hidden');
-      cible.classList.toggle('hidden', ouvert);
-      btn.setAttribute('aria-expanded', String(!ouvert));
-      const svg = btn.querySelector('svg');
-      if (svg) svg.style.transform = ouvert ? '' : 'rotate(180deg)';
-    });
-  });
-})();
-</script>
+<script src="/assets/js/header.js" defer></script>
 

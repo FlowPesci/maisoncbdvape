@@ -5,7 +5,6 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(self), payment=()
   Cross-Origin-Opener-Policy: same-origin-allow-popups
   Cross-Origin-Resource-Policy: same-site
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://identity.netlify.com https://widget.mondialrelay.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com https://widget.mondialrelay.com; font-src 'self' https://unpkg.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://api.github.com https://github.com https://api.resend.com https://widget.mondialrelay.com https://unpkg.com; worker-src 'self' blob:; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://p.monetico-services.com;
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable

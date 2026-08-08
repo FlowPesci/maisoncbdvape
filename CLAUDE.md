@@ -163,13 +163,36 @@ de vrac**, pas le sachet — un bocal de 500 g se saisit `500`.
 délégation du domaine `maisoncbdvape.fr` et vérification Resend, compte Mondial
 Relay Start, contrat Colissimo Entreprise.
 
-**Deux chantiers de sécurité ouverts**, structurels et liés :
-- la CSP contient `unsafe-inline` et `unsafe-eval`, donc elle ne rattrape rien
-  en cas d'injection ;
-- le jeton d'administration vit dans `localStorage`, donc lisible par tout
-  script s'exécutant sur le domaine — que la CSP ne bloque pas.
+**Chantier de sécurité clos : jeton d'admin + CSP script-src.** Les deux
+étaient liés — un jeton lisible en `localStorage` combiné à une CSP qui
+autorisait `unsafe-inline`/`unsafe-eval` voulait dire qu'une seule injection
+de script suffisait à voler un jeton GitHub `repo`. Traité dans cet ordre :
 
-C'est le couple qui compte, pas chacun isolément.
+1. Le jeton GitHub ne transite plus par le navigateur : `functions/api/auth/
+   callback.js` pose un cookie de session `HttpOnly` (`mcv_admin_session`),
+   le jeton reste dans `OAUTH_KV` (`functions/_shared/session.js`).
+   `requireGithubUser` (`functions/_shared/auth.js`) le lit depuis le cookie.
+   Un second cookie non-secret, `mcv_admin_hint`, sert uniquement à afficher
+   le bouton de déconnexion et le raccourci back-office — jamais le jeton.
+2. `script-src` a perdu `unsafe-inline` et `unsafe-eval`. Le site restant
+   statique (pas de nonce possible sans serveur qui réécrit chaque réponse),
+   `scripts/build-csp.mjs` empreinte au build les quelques scripts qui
+   restent en ligne (portail d'âge, données de commande) et écrit la CSP
+   finale dans `public/_headers`, après `eleventy`. Les gestionnaires
+   `onclick="…"` sont partis vers des attributs `data-hover`/`data-focus`
+   (règles `!important` dans `tailwind/input.css`, voir ce fichier) ou vers
+   `src/assets/js/`. `/admin/contenu/*` garde `'unsafe-eval'` — Decap CMS
+   lève une `EvalError` sans, confirmé en local, pas supposé.
+
+**Reste ouvert, en connaissance de cause :**
+- `style-src` garde `unsafe-inline` : ~600 attributs `style=""` dans les
+  gabarits, retirer ce point suppose de les faire passer en classes CSS —
+  gros chantier visuel séparé, pas engagé.
+- Decap CMS gère son propre jeton GitHub dans son `localStorage` à lui
+  (`decap-cms-user`) — c'est sa bibliothèque, hors de notre contrôle sans le
+  forker ou changer de backend.
+- pdf.js (`/admin/reception/`) n'a pas été testé avec un vrai PDF sous la CSP
+  resserrée : à confirmer au premier usage réel après déploiement.
 
 **Deux références de puffs** à faire vérifier auprès des fournisseurs au regard
 de la loi de février 2025 sur les dispositifs non rechargeables :

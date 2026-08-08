@@ -97,8 +97,7 @@ permalink: /index.html
             <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--cream);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">Collection<br/>Vape 2026</div>
             <div style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;">Kits, Pods & E-liquides</div>
             <a href="/nouveautes/" style="display:inline-block;padding:8px 24px;border:1px solid rgba(201,169,110,0.35);font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:border-color .25s,background .25s;"
-               onmouseover="this.style.borderColor='var(--gold)';this.style.background='rgba(201,169,110,0.08)'"
-               onmouseout="this.style.borderColor='rgba(201,169,110,0.35)';this.style.background='transparent'">Nouveautés disponibles</a>
+               data-hover="gold-bg-soft">Nouveautés disponibles</a>
           </div>
           <div style="position:absolute;top:16px;right:16px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,240,232,0.3);">{{ site.adresse.ville | upper }} · {{ site.adresse.codePostal }}</div>
         </div>
@@ -278,38 +277,18 @@ permalink: /index.html
       Offres <em style="font-style:normal;color:var(--gold-light);">exclusives</em> & nouveautés
     </h2>
     <p style="font-size:12.5px;color:var(--muted);margin-bottom:32px;line-height:1.75;">Soyez les premiers informés de nos arrivages et offres réservées aux membres.</p>
-    <form id="newsletter-form" style="display:flex;gap:0;" onsubmit="handleNewsletter(event)" novalidate>
+    <form id="newsletter-form" style="display:flex;gap:0;" novalidate>
       <input type="email" id="newsletter-email" name="email" required placeholder="votre@email.fr" autocomplete="email"
              style="flex:1;padding:14px 20px;background:var(--dark3);border:1px solid var(--borderl);border-right:none;color:var(--cream);font-size:12.5px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .3s;"
-             onfocus="this.style.borderColor='rgba(201,169,110,0.45)'" onblur="this.style.borderColor='var(--borderl)'"/>
+             data-focus="gold-border-45"/>
       <button id="newsletter-btn" type="submit"
               style="padding:14px 28px;background:var(--gold);color:var(--dark);font-size:9.5px;letter-spacing:.25em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:opacity .2s;"
-              onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">S'inscrire</button>
+              data-hover="dim-85">S'inscrire</button>
     </form>
     <div id="newsletter-error" class="hidden" style="color:#e57373;font-size:12px;margin-top:12px;"></div>
     <div id="newsletter-success" class="hidden" style="font-size:12px;color:var(--gold);margin-top:12px;letter-spacing:.03em;">✓ Merci, vous recevrez nos bons plans en avant-première.</div>
     <div id="newsletter-already" class="hidden" style="font-size:12px;color:var(--muted);margin-top:12px;">Vous êtes déjà inscrit(e).</div>
-    <script>
-    async function handleNewsletter(e) {
-      e.preventDefault();
-      var form = document.getElementById('newsletter-form');
-      var btn  = document.getElementById('newsletter-btn');
-      var errEl= document.getElementById('newsletter-error');
-      var email= document.getElementById('newsletter-email').value.trim();
-      errEl.classList.add('hidden');
-      btn.disabled = true; btn.textContent = '…';
-      try {
-        var res  = await fetch('/api/newsletter', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email }) });
-        var data = await res.json().catch(function(){ return {}; });
-        if (!res.ok) throw new Error(data.error || 'Erreur réseau');
-        form.style.display = 'none';
-        document.getElementById(data.already ? 'newsletter-already' : 'newsletter-success').classList.remove('hidden');
-      } catch(err) {
-        errEl.textContent = err.message; errEl.classList.remove('hidden');
-        btn.disabled = false; btn.textContent = "S'inscrire";
-      }
-    }
-    </script>
+    <script src="/assets/js/index-newsletter.js" defer></script>
     <p style="font-size:10.5px;color:var(--muted);margin-top:16px;opacity:.6;">Pas de spam · Désinscription en un clic</p>
   </div>
 </section>

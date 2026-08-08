@@ -54,13 +54,39 @@ for (const f of fichiers("src", [".njk", ".html", ".js"])) {
   }
 }
 
-if (problemes.length) {
-  console.error(`[api] ✕ ${problemes.length} appel(s) à une méthode inexistante :`);
-  for (const p of problemes) console.error(`       · ${p.appel}  →  ${p.f}`);
-  console.error("\n       Ces appels lèvent un TypeError chez le visiteur, sans que rien");
-  console.error("       ne le signale à la construction. Corriger le nom, ou définir la méthode.");
+/**
+ * ─── Garde-fou : plus de jeton dans localStorage ────────────────────────────
+ * Le jeton d'administration vivait dans localStorage — lisible par tout
+ * script s'exécutant sur le domaine, y compris injecté. Il vit maintenant
+ * côté serveur (functions/_shared/session.js), retrouvé par un cookie
+ * HttpOnly. Si `localStorage.setItem`/`getItem` réapparaît sur une clé dont
+ * le nom évoque un jeton, le build échoue plutôt que de laisser la régression
+ * passer inaperçue.
+ */
+const jetonsEnStorage = [];
+for (const f of [...fichiers("src", [".njk", ".html", ".js"]), ...fichiers("admin", [".html", ".js"])]) {
+  const contenu = readFileSync(f, "utf8");
+  for (const m of contenu.matchAll(/localStorage\.(?:setItem|getItem)\(\s*['"]([^'"]*)['"]/g)) {
+    if (/token/i.test(m[1])) jetonsEnStorage.push({ f, cle: m[1] });
+  }
+}
+
+if (jetonsEnStorage.length || problemes.length) {
+  if (problemes.length) {
+    console.error(`[api] ✕ ${problemes.length} appel(s) à une méthode inexistante :`);
+    for (const p of problemes) console.error(`       · ${p.appel}  →  ${p.f}`);
+    console.error("\n       Ces appels lèvent un TypeError chez le visiteur, sans que rien");
+    console.error("       ne le signale à la construction. Corriger le nom, ou définir la méthode.");
+  }
+  if (jetonsEnStorage.length) {
+    console.error(`[api] ✕ ${jetonsEnStorage.length} clé(s) de type jeton dans localStorage :`);
+    for (const j of jetonsEnStorage) console.error(`       · "${j.cle}"  →  ${j.f}`);
+    console.error("\n       Le jeton d'administration doit rester côté serveur (cookie HttpOnly,");
+    console.error("       voir functions/_shared/session.js), jamais dans localStorage.");
+  }
   process.exit(1);
 }
 
 const total = NAMESPACES.map((n) => `${n} (${definies.get(n).size})`).join(", ");
 console.log(`[api] ✓ tous les appels correspondent à une méthode existante — ${total}`);
+console.log("[api] ✓ aucun jeton dans localStorage");

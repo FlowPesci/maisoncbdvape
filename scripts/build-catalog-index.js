@@ -474,6 +474,28 @@ export function creneauValide(jour, heure) {
 
 writeFileSync(join(ROOT, "functions/_shared/livraison.js"), livraisonOutput, "utf-8");
 
+/* ───────────────────────────────────────────────────────────────────────────
+ * Même donnée, côté navigateur — window.MCV_LIVRAISON
+ *
+ * Remplace un `<script>` inline dans base.njk : la CSP ne permet plus de
+ * script en ligne (voir CLAUDE.md, chantiers de sécurité). Générer un fichier
+ * statique à partir des mêmes `modes`/`creneaux` calculés ci-dessus évite
+ * toute divergence avec functions/_shared/livraison.js — c'est la même donnée,
+ * écrite deux fois plutôt que recalculée deux fois.
+ * ─────────────────────────────────────────────────────────────────────────── */
+const livraisonClientOutput = `/**
+ * src/assets/js/livraison-client.js
+ * ⚠ FICHIER GÉNÉRÉ AUTOMATIQUEMENT — ne pas éditer manuellement
+ * Source de vérité : src/_data/site.json → "livraison.modes"
+ * Regénérer via : node scripts/build-catalog-index.js
+ */
+window.MCV_LIVRAISON = {
+  modes: ${JSON.stringify(modes)},
+  creneaux: ${JSON.stringify(creneaux)}
+};
+`;
+writeFileSync(join(ROOT, "src/assets/js/livraison-client.js"), livraisonClientOutput, "utf-8");
+
 const actifs = Object.entries(modes).filter(([, m]) => m.actif).map(([id]) => id);
 const inactifs = Object.entries(modes).filter(([, m]) => !m.actif).map(([id]) => id);
 console.log(

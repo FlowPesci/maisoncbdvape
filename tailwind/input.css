@@ -1564,3 +1564,42 @@ em, i, cite, dfn, address, blockquote, q {
   display: inline-block;
   vertical-align: middle;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Survol / focus — data-hover, data-focus
+   ⚠ Remplace des `onmouseover="this.style.color=…"` en dur : la CSP ne peut
+   plus autoriser le script inline (voir CLAUDE.md, chantiers de sécurité).
+   La couleur de base reste un style="" en ligne (style-src garde
+   'unsafe-inline'), donc ces règles ont besoin de !important pour la
+   dépasser — un attribut data-* n'est ni un script ni un style inline, la
+   CSP ne le concerne pas. `:hover`/`:focus` restaure seul l'état de repos :
+   la valeur de sortie (onmouseout) n'a jamais eu besoin d'être reproduite.
+   ═══════════════════════════════════════════════════════════════════════════ */
+[data-hover="gold"]:hover, [data-hover="gold"]:focus { color: var(--gold) !important; }
+[data-hover="cream"]:hover, [data-hover="cream"]:focus { color: var(--cream) !important; }
+[data-hover="red"]:hover, [data-hover="red"]:focus { color: #e87461 !important; }
+[data-hover="gold-border"]:hover, [data-hover="gold-border"]:focus {
+  color: var(--gold) !important;
+  border-color: var(--gold) !important;
+}
+[data-hover="gold-border-soft"]:hover {
+  color: var(--gold) !important;
+  border-color: rgba(201,169,110,0.35) !important;
+}
+[data-hover="gold-border-default"]:hover {
+  color: var(--gold) !important;
+  border-color: var(--borderl) !important;
+}
+[data-hover="cream-border-soft"]:hover {
+  color: var(--cream) !important;
+  border-color: rgba(245,240,232,0.2) !important;
+}
+[data-hover="gold-bg-soft"]:hover {
+  border-color: var(--gold) !important;
+  background: rgba(201,169,110,0.08) !important;
+}
+[data-hover="border-gold-mild"]:hover { border-color: rgba(201,169,110,0.5) !important; }
+[data-hover="dim-85"]:hover { opacity: .85 !important; }
+[data-hover="dim-82"]:hover { opacity: .82 !important; }
+[data-focus="gold-border"]:focus { border-color: rgba(201,169,110,0.5) !important; }
+[data-focus="gold-border-45"]:focus { border-color: rgba(201,169,110,0.45) !important; }
