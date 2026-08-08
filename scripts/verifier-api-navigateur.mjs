@@ -16,7 +16,6 @@
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, extname } from "node:path";
 
-const SOURCE = "src/assets/js/tabacgex.js";
 const NAMESPACES = ["MCV_DATE", "MCV_ADMIN"];
 
 function fichiers(dossier, extensions) {
@@ -30,8 +29,13 @@ function fichiers(dossier, extensions) {
 }
 
 // Les méthodes réellement définies, lues dans les sources du navigateur.
+// ⚠ Le chantier CSP (voir CLAUDE.md) a sorti la plupart des <script> inline
+// vers src/assets/js/ — MCV_ADMIN, par exemple, se définit maintenant dans
+// admin-nav.js, plus dans un gabarit. Ne scanner que src/_includes/ rendait
+// ce contrôle aveugle en silence (namespace "non trouvé" = pas jugé, ligne
+// plus bas) : il faut aussi lire src/assets/js/.
 const definies = new Map(NAMESPACES.map((n) => [n, new Set()]));
-for (const f of [SOURCE, ...fichiers("src/_includes", [".njk"])]) {
+for (const f of [...fichiers("src/assets/js", [".js"]), ...fichiers("src/_includes", [".njk"])]) {
   const contenu = readFileSync(f, "utf8");
   for (const ns of NAMESPACES) {
     const bloc = contenu.split(`window.${ns} =`)[1];
@@ -44,11 +48,15 @@ for (const f of [SOURCE, ...fichiers("src/_includes", [".njk"])]) {
 }
 
 const problemes = [];
+const namespaceIntrouvable = new Set();
 for (const f of fichiers("src", [".njk", ".html", ".js"])) {
   const contenu = readFileSync(f, "utf8");
   for (const ns of NAMESPACES) {
     for (const m of contenu.matchAll(new RegExp(`${ns}\\.(\\w+)`, "g"))) {
-      if (!definies.get(ns).size) continue;          // namespace non trouvé : on ne juge pas
+      // Namespace appelé mais son point de définition (`window.NS = {...}`)
+      // introuvable dans les sources scannées : ne pas juger silencieusement
+      // en passerait à côté — c'est exactement l'inverse du but de ce script.
+      if (!definies.get(ns).size) { namespaceIntrouvable.add(ns); continue; }
       if (!definies.get(ns).has(m[1])) problemes.push({ f, appel: `${ns}.${m[1]}` });
     }
   }
@@ -71,7 +79,14 @@ for (const f of [...fichiers("src", [".njk", ".html", ".js"]), ...fichiers("admi
   }
 }
 
-if (jetonsEnStorage.length || problemes.length) {
+if (namespaceIntrouvable.size || jetonsEnStorage.length || problemes.length) {
+  if (namespaceIntrouvable.size) {
+    console.error(`[api] ✕ point de définition introuvable pour : ${[...namespaceIntrouvable].join(", ")}`);
+    console.error("\n       Ces namespaces sont appelés (ex. MCV_ADMIN.xxx()) mais leur");
+    console.error("       `window.NS = { ... }` n'a été trouvé dans aucun fichier scanné");
+    console.error("       (src/assets/js/**/*.js, src/_includes/**/*.njk). A-t-il été déplacé ?");
+    console.error("       Sans lui, ce contrôle ne peut plus rien vérifier pour ce namespace.");
+  }
   if (problemes.length) {
     console.error(`[api] ✕ ${problemes.length} appel(s) à une méthode inexistante :`);
     for (const p of problemes) console.error(`       · ${p.appel}  →  ${p.f}`);

@@ -89,8 +89,8 @@ const hashSources = [...hashes.keys()].map((h) => `'sha256-${h}'`);
 const CSP_GLOBALE =
   "default-src 'self'; " +
   `script-src 'self' ${hashSources.join(" ")} https://unpkg.com https://identity.netlify.com https://widget.mondialrelay.com; ` +
-  "style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com https://widget.mondialrelay.com; " +
-  "font-src 'self' https://unpkg.com https://fonts.gstatic.com data:; " +
+  "style-src 'self' 'unsafe-inline' https://unpkg.com https://widget.mondialrelay.com; " +
+  "font-src 'self' https://unpkg.com data:; " +
   "img-src 'self' data: blob: https:; " +
   "connect-src 'self' https://api.github.com https://github.com https://api.resend.com https://widget.mondialrelay.com https://unpkg.com; " +
   "worker-src 'self' blob:; " +
@@ -103,8 +103,8 @@ const CSP_GLOBALE =
 const CSP_CONTENU =
   "default-src 'self'; " +
   "script-src 'self' 'unsafe-eval' https://unpkg.com https://identity.netlify.com https://widget.mondialrelay.com; " +
-  "style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com https://widget.mondialrelay.com; " +
-  "font-src 'self' https://unpkg.com https://fonts.gstatic.com data:; " +
+  "style-src 'self' 'unsafe-inline' https://unpkg.com https://widget.mondialrelay.com; " +
+  "font-src 'self' https://unpkg.com data:; " +
   "img-src 'self' data: blob: https:; " +
   "connect-src 'self' https://api.github.com https://github.com https://api.resend.com https://widget.mondialrelay.com https://unpkg.com; " +
   "worker-src 'self' blob:; " +

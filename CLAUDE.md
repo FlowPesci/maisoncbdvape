@@ -176,6 +176,19 @@ existe : `git show HEAD~N:fichier > fichier`. Et ne pas utiliser `cat >>` pour
 compléter un fichier — l'opérateur duplique le contenu sur un fichier déjà
 partiellement écrit. Préférer une réécriture complète ou un remplacement ciblé.
 
+**Polices auto-hébergées, plus aucun appel tiers.** Cormorant Garamond, DM
+Sans et Space Mono venaient de `fonts.googleapis.com`/`fonts.gstatic.com` —
+deux requêtes qui envoyaient l'IP du visiteur à Google à chaque visite,
+le seul appel tiers du site. Les `.woff2` (sous-ensembles latin + latin-ext
+seulement, le site ne sert que du français) vivent maintenant dans
+`src/assets/fonts/`, déclarés en `@font-face` en tête de `tailwind/input.css`.
+Pour ajouter ou changer une graisse : reprendre l'URL
+`fonts.googleapis.com/css2?family=…` avec les poids voulus, ne garder que les
+blocs commentés `/* latin */` et `/* latin-ext */` de la réponse, télécharger
+les `.woff2` qu'ils pointent. Les deux `<link rel="preload">` de `head.njk`
+ne visent que les graisses du premier rendu (titre, corps de texte) — pas
+la police entière.
+
 ---
 
 ## Ce qui reste à faire
