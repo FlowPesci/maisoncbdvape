@@ -153,5 +153,32 @@ tabagique. « Idéale pour les débutants souhaitant arrêter la cigarette »
 (fiche Vibe SE 2) est à reformuler en « pensée pour une première cigarette
 électronique ».
 
+---
+
+## ⚠ Interdits légaux — puffs
+
+**Un appareil à réservoir d'e-liquide fixe ne peut pas être vendu.** Loi
+n° 2025-175 du 24 février 2025. Amende jusqu'à 100 000 €.
+
+Le critère n'est pas la batterie. **C'est le réservoir, pas la prise :** un
+appareil scellé doté d'un port USB-C tombe sous l'interdiction, même si son
+vendeur le présente comme « rechargeable ».
+
+Toute fiche de la catégorie `puffs` — hors pods et recharges vendus seuls —
+porte donc le champ `liquideRemplissable` :
+
+| Valeur | Sens | Effet au build |
+|---|---|---|
+| `true` | le client remet du liquide | passe |
+| `false` | réservoir scellé | **échec** tant que `actif` est vrai |
+| absent / vide | réponse fournisseur attendue | avertissement |
+
+Et la fiche doit le **dire au client** : une ligne de fiche technique
+(« Fourni : 2 flacons de 10 ml », « E-liquide : flacon remplaçable ») ou un
+point fort. Une conformité que la fiche tait n'est vérifiable ni par
+l'acheteur, ni par un contrôleur qui lirait la page.
+
+Contrôlé par `scripts/verifier-puffs.mjs`.
+
 Ces règles sont vérifiées à la construction par
 `scripts/verifier-redaction-produits.mjs`, qui fait échouer le build.

@@ -26,6 +26,7 @@
   "stock": 10,
   "descriptionCourte": "30 000 bouffées, format compact et deux recharges fournies. Simple, sans réglage.",
   "categorie": "puffs",
+  "liquideRemplissable": true,
   "dateAjout": "2026-05-09",
   "tags": [],
   "galerie": [],

@@ -25,6 +25,7 @@
   "stock": 10,
   "descriptionCourte": "30 000 bouffées derrière un réservoir transparent : on voit le liquide descendre.",
   "categorie": "puffs",
+  "liquideRemplissable": null,
   "dateAjout": "2026-05-09",
   "tags": [],
   "saveurs": [],

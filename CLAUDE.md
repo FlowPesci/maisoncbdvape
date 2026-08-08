@@ -12,7 +12,7 @@ payé par un bug réel.
 ## Commandes
 
 ```bash
-npm run build          # clean + css + catalog + 4 contrôles + eleventy
+npm run build          # clean + css + catalog + 5 contrôles + eleventy + CSP
 npm start              # développement, port 8080
 npm run dev            # avec les bindings Cloudflare (KV, R2, D1)
 ```
@@ -43,10 +43,11 @@ npm run verify:css        # classes utilisées sans règle CSS, tailles d'icône
 npm run verify:cms        # config Decap (elle ne se valide que dans le navigateur)
 npm run verify:api        # appels à des méthodes window.MCV_* inexistantes
 npm run verify:redaction  # allégations interdites, champs décoratifs
+npm run verify:puffs      # dispositifs à réservoir fixe (loi n° 2025-175)
 npm run test:alertes / test:inventaire / test:reception / test:commandes
 ```
 
-Les quatre `verify:` tournent dans `npm run build` et **font échouer la
+Les cinq `verify:` tournent dans `npm run build` et **font échouer la
 construction**. Ce n'est pas de la rigueur gratuite : chacun est né d'un défaut
 parti en production sans que rien ne le signale.
 
@@ -85,6 +86,29 @@ elle contenait ce produit. Modération obligatoire dans `/admin/avis/`.
 réintroduire `aggregateRating` dans le JSON-LD depuis le catalogue : cela
 diffuserait une note inventée jusque dans les résultats Google.
 
+### Aucun dispositif de vapotage à réservoir fixe
+
+Loi n° 2025-175 du 24 février 2025, en vigueur le 25 février 2025. Est
+interdite la fabrication, la mise sur le marché, la vente et l'offre à titre
+gratuit d'un dispositif de vapotage **à quantité d'e-liquide fixe**. Amende
+jusqu'à **100 000 €**, 200 000 € en récidive.
+
+Le texte ne parle pas de la batterie. **Le test est le réservoir, pas la
+prise** : un appareil scellé doté d'un port USB-C est « rechargeable » au sens
+courant et interdit au sens de la loi. Une note antérieure de ce fichier disait
+« dispositifs non rechargeables » — c'était faux, et un appareil non conforme
+serait passé pour conforme.
+
+Le champ `liquideRemplissable` porte la réponse, en trois états : `true` (le
+client remet du liquide), `false` (réservoir scellé, vente interdite), absent
+ou vide (réponse du fournisseur attendue). `verify:puffs` **fait échouer la
+construction** si un appareil `false` est encore `actif`, et avertit sans
+bloquer sur les états inconnus — bloquer sur une réponse fournisseur en attente
+aurait produit un contrôle qu'on finit par désactiver.
+
+Les pods et flacons vendus seuls sont hors périmètre : l'interdiction porte sur
+l'appareil à usage unique, pas sur la cartouche d'un appareil réutilisable.
+
 ---
 
 ## Doctrine : une seule source de vérité
@@ -102,9 +126,12 @@ endroits finit toujours par diverger.
 Pour changer un tarif : éditer `site.json`, puis rebuild. **Ne jamais
 réintroduire de valeur en dur.**
 
-⚠ Reste un endroit non conforme : `src/categories/categorie.njk` contient des
-prix CBD écrits en dur dans des tableaux Nunjucks. Ils avaient déjà divergé de
-six fiches. À brancher sur `produits` un jour.
+Une note de ce fichier a longtemps signalé des prix CBD écrits en dur dans
+`src/categories/categorie.njk`. **Ce n'est plus vrai** : les tableaux tirent
+désormais tout de `produits` (`{{ prod.prix | eur }}`), et une recherche de
+prix littéraux dans le fichier ne ramène plus rien. Vérifié le 2026-08-08.
+La note est conservée sous cette forme parce qu'un avertissement périmé fait
+perdre autant de temps qu'un bug.
 
 ---
 
@@ -194,9 +221,16 @@ de script suffisait à voler un jeton GitHub `repo`. Traité dans cet ordre :
 - pdf.js (`/admin/reception/`) n'a pas été testé avec un vrai PDF sous la CSP
   resserrée : à confirmer au premier usage réel après déploiement.
 
-**Deux références de puffs** à faire vérifier auprès des fournisseurs au regard
-de la loi de février 2025 sur les dispositifs non rechargeables :
-`starbuzz-ultra-max-25k` et `puff-30k-hyper-max-crown-bar-by-al-fakher`.
+**Quatre puffs attendent une confirmation fournisseur** sur la nature de leur
+réservoir (voir la contrainte légale plus haut). Cinq des neuf appareils sont
+documentés conformes par leur propre fiche technique — « Fourni : 2 flacons de
+10 ml », « E-liquide : flacon remplaçable ». Les quatre autres ne disent rien :
+`jnr-falcon-gem-30k`, `puff-30k-hyper-max-crown-bar-by-al-fakher`,
+`starbuzz-ultra-max-25k`, `zpluse-jnr-42k`.
+
+Le plus exposé est `puff-30k-hyper-max…`, dont la fiche technique porte
+« Type : Prérempli » sans aucune mention de recharge. Si la réponse est
+« réservoir scellé », passer la fiche en `actif: false` le jour même.
 
 **Liens sociaux** du pied de page encore en `@tabacgex` — à changer quand les
 comptes seront ouverts.

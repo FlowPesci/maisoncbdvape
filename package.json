@@ -7,7 +7,7 @@
     "clean": "node -e \"require('fs').rmSync('public',{recursive:true,force:true})\"",
     "css": "tailwindcss -i ./tailwind/input.css -o ./src/assets/css/tailwind.css --minify",
     "catalog": "node scripts/build-catalog-index.js",
-    "build": "npm run clean && npm run css && npm run catalog && npm run verify:css && npm run verify:cms && npm run verify:api && npm run verify:redaction && eleventy && npm run build:csp",
+    "build": "npm run clean && npm run css && npm run catalog && npm run verify:css && npm run verify:cms && npm run verify:api && npm run verify:redaction && npm run verify:puffs && eleventy && npm run build:csp",
     "build:csp": "node scripts/build-csp.mjs",
     "start": "concurrently \"npm run css -- --watch\" \"eleventy --serve --incremental\"",
     "dev": "wrangler pages dev public --kv ORDERS_KV --kv OAUTH_KV --r2 MEDIA --d1 STOCKS_DB",
@@ -29,7 +29,8 @@
     "verify:api": "node scripts/verifier-api-navigateur.mjs",
     "verify:redaction": "node scripts/verifier-redaction-produits.mjs --strict",
     "verify:redaction:rapport": "node scripts/verifier-redaction-produits.mjs",
-    "test:commandes": "node scripts/test-numeros-commande.mjs"
+    "test:commandes": "node scripts/test-numeros-commande.mjs",
+    "verify:puffs": "node scripts/verifier-puffs.mjs"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",

@@ -49,6 +49,7 @@
   "stock": 10,
   "descriptionCourte": "30 000 bouffées, e-liquide remplaçable et écran de contrôle. La puff qui ne se jette pas au bout d'une semaine.",
   "categorie": "puffs",
+  "liquideRemplissable": true,
   "dateAjout": "2026-05-09",
   "tags": [
     "bestseller",

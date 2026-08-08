@@ -28,6 +28,7 @@
   "stock": 10,
   "descriptionCourte": "32 000 bouffées et deux flacons fournis. Le format le plus endurant de la gamme JNR.",
   "categorie": "puffs",
+  "liquideRemplissable": true,
   "dateAjout": "2026-05-09",
   "tags": [],
   "saveurs": [],

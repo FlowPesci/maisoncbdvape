@@ -101,6 +101,21 @@ collections:
           - { label: "Puffs",             value: "puffs" }
           - { label: "Articles fumeurs",  value: "accessoires" }
 
+      # ⚠ Loi n° 2025-175 du 24 février 2025. Le critère d'interdiction est la
+      # quantité d'e-liquide FIXE, pas la batterie : un appareil scellé à port
+      # USB-C est interdit. Ne renseigner « Oui » que sur preuve (flacon fourni,
+      # réservoir rechargeable, pod remplaçable). « Non » fait échouer le build
+      # tant que le produit reste actif — c'est voulu, la vente est interdite.
+      - label: "E-liquide rechargeable par le client"
+        name: "liquideRemplissable"
+        widget: "select"
+        required: false
+        hint: "Puffs uniquement. La loi interdit la vente d'un appareil à réservoir scellé, même si la batterie se recharge. Dans le doute, laisser « À vérifier » et demander au fournisseur."
+        options:
+          - { label: "Oui — le client peut remettre du liquide", value: true }
+          - { label: "Non — réservoir scellé (VENTE INTERDITE)", value: false }
+          - { label: "À vérifier auprès du fournisseur", value: "" }
+
       - label: "Sous-catégorie"
         name: "sousCategorie"
         widget: "select"
