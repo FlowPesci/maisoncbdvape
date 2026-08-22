@@ -200,8 +200,27 @@ rapport avec la réalité du magasin. Pour les 19 fleurs, l'unité est le **gram
 de vrac**, pas le sachet — un bocal de 500 g se saisit `500`.
 
 **En attente d'accès externes :** identifiants Monetico (TPE, société, clé MAC),
-délégation du domaine `maisoncbdvape.fr` et vérification Resend, compte Mondial
-Relay Start, contrat Colissimo Entreprise.
+vérification Resend, compte Mondial Relay Start, contrat Colissimo Entreprise.
+
+**Le domaine est en service depuis le 2026-08-22.** `maisoncbdvape.fr` et
+`www.maisoncbdvape.fr` sont tous deux des domaines personnalisés du projet
+Pages `FlowPesci/maisoncbdvape`, actifs, en HTTPS, servis par le proxy
+Cloudflare. L'apex est le canonique — c'est lui que déclare `site.json`.
+
+⚠ **Le bouton « Activate domain » ne suffit pas.** Il supprime l'ancien
+enregistrement A puis rend la main sans écrire le CNAME : la fiche reste en
+« Verifying » indéfiniment, et rien n'indique qu'il manque une étape. Il faut
+ensuite ouvrir « Complete DNS setup » et cliquer « Check DNS records » — le
+CNAME existe déjà à ce stade, la vérification le constate et bascule la fiche
+en « Active / SSL enabled ». Les deux hôtes y sont passés.
+
+Les enregistrements MX (`mail-fr.securemail.pro`) et le SPF n'ont pas été
+touchés : la messagerie du domaine continue de fonctionner.
+
+Reste à faire un jour : une règle de redirection `www` → apex. Les deux hôtes
+servent aujourd'hui le même contenu ; les balises `canonical` pointent toutes
+vers l'apex, donc le référencement est déjà consolidé, mais une redirection
+serait plus propre.
 
 **Chantier de sécurité clos : jeton d'admin + CSP script-src.** Les deux
 étaient liés — un jeton lisible en `localStorage` combiné à une CSP qui
