@@ -1,0 +1,23 @@
+---
+permalink: /robots.txt
+eleventyExcludeFromCollections: true
+---
+{#
+  robots.txt — généré, plus jamais écrit à la main.
+
+  Il a longtemps été un fichier statique recopié tel quel, et son
+  « Sitemap: » a continué de désigner https://maisoncbdvape.pages.dev
+  pendant plusieurs mois après la mise en service du domaine. Rien ne
+  pouvait le signaler : le fichier était valide, servi, et faux — il
+  envoyait Google indexer l'adresse technique plutôt que la boutique.
+
+  C'est exactement la classe de bug que la doctrine du dépôt cherche à
+  éviter : une URL écrite à deux endroits finit par diverger. L'adresse
+  vient désormais de `site.json`, source unique, comme les balises
+  canonical et le plan du site.
+#}
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: {{ site.url }}/sitemap.xml

@@ -17,7 +17,7 @@ async function handle({ request, env }) {
   const url     = new URL(request.url);
   const statut  = url.searchParams.get("statut");
   const ref     = url.searchParams.get("ref");
-  const siteUrl = env.SITE_URL || "https://maisoncbdvape.pages.dev";
+  const siteUrl = env.SITE_URL || "https://maisoncbdvape.fr";
 
   // Retrouver l'orderId depuis la référence Monetico
   let orderId = "";

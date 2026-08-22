@@ -125,7 +125,7 @@ export async function onRequestPost({ request, env }) {
   await signalerReassort(env, clesVendues);
 
   // ── 7. Emails (ne doivent jamais faire échouer l'accusé de réception) ─────
-  const siteUrl = env.SITE_URL || "https://maisoncbdvape.pages.dev";
+  const siteUrl = env.SITE_URL || "https://maisoncbdvape.fr";
   try {
     await sendEmail(env, { to: order.client.email, ...paiementClient(order) });
   } catch (e) { console.error("[monetico-notification] Email client KO :", e.message); }

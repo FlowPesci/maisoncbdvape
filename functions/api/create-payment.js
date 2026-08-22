@@ -104,7 +104,7 @@ export async function onRequestPost({ request, env }) {
     return bad(resa.erreur, 409);
   }
 
-  const siteUrl = env.SITE_URL || "https://maisoncbdvape.pages.dev";
+  const siteUrl = env.SITE_URL || "https://maisoncbdvape.fr";
 
   // Montant réellement débité = articles + frais de port
   const montant   = moneticoMontant(order.totalAPayer);
