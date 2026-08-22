@@ -200,7 +200,24 @@ rapport avec la réalité du magasin. Pour les 19 fleurs, l'unité est le **gram
 de vrac**, pas le sachet — un bocal de 500 g se saisit `500`.
 
 **En attente d'accès externes :** identifiants Monetico (TPE, société, clé MAC),
-vérification Resend, compte Mondial Relay Start, contrat Colissimo Entreprise.
+compte Mondial Relay Start, contrat Colissimo Entreprise.
+
+**Resend est opérationnel depuis le 2026-08-22.** Le compte s'appelle
+`vapelab` (connexion `contact@vapelab.fr`) — c'est un héritage de l'ancien
+projet, et il héberge maintenant **deux** domaines vérifiés : `vapelab.fr` et
+`maisoncbdvape.fr`. Chercher un compte « maisoncbdvape » chez Resend ne donne
+rien ; c'est le piège.
+
+Les enregistrements vivent sur le sous-domaine d'envoi `send.maisoncbdvape.fr`
+(MX vers `feedback-smtp.eu-west-1.amazonses.com`, SPF `include:amazonses.com`),
+plus le DKIM en `resend._domainkey`. **Ce découpage est ce qui évite le
+conflit** : le SPF de la racine (`include:spf.webapps.net`, pour la messagerie
+du commerçant chez son hébergeur) reste seul et intact. Un domaine ne peut
+porter qu'un seul SPF — ne jamais en ajouter un second à la racine, ni écraser
+celui qui s'y trouve.
+
+Le MX de la racine (`mail-fr.securemail.pro`) n'a rien à voir avec Resend et ne
+doit pas être touché.
 
 **Le domaine est en service depuis le 2026-08-22.** `maisoncbdvape.fr` et
 `www.maisoncbdvape.fr` sont tous deux des domaines personnalisés du projet
