@@ -86,6 +86,15 @@ elle contenait ce produit. Modération obligatoire dans `/admin/avis/`.
 réintroduire `aggregateRating` dans le JSON-LD depuis le catalogue : cela
 diffuserait une note inventée jusque dans les résultats Google.
 
+⚠ **Une occurrence subsiste, en connaissance de cause.** `src/index.njk`
+affiche « 4.9 ★ / Satisfaction » écrit en dur dans le bandeau de chiffres de
+la page d'accueil, alors qu'aucun avis client n'existe encore. C'est la même
+nature que les deux faux avis retirés le 2026-08-01. Signalé au commerçant le
+2026-08-22, qui a choisi de le laisser pour l'instant — la décision lui
+appartient. À reprendre dès que de vrais avis existent, ou avant si la
+question de la conformité se pose. Les deux autres chiffres du bandeau
+(« 121+ références », « 48h livraison ») sont exacts.
+
 ### Aucun dispositif de vapotage à réservoir fixe
 
 Loi n° 2025-175 du 24 février 2025, en vigueur le 25 février 2025. Est
