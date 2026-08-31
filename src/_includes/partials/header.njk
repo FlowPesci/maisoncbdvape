@@ -7,7 +7,7 @@
 
       {# ─── Logo ───────────────────────────────────────────────────── #}
       <a href="/" style="text-decoration:none;flex-shrink:0;" aria-label="MaisonCBDVape – Accueil">
-        <span style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;line-height:1;">
+        <span style="font-family:var(--font-titre);font-size:1.2rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;line-height:1;">
           <span style="color:#F5F0E8;">MAISON</span><span style="color:#C9A96E;">CBD</span><span style="color:#F5F0E8;">VAPE</span>
         </span>
       </a>
@@ -84,7 +84,7 @@
       <div class="mega-panel" data-panel="{{ cat.slug }}" aria-hidden="true">
         <div style="max-width:1280px;margin:0 auto;padding:28px 40px 32px;">
           <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--borderl);">
-            <span style="font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);">{{ cat.nom }}</span>
+            <span style="font-family:var(--font-titre);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);">{{ cat.nom }}</span>
             <a href="/categories/{{ cat.slug }}/" style="font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .25s;"
                data-hover="gold">Tout voir →</a>
           </div>
@@ -109,7 +109,7 @@
         <div style="border-bottom:1px solid var(--borderl);">
           <div style="display:flex;align-items:center;justify-content:space-between;">
             <a href="/categories/{{ cat.slug }}/"
-               style="display:block;padding:10px 0;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;letter-spacing:.06em;text-transform:uppercase;color:var(--text);text-decoration:none;transition:color .3s;flex:1;"
+               style="display:block;padding:10px 0;font-family:var(--font-titre);font-size:1.6rem;font-weight:300;letter-spacing:.06em;text-transform:uppercase;color:var(--text);text-decoration:none;transition:color .3s;flex:1;"
                data-hover="gold">
               {{ cat.nomCourt or cat.nom }}
             </a>

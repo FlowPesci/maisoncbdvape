@@ -79,14 +79,14 @@
       <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div class="flex items-center gap-2">
           {% if produit.prixBarre %}
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--gold);">
+            <div style="font-family:var(--font-titre);font-size:1.5rem;font-weight:300;color:var(--gold);">
               {{ produit.prix | eur }}{% if produit.unitePrix %}/{{ produit.unitePrix }}{% endif %}
             </div>
             <div style="font-family:'DM Sans',sans-serif;color:var(--muted);font-size:.875rem;text-decoration:line-through;">
               {{ produit.prixBarre | eur }}
             </div>
           {% else %}
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--gold);">
+            <div style="font-family:var(--font-titre);font-size:1.5rem;font-weight:300;color:var(--gold);">
               {{ produit.prix | eur }}{% if produit.unitePrix %}/{{ produit.unitePrix }}{% endif %}
             </div>
           {% endif %}

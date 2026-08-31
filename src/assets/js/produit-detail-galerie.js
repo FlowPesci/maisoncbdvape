@@ -58,7 +58,7 @@
 
     return '<div class="grid sm:grid-cols-2 gap-8 mb-8">' +
       '<div class="flex flex-col items-center justify-center py-6 text-center" style="border:1px solid var(--borderl);background:var(--dark);border-radius:2px;">' +
-        '<div style="font-family:\'Cormorant Garamond\',serif;font-size:4.5rem;font-weight:300;color:var(--gold);margin-bottom:.25rem;">' + d.note + '</div>' +
+        '<div style="font-family:var(--font-titre);font-size:4.5rem;font-weight:300;color:var(--gold);margin-bottom:.25rem;">' + d.note + '</div>' +
         '<div class="flex gap-1 mb-2 text-2xl">' + etoiles(Math.round(d.note)) + '</div>' +
         '<div style="color:var(--muted);font-size:.7rem;">' +
           d.nombre + ' avis vérifié' + (d.nombre > 1 ? 's' : '') +

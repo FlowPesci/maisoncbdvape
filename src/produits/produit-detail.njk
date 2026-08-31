@@ -122,7 +122,7 @@ eleventyComputed:
       </div>
 
       {# H1 #}
-      <h1 class="fade-up" style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.5rem);color:var(--cream);font-weight:300;letter-spacing:.04em;line-height:1.05;margin-bottom:1rem;">
+      <h1 class="fade-up" style="font-family:var(--font-titre);font-size:clamp(2.2rem,5vw,3.5rem);color:var(--cream);font-weight:300;letter-spacing:.04em;line-height:1.05;margin-bottom:1rem;">
         {{ produit.nom }}
       </h1>
 
@@ -184,7 +184,7 @@ eleventyComputed:
       {# Bloc prix + stock #}
       <div style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.25rem;margin-bottom:1.25rem;">
         <div class="flex items-end gap-4 mb-3 flex-wrap">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--gold);">
+          <div style="font-family:var(--font-titre);font-size:3rem;font-weight:300;color:var(--gold);">
             {% if produit.variantes and produit.variantes | length > 0 %}
               <span id="prix-display">{{ produit.variantes[0].prix | eur }}</span>
             {% else %}
@@ -234,7 +234,7 @@ eleventyComputed:
 
       {% if produit.pointsForts and produit.pointsForts | length > 0 %}
         <div style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.25rem;margin-bottom:1.5rem;">
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.15em;color:var(--cream);margin-bottom:.5rem;font-weight:400;">POINTS FORTS</h3>
+          <h3 style="font-family:var(--font-titre);font-size:1rem;letter-spacing:.15em;color:var(--cream);margin-bottom:.5rem;font-weight:400;">POINTS FORTS</h3>
           <div>
             {% for fort in produit.pointsForts %}
               <div class="feature-item">
@@ -452,7 +452,7 @@ eleventyComputed:
       <div class="flex items-end justify-between mb-10 fade-up flex-wrap gap-4">
         <div>
           <div class="section-tag mb-4">Dans la même catégorie</div>
-          <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;color:var(--cream);letter-spacing:.04em;line-height:1.1;">
+          <h2 style="font-family:var(--font-titre);font-size:clamp(2rem,4vw,3rem);font-weight:300;color:var(--cream);letter-spacing:.04em;line-height:1.1;">
             Vous aimerez <em>aussi</em>
           </h2>
         </div>
@@ -481,7 +481,7 @@ eleventyComputed:
     <div class="flex items-center gap-3">
       <div>
         <div style="color:var(--muted);font-size:.7rem;font-family:'DM Sans',sans-serif;max-width:140px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{ produit.nom }}</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--gold);">{% if produit.variantes and produit.variantes | length > 0 %}<span id="prix-display-sticky">{{ produit.variantes[0].prix | eur }}</span>{% else %}{{ produit.prix | eur }}{% endif %}</div>
+        <div style="font-family:var(--font-titre);font-size:1.5rem;font-weight:300;color:var(--gold);">{% if produit.variantes and produit.variantes | length > 0 %}<span id="prix-display-sticky">{{ produit.variantes[0].prix | eur }}</span>{% else %}{{ produit.prix | eur }}{% endif %}</div>
       </div>
       <button data-add-to-cart="{{ produit.id }}"
               class="btn-gold flex-1 py-3.5 text-sm uppercase tracking-widest font-semibold flex items-center justify-center gap-2">

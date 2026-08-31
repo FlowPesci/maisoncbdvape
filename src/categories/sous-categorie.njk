@@ -36,7 +36,7 @@ eleventyComputed:
         {{ sous.categorieNomCourt }}
       </div>
 
-      <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(44px,7vw,88px);font-weight:300;line-height:.95;color:var(--cream);letter-spacing:-.01em;">
+      <h1 style="font-family:var(--font-titre);font-size:clamp(44px,7vw,88px);font-weight:300;line-height:.95;color:var(--cream);letter-spacing:-.01em;">
         <em style="font-style:normal;color:var(--gold);">{{ sous.nom }}</em>
       </h1>
     </div>
@@ -44,7 +44,7 @@ eleventyComputed:
     {% if nbProduits > 0 %}
       <div style="display:flex;gap:32px;align-items:center;flex-shrink:0;padding-bottom:8px;">
         <div style="text-align:right;">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold-light);">{{ nbProduits }}</div>
+          <div style="font-family:var(--font-titre);font-size:2.4rem;font-weight:300;color:var(--gold-light);">{{ nbProduits }}</div>
           <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);">Produit{% if nbProduits > 1 %}s{% endif %}</div>
         </div>
       </div>
@@ -80,7 +80,7 @@ eleventyComputed:
       </div>
     {% else %}
       <div style="text-align:center;padding:80px 20px;border:1px dashed var(--borderl);background:rgba(201,169,110,.03);">
-        <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--cream);margin-bottom:.75rem;">Aucun produit pour le moment</p>
+        <p style="font-family:var(--font-titre);font-size:1.5rem;font-weight:300;color:var(--cream);margin-bottom:.75rem;">Aucun produit pour le moment</p>
         <p style="color:var(--muted);font-size:.875rem;margin-bottom:1.5rem;">Cette sélection sera bientôt enrichie.</p>
         <a href="/categories/{{ sous.categorieSlug }}/" class="btn-gold inline-flex items-center gap-2 px-6 py-3 text-sm uppercase tracking-widest">
           Voir tout {{ sous.categorieNomCourt }}

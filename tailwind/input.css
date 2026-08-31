@@ -188,6 +188,18 @@
 @tailwind utilities;
 /* ─── Tokens globaux ──────────────────────────────────────────────────── */
 :root {
+  /* Police des titres — source unique.
+     Elle était écrite en dur dans 63 attributs `style=""` répartis sur onze
+     gabarits. Changer de police supposait de tous les retrouver, et il en
+     restait toujours un : le genre de divergence que ce dépôt paie cher.
+     Un seul endroit décide désormais. Les titres de sections, de catégories,
+     de produits, les chiffres des bandeaux et le titre d'accueil suivent
+     tous cette variable.
+     ⚠ Toute police déclarée ici doit exister en @font-face plus haut dans ce
+     fichier, et ses .woff2 vivre dans src/assets/fonts/ — le site n'appelle
+     aucun service tiers, et ne doit pas recommencer à le faire. */
+  --font-titre: 'Cormorant Garamond', Georgia, serif;
+
   --dark:       #1A1714;
   --dark2:      #221E1A;
   --dark3:      #2A2620;
