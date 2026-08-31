@@ -39,7 +39,12 @@ export default {
         'neon-blue':   '#E8D5A3',
       },
       fontFamily: {
-        'display': ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        // ⚠ Ne pas réécrire le nom de la police ici. La classe `font-display`
+        // est posée sur 76 éléments, et les attributs style="" en utilisent
+        // 63 autres : deux endroits pour une même décision, qui ont divergé
+        // le jour où l'un des deux a changé. Les deux pointent désormais sur
+        // --font-titre, déclarée une seule fois dans tailwind/input.css.
+        'display': ['var(--font-titre)'],
         'body':    ['"DM Sans"', 'system-ui', 'sans-serif'],
         'mono':    ['"Space Mono"', 'monospace'],
       },
