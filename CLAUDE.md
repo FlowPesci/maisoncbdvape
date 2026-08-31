@@ -147,6 +147,17 @@ perdre autant de temps qu'un bug.
 `variantes` est le **seul** champ sélectionnable : grammages des fleurs, saveurs
 des puffs, chacun avec son prix et sa ligne de stock.
 
+Troisième occurrence, la plus coûteuse : le bouton **« Payer en ligne (CB) »**
+s'affichait sans condition, alors que `create-payment.js` refuse de construire
+un formulaire sans `MONETICO_TPE` ni `MONETICO_SOCIETE`. Un client arrivé au
+bout du tunnel, prêt à payer, tombait sur une erreur — et ne recommence pas.
+Il est désormais conditionné à `monetico.configure` (`src/_data/monetico.js`,
+qui lit `wrangler.toml`, source unique). Quand il est masqué, le retrait en
+boutique passe en bouton principal : ce n'est plus une alternative, c'est le
+parcours. Et `MONETICO_ENV = "production"` sans identifiants **fait échouer la
+construction**, pour qu'on ne déploie jamais une boutique qui se croit en
+encaissement réel.
+
 **Les icônes ne sont pas des emojis.** `components/icone.njk` pose la classe
 `.icone` sur chaque SVG, qui le remet en `inline-block` — sans quoi le preflight
 Tailwind (`svg { display: block }`) le colle à gauche dans un conteneur
