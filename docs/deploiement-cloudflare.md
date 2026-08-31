@@ -152,8 +152,17 @@ Le contrat Monetico Paiement s'ouvre auprès de ton conseiller Crédit Mutuel.
 La banque fournit trois éléments : **n° de TPE virtuel**, **code société** et
 **clé de sécurité** (40 caractères hexadécimaux, dans un fichier « clé HMAC-SHA1 »).
 
-1. Renseigner `MONETICO_TPE`, `MONETICO_SOCIETE` (Plain) et `MONETICO_CLE_MAC`
-   (**Encrypted** — cette clé ne doit jamais apparaître en clair dans le repo).
+1. Renseigner les trois valeurs, **et elles ne vivent pas au même endroit** :
+
+   - `MONETICO_TPE` et `MONETICO_SOCIETE` → dans **`wrangler.toml`**, section
+     `[vars]`, puis `git push`. Ce projet est en « configuration par fichier » :
+     le tableau de bord Cloudflare affiche *« managed through wrangler.toml »*
+     et refuse silencieusement toute modification des variables non chiffrées.
+     Les saisir dans l'interface donne l'illusion d'avoir agi.
+   - `MONETICO_CLE_MAC` → **uniquement** dans Cloudflare Pages → Settings →
+     Variables and secrets, en type **Secret**. Les secrets sont chiffrés et
+     sont précisément le seul type que le tableau de bord laisse modifier.
+     Cette clé ne doit jamais apparaître en clair dans le dépôt.
 2. Back-office Monetico → **Paramètres** → **URL de retour** :
    `https://maisoncbdvape.fr/api/monetico-notification`
    C'est la notification serveur à serveur : elle seule fait foi pour valider
@@ -202,7 +211,8 @@ sinon l'OAuth GitHub de l'admin et les redirections de paiement pointent dans le
 - Cloudflare env var `SITE_URL` = `https://maisoncbdvape.fr` → **Re-deploy**
 - GitHub OAuth App → Homepage URL = `https://maisoncbdvape.fr`
   et Callback URL = `https://maisoncbdvape.fr/api/auth/callback`
-- Pousser le commit qui bascule `wrangler.toml`, `admin/config.yml` et `src/robots.txt`
+- Pousser le commit qui bascule `wrangler.toml` et `admin/config.yml`
+  (`robots.txt` n'a plus à être touché : il est généré depuis `site.json`)
 - Back-office Monetico → URL de retour → `https://maisoncbdvape.fr/api/monetico-notification`
 
 ### 12.4 — Vérifier le domaine dans Resend (emails transactionnels)
