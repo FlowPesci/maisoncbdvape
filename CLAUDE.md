@@ -210,8 +210,62 @@ que les quantités sont fausses, le site accepte ou refuse des ventes sans
 rapport avec la réalité du magasin. Pour les 19 fleurs, l'unité est le **gramme
 de vrac**, pas le sachet — un bocal de 500 g se saisit `500`.
 
-**En attente d'accès externes :** identifiants Monetico (TPE, société, clé MAC),
-compte Mondial Relay Start, contrat Colissimo Entreprise.
+**En attente d'accès externes :** compte Mondial Relay Start, contrat Colissimo
+Entreprise.
+
+### Monetico — la banque a validé le 2026-08-22, procédure de mise en service
+
+Le contrat est ouvert. Il reste à saisir trois valeurs, **et elles ne vivent
+pas au même endroit** — c'est le piège, parce que rien ne le signale :
+
+| Valeur | Où la saisir | Pourquoi là |
+|---|---|---|
+| `MONETICO_TPE` | `wrangler.toml`, `[vars]` | projet en configuration par fichier |
+| `MONETICO_SOCIETE` | `wrangler.toml`, `[vars]` | idem |
+| `MONETICO_CLE_MAC` | Cloudflare → Settings → Variables, type **Secret** | 40 car. hex, jamais dans le dépôt |
+
+Le tableau de bord Cloudflare est en **lecture seule** sur les variables non
+chiffrées (« managed through `wrangler.toml` ») et n'en avertit pas : les saisir
+dans l'interface donne l'illusion d'avoir agi. Seule la clé MAC, étant un
+secret, s'y modifie réellement.
+
+**Côté banque, une seule ligne à renseigner** — l'URL de notification serveur à
+serveur, qui seule fait foi pour valider un paiement (le retour navigateur ne
+prouve rien, le client peut fermer son onglet) :
+
+```
+https://maisoncbdvape.fr/api/monetico-notification
+```
+
+**Le portail dépend de l'offre**, et c'est la source de confusion la plus
+fréquente. Il y en a quatre :
+
+- **Monetico Online** — `monetico.com/online/fr/identification/authentification.html`
+  Le portail de gestion e-commerce. **C'est là que vivent les réglages
+  techniques du TPE virtuel**, donc a priori le bon.
+- Monetico Commerçant — `monetico.com/fr/identification/authentification.html`
+  Encaissements, remises, documents contractuels. Rien de technique.
+- Monetico Online **Pro** — `monetico-online-pro.com`
+- Monetico Online **Asso** — `monetico-online-asso.com`
+
+Le nom exact de l'offre figure sur le contrat (*Starter*, *Premium*, *Pro*,
+*Asso*) et tranche. Les identifiants sont ceux remis avec le contrat, pas ceux
+de la banque en ligne professionnelle.
+
+⚠ Le chemin de menu vers le champ « URL de retour » n'est pas documenté
+publiquement et varie selon l'offre — options du TPE virtuel, tantôt sous
+« Paramètres », tantôt sous « Configuration ». Le kit de développement le
+précise : `monetico.com/fr/telechargements/Documentation-technique-MO.zip`.
+Le conseiller Crédit Mutuel répond plus vite.
+
+**Recette avant production.** Garder `MONETICO_ENV = "test"` — le formulaire
+pointe alors vers `p.monetico-services.com/test/paiement.cgi` et le code retour
+est `payetest`. Jouer les paiements demandés (accepté, refusé, annulé) ;
+Monetico attend **trois accusés valides** (`version=2` / `cdr=0`) avant
+d'ouvrir le contrat. Basculer sur `production` seulement ensuite — et le build
+refuse cette bascule si TPE ou société est vide.
+
+Détail complet dans `docs/deploiement-cloudflare.md`, section 11.
 
 **Resend est opérationnel depuis le 2026-08-22.** Le compte s'appelle
 `vapelab` (connexion `contact@vapelab.fr`) — c'est un héritage de l'ancien
