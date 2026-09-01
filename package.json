@@ -30,7 +30,9 @@
     "verify:redaction": "node scripts/verifier-redaction-produits.mjs --strict",
     "verify:redaction:rapport": "node scripts/verifier-redaction-produits.mjs",
     "test:commandes": "node scripts/test-numeros-commande.mjs",
-    "verify:puffs": "node scripts/verifier-puffs.mjs"
+    "verify:puffs": "node scripts/verifier-puffs.mjs",
+    "medias:rapatrier": "node scripts/rapatrier-images-fournisseur.mjs",
+    "medias:rapatrier:test": "node scripts/rapatrier-images-fournisseur.mjs --dry-run"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",

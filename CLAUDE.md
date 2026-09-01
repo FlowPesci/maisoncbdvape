@@ -36,6 +36,22 @@ npm run db:migrate:alertes     # colonne alerteLe + tables attentes et avis
 `Authentication error [code: 10000]`, puis les suivantes passent. Le jeton OAuth
 se renouvelle après le premier refus. Relancer, simplement.
 
+### Médias
+
+```bash
+npm run medias:rapatrier:test   # liste les images encore hébergées chez un tiers
+npm run medias:rapatrier        # les télécharge, les envoie dans R2, réécrit les fiches
+```
+
+Les visuels vivent dans R2 sous le préfixe `produits/`, servis par
+`functions/media/[[key]].js`. Le **filigrane** (`maisoncbdvape.fr`, discret,
+en bas à droite) est cuit dans le fichier à l'envoi, côté navigateur, dans
+`admin/contenu/media-library.js` — une surimpression CSS ne protégerait rien,
+le fichier stocké resterait intact. Il porte l'adresse et non un `©` : les
+visuels viennent de l'ancien site vitrine et, pour partie, de fiches
+fournisseurs. **Les images rapatriées d'un grossiste ne sont pas
+filigranées**, et ne doivent pas l'être.
+
 ### Tests et contrôles
 
 ```bash
