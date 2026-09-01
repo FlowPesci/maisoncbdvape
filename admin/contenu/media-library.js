@@ -4,7 +4,91 @@
     // plus besoin de porter le jeton GitHub eux-mêmes. Voir
     // functions/_shared/session.js.
 
-    async function uploadFile(file) {
+    // ─── Filigrane ──────────────────────────────────────────────────────────
+    //
+    // Il est cuit dans le fichier AVANT l'envoi vers R2, ici, dans le
+    // navigateur. Deux raisons de le faire à cet endroit et pas ailleurs :
+    //
+    //   Un filigrane posé en CSS par-dessus l'image ne protège rien — le
+    //   fichier stocké reste intact, et l'onglet réseau le livre en un clic.
+    //   Seul le fichier lui-même vaut protection.
+    //
+    //   Et les Workers Cloudflare ne savent pas composer une image sans
+    //   passer par un service payant. Le navigateur, lui, a déjà un canvas.
+    //
+    // ⚠ Le texte est « maisoncbdvape.fr », pas « © MaisonCBDVape ». La
+    // nuance n'est pas cosmétique : les visuels du catalogue viennent de
+    // l'ancien site vitrine et, pour partie, des fiches fournisseurs. Une
+    // adresse dit « cette annonce vient de cette boutique » — ce qui est
+    // vrai. Un symbole de copyright revendiquerait la paternité des
+    // photographies, ce qui ne l'est pas.
+    //
+    // Discret et en coin, volontairement : sur une photo produit, un
+    // filigrane qui gêne la lecture de l'article coûte des ventes, et
+    // Google Shopping refuse les images à surimpression envahissante.
+
+    const FILIGRANE_TEXTE = 'maisoncbdvape.fr';
+
+    /** Les SVG sont des tracés, pas des photos : rien à marquer. */
+    const filigranable = (type) => /^image\/(jpeg|png|webp)$/.test(type);
+
+    function chargerImage(file) {
+      return new Promise((resolve, reject) => {
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+        img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('image illisible')); };
+        img.src = url;
+      });
+    }
+
+    async function filigraner(file) {
+      if (!filigranable(file.type)) return file;
+
+      let img;
+      try {
+        img = await chargerImage(file);
+      } catch {
+        // Un filigrane raté ne doit jamais empêcher une mise en ligne :
+        // le commerçant perdrait sa photo pour un ornement.
+        return file;
+      }
+
+      const c = document.createElement('canvas');
+      c.width = img.naturalWidth;
+      c.height = img.naturalHeight;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      // Taille relative à l'image : un corps fixe serait illisible sur une
+      // photo de 2000 px et écraserait une vignette de 400 px.
+      const corps = Math.max(11, Math.round(c.width * 0.028));
+      const marge = Math.round(c.width * 0.025);
+
+      ctx.font = `500 ${corps}px 'DM Sans', system-ui, sans-serif`;
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'bottom';
+
+      // Ombre portée sombre sous un texte clair : c'est ce qui rend le
+      // filigrane lisible aussi bien sur un packshot blanc que sur une
+      // photo d'ambiance sombre, sans avoir à choisir.
+      ctx.shadowColor = 'rgba(0,0,0,0.55)';
+      ctx.shadowBlur = Math.round(corps * 0.5);
+      ctx.shadowOffsetY = 1;
+      ctx.fillStyle = 'rgba(255,255,255,0.62)';
+      ctx.fillText(FILIGRANE_TEXTE, c.width - marge, c.height - marge);
+
+      // On conserve le type d'origine : convertir un PNG à fond transparent
+      // en JPEG lui donnerait un fond noir.
+      const type = file.type === 'image/png' ? 'image/png' : file.type;
+      const blob = await new Promise((r) => c.toBlob(r, type, 0.92));
+      if (!blob) return file;
+
+      return new File([blob], file.name, { type, lastModified: Date.now() });
+    }
+
+    async function uploadFile(fichierOrigine) {
+      const file = await filigraner(fichierOrigine);
       const fd = new FormData();
       fd.append('file', file);
       fd.append('folder', 'produits');
