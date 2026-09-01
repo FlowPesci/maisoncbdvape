@@ -125,11 +125,20 @@ try {
     writeFileSync(local, buf);
 
     try {
+      // ⚠ `shell: true` est indispensable ici. Sous Windows, `npx` est un
+      // `npx.cmd` : le lancer sans shell échoue en ENOENT, et l'erreur ne
+      // dit rien d'utile — on croirait à un problème d'identifiants R2 alors
+      // que c'est la commande elle-même qui n'a jamais démarré.
+      //
+      // Aucun identifiant à fournir, justement : wrangler réutilise la
+      // session OAuth déjà en place sur le poste, la même que celle de
+      // `npm run db:etat`. Créer un jeton d'API R2 pour ce script serait un
+      // secret de plus à gérer, pour rien.
       execFileSync(
         "npx",
         ["wrangler", "r2", "object", "put", `${BUCKET}/${cle}`,
          "--file", local, "--content-type", type.mime, "--remote"],
-        { stdio: "pipe" },
+        { stdio: "pipe", shell: true },
       );
     } catch (e) {
       const detail = (e.stderr?.toString() || e.message).trim().split("\n").pop();

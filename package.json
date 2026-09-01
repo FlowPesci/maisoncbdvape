@@ -32,11 +32,14 @@
     "test:commandes": "node scripts/test-numeros-commande.mjs",
     "verify:puffs": "node scripts/verifier-puffs.mjs",
     "medias:rapatrier": "node scripts/rapatrier-images-fournisseur.mjs",
-    "medias:rapatrier:test": "node scripts/rapatrier-images-fournisseur.mjs --dry-run"
+    "medias:rapatrier:test": "node scripts/rapatrier-images-fournisseur.mjs --dry-run",
+    "medias:filigraner": "node scripts/filigraner-medias.mjs",
+    "medias:filigraner:test": "node scripts/filigraner-medias.mjs --dry-run"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",
     "concurrently": "^8.2.2",
+    "sharp": "^0.34.5",
     "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
