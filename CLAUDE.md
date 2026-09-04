@@ -168,6 +168,24 @@ endroits finit toujours par diverger.
 | Format des numéros de commande | `functions/_shared/orders.js` | importé partout |
 | Validation client | `functions/_shared/valide-client.js` | les deux chemins de commande |
 
+⚠ **`SITE_URL` a une source de vérité jumelle, hors du dépôt.**
+`functions/api/auth/login.js` construit `redirect_uri = SITE_URL +
+"/api/auth/callback"` et l'envoie à GitHub, qui **refuse toute adresse non
+déclarée** dans l'application OAuth. Changer `SITE_URL` sans mettre à jour
+l'application casse donc la connexion au back-office — constaté le
+2026-09-04, écran « The redirect_uri is not associated with this
+application », après la bascule vers le `.fr`.
+
+L'application est **MaisonCBDVape Admin**, `github.com/settings/applications/3622850`
+(client `Ov23liwMg8Mc7uBdzJj3`). Le champ **« Add redirect URI » accepte
+plusieurs adresses** : ajouter la nouvelle plutôt que remplacer l'ancienne,
+sinon les déploiements de préversion `*.pages.dev` perdent leur connexion.
+
+Aucun contrôle du dépôt ne peut attraper ça : la vérité vit chez GitHub.
+`docs/deploiement-cloudflare.md` § 12.3 le listait pourtant — il a été lu et
+la ligne a quand même été oubliée. D'où cette note, à l'endroit où l'on
+regarde avant de toucher à `SITE_URL`.
+
 Pour changer un tarif : éditer `site.json`, puis rebuild. **Ne jamais
 réintroduire de valeur en dur.**
 
