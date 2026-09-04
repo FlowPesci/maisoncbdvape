@@ -348,7 +348,7 @@ eleventyComputed:
    ONGLETS — Fiche technique / Contenu / Avis
    ═══════════════════════════════════════════════════════════════════════════ #}
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 fade-up">
-  <div class="flex items-end gap-1 overflow-x-auto" style="border-bottom:1px solid var(--borderl);scrollbar-width:none;">
+  <div class="flex items-end gap-1 rail-onglets" style="border-bottom:1px solid var(--borderl);">
     {% set hasFiche = (produit.ficheTechnique | paires | length) > 0 %}
     {% set hasKit   = produit.contenuKit and produit.contenuKit | length > 0 %}
     {% set hasDesc  = produit.description and produit.description | length > 0 %}

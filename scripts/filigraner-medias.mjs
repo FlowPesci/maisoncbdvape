@@ -13,62 +13,78 @@
  *   node scripts/filigraner-medias.mjs --limit 3            → traite 3 images
  *   node scripts/filigraner-medias.mjs                      → traite tout le lot
  *
+ * ─── D'où vient la liste des clés ──────────────────────────────────────────
+ * Pas de listage du bucket : R2 peut contenir des objets orphelins (anciens
+ * envois, produits supprimés) qu'il serait inutile de filigraner et risqué
+ * de réécrire. La liste vient des fiches, exactement comme le fait
+ * scripts/rapatrier-images-fournisseur.mjs pour son propre travail : les
+ * champs `image` et `galerie` de chaque src/data-source/produits/*.json qui
+ * pointent vers `/media/produits/...` désignent les images réellement
+ * affichées par le site — c'est la bonne liste au sens métier.
+ *
  * ⚠ CES IMAGES-LÀ NE SONT PAS CONCERNÉES : les visuels rapatriés d'un
  * grossiste (voir scripts/rapatrier-images-fournisseur.mjs et CLAUDE.md,
  * section Médias) ne doivent jamais être filigranés — apposer la marque de
  * la boutique sur une photo fournisseur reviendrait à revendiquer une
- * paternité qu'elle n'a pas. Douze fiches sont concernées aujourd'hui ; la
- * liste SLUGS_GROSSISTE plus bas les protège explicitement, y compris une
- * fois rapatriées dans R2 sous une clé qui, sinon, serait indiscernable
- * d'un envoi commerçant (même convention de nommage : voir
- * functions/api/media/upload.js). Si la liste des fiches grossiste change,
- * mettre à jour SLUGS_GROSSISTE en conséquence.
+ * paternité qu'elle n'a pas. Aujourd'hui ces fiches pointent encore vers un
+ * hébergeur externe et sont donc naturellement hors du périmètre (elles ne
+ * commencent pas par /media/produits/) ; SLUGS_GROSSISTE les protège aussi
+ * explicitement pour le jour où `npm run medias:rapatrier` les aura fait
+ * entrer dans R2 sous une clé qui, sinon, serait indiscernable d'un envoi
+ * commerçant (même convention de nommage : voir functions/api/media/upload.js).
  *
  * ─── Sécurité : opération destructive et non rejouable ───────────────────
  * Chaque objet traité écrase l'original sous la même clé. Un second passage
  * marquerait une image déjà marquée. Avant toute modification, l'original
- * est donc copié (copie côté R2, pas de re-upload) sous le préfixe
- * `produits-avant-filigrane/<même nom>` — et le script REFUSE de traiter
- * une clé dont la copie existe déjà, pour ne jamais écraser une sauvegarde
- * ni marquer deux fois la même image.
+ * est donc envoyé sous le préfixe `produits-avant-filigrane/<même nom>` —
+ * et le script REFUSE de traiter une clé dont la sauvegarde existe déjà,
+ * pour ne jamais l'écraser ni marquer deux fois la même image.
  *
  * ─── Identification du format ─────────────────────────────────────────────
- * Le Content-Type stocké dans R2 peut être erroné (upload manuel, ancien
- * import) : le format réel est lu dans les octets du fichier, pas dans les
- * métadonnées. Le type d'origine est conservé à l'identique en sortie — un
- * PNG transparent repassé en JPEG prendrait un fond noir. Les SVG (tracés,
- * pas des photos) et tout ce qui n'est pas jpeg/png/webp sont ignorés,
- * exactement comme le fait `filigranable()` côté navigateur.
+ * Le Content-Type stocké dans R2 peut être erroné : le format réel est lu
+ * dans les octets du fichier, pas dans les métadonnées. Le type d'origine
+ * est conservé à l'identique en sortie — un PNG transparent repassé en JPEG
+ * prendrait un fond noir. Les SVG (tracés, pas des photos) et tout ce qui
+ * n'est pas jpeg/png/webp sont ignorés, exactement comme le fait
+ * `filigranable()` côté navigateur.
  *
- * ─── Config R2 (mêmes variables que scripts/sync-r2.mjs) ──────────────────
- *   $env:R2_ACCESS_KEY_ID     = "..."
- *   $env:R2_SECRET_ACCESS_KEY = "..."
- *   $env:R2_ACCOUNT_ID        = "..."
- * Credentials : dash.cloudflare.com → R2 → Manage R2 API Tokens.
+ * ─── Accès R2 ───────────────────────────────────────────────────────────
+ * Aucun jeton d'API : `wrangler r2 object get/put --remote` réutilise la
+ * session OAuth déjà active sur ce poste (la même que `npm run db:etat`).
+ * Pas de commande de listage d'objets dans wrangler — d'où la liste tirée
+ * du catalogue plutôt que du bucket.
  * ─────────────────────────────────────────────────────────────────────────── */
 
-import { readFileSync, readdirSync } from "node:fs";
-import { createHmac, createHash } from "node:crypto";
-import { request } from "node:https";
+import { readFileSync, writeFileSync, readdirSync, mkdtempSync, rmSync, existsSync } from "node:fs";
+import { join, dirname, resolve } from "node:path";
+import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { dirname, resolve, join } from "node:path";
+import { execFileSync } from "node:child_process";
 import sharp from "sharp";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT      = resolve(__dirname, "..");
-const BUCKET    = "tabacgex-media";
-const SRC_PREFIX    = "produits/";
-const BACKUP_PREFIX = "produits-avant-filigrane/";
-
+const CATALOG_DIR    = join(ROOT, "src/data-source/produits");
+const SRC_PREFIX      = "produits/";
+const BACKUP_PREFIX   = "produits-avant-filigrane/";
 const FILIGRANE_TEXTE = "maisoncbdvape.fr";
+
+/** Le nom du bucket vit dans wrangler.toml — source unique (idem rapatrier-images-fournisseur.mjs). */
+function bucket() {
+  const toml = readFileSync(join(ROOT, "wrangler.toml"), "utf8");
+  const m = toml.match(/\[\[r2_buckets\]\][\s\S]*?bucket_name\s*=\s*"([^"]+)"/);
+  if (!m) throw new Error("bucket_name introuvable dans wrangler.toml");
+  return m[1];
+}
+const BUCKET = bucket();
 
 /**
  * Fiches dont le visuel vient du grossiste (eproshopping.cloud) — voir
  * scripts/rapatrier-images-fournisseur.mjs. Aucune n'est dans R2 au moment
- * où ce script est écrit (elles pointent encore vers l'hébergeur tiers),
- * mais une fois rapatriées leur clé R2 (`produits/<horodatage>-<slug>.<ext>`)
- * est indiscernable d'un envoi commerçant : la protection reste donc utile
- * après coup, pas seulement aujourd'hui.
+ * où ce script est écrit (elles pointent encore vers l'hébergeur tiers, donc
+ * hors du périmètre /media/produits/ de toute façon), mais une fois
+ * rapatriées leur clé R2 devient indiscernable d'un envoi commerçant : la
+ * protection reste utile après coup, pas seulement aujourd'hui.
  */
 const SLUGS_GROSSISTE = new Set([
   "baba-au-rhum-50-ml",
@@ -94,150 +110,69 @@ function estProtegeeGrossiste(key) {
   return false;
 }
 
-// ── Config R2 ──────────────────────────────────────────────────────────────
-const ACCESS_KEY = process.env.R2_ACCESS_KEY_ID;
-const SECRET_KEY = process.env.R2_SECRET_ACCESS_KEY;
-const ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
-
-function checkConfig() {
-  if (!ACCESS_KEY || !SECRET_KEY || !ACCOUNT_ID) {
-    console.error(`
-❌  Variables d'environnement manquantes. Dans PowerShell :
-
-   $env:R2_ACCESS_KEY_ID     = "votre_access_key"
-   $env:R2_SECRET_ACCESS_KEY = "votre_secret_key"
-   $env:R2_ACCOUNT_ID        = "votre_account_id"
-
-Les credentials R2 se créent sur :
-  dash.cloudflare.com → R2 → Manage R2 API Tokens → Create API Token
-  (permissions : Object Read & Write sur le bucket ${BUCKET})
-`);
-    process.exit(1);
-  }
-}
-
-const ENDPOINT_HOST = `${ACCOUNT_ID}.r2.cloudflarestorage.com`;
-
 // ══════════════════════════════════════════════════════════════════════════
-// AWS Signature V4 (mêmes primitives que scripts/sync-r2.mjs)
+// Liste des clés — dérivée du catalogue, pas d'un listage du bucket
 // ══════════════════════════════════════════════════════════════════════════
 
-function sha256hex(data) {
-  return createHash("sha256").update(data).digest("hex");
-}
-function hmacSha256(key, data) {
-  return createHmac("sha256", key).update(data).digest();
-}
-function getSigningKey(secretKey, date, region, service) {
-  const kDate    = hmacSha256(`AWS4${secretKey}`, date);
-  const kRegion  = hmacSha256(kDate, region);
-  const kService = hmacSha256(kRegion, service);
-  return hmacSha256(kService, "aws4_request");
-}
+function collectKeysFromCatalog() {
+  const keys = new Set();
+  let externes = 0;
 
-/** Signe une requête S3 v4. `extraHeaders` : ex. x-amz-copy-source pour COPY. */
-function signRequest({ method, path, query = "", body = Buffer.alloc(0), contentType = "", extraHeaders = {} }) {
-  const now    = new Date();
-  const date   = now.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-  const day    = date.slice(0, 8);
-  const region = "auto";
-  const service= "s3";
-
-  const bodyHash = sha256hex(body);
-  const headers  = {
-    host: ENDPOINT_HOST,
-    "x-amz-date": date,
-    "x-amz-content-sha256": bodyHash,
-    ...(contentType ? { "content-type": contentType } : {}),
-    ...extraHeaders,
-  };
-
-  const signedHeaders = Object.keys(headers).sort().join(";");
-  const canonicalHeaders = Object.keys(headers).sort()
-    .map(k => `${k}:${headers[k]}\n`).join("");
-
-  const canonicalRequest = [method, path, query, canonicalHeaders, signedHeaders, bodyHash].join("\n");
-  const credentialScope = `${day}/${region}/${service}/aws4_request`;
-  const stringToSign = ["AWS4-HMAC-SHA256", date, credentialScope, sha256hex(canonicalRequest)].join("\n");
-  const sigKey = getSigningKey(SECRET_KEY, day, region, service);
-  const sig    = createHmac("sha256", sigKey).update(stringToSign).digest("hex");
-
-  return {
-    ...headers,
-    authorization: `AWS4-HMAC-SHA256 Credential=${ACCESS_KEY}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${sig}`,
-  };
-}
-
-/** Requête HTTPS générique, réponse accumulée en Buffer (binaire-safe). */
-function httpsRequest({ method, path, query = "", headers = {}, body = null }) {
-  return new Promise((resolvePromise, reject) => {
-    const fullPath = query ? `${path}?${query}` : path;
-    const req = request({ hostname: ENDPOINT_HOST, path: fullPath, method, headers }, res => {
-      const chunks = [];
-      res.on("data", c => chunks.push(c));
-      res.on("end", () => resolvePromise({ status: res.statusCode, buffer: Buffer.concat(chunks) }));
-    });
-    req.on("error", reject);
-    if (body) req.write(body);
-    req.end();
-  });
-}
-
-// ── Lister les objets sous un préfixe (pagination) ────────────────────────
-async function listR2(prefix) {
-  const keys = [];
-  let continuationToken = null;
-
-  do {
-    const query = `list-type=2&prefix=${encodeURIComponent(prefix)}&max-keys=1000`
-      + (continuationToken ? `&continuation-token=${encodeURIComponent(continuationToken)}` : "");
-    const path = `/${BUCKET}`;
-    const headers = signRequest({ method: "GET", path, query });
-    const res = await httpsRequest({ method: "GET", path, query, headers });
-
-    if (res.status !== 200) {
-      throw new Error(`Erreur R2 (HTTP ${res.status}) lors du listage de "${prefix}" :\n${res.buffer.toString("utf8")}`);
+  for (const f of readdirSync(CATALOG_DIR).filter(f => f.endsWith(".json"))) {
+    const p = JSON.parse(readFileSync(join(CATALOG_DIR, f), "utf8"));
+    const valeurs = [p.image, ...(Array.isArray(p.galerie) ? p.galerie : [])].filter(Boolean);
+    for (const v of valeurs) {
+      if (/^https?:\/\//i.test(v)) { externes++; continue; }
+      if (v.startsWith("/media/" + SRC_PREFIX)) keys.add(v.replace(/^\/media\//, ""));
     }
-    const body = res.buffer.toString("utf8");
-    for (const m of body.matchAll(/<Key>([^<]+)<\/Key>/g)) keys.push(m[1]);
-
-    const truncated = /<IsTruncated>true<\/IsTruncated>/i.test(body);
-    const tokenMatch = body.match(/<NextContinuationToken>([^<]+)<\/NextContinuationToken>/);
-    continuationToken = truncated ? tokenMatch?.[1] : null;
-  } while (continuationToken);
-
-  return keys;
-}
-
-// ── Télécharger un objet ───────────────────────────────────────────────────
-async function getR2Object(key) {
-  const path = `/${BUCKET}/${key}`;
-  const headers = signRequest({ method: "GET", path });
-  const res = await httpsRequest({ method: "GET", path, headers });
-  if (res.status !== 200) {
-    throw new Error(`GET ${key} → HTTP ${res.status} : ${res.buffer.toString("utf8").slice(0, 300)}`);
   }
-  return res.buffer;
+  return { keys: [...keys].sort(), externes };
 }
 
-// ── Envoyer un objet ────────────────────────────────────────────────────────
-async function putR2Object(key, buffer, contentType) {
-  const path = `/${BUCKET}/${key}`;
-  const headers = signRequest({ method: "PUT", path, body: buffer, contentType });
-  const res = await httpsRequest({ method: "PUT", path, headers, body: buffer });
-  if (res.status < 200 || res.status >= 300) {
-    throw new Error(`PUT ${key} → HTTP ${res.status} : ${res.buffer.toString("utf8").slice(0, 300)}`);
+/** Sécurité avant tout appel shell : n'accepter qu'un charset connu et sûr. */
+function cleAcceptable(key) {
+  return /^produits\/[A-Za-z0-9._-]+$/.test(key);
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// Accès R2 via wrangler (--remote, session OAuth déjà active sur ce poste)
+// ══════════════════════════════════════════════════════════════════════════
+
+let TRAVAIL; // dossier temporaire partagé, créé dans main(), nettoyé à la fin
+
+function wranglerGet(key) {
+  const local = join(TRAVAIL, "get-" + Date.now() + "-" + Math.random().toString(36).slice(2));
+  execFileSync(
+    "npx",
+    ["wrangler", "r2", "object", "get", `${BUCKET}/${key}`, "--remote", "--file", local],
+    { stdio: "pipe", shell: true },
+  );
+  const buf = readFileSync(local);
+  rmSync(local, { force: true });
+  return buf;
+}
+
+function wranglerPut(key, buffer, contentType) {
+  const local = join(TRAVAIL, "put-" + Date.now() + "-" + Math.random().toString(36).slice(2));
+  writeFileSync(local, buffer);
+  try {
+    execFileSync(
+      "npx",
+      ["wrangler", "r2", "object", "put", `${BUCKET}/${key}`, "--file", local, "--content-type", contentType, "--remote"],
+      { stdio: "pipe", shell: true },
+    );
+  } finally {
+    rmSync(local, { force: true });
   }
 }
 
-// ── Copier un objet côté serveur (pour la sauvegarde) ──────────────────────
-async function copyR2Object(sourceKey, destKey) {
-  const path = `/${BUCKET}/${destKey}`;
-  const copySource = `/${BUCKET}/${sourceKey.split("/").map(encodeURIComponent).join("/")}`;
-  const headers = signRequest({ method: "PUT", path, extraHeaders: { "x-amz-copy-source": copySource } });
-  const res = await httpsRequest({ method: "PUT", path, headers });
-  if (res.status < 200 || res.status >= 300) {
-    throw new Error(`COPY ${sourceKey} → ${destKey} : HTTP ${res.status} : ${res.buffer.toString("utf8").slice(0, 300)}`);
+/** Existence par tentative de lecture — wrangler n'a pas d'équivalent HEAD. */
+function wranglerExists(key) {
+  try {
+    wranglerGet(key);
+    return true;
+  } catch {
+    return false;
   }
 }
 
@@ -288,8 +223,8 @@ function buildFiligraneSvg(width, height) {
   const corps = Math.max(11, Math.round(width * 0.028));
   const marge = Math.round(width * 0.025);
   // ctx.shadowBlur du canvas n'a pas d'équivalent direct en SVG ; stdDeviation
-  // (feGaussianBlur/feDropShadow) correspond conventionnellement à la moitié
-  // du rayon de flou CSS/canvas.
+  // (feDropShadow) correspond conventionnellement à la moitié du rayon de
+  // flou CSS/canvas.
   const shadowBlur = Math.round(corps * 0.5);
   const stdDeviation = shadowBlur / 2;
   const x = width - marge;
@@ -338,115 +273,128 @@ const limitIdx = args.indexOf("--limit");
 const LIMIT = limitIdx !== -1 ? parseInt(args[limitIdx + 1], 10) : Infinity;
 
 async function main() {
-  checkConfig();
-
-  console.log(`📦  Listage de "${SRC_PREFIX}" dans ${BUCKET}…`);
-  const toutesLesClefs = await listR2(SRC_PREFIX);
-  console.log(`    ${toutesLesClefs.length} objet(s) trouvé(s)\n`);
-
-  console.log(`📦  Listage des sauvegardes déjà faites ("${BACKUP_PREFIX}")…`);
-  const clefsSauvegardees = new Set(
-    (await listR2(BACKUP_PREFIX)).map(k => k.slice(BACKUP_PREFIX.length))
-  );
-  console.log(`    ${clefsSauvegardees.size} sauvegarde(s) existante(s)\n`);
+  console.log(`🗂   Lecture du catalogue (${CATALOG_DIR})…`);
+  const { keys: toutesLesClefs, externes } = collectKeysFromCatalog();
+  console.log(`    ${toutesLesClefs.length} clé(s) distincte(s) sous ${SRC_PREFIX}, ${externes} référence(s) encore externe(s) (grossiste, hors périmètre)\n`);
 
   const eligibles = [];
-  const ignorees = { svg: [], grossiste: [], dejaTraitee: [] };
+  const ignorees = { svg: [], grossiste: [], invalide: [] };
 
   for (const key of toutesLesClefs) {
-    const nomSansPrefixe = key.slice(SRC_PREFIX.length);
+    if (!cleAcceptable(key)) { ignorees.invalide.push(key); continue; }
     if (/\.svg$/i.test(key)) { ignorees.svg.push(key); continue; }
     if (estProtegeeGrossiste(key)) { ignorees.grossiste.push(key); continue; }
-    if (clefsSauvegardees.has(nomSansPrefixe)) { ignorees.dejaTraitee.push(key); continue; }
     eligibles.push(key);
   }
 
-  const aTraiter = eligibles.slice(0, LIMIT);
-
-  console.log(`✓ ${eligibles.length} image(s) éligible(s)${LIMIT < Infinity ? ` (limité à ${aTraiter.length} pour cette exécution)` : ""}`);
+  if (ignorees.invalide.length) {
+    console.log(`⚠ ${ignorees.invalide.length} clé(s) au format inattendu, ignorée(s) par prudence :`);
+    ignorees.invalide.forEach(k => console.log(`    ${k}`));
+  }
   if (ignorees.svg.length) console.log(`⏭ ${ignorees.svg.length} SVG ignoré(s)`);
   if (ignorees.grossiste.length) {
     console.log(`⏭ ${ignorees.grossiste.length} image(s) grossiste protégée(s) (jamais filigranées) :`);
     ignorees.grossiste.forEach(k => console.log(`    ${k}`));
   }
-  if (ignorees.dejaTraitee.length) {
-    console.log(`⏭ ${ignorees.dejaTraitee.length} image(s) déjà sauvegardée(s) (déjà traitées, on ne repasse pas) :`);
-    ignorees.dejaTraitee.forEach(k => console.log(`    ${k}`));
-  }
   console.log();
 
-  if (DRY_RUN) {
-    console.log(`(--dry-run : rien n'a été téléchargé, sauvegardé ni modifié.)\n`);
-    aTraiter.forEach(k => console.log(`  ${k}`));
-    console.log(`\n${aTraiter.length} image(s) seraient traitée(s).\n`);
-    process.exit(0);
+  TRAVAIL = mkdtempSync(join(tmpdir(), "mcv-filigrane-"));
+  try {
+    let ok = 0, sautees = 0, dejaTraitees = 0;
+    const echecs = [];
+    const aTraiter = [];
+
+    // Le contrôle "déjà sauvegardée ?" coûte un appel réseau par clé : on
+    // l'accepte aussi en --dry-run pour donner un aperçu fidèle de ce qui
+    // serait réellement traité (lecture seule, aucune écriture).
+    for (const key of eligibles) {
+      if (aTraiter.length >= LIMIT) break;
+      const nomSansPrefixe = key.slice(SRC_PREFIX.length);
+      const backupKey = BACKUP_PREFIX + nomSansPrefixe;
+      process.stdout.write(`  vérification  ${key.padEnd(60)} `);
+      if (wranglerExists(backupKey)) {
+        console.log("⏭ déjà sauvegardée (déjà traitée)");
+        dejaTraitees++;
+        continue;
+      }
+      console.log("→ à traiter");
+      aTraiter.push(key);
+    }
+
+    console.log(`\n✓ ${aTraiter.length} image(s) à traiter${dejaTraitees ? `, ${dejaTraitees} déjà traitée(s) ignorée(s)` : ""}\n`);
+
+    if (DRY_RUN) {
+      console.log("(--dry-run : rien n'a été modifié ni sauvegardé.)\n");
+      aTraiter.forEach(k => console.log(`  ${k}`));
+      console.log(`\n${aTraiter.length} image(s) seraient filigranées.\n`);
+      return;
+    }
+
+    if (!aTraiter.length) {
+      console.log("Rien à traiter.\n");
+      return;
+    }
+
+    for (const key of aTraiter) {
+      const nomSansPrefixe = key.slice(SRC_PREFIX.length);
+      const backupKey = BACKUP_PREFIX + nomSansPrefixe;
+      process.stdout.write(`  ${key.padEnd(60)} `);
+
+      let buffer;
+      try {
+        buffer = wranglerGet(key);
+      } catch (e) {
+        console.log(`✗ téléchargement : ${e.message}`);
+        echecs.push([key, `téléchargement : ${e.message}`]);
+        continue;
+      }
+
+      const type = typeReel(buffer);
+      if (!type || !filigranable(type.mime)) {
+        console.log(`⏭ ignorée (${type?.mime || "type non reconnu"})`);
+        sautees++;
+        continue;
+      }
+
+      // Sauvegarde avant toute modification — jamais l'inverse.
+      try {
+        wranglerPut(backupKey, buffer, type.mime);
+      } catch (e) {
+        console.log(`✗ sauvegarde : ${e.message}`);
+        echecs.push([key, `sauvegarde : ${e.message}`]);
+        continue;
+      }
+
+      let marquee;
+      try {
+        marquee = await filigranerBuffer(buffer, type.mime);
+      } catch (e) {
+        console.log(`✗ filigrane : ${e.message} (original sauvegardé sous ${backupKey}, rien écrasé)`);
+        echecs.push([key, `filigrane : ${e.message}`]);
+        continue;
+      }
+
+      try {
+        wranglerPut(key, marquee, type.mime);
+      } catch (e) {
+        console.log(`✗ envoi : ${e.message} (original sauvegardé sous ${backupKey})`);
+        echecs.push([key, `envoi : ${e.message}`]);
+        continue;
+      }
+
+      console.log(`✓ ${Math.round(buffer.length / 1024)} ko → ${Math.round(marquee.length / 1024)} ko`);
+      ok++;
+    }
+
+    console.log(`\n${ok} image(s) filigranée(s), ${sautees} ignorée(s) au vol, ${echecs.length} échec(s).`);
+    if (echecs.length) {
+      console.log(`\nÉchecs (original intact ou sauvegardé, rien de perdu) :`);
+      echecs.forEach(([k, why]) => console.log(`  ${k}\n    ${why}`));
+    }
+    if (echecs.length) process.exitCode = 1;
+  } finally {
+    rmSync(TRAVAIL, { recursive: true, force: true });
   }
-
-  if (!aTraiter.length) {
-    console.log("Rien à traiter.\n");
-    process.exit(0);
-  }
-
-  let ok = 0, sautees = 0;
-  const echecs = [];
-
-  for (const key of aTraiter) {
-    const nomSansPrefixe = key.slice(SRC_PREFIX.length);
-    process.stdout.write(`  ${key.padEnd(60)} `);
-
-    let buffer;
-    try {
-      buffer = await getR2Object(key);
-    } catch (e) {
-      console.log(`✗ téléchargement : ${e.message}`);
-      echecs.push([key, e.message]);
-      continue;
-    }
-
-    const type = typeReel(buffer);
-    if (!type || !filigranable(type.mime)) {
-      console.log(`⏭ ignorée (${type?.mime || "type non reconnu"})`);
-      sautees++;
-      continue;
-    }
-
-    // Sauvegarde avant toute modification — jamais l'inverse.
-    const backupKey = BACKUP_PREFIX + nomSansPrefixe;
-    try {
-      await copyR2Object(key, backupKey);
-    } catch (e) {
-      console.log(`✗ sauvegarde : ${e.message}`);
-      echecs.push([key, `sauvegarde : ${e.message}`]);
-      continue;
-    }
-
-    let marquee;
-    try {
-      marquee = await filigranerBuffer(buffer, type.mime);
-    } catch (e) {
-      console.log(`✗ filigrane : ${e.message} (original sauvegardé, rien écrasé)`);
-      echecs.push([key, `filigrane : ${e.message}`]);
-      continue;
-    }
-
-    try {
-      await putR2Object(key, marquee, type.mime);
-    } catch (e) {
-      console.log(`✗ envoi : ${e.message} (original sauvegardé sous ${backupKey})`);
-      echecs.push([key, `envoi : ${e.message}`]);
-      continue;
-    }
-
-    console.log(`✓ ${Math.round(buffer.length / 1024)} ko → ${Math.round(marquee.length / 1024)} ko`);
-    ok++;
-  }
-
-  console.log(`\n${ok} image(s) filigranée(s), ${sautees} ignorée(s) au vol, ${echecs.length} échec(s).`);
-  if (echecs.length) {
-    console.log(`\nÉchecs (original intact ou sauvegardé, rien de perdu) :`);
-    echecs.forEach(([k, why]) => console.log(`  ${k}\n    ${why}`));
-  }
-  process.exit(echecs.length ? 1 : 0);
 }
 
 main().catch(e => {

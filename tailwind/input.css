@@ -250,6 +250,35 @@ h1, h2, h3, .heading {
 @media (max-width: 1023px) {
   .header-inner { padding: 0 16px; }
 }
+/* ─── Rail d'onglets défilant ──────────────────────────────────────────
+   Bandeaux d'onglets qui débordent horizontalement : navigation entre
+   sous-catégories, onglets d'une fiche produit.
+
+   Windows affiche une barre de défilement classique dès qu'un conteneur
+   déborde — une barre grise pleine largeur, sans rapport avec la charte,
+   sous la navigation des sous-catégories. macOS et les mobiles la masquent
+   d'eux-mêmes, d'où un défaut invisible pour qui ne développe pas sous
+   Windows.
+
+   ⚠ Masquer la barre supprime aussi le seul indice qu'il reste du contenu
+   à droite. D'où le masque de fondu : les 32 derniers pixels s'estompent,
+   ce qui signale la coupure sans meuble supplémentaire. Quand tout tient
+   dans la largeur, le fondu tombe sur du vide et ne se voit pas — il n'y
+   a donc pas de cas où il ment.
+
+   `scrollbar-width` couvre Firefox et Chrome ≥ 121 ; la pseudo-classe
+   WebKit reste nécessaire pour Safari et les Chrome plus anciens, et elle
+   ne peut pas s'écrire dans un attribut `style=""` — c'est la raison
+   d'être de cette classe plutôt que d'un style en ligne de plus. */
+.rail-onglets {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+          mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+}
+.rail-onglets::-webkit-scrollbar { display: none; }
+
 /* ─── Footer wrapper ─────────────────────────────────────────────────── */
 .footer-main {
   max-width: 1280px;
