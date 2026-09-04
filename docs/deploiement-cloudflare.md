@@ -80,7 +80,7 @@ déploiement suivant.
 
 | Variable                       | Type      | Valeur                                          |
 | ------------------------------ | --------- | ----------------------------------------------- |
-| `SITE_URL`                     | Plain     | `https://maisoncbdvape.pages.dev`               |
+| `SITE_URL`                     | wrangler.toml | `https://maisoncbdvape.fr` — et répercuter dans `admin/contenu/config.yml` + l'app OAuth GitHub |
 | `EMAIL_FROM`                   | Plain     | `MaisonCBDVape <noreply@maisoncbdvape.fr>`      |
 | `EMAIL_REPLY_TO`               | Plain     | `contact@maisoncbdvape.fr`                      |
 | `EMAIL_MERCHANT`               | Plain     | `contact@maisoncbdvape.fr`                      |

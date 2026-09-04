@@ -9,7 +9,7 @@ backend:
   name: github
   repo: FlowPesci/maisoncbdvape
   branch: main
-  base_url: https://maisoncbdvape.pages.dev
+  base_url: https://maisoncbdvape.fr
   auth_endpoint: /api/auth/login
   commit_messages:
     create: 'Création de "{{collection}} – {{slug}}"'
@@ -27,9 +27,9 @@ public_folder: "/assets/img/produits"
 locale: "fr"
 
 # Site URL (sera mis à jour automatiquement au déploiement)
-site_url: https://maisoncbdvape.pages.dev
-display_url: https://maisoncbdvape.pages.dev
-logo_url: https://maisoncbdvape.pages.dev/favicon.svg
+site_url: https://maisoncbdvape.fr
+display_url: https://maisoncbdvape.fr
+logo_url: https://maisoncbdvape.fr/favicon.svg
 
 # Active l'éditeur de contenu enrichi (markdown) avec sauvegardes automatiques
 editor:

@@ -186,6 +186,18 @@ Aucun contrôle du dépôt ne peut attraper ça : la vérité vit chez GitHub.
 la ligne a quand même été oubliée. D'où cette note, à l'endroit où l'on
 regarde avant de toucher à `SITE_URL`.
 
+**Et une troisième copie, dans `admin/contenu/config.yml`** : `base_url`,
+`site_url`, `display_url`, `logo_url`. Ce fichier est recopié tel quel vers
+`public/` — les filtres Nunjucks n'y sont pas évalués, l'adresse ne peut donc
+pas y être générée depuis `site.json`. Elle est écrite en dur, et elle était
+restée sur `pages.dev` jusqu'au 2026-09-04. `base_url` est le plus sensible :
+c'est l'origine sur laquelle Decap ouvre la fenêtre d'authentification, et un
+écart avec l'adresse de retour fait échouer la connexion à l'éditeur de
+contenu sans message clair.
+
+**Changer `SITE_URL`, c'est donc changer trois choses :** `wrangler.toml`,
+`admin/contenu/config.yml` (4 lignes), et l'application OAuth chez GitHub.
+
 Pour changer un tarif : éditer `site.json`, puis rebuild. **Ne jamais
 réintroduire de valeur en dur.**
 
