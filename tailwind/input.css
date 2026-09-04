@@ -260,24 +260,36 @@ h1, h2, h3, .heading {
    d'eux-mêmes, d'où un défaut invisible pour qui ne développe pas sous
    Windows.
 
-   ⚠ Masquer la barre supprime aussi le seul indice qu'il reste du contenu
-   à droite. D'où le masque de fondu : les 32 derniers pixels s'estompent,
-   ce qui signale la coupure sans meuble supplémentaire. Quand tout tient
-   dans la largeur, le fondu tombe sur du vide et ne se voit pas — il n'y
-   a donc pas de cas où il ment.
+   ⚠ PREMIÈRE VERSION FAUSSE, corrigée le 2026-09-04 : la barre avait été
+   simplement masquée, avec un fondu censé signaler la coupure. Sur la
+   navigation « vape », le dernier onglet — « DIY & bases » — se retrouvait
+   à 102 px hors cadre, sans barre à faire glisser et sans molette
+   horizontale sur une souris ordinaire. Il devenait **inatteignable**.
+   Signaler une coupure n'est pas donner le moyen de la franchir : c'est la
+   règle « ce qui ressemble à un choix doit en être un », prise à l'envers.
 
-   `scrollbar-width` couvre Firefox et Chrome ≥ 121 ; la pseudo-classe
-   WebKit reste nécessaire pour Safari et les Chrome plus anciens, et elle
-   ne peut pas s'écrire dans un attribut `style=""` — c'est la raison
-   d'être de cette classe plutôt que d'un style en ligne de plus. */
+   La bonne réponse n'était pas de rendre la barre acceptable, mais de
+   supprimer le débordement qui la faisait apparaître. Sur grand écran les
+   onglets passent à la ligne : tout est visible, rien à faire défiler,
+   aucune barre à masquer.
+
+   Le défilement horizontal ne subsiste que sous 1024 px, où il se pratique
+   au doigt — geste naturel, et où aucun système n'affiche de barre. C'est
+   là seulement que le masquage et le fondu ont un sens. */
 .rail-onglets {
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
-          mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+  flex-wrap: wrap;
 }
-.rail-onglets::-webkit-scrollbar { display: none; }
+@media (max-width: 1023px) {
+  .rail-onglets {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+            mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+  }
+  .rail-onglets::-webkit-scrollbar { display: none; }
+}
 
 /* ─── Footer wrapper ─────────────────────────────────────────────────── */
 .footer-main {
