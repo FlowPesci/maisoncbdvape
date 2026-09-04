@@ -103,7 +103,14 @@ déploiement suivant.
 3. Homepage URL : `https://maisoncbdvape.fr`
 4. Authorization callback URL : `https://maisoncbdvape.fr/api/auth/callback`
 5. **Register application**
-6. Sur la page de l'app : **note le Client ID**Ov23li1GlWpYhtctKhgS, puis bouton **"Generate a new client secret"** → **note le secret**616d67c24c0e9f793791d20c437f5a5ce1cd58ab
+6. Sur la page de l'app : **note le Client ID**, puis bouton **"Generate a new client secret"** → **note le secret**
+
+   ⚠ **Ne jamais recopier ces valeurs dans ce fichier.** Ce dépôt est public.
+   Un identifiant et un secret y ont figuré du premier commit au 2026-09-04,
+   lisibles par n'importe qui. Le Client ID seul est peu sensible ; le secret,
+   lui, doit être considéré comme compromis dès qu'il touche un fichier
+   versionné, et régénéré. Il n'a sa place que dans Cloudflare → Settings →
+   Variables and secrets, en type **Secret**.
 7. Renseigne ces 2 valeurs dans Cloudflare (étape 6) : `GITHUB_OAUTH_CLIENT_ID` + `GITHUB_OAUTH_CLIENT_SECRET`
 
 ---
