@@ -357,6 +357,7 @@ eleventyComputed:
     {% if hasKit   %}<button class="tab-btn {% if not hasDesc and not hasFiche %}active{% endif %}" data-tab="tab-kit">Contenu du Kit</button>{% endif %}
     <button class="tab-btn {% if not hasDesc and not hasFiche and not hasKit %}active{% endif %}" data-tab="tab-reviews">Avis Clients<span id="avis-compte"></span></button>
   </div>
+  <script src="/assets/js/rail-onglets.js" defer></script>
 
   {# ── Onglet 0 : Description longue ── #}
   {% if hasDesc %}

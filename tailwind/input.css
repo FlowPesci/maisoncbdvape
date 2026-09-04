@@ -268,28 +268,26 @@ h1, h2, h3, .heading {
    Signaler une coupure n'est pas donner le moyen de la franchir : c'est la
    règle « ce qui ressemble à un choix doit en être un », prise à l'envers.
 
-   La bonne réponse n'était pas de rendre la barre acceptable, mais de
-   supprimer le débordement qui la faisait apparaître. Sur grand écran les
-   onglets passent à la ligne : tout est visible, rien à faire défiler,
-   aucune barre à masquer.
+   Le passage à la ligne a d'abord servi de correctif, puis a été écarté :
+   il déséquilibrait le bandeau en laissant un onglet seul sur une seconde
+   ligne. Le rail tient donc sur une ligne, sans barre — et
+   `assets/js/rail-onglets.js` rend la molette efficace quand le curseur le
+   survole. Trois moyens d'atteindre les onglets masqués subsistent sans
+   JavaScript : le doigt sur mobile, `Maj + molette`, et la tabulation, qui
+   ramène nativement dans le cadre le lien qui reçoit le focus.
 
-   Le défilement horizontal ne subsiste que sous 1024 px, où il se pratique
-   au doigt — geste naturel, et où aucun système n'affiche de barre. C'est
-   là seulement que le masquage et le fondu ont un sens. */
+   Le fondu des 32 derniers pixels signale qu'il reste du contenu. Quand
+   tout tient dans la largeur il tombe sur du vide : il ne ment jamais. */
 .rail-onglets {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+          mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
 }
-@media (max-width: 1023px) {
-  .rail-onglets {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
-            mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
-  }
-  .rail-onglets::-webkit-scrollbar { display: none; }
-}
+.rail-onglets::-webkit-scrollbar { display: none; }
 
 /* ─── Footer wrapper ─────────────────────────────────────────────────── */
 .footer-main {
