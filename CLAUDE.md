@@ -60,12 +60,32 @@ npm run verify:cms        # config Decap (elle ne se valide que dans le navigate
 npm run verify:api        # appels à des méthodes window.MCV_* inexistantes
 npm run verify:redaction  # allégations interdites, champs décoratifs
 npm run verify:puffs      # dispositifs à réservoir fixe (loi n° 2025-175)
+npm run verify:cache      # empreinte de contenu sur les scripts d'/assets/
 npm run test:alertes / test:inventaire / test:reception / test:commandes
 ```
 
-Les cinq `verify:` tournent dans `npm run build` et **font échouer la
+Les six `verify:` tournent dans `npm run build` et **font échouer la
 construction**. Ce n'est pas de la rigueur gratuite : chacun est né d'un défaut
 parti en production sans que rien ne le signale.
+
+⚠ **Le cache d'`/assets/` est d'un an, en `immutable`** (`src/_headers`). Un
+fichier servi sous la même URL n'est donc plus jamais rechargé — ni par le
+navigateur, ni par le CDN. Toute référence à un script ou à une feuille de
+style doit porter son empreinte :
+
+```njk
+<script src="/assets/js/exemple.js?v={{ '/assets/js/exemple.js' | contentHash }}" defer></script>
+```
+
+Dix-neuf scripts en étaient dépourvus jusqu'au 2026-09-04, dont `header.js`,
+`admin-stocks.js` et `produit-detail-achat.js` : **toute correction de
+JavaScript pouvait rester invisible un an** sur un navigateur déjà venu.
+Constaté sur la production — `rail-onglets.js` servi en 3 328 octets quand le
+dépôt en contenait 6 059, `cf-cache-status: HIT`. Le code était juste, le
+déploiement réussi, les contrôles au vert, et rien ne changeait à l'écran.
+`verify:cache` bloque désormais la construction. **Ne jamais assouplir
+`_headers` pour contourner** : le cache long est précieux, c'est l'URL qui
+doit changer avec le contenu.
 
 ---
 

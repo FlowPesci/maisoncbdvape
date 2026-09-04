@@ -357,7 +357,7 @@ eleventyComputed:
     {% if hasKit   %}<button class="tab-btn {% if not hasDesc and not hasFiche %}active{% endif %}" data-tab="tab-kit">Contenu du Kit</button>{% endif %}
     <button class="tab-btn {% if not hasDesc and not hasFiche and not hasKit %}active{% endif %}" data-tab="tab-reviews">Avis Clients<span id="avis-compte"></span></button>
   </div>
-  <script src="/assets/js/rail-onglets.js" defer></script>
+  <script src="/assets/js/rail-onglets.js?v={{ '/assets/js/rail-onglets.js' | contentHash }}" defer></script>
 
   {# ── Onglet 0 : Description longue ── #}
   {% if hasDesc %}
@@ -533,8 +533,8 @@ eleventyComputed:
 }
 </script>
 
-<script src="/assets/js/produit-detail-galerie.js" defer></script>
+<script src="/assets/js/produit-detail-galerie.js?v={{ '/assets/js/produit-detail-galerie.js' | contentHash }}" defer></script>
 
 {% if isOutOfStock %}
-<script src="/assets/js/produit-detail-achat.js" defer></script>
+<script src="/assets/js/produit-detail-achat.js?v={{ '/assets/js/produit-detail-achat.js' | contentHash }}" defer></script>
 {% endif %}

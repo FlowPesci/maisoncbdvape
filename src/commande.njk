@@ -428,7 +428,7 @@ description: "Coordonnées et mode de livraison — MaisonCBDVape, boutique CBD 
   </form>
 
   {# ── Script : bascule Click & Collect / Livraison ── #}
-  <script src="/assets/js/commande-mode-livraison.js" defer></script>
+  <script src="/assets/js/commande-mode-livraison.js?v={{ '/assets/js/commande-mode-livraison.js' | contentHash }}" defer></script>
 
 {# Données produits exposées au JS #}
 <script id="produits-data" type="application/json">
