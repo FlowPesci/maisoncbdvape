@@ -289,6 +289,57 @@ h1, h2, h3, .heading {
 }
 .rail-onglets::-webkit-scrollbar { display: none; }
 
+/* ─── Flèches du rail ──────────────────────────────────────────────────
+   Construites par `assets/js/rail-onglets.js`, jamais écrites dans les
+   gabarits : leur présence dépend d'une mesure — le bandeau déborde-t-il ?
+   — que seul le navigateur peut faire, et qui change avec la largeur de la
+   fenêtre. Une flèche posée en dur serait affichée là où il n'y a rien à
+   atteindre : « ce qui ressemble à un choix doit en être un ».
+   Le cadre est créé au vol autour du rail : les flèches doivent rester
+   fixes pendant que le contenu défile, donc vivre en dehors du conteneur
+   qui défile. */
+.rail-cadre { position: relative; }
+.rail-fleche {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--gold);
+  background: var(--rail-fond, var(--dark2));
+  transition: color .2s, opacity .2s;
+  z-index: 2;
+}
+.rail-fleche[hidden] { display: none; }
+.rail-fleche:hover { color: var(--gold-light); }
+.rail-fleche:focus-visible { outline: 1px solid var(--gold); outline-offset: -3px; }
+.rail-fleche--gauche { left: 0; }
+.rail-fleche--droite { right: 0; }
+/* Un dégradé du fond vers la transparence, côté contenu : la flèche ne
+   coupe pas net l'onglet qu'elle recouvre, elle le laisse s'estomper. */
+.rail-fleche--gauche::after,
+.rail-fleche--droite::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 22px;
+  pointer-events: none;
+}
+.rail-fleche--gauche::after {
+  left: 100%;
+  background: linear-gradient(to right, var(--rail-fond, var(--dark2)), transparent);
+}
+.rail-fleche--droite::after {
+  right: 100%;
+  background: linear-gradient(to left, var(--rail-fond, var(--dark2)), transparent);
+}
+
 /* ─── Footer wrapper ─────────────────────────────────────────────────── */
 .footer-main {
   max-width: 1280px;
