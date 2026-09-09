@@ -12,7 +12,7 @@ en remplacement de Netlify.
 Dans PowerShell, depuis le dossier du projet :
 
 ```powershell
-cd "C:\Users\bad-g\OneDrive\Bureau\Pulsar Web\MaisonCBDVape\tabacgex-eleventy"
+cd "C:\dev\maisoncbdvape-eleventy"
 git add .
 git commit -m "Migration Cloudflare Pages : Functions + KV + OAuth GitHub"
 git push
@@ -34,9 +34,9 @@ Dans le dashboard Cloudflare :
 
 1. **Workers & Pages** (menu de gauche) → **KV**
 2. Bouton **"Create a namespace"**
-3. Nom : `tabacgex-orders` → Create
+3. Nom : `maisoncbdvape-orders` → Create
 4. **"Create a namespace"** encore
-5. Nom : `tabacgex-oauth` → Create
+5. Nom : `maisoncbdvape-oauth` → Create
 6. **Note les 2 IDs** (suite de caractères affichée à côté du nom) — ils seront utilisés à l'étape 5.
 
 ---
@@ -45,7 +45,7 @@ Dans le dashboard Cloudflare :
 
 1. **Workers & Pages** → bouton **"Create application"** → onglet **"Pages"**
 2. **"Connect to Git"** → autorise Cloudflare à accéder à GitHub
-3. Sélectionne le repo `FlowPesci/tabacgex` → **Begin setup**
+3. Sélectionne le repo `FlowPesci/maisoncbdvape` → **Begin setup**
 4. **Project name** : `maisoncbdvape` (deviendra `https://maisoncbdvape.pages.dev`)
 5. **Production branch** : `main`
 6. **Build settings** :
@@ -58,13 +58,13 @@ Dans le dashboard Cloudflare :
 
 ## 5. Configurer les bindings KV
 
-1. Dans le projet Pages tabacgex → **Settings** → **Functions** → **KV namespace bindings**
+1. Dans le projet Pages maisoncbdvape → **Settings** → **Functions** → **KV namespace bindings**
 2. **Add binding** :
    - Variable name : `ORDERS_KV`
-   - KV namespace : `tabacgex-orders`
+   - KV namespace : `maisoncbdvape-orders`
 3. **Add binding** encore :
    - Variable name : `OAUTH_KV`
-   - KV namespace : `tabacgex-oauth`
+   - KV namespace : `maisoncbdvape-oauth`
 
 ---
 
@@ -92,7 +92,7 @@ déploiement suivant.
 | `GITHUB_OAUTH_CLIENT_ID`       | Plain     | (étape 7 ci-dessous)                            |
 | `GITHUB_OAUTH_CLIENT_SECRET`   | Encrypted |                                                 |
 | `GITHUB_REPO`                  | Plain     | `FlowPesci/maisoncbdvape`                       |
-| `ADMIN_GITHUB_USERS`           | Plain     | `FlowPesci`                                     |
+| `ADMIN_GITHUB_USERS`           | wrangler.toml | `FlowPesci,VapeLab01` — identifiants GitHub, pas des e-mails |
 
 ---
 
@@ -119,8 +119,8 @@ déploiement suivant.
 
 Pour qu'il puisse modifier les produits via l'éditeur de contenu, il a besoin :
 1. **Un compte GitHub** (gratuit, 5 min sur github.com/signup)
-2. **D'être collaborateur** du repo `tabacgex` :
-   - GitHub → repo `tabacgex` → **Settings** → **Collaborators** → **Add people**
+2. **D'être collaborateur** du repo `maisoncbdvape` :
+   - GitHub → repo `maisoncbdvape` → **Settings** → **Collaborators** → **Add people**
    - Tape le username GitHub du commerçant → choisir rôle **"Write"**
    - Le commerçant accepte par email
 3. Il pourra ensuite se connecter à `/admin/` via son compte GitHub : c'est le
@@ -130,7 +130,7 @@ Pour qu'il puisse modifier les produits via l'éditeur de contenu, il a besoin :
 
 ## 9. Re-deploy
 
-Dans Cloudflare → projet tabacgex → **Deployments** → **"Retry deployment"** sur le dernier build.
+Dans Cloudflare → projet maisoncbdvape → **Deployments** → **"Retry deployment"** sur le dernier build.
 
 Cette fois le build doit réussir car les env vars sont en place.
 
@@ -278,12 +278,14 @@ Pour que les uploads d'images via Decap CMS ne déclenchent **plus de rebuilds C
 1. Cloudflare → **R2 Object Storage** (menu de gauche)
 2. **Create bucket**
 3. Name : `tabacgex-media`
+   ⚠ Ce nom-là est le vrai : le bucket R2 a gardé son nom d'origine, un
+   renommage imposerait de recopier tous les objets. Ne pas le « corriger ».
 4. Location : `Automatic` ou `Europe (EUR)`
 5. **Create**
 
 ### B. Lier le bucket au projet Pages
 
-1. Cloudflare → projet `tabacgex` → **Settings** → **Functions** → **R2 bucket bindings**
+1. Cloudflare → projet `maisoncbdvape` → **Settings** → **Functions** → **R2 bucket bindings**
 2. **Add binding** :
    - Variable name : `MEDIA`
    - R2 bucket : `tabacgex-media`
