@@ -32,7 +32,11 @@ pages_build_output_dir = "public"
 #     EMAIL_MERCHANT         = vincent.kotowski@ikmail.com,contact@maisoncbdvape.fr
 #     GITHUB_OAUTH_CLIENT_ID = Ov23liwMg8Mc7uBdzJj3
 #     GITHUB_REPO            = FlowPesci/maisoncbdvape
-#     ADMIN_GITHUB_USERS     = FlowPesci
+#     ADMIN_GITHUB_USERS     = FlowPesci,VapeLab01
+#       Identifiants GitHub (le `login`, pas l'adresse e-mail : `estAutorise`
+#       compare `user.login`). VapeLab01 est le compte du commerçant, ajouté
+#       le 2026-09-09. Chaque personne de cette liste voit toutes les
+#       commandes, coordonnées clients comprises.
 #   SECRETS (chiffrés) :
 #     RESEND_API_KEY
 #     GITHUB_OAUTH_CLIENT_SECRET
@@ -52,7 +56,7 @@ EMAIL_REPLY_TO         = "contact@maisoncbdvape.fr"
 EMAIL_MERCHANT         = "vincent.kotowski@ikmail.com,contact@maisoncbdvape.fr"
 GITHUB_OAUTH_CLIENT_ID = "Ov23liwMg8Mc7uBdzJj3"
 GITHUB_REPO            = "FlowPesci/maisoncbdvape"
-ADMIN_GITHUB_USERS     = "FlowPesci"
+ADMIN_GITHUB_USERS     = "FlowPesci,VapeLab01"
 
 # ─── Binding D1 (stocks) ──────────────────────────────────────────────────
 # Créer la base :  npx wrangler d1 create maisoncbdvape-stocks
