@@ -25,8 +25,20 @@ pages_build_output_dir = "public"
 #         l'était pas, il fallait garder https://maisoncbdvape.pages.dev,
 #         sinon l'OAuth GitHub de l'admin et les retours de paiement cassaient.
 #     MONETICO_ENV           = test   (→ "production" au lancement)
-#     MONETICO_TPE           = 7 caractères alphanumériques (n° de TPE virtuel)
-#     MONETICO_SOCIETE       = code société fourni à la création du contrat
+#       Tant qu'il vaut "test", le bouton CB reste masqué du public et n'est
+#       révélé que par ?apercu=1 — le formulaire pointe vers la plateforme de
+#       test, un vrai client n'y serait pas débité. Voir src/_data/monetico.js.
+#     MONETICO_TPE           = NI7668I   (société HALL DE LA PRESS)
+#       ⚠ Relevé sur une photo d'écran le 2026-09-09 : le 1er et le 7e
+#       caractère sont des « I » majuscules à confirmer — dans cette police,
+#       I majuscule, l minuscule et le chiffre 1 sont indiscernables. Un
+#       caractère faux fait échouer le sceau sans message explicite : la page
+#       de paiement répond « formulaire erroné », et l'on cherche du côté du
+#       calcul HMAC alors que c'est une coquille.
+#     MONETICO_SOCIETE       = halldelapr
+#       ⚠ La banque en a attribué DEUX : « halldelapr » et « halldelapr_hf ».
+#       Celui-ci est le principal. Si la recette rejette le sceau alors que le
+#       TPE est confirmé bon, essayer l'autre avant de chercher ailleurs.
 #     EMAIL_FROM             = MaisonCBDVape <noreply@maisoncbdvape.fr>
 #     EMAIL_REPLY_TO         = contact@maisoncbdvape.fr
 #     EMAIL_MERCHANT         = vincent.kotowski@ikmail.com,contact@maisoncbdvape.fr
@@ -49,8 +61,8 @@ pages_build_output_dir = "public"
 [vars]
 SITE_URL               = "https://maisoncbdvape.fr"
 MONETICO_ENV           = "test"
-MONETICO_TPE           = ""
-MONETICO_SOCIETE       = ""
+MONETICO_TPE           = "NI7668I"
+MONETICO_SOCIETE       = "halldelapr"
 EMAIL_FROM             = "MaisonCBDVape <noreply@maisoncbdvape.fr>"
 EMAIL_REPLY_TO         = "contact@maisoncbdvape.fr"
 EMAIL_MERCHANT         = "vincent.kotowski@ikmail.com,contact@maisoncbdvape.fr"
