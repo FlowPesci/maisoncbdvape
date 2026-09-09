@@ -169,9 +169,13 @@ porte donc le champ `liquideRemplissable` :
 
 | Valeur | Sens | Effet au build |
 |---|---|---|
-| `true` | le client remet du liquide | passe |
-| `false` | réservoir scellé | **échec** tant que `actif` est vrai |
-| absent / vide | réponse fournisseur attendue | avertissement |
+| `"oui"` | le client remet du liquide | passe |
+| `"non"` | réservoir scellé | **échec** tant que `actif` est vrai |
+| `""` / absent | réponse fournisseur attendue | avertissement |
+
+⚠ Ce sont des **chaînes**, pas des booléens. Le widget `select` de Decap
+n'accepte qu'une chaîne ou un nombre : avec `value: true`, l'éditeur de
+contenu refuse de démarrer en entier. `verify:cms` bloque désormais ce cas.
 
 Et la fiche doit le **dire au client** : une ligne de fiche technique
 (« Fourni : 2 flacons de 10 ml », « E-liquide : flacon remplaçable ») ou un

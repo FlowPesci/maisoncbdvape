@@ -167,9 +167,11 @@ courant et interdit au sens de la loi. Une note antérieure de ce fichier disait
 « dispositifs non rechargeables » — c'était faux, et un appareil non conforme
 serait passé pour conforme.
 
-Le champ `liquideRemplissable` porte la réponse, en trois états : `true` (le
-client remet du liquide), `false` (réservoir scellé, vente interdite), absent
-ou vide (réponse du fournisseur attendue). `verify:puffs` **fait échouer la
+Le champ `liquideRemplissable` porte la réponse, en trois états : `"oui"` (le
+client remet du liquide), `"non"` (réservoir scellé, vente interdite), chaîne
+vide ou absent (réponse du fournisseur attendue). ⚠ Ce sont des **chaînes** :
+le widget `select` de Decap n'accepte ni booléen ni `null`, et un `value: true`
+empêche l'éditeur de contenu de démarrer — `verify:cms` le bloque désormais. `verify:puffs` **fait échouer la
 construction** si un appareil `false` est encore `actif`, et avertit sans
 bloquer sur les états inconnus — bloquer sur une réponse fournisseur en attente
 aurait produit un contrôle qu'on finit par désactiver.

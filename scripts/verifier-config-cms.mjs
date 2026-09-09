@@ -37,6 +37,32 @@ try {
   process.exit(1);
 }
 
+/**
+ * Les options d'un `select` ne peuvent valoir qu'une chaîne ou un nombre.
+ *
+ * Un booléen y est refusé par le schéma de Decap, et le refus n'est pas
+ * local : l'éditeur entier s'arrête sur « Error loading the CMS
+ * configuration », plus aucune fiche n'est modifiable. C'est arrivé le
+ * 2026-09-09 avec `liquideRemplissable`, dont les options valaient `true` et
+ * `false` — ce qui semblait pourtant le type naturel pour un oui/non.
+ *
+ * Le défaut ne se voit qu'en ouvrant l'éditeur dans un navigateur : le
+ * fichier est du YAML valide, et le reste du contrôle passait au vert.
+ */
+function verifierOptions(champ, chemin) {
+  if (!Array.isArray(champ.options)) return;
+  for (const [i, opt] of champ.options.entries()) {
+    const valeur = opt && typeof opt === "object" ? opt.value : opt;
+    const type = typeof valeur;
+    if (type !== "string" && type !== "number") {
+      problemes.push(
+        `${chemin} › ${champ.name} : option #${i} de type ${type} ` +
+        `(${JSON.stringify(valeur)}) — Decap n'accepte qu'une chaîne ou un nombre`,
+      );
+    }
+  }
+}
+
 /** Decap refuse deux champs de même nom au même niveau. */
 function verifierChamps(champs, chemin) {
   if (!Array.isArray(champs)) return;
@@ -48,6 +74,8 @@ function verifierChamps(champs, chemin) {
     if (!champ.name) problemes.push(`${chemin} : un champ sans « name »`);
     else if (vus.has(champ.name)) problemes.push(`${chemin} : champ « ${champ.name} » déclaré deux fois`);
     else vus.add(champ.name);
+
+    verifierOptions(champ, chemin);
 
     // Les widgets object/list imbriquent leurs propres champs.
     verifierChamps(champ.fields, `${chemin} › ${champ.name}`);

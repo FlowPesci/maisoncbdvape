@@ -28,7 +28,7 @@
   "stock": 10,
   "descriptionCourte": "28 000 bouffées, livrée avec deux flacons de 10 ml. On recharge au lieu de racheter.",
   "categorie": "puffs",
-  "liquideRemplissable": true,
+  "liquideRemplissable": "oui",
   "dateAjout": "2026-05-09",
   "tags": [],
   "saveurs": [],

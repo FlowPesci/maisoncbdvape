@@ -60,6 +60,28 @@ const DIR = "src/data-source/produits";
 const HORS_PERIMETRE = new Set(["pods-recharges"]);
 
 /**
+ * Normalise `liquideRemplissable` en trois états : true / false / null.
+ *
+ * ⚠ La valeur est une CHAÎNE, « oui » ou « non », et non un booléen. Le
+ * widget `select` de Decap n'accepte que des chaînes ou des nombres : avec
+ * `value: true` dans sa configuration, l'éditeur de contenu refuse de
+ * démarrer en entier et plus aucune fiche n'est modifiable. Le format des
+ * données est donc dicté par le CMS, pas l'inverse.
+ *
+ * Les booléens sont encore acceptés en lecture : les neuf fiches ont été
+ * écrites ainsi avant que le défaut n'apparaisse, et une fiche restée dans
+ * l'ancien format ne doit pas basculer silencieusement en « à vérifier ».
+ *
+ * Tout le reste — chaîne vide, champ absent, valeur inattendue — vaut
+ * « réponse du fournisseur attendue ». Le doute n'est jamais un oui.
+ */
+function lireEtat(v) {
+  if (v === true || v === "oui") return true;
+  if (v === false || v === "non") return false;
+  return null;
+}
+
+/**
  * Formulations qui, dans le texte public de la fiche, informent l'acheteur
  * que l'appareil se recharge en liquide.
  */
@@ -81,13 +103,7 @@ const muets = [];
 for (const { fichier, p } of appareils) {
   const slug = p.slug || fichier.replace(/\.json$/, "");
   const actif = p.actif !== false;
-
-  // ⚠ Ne pas simplifier en `?? null`. Decap enregistre la valeur « À vérifier »
-  // sous la forme d'une chaîne vide, pas d'un null : `"" ?? null` vaut `""`,
-  // que la suite prendrait pour une réponse. Toute valeur qui n'est pas
-  // strictement booléenne est une absence de réponse.
-  const brut = p.liquideRemplissable;
-  const etat = brut === true || brut === false ? brut : null;
+  const etat = lireEtat(p.liquideRemplissable);
 
   if (etat === false) {
     if (actif) interdits.push(slug);
@@ -121,8 +137,9 @@ if (muets.length) {
 if (inconnus.length) {
   console.log(`⚠ ${inconnus.length} fiche(s) EN LIGNE dont le réservoir n'est pas qualifié :`);
   for (const s of inconnus) console.log(`    ${s}`);
-  console.log(`  → demander au fournisseur si l'e-liquide se recharge, puis renseigner`);
-  console.log(`    "liquideRemplissable": true ou false.`);
+  console.log(`  → demander au fournisseur si l'e-liquide se recharge, puis répondre`);
+  console.log(`    dans /admin/contenu/, champ « E-liquide rechargeable par le client »`);
+  console.log(`    (ou "liquideRemplissable": "oui" / "non" dans la fiche JSON).`);
   console.log(`  → si la réponse est « réservoir scellé », la vente est interdite :`);
   console.log(`    passer la fiche en "actif": false le jour même.\n`);
 }

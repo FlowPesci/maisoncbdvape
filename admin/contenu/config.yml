@@ -111,9 +111,13 @@ collections:
         widget: "select"
         required: false
         hint: "Puffs uniquement. La loi interdit la vente d'un appareil à réservoir scellé, même si la batterie se recharge. Dans le doute, laisser « À vérifier » et demander au fournisseur."
+        # ⚠ Valeurs en CHAÎNES, pas en booléens. Le widget `select` de Decap
+        # n'accepte qu'une chaîne ou un nombre : avec `value: true`, l'éditeur
+        # refuse de démarrer en entier — « Error loading the CMS
+        # configuration », et plus aucune fiche n'est modifiable.
         options:
-          - { label: "Oui — le client peut remettre du liquide", value: true }
-          - { label: "Non — réservoir scellé (VENTE INTERDITE)", value: false }
+          - { label: "Oui — le client peut remettre du liquide", value: "oui" }
+          - { label: "Non — réservoir scellé (VENTE INTERDITE)", value: "non" }
           - { label: "À vérifier auprès du fournisseur", value: "" }
 
       - label: "Sous-catégorie"
