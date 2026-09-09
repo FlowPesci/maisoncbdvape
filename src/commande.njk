@@ -400,22 +400,34 @@ description: "Coordonnées et mode de livraison — MaisonCBDVape, boutique CBD 
          mènerait à une erreur en bout de tunnel — un client prêt à payer
          qui tombe sur un échec ne recommence pas, et rien ne le signale.
          Quand il est seul, le retrait en boutique prend la mise en avant :
-         il n'est plus une alternative, c'est le parcours.                 #}
+         il n'est plus une alternative, c'est le parcours.
+
+         ⚠ Pendant la RECETTE bancaire — identifiants valides mais
+         MONETICO_ENV encore sur "test" — le bouton est rendu puis masqué,
+         et `?apercu=1` le révèle, comme les modes de livraison pas encore
+         ouverts. Sans quoi la boutique publique proposerait une caisse
+         pointant vers la plateforme de test : rien ne serait débité, et la
+         commande serait perdue sans que personne en soit averti.         #}
       <div class="space-y-3">
         <button type="submit" name="mode" value="en-magasin" data-mode="en-magasin" id="btn-en-magasin"
-                class="{{ 'btn-gold font-bold' if not monetico.configure else 'btn-ghost' }} w-full py-4 text-sm uppercase tracking-widest flex items-center justify-center gap-2.5">
+                class="{{ 'btn-gold font-bold' if not monetico.paiementCarteVisible else 'btn-ghost' }} w-full py-4 text-sm uppercase tracking-widest flex items-center justify-center gap-2.5">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
           Réserver &amp; payer en boutique
         </button>
         {% if monetico.configure %}
         <button type="submit" name="mode" value="monetico" data-mode="monetico"
-                class="btn-gold w-full py-4 text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 font-bold">
+                class="btn-gold w-full py-4 text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 font-bold{% if monetico.recette %} mode-apercu hidden{% endif %}">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
           Payer en ligne (CB)
         </button>
-        <p style="font-size:.7rem;color:var(--muted);text-align:center;font-family:'DM Sans',sans-serif;">
+        <p class="{{ 'mode-apercu hidden' if monetico.recette }}" style="font-size:.7rem;color:var(--muted);text-align:center;font-family:'DM Sans',sans-serif;">
           Paiement sécurisé via <strong style="color:var(--cream);">Monetico</strong> — Crédit Mutuel. CB, Visa, Mastercard, 3-D Secure.
         </p>
+        {% if monetico.recette %}
+        <p style="font-size:.7rem;color:var(--muted);text-align:center;font-family:'DM Sans',sans-serif;">
+          Le règlement s'effectue au retrait, en boutique — espèces ou carte bancaire.
+        </p>
+        {% endif %}
         {% else %}
         <p style="font-size:.7rem;color:var(--muted);text-align:center;font-family:'DM Sans',sans-serif;">
           Le règlement s'effectue au retrait, en boutique — espèces ou carte bancaire.

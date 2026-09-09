@@ -72,12 +72,32 @@ export default function () {
     );
   }
 
+  const configure = Boolean(tpe && societe);
+  const recette = configure && environnement.toLowerCase() !== "production";
+
   return {
-    configure: Boolean(tpe && societe),
+    configure,
     environnement,
+
+    /**
+     * Le bouton « Payer en ligne (CB) » doit-il être visible du public ?
+     *
+     * ⚠ `configure` ne suffit pas. Entre le moment où la banque livre le TPE
+     * et celui où elle ouvre le contrat, il y a la recette : identifiants
+     * valides, mais `MONETICO_ENV = "test"`, donc formulaire pointant vers
+     * `p.monetico-services.com/test/paiement.cgi`. Un client qui cliquerait
+     * pendant cette fenêtre serait envoyé sur une page de paiement fictive,
+     * et rien ne serait débité — une commande perdue, et personne d'averti.
+     *
+     * Pendant la recette, le bouton reste rendu mais masqué, révélé par
+     * `?apercu=1` comme les modes de livraison pas encore ouverts. Le
+     * commerçant peut donc jouer les paiements que la banque exige sans que
+     * la boutique publique propose une caisse qui n'encaisse pas.
+     */
+    paiementCarteVisible: configure && !recette,
     // `true` quand le paiement fonctionne mais contre la plateforme de test
     // de Monetico : aucun débit réel. Utile pour afficher un avertissement
     // au commerçant pendant la recette bancaire.
-    recette: Boolean(tpe && societe) && environnement.toLowerCase() !== "production",
+    recette,
   };
 }
