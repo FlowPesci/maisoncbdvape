@@ -52,6 +52,29 @@ visuels viennent de l'ancien site vitrine et, pour partie, de fiches
 fournisseurs. **Les images rapatriées d'un grossiste ne sont pas
 filigranées**, et ne doivent pas l'être.
 
+**Le rattrapage sur le stock existant est fait** (2026-09-04) :
+`scripts/filigraner-medias.mjs` a filigrané les 129 images qui existaient
+avant que `filigraner()` existe, en reproduisant sa formule avec sharp côté
+Node (police embarquée en SVG, `feDropShadow` pour l'ombre — voir le script
+pour le détail des équivalences canvas → SVG). Les 12 fiches grossiste ont
+été exclues (liste `SLUGS_GROSSISTE`, dans le script). Chaque original est
+sauvegardé sous `produits-avant-filigrane/<même nom>` avant écrasement ; le
+script refuse de retraiter une clé déjà sauvegardée — **il n'est pas conçu
+pour rejouer un lot déjà fait**, seulement pour combler un retard une fois.
+
+⚠ **Écraser un objet R2 à la même clé ne suffit pas à le mettre à jour pour
+les visiteurs.** `functions/media/[[key]].js` sert `Cache-Control: public,
+max-age=31536000, immutable` — jusqu'ici sans conséquence, aucun envoi ne
+réutilisait une clé existante. Ce script a été le premier à le faire, et le
+cache Cloudflare en périphérie ne l'a pas vu passer : une image déjà en
+cache est restée sans filigrane pendant des heures après l'écrasement,
+constaté en comparant la copie servie en ligne (ancienne, `cf-cache-status:
+HIT`) à la copie réelle dans R2 (filigranée, vérifiée via `wrangler r2
+object get`). Une purge de cache (Cloudflare → Caching → Purge Cache) a été
+nécessaire après coup. À refaire pour toute clé existante réécrite en place
+— voir aussi `verify:cache`, qui attrape le même piège côté `/assets/js` et
+`/assets/css`.
+
 ### Tests et contrôles
 
 ```bash
@@ -347,6 +370,15 @@ Détail complet dans `docs/deploiement-cloudflare.md`, section 11.
 projet, et il héberge maintenant **deux** domaines vérifiés : `vapelab.fr` et
 `maisoncbdvape.fr`. Chercher un compte « maisoncbdvape » chez Resend ne donne
 rien ; c'est le piège.
+
+⚠ **Cette boutique dépend donc d'un compte au nom de l'ancien projet.** Le
+site `vapelab.fr` est mis en pause à partir du 2026-09-09, et il serait
+naturel de faire le ménage dans ce qui porte ce nom. **Ne pas fermer le
+compte Resend, ne pas y supprimer le domaine `maisoncbdvape.fr`** : les
+e-mails de commande de MaisonCBDVape cesseraient de partir, sans erreur
+visible ailleurs que dans les journaux Resend. Supprimer le domaine
+`vapelab.fr` de ce compte est en revanche sans effet sur nous. Renommer le
+compte le jour où c'est possible lèverait l'ambiguïté.
 
 Les enregistrements vivent sur le sous-domaine d'envoi `send.maisoncbdvape.fr`
 (MX vers `feedback-smtp.eu-west-1.amazonses.com`, SPF `include:amazonses.com`),
