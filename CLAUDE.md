@@ -430,7 +430,23 @@ de script suffisait à voler un jeton GitHub `repo`. Traité dans cet ordre :
    `onclick="…"` sont partis vers des attributs `data-hover`/`data-focus`
    (règles `!important` dans `tailwind/input.css`, voir ce fichier) ou vers
    `src/assets/js/`. `/admin/contenu/*` garde `'unsafe-eval'` — Decap CMS
-   lève une `EvalError` sans, confirmé en local, pas supposé.
+   lève une `EvalError` sans.
+
+   ⚠ **Et le bloc permissif ne suffit pas : il faut détacher l'héritage.**
+   Une requête qui correspond à plusieurs blocs de `_headers` hérite de
+   **tous** leurs en-têtes, et un en-tête défini deux fois voit ses valeurs
+   jointes. `/admin/contenu/` correspond à `/*` **et** à son propre bloc :
+   la page recevait donc les deux politiques, et un navigateur qui en reçoit
+   plusieurs les applique toutes en n'en retenant que l'intersection. La
+   stricte continuait d'interdire `eval` ; l'éditeur de contenu refusait de
+   démarrer, avec « Error loading the CMS configuration ». Le bloc écrit
+   maintenant `! Content-Security-Policy` **avant** sa propre valeur.
+
+   Constaté en production le 2026-09-09, pas en local : `wrangler pages dev`
+   ne reproduit pas la fusion des blocs `_headers` telle que la fait le
+   réseau Cloudflare. Pour vérifier ce genre de réglage, compter les en-têtes
+   sur le site déployé — `curl -sSI … | grep -ci content-security-policy`
+   doit renvoyer **1**, jamais 2.
 
 **Reste ouvert, en connaissance de cause :**
 - `style-src` garde `unsafe-inline` : ~600 attributs `style=""` dans les

@@ -124,7 +124,19 @@ headers = headers.replace(
   `${marqueur}\n  Content-Security-Policy: ${CSP_GLOBALE}`
 );
 
-headers += `\n/admin/contenu/*\n  Content-Security-Policy: ${CSP_CONTENU}\n`;
+// ⚠ `! Content-Security-Policy` avant la nouvelle valeur, et non à la place.
+//
+// Une requête qui correspond à plusieurs blocs de `_headers` hérite de TOUS
+// leurs en-têtes, et un en-tête défini deux fois voit ses valeurs jointes
+// (documentation Cloudflare Pages, « Attach a header »). `/admin/contenu/`
+// correspond à la fois à `/*` et à ce bloc : sans détachement, la page
+// recevait les deux politiques. Or un navigateur qui reçoit plusieurs CSP
+// les applique TOUTES et n'en retient que l'intersection — la stricte
+// continuait donc d'interdire `eval`, et Decap refusait de démarrer avec
+// « EvalError … 'unsafe-eval' is not an allowed source of script ».
+//
+// Le bloc permissif ne relâchait rien. Il faut d'abord retirer l'héritage.
+headers += `\n/admin/contenu/*\n  ! Content-Security-Policy\n  Content-Security-Policy: ${CSP_CONTENU}\n`;
 
 writeFileSync(HEADERS, headers, "utf-8");
 
