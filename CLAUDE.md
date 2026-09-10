@@ -502,5 +502,20 @@ voient ni un élément décentré, ni une puce qui donne envie d'être cliquée.
 toute modification visuelle, ouvrir la page dans un navigateur avant de dire que
 c'est fait.
 
+⚠ **Et les écrans du back-office comptent comme des pages rendues.** Ils sont
+hors du parcours client, donc hors de la passe visuelle habituelle — et c'est
+là que les défauts survivent le plus longtemps. `/admin/commandes/` est resté
+figé sur « Chargement… » parce que sa dernière ligne testait `token`, une
+variable supprimée par le chantier de sécurité mais jamais nettoyée. Lire une
+variable non déclarée lève une `ReferenceError` qui interrompt toute la
+fonction anonyme : aucun affichage, aucun message, et l'API répondait pourtant
+200 avec les données.
+
+Aucun `verify:` ne peut attraper ça : `node --check` valide la syntaxe, et une
+`ReferenceError` n'existe qu'à l'exécution. Un détecteur de variables libres
+demanderait un vrai analyseur syntaxique et produirait surtout des fausses
+alertes. **Le seul contrôle fiable reste d'ouvrir l'écran**, après toute
+modification de `src/assets/js/admin-*.js`.
+
 **Écrire un garde-fou plutôt qu'un correctif isolé** quand le défaut peut
 revenir. Les quatre scripts `verify:` sont tous nés de cette règle.

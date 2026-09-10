@@ -105,5 +105,13 @@
     loadOrders(btn.dataset.filterStatus);
   });
 
-  if (token) loadOrders(''); else showLogin();
+  // ⚠ Cette ligne testait `token`, une variable qui n'existe plus depuis que
+  // le jeton GitHub a quitté le navigateur pour un cookie HttpOnly. Elle
+  // n'avait pas été nettoyée, et lire une variable non déclarée lève une
+  // ReferenceError qui interrompt toute la fonction anonyme : l'écran restait
+  // sur « Chargement… », sans rien afficher ni rien signaler.
+  //
+  // `loadOrders` commence déjà par vérifier la session et bascule vers
+  // showLogin() le cas échéant. L'appeler suffit.
+  loadOrders('');
 })();
