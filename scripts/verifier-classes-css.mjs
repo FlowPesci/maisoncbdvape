@@ -170,4 +170,30 @@ if (orphelines.length) {
   process.exit(1);
 }
 
+/**
+ * `hidden` doit l'emporter sur les classes de composant.
+ *
+ * Les composants de `tailwind/input.css` déclarent leur propre `display`
+ * (`.btn-gold { display:inline-flex }`, etc.). Écrits après les utilitaires
+ * Tailwind, ils gagnent sur `.hidden` à spécificité égale — et masquer un
+ * élément cesse silencieusement de fonctionner.
+ *
+ * Ce n'est pas théorique : le 2026-09-12, le bouton « Payer en ligne (CB) »
+ * portait la classe `hidden` pendant la recette bancaire et restait visible
+ * du public, menant vers la plateforme de TEST de Monetico. Le garde-fou
+ * était écrit, la feuille de style l'annulait.
+ */
+if (!/\.hidden\{display:none\s*!important\}/.test(feuille)) {
+  console.error(`[css] ✕ La règle « .hidden { display:none !important } » a disparu.`);
+  console.error("");
+  console.error("       Sans elle, tout élément portant une classe de composant qui");
+  console.error("       déclare un `display` — les boutons, notamment — reste visible");
+  console.error("       malgré `hidden`. Les éléments masqués par le script (bouton CB");
+  console.error("       pendant la recette, modes de livraison non ouverts) s'affichent");
+  console.error("       alors au public sans que rien ne le signale.");
+  console.error("");
+  console.error("       La rétablir en fin de tailwind/input.css.");
+  process.exit(1);
+}
+
 console.log(`[css] ✓ ${utilisees.size} classes de composant et ${taillesIcones.size} tailles d'icône, toutes définies`);

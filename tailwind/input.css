@@ -1846,3 +1846,20 @@ em, i, cite, dfn, address, blockquote, q {
 [data-hover="dim-82"]:hover { opacity: .82 !important; }
 [data-focus="gold-border"]:focus { border-color: rgba(201,169,110,0.5) !important; }
 [data-focus="gold-border-45"]:focus { border-color: rgba(201,169,110,0.45) !important; }
+
+/* ─── `hidden` doit avoir le dernier mot ────────────────────────────────
+   Les classes de composants de ce fichier déclarent leur propre `display`
+   — `.btn-gold { display:inline-flex }`, et les autres boutons de même.
+   Écrites après les utilitaires Tailwind, elles l'emportent sur `.hidden`
+   à spécificité égale.
+
+   Conséquence mesurée en production le 2026-09-12 : le bouton « Payer en
+   ligne (CB) » portait bien la classe `hidden` pendant la recette bancaire,
+   et restait pourtant visible du public. Il menait à la plateforme de TEST
+   de Monetico — un client aurait pu croire payer sans qu'aucun débit
+   n'ait lieu. Le garde-fou existait, la CSS le neutralisait en silence.
+
+   `!important` ici plutôt qu'un `display:none` ajouté à chaque composant :
+   masquer un élément doit gagner contre tout habillage, sans exception à
+   tenir à jour. `verify:css` contrôle que cette règle survit.          */
+.hidden { display: none !important; }
