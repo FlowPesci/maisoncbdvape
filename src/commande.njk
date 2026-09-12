@@ -428,6 +428,12 @@ description: "Coordonnées et mode de livraison — MaisonCBDVape, boutique CBD 
           Le règlement s'effectue au retrait, en boutique — espèces ou carte bancaire.
         </p>
         {% endif %}
+        {# Filet : aucun moyen de règlement disponible pour le mode choisi.
+           Le script l'affiche plutôt que de laisser un encart vide. #}
+        <p id="paiement-impasse" class="hidden" style="font-size:.75rem;color:#FFB4B4;text-align:center;font-family:'DM Sans',sans-serif;line-height:1.5;">
+          Le paiement en ligne n'est pas encore actif pour ce mode de livraison.<br>
+          Choisissez <strong style="color:var(--cream);">Retrait en boutique</strong> pour valider votre commande.
+        </p>
         {% else %}
         <p style="font-size:.7rem;color:var(--muted);text-align:center;font-family:'DM Sans',sans-serif;">
           Le règlement s'effectue au retrait, en boutique — espèces ou carte bancaire.

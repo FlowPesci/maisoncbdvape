@@ -49,6 +49,23 @@
         if (el) el.classList.toggle('hidden', type !== saisieActive);
       });
 
+      // ── Le règlement en boutique suppose de venir la chercher ────────────
+      // On ne peut pas encaisser au comptoir quelqu'un qui se fait livrer
+      // chez lui. Le bouton ne vaut donc que pour le retrait sur place ;
+      // `submit-reservation.js` applique la même règle côté serveur, car
+      // masquer un bouton n'empêche personne d'appeler l'API.
+      const enBoutique = document.getElementById('btn-en-magasin');
+      const retrait = saisieActive === 'creneau';
+      if (enBoutique) enBoutique.classList.toggle('hidden', !retrait);
+
+      // Ne jamais laisser un tunnel sans issue. Si le paiement en ligne
+      // n'est pas encore ouvert et que le retrait vient d'être écarté, il
+      // ne resterait aucun bouton et rien pour l'expliquer.
+      const cb = document.querySelector('[data-mode="monetico"]');
+      const cbVisible = cb && !cb.classList.contains('hidden');
+      const impasse = document.getElementById('paiement-impasse');
+      if (impasse) impasse.classList.toggle('hidden', retrait || cbVisible);
+
       if (typeof window.checkoutUpdateShipping === 'function') window.checkoutUpdateShipping();
     }
 

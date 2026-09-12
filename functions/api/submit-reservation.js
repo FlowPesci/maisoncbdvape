@@ -10,7 +10,7 @@ import { ok, bad, parseJson } from "../_shared/http.js";
 import { lookupPrice } from "../_shared/catalog-index.js";
 import { reserverPanier, consommerReservation } from "../_shared/stock.js";
 import { signalerReassort } from "../_shared/reassort.js";
-import { computeFraisPort } from "../_shared/livraison.js";
+import { computeFraisPort, besoinCreneau } from "../_shared/livraison.js";
 import { valideLivraison } from "../_shared/valide-livraison.js";
 import { valideClient } from "../_shared/valide-client.js";
 import { rateLimit, getClientIp } from "../_shared/ratelimit.js";
@@ -34,6 +34,18 @@ export async function onRequestPost({ request, env }) {
   // Mode de livraison et informations associées — mêmes règles que create-payment.js
   const liv = valideLivraison(body);
   if (liv.erreur) return bad(liv.erreur);
+
+  // ⚠ Ce chemin est celui du règlement en boutique. Il n'a de sens que si le
+  // client vient chercher sa commande : on ne peut pas encaisser au comptoir
+  // quelqu'un qui se fait livrer chez lui. Le bouton est masqué côté client
+  // dès qu'un autre mode est choisi, mais c'est ici que la règle est tenue —
+  // masquer un bouton n'empêche personne d'appeler l'API directement.
+  if (!besoinCreneau(liv.mode)) {
+    return bad(
+      "Le règlement en boutique n'est possible qu'avec le retrait sur place. " +
+      "Choisissez le retrait, ou réglez votre commande en ligne."
+    );
+  }
 
   const trustedItems = [];
   for (const it of items) {
