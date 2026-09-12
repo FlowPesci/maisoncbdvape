@@ -452,13 +452,31 @@ non vérifié).
 
 ⚠ **Relayer le message du fournisseur, jamais seulement le code HTTP.**
 `_shared/email.js` ne remontait que « Echec envoi email : 403 ». Or un 403 de
-Resend recouvre au moins deux causes — domaine d'envoi non vérifié, ou
-*aucun* domaine vérifié, auquel cas Resend n'autorise l'envoi que vers
-l'adresse du titulaire du compte — qui se corrigent différemment. Resend dit
-laquelle en toutes lettres ; cette phrase était jetée, et j'ai d'abord affiché
-ma propre interprétation du code à sa place. Elle est désormais relayée telle
-quelle, tronquée à 300 caractères (elle finit dans `order.emails`, en KV) et
-`test:diagnostic` vérifie qu'elle apparaît bien à l'écran.
+Resend recouvre **trois** causes distinctes, qui se corrigent à trois endroits
+différents :
+
+1. le domaine d'envoi n'est pas (ou plus) vérifié ;
+2. *aucun* domaine ne l'est, et Resend n'autorise alors l'envoi que vers
+   l'adresse du titulaire du compte ;
+3. **la clé est restreinte à un autre domaine.** Une clé Resend créée en
+   « Sending access » peut être rattachée à **un seul domaine** — c'est même
+   recommandé, une clé volée ne pouvant alors écrire que depuis celui-là.
+
+Resend dit laquelle en toutes lettres dans le corps de sa réponse ; cette
+phrase était jetée, et j'ai d'abord affiché ma propre interprétation du code à
+sa place — laquelle désignait la cause 1, alors que le domaine était vérifié
+depuis trois semaines. Elle est désormais relayée telle quelle, tronquée à 300
+caractères (elle finit dans `order.emails`, en KV), et `test:diagnostic`
+vérifie qu'elle apparaît bien à l'écran.
+
+⚠ **La cause 3 est la plus probable ici, et elle est structurelle.** La clé en
+service vient du compte `vapelab`, créée à l'époque de l'ancien projet : si
+elle a été restreinte à `vapelab.fr`, elle refusera éternellement d'écrire
+depuis `noreply@maisoncbdvape.fr`, quoi qu'on vérifie côté domaine. La portée
+d'une clé se lit dans `resend.com/api-keys` — colonne permission et domaine —
+**sans jamais avoir besoin de révéler la clé elle-même**. Le remède est une
+nouvelle clé portant sur `maisoncbdvape.fr`, saisie par le commerçant seul
+dans Cloudflare (type Secret), puis un redéploiement.
 
 ⚠ **Il ne renvoie jamais la valeur d'un secret** — seulement sa présence et sa
 longueur. Ne pas « juste afficher les quatre premiers caractères » : la

@@ -159,7 +159,7 @@ export async function onRequestPost({ request, env }) {
     const message = String(e.message || e);
     let cause = null;
     if (message.includes("401")) cause = "Clé Resend refusée : révoquée ou régénérée. En créer une nouvelle et la ressaisir dans Cloudflare, puis redéployer.";
-    if (message.includes("403")) cause = "Resend refuse l'envoi. Regarder la phrase ci-dessous : soit le domaine d'envoi n'est pas (ou plus) vérifié, soit aucun ne l'est et Resend n'autorise alors que votre propre adresse. Les deux se règlent dans resend.com/domains, compte « vapelab ».";
+    if (message.includes("403")) cause = "Resend accepte la clé mais refuse cet envoi — trois causes possibles, la phrase ci-dessous dit laquelle : (1) le domaine d'envoi n'est pas vérifié, (2) aucun ne l'est et seule votre propre adresse est permise, (3) la clé est restreinte à un AUTRE domaine — cas fréquent avec une clé héritée de vapelab.fr. Le (3) se lit dans resend.com/api-keys, les deux autres dans resend.com/domains.";
     if (message.includes("422")) cause = "Adresse d'expéditeur ou de destinataire refusée. Vérifier EMAIL_FROM.";
     if (message.includes("429")) cause = "Quota Resend atteint.";
     return ok({
