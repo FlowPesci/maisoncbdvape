@@ -6,6 +6,22 @@
 
 const RESEND_API = "https://api.resend.com/emails";
 
+/**
+ * Extrait la phrase utile d'une erreur Resend.
+ *
+ * Le corps est du JSON du type
+ *   { "statusCode": 403, "name": "validation_error", "message": "…" }
+ * mais une panne d'infrastructure peut renvoyer du HTML : on retombe alors
+ * sur le texte brut, tronqué, plutôt que d'échouer à analyser une erreur.
+ */
+function resumeErreur(brut) {
+  try {
+    const o = JSON.parse(brut);
+    if (o && typeof o.message === "string") return o.message.slice(0, 300);
+  } catch { /* pas du JSON : on garde le texte */ }
+  return String(brut).replace(/\s+/g, " ").trim().slice(0, 300);
+}
+
 export async function sendEmail(env, { to, subject, html, text, from, replyTo }) {
   const apiKey = env.RESEND_API_KEY;
   if (!apiKey) {
@@ -33,7 +49,18 @@ export async function sendEmail(env, { to, subject, html, text, from, replyTo })
   if (!res.ok) {
     const err = await res.text();
     console.error("[email] Resend a echoue :", res.status, err);
-    throw new Error("Echec envoi email : " + res.status);
+    // ⚠ Le corps de la réponse fait partie de l'erreur, il n'est pas un détail.
+    //
+    // Cette ligne ne relayait que le code HTTP. Le 2026-09-12, un 403 a
+    // renvoyé à deux causes possibles — domaine non vérifié, ou destinataire
+    // interdit tant qu'aucun domaine ne l'est — qui se corrigent à des
+    // endroits différents. Resend, lui, dit laquelle en toutes lettres dans
+    // sa réponse, et cette phrase était jetée.
+    //
+    // Resend n'y renvoie jamais la clé envoyée ; remonter ce texte n'expose
+    // rien. On le tronque parce qu'il finit dans `order.emails`, stocké en KV
+    // et affiché dans une infobulle.
+    throw new Error("Echec envoi email : " + res.status + " — " + resumeErreur(err));
   }
   return await res.json();
 }

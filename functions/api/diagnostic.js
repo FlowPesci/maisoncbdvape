@@ -148,13 +148,26 @@ export async function onRequestPost({ request, env }) {
     }
     return ok({ verdict: "envoye", destinataire, id: r?.id || null, quand });
   } catch (e) {
-    // `sendEmail` lève « Echec envoi email : <code> » — le code porte la cause.
+    // `sendEmail` relaie « Echec envoi email : <code> — <phrase de Resend> ».
+    //
+    // ⚠ La phrase de Resend prime sur toute interprétation écrite ici. Un même
+    //   code couvre plusieurs causes — un 403 a signifié tantôt « domaine non
+    //   vérifié », tantôt « tant qu'aucun domaine ne l'est, vous ne pouvez
+    //   écrire qu'à votre propre adresse » — et deviner à partir du code seul
+    //   envoie chercher au mauvais endroit. Les lignes ci-dessous ne font
+    //   qu'orienter ; elles ne remplacent jamais le message d'origine.
     const message = String(e.message || e);
     let cause = null;
-    if (message.includes("401")) cause = "Clé Resend refusée : elle a été révoquée ou régénérée. En créer une nouvelle et la ressaisir dans Cloudflare.";
-    if (message.includes("403")) cause = "Resend refuse le domaine d'envoi. Vérifier que maisoncbdvape.fr est encore vérifié dans le compte Resend (compte « vapelab »).";
-    if (message.includes("422")) cause = "Adresse d'expéditeur ou de destinataire refusée par Resend.";
+    if (message.includes("401")) cause = "Clé Resend refusée : révoquée ou régénérée. En créer une nouvelle et la ressaisir dans Cloudflare, puis redéployer.";
+    if (message.includes("403")) cause = "Resend refuse l'envoi. Regarder la phrase ci-dessous : soit le domaine d'envoi n'est pas (ou plus) vérifié, soit aucun ne l'est et Resend n'autorise alors que votre propre adresse. Les deux se règlent dans resend.com/domains, compte « vapelab ».";
+    if (message.includes("422")) cause = "Adresse d'expéditeur ou de destinataire refusée. Vérifier EMAIL_FROM.";
     if (message.includes("429")) cause = "Quota Resend atteint.";
-    return ok({ verdict: "echec", destinataire, message, cause });
+    return ok({
+      verdict: "echec",
+      destinataire,
+      expediteur: env.EMAIL_FROM || null,
+      message,
+      cause,
+    });
   }
 }

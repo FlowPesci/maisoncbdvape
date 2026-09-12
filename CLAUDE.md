@@ -450,6 +450,16 @@ donnent le même silence côté client, et se corrigent à deux endroits
 différents. L'écran nomme le cas (`non-configure`, 401 révoquée, 403 domaine
 non vérifié).
 
+⚠ **Relayer le message du fournisseur, jamais seulement le code HTTP.**
+`_shared/email.js` ne remontait que « Echec envoi email : 403 ». Or un 403 de
+Resend recouvre au moins deux causes — domaine d'envoi non vérifié, ou
+*aucun* domaine vérifié, auquel cas Resend n'autorise l'envoi que vers
+l'adresse du titulaire du compte — qui se corrigent différemment. Resend dit
+laquelle en toutes lettres ; cette phrase était jetée, et j'ai d'abord affiché
+ma propre interprétation du code à sa place. Elle est désormais relayée telle
+quelle, tronquée à 300 caractères (elle finit dans `order.emails`, en KV) et
+`test:diagnostic` vérifie qu'elle apparaît bien à l'écran.
+
 ⚠ **Il ne renvoie jamais la valeur d'un secret** — seulement sa présence et sa
 longueur. Ne pas « juste afficher les quatre premiers caractères » : la
 longueur suffit aux cas réels (une clé MAC Monetico fait 40 caractères ; 39

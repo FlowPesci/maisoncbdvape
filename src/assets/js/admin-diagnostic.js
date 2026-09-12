@@ -106,8 +106,18 @@
     },
     'non-configure': function (d) { return { couleur: ROUGE, texte: d.message }; },
     'aucun-destinataire': function (d) { return { couleur: ROUGE, texte: d.message }; },
+    // La phrase renvoyée par Resend est affichée telle quelle, sous notre
+    // interprétation — c'est elle qui désigne la bonne correction quand un
+    // même code HTTP recouvre plusieurs causes.
     echec: function (d) {
-      return { couleur: ROUGE, texte: (d.cause || 'Échec de l\'envoi.') + ' (' + d.message + ')' };
+      return {
+        couleur: ROUGE,
+        texte: (d.cause || 'Échec de l\'envoi.'),
+        detail: d.message,
+        contexte: d.expediteur
+          ? 'De : ' + d.expediteur + '  →  ' + d.destinataire
+          : null,
+      };
     },
   };
 
@@ -125,7 +135,15 @@
       const rendu = (MESSAGES[d.verdict] || function () {
         return { couleur: GRIS, texte: 'Réponse inattendue : ' + JSON.stringify(d) };
       })(d);
-      resultMail.innerHTML = '<span style="color:' + rendu.couleur + ';">' + esc(rendu.texte) + '</span>';
+      let html = '<span style="color:' + rendu.couleur + ';">' + esc(rendu.texte) + '</span>';
+      if (rendu.detail) {
+        html += '<div class="font-mono text-xs mt-2" style="color:#C9C9D4;word-break:break-word;">' +
+          esc(rendu.detail) + '</div>';
+      }
+      if (rendu.contexte) {
+        html += '<div class="font-mono text-xs mt-1 text-smoke">' + esc(rendu.contexte) + '</div>';
+      }
+      resultMail.innerHTML = html;
     } catch (err) {
       resultMail.innerHTML = '<span style="color:' + ROUGE + ';">Erreur : ' + esc(err.message) + '</span>';
     } finally {

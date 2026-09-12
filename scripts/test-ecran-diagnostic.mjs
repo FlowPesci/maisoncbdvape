@@ -155,7 +155,16 @@ console.log("\n[diagnostic] Exécution de l'écran /admin/diagnostic/\n");
     //   comme dans un navigateur. Attendre l'entité ferait échouer un code
     //   correct.
     ["non-configure",      { verdict: "non-configure", message: "RESEND_API_KEY n'atteint pas le serveur." }, "RESEND_API_KEY"],
-    ["echec",              { verdict: "echec", message: "Echec envoi email : 401", cause: "Clé Resend refusée" }, "refus"],
+    // ⚠ L'attendu porte sur la phrase de RESEND, pas sur notre interprétation :
+    //   c'est elle qui désigne la correction quand un code recouvre plusieurs
+    //   causes, et c'est elle qui avait été jetée jusqu'au 2026-09-12.
+    ["echec", {
+      verdict: "echec",
+      message: "Echec envoi email : 403 — The maisoncbdvape.fr domain is not verified.",
+      cause: "Resend refuse l'envoi.",
+      expediteur: "MaisonCBDVape <noreply@maisoncbdvape.fr>",
+      destinataire: "x@y.fr",
+    }, "domain is not verified"],
     ["aucun-destinataire", { verdict: "aucun-destinataire", message: "EMAIL_MERCHANT est vide" }, "EMAIL_MERCHANT"],
   ];
   for (const [nom, corps, attendu] of cas) {
