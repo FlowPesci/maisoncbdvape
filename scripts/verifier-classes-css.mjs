@@ -49,6 +49,9 @@ const SANS_STYLE_ASSUME = new Set([
   "mode-apercu",        // modes de livraison non ouverts à la vente
   "mode-icon",          // pastille et libellé du sélecteur de mode :
   "mode-label",         //   le script en pilote les couleurs
+  "apercu-cache",       // pendant de `mode-apercu` : ce que ?apercu=1 masque
+  "etapes",             // les trois listes d'étapes de la confirmation,
+  "etape-paiement",     //   choisies puis complétées par le script
 ]);
 
 /** Variantes responsives et d'état : on ne garde que la classe de base. */
