@@ -396,6 +396,12 @@ projet, et il héberge maintenant **deux** domaines vérifiés : `vapelab.fr` et
 `maisoncbdvape.fr`. Chercher un compte « maisoncbdvape » chez Resend ne donne
 rien ; c'est le piège.
 
+⚠ **La clé d'API doit porter sur `maisoncbdvape.fr`, et sur lui seul.** Celle
+en service est une clé *Sending access* restreinte à ce domaine — si elle
+fuite, elle ne peut écrire depuis aucun autre. Ne jamais la remplacer par une
+clé `vapelab.fr` ni par une clé d'accès complet. Détail de la panne que ce
+point a causée : plus bas, section `/admin/diagnostic/`.
+
 ⚠ **Cette boutique dépend donc d'un compte au nom de l'ancien projet.** Le
 site `vapelab.fr` est mis en pause à partir du 2026-09-09, et il serait
 naturel de faire le ménage dans ce qui porte ce nom. **Ne pas fermer le
@@ -445,10 +451,11 @@ aucune erreur — `_shared/email.js` renvoie `{ stubbed: true }` et poursuit —
 et parce que le tableau de bord Cloudflare montre ce qui a été **saisi**, pas
 ce que le Worker **reçoit**.
 
-L'e-mail de test est ce qui tranche : une clé absente et une clé refusée
-donnent le même silence côté client, et se corrigent à deux endroits
-différents. L'écran nomme le cas (`non-configure`, 401 révoquée, 403 domaine
-non vérifié).
+L'e-mail de test est ce qui tranche : une clé absente, une clé révoquée et une
+clé sans droit sur le domaine donnent le même silence côté client, et se
+corrigent à trois endroits différents. C'est lui qui a résolu la panne du
+2026-09-12 en une phrase, là où deux heures de déduction avaient désigné deux
+causes fausses.
 
 ⚠ **Relayer le message du fournisseur, jamais seulement le code HTTP.**
 `_shared/email.js` ne remontait que « Echec envoi email : 403 ». Or un 403 de
@@ -469,14 +476,24 @@ depuis trois semaines. Elle est désormais relayée telle quelle, tronquée à 3
 caractères (elle finit dans `order.emails`, en KV), et `test:diagnostic`
 vérifie qu'elle apparaît bien à l'écran.
 
-⚠ **La cause 3 est la plus probable ici, et elle est structurelle.** La clé en
-service vient du compte `vapelab`, créée à l'époque de l'ancien projet : si
-elle a été restreinte à `vapelab.fr`, elle refusera éternellement d'écrire
-depuis `noreply@maisoncbdvape.fr`, quoi qu'on vérifie côté domaine. La portée
-d'une clé se lit dans `resend.com/api-keys` — colonne permission et domaine —
-**sans jamais avoir besoin de révéler la clé elle-même**. Le remède est une
-nouvelle clé portant sur `maisoncbdvape.fr`, saisie par le commerçant seul
-dans Cloudflare (type Secret), puis un redéploiement.
+✅ **C'était la cause 3, et c'est résolu** (2026-09-12). Resend répondait, mot
+pour mot : *« This API key is not authorized to send emails from
+maisoncbdvape.fr »*. La clé en service venait du compte `vapelab` et avait été
+créée quand `maisoncbdvape.fr` n'existait pas encore — rattachée à
+`vapelab.fr`, elle ne pouvait structurellement pas écrire depuis
+`noreply@maisoncbdvape.fr`. Aucune manipulation de DNS ni de vérification de
+domaine n'y aurait rien changé, et c'est précisément là que les deux premières
+heures sont parties.
+
+Remplacée par une clé **Sending access restreinte à `maisoncbdvape.fr`**,
+saisie dans Cloudflare en type Secret. Premier envoi réussi le jour même.
+
+⚠ **La leçon vaut au-delà de Resend.** Une clé d'API peut être *valide*,
+*acceptée*, et *sans droit sur la ressource visée* — trois états distincts
+qu'un code HTTP seul ne sépare pas. À chaque fois qu'un service tiers refuse,
+chercher d'abord la **portée** de la clé, pas sa validité. Et tout héritage du
+projet `vapelab` est suspect par construction : ce qui a été créé avant que
+`maisoncbdvape.fr` existe ne peut pas le connaître.
 
 ⚠ **Il ne renvoie jamais la valeur d'un secret** — seulement sa présence et sa
 longueur. Ne pas « juste afficher les quatre premiers caractères » : la
