@@ -3,7 +3,7 @@
  * POST => enregistre une commande sans paiement en ligne, envoie 2 emails.
  * Tous modes de livraison : retrait boutique, domicile, point retrait, consigne.
  */
-import { createOrder } from "../_shared/orders.js";
+import { createOrder, updateOrder } from "../_shared/orders.js";
 import { sendEmail, merchantEmail } from "../_shared/email.js";
 import { reservationClient, reservationMerchant } from "../_shared/templates.js";
 import { ok, bad, parseJson } from "../_shared/http.js";
@@ -107,21 +107,48 @@ export async function onRequestPost({ request, env }) {
 
   const replyTo = env.EMAIL_REPLY_TO || "contact@maisoncbdvape.fr";
 
+  // ⚠ L'issue de chaque envoi est écrite SUR la commande, pas seulement dans
+  // la console du Worker.
+  //
+  // Un échec d'e-mail ne doit jamais faire échouer une commande déjà payée ou
+  // réservée — d'où les `catch` qui absorbent. Mais absorber sans trace rend
+  // la panne invisible : le 2026-09-12, aucun e-mail n'était parti depuis la
+  // mise en service et rien, nulle part, ne le disait. Le commerçant l'a
+  // découvert en ne recevant rien.
+  //
+  // `sendEmail` renvoie `{ stubbed: true }` quand RESEND_API_KEY manque : ce
+  // cas-là ne lève même pas d'exception, et c'est précisément celui qui s'est
+  // produit. Il est donc distingué des vraies erreurs.
+  const suivi = {};
+
   try {
     const tpl = reservationClient(order, siteUrl);
-    await sendEmail(env, { to: order.client.email, replyTo, ...tpl });
+    const r = await sendEmail(env, { to: order.client.email, replyTo, ...tpl });
+    suivi.client = r?.stubbed ? "non-configure" : "envoye";
   } catch (e) {
+    suivi.client = "echec : " + e.message;
     console.error("[submit-reservation] Email client KO :", e.message);
   }
 
   const merchant = merchantEmail(env);
-  if (merchant) {
+  if (!merchant) {
+    suivi.commercant = "aucun-destinataire";
+  } else {
     try {
       const tpl = reservationMerchant(order, siteUrl);
-      await sendEmail(env, { to: merchant, replyTo, ...tpl });
+      const r = await sendEmail(env, { to: merchant, replyTo, ...tpl });
+      suivi.commercant = r?.stubbed ? "non-configure" : "envoye";
     } catch (e) {
+      suivi.commercant = "echec : " + e.message;
       console.error("[submit-reservation] Email commercant KO :", e.message);
     }
+  }
+
+  try {
+    await updateOrder(env.ORDERS_KV, order.orderId, (o) => { o.emails = suivi; },
+      { actor: "submit-reservation", note: "Suivi des e-mails : " + JSON.stringify(suivi) });
+  } catch (e) {
+    console.error("[submit-reservation] Ecriture du suivi e-mail KO :", e.message);
   }
 
   // Après les e-mails de commande, jamais avant : une alerte de réassort ne

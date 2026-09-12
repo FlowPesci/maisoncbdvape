@@ -34,6 +34,26 @@
   }
 
 
+  /**
+   * Signale une commande dont les e-mails ne sont pas partis.
+   *
+   * Le serveur écrit l'issue de chaque envoi sur la commande (`order.emails`).
+   * Sans ce témoin, un échec restait invisible : la commande s'affichait
+   * normalement, et seul le client — qui ne reçoit rien — pouvait s'en
+   * apercevoir. Le commerçant doit pouvoir le voir depuis sa liste.
+   *
+   * Les commandes antérieures à cette mesure n'ont pas de champ `emails` :
+   * on ne signale rien plutôt que d'inventer une alarme rétroactive.
+   */
+  function alerteEmail(o) {
+    const e = o && o.emails;
+    if (!e) return '';
+    const ennuis = Object.entries(e).filter(([, v]) => v !== 'envoye');
+    if (!ennuis.length) return '';
+    const detail = ennuis.map(([qui, v]) => qui + ' : ' + v).join(' — ');
+    return `<span title="${esc(detail)}" style="margin-left:.5rem;color:#FFB4B4;font-size:.7rem;white-space:nowrap;">✉ non envoyé</span>`;
+  }
+
   // ⚠ Les couleurs doivent rester des hex littéraux : le template ci-dessous
   //   concatène un suffixe d'opacité (`${m.color}22`), ce qu'une var() ne permet pas.
   function statusBadge(status) {
@@ -85,7 +105,7 @@
           </td>
           <td class="py-3 px-4 font-mono text-white">${formatEur(o.totalTTC)}</td>
           <td class="py-3 px-4 text-xs text-smoke">${o.paiement?.methode === 'monetico' ? '💳 Monetico' : '🏪 Magasin'}</td>
-          <td class="py-3 px-4">${statusBadge(esc(o.status))}</td>
+          <td class="py-3 px-4">${statusBadge(esc(o.status))}${alerteEmail(o)}</td>
           <td class="py-3 px-4 text-right">
             <a href="/admin/commande/?id=${encodeURIComponent(o.orderId)}" class="text-neon-violet text-xs hover:underline">Détail →</a>
           </td>
