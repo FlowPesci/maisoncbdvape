@@ -314,6 +314,34 @@ de vrac**, pas le sachet — un bocal de 500 g se saisit `500`.
 **En attente d'accès externes :** compte Mondial Relay Start, contrat Colissimo
 Entreprise.
 
+⚠ **Créer la boîte `contact@maisoncbdvape.fr` chez l'hébergeur du domaine.**
+Elle n'existe pas (constaté le 2026-09-12 : rebond *Recipient not found* sur
+le premier envoi réel). Ce n'est pas un détail de configuration, l'adresse est
+**publiée** :
+
+| Où | Conséquence tant qu'elle n'existe pas |
+|---|---|
+| `src/_data/site.json` → `contact.email` | affichée sur `/contact/` |
+| `src/cgv.njk` | mentionnée dans les CGV — engagement contractuel |
+| `EMAIL_REPLY_TO` (`wrangler.toml`) | **un client qui répond à sa confirmation de commande reçoit un rebond** |
+| `EMAIL_MERCHANT` | la moitié des avis de commande n'arrive pas |
+
+Le plus grave est le `reply-to` : il est silencieux côté boutique. Le MX du
+domaine (`mail-fr.securemail.pro`) fonctionne, il ne manque que la boîte —
+c'est une manipulation chez l'hébergeur de la messagerie, pas chez Resend ni
+chez Cloudflare.
+
+**Ne pas « corriger » en retirant l'adresse** de `wrangler.toml` : elle
+resterait fausse dans les CGV et sur la page contact. La seule bonne
+correction est de créer la boîte.
+
+⚠ **Et après l'avoir créée, purger la liste de suppression de Resend.** Sur
+rebond définitif, Resend inscrit l'adresse en *Suppressed* et refuse ensuite
+d'y écrire — même quand la boîte existe. Le piège est que tout semble
+correct : domaine vérifié, clé valide, envoi accepté, et rien n'arrive.
+Retirer l'adresse dans `resend.com/emails` → bouton **Suppressions**, puis
+rejouer l'e-mail de test depuis `/admin/diagnostic/`.
+
 ### Monetico — la banque a validé le 2026-08-22, procédure de mise en service
 
 Le contrat est ouvert. Il reste à saisir trois valeurs, **et elles ne vivent
