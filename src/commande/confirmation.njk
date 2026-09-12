@@ -20,15 +20,41 @@ description: "Votre commande est confirmée. Merci pour votre achat chez {{ site
   <p class="text-smoke text-base mb-2 fade-up">Votre numéro de commande :</p>
   <p class="font-mono text-2xl text-white mb-10 fade-up" id="order-id">—</p>
 
+  {# ── Prochaines étapes ──────────────────────────────────────────────────
+     ⚠ Cette page servait le même texte à tout le monde : « présentez-vous
+     au 48 rue de Genève au créneau choisi », y compris pour un colis
+     expédié par Colissimo. Le mode de livraison arrive maintenant en
+     paramètre d'URL, et chaque famille a sa propre suite.
+
+     Trois familles, pas quatre modes : c'est `saisie` qui discrimine
+     (créneau / adresse / point relais), et il vient de site.json — les
+     délais et transporteurs aussi. Ajouter un mode de livraison ne demande
+     donc rien ici tant qu'il retombe dans l'une des trois.              #}
   <div class="rounded-2xl bg-dark-card border border-dark-border p-6 mb-8 text-left fade-up">
     <h2 class="font-display text-lg tracking-widest text-white mb-3">PROCHAINES ÉTAPES</h2>
-    <ol class="space-y-3 text-sm text-smoke list-decimal list-inside">
+
+    <ol class="space-y-3 text-sm text-smoke list-decimal list-inside etapes" data-saisie="creneau" hidden>
       <li>Vous recevez un <strong class="text-white">email de confirmation</strong> sous quelques minutes.</li>
-      {# Délai piloté par site.json → livraison.modes["click-and-collect"].delai #}
       <li>Le commerçant prépare votre commande en <strong class="text-white">{{ site.livraison.modes["click-and-collect"].delai }}</strong>.</li>
-      <li>Quand elle est prête, vous recevez un <strong class="text-white">email "Prête à récupérer"</strong>.</li>
+      <li>Quand elle est prête, vous recevez un <strong class="text-white">email « Prête à récupérer »</strong>.</li>
       <li>Présentez-vous au <strong class="text-white">{{ site.adresse.rue }}, {{ site.adresse.codePostal }} {{ site.adresse.ville }}</strong> au créneau choisi, avec votre numéro de commande.</li>
-      <li id="etape-paiement">Réglez sur place (CB, espèces, paiement sans contact).</li>
+      <li class="etape-paiement"></li>
+    </ol>
+
+    <ol class="space-y-3 text-sm text-smoke list-decimal list-inside etapes" data-saisie="adresse" hidden>
+      <li>Vous recevez un <strong class="text-white">email de confirmation</strong> sous quelques minutes.</li>
+      <li>Le commerçant prépare votre colis, puis l'expédie par <strong class="text-white">{{ site.livraison.modes["livraison"].transporteur }}</strong>.</li>
+      <li>Vous recevez un <strong class="text-white">email avec le numéro de suivi</strong> dès le départ du colis.</li>
+      <li>Livraison à votre adresse sous <strong class="text-white">{{ site.livraison.modes["livraison"].delai }}</strong> après expédition.</li>
+      <li class="etape-paiement"></li>
+    </ol>
+
+    <ol class="space-y-3 text-sm text-smoke list-decimal list-inside etapes" data-saisie="point" hidden>
+      <li>Vous recevez un <strong class="text-white">email de confirmation</strong> sous quelques minutes.</li>
+      <li>Le commerçant prépare votre colis, puis l'expédie vers le point que vous avez choisi.</li>
+      <li>Vous recevez un <strong class="text-white">email dès que le colis y est disponible</strong>.</li>
+      <li>Retirez-le avec votre numéro de commande et une pièce d'identité.</li>
+      <li class="etape-paiement"></li>
     </ol>
   </div>
 
@@ -44,19 +70,44 @@ description: "Votre commande est confirmée. Merci pour votre achat chez {{ site
 
 <script>
   (function () {
-    const params = new URLSearchParams(window.location.search);
-    const id   = params.get('id');
-    const paid = params.get('paid') === '1';
+    const params   = new URLSearchParams(window.location.search);
+    const id       = params.get('id');
+    const paid     = params.get('paid') === '1';
+    const enLigne  = params.get('paiement') === 'ligne';
+    const mode     = params.get('mode') || '';
 
     if (id) {
       document.getElementById('order-id').textContent = id;
       document.title = 'Commande ' + id + ' — {{ site.nom }}';
     }
 
-    // Commande réglée en ligne : on adapte la dernière étape
-    if (paid) {
-      const etape = document.getElementById('etape-paiement');
-      if (etape) etape.innerHTML = '<strong class="text-white">Rien à régler sur place</strong> — votre paiement en ligne est déjà validé.';
+    // Chaque mode de livraison est rattaché à sa famille par site.json, seule
+    // source de vérité : un mode ajouté là-bas arrive ici sans rien toucher.
+    const familles = {{ site.livraison.modes | dump | safe }};
+    const saisie = (familles[mode] && familles[mode].saisie) || 'creneau';
+
+    const liste = document.querySelector('.etapes[data-saisie="' + saisie + '"]')
+               || document.querySelector('.etapes[data-saisie="creneau"]');
+    if (liste) liste.hidden = false;
+
+    // Trois situations, et une seule est certaine.
+    //
+    // `paid` vient du statut réel de la commande ; il n'est vrai que si la
+    // notification serveur de Monetico est déjà arrivée. Or le retour du
+    // navigateur la double souvent de quelques secondes. Affirmer « réglez
+    // sur place » dans cet intervalle — ce que faisait la page — revient à
+    // réclamer un paiement déjà encaissé.
+    const etape = liste && liste.querySelector('.etape-paiement');
+    if (etape) {
+      if (enLigne && paid) {
+        etape.innerHTML = '<strong class="text-white">Rien à régler</strong> — votre paiement en ligne est validé.';
+      } else if (enLigne) {
+        etape.innerHTML = '<strong class="text-white">Paiement transmis à votre banque.</strong> Sa validation vous sera confirmée par email, sous quelques minutes.';
+      } else if (saisie === 'creneau') {
+        etape.textContent = 'Réglez sur place (CB, espèces, paiement sans contact).';
+      } else {
+        etape.textContent = 'Le règlement s’effectue en boutique, au retrait de votre commande.';
+      }
     }
 
     // Le panier n'est vidé qu'ici : si le client abandonne le paiement Monetico,

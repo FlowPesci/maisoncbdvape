@@ -4,6 +4,11 @@
     const apercu = new URLSearchParams(location.search).get('apercu') === '1';
     if (apercu) {
       document.querySelectorAll('.mode-apercu').forEach((b) => b.classList.remove('hidden'));
+      // Symétrique : ce que l'aperçu rend faux doit disparaître. Sans cette
+      // ligne, la mention « le règlement s'effectue au retrait » restait
+      // affichée sous le bouton CB qu'on venait de révéler — deux phrases
+      // contradictoires sur le même écran.
+      document.querySelectorAll('.apercu-cache').forEach((b) => b.classList.add('hidden'));
     }
 
     const boutons = [...document.querySelectorAll('.mode-btn')]

@@ -35,15 +35,27 @@ async function handle({ request, env }) {
   // bloquer : si elle n'est pas encore arrivée, la page de confirmation
   // s'affiche quand même (le statut sera à jour au prochain rafraîchissement).
   let paid = false;
+  let mode = "";
   if (orderId) {
     try {
       const order = await getOrder(env.ORDERS_KV, orderId);
       paid = order?.status === "paid";
+      // Le mode de livraison décide de ce que la page de confirmation raconte.
+      // Sans lui, elle servait son texte de retrait en boutique à tout le
+      // monde — « présentez-vous au 48 rue de Genève » pour un colis expédié.
+      mode = order?.modeLivraison || "";
     } catch (err) { console.error("[monetico-retour-client] getOrder KO :", err.message); }
   }
 
+  // `paiement=ligne` dit d'où vient le client ; `paid` dit si la notification
+  // serveur est déjà arrivée. Les deux sont distincts, et c'est volontaire :
+  // le retour navigateur double souvent la notification à quelques secondes
+  // près. Sans cette nuance, un paiement réellement accepté s'affichait
+  // « Réglez sur place » — ce que le commerçant a constaté avant nous.
   return redirect(
-    siteUrl + "/commande/confirmation/?id=" + encodeURIComponent(orderId) + (paid ? "&paid=1" : "")
+    siteUrl + "/commande/confirmation/?id=" + encodeURIComponent(orderId) +
+    "&paiement=ligne" + (paid ? "&paid=1" : "") +
+    (mode ? "&mode=" + encodeURIComponent(mode) : "")
   );
 }
 

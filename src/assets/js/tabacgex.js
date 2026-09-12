@@ -972,9 +972,13 @@
           return;
         }
 
-        // Click & Collect : on vide le panier et on redirige vers la page de confirmation
+        // Commande sans paiement en ligne — quel que soit le mode de livraison,
+        // pas seulement le retrait en boutique. Le mode voyage dans l'URL :
+        // la page de confirmation en a besoin pour décrire la bonne suite,
+        // sinon elle sert son texte de retrait à un client livré à domicile.
         setCart([]);
-        window.location.href = '/commande/confirmation/?id=' + encodeURIComponent(data.orderId);
+        window.location.href = '/commande/confirmation/?id=' + encodeURIComponent(data.orderId)
+          + '&mode=' + encodeURIComponent(payload.modeLivraison || '');
       } catch (err) {
         if (statusEl) {
           statusEl.className = 'p-4 rounded-xl text-sm border border-red-400/30 bg-red-400/10 text-red-300';
