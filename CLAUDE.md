@@ -335,12 +335,29 @@ chez Cloudflare.
 resterait fausse dans les CGV et sur la page contact. La seule bonne
 correction est de créer la boîte.
 
-⚠ **Et après l'avoir créée, purger la liste de suppression de Resend.** Sur
-rebond définitif, Resend inscrit l'adresse en *Suppressed* et refuse ensuite
-d'y écrire — même quand la boîte existe. Le piège est que tout semble
-correct : domaine vérifié, clé valide, envoi accepté, et rien n'arrive.
-Retirer l'adresse dans `resend.com/emails` → bouton **Suppressions**, puis
-rejouer l'e-mail de test depuis `/admin/diagnostic/`.
+**Le jour où la boîte est créée — procédure, dans cet ordre :**
+
+1. **Créer `contact@maisoncbdvape.fr`** chez l'hébergeur de la messagerie du
+   domaine (celui qui porte le MX `mail-fr.securemail.pro`). Ni Resend ni
+   Cloudflare n'interviennent.
+2. **Vérifier qu'elle reçoit**, depuis une adresse externe quelconque. Tant
+   que ce point n'est pas acquis, inutile de continuer.
+3. ⚠ **Retirer l'adresse de la liste de suppression Resend.** C'est l'étape
+   qu'on oublie, et elle est invisible : sur rebond définitif, Resend inscrit
+   l'adresse en *Suppressed* et refuse ensuite d'y écrire **même quand la
+   boîte existe**. Tout semble correct par ailleurs — domaine vérifié, clé
+   valide, envoi accepté — et rien n'arrive. `resend.com/emails` → bouton
+   **Suppressions** → supprimer l'entrée.
+4. **Rejouer l'e-mail de test** depuis `/admin/diagnostic/`, puis ouvrir le
+   journal Resend : les **deux** destinataires doivent afficher *Delivered*.
+   « Accepté » ne suffit pas — voir plus bas pourquoi.
+5. **Passer une commande de test en retrait boutique** et vérifier que
+   `/admin/commandes/` n'affiche aucun marqueur `✉ non envoyé`.
+6. **Répondre à l'e-mail de confirmation reçu côté client** : c'est le seul
+   contrôle du `reply-to`, et c'est le défaut le plus silencieux des quatre.
+
+Rien de tout cela ne demande de toucher au dépôt : le code est juste, seule la
+boîte manquait.
 
 ### Monetico — la banque a validé le 2026-08-22, procédure de mise en service
 
