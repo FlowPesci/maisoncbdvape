@@ -1,0 +1,65 @@
+---
+layout: layouts/base.njk
+permalink: /admin/diagnostic/index.html
+title: "Diagnostic du serveur"
+description: "Back-office MaisonCBDVape"
+eleventyExcludeFromCollections: true
+---
+{% set adminSection = "diagnostic" %}
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+  {% include "partials/admin-nav.njk" %}
+
+  <div class="mb-8">
+    <p class="font-mono text-xs text-smoke uppercase tracking-widest mb-1">Back-office</p>
+    <h1 class="font-display text-4xl lg:text-5xl text-white tracking-wide">DIAGNOSTIC</h1>
+    <p class="text-smoke text-sm mt-3 max-w-2xl">
+      Ce que le serveur reçoit réellement, vu de l'intérieur — et non ce qui a
+      été saisi dans Cloudflare. Une valeur manquante n'y provoque aucune
+      erreur&nbsp;: elle fait simplement cesser une fonction, en silence.
+      Aucune valeur secrète n'est affichée ici.
+    </p>
+  </div>
+
+  <div id="diag-status" class="rounded-2xl border border-dashed border-dark-border bg-dark-card/40 py-16 text-center">
+    <p class="text-smoke text-sm">Chargement…</p>
+  </div>
+
+  <div id="diag-corps" class="hidden">
+    <h2 class="font-display text-xl text-white tracking-wide mb-3">Variables</h2>
+    <div class="overflow-x-auto rounded-2xl border border-dark-border bg-dark-card/40 mb-10">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-dark-border text-left">
+            <th class="py-3 px-4 font-mono text-xs text-smoke uppercase tracking-wider">Nom</th>
+            <th class="py-3 px-4 font-mono text-xs text-smoke uppercase tracking-wider">État</th>
+            <th class="py-3 px-4 font-mono text-xs text-smoke uppercase tracking-wider">Sert à</th>
+          </tr>
+        </thead>
+        <tbody id="diag-variables"></tbody>
+      </table>
+    </div>
+
+    <h2 class="font-display text-xl text-white tracking-wide mb-3">Ressources</h2>
+    <div class="overflow-x-auto rounded-2xl border border-dark-border bg-dark-card/40 mb-10">
+      <table class="w-full text-sm">
+        <tbody id="diag-bindings"></tbody>
+      </table>
+    </div>
+
+    <h2 class="font-display text-xl text-white tracking-wide mb-3">Envoi d'un e-mail de test</h2>
+    <p class="text-smoke text-sm mb-4 max-w-2xl">
+      Une clé absente et une clé refusée produisent le même silence. Seul un
+      envoi réel les distingue. Le message part vers l'adresse du commerçant,
+      et nulle part ailleurs.
+    </p>
+    <button type="button" id="diag-email"
+            class="btn-neon-green inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-widest">
+      Envoyer un e-mail de test
+    </button>
+    <div id="diag-email-resultat" class="mt-4 text-sm"></div>
+  </div>
+
+</section>
+
+<script src="/assets/js/admin-diagnostic.js?v={{ '/assets/js/admin-diagnostic.js' | contentHash }}" defer></script>

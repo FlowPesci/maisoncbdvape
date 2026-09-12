@@ -84,6 +84,7 @@ npm run verify:api        # appels à des méthodes window.MCV_* inexistantes
 npm run verify:redaction  # allégations interdites, champs décoratifs
 npm run verify:puffs      # dispositifs à réservoir fixe (loi n° 2025-175)
 npm run verify:cache      # empreinte de contenu sur les scripts d'/assets/
+npm run test:diagnostic   # exécute réellement l'écran /admin/diagnostic/
 npm run test:alertes / test:inventaire / test:reception / test:commandes
 ```
 
@@ -329,6 +330,28 @@ chiffrées (« managed through `wrangler.toml` ») et n'en avertit pas : les sai
 dans l'interface donne l'illusion d'avoir agi. Seule la clé MAC, étant un
 secret, s'y modifie réellement.
 
+⚠ **Cette bannière va et vient sans que rien n'ait changé.** Le 2026-09-12
+elle avait disparu de l'écran des variables, alors que le commerçant n'y avait
+rien touché — de quoi croire que le projet était repassé en configuration par
+l'interface et que `wrangler.toml` n'était plus appliqué. C'était faux, et
+chercher de ce côté-là a coûté du temps.
+
+Ne pas déduire l'état de la configuration d'un élément d'interface. La
+question se tranche en une commande, en demandant au serveur déployé ce qu'il
+utilise — `SITE_URL` est observable parce que `functions/api/auth/login.js`
+la recopie dans le `redirect_uri` qu'il envoie à GitHub :
+
+```bash
+curl -sS -o /dev/null -D - \
+  "https://maisoncbdvape.fr/api/auth/login?mode=admin&return=/admin/" \
+  | grep -i '^location:'
+```
+
+Le `redirect_uri` doit contenir `maisoncbdvape.fr`. S'il contient
+`pages.dev`, alors seulement `wrangler.toml` a cessé d'être appliqué.
+`/admin/diagnostic/` répond à la même question pour toutes les variables à la
+fois, et sans terminal.
+
 **Côté banque, une seule ligne à renseigner** — l'URL de notification serveur à
 serveur, qui seule fait foi pour valider un paiement (le retour navigateur ne
 prouve rien, le client peut fermer son onglet) :
@@ -392,6 +415,51 @@ celui qui s'y trouve.
 
 Le MX de la racine (`mail-fr.securemail.pro`) n'a rien à voir avec Resend et ne
 doit pas être touché.
+
+⚠ **« Aucun e-mail n'est parti » n'est pas forcément une panne d'e-mail.**
+Le 2026-09-12, le commerçant a passé trois commandes par carte en recette et
+n'a rien reçu ; le tableau de bord Resend affichait « No sent emails yet ». La
+conclusion naturelle — clé absente ou révoquée — était fausse.
+
+Sur le parcours carte, **le seul endroit qui envoie un e-mail est
+`functions/api/monetico-notification.js`**, l'appel serveur à serveur de la
+banque. Tant que la banque n'a pas enregistré l'URL de notification, ce
+fichier n'est jamais exécuté : aucune commande ne passe en `paid`, et aucun
+e-mail n'est demandé. Zéro envoi est donc la **conséquence attendue** de
+l'attente bancaire, pas un symptôme distinct. `monetico-retour-client.js`, lui,
+ne fait qu'afficher une page — il n'envoie rien, et c'est voulu (le retour
+navigateur ne prouve aucun paiement).
+
+Seul le retrait en boutique (`submit-reservation.js`) envoie sans attendre la
+banque. **C'est sur ce parcours-là, et lui seul, qu'une absence d'e-mail
+accuse la configuration.**
+
+Avant de suspecter une clé, se demander donc : *quel code aurait dû envoyer ?*
+
+### `/admin/diagnostic/` — voir ce que le serveur reçoit vraiment
+
+`functions/api/diagnostic.js` répond depuis l'intérieur du Worker : présence
+de chaque variable et de chaque binding, plus un bouton qui envoie un e-mail
+de test au commerçant. Il existe parce qu'une variable absente ne produit
+aucune erreur — `_shared/email.js` renvoie `{ stubbed: true }` et poursuit —
+et parce que le tableau de bord Cloudflare montre ce qui a été **saisi**, pas
+ce que le Worker **reçoit**.
+
+L'e-mail de test est ce qui tranche : une clé absente et une clé refusée
+donnent le même silence côté client, et se corrigent à deux endroits
+différents. L'écran nomme le cas (`non-configure`, 401 révoquée, 403 domaine
+non vérifié).
+
+⚠ **Il ne renvoie jamais la valeur d'un secret** — seulement sa présence et sa
+longueur. Ne pas « juste afficher les quatre premiers caractères » : la
+longueur suffit aux cas réels (une clé MAC Monetico fait 40 caractères ; 39
+trahit une coupure au copier-coller).
+
+`npm run test:diagnostic` exécute l'écran pour de vrai, dans le HTML généré,
+avec un `fetch` simulé — c'est le seul contrôle du dépôt qui attrape la classe
+d'erreur qui a figé `/admin/commandes/` sur « Chargement… » (voir plus bas).
+Il s'auto-désactive si `linkedom` n'est pas installé plutôt que de faire
+tomber une construction.
 
 **Le domaine est en service depuis le 2026-08-22.** `maisoncbdvape.fr` et
 `www.maisoncbdvape.fr` sont tous deux des domaines personnalisés du projet
