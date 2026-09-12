@@ -99,10 +99,20 @@
   }
 
   const MESSAGES = {
+    // ⚠ « Accepté », pas « envoyé ». Resend répond 200 dès qu'il prend le
+    //   message en charge ; la remise a lieu après, et peut échouer (rebond)
+    //   sans que rien ne revienne ici. Le 2026-09-12, le tout premier test a
+    //   été accepté puis a rebondi — et l'écran affichait « Envoyé » en vert.
+    //   Ne pas retoucher cette formulation pour la rendre plus rassurante.
     envoye: function (d) {
-      return { couleur: VERT, texte:
-        'Envoyé à ' + d.destinataire + '. Identifiant Resend : ' + (d.id || '—') +
-        '. S\'il n\'arrive pas, regarder les indésirables puis le journal du compte Resend.' };
+      return {
+        couleur: VERT,
+        texte: 'Accepté par Resend pour ' + d.destinataire + '.',
+        detail: 'Identifiant : ' + (d.id || '—'),
+        contexte: 'Accepté n\'est pas remis : la remise se joue ensuite. '
+          + 'Vérifier l\'arrivée réelle, et en cas d\'absence le journal Resend '
+          + '(resend.com/emails), qui indique « Delivered » ou « Bounced ».',
+      };
     },
     'non-configure': function (d) { return { couleur: ROUGE, texte: d.message }; },
     'aucun-destinataire': function (d) { return { couleur: ROUGE, texte: d.message }; },

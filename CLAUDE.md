@@ -495,6 +495,22 @@ chercher d'abord la **portée** de la clé, pas sa validité. Et tout héritage 
 projet `vapelab` est suspect par construction : ce qui a été créé avant que
 `maisoncbdvape.fr` existe ne peut pas le connaître.
 
+⚠ **« Accepté » n'est pas « remis », et c'est un angle mort qui reste
+ouvert.** Resend répond 200 dès qu'il prend le message en charge ; la remise a
+lieu ensuite, et peut échouer — adresse inexistante, serveur du destinataire
+qui refuse — sans que rien ne revienne au Worker. Le tout premier envoi réussi,
+le 2026-09-12, est passé en **Bounced** dans le journal Resend alors que
+l'écran affichait « Envoyé » en vert.
+
+L'écran dit désormais « Accepté par Resend » et renvoie explicitement au
+journal ; `test:diagnostic` impose ce vocabulaire. Mais la conséquence
+sérieuse est ailleurs : **`order.emails = "envoye"` signifie « accepté », pas
+« reçu »**. Une commande peut donc s'afficher sans alerte alors que le client
+n'a jamais rien reçu. Fermer vraiment ce trou demande de brancher les
+*webhooks* Resend (`email.bounced`, `email.delivered`) sur une Pages Function
+qui remonte l'état sur la commande — non fait, à faire avant de considérer la
+chaîne e-mail comme fiable.
+
 ⚠ **Il ne renvoie jamais la valeur d'un secret** — seulement sa présence et sa
 longueur. Ne pas « juste afficher les quatre premiers caractères » : la
 longueur suffit aux cas réels (une clé MAC Monetico fait 40 caractères ; 39

@@ -149,7 +149,11 @@ console.log("\n[diagnostic] Exécution de l'écran /admin/diagnostic/\n");
 {
   console.log("\nBouton « envoyer un e-mail de test »");
   const cas = [
-    ["envoye",             { verdict: "envoye", destinataire: "x@y.fr", id: "abc" }, "Identifiant Resend"],
+    // ⚠ L'attendu impose le mot « Accepté » et non « Envoyé » : Resend répond
+    //   200 à la prise en charge, pas à la remise. Un succès annoncé trop fort
+    //   est ce qui a fait croire, le 2026-09-12, qu'un message rebondi était
+    //   parti.
+    ["envoye", { verdict: "envoye", destinataire: "x@y.fr", id: "abc" }, "Accepté par Resend"],
     // ⚠ L'attendu ne contient pas d'apostrophe : `esc()` produit bien
     //   `&#x27;`, mais relire `innerHTML` restitue le caractère littéral —
     //   comme dans un navigateur. Attendre l'entité ferait échouer un code
