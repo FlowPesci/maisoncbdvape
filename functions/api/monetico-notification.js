@@ -21,6 +21,37 @@ import { signalerReassort } from "../_shared/reassort.js";
 import { sendEmail, merchantEmail } from "../_shared/email.js";
 import { paiementClient, paiementMerchant } from "../_shared/templates.js";
 
+/**
+ * Journal des appels reçus sur cette URL — les dix derniers, dans ORDERS_KV.
+ *
+ * ─── Pourquoi ─────────────────────────────────────────────────────────────
+ * Quand la banque annonce « la notification de retour échoue », deux mondes
+ * très différents produisent la même phrase :
+ *   · elle ne nous joint pas du tout (URL non enregistrée, mauvaise adresse,
+ *     filtrage) — rien n'arrive jamais ici ;
+ *   · elle nous joint et nous répondons `cdr=1` — typiquement parce que
+ *     MONETICO_CLE_MAC est absente ou fausse, auquel cas le sceau de CHAQUE
+ *     notification est rejeté.
+ * Sans trace, on ne peut pas les distinguer, et on cherche du côté du réseau
+ * un problème de configuration — ou l'inverse.
+ *
+ * ⚠ On n'enregistre jamais les champs du paiement : ni le sceau, ni la carte
+ *   masquée, ni le montant. Seulement de quoi répondre « nous a-t-elle appelés,
+ *   et qu'avons-nous répondu ». L'écriture ne doit jamais empêcher l'accusé de
+ *   partir : tout est absorbé.
+ */
+async function journaliser(env, entree) {
+  try {
+    if (!env.ORDERS_KV) return;
+    const brut = await env.ORDERS_KV.get("mtc:journal");
+    const liste = brut ? JSON.parse(brut) : [];
+    liste.unshift({ at: new Date().toISOString(), ...entree });
+    await env.ORDERS_KV.put("mtc:journal", JSON.stringify(liste.slice(0, 10)));
+  } catch (err) {
+    console.error("[monetico-notification] Journalisation KO :", err.message);
+  }
+}
+
 export async function onRequestPost({ request, env }) {
   // ── 1. Lire les champs POSTés ─────────────────────────────────────────────
   let params;
@@ -29,6 +60,7 @@ export async function onRequestPost({ request, env }) {
     params = Object.fromEntries([...form.entries()].map(([k, v]) => [k, String(v)]));
   } catch (err) {
     console.error("[monetico-notification] Corps illisible :", err.message);
+    await journaliser(env, { methode: "POST", issue: "corps-illisible", cdr: 1 });
     return ackResponse(false);
   }
 
@@ -41,6 +73,16 @@ export async function onRequestPost({ request, env }) {
     console.warn("[monetico-notification] Sceau invalide — notification rejetée", {
       reference: params.reference, codeRetour: params["code-retour"],
     });
+    // Le diagnostic le plus fréquent derrière un sceau systématiquement
+    // refusé n'est pas une attaque : c'est MONETICO_CLE_MAC absente ou
+    // tronquée. `cleMacPresente` le dit sans rien révéler de la clé.
+    await journaliser(env, {
+      methode: "POST",
+      issue: "sceau-invalide",
+      cdr: 1,
+      codeRetour: params["code-retour"] || null,
+      cleMacPresente: !!(env.MONETICO_CLE_MAC || "").trim(),
+    });
     return ackResponse(false);
   }
 
@@ -49,6 +91,7 @@ export async function onRequestPost({ request, env }) {
   const codeRetour = params["code-retour"];
   const reference  = params.reference;
   console.log("[monetico-notification] Notification scellée :", { reference, codeRetour });
+  await journaliser(env, { methode: "POST", issue: "sceau-valide", cdr: 0, codeRetour, reference });
 
   // ── 3. Retrouver la commande via l'index référence → orderId ──────────────
   let orderId = null;
@@ -140,10 +183,20 @@ export async function onRequestPost({ request, env }) {
   return ackResponse(true);
 }
 
-// Certains contrôles de configuration Monetico appellent l'URL en GET.
-export async function onRequestGet() {
-  return new Response("Monetico notification endpoint", {
-    status: 200,
-    headers: { "Content-Type": "text/plain; charset=utf-8" },
-  });
+/**
+ * Contrôle de joignabilité de l'URL de retour, côté banque.
+ *
+ * ⚠ Répondre 200 ne suffit pas : l'outil qui vérifie l'URL cherche l'accusé
+ *   `version=2 / cdr=0` dans le CORPS. Jusqu'au 2026-09-18 ce handler
+ *   renvoyait « Monetico notification endpoint » — un 200 parfaitement inutile
+ *   pour la banque, qui ne pouvait que conclure à une notification de retour
+ *   défaillante tout en constatant un code HTTP correct. C'est une panne qui
+ *   se décrit naturellement comme « erreur 200 ».
+ *
+ * Répondre l'accusé sur un GET n'affirme rien de faux : aucune commande n'est
+ * touchée ici, et Monetico ne notifie jamais un paiement autrement qu'en POST.
+ */
+export async function onRequestGet({ env }) {
+  await journaliser(env, { methode: "GET", issue: "controle-joignabilite" });
+  return ackResponse(true);
 }

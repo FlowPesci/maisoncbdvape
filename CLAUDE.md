@@ -405,6 +405,34 @@ prouve rien, le client peut fermer son onglet) :
 https://maisoncbdvape.fr/api/monetico-notification
 ```
 
+⚠ **Un HTTP 200 ne suffit pas : c'est le CORPS qui est contrôlé.** Monetico
+attend `version=2` / `cdr=0`. Jusqu'au 2026-09-18, un **GET** sur cette URL
+renvoyait « Monetico notification endpoint » avec un code 200 — donc une
+adresse joignable et un accusé absent. Un outil de validation ne peut que
+conclure à une notification de retour défaillante tout en constatant un code
+correct, ce qui se raconte naturellement comme « erreur 200 ». Le handler GET
+répond désormais l'accusé, comme le POST.
+
+⚠ **Et un sceau systématiquement refusé donne exactement le même symptôme
+côté banque.** `verifyRetourMac` renvoie `false` si `MONETICO_CLE_MAC` est
+absente ou tronquée ; le code répond alors `cdr=1` à *chaque* notification.
+Vue de la banque, la notification « échoue » — sans qu'aucune trace ne dise
+pourquoi.
+
+**`/admin/diagnostic/` sépare ces deux mondes**, et c'est la seule chose qui
+les sépare : `functions/api/monetico-notification.js` journalise les dix
+derniers appels reçus (`mtc:journal` dans `ORDERS_KV`) avec, pour chacun, la
+méthode, le `cdr` renvoyé, le `code-retour` et — sur sceau refusé — la seule
+présence de la clé MAC. Jamais un champ du paiement, jamais le sceau.
+
+- **journal vide** → la banque ne nous joint pas : l'URL enregistrée chez elle
+  est fausse, ou l'appel n'arrive pas. Inutile de chercher côté sceau.
+- **`sceau-invalide` avec clé absente** → saisir `MONETICO_CLE_MAC` dans
+  Cloudflare, en type Secret, puis redéployer.
+- **`sceau-invalide` avec clé présente** → valeur erronée, ou mauvais code
+  société : essayer `halldelapr_hf` (voir plus bas).
+- **`sceau-valide`** → la chaîne fonctionne ; le problème est ailleurs.
+
 **Le portail dépend de l'offre**, et c'est la source de confusion la plus
 fréquente. Il y en a quatre :
 

@@ -57,6 +57,10 @@ const REPONSE_TYPE = {
     { nom: "ORDERS_KV", role: "Commandes", present: true },
     { nom: "AI", role: "Bons de livraison", present: false },
   ],
+  monetico: [
+    { at: "2026-09-18T09:00:00.000Z", methode: "POST", issue: "sceau-valide", cdr: 0, codeRetour: "payetest" },
+    { at: "2026-09-18T08:00:00.000Z", methode: "POST", issue: "sceau-invalide", cdr: 1, cleMacPresente: false },
+  ],
 };
 
 /** Monte la page, exécute le script, rend la main une fois les micro-tâches vidées. */
@@ -67,6 +71,10 @@ async function jouer({ session = true, reponse = REPONSE_TYPE, statut = 200, env
     connecte: () => session,
     oublier: () => Promise.resolve(),
   };
+  // Fourni en vrai par `tabacgex.js`, chargé par le gabarit de base. Le
+  // contrôle ci-dessous garantit que cette dépendance existe réellement sur
+  // la page : la simuler ici sans le vérifier masquerait un écran cassé.
+  window.MCV_DATE = { dateHeure: (d) => d.toISOString() };
   const appels = [];
   window.fetch = async (url, opts) => {
     appels.push({ url, methode: opts?.method || "GET" });
@@ -100,6 +108,18 @@ function verifier(nom, condition, detail) {
 
 console.log("\n[diagnostic] Exécution de l'écran /admin/diagnostic/\n");
 
+// ── 0. Les dépendances simulées existent-elles vraiment sur la page ? ─────
+// Sans ce contrôle, stubber `window.MCV_DATE` rendrait tous les tests verts
+// sur un écran qui planterait dans le navigateur.
+{
+  console.log("Dépendances de la page");
+  for (const script of ["tabacgex.js", "admin-nav.js", "admin-diagnostic.js"]) {
+    verifier(script + " est chargé par la page",
+      html.includes("/assets/js/" + script),
+      "absent du HTML généré — le stub du test masquerait la panne");
+  }
+}
+
 // ── 1. Cas nominal : connecté, l'API répond ──────────────────────────────
 {
   const { document, erreurs } = await jouer({});
@@ -122,6 +142,29 @@ console.log("\n[diagnostic] Exécution de l'écran /admin/diagnostic/\n");
     texte.includes("36 caractères"), "longueur absente");
   verifier("aucune valeur secrète ne fuit dans le HTML",
     !texte.includes("re_") && !/[0-9a-f]{32,}/.test(texte), "une chaîne ressemblant à un secret est présente");
+}
+
+// ── 1 bis. Journal Monetico ──────────────────────────────────────────────
+{
+  const { document } = await jouer({});
+  console.log("\nJournal des notifications Monetico");
+  const html = document.getElementById("diag-monetico").innerHTML;
+  verifier("un sceau refusé est signalé", html.includes("REFUS"), html.slice(0, 150));
+  verifier("la clé MAC absente est nommée comme la cause",
+    html.includes("ABSENTE"), "le motif le plus fréquent n'est pas explicité");
+  verifier("le code-retour de recette est visible",
+    html.includes("payetest"), "code-retour absent");
+}
+
+// ── 1 ter. Journal vide : l'absence est une information ──────────────────
+{
+  const { document } = await jouer({ reponse: { ...REPONSE_TYPE, monetico: [] } });
+  console.log("\nJournal Monetico vide");
+  const html = document.getElementById("diag-monetico").innerHTML;
+  verifier("l'écran ne reste pas muet",
+    html.includes("Aucun appel"), "un tableau vide n'apprend rien");
+  verifier("il oriente vers l'URL enregistrée chez la banque",
+    html.includes("back-office Monetico"), "aucune piste donnée");
 }
 
 // ── 2. Session absente ───────────────────────────────────────────────────

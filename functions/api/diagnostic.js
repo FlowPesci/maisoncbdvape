@@ -83,6 +83,21 @@ function etatVariables(env) {
   });
 }
 
+/**
+ * Les dix derniers appels reçus sur l'URL de notification Monetico.
+ * Écrits par `functions/api/monetico-notification.js` — voir le commentaire
+ * de `journaliser()` pour la raison d'être. Un journal vide signifie que la
+ * banque ne nous a jamais joints, ce qui est en soi la réponse.
+ */
+async function journalMonetico(env) {
+  try {
+    const brut = await env.ORDERS_KV.get("mtc:journal");
+    return brut ? JSON.parse(brut) : [];
+  } catch {
+    return [];
+  }
+}
+
 export async function onRequestGet({ request, env }) {
   const auth = await requireGithubUser(request, env);
   if (auth.error) return bad(auth.error.message, auth.error.status);
@@ -90,6 +105,7 @@ export async function onRequestGet({ request, env }) {
   return ok({
     variables: etatVariables(env),
     bindings: BINDINGS.map((b) => ({ ...b, present: !!env[b.nom] })),
+    monetico: await journalMonetico(env),
   });
 }
 

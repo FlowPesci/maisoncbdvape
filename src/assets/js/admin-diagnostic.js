@@ -19,6 +19,7 @@
   const corpsEl    = document.getElementById('diag-corps');
   const varsEl     = document.getElementById('diag-variables');
   const bindEl     = document.getElementById('diag-bindings');
+  const moneticoEl = document.getElementById('diag-monetico');
   const boutonMail = document.getElementById('diag-email');
   const resultMail = document.getElementById('diag-email-resultat');
 
@@ -79,6 +80,48 @@
       '</tr>';
   }
 
+  /**
+   * Journal Monetico. Chaque `issue` désigne une cause différente, et le
+   * libellé doit conduire à l'endroit où l'on corrige — pas décrire l'état.
+   */
+  const ISSUES = {
+    'sceau-valide':          { texte: 'Sceau validé',      couleur: VERT },
+    'controle-joignabilite': { texte: 'Test de l\'URL (GET)', couleur: GRIS },
+    'sceau-invalide':        { texte: 'Sceau REFUSÉ',      couleur: ROUGE },
+    'corps-illisible':       { texte: 'Requête illisible', couleur: ROUGE },
+  };
+
+  function rendreMonetico(journal) {
+    if (!journal || !journal.length) {
+      moneticoEl.innerHTML =
+        '<p class="text-smoke text-sm p-6">Aucun appel reçu à ce jour. '
+        + 'Si la banque signale un échec de notification, c\'est donc qu\'elle '
+        + 'n\'atteint pas cette adresse — vérifier l\'URL enregistrée dans le '
+        + 'back-office Monetico avant de chercher ailleurs.</p>';
+      return;
+    }
+    const lignes = journal.map(function (e) {
+      const i = ISSUES[e.issue] || { texte: e.issue, couleur: GRIS };
+      let note = '';
+      if (e.issue === 'sceau-invalide') {
+        note = e.cleMacPresente
+          ? 'Clé MAC présente : vérifier sa valeur et le code société.'
+          : 'MONETICO_CLE_MAC est ABSENTE — c\'est la cause.';
+      } else if (e.codeRetour) {
+        note = 'code-retour : ' + e.codeRetour;
+      }
+      return '<tr class="border-b border-dark-border">' +
+        '<td class="py-3 px-4 text-smoke text-xs whitespace-nowrap">' +
+          esc(window.MCV_DATE.dateHeure(new Date(e.at))) + '</td>' +
+        '<td class="py-3 px-4">' + pastille(i.texte, i.couleur) + '</td>' +
+        '<td class="py-3 px-4 font-mono text-xs text-smoke">cdr=' +
+          (e.cdr == null ? '—' : e.cdr) + '</td>' +
+        '<td class="py-3 px-4 text-smoke text-xs">' + esc(note) + '</td>' +
+        '</tr>';
+    }).join('');
+    moneticoEl.innerHTML = '<table class="w-full text-sm"><tbody>' + lignes + '</tbody></table>';
+  }
+
   async function charger() {
     if (!window.MCV_ADMIN.connecte()) return showLogin();
     try {
@@ -91,6 +134,7 @@
 
       varsEl.innerHTML = data.variables.map(ligneVariable).join('');
       bindEl.innerHTML = data.bindings.map(ligneBinding).join('');
+      rendreMonetico(data.monetico);
       statusEl.classList.add('hidden');
       corpsEl.classList.remove('hidden');
     } catch (err) {
