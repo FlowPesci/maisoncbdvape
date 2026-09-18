@@ -165,6 +165,10 @@ console.log("\n[diagnostic] Exécution de l'écran /admin/diagnostic/\n");
     html.includes("Aucun appel"), "un tableau vide n'apprend rien");
   verifier("il oriente vers l'URL enregistrée chez la banque",
     html.includes("back-office Monetico"), "aucune piste donnée");
+  // ⚠ Le journal démarre à sa mise en service : un vide n'accuse la banque
+  //   que si elle a testé depuis. L'écran ne doit pas conclure à sa place.
+  verifier("il ne conclut pas au-delà de ce qu'il sait",
+    html.includes("après"), "l'absence est présentée comme une preuve");
 }
 
 // ── 2. Session absente ───────────────────────────────────────────────────

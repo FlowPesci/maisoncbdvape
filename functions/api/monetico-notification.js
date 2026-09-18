@@ -197,6 +197,6 @@ export async function onRequestPost({ request, env }) {
  * touchée ici, et Monetico ne notifie jamais un paiement autrement qu'en POST.
  */
 export async function onRequestGet({ env }) {
-  await journaliser(env, { methode: "GET", issue: "controle-joignabilite" });
+  await journaliser(env, { methode: "GET", issue: "controle-joignabilite", cdr: 0 });
   return ackResponse(true);
 }

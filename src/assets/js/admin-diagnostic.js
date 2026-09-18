@@ -93,11 +93,16 @@
 
   function rendreMonetico(journal) {
     if (!journal || !journal.length) {
+      // ⚠ Ne pas conclure à la place du lecteur : le journal démarre à sa mise
+      //   en service, donc un vide n'accuse la banque que si elle a testé
+      //   DEPUIS. Écrire « elle ne nous joint pas » ferait chercher au mauvais
+      //   endroit sur la foi d'une absence qui ne prouve rien.
       moneticoEl.innerHTML =
-        '<p class="text-smoke text-sm p-6">Aucun appel reçu à ce jour. '
-        + 'Si la banque signale un échec de notification, c\'est donc qu\'elle '
-        + 'n\'atteint pas cette adresse — vérifier l\'URL enregistrée dans le '
-        + 'back-office Monetico avant de chercher ailleurs.</p>';
+        '<p class="text-smoke text-sm p-6">Aucun appel enregistré depuis la mise '
+        + 'en service de ce journal. Si la banque a testé <strong>après</strong> '
+        + 'cette date et que rien n\'apparaît ici, c\'est qu\'elle n\'atteint pas '
+        + 'cette adresse — vérifier alors l\'URL enregistrée dans le back-office '
+        + 'Monetico, caractère par caractère.</p>';
       return;
     }
     const lignes = journal.map(function (e) {
