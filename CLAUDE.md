@@ -556,10 +556,45 @@ Le conseiller Crédit Mutuel répond plus vite.
 
 **Recette avant production.** Garder `MONETICO_ENV = "test"` — le formulaire
 pointe alors vers `p.monetico-services.com/test/paiement.cgi` et le code retour
-est `payetest`. Jouer les paiements demandés (accepté, refusé, annulé) ;
-Monetico attend **trois accusés valides** (`version=2` / `cdr=0`) avant
-d'ouvrir le contrat. Basculer sur `production` seulement ensuite — et le build
-refuse cette bascule si TPE ou société est vide.
+est `payetest`. Monetico attend **trois accusés valides** (`version=2` /
+`cdr=0`) sur les **trois derniers tests**, quelle que soit leur nature, avant
+d'ouvrir le contrat.
+
+⚠ **Un abandon ne compte pas : il ne produit aucune notification.** La
+documentation v2.0 § 1.4.3 est explicite — « si le client ne poursuit pas le
+processus de paiement jusqu'au bout […] l'interface retour n'est pas
+appelée ». Inutile donc de chercher une carte de test « abandon » : il n'y en
+a pas, et quitter la page ne générera rien à valider.
+
+Il n'existe que **deux** issues notifiées : `payetest` (accepté) et
+`annulation` (**refusé** — le mot prête à confusion). La recette se joue donc
+en enchaînant des paiements acceptés et refusés, **sur une commande neuve à
+chaque fois** : Monetico autorise 3 tentatives pour une même référence dans un
+créneau de 45 minutes et notifie chacune, ce qui brouille la lecture du
+journal.
+
+Dans la fenêtre des cartes de test (icône « test » clignotante sur la page de
+paiement), **c'est la colonne résultat qui décide**, pas la marque : chaque
+carte est proposée avec plusieurs issues.
+
+✅ **Recette faite le 2026-09-19** : trois accusés valides consécutifs
+(16:26 `payetest`, 16:32 et 16:35 `Annulation`), tous `cdr=0`, variante
+`standard/v3.0`. Côté commandes, une **Payée** et deux **Annulées** — le
+chemin d'annulation, qui n'avait jamais tourné en production, relâche bien le
+stock.
+
+**Reste à faire pour encaisser réellement**, dans cet ordre :
+
+1. **Prévenir la banque** que les trois tests sont validés et demander le
+   passage du TPE en production.
+2. **Attendre leur confirmation écrite.** Ne pas anticiper : tant que le TPE
+   est en test côté banque, un `MONETICO_ENV = "production"` enverrait les
+   clients vers une plateforme qui refuserait tout.
+3. Alors seulement, passer `MONETICO_ENV = "production"` dans `wrangler.toml`,
+   puis `git push`. Le build refuse cette bascule si TPE ou société est vide.
+4. **Un vrai paiement de quelques euros**, avec une vraie carte, et vérifier
+   le journal : `code-retour` doit devenir `paiement` (et non plus
+   `payetest`). Rembourser ensuite depuis le back-office Monetico.
 
 Détail complet dans `docs/deploiement-cloudflare.md`, section 11.
 
