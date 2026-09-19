@@ -90,9 +90,21 @@ export async function onRequestPost({ request, env }) {
       codeRetour: params["code-retour"] || null,
       cleMacPresente: !!(env.MONETICO_CLE_MAC || "").trim(),
       // Les trois lectures du corps ont toutes été essayées : si aucune ne
-      // convient, le décodage n'est plus en cause. Reste la valeur de la clé
-      // ou le code société.
+      // convient, le décodage n'est plus en cause.
       lecturesEssayees: 3,
+      // ⚠ Les NOMS des champs reçus, jamais leurs valeurs.
+      //
+      // Le sceau retour se calcule sur l'ensemble des champs postés : si notre
+      // chaîne diffère de celle de Monetico, c'est soit qu'un champ manque,
+      // soit qu'il y en a un de trop, soit que l'ordre n'est pas le bon. Sans
+      // cette liste on ne peut que deviner — et trois hypothèses fausses ont
+      // déjà été essayées le 2026-09-19.
+      //
+      // Ces noms figurent tels quels dans la documentation publique de
+      // Monetico : les journaliser n'expose rien. Les VALEURS, elles, ne
+      // doivent jamais y entrer — elles contiennent la carte masquée, le
+      // montant, et le sceau lui-même.
+      champs: Object.keys(params).sort().join(","),
     });
     return ackResponse(false);
   }

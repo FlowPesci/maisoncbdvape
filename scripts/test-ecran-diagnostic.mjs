@@ -61,7 +61,8 @@ const REPONSE_TYPE = {
     { at: "2026-09-18T09:00:00.000Z", methode: "POST", issue: "sceau-valide", cdr: 0, codeRetour: "payetest" },
     { at: "2026-09-18T08:00:00.000Z", methode: "POST", issue: "sceau-invalide", cdr: 1, cleMacPresente: false },
     // Refus postérieur au correctif : les trois lectures ont été essayées.
-    { at: "2026-09-18T07:30:00.000Z", methode: "POST", issue: "sceau-invalide", cdr: 1, cleMacPresente: true, lecturesEssayees: 3 },
+    { at: "2026-09-18T07:30:00.000Z", methode: "POST", issue: "sceau-invalide", cdr: 1, cleMacPresente: true, lecturesEssayees: 3,
+      champs: "MAC,TPE,code-retour,date,montant,reference" },
     // Refus antérieur au correctif : une seule lecture, donc non concluant.
     { at: "2026-09-18T07:00:00.000Z", methode: "POST", issue: "sceau-invalide", cdr: 1, cleMacPresente: true },
   ],
@@ -165,6 +166,14 @@ console.log("\n[diagnostic] Exécution de l'écran /admin/diagnostic/\n");
     html.includes("le décodage est écarté"), "les trois lectures ne sont pas mentionnées");
   verifier("un refus antérieur est signalé comme non concluant",
     html.includes("ne rien en conclure"), "un ancien refus passe pour un verdict");
+  verifier("les noms des champs reçus sont affichés",
+    html.includes("champs reçus") && html.includes("code-retour"),
+    "sans eux, on ne peut que deviner la composition de la chaîne");
+  // ⚠ Les valeurs ne doivent JAMAIS être journalisées : carte masquée,
+  //   montant, sceau. Seuls les noms, qui sont publics.
+  verifier("aucune valeur de paiement n'est affichée",
+    !/[0-9a-f]{40}/.test(html) && !html.includes("payetest=") ,
+    "une valeur a fuité dans le journal");
 }
 
 // ── 1 ter. Journal vide : l'absence est une information ──────────────────

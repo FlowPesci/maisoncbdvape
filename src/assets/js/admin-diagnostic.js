@@ -125,13 +125,19 @@
       } else if (e.codeRetour) {
         note = 'code-retour : ' + e.codeRetour;
       }
+      // Les noms de champs reçus : publics, et indispensables pour comparer
+      // notre chaîne à celle de Monetico. Aucune valeur n'est affichée.
+      const champs = e.champs
+        ? '<div class="font-mono mt-1" style="color:#8A8A9A;font-size:.68rem;word-break:break-all;">'
+          + 'champs reçus : ' + esc(e.champs) + '</div>'
+        : '';
       return '<tr class="border-b border-dark-border">' +
-        '<td class="py-3 px-4 text-smoke text-xs whitespace-nowrap">' +
+        '<td class="py-3 px-4 text-smoke text-xs whitespace-nowrap align-top">' +
           esc(window.MCV_DATE.dateHeure(new Date(e.at))) + '</td>' +
-        '<td class="py-3 px-4">' + pastille(i.texte, i.couleur) + '</td>' +
-        '<td class="py-3 px-4 font-mono text-xs text-smoke">cdr=' +
+        '<td class="py-3 px-4 align-top">' + pastille(i.texte, i.couleur) + '</td>' +
+        '<td class="py-3 px-4 font-mono text-xs text-smoke align-top">cdr=' +
           (e.cdr == null ? '—' : e.cdr) + '</td>' +
-        '<td class="py-3 px-4 text-smoke text-xs">' + esc(note) + '</td>' +
+        '<td class="py-3 px-4 text-smoke text-xs align-top">' + esc(note) + champs + '</td>' +
         '</tr>';
     }).join('');
     moneticoEl.innerHTML = '<table class="w-full text-sm"><tbody>' + lignes + '</tbody></table>';
