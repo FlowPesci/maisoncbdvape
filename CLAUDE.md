@@ -36,6 +36,28 @@ npm run db:migrate:alertes     # colonne alerteLe + tables attentes et avis
 `Authentication error [code: 10000]`, puis les suivantes passent. Le jeton OAuth
 se renouvelle après le premier refus. Relancer, simplement.
 
+⚠ **Une seule instruction par `--command`.** Le 2026-09-19, trois instructions
+séparées par `;` dans un même `--command` n'ont produit aucun effet — et
+aucune erreur : la vérification qui a suivi montrait la base inchangée.
+Wrangler annonce « Executed 1 command » quoi qu'il arrive, donc ce compteur ne
+prouve rien. Découper, et **vérifier par un SELECT après coup** plutôt que se
+fier au compte-rendu.
+
+⚠ **Les réservations périmées ne se purgent qu'au fil de l'eau**, à chaque
+nouvelle réservation (`purgerExpirees`, `_shared/stock.js`) — il n'y a pas de
+tâche planifiée. Sur une boutique sans trafic, une réservation abandonnée
+reste donc `active` indéfiniment et bloque son unité, bien après son
+`expireLe`. Constaté après la recette Monetico. Pour la libérer, passer une
+commande quelconque : c'est le code réel qui s'en charge et qui trace le
+mouvement. À défaut, reproduire **les trois** gestes de `purgerExpirees` —
+`dispo + qty`, `etat = 'relachee'`, **et l'insertion dans `mouvements`**. Un
+stock qui bouge sans trace est exactement ce que ce journal existe pour
+empêcher.
+
+⚠ **Avant de saisir les stocks réels, vérifier qu'aucune réservation de test
+ne traîne** : `SELECT * FROM reservations WHERE etat='active'`. Sinon on
+saisit des quantités justes sur des lignes qui en ont une de bloquée.
+
 ### Médias
 
 ```bash
