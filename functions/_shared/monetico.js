@@ -201,6 +201,60 @@ function chaineRetour(params) {
     .join("*");
 }
 
+/**
+ * Chaîne à sceller — interface « Retour », méthode de la version 3.0.
+ *
+ * ⚠ C'est CELLE-CI que Monetico utilise pour notre TPE, et c'est ce qui a
+ *   bloqué la recette pendant deux jours.
+ *
+ * La méthode alphabétique de `chaineRetour()` (documentation v2.0, février
+ * 2025) prend TOUS les champs postés. La méthode 3.0 n'en prend qu'une liste
+ * FIXE, dans un ORDRE IMPOSÉ, et termine par une étoile. Un seul champ
+ * supplémentaire posté par la plateforme — `modepaiement`, par exemple —
+ * suffit donc à faire diverger la version alphabétique, alors que la version
+ * 3.0 l'ignore.
+ *
+ * Constaté le 2026-09-19 : le journal montrait `veres`, `pares`, `status3ds`,
+ * `cvx`, `vld`, `bincb`, `hpancb`, `originecb`, `originetr` — les champs de
+ * l'ancienne interface — et aucun champ `authentification`, qui est celui de
+ * la v2. Le formulaire aller portant `version = 3.0`, le retour suit.
+ *
+ * La documentation technique v2.0 § 1.4.3 le dit : « il convient donc de
+ * prévoir un mécanisme de repli gérant l'ancien calcul du sceau ». Les deux
+ * méthodes doivent coexister — notamment pour les paiements fractionnés, dont
+ * les échéances peuvent revenir des jours après.
+ *
+ * Source : documentation technique CM-CIC v3.0a, § 1.3.3.2.
+ *   <TPE>*<date>*<montant>*<reference>*<texte-libre>*3.0*<coderetour>*<cvx>
+ *   *<vld>*<brand>*<status3ds>*<numauto>*<motifrefus>*<originecb>*<bincb>
+ *   *<hpancb>*<ipclient>*<originetr>*<veres>*<pares>*
+ *
+ * Un champ absent laisse une place VIDE — il ne disparaît pas de la chaîne.
+ */
+function chaineRetour30(p) {
+  const v = (nom) => (p[nom] == null ? "" : String(p[nom]));
+  // Le nom du champ a varié selon les versions : « coderetour » puis
+  // « code-retour ». La chaîne, elle, ne veut que la valeur.
+  const codeRetour = p["code-retour"] != null ? String(p["code-retour"]) : v("coderetour");
+  const texteLibre = p["texte-libre"] != null ? String(p["texte-libre"]) : v("textelibre");
+
+  return [
+    v("TPE"), v("date"), v("montant"), v("reference"), texteLibre,
+    MONETICO_VERSION,
+    codeRetour, v("cvx"), v("vld"), v("brand"), v("status3ds"), v("numauto"),
+    v("motifrefus"), v("originecb"), v("bincb"), v("hpancb"), v("ipclient"),
+    v("originetr"), v("veres"), v("pares"),
+  ].join("*") + "*";   // ⚠ étoile finale : elle fait partie de la chaîne
+}
+
+/**
+ * Exposée pour `scripts/test-sceau-monetico.mjs`, qui compare la chaîne
+ * produite à l'exemple publié dans la documentation. Contrôler la forme de
+ * la chaîne vaut mieux que contrôler un sceau : l'exemple officiel donne la
+ * chaîne, pas la clé qui l'a scellée.
+ */
+export const chaineRetour30Pour = chaineRetour30;
+
 /* ────────────────────────────────────────────────────────────────────────────
  * 3 bis. Trois lectures possibles du même corps POSTé
  *
@@ -287,9 +341,34 @@ export async function verifyRetourMac(env, params) {
  */
 export async function verifierNotification(env, raw) {
   const lectures = lecturesDuCorps(raw);
+
+  // Deux méthodes de scellement coexistent, et la documentation v2.0 impose
+  // de gérer les deux (§ 1.4.3). L'ordre compte peu : une seule peut coïncider.
+  const methodes = [
+    { nom: "v3.0",  chaine: chaineRetour30 },
+    { nom: "alpha", chaine: chaineRetour },
+  ];
+
   for (const { variante, params } of lectures) {
-    if (await verifyRetourMac(env, params)) {
-      return { valide: true, params, variante, variantesEssayees: lectures.map((l) => l.variante) };
+    const recu = String(params.MAC || "").toLowerCase();
+    if (recu.length !== 40) continue;
+    for (const methode of methodes) {
+      let calcule;
+      try { calcule = await hmacSha1Hex(env.MONETICO_CLE_MAC, methode.chaine(params)); }
+      catch { continue; }
+      // Comparaison à temps constant
+      let diff = calcule.length ^ recu.length;
+      for (let i = 0; i < Math.min(calcule.length, recu.length); i++) {
+        diff |= calcule.charCodeAt(i) ^ recu.charCodeAt(i);
+      }
+      if (diff === 0) {
+        return {
+          valide: true,
+          params,
+          variante: variante + "/" + methode.nom,
+          variantesEssayees: lectures.map((l) => l.variante),
+        };
+      }
     }
   }
   // Aucune ne correspond : on rend la lecture standard pour que l'appelant

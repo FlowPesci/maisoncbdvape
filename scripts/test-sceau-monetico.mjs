@@ -127,9 +127,70 @@ console.log("\n[sceau] Validation du sceau retour Monetico\n");
   verifier("l'espace est restituée", r.params["texte-libre"] === "Commande 42", r.params["texte-libre"]);
 }
 
+// ── 5. La méthode 3.0 : liste FIXE, ordre imposé, étoile finale ─────────
+//
+// C'est ce que Monetico utilise réellement pour ce TPE. La méthode
+// alphabétique prend tous les champs postés ; celle-ci n'en prend qu'une
+// liste fixe et ignore le reste. Un champ de plus — `modepaiement` — suffit
+// à séparer les deux, et c'est ce qui bloquait la recette.
+{
+  const recus = {
+    TPE: "NI7668I", date: "19/09/2026_a_16:07:00", montant: "42.90EUR",
+    reference: "ABC123", "texte-libre": "CMD-1", "code-retour": "payetest",
+    cvx: "oui", vld: "1230", brand: "VI", status3ds: "1", numauto: "010101",
+    originecb: "FRA", bincb: "010101", hpancb: "74E94B03", ipclient: "127.0.0.1",
+    originetr: "FRA", veres: "Y", pares: "Y",
+    // Champs postés en plus, absents de la chaîne 3.0 : ils doivent être ignorés.
+    modepaiement: "CB", PqFR: "peu importe",
+  };
+  // La banque scelle la liste fixe, dans l'ordre, avec l'étoile finale.
+  const chaine30 = [
+    recus.TPE, recus.date, recus.montant, recus.reference, recus["texte-libre"],
+    "3.0", recus["code-retour"], recus.cvx, recus.vld, recus.brand,
+    recus.status3ds, recus.numauto, "", recus.originecb, recus.bincb,
+    recus.hpancb, recus.ipclient, recus.originetr, recus.veres, recus.pares,
+  ].join("*") + "*";
+  const mac = await sceauDeReference(chaine30);
+  const corps = Object.entries({ ...recus, MAC: mac })
+    .map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join("&");
+
+  const r = await verifierNotification(env, corps);
+  console.log("\nMéthode 3.0 — liste fixe, champs surnuméraires ignorés");
+  verifier("sceau reconnu", r.valide,
+    "c'est la panne du 2026-09-19 : nous concaténions TOUS les champs postés");
+  verifier("la méthode 3.0 est bien celle retenue",
+    String(r.variante || "").endsWith("/v3.0"), "variante = " + r.variante);
+  verifier("le code-retour reste exploitable",
+    r.params["code-retour"] === "payetest", r.params["code-retour"]);
+}
+
+// ── 6. L'exemple officiel de la documentation ───────────────────────────
+// Vérifie la FORME de la chaîne — ordre, séparateurs, étoile finale, place
+// vide du motif de refus — contre l'exemple publié par Euro Information
+// (doc technique v3.0a, § 1.3.3.2). Le sceau de l'exemple n'est pas
+// reproductible sans la clé d'origine ; c'est la chaîne qu'on contrôle.
+{
+  const attendu = "1234567*05/12/2006_a_11:55:23*62.75EUR*ABERTYP00145*LeTexteLibre"
+    + "*3.0*paiement*oui*1208*VI*1*010101**FRA*010101"
+    + "*74E94B03C22D786E0F2C2CADBFC1C00B004B7C45*127.0.0.1*FRA*Y*Y*";
+
+  const { chaineRetour30Pour } = await import("../functions/_shared/monetico.js");
+  const obtenu = chaineRetour30Pour({
+    TPE: "1234567", date: "05/12/2006_a_11:55:23", montant: "62.75EUR",
+    reference: "ABERTYP00145", "texte-libre": "LeTexteLibre",
+    "code-retour": "paiement", cvx: "oui", vld: "1208", brand: "VI",
+    status3ds: "1", numauto: "010101", originecb: "FRA", bincb: "010101",
+    hpancb: "74E94B03C22D786E0F2C2CADBFC1C00B004B7C45",
+    ipclient: "127.0.0.1", originetr: "FRA", veres: "Y", pares: "Y",
+  });
+  console.log("\nChaîne conforme à l'exemple de la documentation");
+  verifier("identique à l'exemple publié", obtenu === attendu,
+    "\n       attendu : " + attendu + "\n       obtenu  : " + obtenu);
+}
+
 console.log("");
 if (echecs.length) {
   console.error(`[sceau] ✕ ${echecs.length} contrôle(s) en échec\n`);
   process.exit(1);
 }
-console.log("[sceau] ✓ le sceau retour survit aux trois lectures du corps\n");
+console.log("[sceau] ✓ les deux méthodes de scellement et les trois lectures du corps\n");

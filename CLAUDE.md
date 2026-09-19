@@ -420,6 +420,58 @@ absente ou tronquée ; le code répond alors `cdr=1` à *chaque* notification.
 Vue de la banque, la notification « échoue » — sans qu'aucune trace ne dise
 pourquoi.
 
+### ✅ La vraie cause : deux méthodes de scellement au retour
+
+**Ce TPE répond selon l'ancienne interface (version 3.0), pas la v2.0.** Le
+journal l'a établi le 2026-09-19 : les champs reçus sont `veres`, `pares`,
+`status3ds`, `cvx`, `vld`, `bincb`, `hpancb`, `originecb`, `originetr` — ceux
+de l'ancienne interface — et le champ `authentification` de la v2 est absent.
+C'est cohérent : notre formulaire aller porte `version = "3.0"`
+(`MONETICO_VERSION`), et **le retour suit la version de l'aller**.
+
+Les deux méthodes n'ont rien à voir :
+
+| | v2.0 (février 2025) | **v3.0 (la nôtre)** |
+|---|---|---|
+| Champs | **tous** ceux postés | une **liste fixe** |
+| Forme | `nom=valeur`, tri alphabétique | valeurs seules, **ordre imposé** |
+| Fin | rien | **étoile finale** |
+| Champ en trop | change la chaîne | ignoré |
+
+Nous n'appliquions que l'alphabétique. Or la plateforme poste des champs
+absents de la liste fixe — `modepaiement` notamment — et chacun suffisait à
+faire diverger la chaîne. D'où un sceau refusé sur **chaque** notification,
+avec une clé pourtant bonne.
+
+La chaîne 3.0, telle que publiée (doc technique CM-CIC v3.0a, § 1.3.3.2) :
+
+```
+<TPE>*<date>*<montant>*<reference>*<texte-libre>*3.0*<coderetour>*<cvx>*<vld>
+*<brand>*<status3ds>*<numauto>*<motifrefus>*<originecb>*<bincb>*<hpancb>
+*<ipclient>*<originetr>*<veres>*<pares>*
+```
+
+⚠ **Un champ absent laisse une place vide, il ne disparaît pas** : deux
+étoiles consécutives là où `motifrefus` manque. Et l'**étoile finale** fait
+partie de la chaîne.
+
+`verifierNotification()` essaie les deux méthodes et journalise celle qui a
+fonctionné (`variante` = lecture du corps + méthode, ex. `standard/v3.0`).
+**Garder les deux** : la documentation v2.0 § 1.4.3 l'impose explicitement —
+les paiements fractionnés peuvent faire revenir une échéance scellée à
+l'ancienne des jours plus tard.
+
+`npm run test:sceau` compare la chaîne produite à **l'exemple publié dans la
+documentation**, caractère pour caractère. C'est plus solide que de vérifier
+un sceau : l'exemple officiel donne la chaîne, pas la clé qui l'a scellée.
+
+**La leçon de ces deux jours** : trois hypothèses ont été fausses — URL,
+décodage du corps, code société — et chacune était plausible. Ce qui a
+tranché à chaque fois, ce n'est pas le raisonnement, c'est le journal : appel
+reçu ou non, sceau refusé ou non, **quels champs**. La liste des champs reçus
+a donné la réponse en une lecture, là où deux jours de déduction avaient
+échoué. Quand un tiers refuse, faire parler ce qu'il envoie.
+
 ### ⚠ Le décodage du corps fait partie du sceau
 
 C'est ce qui bloquait la recette, et rien ne le disait. Le 2026-09-19, le
