@@ -109,9 +109,19 @@
       const i = ISSUES[e.issue] || { texte: e.issue, couleur: GRIS };
       let note = '';
       if (e.issue === 'sceau-invalide') {
-        note = e.cleMacPresente
-          ? 'Clé MAC présente : vérifier sa valeur et le code société.'
-          : 'MONETICO_CLE_MAC est ABSENTE — c\'est la cause.';
+        if (!e.cleMacPresente) {
+          note = 'MONETICO_CLE_MAC est ABSENTE — c\'est la cause.';
+        } else if (e.lecturesEssayees) {
+          // Entrée produite par le code qui essaie les trois lectures du
+          // corps : le décodage ne peut plus expliquer l'échec.
+          note = 'Les ' + e.lecturesEssayees + ' lectures du corps ont échoué : '
+            + 'le décodage est écarté. Reste la valeur de la clé ou le code société.';
+        } else {
+          // ⚠ Entrée antérieure au correctif du 2026-09-19 : une seule lecture
+          //   avait été tentée. Ne rien conclure de cet échec-là.
+          note = 'Refus antérieur au correctif de décodage — ne rien en conclure, '
+            + 'rejouer un paiement de test.';
+        }
       } else if (e.codeRetour) {
         note = 'code-retour : ' + e.codeRetour;
       }

@@ -60,6 +60,10 @@ const REPONSE_TYPE = {
   monetico: [
     { at: "2026-09-18T09:00:00.000Z", methode: "POST", issue: "sceau-valide", cdr: 0, codeRetour: "payetest" },
     { at: "2026-09-18T08:00:00.000Z", methode: "POST", issue: "sceau-invalide", cdr: 1, cleMacPresente: false },
+    // Refus postérieur au correctif : les trois lectures ont été essayées.
+    { at: "2026-09-18T07:30:00.000Z", methode: "POST", issue: "sceau-invalide", cdr: 1, cleMacPresente: true, lecturesEssayees: 3 },
+    // Refus antérieur au correctif : une seule lecture, donc non concluant.
+    { at: "2026-09-18T07:00:00.000Z", methode: "POST", issue: "sceau-invalide", cdr: 1, cleMacPresente: true },
   ],
 };
 
@@ -154,6 +158,13 @@ console.log("\n[diagnostic] Exécution de l'écran /admin/diagnostic/\n");
     html.includes("ABSENTE"), "le motif le plus fréquent n'est pas explicité");
   verifier("le code-retour de recette est visible",
     html.includes("payetest"), "code-retour absent");
+  // ⚠ Un refus d'avant le correctif de décodage et un refus d'après ne
+  //   disent pas la même chose. Les confondre relancerait la chasse au
+  //   mauvais endroit — c'est ce qui a failli arriver le 2026-09-19.
+  verifier("un refus postérieur au correctif écarte le décodage",
+    html.includes("le décodage est écarté"), "les trois lectures ne sont pas mentionnées");
+  verifier("un refus antérieur est signalé comme non concluant",
+    html.includes("ne rien en conclure"), "un ancien refus passe pour un verdict");
 }
 
 // ── 1 ter. Journal vide : l'absence est une information ──────────────────
