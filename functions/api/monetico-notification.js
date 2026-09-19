@@ -15,7 +15,7 @@
  */
 
 import { getOrder, updateOrder } from "../_shared/orders.js";
-import { verifyRetourMac, isPaiementAccepte, ackResponse } from "../_shared/monetico.js";
+import { verifierNotification, isPaiementAccepte, ackResponse } from "../_shared/monetico.js";
 import { consommerReservation, relacherReservation } from "../_shared/stock.js";
 import { signalerReassort } from "../_shared/reassort.js";
 import { sendEmail, merchantEmail } from "../_shared/email.js";
@@ -54,10 +54,11 @@ async function journaliser(env, entree) {
 
 export async function onRequestPost({ request, env }) {
   // ── 1. Lire les champs POSTés ─────────────────────────────────────────────
-  let params;
+  // ⚠ On lit le corps BRUT, sans `request.formData()` : le décodage fait
+  //   partie du sceau. Voir `lecturesDuCorps` dans _shared/monetico.js.
+  let raw;
   try {
-    const form = await request.formData();
-    params = Object.fromEntries([...form.entries()].map(([k, v]) => [k, String(v)]));
+    raw = await request.text();
   } catch (err) {
     console.error("[monetico-notification] Corps illisible :", err.message);
     await journaliser(env, { methode: "POST", issue: "corps-illisible", cdr: 1 });
@@ -66,8 +67,14 @@ export async function onRequestPost({ request, env }) {
 
   // ── 2. Valider le sceau AVANT toute autre chose ───────────────────────────
   let macValide = false;
-  try { macValide = await verifyRetourMac(env, params); }
-  catch (err) { console.error("[monetico-notification] Vérification MAC KO :", err.message); }
+  let params = {};
+  let variante = null;
+  try {
+    const v = await verifierNotification(env, raw);
+    macValide = v.valide;
+    params    = v.params;
+    variante  = v.variante;
+  } catch (err) { console.error("[monetico-notification] Vérification MAC KO :", err.message); }
 
   if (!macValide) {
     console.warn("[monetico-notification] Sceau invalide — notification rejetée", {
@@ -82,6 +89,10 @@ export async function onRequestPost({ request, env }) {
       cdr: 1,
       codeRetour: params["code-retour"] || null,
       cleMacPresente: !!(env.MONETICO_CLE_MAC || "").trim(),
+      // Les trois lectures du corps ont toutes été essayées : si aucune ne
+      // convient, le décodage n'est plus en cause. Reste la valeur de la clé
+      // ou le code société.
+      lecturesEssayees: 3,
     });
     return ackResponse(false);
   }
@@ -91,7 +102,10 @@ export async function onRequestPost({ request, env }) {
   const codeRetour = params["code-retour"];
   const reference  = params.reference;
   console.log("[monetico-notification] Notification scellée :", { reference, codeRetour });
-  await journaliser(env, { methode: "POST", issue: "sceau-valide", cdr: 0, codeRetour, reference });
+  // `variante` dit quelle lecture du corps a produit le sceau attendu. Si ce
+  // n'est pas « standard », c'est la preuve que le décodage par défaut était
+  // la cause de l'échec — et non la clé.
+  await journaliser(env, { methode: "POST", issue: "sceau-valide", cdr: 0, codeRetour, reference, variante });
 
   // ── 3. Retrouver la commande via l'index référence → orderId ──────────────
   let orderId = null;

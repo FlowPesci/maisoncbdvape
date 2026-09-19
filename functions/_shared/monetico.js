@@ -201,6 +201,62 @@ function chaineRetour(params) {
     .join("*");
 }
 
+/* ────────────────────────────────────────────────────────────────────────────
+ * 3 bis. Trois lectures possibles du même corps POSTé
+ *
+ * ⚠ Le décodage du corps n'est pas neutre pour le sceau.
+ *
+ * Monetico signe la chaîne AVANT de l'encoder pour le transport. Nous, nous
+ * la reconstruisons APRÈS décodage — et les deux ne coïncident pas toujours.
+ * Le cas connu est le champ `authentification`, du base64, qui contient des
+ * « + » : dans un corps `application/x-www-form-urlencoded`, un « + » non
+ * échappé se décode en ESPACE. `request.formData()` et `URLSearchParams`
+ * appliquent cette règle — correctement du point de vue de la norme, et à
+ * tort du point de vue du sceau, qui a été calculé sur le « + ».
+ *
+ * Le symptôme est un sceau refusé sur CHAQUE notification, avec une clé
+ * pourtant valide : exactement ce qu'affichait le journal le 2026-09-19.
+ *
+ * Plutôt que de parier sur une lecture, on les essaie toutes et on retient
+ * celle dont le sceau correspond. Ce n'est pas un assouplissement : les trois
+ * sont des reconstructions fidèles des mêmes octets reçus, et il faut
+ * toujours connaître la clé pour produire un sceau valide. En prime, la
+ * variante retenue est journalisée — elle documente le comportement réel de
+ * la plateforme au lieu de le supposer.
+ * ──────────────────────────────────────────────────────────────────────────── */
+function lecturesDuCorps(raw) {
+  const lectures = [];
+
+  // A — décodage standard : « + » devient une espace.
+  try {
+    const p = {};
+    for (const [k, v] of new URLSearchParams(raw)) p[k] = v;
+    lectures.push({ variante: "standard", params: p });
+  } catch { /* corps illisible sous cette forme */ }
+
+  const paires = String(raw || "").split("&").filter(Boolean).map((m) => {
+    const i = m.indexOf("=");
+    return i === -1 ? [m, ""] : [m.slice(0, i), m.slice(i + 1)];
+  });
+
+  // B — pourcent-décodage seul : « + » préservé. C'est la lecture qui
+  //     correspond au base64 tel que Monetico l'a signé.
+  try {
+    const p = {};
+    for (const [k, v] of paires) p[decodeURIComponent(k)] = decodeURIComponent(v);
+    lectures.push({ variante: "plus-preserve", params: p });
+  } catch { /* séquence %XX invalide */ }
+
+  // C — aucune transformation : les valeurs telles qu'elles voyagent.
+  {
+    const p = {};
+    for (const [k, v] of paires) p[k] = v;
+    lectures.push({ variante: "brut", params: p });
+  }
+
+  return lectures;
+}
+
 /**
  * Vérifie le sceau d'une notification Monetico.
  * @param {object} env
@@ -216,6 +272,35 @@ export async function verifyRetourMac(env, params) {
   let diff = 0;
   for (let i = 0; i < calcule.length; i++) diff |= calcule.charCodeAt(i) ^ recu.charCodeAt(i);
   return diff === 0;
+}
+
+/**
+ * Valide une notification à partir du CORPS BRUT de la requête.
+ *
+ * À préférer à `verifyRetourMac` : c'est le seul point d'entrée qui maîtrise
+ * le décodage, et le décodage fait partie du sceau (voir `lecturesDuCorps`).
+ *
+ * @param {object} env
+ * @param {string} raw - corps POSTé, non décodé
+ * @returns {Promise<{ valide: boolean, params: object, variante: string|null,
+ *                     variantesEssayees: string[] }>}
+ */
+export async function verifierNotification(env, raw) {
+  const lectures = lecturesDuCorps(raw);
+  for (const { variante, params } of lectures) {
+    if (await verifyRetourMac(env, params)) {
+      return { valide: true, params, variante, variantesEssayees: lectures.map((l) => l.variante) };
+    }
+  }
+  // Aucune ne correspond : on rend la lecture standard pour que l'appelant
+  // puisse journaliser la référence et le code-retour, sans rien en croire.
+  const repli = lectures[0] || { params: {} };
+  return {
+    valide: false,
+    params: repli.params,
+    variante: null,
+    variantesEssayees: lectures.map((l) => l.variante),
+  };
 }
 
 /**

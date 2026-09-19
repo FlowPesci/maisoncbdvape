@@ -85,6 +85,7 @@ npm run verify:redaction  # allégations interdites, champs décoratifs
 npm run verify:puffs      # dispositifs à réservoir fixe (loi n° 2025-175)
 npm run verify:cache      # empreinte de contenu sur les scripts d'/assets/
 npm run test:diagnostic   # exécute réellement l'écran /admin/diagnostic/
+npm run test:sceau        # sceau retour Monetico, décodage du corps compris
 npm run test:alertes / test:inventaire / test:reception / test:commandes
 ```
 
@@ -418,6 +419,44 @@ côté banque.** `verifyRetourMac` renvoie `false` si `MONETICO_CLE_MAC` est
 absente ou tronquée ; le code répond alors `cdr=1` à *chaque* notification.
 Vue de la banque, la notification « échoue » — sans qu'aucune trace ne dise
 pourquoi.
+
+### ⚠ Le décodage du corps fait partie du sceau
+
+C'est ce qui bloquait la recette, et rien ne le disait. Le 2026-09-19, le
+journal a montré que Monetico nous appelait bien, et que **chaque**
+notification était rejetée — clé MAC présente, de bonne longueur, et sceau
+**aller** accepté par la plateforme. La clé et sa dérivation étaient donc
+hors de cause : le défaut était dans la reconstruction de la chaîne retour.
+
+Monetico signe la chaîne **avant** de l'encoder pour le transport ; nous la
+reconstruisons **après** décodage. Le champ `authentification` est du base64
+et contient des « + ». Dans un corps `application/x-www-form-urlencoded`, un
+« + » non échappé se décode en **espace** — `request.formData()` et
+`URLSearchParams` appliquent correctement la norme, et détruisent le sceau.
+
+**Ne jamais revenir à `request.formData()` ici.** `functions/api/
+monetico-notification.js` lit le corps **brut** (`request.text()`) et le
+confie à `verifierNotification()` (`_shared/monetico.js`), qui essaie trois
+lectures — décodage standard, pourcent-décodage seul (« + » préservé), et
+aucune transformation — puis retient celle dont le sceau correspond. La
+variante retenue est écrite dans le journal : si ce n'est pas `standard`,
+c'est la preuve que le décodage était la cause.
+
+Ce n'est pas un assouplissement de sécurité : les trois sont des lectures
+fidèles des mêmes octets reçus, et il faut toujours la clé pour forger un
+sceau. `npm run test:sceau` le vérifie explicitement — un sceau falsifié doit
+rester refusé, et aucune variante ne doit alors être revendiquée.
+
+`test:sceau` tourne dans `npm run build`. Il se suffit à lui-même : il
+fabrique ses propres notifications avec une clé de test, sans rien attendre
+de la banque.
+
+⚠ **Ce que ce test ne prouve pas.** Il montre que le mécanisme fonctionne,
+pas que le « + » était bien la cause en production — seul le journal le dira,
+en affichant la variante retenue sur une vraie notification. S'il affiche
+encore « Sceau REFUSÉ » après ce correctif, les trois lectures auront été
+essayées et le décodage sera définitivement écarté : il ne restera que la
+valeur de la clé ou le code société (`halldelapr_hf`).
 
 **`/admin/diagnostic/` sépare ces deux mondes**, et c'est la seule chose qui
 les sépare : `functions/api/monetico-notification.js` journalise les dix
