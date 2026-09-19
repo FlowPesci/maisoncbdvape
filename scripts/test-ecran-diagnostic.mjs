@@ -58,7 +58,7 @@ const REPONSE_TYPE = {
     { nom: "AI", role: "Bons de livraison", present: false },
   ],
   monetico: [
-    { at: "2026-09-18T09:00:00.000Z", methode: "POST", issue: "sceau-valide", cdr: 0, codeRetour: "payetest" },
+    { at: "2026-09-18T09:00:00.000Z", methode: "POST", issue: "sceau-valide", cdr: 0, codeRetour: "payetest", variante: "standard/v3.0" },
     { at: "2026-09-18T08:00:00.000Z", methode: "POST", issue: "sceau-invalide", cdr: 1, cleMacPresente: false },
     // Refus postérieur au correctif : les trois lectures ont été essayées.
     { at: "2026-09-18T07:30:00.000Z", methode: "POST", issue: "sceau-invalide", cdr: 1, cleMacPresente: true, lecturesEssayees: 3,
@@ -159,6 +159,10 @@ console.log("\n[diagnostic] Exécution de l'écran /admin/diagnostic/\n");
     html.includes("ABSENTE"), "le motif le plus fréquent n'est pas explicité");
   verifier("le code-retour de recette est visible",
     html.includes("payetest"), "code-retour absent");
+  // La variante est la seule trace du format réellement parlé par la
+  // plateforme. Sans elle, un succès n'apprend rien sur le POURQUOI.
+  verifier("la méthode qui a abouti est nommée",
+    html.includes("standard/v3.0"), "la variante n'apparaît pas sur un sceau validé");
   // ⚠ Un refus d'avant le correctif de décodage et un refus d'après ne
   //   disent pas la même chose. Les confondre relancerait la chasse au
   //   mauvais endroit — c'est ce qui a failli arriver le 2026-09-19.

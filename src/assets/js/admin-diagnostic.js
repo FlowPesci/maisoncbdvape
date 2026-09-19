@@ -124,6 +124,11 @@
         }
       } else if (e.codeRetour) {
         note = 'code-retour : ' + e.codeRetour;
+        // La variante dit QUELLE lecture du corps et QUELLE méthode de
+        // scellement ont abouti. C'est la seule trace du format réellement
+        // parlé par la plateforme — à relire si un jour le sceau se remet à
+        // échouer après une migration côté banque.
+        if (e.variante) note += '  ·  ' + e.variante;
       }
       // Les noms de champs reçus : publics, et indispensables pour comparer
       // notre chaîne à celle de Monetico. Aucune valeur n'est affichée.

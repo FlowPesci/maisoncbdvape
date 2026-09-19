@@ -465,6 +465,15 @@ l'ancienne des jours plus tard.
 documentation**, caractère pour caractère. C'est plus solide que de vérifier
 un sceau : l'exemple officiel donne la chaîne, pas la clé qui l'a scellée.
 
+✅ **Confirmé en production le 2026-09-19 à 16:26** : première notification
+acceptée, `cdr=0`, `code-retour: payetest`. Deux jours de blocage, une seule
+ligne de cause.
+
+⚠ **Si le sceau se remet à échouer un jour, lire d'abord la `variante`** du
+dernier appel validé dans le journal. Elle nomme la lecture du corps ET la
+méthode de scellement qui fonctionnaient jusque-là ; un changement de valeur
+signe une migration côté banque, et indique laquelle des deux a changé.
+
 **La leçon de ces deux jours** : trois hypothèses ont été fausses — URL,
 décodage du corps, code société — et chacune était plausible. Ce qui a
 tranché à chaque fois, ce n'est pas le raisonnement, c'est le journal : appel
