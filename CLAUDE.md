@@ -120,6 +120,7 @@ npm run verify:cms        # config Decap (elle ne se valide que dans le navigate
 npm run verify:api        # appels à des méthodes window.MCV_* inexistantes
 npm run verify:redaction  # allégations interdites, champs décoratifs
 npm run verify:puffs      # dispositifs à réservoir fixe (loi n° 2025-175)
+npm run verify:prix       # prix annoncé ≠ prix facturé sur un produit à variantes
 npm run verify:cache      # empreinte de contenu sur les scripts d'/assets/
 npm run test:diagnostic   # exécute réellement l'écran /admin/diagnostic/
 npm run test:sceau        # sceau retour Monetico, décodage du corps compris
@@ -285,6 +286,28 @@ perdre autant de temps qu'un bug.
 
 `variantes` est le **seul** champ sélectionnable : grammages des fleurs, saveurs
 des puffs, chacun avec son prix et sa ligne de stock.
+
+⚠ **Un produit à variantes porte plusieurs prix, et rien ne les relie.** Les
+listes et les cartes affichent `prix` (celui de la fiche) ; le panier facture
+celui de la **variante choisie** (`lookupPrice`). Modifier l'un sans l'autre
+fait annoncer un montant et en débiter un autre.
+
+Constaté le 2026-09-24 : le prix d'une puff passé de 19,90 € à 15,99 € dans
+l'éditeur de contenu, sans que les trois saveurs suivent. La carte annonçait
+15,99 €, le client aurait payé 19,90 €. Au-delà du bug, c'est une **pratique
+commerciale trompeuse** (L121-2) — le prix annoncé doit être celui qu'on paie.
+
+`verify:prix` bloque désormais la construction sur cet écart. Sa règle :
+quand `unitePrix` est vide, `prix` doit égaler la variante la moins chère.
+
+⚠ **Les fleurs sont exemptées, et c'est volontaire** : leur `prix` est un prix
+**au gramme** (`unitePrix: "g"`), les variantes sont des conditionnements —
+4,90 €/g donne 9,80 € les 2 g. L'écart y est normal. Ne pas « harmoniser » ces
+fiches pour faire taire un contrôle.
+
+**Dans `/admin/contenu/`, changer le prix d'un produit à variantes demande
+donc autant de modifications qu'il y a de variantes, plus une.** C'est le
+piège le plus facile à commettre du back-office.
 
 Troisième occurrence, la plus coûteuse : le bouton **« Payer en ligne (CB) »**
 s'affichait sans condition, alors que `create-payment.js` refuse de construire

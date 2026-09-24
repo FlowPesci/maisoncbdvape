@@ -7,7 +7,7 @@
     "clean": "node -e \"require('fs').rmSync('public',{recursive:true,force:true})\"",
     "css": "tailwindcss -i ./tailwind/input.css -o ./src/assets/css/tailwind.css --minify",
     "catalog": "node scripts/build-catalog-index.js",
-    "build": "npm run clean && npm run css && npm run catalog && npm run verify:css && npm run verify:cms && npm run verify:api && npm run verify:redaction && npm run verify:puffs && npm run verify:cache && npm run test:sceau && eleventy && npm run test:diagnostic && npm run build:csp",
+    "build": "npm run clean && npm run css && npm run catalog && npm run verify:css && npm run verify:cms && npm run verify:api && npm run verify:redaction && npm run verify:puffs && npm run verify:prix && npm run verify:cache && npm run test:sceau && eleventy && npm run test:diagnostic && npm run build:csp",
     "build:csp": "node scripts/build-csp.mjs",
     "start": "concurrently \"npm run css -- --watch\" \"eleventy --serve --incremental\"",
     "dev": "wrangler pages dev public --kv ORDERS_KV --kv OAUTH_KV --r2 MEDIA --d1 STOCKS_DB",
@@ -36,6 +36,7 @@
     "medias:filigraner": "node scripts/filigraner-medias.mjs",
     "medias:filigraner:test": "node scripts/filigraner-medias.mjs --dry-run",
     "verify:cache": "node scripts/verifier-cache-assets.mjs",
+    "verify:prix": "node scripts/verifier-prix-variantes.mjs",
     "test:diagnostic": "node scripts/test-ecran-diagnostic.mjs",
     "test:sceau": "node scripts/test-sceau-monetico.mjs"
   },

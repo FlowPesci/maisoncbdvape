@@ -9,10 +9,10 @@
 
 /** @type {Record<string, number>} */
 export const CATALOG = {
-  "al-fakher-crown-bar-30k-20mg": 14.99,
-  "al-fakher-crown-bar-30k-20mg::Strawberry Punch": 19.9,
-  "al-fakher-crown-bar-30k-20mg::Space Dream": 19.9,
-  "al-fakher-crown-bar-30k-20mg::Cherry Ice": 19.9,
+  "al-fakher-crown-bar-30k-20mg": 15.99,
+  "al-fakher-crown-bar-30k-20mg::Strawberry Punch": 15.99,
+  "al-fakher-crown-bar-30k-20mg::Space Dream": 15.99,
+  "al-fakher-crown-bar-30k-20mg::Cherry Ice": 15.99,
   "allume-charbon-chicha-tsar": 19.9,
   "allume-charbon-gaz-blackcoco-s": 24.9,
   "amazonien": 19.9,

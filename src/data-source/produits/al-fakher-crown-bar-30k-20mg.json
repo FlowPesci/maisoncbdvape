@@ -25,17 +25,17 @@
   "variantes": [
     {
       "label": "Strawberry Punch",
-      "prix": 19.9,
+      "prix": 15.99,
       "stock": 10
     },
     {
       "label": "Space Dream",
-      "prix": 19.9,
+      "prix": 15.99,
       "stock": 10
     },
     {
       "label": "Cherry Ice",
-      "prix": 19.9,
+      "prix": 15.99,
       "stock": 10
     }
   ],
