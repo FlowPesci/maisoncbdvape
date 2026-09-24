@@ -92,10 +92,26 @@
       const fd = new FormData();
       fd.append('file', file);
       fd.append('folder', 'produits');
-      const res = await fetch('/api/media/upload', {
-        method: 'POST',
-        body: fd,
-      });
+      // ⚠ Distinguer « le serveur a refusé » de « la requête n'a pas abouti ».
+      //
+      // Un fetch qui échoue au niveau réseau rejette avec « Failed to fetch »,
+      // message opaque et sans rapport avec l'image envoyée. Le commerçant
+      // l'a signalé le 2026-09-24 et il n'y avait rien à en tirer. Les causes
+      // sont toujours extérieures au fichier : connexion coupée, déploiement
+      // Cloudflare en cours, session expirée sur un autre onglet.
+      let res;
+      try {
+        res = await fetch('/api/media/upload', { method: 'POST', body: fd });
+      } catch (e) {
+        throw new Error(
+          "La requête n'a pas abouti — connexion interrompue, ou déploiement du "
+          + "site en cours. L'image n'est pas en cause : réessayer dans une minute. "
+          + "(détail : " + e.message + ")"
+        );
+      }
+      if (res.status === 401 || res.status === 403) {
+        throw new Error('Session expirée : se reconnecter au back-office, puis réessayer.');
+      }
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || ('HTTP ' + res.status));
@@ -139,7 +155,7 @@
               </div>
               <div style="padding:16px 24px;border-bottom:1px solid #1E1E2E;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
                 <label style="cursor:pointer;background:linear-gradient(135deg,#39FF14,#00C853);color:#0A0A0F;padding:8px 16px;border-radius:8px;font-weight:bold;font-size:13px;">
-                  <input type="file" id="r2-upload" accept="image/jpeg,image/png,image/webp,image/svg+xml" style="display:none;" ${allowMultiple ? 'multiple' : ''}/>
+                  <input type="file" id="r2-upload" accept="image/jpeg,image/png,image/webp" style="display:none;" ${allowMultiple ? 'multiple' : ''}/>
                   ⬆ Uploader une image
                 </label>
                 <span id="r2-status" style="color:#8A8A9A;font-size:13px;"></span>
