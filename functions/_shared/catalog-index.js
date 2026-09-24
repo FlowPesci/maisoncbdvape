@@ -25,10 +25,6 @@ export const CATALOG = {
   "baba-au-rhum-50-ml": 16.9,
   "balance-de-precision-hudson-300g-x-0-01g": 16.9,
   "balance-de-precision-java-100g-x-0-01g": 11.9,
-  "banana-hydro-indoor-cbd": 4.9,
-  "banana-hydro-indoor-cbd::2g": 9.8,
-  "banana-hydro-indoor-cbd::4g": 19.6,
-  "banana-hydro-indoor-cbd::8g": 39.2,
   "bang-en-verre-30-cm-percolateur": 19.9,
   "bang-verre-20-cm-percolateur": 16.9,
   "base-neutre-aromazon-vbase-50-50-1l-sans-nicotine": 9.9,
@@ -69,7 +65,7 @@ export const CATALOG = {
   "dutch-punch-indoor-cbd::4g": 19.6,
   "dutch-punch-indoor-cbd::8g": 39.2,
   "e-cg-50ml": 11.9,
-  "e-liquide-jnr-10ml-20mg-sel-de-nicotine": 3.99,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine": 3.9,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée": 3.9,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise bleue Cranberry": 3.9,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise glacée": 3.9,
@@ -173,6 +169,18 @@ export const CATALOG = {
   "plateau-euphoria": 9.9,
   "plateau-gangsta-panda": 6.9,
   "pod-de-remplacement-aerox-32k-jnr": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Pêche Glacée": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Fraise": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Fraise Kiwi": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Bubble-gum": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Fruits Rouges": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Myrtille Grenade Glacée": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Pêche Fruit Rouges": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Coca Cerise": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Myrtille Framboise Cerise": 9.99,
   "pod-recharge": 9.9,
   "pollen-d-amnesia-100-cbd": 4.2,
   "pollen-d-amnesia-100-cbd::2g": 8.4,
@@ -250,7 +258,6 @@ export const STOCKS = {
   "baba-au-rhum-50-ml": 10,
   "balance-de-precision-hudson-300g-x-0-01g": 10,
   "balance-de-precision-java-100g-x-0-01g": 10,
-  "banana-hydro-indoor-cbd": 10,
   "bang-en-verre-30-cm-percolateur": 10,
   "bang-verre-20-cm-percolateur": 10,
   "base-neutre-aromazon-vbase-50-50-1l-sans-nicotine": 10,
@@ -359,6 +366,18 @@ export const STOCKS = {
   "plateau-euphoria": 10,
   "plateau-gangsta-panda": 10,
   "pod-de-remplacement-aerox-32k-jnr": 10,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ": 40,
+  "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée": 40,
+  "pod-de-remplacement-aerox-32k-jnr::Pêche Glacée": 40,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Fraise": 40,
+  "pod-de-remplacement-aerox-32k-jnr::Fraise Kiwi": 40,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ": 40,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Bubble-gum": 40,
+  "pod-de-remplacement-aerox-32k-jnr::Fruits Rouges": 10,
+  "pod-de-remplacement-aerox-32k-jnr::Myrtille Grenade Glacée": 10,
+  "pod-de-remplacement-aerox-32k-jnr::Pêche Fruit Rouges": 10,
+  "pod-de-remplacement-aerox-32k-jnr::Coca Cerise": 10,
+  "pod-de-remplacement-aerox-32k-jnr::Myrtille Framboise Cerise": 10,
   "pod-recharge": 10,
   "pollen-d-amnesia-100-cbd": 10,
   "pollen-d-or-100-cbd": 10,
@@ -486,21 +505,6 @@ export const CLES_STOCK = {
     "cle": "balance-de-precision-java-100g-x-0-01g",
     "facteur": 1,
     "unite": "pcs"
-  },
-  "banana-hydro-indoor-cbd::2g": {
-    "cle": "banana-hydro-indoor-cbd",
-    "facteur": 2,
-    "unite": "g"
-  },
-  "banana-hydro-indoor-cbd::4g": {
-    "cle": "banana-hydro-indoor-cbd",
-    "facteur": 4,
-    "unite": "g"
-  },
-  "banana-hydro-indoor-cbd::8g": {
-    "cle": "banana-hydro-indoor-cbd",
-    "facteur": 8,
-    "unite": "g"
   },
   "bang-en-verre-30-cm-percolateur": {
     "cle": "bang-en-verre-30-cm-percolateur",
@@ -1162,6 +1166,66 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr::Pêche Glacée": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pêche Glacée",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Fraise": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Fraise",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr::Fraise Kiwi": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Fraise Kiwi",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Bubble-gum": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Bubble-gum",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr::Fruits Rouges": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Fruits Rouges",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr::Myrtille Grenade Glacée": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Myrtille Grenade Glacée",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr::Pêche Fruit Rouges": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pêche Fruit Rouges",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr::Coca Cerise": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Coca Cerise",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-de-remplacement-aerox-32k-jnr::Myrtille Framboise Cerise": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Myrtille Framboise Cerise",
+    "facteur": 1,
+    "unite": "pcs"
+  },
   "pod-recharge": {
     "cle": "pod-recharge",
     "facteur": 1,
@@ -1441,7 +1505,6 @@ export const UNITES_STOCK = {
   "baba-au-rhum-50-ml": "pcs",
   "balance-de-precision-hudson-300g-x-0-01g": "pcs",
   "balance-de-precision-java-100g-x-0-01g": "pcs",
-  "banana-hydro-indoor-cbd": "g",
   "bang-en-verre-30-cm-percolateur": "pcs",
   "bang-verre-20-cm-percolateur": "pcs",
   "base-neutre-aromazon-vbase-50-50-1l-sans-nicotine": "pcs",
@@ -1550,6 +1613,18 @@ export const UNITES_STOCK = {
   "plateau-euphoria": "pcs",
   "plateau-gangsta-panda": "pcs",
   "pod-de-remplacement-aerox-32k-jnr": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Pêche Glacée": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Fraise": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Fraise Kiwi": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Bubble-gum": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Fruits Rouges": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Myrtille Grenade Glacée": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Pêche Fruit Rouges": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Coca Cerise": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Myrtille Framboise Cerise": "pcs",
   "pod-recharge": "pcs",
   "pollen-d-amnesia-100-cbd": "g",
   "pollen-d-or-100-cbd": "g",
@@ -1683,13 +1758,6 @@ export const REFERENCES = [
     "marque": "LogicScale",
     "categorie": "accessoires",
     "unite": "pcs"
-  },
-  {
-    "cle": "banana-hydro-indoor-cbd",
-    "nom": "Banana Hydro Indoor CBD",
-    "marque": "Banana Hydro Indoor CBD",
-    "categorie": "cbd",
-    "unite": "g"
   },
   {
     "cle": "bang-en-verre-30-cm-percolateur",
@@ -2434,6 +2502,90 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Pastèque Glacée ",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Fraise Glacée",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pêche Glacée",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Pêche Glacée",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Fraise",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Pastèque Fraise",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Fraise Kiwi",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Fraise Kiwi",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Pastèque Mangue Pêche ",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Bubble-gum",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Pastèque Bubble-gum",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Fruits Rouges",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Fruits Rouges",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Myrtille Grenade Glacée",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Myrtille Grenade Glacée",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pêche Fruit Rouges",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Pêche Fruit Rouges",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Coca Cerise",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Coca Cerise",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Myrtille Framboise Cerise",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Myrtille Framboise Cerise",
+    "marque": "JNR",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
     "cle": "pod-recharge",
     "nom": "Pod Recharge",
     "marque": "Wiz Pod",
@@ -2780,7 +2932,6 @@ export function resoudreStock(id, label) {
 export const PRODUITS_A_VARIANTES = new Set([
   "al-fakher-crown-bar-30k-20mg",
   "amnesia-hydro-indoor-cbd",
-  "banana-hydro-indoor-cbd",
   "bubba-kush-hydro-indoor-cbd",
   "burn-baby-burn-indoor-cbd",
   "candy-hydro-indoor-cbd",
@@ -2794,6 +2945,7 @@ export const PRODUITS_A_VARIANTES = new Set([
   "lemon-hydro-indoor-cbd",
   "moby-dick-hydro-indoor-cbd",
   "moon-rock-cbd-indoor",
+  "pod-de-remplacement-aerox-32k-jnr",
   "pollen-d-amnesia-100-cbd",
   "pollen-d-or-100-cbd",
   "puff-30k-hyper-max-crown-bar-by-al-fakher",

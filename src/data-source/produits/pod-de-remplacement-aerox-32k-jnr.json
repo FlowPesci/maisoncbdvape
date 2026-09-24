@@ -23,50 +23,62 @@
   "variantes": [
     {
       "stock": 40,
+      "prix": 9.99,
       "label": "Pastèque Glacée "
     },
     {
       "stock": 40,
+      "prix": 9.99,
       "label": "Fraise Glacée"
     },
     {
       "stock": 40,
+      "prix": 9.99,
       "label": "Pêche Glacée"
     },
     {
       "stock": 40,
+      "prix": 9.99,
       "label": "Pastèque Fraise"
     },
     {
       "stock": 40,
+      "prix": 9.99,
       "label": "Fraise Kiwi"
     },
     {
       "stock": 40,
+      "prix": 9.99,
       "label": "Pastèque Mangue Pêche "
     },
     {
       "stock": 40,
+      "prix": 9.99,
       "label": "Pastèque Bubble-gum"
     },
     {
       "stock": 10,
+      "prix": 9.99,
       "label": "Fruits Rouges"
     },
     {
       "stock": 10,
+      "prix": 9.99,
       "label": "Myrtille Grenade Glacée"
     },
     {
       "stock": 10,
+      "prix": 9.99,
       "label": "Pêche Fruit Rouges"
     },
     {
       "stock": 10,
+      "prix": 9.99,
       "label": "Coca Cerise"
     },
     {
       "stock": 10,
+      "prix": 9.99,
       "label": "Myrtille Framboise Cerise"
     }
   ],
