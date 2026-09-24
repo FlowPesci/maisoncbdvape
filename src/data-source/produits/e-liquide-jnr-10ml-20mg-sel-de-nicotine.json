@@ -11,7 +11,7 @@
   "nombreAvis": null,
   "nom": "E-liquide JNR 10ml - 20mg sel de nicotine",
   "actif": true,
-  "prix": 3.9,
+  "prix": 3.99,
   "unitePrix": null,
   "note": null,
   "ficheTechnique": {
@@ -145,9 +145,9 @@
   "image": "/media/produits/1778340783120-e-liquide-jnr-10ml-20mg-sel-de-nicotine.jpeg",
   "description": "C'est le flacon qui rend les puffs rechargeables intéressantes : à 3,90 € les 10 ml, le coût d'usage n'a plus rien à voir avec celui d'un dispositif jetable.\n\nLe liquide est formulé en sels de nicotine à 20 mg/ml — le dosage qui reproduit le mieux la sensation d'une cigarette en gorge, sans agressivité. Il convient aux puffs rechargeables JNR comme à la plupart des pods à tirage serré.\n\nVingt-deux saveurs au catalogue, majoritairement fruitées et glacées. Nous ne les tenons pas toutes en permanence : demandez-nous ce qui est en rayon.",
   "contenuKit": [],
+  "sousCategorie": "pods-recharges",
   "seo": {
     "title": "",
     "description": ""
-  },
-  "sousCategorie": "pods-recharges"
+  }
 }
