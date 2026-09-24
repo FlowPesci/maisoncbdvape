@@ -1874,6 +1874,27 @@ em, i, cite, dfn, address, blockquote, q {
    tenir à jour. `verify:css` contrôle que cette règle survit.          */
 .hidden { display: none !important; }
 
+/* ─── Logotype de l'en-tête ────────────────────────────────────────────────
+   Agrandi le 2026-09-24, à la demande du commerçant — mais **pas sur
+   téléphone**, et ce n'est pas un compromis esthétique : c'est une mesure.
+
+   À 375 px, l'en-tête tient le logotype à gauche et le bloc burger + trois
+   icônes à droite. À 1,2rem il reste 28 px entre les deux ; dès 1,4rem le
+   bloc de droite passe la largeur de l'écran et les icônes deviennent
+   inaccessibles. Vérifié dans le navigateur, largeur par largeur :
+
+     375 px  — 1,2rem : 28 px de marge · 1,5rem : icônes hors écran
+     1024 px — 1,2rem : 109 px         · 1,5rem : 66 px, confortable
+     1440 px — large dans les deux cas
+
+   1024 px est donc le seuil retenu, parce que c'est celui qui a été mesuré.
+   Ne pas descendre ce point de rupture sans refaire la mesure à la largeur
+   visée : entre 640 et 1024, la marge n'a jamais été vérifiée.             */
+.logo-mot { font-size: 1.2rem; }
+@media (min-width: 1024px) {
+  .logo-mot { font-size: 1.5rem; }
+}
+
 /* ─── Sélecteur de saveur réclamé ──────────────────────────────────────────
    Aucune variante n'étant présélectionnée, le client peut cliquer « Ajouter
    au panier » sans avoir choisi. Le bouton reste doré — c'est l'appel à

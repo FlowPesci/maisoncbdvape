@@ -7,7 +7,11 @@
 
       {# ─── Logo ───────────────────────────────────────────────────── #}
       <a href="/" style="text-decoration:none;flex-shrink:0;" aria-label="MaisonCBDVape – Accueil">
-        <span style="font-family:var(--font-titre);font-size:1.2rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;line-height:1;">
+        {# ⚠ La taille vit dans `.logo-mot` (tailwind/input.css), pas ici :
+           elle doit rester à 1.2rem sur téléphone — au-delà, le bloc d'icônes
+           de droite sort de l'écran (mesuré à 375 px). Un `style=""` en ligne
+           l'emporterait sur la règle responsive. #}
+        <span class="logo-mot" style="font-family:var(--font-titre);font-weight:300;letter-spacing:0.18em;text-transform:uppercase;line-height:1;">
           <span style="color:#F5F0E8;">MAISON</span><span style="color:#C9A96E;">CBD</span><span style="color:#F5F0E8;">VAPE</span>
         </span>
       </a>
