@@ -11,7 +11,7 @@
   "nombreAvis": null,
   "nom": "Pod de Remplacement AeroX 32K – JNR",
   "actif": true,
-  "prix": 9.9,
+  "prix": 9.99,
   "unitePrix": null,
   "note": null,
   "ficheTechnique": {
@@ -20,7 +20,56 @@
     "Résistance": "Scellée, intégrée au pod",
     "Tirage": "MTL ou RDL"
   },
-  "variantes": [],
+  "variantes": [
+    {
+      "stock": 40,
+      "label": "Pastèque Glacée "
+    },
+    {
+      "stock": 40,
+      "label": "Fraise Glacée"
+    },
+    {
+      "stock": 40,
+      "label": "Pêche Glacée"
+    },
+    {
+      "stock": 40,
+      "label": "Pastèque Fraise"
+    },
+    {
+      "stock": 40,
+      "label": "Fraise Kiwi"
+    },
+    {
+      "stock": 40,
+      "label": "Pastèque Mangue Pêche "
+    },
+    {
+      "stock": 40,
+      "label": "Pastèque Bubble-gum"
+    },
+    {
+      "stock": 10,
+      "label": "Fruits Rouges"
+    },
+    {
+      "stock": 10,
+      "label": "Myrtille Grenade Glacée"
+    },
+    {
+      "stock": 10,
+      "label": "Pêche Fruit Rouges"
+    },
+    {
+      "stock": 10,
+      "label": "Coca Cerise"
+    },
+    {
+      "stock": 10,
+      "label": "Myrtille Framboise Cerise"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
@@ -34,9 +83,9 @@
   "image": "/media/produits/1778340729604-pod-de-remplacement-aerox-32k-jnr.png",
   "description": "Sur une puff rechargeable, c'est la résistance qui fatigue en premier — bien avant la batterie. Ce pod de remplacement remet l'AeroX à neuf pour la moitié du prix d'un appareil complet.\n\nLa résistance est scellée dans le pod : rien à manipuler, rien à amorcer. On retire l'ancien, on clipse le nouveau, le rendu aromatique repart comme au premier jour.\n\nLe tirage convient aussi bien à l'inhalation indirecte, serrée, qu'à un tirage plus aéré selon la façon dont on vapote. Compatible uniquement avec le kit AeroX 32K.",
   "contenuKit": [],
+  "sousCategorie": "pods-recharges",
   "seo": {
     "title": "",
     "description": ""
-  },
-  "sousCategorie": "pods-recharges"
+  }
 }
