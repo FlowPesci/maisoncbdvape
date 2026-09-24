@@ -322,7 +322,15 @@ collections:
         name: "actif"
         widget: "boolean"
         default: true
-        hint: "Décochez pour masquer un produit sans le supprimer"
+        hint: >-
+          Décochez pour retirer un produit de la vente : il disparaît du site,
+          des listes et du moteur de recherche, mais sa fiche, ses photos et
+          son texte restent intacts — il suffit de recocher pour le remettre
+          en ligne. C'est ce qu'il faut faire pour une rupture de stock, une
+          fin de série ou un produit saisonnier.
+          À préférer à « Supprimer l'entrée », qui efface tout le travail de
+          rédaction : une fiche supprimée ne se récupère plus depuis
+          l'éditeur.
 
       # ─── SEO ───────────────────────────────────────────────────
       - label: "SEO"
