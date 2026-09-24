@@ -170,8 +170,6 @@ permalink: /index.html
 
     {# Grille : 1ère carte grande (col 1-2), les 4 autres en 2×2 #}
     <div class="grid-cat-home" style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:360px 280px;gap:2px;">
-      {# Icône de repli par catégorie, quand la fiche n'a pas d'image. #}
-      {% set catIcones = {"cbd":"feuille","puffs":"vapeur","vape":"batterie","accessoires":"flamme"} %}
 
       {% for cat in categories %}
         {# La première carte occupe toute la hauteur. Avec 4 catégories, il
@@ -189,7 +187,9 @@ permalink: /index.html
           <div class="cat-overlay"></div>
           <div class="cat-border-inset"></div>
           <div class="cat-content">
-            <div style="font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:6px;display:flex;align-items:center;gap:6px;">{{ icone(catIcones[cat.slug] or "feuille", "w-3 h-3") }} Catégorie</div>
+            {# Surtitre « Catégorie » retiré le 2026-09-24 : il répétait ce que
+               la grille dit déjà, et volait de la place au nom lui-même.
+               L'icône partait avec — seule, elle n'aurait rien signifié. #}
             <h3 style="font-family:var(--font-titre);font-weight:300;color:var(--cream);margin-bottom:10px;{% if loop.first %}font-size:2.4rem;{% else %}font-size:1.6rem;{% endif %}line-height:1.1;">{{ cat.nom }}</h3>
             <div class="cat-discover">
               <span>Découvrir</span>
