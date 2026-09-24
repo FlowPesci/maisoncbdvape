@@ -183,6 +183,53 @@ if (orphelines.length) {
  * du public, menant vers la plateforme de TEST de Monetico. Le garde-fou
  * était écrit, la feuille de style l'annulait.
  */
+/**
+ * … mais il ne doit pas l'emporter sur les utilitaires responsives.
+ *
+ * Le `!important` ci-dessus battait aussi `lg:flex` : le 2026-09-24, le MENU
+ * PRINCIPAL (`hidden lg:flex`) avait disparu de la version ordinateur du
+ * site, à toutes les largeurs. Douze jours après la cause, parce que rien ne
+ * reliait les deux — et parce que le burger (`lg:hidden`) restait masqué lui
+ * aussi, ce qui ne produisait aucune contradiction visible.
+ *
+ * `tailwind/input.css` rend donc la main à ces utilitaires, un par un. Ce
+ * contrôle vérifie que **toute classe d'affichage responsive utilisée dans
+ * les gabarits** figure bien dans cette liste : en ajouter une (`md:flex`,
+ * `xl:block`…) sans la déclarer la ferait écraser en silence.
+ */
+{
+  const DISPLAYS = "flex|grid|block|inline-flex|inline-block|inline|table|contents";
+  const utilisees = new Set();
+  for (const fichier of fichiers("src", [".njk", ".html", ".js"])) {
+    const contenu = readFileSync(fichier, "utf8");
+    for (const m of contenu.matchAll(
+      new RegExp(`\\b((?:sm|md|lg|xl|2xl):(?:${DISPLAYS}))(?![\\w-])`, "g")
+    )) {
+      // `lg:hidden` masque déjà : rien à rendre, `.hidden` dit la même chose.
+      if (!m[1].endsWith(":hidden")) utilisees.add(m[1]);
+    }
+  }
+
+  const nonRendues = [...utilisees].filter((cls) => {
+    const echappee = cls.replace(":", "\\\\:").replace(/[-]/g, "\\-");
+    return !new RegExp(`\\.${echappee}\\s*\\{[^}]*!important`).test(feuille);
+  });
+
+  if (nonRendues.length) {
+    console.error(`[css] ✕ ${nonRendues.length} utilitaire(s) d'affichage responsive écrasé(s) par « .hidden » :`);
+    for (const c of nonRendues) console.error(`       · ${c}`);
+    console.error("");
+    console.error("       `.hidden { display:none !important }` les bat à spécificité");
+    console.error("       égale. Un élément « hidden " + nonRendues[0] + " » resterait");
+    console.error("       donc invisible À TOUTE LARGEUR — c'est ainsi que le menu du");
+    console.error("       site a disparu sur ordinateur le 2026-09-24.");
+    console.error("");
+    console.error("       Ajouter la règle correspondante en fin de tailwind/input.css,");
+    console.error("       dans le bloc « PAS contre les utilitaires responsives ».");
+    process.exit(1);
+  }
+}
+
 if (!/\.hidden\{display:none\s*!important\}/.test(feuille)) {
   console.error(`[css] ✕ La règle « .hidden { display:none !important } » a disparu.`);
   console.error("");

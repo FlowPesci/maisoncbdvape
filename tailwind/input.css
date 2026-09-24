@@ -1863,3 +1863,39 @@ em, i, cite, dfn, address, blockquote, q {
    masquer un élément doit gagner contre tout habillage, sans exception à
    tenir à jour. `verify:css` contrôle que cette règle survit.          */
 .hidden { display: none !important; }
+
+/* ─── … mais PAS contre les utilitaires d'affichage responsives ────────────
+   Le `!important` ci-dessus battait aussi `lg:flex`, `lg:block` et `sm:flex`.
+   Or `hidden lg:flex` est le motif Tailwind normal — « masqué en dessous de
+   1024 px, affiché au-delà » — et c'est celui du MENU PRINCIPAL du site
+   (`partials/header.njk`).
+
+   Conséquence mesurée sur la production le 2026-09-24 : **le menu de
+   navigation avait disparu sur ordinateur**, à toutes les largeurs. Le
+   burger, lui, restait masqué (`lg:hidden` donne aussi `display:none`, donc
+   aucune contradiction visible) : il ne restait que le logo et trois icônes.
+   Douze jours entre la cause et le constat, parce que rien ne relie les deux.
+
+   Ces quatre règles rendent la main aux utilitaires responsives, et à eux
+   seuls. Placées APRÈS `.hidden` : à spécificité et importance égales, la
+   dernière l'emporte.
+
+   ⚠ Elles ne couvrent que les classes réellement générées par Tailwind pour
+   ce site — vérifiées dans la feuille compilée, pas devinées. **En ajouter
+   une nouvelle dans un gabarit (`md:flex`, `xl:block`…) suppose de l'ajouter
+   ici**, sans quoi elle sera silencieusement écrasée par `.hidden`.
+   `verify:css` monte la garde sur ce point.
+
+   ⚠ Et l'inverse est vrai : un élément que le SCRIPT masque en lui ajoutant
+   `hidden` ne doit pas porter l'un de ces utilitaires, sinon il réapparaîtra
+   au-delà du point de rupture. Les quatre éléments concernés aujourd'hui
+   (menu, barre de filtres, en-tête de filtres, bouton « retour catégorie »)
+   sont tous du motif responsive pur, aucun n'est piloté par le script.    */
+@media (min-width: 640px) {
+  .sm\:flex { display: flex !important; }
+}
+@media (min-width: 1024px) {
+  .lg\:flex  { display: flex !important; }
+  .lg\:block { display: block !important; }
+  .lg\:grid  { display: grid !important; }
+}

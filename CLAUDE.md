@@ -357,6 +357,45 @@ parcours. Et `MONETICO_ENV = "production"` sans identifiants **fait échouer la
 construction**, pour qu'on ne déploie jamais une boutique qui se croit en
 encaissement réel.
 
+### ⚠ `.hidden` est en `!important` — et cela a coûté le menu du site
+
+`tailwind/input.css` se termine par `.hidden { display:none !important }`.
+La raison est bonne : les classes de composant y déclarent leur propre
+`display` et, écrites après les utilitaires, l'emportaient sur `.hidden` —
+c'est ainsi que le bouton « Payer en ligne (CB) » est resté visible du public
+pendant la recette bancaire, pointant vers la plateforme de test.
+
+**Mais ce `!important` battait aussi les utilitaires responsives.** Or
+`hidden lg:flex` — « masqué en dessous de 1024 px, affiché au-delà » — est le
+motif Tailwind normal, et c'est celui du **menu principal**
+(`partials/header.njk`). Résultat, constaté le 2026-09-24 : **plus aucun menu
+sur ordinateur**, à toutes les largeurs. Douze jours après la cause.
+
+Ce qui a rendu le défaut si discret : le burger porte `lg:hidden`, qui donne
+également `display:none`. Les deux moitiés du menu disparaissaient donc en
+même temps, sans jamais se contredire à l'écran — il ne restait que le logo et
+trois icônes, ce qui a l'air d'un choix de design.
+
+`input.css` rend désormais la main aux utilitaires responsives, **un par un**,
+après la règle `.hidden`. Aujourd'hui : `sm:flex`, `lg:flex`, `lg:block`,
+`lg:grid` — la liste exacte de ce que Tailwind génère pour ce site, relevée
+dans la feuille compilée et non devinée.
+
+⚠ **Ajouter un `md:flex` ou un `xl:block` dans un gabarit suppose d'ajouter
+la règle correspondante** dans ce bloc. `verify:css` le contrôle : il relève
+les utilitaires d'affichage responsives employés dans `src/` et échoue si
+l'un d'eux n'est pas rendu.
+
+⚠ **Réciproquement**, un élément que le script masque en lui ajoutant `hidden`
+ne doit pas porter l'un de ces utilitaires : il réapparaîtrait au-delà du
+point de rupture. Les quatre éléments concernés sont tous du motif responsive
+pur, aucun n'est piloté par le script — vérifié avant d'écrire la règle.
+
+**La leçon de méthode** : la cause a été trouvée en lisant la feuille
+**servie** (`.hidden{display:none!important}` avant `.lg\:flex{display:flex}`)
+et en créant un élément de test dans la page réelle, pas en relisant les
+gabarits — qui étaient corrects.
+
 **Les icônes ne sont pas des emojis.** `components/icone.njk` pose la classe
 `.icone` sur chaque SVG, qui le remet en `inline-block` — sans quoi le preflight
 Tailwind (`svg { display: block }`) le colle à gauche dans un conteneur
