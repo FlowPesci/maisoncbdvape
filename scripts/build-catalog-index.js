@@ -13,6 +13,7 @@
 import { readdirSync, readFileSync, writeFileSync, mkdirSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import { prixFiche } from "./prix-fiche.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -88,8 +89,14 @@ const stockDe = (v) => (Number.isFinite(Number(v)) ? Math.max(0, Math.trunc(Numb
 for (const p of produits) {
   if (!p.id) continue;
 
-  // Prix de base
-  entries[p.id] = Number(p.prix);
+  // Prix de base.
+  //
+  // ⚠ Calculé par la MÊME fonction que l'affichage (`src/_data/produits.js`),
+  //   et non lu tel quel : sur un produit à variantes, c'est la variante la
+  //   moins chère qui fait foi. Deux lectures différentes de la même donnée
+  //   remettraient en place l'écart « prix annoncé ≠ prix facturé » que ce
+  //   module existe pour supprimer.
+  entries[p.id] = Number(prixFiche(p));
 
   // Un produit vendu au poids tient son stock en grammes, au niveau du produit :
   // ses variantes puisent dans le même vrac.

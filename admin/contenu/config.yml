@@ -158,6 +158,14 @@ collections:
         value_type: "float"
         step: 0.01
         min: 0
+        hint: >-
+          Prix du produit, utilisé seulement s'il n'a PAS de variantes.
+          Dès qu'il y a des variantes (grammages, saveurs), ce champ est
+          ignoré : le prix affiché devient automatiquement celui de la
+          variante la moins chère. Modifier un tarif consiste alors à
+          modifier les variantes, plus bas — pas cette case.
+          Exception : les fleurs au gramme, où ce champ est le prix
+          du gramme et reste à saisir.
 
       - label: "Prix barré (€)"
         name: "prixBarre"
@@ -262,7 +270,7 @@ collections:
         widget: "list"
         summary: "{{fields.label}}{% if fields.prix %} — {{fields.prix}} €{% endif %}"
         required: false
-        hint: "Une entrée par choix ACHETABLE, chacun avec son stock. CBD : les grammages (2g, 4g, 8g). Puffs et e-liquides : une entrée par saveur. C'est le seul champ que le client peut sélectionner."
+        hint: "Une entrée par choix ACHETABLE, chacune avec SON PRIX et son stock. CBD : les grammages (2g, 4g, 8g). Puffs et e-liquides : une entrée par saveur. C'est le seul champ que le client peut sélectionner — et c'est ici qu'on modifie un tarif. Une variante sans prix rend le produit impossible à commander."
         fields:
           - { label: "Label", name: "label", widget: "string", hint: "Ex : 1g, 3g, Fraise, Mangue…" }
           - { label: "Prix (€)", name: "prix", widget: "number", value_type: "float", required: false }

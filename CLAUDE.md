@@ -287,27 +287,43 @@ perdre autant de temps qu'un bug.
 `variantes` est le **seul** champ sélectionnable : grammages des fleurs, saveurs
 des puffs, chacun avec son prix et sa ligne de stock.
 
-⚠ **Un produit à variantes porte plusieurs prix, et rien ne les relie.** Les
-listes et les cartes affichent `prix` (celui de la fiche) ; le panier facture
-celui de la **variante choisie** (`lookupPrice`). Modifier l'un sans l'autre
-fait annoncer un montant et en débiter un autre.
+### Le prix d'un produit à variantes est CALCULÉ, jamais saisi
 
-Constaté le 2026-09-24 : le prix d'une puff passé de 19,90 € à 15,99 € dans
-l'éditeur de contenu, sans que les trois saveurs suivent. La carte annonçait
-15,99 €, le client aurait payé 19,90 €. Au-delà du bug, c'est une **pratique
-commerciale trompeuse** (L121-2) — le prix annoncé doit être celui qu'on paie.
+Il portait deux prix indépendants : `prix` (affiché dans les listes) et celui
+de chaque variante (facturé par le panier). Rien ne les reliait, et modifier
+un tarif demandait autant de gestes qu'il y avait de variantes, plus un.
 
-`verify:prix` bloque désormais la construction sur cet écart. Sa règle :
-quand `unitePrix` est vide, `prix` doit égaler la variante la moins chère.
+Le 2026-09-24, trois fiches divergeaient. Une puff annonçait 15,99 € et aurait
+débité 19,90 € — au-delà du bug, une **pratique commerciale trompeuse**
+(L121-2). Un pod avait douze variantes **sans prix du tout** : absentes du
+catalogue serveur, elles le rendaient invendable, la commande étant refusée à
+la validation sans que rien ne l'annonce avant.
 
-⚠ **Les fleurs sont exemptées, et c'est volontaire** : leur `prix` est un prix
-**au gramme** (`unitePrix: "g"`), les variantes sont des conditionnements —
-4,90 €/g donne 9,80 € les 2 g. L'écart y est normal. Ne pas « harmoniser » ces
-fiches pour faire taire un contrôle.
+**`scripts/prix-fiche.mjs` porte la règle, et lui seul.** Elle est appliquée
+par `src/_data/produits.js` (affichage) **et** par `build-catalog-index.js`
+(catalogue serveur) : affichage et facturation ne peuvent plus diverger.
 
-**Dans `/admin/contenu/`, changer le prix d'un produit à variantes demande
-donc autant de modifications qu'il y a de variantes, plus une.** C'est le
-piège le plus facile à commettre du back-office.
+| Cas | Prix affiché |
+|---|---|
+| pas de variantes | `prix`, saisi |
+| `unitePrix` renseigné (fleurs) | `prix`, saisi — c'est un prix **au gramme** |
+| variantes, sans `unitePrix` | **la variante la moins chère**, calculée |
+
+⚠ **Ne jamais relire `p.prix` directement** dans un gabarit ou un script qui
+touche au prix : passer par `prixFiche()`. Une deuxième lecture de la donnée
+brute remettrait en place l'écart que ce module supprime.
+
+⚠ **Les fleurs restent à saisie manuelle, et c'est volontaire** : 4,90 €/g
+donne 9,80 € les 2 g, l'écart y est la règle et non une anomalie.
+
+**Côté commerçant, modifier un tarif = modifier les variantes.** Le champ
+« Prix » de l'éditeur est ignoré dès qu'il y a des variantes ; son `hint` dans
+`admin/contenu/config.yml` le dit explicitement, parce qu'un champ qui ne fait
+rien est exactement ce que les règles d'interface ci-dessus interdisent.
+
+`verify:prix` ne contrôle donc plus l'égalité — elle est structurelle — mais
+qu'**aucune variante n'est dépourvue de prix ou de libellé**, le défaut qui
+rend un produit silencieusement invendable.
 
 Troisième occurrence, la plus coûteuse : le bouton **« Payer en ligne (CB) »**
 s'affichait sans condition, alors que `create-payment.js` refuse de construire

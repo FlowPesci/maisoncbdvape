@@ -1,30 +1,29 @@
 /**
  * scripts/verifier-prix-variantes.mjs
- * Le prix annoncé dans les listes doit être un prix réellement payable.
+ * Toute variante proposée au client doit être réellement commandable.
  *
- * ─── Pourquoi ce script existe ────────────────────────────────────────────
- * Un produit à variantes porte PLUSIEURS prix : celui de la fiche (`prix`) et
- * celui de chaque variante. Les listes et les cartes affichent le prix de la
- * fiche ; le tunnel de commande facture celui de la variante choisie
- * (`lookupPrice` dans `_shared/catalog-index.js`). Rien ne les relie.
+ * ─── Ce que ce script surveillait au départ, et pourquoi ce n'est plus ça ──
+ * Écrit le 2026-09-24 pour attraper l'écart entre le prix affiché (`prix` de
+ * la fiche) et le prix facturé (celui de la variante choisie) : le site
+ * annonçait 15,99 € et aurait débité 19,90 €.
  *
- * Le 2026-09-24, le commerçant a baissé le prix d'une puff de 19,90 € à
- * 15,99 € dans l'éditeur de contenu. La carte a bien affiché 15,99 €. Les
- * trois saveurs, elles, sont restées à 19,90 € — et c'est ce montant qui
- * aurait été débité. Le site annonçait donc un prix, et en facturait un autre.
+ * Cet écart ne peut plus exister : `scripts/prix-fiche.mjs` **calcule**
+ * désormais le prix de fiche d'un produit à variantes, et la même fonction
+ * sert à l'affichage (`src/_data/produits.js`) et au catalogue serveur
+ * (`build-catalog-index.js`). Contrôler l'égalité reviendrait à tester que
+ * `Math.min` fonctionne.
  *
- * Au-delà du bug, c'est une **pratique commerciale trompeuse** au sens des
- * articles L121-2 et suivants du code de la consommation : le prix annoncé
- * doit être celui que le client paie.
+ * ─── Ce qu'il surveille maintenant ────────────────────────────────────────
+ * Le défaut voisin, découvert le même jour et bien plus sournois : une
+ * variante **sans prix numérique**. `build-catalog-index.js` ne l'inscrit pas
+ * au catalogue (`if (v.label && typeof v.prix === "number")`), donc
+ * `lookupPrice` renvoie `null` et la commande est refusée avec « Article
+ * inconnu ou prix introuvable ».
  *
- * ─── La règle, et son exception ───────────────────────────────────────────
- * Quand `unitePrix` est renseigné (les 19 fleurs, vendues au gramme), le prix
- * de la fiche est un prix UNITAIRE et les variantes sont des conditionnements :
- * 4,90 €/g donne 9,80 € les 2 g. L'écart est normal, le script l'ignore.
- *
- * Quand `unitePrix` est vide, le prix de la fiche est le prix du produit. Il
- * doit alors égaler le prix de la variante la moins chère — c'est ce que le
- * client voit avant de cliquer, et il doit pouvoir l'obtenir.
+ * Le produit s'affiche normalement, le client choisit sa saveur, remplit ses
+ * coordonnées — et l'échec ne survient qu'à la validation. `pod-de-
+ * remplacement-aerox-32k-jnr` était dans cet état avec ses douze saveurs :
+ * invendable, sans que rien ne le signale nulle part.
  *
  *   node scripts/verifier-prix-variantes.mjs
  *
@@ -35,11 +34,10 @@ import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const DOSSIER = "src/data-source/produits";
-const CENTIME = 0.005;   // tolérance : on compare des euros, pas des flottants
 
 const anomalies = [];
 let aVariantes = 0;
-let auGramme = 0;
+let variantesVues = 0;
 
 for (const nom of readdirSync(DOSSIER).filter((f) => f.endsWith(".json"))) {
   let fiche;
@@ -54,55 +52,51 @@ for (const nom of readdirSync(DOSSIER).filter((f) => f.endsWith(".json"))) {
   if (!variantes.length) continue;
   aVariantes++;
 
-  // Exception documentée : prix unitaire (fleurs au gramme).
-  if (fiche.unitePrix) { auGramme++; continue; }
+  const sansPrix = [];
+  const sansLabel = [];
 
-  const prixVariantes = variantes
-    .map((v) => v.prix)
-    .filter((p) => typeof p === "number" && Number.isFinite(p));
-
-  if (prixVariantes.length !== variantes.length) {
-    anomalies.push({
-      slug: nom.replace(/\.json$/, ""),
-      motif: "une variante au moins n'a pas de prix numérique",
-    });
-    continue;
+  for (const v of variantes) {
+    variantesVues++;
+    if (!v?.label || !String(v.label).trim()) { sansLabel.push(v); continue; }
+    if (typeof v.prix !== "number" || !Number.isFinite(v.prix)) sansPrix.push(String(v.label).trim());
   }
 
-  const mini = Math.min(...prixVariantes);
-  if (typeof fiche.prix !== "number") {
-    anomalies.push({ slug: nom.replace(/\.json$/, ""), motif: "prix de fiche absent" });
-    continue;
-  }
+  const slug = nom.replace(/\.json$/, "");
+  const enVente = fiche.actif !== false;
 
-  if (Math.abs(fiche.prix - mini) > CENTIME) {
+  if (sansLabel.length) {
+    anomalies.push({ slug, enVente, motif: `${sansLabel.length} variante(s) sans libellé` });
+  }
+  if (sansPrix.length) {
     anomalies.push({
-      slug: nom.replace(/\.json$/, ""),
-      motif: `fiche à ${fiche.prix.toFixed(2)} €, variante la moins chère à ${mini.toFixed(2)} €`,
-      actif: fiche.actif !== false,
+      slug,
+      enVente,
+      motif: `${sansPrix.length} variante(s) sans prix : ${sansPrix.slice(0, 4).join(", ")}` +
+             (sansPrix.length > 4 ? `, +${sansPrix.length - 4}` : ""),
     });
   }
 }
 
 if (anomalies.length) {
-  console.error(`\n[prix] ✕ ${anomalies.length} fiche(s) annoncent un prix qu'on ne peut pas payer :\n`);
+  const enVente = anomalies.filter((a) => a.enVente).length;
+  console.error(`\n[prix] ✕ ${anomalies.length} fiche(s) proposent des variantes non commandables :\n`);
   for (const a of anomalies) {
-    console.error(`       · ${a.slug}${a.actif === false ? " (retirée de la vente)" : ""}`);
+    console.error(`       · ${a.slug}${a.enVente ? "" : "  (retirée de la vente)"}`);
     console.error(`         ${a.motif}`);
   }
-  console.error("\n       Les listes affichent le prix de la fiche ; le panier facture");
-  console.error("       celui de la variante. Un écart fait payer autre chose que le");
-  console.error("       montant annoncé — pratique commerciale trompeuse (L121-2).");
   console.error("");
-  console.error("       Corriger dans /admin/contenu/ : modifier le prix d'un produit à");
-  console.error("       variantes suppose de le changer AUSSI sur chaque variante.");
+  console.error("       Une variante sans prix n'entre pas dans le catalogue serveur :");
+  console.error("       le client la choisit, remplit ses coordonnées, et sa commande");
+  console.error("       est refusée à la validation (« prix introuvable »). Le défaut");
+  console.error("       n'apparaît nulle part avant ce moment-là.");
   console.error("");
-  console.error("       (Les fleurs au gramme sont exemptées : leur prix de fiche est");
-  console.error("        un prix unitaire, pas le prix d'un conditionnement.)");
+  console.error("       Corriger dans /admin/contenu/ : renseigner le prix de CHAQUE");
+  console.error("       variante. Le prix de la fiche, lui, se calcule tout seul.");
+  if (!enVente) console.error("\n       (Aucune n'est en vente — corriger avant de les réactiver.)");
   process.exit(1);
 }
 
 console.log(
-  `[prix] ✓ ${aVariantes} produits à variantes cohérents ` +
-  `(dont ${auGramme} au prix unitaire, exemptés)`
+  `[prix] ✓ ${variantesVues} variantes sur ${aVariantes} produits, ` +
+  `toutes commandables`
 );
