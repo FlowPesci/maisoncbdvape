@@ -64,6 +64,30 @@ function verifierOptions(champ, chemin) {
 }
 
 /** Decap refuse deux champs de même nom au même niveau. */
+/**
+ * Un `summary` Decap n'interprète que les `{{ … }}`.
+ *
+ * Les balises de contrôle `{% if %}` / `{% for %}` y sont rendues **telles
+ * quelles**, sous les yeux du commerçant. La ligne repliée d'une variante
+ * affichait « Space Dream{% if fields.prix %} — 15.99 €{% endif %} » —
+ * constaté le 2026-09-24, et probablement en place depuis l'origine : le
+ * défaut est purement visuel, donc aucun contrôle ne le voyait et personne
+ * ne le lisait comme une anomalie.
+ *
+ * Même règle pour `label_singular`, `summary` de collection et `preview_path`.
+ */
+function verifierSummary(objet, chemin) {
+  for (const cle of ["summary", "label_singular", "preview_path"]) {
+    const v = objet?.[cle];
+    if (typeof v === "string" && /\{%/.test(v)) {
+      problemes.push(
+        `${chemin} : « ${cle} » contient une balise {% … %}, que Decap affiche ` +
+        `en clair au lieu de l'interpréter — n'utiliser que {{ champ }}`
+      );
+    }
+  }
+}
+
 function verifierChamps(champs, chemin) {
   if (!Array.isArray(champs)) return;
 
@@ -76,6 +100,7 @@ function verifierChamps(champs, chemin) {
     else vus.add(champ.name);
 
     verifierOptions(champ, chemin);
+    verifierSummary(champ, chemin);
 
     // Les widgets object/list imbriquent leurs propres champs.
     verifierChamps(champ.fields, `${chemin} › ${champ.name}`);
@@ -91,6 +116,10 @@ for (const [i, col] of collections.entries()) {
   const nom = col.name || `#${i}`;
   if (nomsCollections.has(col.name)) problemes.push(`collection « ${nom} » déclarée deux fois`);
   nomsCollections.add(col.name);
+
+  // La collection porte elle aussi un `summary` (la ligne de la liste des
+  // fiches) et un `label_singular`, soumis à la même limite.
+  verifierSummary(col, `collection « ${nom} »`);
 
   verifierChamps(col.fields, `collection « ${nom} »`);
   for (const fichier of col.files || []) {

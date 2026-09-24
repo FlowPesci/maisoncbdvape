@@ -325,6 +325,27 @@ rien est exactement ce que les règles d'interface ci-dessus interdisent.
 qu'**aucune variante n'est dépourvue de prix ou de libellé**, le défaut qui
 rend un produit silencieusement invendable.
 
+**Une variante peut porter sa propre photo** (champ `image`, facultatif,
+ajouté le 2026-09-24). Elle remplace la photo principale quand le client
+choisit la saveur, et **le suit jusque dans son panier et sa confirmation de
+commande** — le commerçant prépare ainsi la bonne référence.
+
+⚠ Trois rendus la réclament : la fiche (`syncVariante`), le panier, et
+`buildOrderItems`. Ils passent tous par **`imageDeVariante(p, label)`** dans
+`tabacgex.js`. Les laisser chercher chacun de leur côté ferait diverger ce
+qui est affiché de ce qui est commandé — la même famille de défaut que
+« prix annoncé ≠ prix facturé ».
+
+Sans photo de variante, on retombe sur celle du produit : le champ est
+facultatif et il l'est réellement. `syncVariante` **rétablit** la photo
+d'origine quand la saveur choisie n'en a pas — sinon celle de la saveur
+précédente resterait affichée et mentirait au client. Les valeurs initiales
+(`src` et `alt`) sont mémorisées au chargement, jamais relues depuis
+l'élément au moment du clic : elles auraient déjà été remplacées.
+
+Le champ n'a pas d'intérêt sur les fleurs au gramme — le bocal est le même
+quel que soit le contenant — mais rien ne l'interdit.
+
 Troisième occurrence, la plus coûteuse : le bouton **« Payer en ligne (CB) »**
 s'affichait sans condition, alors que `create-payment.js` refuse de construire
 un formulaire sans `MONETICO_TPE` ni `MONETICO_SOCIETE`. Un client arrivé au

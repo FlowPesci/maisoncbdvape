@@ -193,6 +193,33 @@
   // ─── 5. Active link tracking (au cas où plusieurs URL match) ──────────────
   // Géré côté template, mais on highlight aussi par fallback JS si besoin.
 
+  /**
+   * Photo d'une variante — une seule définition, trois consommateurs.
+   *
+   * Une saveur peut porter sa propre photo (champ facultatif `image` de la
+   * variante, saisi dans l'éditeur de contenu). Elle doit apparaître au même
+   * endroit tout au long du parcours : sur la fiche quand le client choisit
+   * sa saveur, dans son panier, puis sur sa confirmation de commande.
+   *
+   * ⚠ Trois rendus la réclament (fiche, panier, `buildOrderItems`). Les faire
+   *   chercher chacun de leur côté ferait diverger l'affichage du contenu de
+   *   la commande — le défaut de la même famille que « prix annoncé ≠ prix
+   *   facturé » corrigé le 2026-09-24. D'où cette fonction unique.
+   *
+   * Sans photo de variante, on retombe sur celle du produit : le champ est
+   * facultatif, et il l'est réellement.
+   *
+   * @param {object} p produit (tel qu'exposé dans #produits-data)
+   * @param {string|null} label libellé de la variante commandée
+   * @returns {string|undefined}
+   */
+  function imageDeVariante(p, label) {
+    if (!p) return undefined;
+    if (!label || !Array.isArray(p.variantes)) return p.image;
+    const v = p.variantes.find((x) => x && x.label === label);
+    return (v && v.image) || p.image;
+  }
+
   // ─── 6. Fiche produit : galerie, couleurs, quantité, onglets, sticky bar ──
   // Tous les modules ne s'activent que si leurs éléments existent (no-op ailleurs).
   initProductDetail();
@@ -253,6 +280,14 @@
 
     if (varianteBtns.length) {
 
+      // Photo et description affichées au chargement : celles du produit.
+      // Mémorisées ici pour pouvoir y revenir quand le client choisit une
+      // saveur sans photo. ⚠ Ne jamais les relire depuis l'élément au moment
+      // du clic : elles auraient déjà été remplacées par la saveur d'avant.
+      const imgInitiale = document.getElementById('main-image');
+      const imageProduit = imgInitiale?.getAttribute('src');
+      const altProduit   = imgInitiale?.getAttribute('alt') || '';
+
       const syncVariante = (btn) => {
         const label = btn.dataset.varianteLabel;
         const prix  = parseFloat(btn.dataset.variantePrix);
@@ -264,6 +299,23 @@
           cartBtn.dataset.varianteLabel = label;
           cartBtn.dataset.variantePrix  = prix;
         });
+
+        // Photo de la saveur, si elle en a une ; sinon retour à celle du
+        // produit — sans quoi la photo d'une saveur précédente resterait
+        // affichée sur une saveur qui n'en a pas, et mentirait au client.
+        const img = document.getElementById('main-image');
+        if (img) {
+          const propre = btn.dataset.varianteImage;
+          const src = propre || imageProduit;
+          if (src && img.getAttribute('src') !== src) {
+            img.setAttribute('src', src);
+            img.setAttribute('alt', propre && label ? altProduit + ' – ' + label : altProduit);
+          }
+          // La miniature en surbrillance ne correspond plus à ce qui est
+          // affiché : on retire la marque plutôt que de laisser une
+          // indication fausse.
+          document.querySelectorAll('.thumb-btn.active').forEach((t) => t.classList.remove('active'));
+        }
       };
 
       varianteBtns.forEach((btn) => {
@@ -610,7 +662,7 @@
         row.className = 'cart-item flex gap-4 p-4 rounded-2xl bg-dark-card border border-dark-border';
         row.innerHTML = `
           <a href="/produits/${p.id}/" class="shrink-0 w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden bg-dark-bg border border-dark-border">
-            <img src="${p.image}" alt="${p.nom}" class="w-full h-full object-cover" loading="lazy"/>
+            <img src="${imageDeVariante(p, entry.varianteLabel)}" alt="${p.nom}" class="w-full h-full object-cover" loading="lazy"/>
           </a>
           <div class="flex-1 min-w-0 flex flex-col">
             <div class="text-smoke text-xs uppercase tracking-widest mb-1 font-mono">${(p.categorie || '').toUpperCase()} · ${p.marque || ''}</div>
@@ -732,7 +784,10 @@
           id: baseId,
           nom: p.nom + (entry.varianteLabel ? ' · ' + entry.varianteLabel : ''),
           marque: p.marque, prix: unitPrix,
-          qty: Math.max(1, entry.qty || 1), image: p.image,
+          // La photo de la saveur commandée, pas celle du produit : c'est
+          // elle que le client a vue en achetant, et c'est elle qui aide le
+          // commerçant à préparer la bonne référence.
+          qty: Math.max(1, entry.qty || 1), image: imageDeVariante(p, entry.varianteLabel),
           varianteLabel: entry.varianteLabel || null,
         };
       }).filter(Boolean);

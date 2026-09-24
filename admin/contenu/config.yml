@@ -268,13 +268,30 @@ collections:
       - label: "Variantes"
         name: "variantes"
         widget: "list"
-        summary: "{{fields.label}}{% if fields.prix %} — {{fields.prix}} €{% endif %}"
+        # ⚠ Un `summary` Decap n'interprète que les `{{ }}`. Les balises
+        #   `{% if %}` y sont affichées TELLES QUELLES : la ligne repliée
+        #   montrait « Space Dream{% if fields.prix %} — 15.99 €{% endif %} »
+        #   au commerçant. Constaté le 2026-09-24.
+        #   La condition n'a de toute façon plus lieu d'être : une variante
+        #   sans prix fait échouer `verify:prix`.
+        summary: "{{fields.label}} — {{fields.prix}} €"
         required: false
         hint: "Une entrée par choix ACHETABLE, chacune avec SON PRIX et son stock. CBD : les grammages (2g, 4g, 8g). Puffs et e-liquides : une entrée par saveur. C'est le seul champ que le client peut sélectionner — et c'est ici qu'on modifie un tarif. Une variante sans prix rend le produit impossible à commander."
         fields:
           - { label: "Label", name: "label", widget: "string", hint: "Ex : 1g, 3g, Fraise, Mangue…" }
           - { label: "Prix (€)", name: "prix", widget: "number", value_type: "float", required: false }
           - { label: "Stock", name: "stock", widget: "number", value_type: "int", default: 10 }
+          - label: "Photo de cette saveur"
+            name: "image"
+            widget: "image"
+            required: false
+            hint: >-
+              Facultatif. Si renseignée, la photo principale de la fiche est
+              remplacée par celle-ci quand le client choisit cette saveur, et
+              elle le suit jusque dans son panier et sa confirmation de
+              commande. Laisser vide pour garder la photo du produit —
+              inutile sur les fleurs CBD, où le bocal est le même quel que
+              soit le grammage.
 
       # ─── Tags ──────────────────────────────────────────────────
       - label: "Tags"

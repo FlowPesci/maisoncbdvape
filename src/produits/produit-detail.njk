@@ -170,10 +170,13 @@ eleventyComputed:
           </div>
           <div class="flex items-center gap-2 flex-wrap">
             {% for v in produit.variantes %}
+              {# `data-variante-image` est facultatif : vide, le script
+                 rétablit la photo principale du produit. #}
               <button class="variante-btn {% if loop.first %}active{% endif %}"
                       data-variante-label="{{ v.label }}"
                       data-variante-prix="{{ v.prix }}"
-                      data-variante-stock="{{ v.stock }}">
+                      data-variante-stock="{{ v.stock }}"
+                      {% if v.image %}data-variante-image="{{ v.image }}"{% endif %}>
                 {{ v.label }}
               </button>
             {% endfor %}
