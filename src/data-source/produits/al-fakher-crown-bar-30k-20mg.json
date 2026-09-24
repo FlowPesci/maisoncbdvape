@@ -26,7 +26,8 @@
     {
       "label": "Strawberry Punch",
       "prix": 15.99,
-      "stock": 10
+      "stock": 10,
+      "image": "/assets/img/produits/puff-crown-bar-hypermax-advanced-30k-strawberry-punch-al-fakher.webp"
     },
     {
       "label": "Space Dream",
