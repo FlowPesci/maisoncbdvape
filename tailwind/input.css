@@ -1426,9 +1426,19 @@ em, i, cite, dfn, address, blockquote, q {
 }
 
 /* ─── Points forts ─────────────────────────────────────────────────────── */
+/* ⚠ `center`, pas `flex-start`.
+   La pastille fait 28 px de haut, la ligne de texte 21 px (14 px × 1.5).
+   Alignées par le haut, leurs centres se décalaient de 3,5 px — mesuré sur
+   les quatre points forts d'une fiche, à 1440 px, le 2026-09-24. Trop peu
+   pour nommer la cause, assez pour que ça se voie : le commerçant a signalé
+   des « points forts mal alignés avec leurs boutons ».
+
+   Conséquence assumée : quand un point fort passe sur deux lignes (écrans
+   étroits), la pastille se centre sur le bloc plutôt que sur la première
+   ligne. C'est le cas rare, et le résultat reste lisible. */
 .feature-item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   padding: 11px 0;
   border-bottom: 1px solid var(--borderl);
