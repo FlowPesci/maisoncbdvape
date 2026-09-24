@@ -20,6 +20,21 @@ npm run dev            # avec les bindings Cloudflare (KV, R2, D1)
 Le déploiement se fait par **`git push`** : Cloudflare Pages reconstruit sur
 chaque commit de `main`, avec `npm run build`. Il n'y a pas d'autre geste.
 
+⚠ **Le dépôt a deux auteurs : vous, et Decap CMS.** Chaque enregistrement de
+fiche produit depuis `/admin/contenu/` crée un commit directement sur `main`,
+sans passer par votre machine. Un `git push` refusé en `[rejected] (fetch
+first)` ne signale donc pas une erreur : c'est le commerçant qui a travaillé
+entre-temps. **`git pull --rebase` puis `git push`** — le rebase évite un
+commit de fusion, et les deux sources touchent des fichiers différents
+(`src/data-source/produits/*.json` pour le CMS).
+
+Conséquence moins évidente : **le site peut être en cours de reconstruction à
+tout moment**, déclenché par une modification de fiche. Pendant ces quelques
+secondes le Worker est injoignable, et un envoi d'image depuis le back-office
+échoue avec un « Failed to fetch » du navigateur — sans rapport avec l'image.
+`admin/contenu/media-library.js` l'explique désormais en clair plutôt que de
+relayer le message brut.
+
 ⚠ Une construction Eleventy complète génère plus de 160 pages et prend du
 temps. Dans un environnement à durée limitée, ignorer `src/produits/**` et
 `src/categories/**` pour vérifier le reste.
