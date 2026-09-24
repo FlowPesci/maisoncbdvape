@@ -8,12 +8,12 @@
     "Recharge USB-C"
   ],
   "devise": "EUR",
-  "nombreAvis": null,
+  "nombreAvis": 4,
   "nom": "Al Fakher Crown Bar 30K 20MG",
   "actif": true,
-  "prix": 19.9,
+  "prix": 14.99,
   "unitePrix": null,
-  "note": null,
+  "note": 4.5,
   "ficheTechnique": {
     "Bouffées annoncées": "30 000",
     "Taux de nicotine": "20 mg/ml (sels)",
@@ -23,11 +23,6 @@
     "Puissance": "Réglable"
   },
   "variantes": [
-    {
-      "label": "Peach Ice",
-      "prix": 19.9,
-      "stock": 10
-    },
     {
       "label": "Strawberry Punch",
       "prix": 19.9,
@@ -46,10 +41,10 @@
   ],
   "couleurs": [],
   "prixBarre": null,
+  "liquideRemplissable": "oui",
   "stock": 10,
   "descriptionCourte": "30 000 bouffées, e-liquide remplaçable et écran de contrôle. La puff qui ne se jette pas au bout d'une semaine.",
   "categorie": "puffs",
-  "liquideRemplissable": "oui",
   "dateAjout": "2026-05-09",
   "tags": [
     "bestseller",
@@ -60,9 +55,9 @@
   "image": "/media/produits/1778340784112-al-fakher-crown-bar-30k-20mg.png",
   "description": "La Crown Bar sort du schéma habituel de la puff jetable : le flacon d'e-liquide se remplace et la batterie se recharge. On garde donc l'appareil, on renouvelle le reste — moins de déchets, et un coût à l'usage qui n'a rien à voir.\n\nL'écran affiche la charge restante et le niveau de liquide, et la puissance se règle selon qu'on cherche du rendu aromatique ou de la vapeur. Le format reste assez fin pour la poche, avec une prise en main un peu plus large qu'une puff classique.\n\nAl Fakher travaille les arômes depuis la chicha, et cela s'entend : les saveurs sont franches, sans ce fond sucré uniforme qu'on retrouve souvent sur ce format.",
   "contenuKit": [],
+  "sousCategorie": "al-fakher",
   "seo": {
     "title": "",
     "description": ""
-  },
-  "sousCategorie": "al-fakher"
+  }
 }
