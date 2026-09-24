@@ -346,6 +346,27 @@ l'élément au moment du clic : elles auraient déjà été remplacées.
 Le champ n'a pas d'intérêt sur les fleurs au gramme — le bocal est le même
 quel que soit le contenant — mais rien ne l'interdit.
 
+**Aucune saveur n'est présélectionnée à l'arrivée** (2026-09-24). Présélectionner
+la première faisait acheter par défaut une saveur que le client n'avait pas
+demandée, et affichait sa photo comme si c'était celle du produit. Tant qu'il
+n'a pas choisi : photo du produit, libellé « à choisir », et prix **« dès
+X € »** — `produit.prix` étant déjà la variante la moins chère.
+
+⚠ **Contrepartie : l'achat sans choix devient possible, et il est refusé.**
+`choixDeVarianteManquant()` (`tabacgex.js`) arrête l'ajout au panier ET le
+Click & Collect, affiche « Choisissez d'abord une saveur » et met le bloc en
+évidence (`.reclame-choix`). **Les deux moitiés se tiennent** : rétablir une
+présélection sans retirer ce garde-fou, ou l'inverse, casse la fiche.
+
+Le bouton reste doré et cliquable, volontairement : un bouton grisé éteindrait
+l'appel à l'action principal dès l'arrivée — et ce projet a déjà payé un
+bouton `disabled` qui semblait cliquable.
+
+⚠ Le garde-fou ne vaut que pour les boutons du produit affiché
+(`#zone-achat`, `#sticky-buy`, `#click-collect-btn`). Les quatre cartes de
+produits associés en bas de page ont leurs propres boutons et **aucun
+sélecteur** : les bloquer les rendrait inutilisables.
+
 Troisième occurrence, la plus coûteuse : le bouton **« Payer en ligne (CB) »**
 s'affichait sans condition, alors que `create-payment.js` refuse de construire
 un formulaire sans `MONETICO_TPE` ni `MONETICO_SOCIETE`. Un client arrivé au

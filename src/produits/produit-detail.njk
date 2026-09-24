@@ -163,16 +163,19 @@ eleventyComputed:
 
       {# Sélecteur puffs : saveurs #}
       {% elif produit.variantes and produit.variantes | length > 0 %}
-        <div style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.25rem;margin-bottom:1.25rem;">
+        {# ⚠ Aucune saveur n'est présélectionnée : c'est au client de choisir.
+           Le bloc porte un id pour que le script puisse l'atteindre et le
+           mettre en évidence si l'on tente d'acheter sans avoir choisi. #}
+        <div id="choix-variante" style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.25rem;margin-bottom:1.25rem;">
           <div class="flex items-center justify-between mb-3">
             <label style="font-size:.875rem;font-weight:600;color:var(--cream);">Saveur</label>
-            <span id="variante-label-display" style="font-size:.75rem;font-family:'DM Sans',sans-serif;color:var(--gold);">{{ produit.variantes[0].label }}</span>
+            <span id="variante-label-display" style="font-size:.75rem;font-family:'DM Sans',sans-serif;color:var(--muted);">à choisir</span>
           </div>
           <div class="flex items-center gap-2 flex-wrap">
             {% for v in produit.variantes %}
               {# `data-variante-image` est facultatif : vide, le script
                  rétablit la photo principale du produit. #}
-              <button class="variante-btn {% if loop.first %}active{% endif %}"
+              <button class="variante-btn"
                       data-variante-label="{{ v.label }}"
                       data-variante-prix="{{ v.prix }}"
                       data-variante-stock="{{ v.stock }}"
@@ -181,6 +184,12 @@ eleventyComputed:
               </button>
             {% endfor %}
           </div>
+          {# Message affiché seulement si l'on tente d'acheter sans choisir.
+             Muet tant que le client n'a rien fait de mal. #}
+          <p id="variante-requise" class="hidden" role="alert"
+             style="margin-top:.75rem;font-size:.8rem;color:#FF6020;font-family:'DM Sans',sans-serif;">
+            Choisissez d'abord une saveur.
+          </p>
         </div>
       {% endif %}
 
@@ -189,7 +198,12 @@ eleventyComputed:
         <div class="flex items-end gap-4 mb-3 flex-wrap">
           <div style="font-family:var(--font-titre);font-size:3rem;font-weight:300;color:var(--gold);">
             {% if produit.variantes and produit.variantes | length > 0 %}
-              <span id="prix-display">{{ produit.variantes[0].prix | eur }}</span>
+              {# Aucune saveur choisie à l'arrivée : on annonce le prix le plus
+                 bas, précédé de « dès ». Afficher le prix de la première
+                 variante ferait passer un tarif pour celui du produit alors
+                 que le client n'a rien sélectionné. `produit.prix` est déjà
+                 la variante la moins chère (voir scripts/prix-fiche.mjs). #}
+              <span id="prix-des" style="font-size:1.25rem;color:var(--muted);">dès </span><span id="prix-display">{{ produit.prix | eur }}</span>
             {% else %}
               {{ produit.prix | eur }}{% if produit.unitePrix %}<span style="font-size:1.5rem;">/{{ produit.unitePrix }}</span>{% endif %}
             {% endif %}
@@ -485,7 +499,7 @@ eleventyComputed:
     <div class="flex items-center gap-3">
       <div>
         <div style="color:var(--muted);font-size:.7rem;font-family:'DM Sans',sans-serif;max-width:140px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{ produit.nom }}</div>
-        <div style="font-family:var(--font-titre);font-size:1.5rem;font-weight:300;color:var(--gold);">{% if produit.variantes and produit.variantes | length > 0 %}<span id="prix-display-sticky">{{ produit.variantes[0].prix | eur }}</span>{% else %}{{ produit.prix | eur }}{% endif %}</div>
+        <div style="font-family:var(--font-titre);font-size:1.5rem;font-weight:300;color:var(--gold);">{% if produit.variantes and produit.variantes | length > 0 %}<span id="prix-des-sticky" style="font-size:.9rem;color:var(--muted);">dès </span><span id="prix-display-sticky">{{ produit.prix | eur }}</span>{% else %}{{ produit.prix | eur }}{% endif %}</div>
       </div>
       <button data-add-to-cart="{{ produit.id }}"
               class="btn-gold flex-1 py-3.5 text-sm uppercase tracking-widest font-semibold flex items-center justify-center gap-2">

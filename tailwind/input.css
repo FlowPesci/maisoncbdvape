@@ -1864,6 +1864,20 @@ em, i, cite, dfn, address, blockquote, q {
    tenir à jour. `verify:css` contrôle que cette règle survit.          */
 .hidden { display: none !important; }
 
+/* ─── Sélecteur de saveur réclamé ──────────────────────────────────────────
+   Aucune variante n'étant présélectionnée, le client peut cliquer « Ajouter
+   au panier » sans avoir choisi. Le bouton reste doré — c'est l'appel à
+   l'action principal de la page — mais le clic ne commande rien : il met ce
+   bloc en évidence et affiche « Choisissez d'abord une saveur ».
+
+   La bordure suffit : pas d'animation clignotante, qui se remarque moins bien
+   qu'on ne le croit et gêne les personnes sensibles au mouvement.          */
+.reclame-choix {
+  border-color: #FF6020 !important;
+  box-shadow: 0 0 0 3px rgba(255, 96, 32, 0.14);
+  transition: border-color .2s, box-shadow .2s;
+}
+
 /* ─── … mais PAS contre les utilitaires d'affichage responsives ────────────
    Le `!important` ci-dessus battait aussi `lg:flex`, `lg:block` et `sm:flex`.
    Or `hidden lg:flex` est le motif Tailwind normal — « masqué en dessous de

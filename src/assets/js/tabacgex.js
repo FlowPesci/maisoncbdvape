@@ -173,10 +173,39 @@
     }, 1800);
   };
 
+  /**
+   * Sur une fiche à saveurs, aucune n'est présélectionnée : le client doit
+   * choisir. Tant qu'il ne l'a pas fait, l'achat est refusé — et on lui dit
+   * pourquoi, à l'endroit où il doit agir.
+   *
+   * ⚠ Le bouton reste doré et cliquable, volontairement. Un bouton grisé à
+   *   l'arrivée éteindrait l'appel à l'action principal de la page ; et ce
+   *   projet a déjà payé un bouton `disabled` qui semblait cliquable (« Me
+   *   prévenir du retour en stock », qui ne prévenait personne).
+   *
+   * @returns {boolean} true si le choix manque — l'achat doit alors s'arrêter
+   */
+  function choixDeVarianteManquant(btn) {
+    // Ne concerne que les boutons d'achat DU produit affiché : les cartes de
+    // produits associés, en bas de page, n'ont pas de sélecteur.
+    if (!btn.closest('#zone-achat, #sticky-buy') && btn.id !== 'click-collect-btn') return false;
+    if (!document.querySelector('.variante-btn')) return false;
+    if (document.querySelector('.variante-btn.active')) return false;
+
+    document.getElementById('variante-requise')?.classList.remove('hidden');
+    const bloc = document.getElementById('choix-variante');
+    if (bloc) {
+      bloc.classList.add('reclame-choix');
+      bloc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    return true;
+  }
+
   // Délégation d'événements pour tous les boutons "Ajouter au panier"
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-add-to-cart]');
     if (!btn || btn.disabled) return;
+    if (choixDeVarianteManquant(btn)) return;
 
     const productId     = btn.dataset.addToCart;
     const varianteLabel = btn.dataset.varianteLabel || null;
@@ -303,6 +332,11 @@
         // Photo de la saveur, si elle en a une ; sinon retour à celle du
         // produit — sans quoi la photo d'une saveur précédente resterait
         // affichée sur une saveur qui n'en a pas, et mentirait au client.
+        // Le prix affiché devient exact : « dès » n'a plus lieu d'être.
+        document.getElementById('prix-des')?.classList.add('hidden');
+        document.getElementById('prix-des-sticky')?.classList.add('hidden');
+        if (varianteLabelEl) varianteLabelEl.style.color = 'var(--gold)';
+
         const img = document.getElementById('main-image');
         if (img) {
           const propre = btn.dataset.varianteImage;
@@ -323,11 +357,23 @@
           varianteBtns.forEach((b) => b.classList.remove('active'));
           btn.classList.add('active');
           syncVariante(btn);
+          // Le client vient de choisir : le reproche n'a plus lieu d'être.
+          document.getElementById('variante-requise')?.classList.add('hidden');
+          document.getElementById('choix-variante')?.classList.remove('reclame-choix');
         });
       });
 
-      // Initialise sur la première variante au chargement
-      syncVariante(varianteBtns[0]);
+      // ⚠ AUCUNE variante n'est présélectionnée, volontairement.
+      //
+      // Présélectionner la première faisait acheter par défaut une saveur que
+      // le client n'avait pas demandée — et sa photo s'affichait comme si
+      // c'était celle du produit. Tant qu'il n'a pas choisi, la fiche montre
+      // la photo du produit et un prix « dès X € ».
+      //
+      // La contrepartie est qu'un achat sans choix devient possible : le
+      // garde-fou vit dans le gestionnaire de `[data-add-to-cart]`, plus haut.
+      // Ne pas rétablir un `syncVariante(varianteBtns[0])` ici sans retirer
+      // ce garde-fou, et réciproquement.
     }
 
     // Sélecteur de contenant CBD (2g / 4g / 8g)
@@ -478,6 +524,8 @@
     const clickCollectBtn = document.getElementById('click-collect-btn');
     if (clickCollectBtn) {
       clickCollectBtn.addEventListener('click', () => {
+        // Même exigence que l'ajout au panier : ce bouton commande aussi.
+        if (choixDeVarianteManquant(clickCollectBtn)) return;
         const productId = clickCollectBtn.dataset.clickCollect;
         const addBtn = document.querySelector('[data-add-to-cart]');
         const variante = addBtn && addBtn.dataset.varianteLabel
