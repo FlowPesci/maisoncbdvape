@@ -100,13 +100,27 @@ const CSP_GLOBALE =
 // Decap CMS (unpkg.com/decap-cms) évalue sa configuration via une chaîne —
 // EvalError confirmé en local sans cette exception. Réservée à son propre
 // chemin plutôt qu'accordée au site entier.
+//
+// ⚠ `blob:` dans `connect-src` est indispensable à l'enregistrement d'une
+//   fiche portant une image. Decap ne commite pas le fichier tel quel : il
+//   crée une URL `blob:` locale, la **fetch** pour la convertir en base64,
+//   puis envoie ce base64 à l'API GitHub (`AssetProxy.toBase64` →
+//   `uploadBlob` → `persistFiles`). Sans `blob:`, ce fetch est bloqué et la
+//   publication échoue sur « TypeError: Failed to fetch » — un message qui
+//   accuse le réseau alors que c'est notre propre politique qui refuse.
+//   Constaté le 2026-09-24 ; la console nommait la directive en clair.
+//
+//   Le risque est nul : une URL `blob:` désigne des octets que la page
+//   elle-même vient de créer, elle ne peut pas pointer vers un tiers. Et
+//   l'exception reste cantonnée à `/admin/contenu/*` — la politique du reste
+//   du site n'a pas besoin de `blob:` et ne l'obtient pas.
 const CSP_CONTENU =
   "default-src 'self'; " +
   "script-src 'self' 'unsafe-eval' https://unpkg.com https://identity.netlify.com https://widget.mondialrelay.com; " +
   "style-src 'self' 'unsafe-inline' https://unpkg.com https://widget.mondialrelay.com; " +
   "font-src 'self' https://unpkg.com data:; " +
   "img-src 'self' data: blob: https:; " +
-  "connect-src 'self' https://api.github.com https://github.com https://api.resend.com https://widget.mondialrelay.com https://unpkg.com; " +
+  "connect-src 'self' blob: data: https://api.github.com https://github.com https://api.resend.com https://widget.mondialrelay.com https://unpkg.com; " +
   "worker-src 'self' blob:; " +
   "frame-ancestors 'none'; object-src 'none'; base-uri 'self'; " +
   "form-action 'self' https://p.monetico-services.com;";

@@ -9,8 +9,7 @@
 
 /** @type {Record<string, number>} */
 export const CATALOG = {
-  "al-fakher-crown-bar-30k-20mg": 19.9,
-  "al-fakher-crown-bar-30k-20mg::Peach Ice": 19.9,
+  "al-fakher-crown-bar-30k-20mg": 14.99,
   "al-fakher-crown-bar-30k-20mg::Strawberry Punch": 19.9,
   "al-fakher-crown-bar-30k-20mg::Space Dream": 19.9,
   "al-fakher-crown-bar-30k-20mg::Cherry Ice": 19.9,
@@ -70,7 +69,7 @@ export const CATALOG = {
   "dutch-punch-indoor-cbd::4g": 19.6,
   "dutch-punch-indoor-cbd::8g": 39.2,
   "e-cg-50ml": 11.9,
-  "e-liquide-jnr-10ml-20mg-sel-de-nicotine": 3.9,
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine": 3.99,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée": 3.9,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise bleue Cranberry": 3.9,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Cerise glacée": 3.9,
@@ -173,7 +172,7 @@ export const CATALOG = {
   "plateau-beuz-purple-gorilla": 4.99,
   "plateau-euphoria": 9.9,
   "plateau-gangsta-panda": 6.9,
-  "pod-de-remplacement-aerox-32k-jnr": 9.9,
+  "pod-de-remplacement-aerox-32k-jnr": 9.99,
   "pod-recharge": 9.9,
   "pollen-d-amnesia-100-cbd": 4.2,
   "pollen-d-amnesia-100-cbd::2g": 8.4,
@@ -239,14 +238,13 @@ export const CATALOG = {
  */
 export const STOCKS = {
   "al-fakher-crown-bar-30k-20mg": 10,
-  "al-fakher-crown-bar-30k-20mg::Peach Ice": 10,
   "al-fakher-crown-bar-30k-20mg::Strawberry Punch": 10,
   "al-fakher-crown-bar-30k-20mg::Space Dream": 10,
   "al-fakher-crown-bar-30k-20mg::Cherry Ice": 10,
   "allume-charbon-chicha-tsar": 10,
   "allume-charbon-gaz-blackcoco-s": 10,
   "amazonien": 10,
-  "amnesia-hydro-indoor-cbd": 10,
+  "amnesia-hydro-indoor-cbd": 250,
   "ananas-coco-50ml-le-petit-verger": 10,
   "ananas-coco-frais": 10,
   "baba-au-rhum-50-ml": 10,
@@ -416,11 +414,6 @@ export const STOCKS = {
 export const CLES_STOCK = {
   "al-fakher-crown-bar-30k-20mg": {
     "cle": "al-fakher-crown-bar-30k-20mg",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "al-fakher-crown-bar-30k-20mg::Peach Ice": {
-    "cle": "al-fakher-crown-bar-30k-20mg::Peach Ice",
     "facteur": 1,
     "unite": "pcs"
   },
@@ -1436,7 +1429,6 @@ export const CLES_STOCK = {
  */
 export const UNITES_STOCK = {
   "al-fakher-crown-bar-30k-20mg": "pcs",
-  "al-fakher-crown-bar-30k-20mg::Peach Ice": "pcs",
   "al-fakher-crown-bar-30k-20mg::Strawberry Punch": "pcs",
   "al-fakher-crown-bar-30k-20mg::Space Dream": "pcs",
   "al-fakher-crown-bar-30k-20mg::Cherry Ice": "pcs",
@@ -1608,13 +1600,6 @@ export const UNITES_STOCK = {
  * @type {Array<{cle: string, nom: string, marque: string, categorie: string, unite: string}>}
  */
 export const REFERENCES = [
-  {
-    "cle": "al-fakher-crown-bar-30k-20mg::Peach Ice",
-    "nom": "Al Fakher Crown Bar 30K 20MG Peach Ice",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
   {
     "cle": "al-fakher-crown-bar-30k-20mg::Strawberry Punch",
     "nom": "Al Fakher Crown Bar 30K 20MG Strawberry Punch",
@@ -2446,13 +2431,6 @@ export const REFERENCES = [
     "nom": "Plateau Gangsta Panda",
     "marque": "Gangsta Panda",
     "categorie": "accessoires",
-    "unite": "pcs"
-  },
-  {
-    "cle": "pod-de-remplacement-aerox-32k-jnr",
-    "nom": "Pod de Remplacement AeroX 32K – JNR",
-    "marque": "JNR",
-    "categorie": "puffs",
     "unite": "pcs"
   },
   {

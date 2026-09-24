@@ -824,6 +824,25 @@ de script suffisait à voler un jeton GitHub `repo`. Traité dans cet ordre :
    sur le site déployé — `curl -sSI … | grep -ci content-security-policy`
    doit renvoyer **1**, jamais 2.
 
+   ⚠ **`connect-src` doit contenir `blob:` sur `/admin/contenu/*`.** Decap ne
+   commite pas le fichier image tel quel : il en fait une URL `blob:` locale,
+   la **fetch** pour la convertir en base64, puis envoie ce base64 à l'API
+   GitHub (`AssetProxy.toBase64` → `uploadBlob` → `persistFiles`). Sans
+   `blob:`, publier une fiche portant une image échoue sur **« TypeError:
+   Failed to fetch »** — message qui accuse le réseau alors que c'est notre
+   propre politique qui refuse. Constaté le 2026-09-24, après trois jours où
+   le symptôme avait été pris pour une panne d'envoi d'image.
+
+   La leçon est la même que pour Monetico : **la console nommait la directive
+   en clair**. Devant un « Failed to fetch » dans le back-office, ouvrir la
+   console avant toute hypothèse — le navigateur dit ce qu'il a bloqué.
+
+   Note au passage : Decap tente aussi de charger une police depuis
+   `fonts.googleapis.com`, bloquée par `style-src`. **C'est voulu** — le site
+   n'envoie l'IP de personne à Google, y compris celle du commerçant. La ligne
+   rouge dans la console est cosmétique et n'affecte que l'apparence de
+   l'éditeur.
+
 **Reste ouvert, en connaissance de cause :**
 - `style-src` garde `unsafe-inline` : ~600 attributs `style=""` dans les
   gabarits, retirer ce point suppose de les faire passer en classes CSS —
