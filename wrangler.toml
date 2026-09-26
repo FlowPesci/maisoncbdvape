@@ -24,10 +24,22 @@ pages_build_output_dir = "public"
 #         maisoncbdvape.fr et www sont actifs, SSL compris. Tant qu'elle ne
 #         l'était pas, il fallait garder https://maisoncbdvape.pages.dev,
 #         sinon l'OAuth GitHub de l'admin et les retours de paiement cassaient.
-#     MONETICO_ENV           = test   (→ "production" au lancement)
-#       Tant qu'il vaut "test", le bouton CB reste masqué du public et n'est
-#       révélé que par ?apercu=1 — le formulaire pointe vers la plateforme de
-#       test, un vrai client n'y serait pas débité. Voir src/_data/monetico.js.
+#     MONETICO_ENV           = production
+#       ✅ Basculé le 2026-09-26, la banque ayant confirmé l'ouverture du
+#       contrat. Le bouton « Payer en ligne (CB) » est désormais visible du
+#       public et le formulaire pointe vers la plateforme réelle : tout
+#       paiement débite vraiment.
+#       ⚠ Le seul témoin fiable de l'état réel est le `code-retour` dans le
+#       journal de /admin/diagnostic/ — `paiement` en production, `payetest`
+#       sur la plateforme de test. Si le premier vrai paiement renvoie encore
+#       `payetest`, c'est la banque qui n'a pas basculé : repasser cette
+#       variable à "test" le temps qu'elle le fasse, sans quoi des clients
+#       seraient envoyés sur une caisse qui n'encaisse pas.
+#       ⚠ Si la banque a remis une NOUVELLE clé de sécurité avec l'ouverture
+#       du contrat, la saisir dans Cloudflare → Settings → Variables and
+#       secrets, en type Secret, AVANT de déployer. Une clé de recette
+#       laissée en place ferait échouer le sceau sur chaque notification —
+#       symptôme identique à une URL fausse, et sans message explicite.
 #     MONETICO_TPE           = NI7668I   (société HALL DE LA PRESS)
 #       ✅ Confirmé en clair par le commerçant le 2026-09-10, et comparé
 #       point de code par point de code : N-I-7-6-6-8-I, les deux « I » sont
@@ -61,7 +73,7 @@ pages_build_output_dir = "public"
 
 [vars]
 SITE_URL               = "https://maisoncbdvape.fr"
-MONETICO_ENV           = "test"
+MONETICO_ENV           = "production"
 MONETICO_TPE           = "NI7668I"
 MONETICO_SOCIETE       = "halldelapr"
 EMAIL_FROM             = "MaisonCBDVape <noreply@maisoncbdvape.fr>"

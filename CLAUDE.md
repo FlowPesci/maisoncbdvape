@@ -748,18 +748,32 @@ carte est proposée avec plusieurs issues.
 chemin d'annulation, qui n'avait jamais tourné en production, relâche bien le
 stock.
 
-**Reste à faire pour encaisser réellement**, dans cet ordre :
+✅ **Bascule en production le 2026-09-26.** La banque a confirmé l'ouverture
+du contrat ; `MONETICO_ENV` vaut `"production"` dans `wrangler.toml`. Le
+bouton « Payer en ligne (CB) » est donc visible du public et tout paiement
+débite réellement.
 
-1. **Prévenir la banque** que les trois tests sont validés et demander le
-   passage du TPE en production.
-2. **Attendre leur confirmation écrite.** Ne pas anticiper : tant que le TPE
-   est en test côté banque, un `MONETICO_ENV = "production"` enverrait les
-   clients vers une plateforme qui refuserait tout.
-3. Alors seulement, passer `MONETICO_ENV = "production"` dans `wrangler.toml`,
-   puis `git push`. Le build refuse cette bascule si TPE ou société est vide.
-4. **Un vrai paiement de quelques euros**, avec une vraie carte, et vérifier
-   le journal : `code-retour` doit devenir `paiement` (et non plus
-   `payetest`). Rembourser ensuite depuis le back-office Monetico.
+**Reste à faire pour clore :**
+
+1. **Un vrai paiement de quelques euros**, avec une vraie carte, sur une
+   commande neuve.
+2. Vérifier le journal de `/admin/diagnostic/` : `code-retour` doit être
+   **`paiement`** et non plus `payetest`. C'est le seul témoin fiable de la
+   bascule côté banque — ni l'écran Cloudflare ni le site ne la connaissent.
+3. Vérifier que la commande passe en **Payée** et que les deux e-mails
+   partent (`/admin/commandes/`, pas de marqueur `✉ non envoyé`).
+4. **Rembourser** depuis le back-office Monetico.
+
+⚠ **Si le journal affiche encore `payetest`**, la banque n'a pas basculé de
+son côté : repasser `MONETICO_ENV = "test"` et pousser immédiatement. Laisser
+la variable à `"production"` dans ce cas donne le pire des deux mondes — un
+bouton CB visible du public, menant à une plateforme qui n'encaisse pas.
+
+⚠ **Une clé MAC de production.** Si la banque en a remis une nouvelle avec
+l'ouverture du contrat, elle doit remplacer l'ancienne dans Cloudflare
+(Secret) **avant** le premier paiement réel. Sinon le sceau échoue sur chaque
+notification, la commande reste impayée, et le symptôme est indiscernable
+d'une URL de notification fausse.
 
 Détail complet dans `docs/deploiement-cloudflare.md`, section 11.
 
