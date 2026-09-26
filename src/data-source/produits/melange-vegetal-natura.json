@@ -9,7 +9,7 @@
   ],
   "devise": "EUR",
   "nombreAvis": null,
-  "nom": "Mélange végétal Natura",
+  "nom": "Mélange végétal Natura 20g",
   "actif": true,
   "prix": 6.9,
   "unitePrix": null,
@@ -34,9 +34,9 @@
   "image": "/media/produits/1778340655602-melange-vegetal-natura.png",
   "description": "Le Natura est le mélange sans menthe : trois plantes seulement, pour une fumée légère au goût rond et légèrement floral. C'est celui qu'on choisit quand on ne veut pas d'arôme dominant.\n\nLe bouillon blanc constitue la base — c'est la plante à fumer traditionnelle, dont les feuilles larges donnent une combustion lente et régulière. Le calendula apporte ses notes florales, le chanvre un fond végétal plus ample.\n\nNi tabac, ni nicotine, ni additif. Il se roule comme du tabac et peut aussi servir de base à mélanger avec les deux autres.",
   "contenuKit": [],
+  "sousCategorie": "substituts-tabac",
   "seo": {
     "title": "",
     "description": ""
-  },
-  "sousCategorie": "substituts-tabac"
+  }
 }
