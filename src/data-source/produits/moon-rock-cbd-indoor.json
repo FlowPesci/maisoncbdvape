@@ -11,7 +11,7 @@
   "nombreAvis": null,
   "nom": "Moon Rock CBD Indoor",
   "actif": true,
-  "prix": 7.9,
+  "prix": 5.99,
   "unitePrix": "g",
   "note": null,
   "ficheTechnique": {
@@ -23,24 +23,19 @@
   },
   "variantes": [
     {
-      "label": "2g",
-      "prix": 15.8,
-      "stock": 10
-    },
-    {
       "label": "4g",
-      "prix": 31.6,
-      "stock": 10
+      "prix": 23.99,
+      "stock": 23
     },
     {
       "label": "8g",
-      "prix": 63.2,
+      "prix": 47.99,
       "stock": 10
     }
   ],
   "couleurs": [],
-  "prixBarre": null,
-  "stock": 10,
+  "prixBarre": 9.99,
+  "stock": 63,
   "descriptionCourte": "Une fleur roulée dans le pollen, dense et collante. Le format le plus concentré du comptoir.",
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
@@ -48,14 +43,16 @@
     "indoor"
   ],
   "saveurs": [],
-  "galerie": [],
+  "galerie": [
+    "/assets/img/produits/moon-rock-cbd..jpg"
+  ],
   "id": "moon-rock-cbd-indoor",
-  "image": "/media/produits/1778340406550-moon-rock-cbd-indoor.jpeg",
+  "image": "/assets/img/produits/moon-rock-cbd.jpg",
   "description": "Le Moon Rock n'est pas une fleur ordinaire : c'est un bud indoor enrobé de pollen, ce qui lui donne cet aspect rocheux et cette texture collante reconnaissable au toucher. La concentration est nettement supérieure à celle d'une fleur seule.\n\nAu nez, c'est terreux et épicé, avec une pointe sucrée et citronnée derrière. La fumée est riche et persistante — un format qu'on aborde après avoir fait le tour des fleurs classiques, et qui se consomme en petite quantité.\n\nUn grinder est déconseillé : la texture colle. Émietter à la main. Pesée de 2 à 8 grammes.",
   "contenuKit": [],
+  "sousCategorie": "fleurs-indoor",
   "seo": {
     "title": "",
     "description": ""
-  },
-  "sousCategorie": "fleurs-indoor"
+  }
 }
