@@ -26,6 +26,20 @@ eleventyExcludeFromCollections: true
     <priority>0.7</priority>
   </url>
 {%- endfor %}
+  <url>
+    <loc>{{ site.url }}/blog/</loc>
+    <lastmod>{{ page.date | isoDate }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+{%- for a in collections.article %}
+  <url>
+    <loc>{{ site.url }}{{ a.url }}</loc>
+    <lastmod>{{ a.data.date | isoDate if a.data.date else (page.date | isoDate) }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+{%- endfor %}
 {%- for produit in produits %}
 {%- if produit.actif != false %}
   <url>

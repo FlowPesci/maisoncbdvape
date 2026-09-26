@@ -96,6 +96,50 @@ const produits = readdirSync(DIR)
 const bloquants = [];
 const signales = [];
 
+/**
+ * Les articles du blog passent par le MÊME crible que les fiches.
+ *
+ * ─── Pourquoi ─────────────────────────────────────────────────────────────
+ * Le blog a été ouvert le 2026-09-25 pour le référencement, rédigé par le
+ * commerçant depuis l'éditeur de contenu. C'est, de tout le site, l'endroit
+ * où une allégation de santé a le plus de chances d'apparaître : une fiche
+ * produit se tient en trois phrases, un article de fond invite à expliquer
+ * « à quoi ça sert ». « Le CBD aide à mieux dormir » s'écrit tout seul.
+ *
+ * La loi ne distingue pas le support : règlement (CE) 1924/2006 et articles
+ * L121-2 et suivants du code de la consommation s'appliquent à la page
+ * produit comme à l'article qui y renvoie.
+ *
+ * ⚠ Ne pas adoucir la liste `ALLEGATIONS` pour laisser passer un article.
+ *   C'est la phrase qu'il faut réécrire — décrire ce que le produit EST et ce
+ *   qu'on en perçoit, jamais ce qu'il ferait à celui qui le consomme.
+ *
+ * Les contrôles de longueur ne s'appliquent PAS aux articles : un article
+ * long est normal, et un chapeau court aussi.
+ */
+const DIR_ARTICLES = "src/blog";
+let articles = [];
+try {
+  articles = readdirSync(DIR_ARTICLES)
+    .filter((f) => f.endsWith(".md"))
+    .map((f) => ({ fichier: f, texte: readFileSync(join(DIR_ARTICLES, f), "utf8") }));
+} catch {
+  // Dossier absent tant qu'aucun article n'est écrit : ce n'est pas une erreur.
+}
+
+for (const a of articles) {
+  for (const { motif, pourquoi } of ALLEGATIONS) {
+    const trouves = a.texte.match(motif);
+    if (trouves) {
+      bloquants.push({
+        id: "blog/" + a.fichier,
+        quoi: `« ${[...new Set(trouves.map((t) => t.toLowerCase()))].join(" », « ")} »`,
+        pourquoi,
+      });
+    }
+  }
+}
+
 for (const p of produits) {
   const longue = p.description || "";
   const courte = p.descriptionCourte || "";

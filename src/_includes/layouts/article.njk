@@ -1,0 +1,59 @@
+---
+layout: layouts/base.njk
+---
+{# ──────────────────────────────────────────────────────────────────────────
+   article.njk — un article du blog
+
+   ⚠ Le front matter ci-dessus DOIT rester en première ligne du fichier :
+   Eleventy ne le reconnaît pas s'il est précédé de quoi que ce soit, fût-ce
+   un commentaire Nunjucks. Le layout serait alors ignoré, sans erreur.
+
+   Les articles sont des fichiers Markdown dans `src/blog/`, écrits par le
+   commerçant depuis `/admin/contenu/`. Eleventy les rend nativement : pas de
+   dépendance supplémentaire, pas d'analyseur de front matter à maintenir.
+
+   `src/blog/blog.json` applique à tous ce layout, le tag `article` et le
+   permalien `/blog/<nom-du-fichier>/`.
+
+   ⚠ Le corps est du Markdown rédigé hors de notre contrôle. `verify:redaction`
+   le passe au même crible que les fiches produits : une allégation de santé
+   sur le CBD fait échouer la construction. C'est délibéré — un blog est
+   précisément l'endroit où ces phrases arrivent le plus naturellement.
+────────────────────────────────────────────────────────────────────────── #}
+
+<article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+
+  <nav aria-label="Fil d'Ariane" style="font-size:.75rem;color:var(--muted);margin-bottom:1.5rem;">
+    <a href="/" class="footer-link">Accueil</a>
+    <span style="margin:0 .4rem;">/</span>
+    <a href="/blog/" class="footer-link">Blog</a>
+  </nav>
+
+  <h1 style="font-family:var(--font-titre);font-weight:300;font-size:clamp(1.9rem,4vw,2.8rem);color:var(--cream);line-height:1.15;margin-bottom:.75rem;">
+    {{ titre or title }}
+  </h1>
+
+  <div style="font-size:.78rem;color:var(--muted);font-family:'DM Sans',sans-serif;margin-bottom:2rem;">
+    {% if date %}<time datetime="{{ date | isoDate }}">{{ date | dateFr }}</time>{% endif %}
+    {% if auteur %} · {{ auteur }}{% endif %}
+  </div>
+
+  {% if image %}
+    <img src="{{ image }}" alt="{{ titre or title }}"
+         style="width:100%;height:auto;border:1px solid var(--borderl);margin-bottom:2rem;"
+         loading="lazy"/>
+  {% endif %}
+
+  {% if chapeau %}
+    <p style="font-size:1.05rem;line-height:1.75;color:var(--cream);margin-bottom:2rem;">{{ chapeau }}</p>
+  {% endif %}
+
+  <div class="article-corps">
+    {{ content | safe }}
+  </div>
+
+  <div style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--borderl);">
+    <a href="/blog/" class="footer-link">← Tous les articles</a>
+  </div>
+
+</article>

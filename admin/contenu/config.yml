@@ -38,6 +38,80 @@ editor:
 collections:
 
   # ════════════════════════════════════════════════════════════════════════
+  # BLOG — un fichier Markdown par article, rendu nativement par Eleventy
+  #
+  # ⚠ `extension: md` et `format: frontmatter` : le corps de l'article est du
+  #   Markdown, pas du JSON. C'est ce qui permet à Eleventy de générer la page
+  #   sans analyseur supplémentaire — voir src/_includes/layouts/article.njk.
+  #
+  # ⚠ Le texte écrit ici passe par `verify:redaction`, au même titre que les
+  #   fiches produits : une allégation de santé sur le CBD fait échouer la
+  #   construction et l'article ne part pas en ligne. C'est voulu.
+  # ════════════════════════════════════════════════════════════════════════
+  - name: "articles"
+    label: "Blog"
+    label_singular: "Article"
+    description: "Articles de fond pour le référencement. Publiés sur /blog/ et listés en pied de page."
+    folder: "src/blog"
+    create: true
+    delete: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{slug}}"
+    summary: "{{titre}}"
+    sortable_fields: ["date", "titre"]
+    fields:
+      - label: "Titre"
+        name: "titre"
+        widget: "string"
+        hint: "Le titre de la page, celui que Google affiche. Une phrase claire vaut mieux qu'un jeu de mots."
+
+      - label: "Date de publication"
+        name: "date"
+        widget: "datetime"
+        date_format: "DD/MM/YYYY"
+        time_format: false
+        picker_utc: false
+
+      - label: "Chapeau"
+        name: "chapeau"
+        widget: "text"
+        required: false
+        hint: "Deux ou trois lignes de résumé, affichées sous le titre et dans la liste des articles. Sert aussi de description dans les résultats Google si le champ SEO est vide."
+
+      - label: "Image de couverture"
+        name: "image"
+        widget: "image"
+        required: false
+        hint: "Facultative. Affichée en haut de l'article et dans la liste."
+
+      - label: "Auteur"
+        name: "auteur"
+        widget: "string"
+        required: false
+        default: "MaisonCBDVape"
+
+      - label: "Article"
+        name: "body"
+        widget: "markdown"
+        hint: >-
+          Le texte de l'article. ⚠ Interdiction absolue d'écrire qu'un produit
+          CBD soulage, apaise, détend ou aide à dormir — la loi ne permet de
+          décrire que ce que le produit EST et ce qu'on perçoit, jamais ce
+          qu'il ferait à celui qui le consomme. Un article qui contient ce
+          genre de phrase empêche la mise en ligne de TOUT le site jusqu'à
+          correction.
+
+      - label: "SEO"
+        name: "seo"
+        widget: "object"
+        required: false
+        collapsed: true
+        fields:
+          - { label: "Titre SEO", name: "title", widget: "string", required: false }
+          - { label: "Description SEO", name: "description", widget: "text", required: false }
+
+  # ════════════════════════════════════════════════════════════════════════
   # PRODUITS — fichier unique JSON contenant la liste complète
   # ════════════════════════════════════════════════════════════════════════
   - name: "produits"

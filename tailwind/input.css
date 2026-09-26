@@ -1874,6 +1874,48 @@ em, i, cite, dfn, address, blockquote, q {
    tenir à jour. `verify:css` contrôle que cette règle survit.          */
 .hidden { display: none !important; }
 
+/* ─── Corps d'un article de blog ───────────────────────────────────────────
+   Le Markdown rendu par Eleventy sort sans classe : le preflight Tailwind
+   ayant remis à zéro titres, listes et marges, un article s'afficherait en
+   bloc uniforme, sans hiérarchie. Ces règles s'appliquent aux descendants de
+   `.article-corps` et à eux seuls — le reste du site garde son habillage.
+
+   Volontairement sobre : on habille ce que le commerçant peut produire depuis
+   l'éditeur (titres, paragraphes, listes, liens, citations, images), rien de
+   plus.                                                                     */
+.article-corps { color: var(--text); font-size: 1rem; line-height: 1.8; }
+.article-corps > * + * { margin-top: 1.15rem; }
+.article-corps h2 {
+  font-family: var(--font-titre);
+  font-weight: 300;
+  font-size: 1.7rem;
+  color: var(--cream);
+  line-height: 1.25;
+  margin-top: 2.5rem;
+}
+.article-corps h3 {
+  font-family: var(--font-titre);
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: var(--cream);
+  margin-top: 2rem;
+}
+.article-corps a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+.article-corps a:hover { color: var(--cream); }
+.article-corps ul, .article-corps ol { padding-left: 1.4rem; }
+.article-corps ul { list-style: disc; }
+.article-corps ol { list-style: decimal; }
+.article-corps li + li { margin-top: .4rem; }
+.article-corps strong { color: var(--cream); font-weight: 600; }
+.article-corps blockquote {
+  border-left: 2px solid var(--gold);
+  padding-left: 1rem;
+  color: var(--muted);
+  font-style: italic;
+}
+.article-corps img { max-width: 100%; height: auto; border: 1px solid var(--borderl); }
+.article-corps hr { border: 0; border-top: 1px solid var(--borderl); margin: 2.5rem 0; }
+
 /* ─── Logotype de l'en-tête ────────────────────────────────────────────────
    Agrandi le 2026-09-24, à la demande du commerçant — mais **pas sur
    téléphone**, et ce n'est pas un compromis esthétique : c'est une mesure.

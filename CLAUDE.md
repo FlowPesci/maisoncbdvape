@@ -194,6 +194,14 @@ appartient. À reprendre dès que de vrais avis existent, ou avant si la
 question de la conformité se pose. Les deux autres chiffres du bandeau
 (« 121+ références », « 48h livraison ») sont exacts.
 
+⚠ **Le blog est soumis à la même règle, et c'est là qu'elle sera enfreinte.**
+Une fiche produit se tient en trois phrases ; un article de fond invite à
+expliquer « à quoi ça sert », et « le CBD aide à mieux dormir » s'écrit tout
+seul. La loi ne distingue pas le support. `verify:redaction` passe donc les
+fichiers de `src/blog/*.md` par la **même liste d'interdits** que les fiches,
+et fait échouer la construction — donc le déploiement de tout le site —
+jusqu'à correction. Les contrôles de longueur, eux, ne s'y appliquent pas.
+
 ### Aucun dispositif de vapotage à réservoir fixe
 
 Loi n° 2025-175 du 24 février 2025, en vigueur le 25 février 2025. Est
@@ -986,6 +994,40 @@ Le plus exposé est `puff-30k-hyper-max…`, dont la fiche technique porte
 
 **Liens sociaux** du pied de page encore en `@tabacgex` — à changer quand les
 comptes seront ouverts.
+
+---
+
+## Le blog — `/blog/`
+
+Ouvert le 2026-09-25 pour le référencement. Le commerçant écrit ses articles
+depuis `/admin/contenu/` → collection **Blog**.
+
+**Des fichiers Markdown, rendus nativement par Eleventy** — délibérément, pour
+n'ajouter aucune dépendance : pas d'analyseur de front matter, pas de moteur
+Markdown tiers à maintenir.
+
+| Élément | Rôle |
+|---|---|
+| `src/blog/*.md` | un fichier par article, écrit par Decap |
+| `src/blog/blog.json` | applique à tous : layout, tag `article`, permalien |
+| `src/_includes/layouts/article.njk` | la page d'un article |
+| `src/blog.njk` | la liste, à `/blog/` |
+| `.article-corps` (`input.css`) | habillage du Markdown rendu |
+
+⚠ **`src/blog.njk` est à la racine de `src/`, pas dans `src/blog/`.** Les
+fichiers de ce dossier héritent de `blog.json` : une page de liste placée là
+serait devenue un article de plus, pointant vers elle-même.
+
+⚠ **Le front matter d'`article.njk` doit rester en première ligne.** Eleventy
+ne le reconnaît pas s'il est précédé de quoi que ce soit, même d'un
+commentaire Nunjucks — le layout serait alors ignoré, sans erreur.
+
+Les articles entrent dans `sitemap.xml` via `collections.article`. Sans cela,
+ils existeraient sans être indexés, ce qui viderait l'opération de son sens.
+
+**Visibilité :** lien en pied de page uniquement, décidé ainsi au départ. Un
+bandeau « trois derniers articles » sur l'accueil est envisagé — la collection
+`collections.article` est déjà disponible pour ça, rien à préparer d'autre.
 
 ---
 
