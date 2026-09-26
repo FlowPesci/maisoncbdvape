@@ -12,6 +12,7 @@
   "actif": true,
   "prix": 4.99,
   "unitePrix": "g",
+  "note": 5,
   "variantes": [
     {
       "stock": 200,
@@ -34,6 +35,10 @@
   "descriptionCourte": "Une hydroponique aux agrumes sucrés et au fond poivré, cultivée à Milan. Une fleur indoor tout en nuances.",
   "categorie": "cbd",
   "dateAjout": "2026-09-26",
+  "tags": [
+    "nouveaute",
+    "premium"
+  ],
   "galerie": [
     "/assets/img/produits/drizzle-in-dam-hydro-indoor..jpg"
   ],
