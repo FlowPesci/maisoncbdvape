@@ -36,11 +36,11 @@
   "variantes": [
     {
       "stock": 25,
-      "label": "10",
+      "label": "10g",
       "prix": 9.99
     }
   ],
-  "prixBarre": 1.99,
+  "prixBarre": "",
   "stock": 126,
   "descriptionCourte": "Nouveau : une greenhouse d'Italie aux notes de banane mûre et de fruits sucrés. Petites têtes, grande rondeur.",
   "categorie": "cbd",
