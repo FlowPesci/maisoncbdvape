@@ -1,5 +1,5 @@
 {
-  "marque": "Amnésia Hydro Indoor CBD",
+  "marque": "K CBD",
   "statutStock": "en-stock",
   "pointsForts": [
     "Culture hydroponique indoor",
@@ -11,7 +11,7 @@
   "nombreAvis": null,
   "nom": "Amnésia Hydro Indoor CBD",
   "actif": true,
-  "prix": 4.9,
+  "prix": 4.99,
   "unitePrix": "g",
   "note": null,
   "ficheTechnique": {
@@ -24,18 +24,23 @@
   "variantes": [
     {
       "label": "2g",
-      "prix": 9.8,
-      "stock": 10
+      "prix": 9.99,
+      "stock": 120
     },
     {
       "label": "4g",
-      "prix": 19.6,
-      "stock": 10
+      "prix": 19.99,
+      "stock": 128
     },
     {
       "label": "8g",
-      "prix": 39.2,
-      "stock": 10
+      "prix": 39.99,
+      "stock": 100
+    },
+    {
+      "stock": 50,
+      "label": "12g",
+      "prix": 59.99
     }
   ],
   "couleurs": [],
