@@ -1,0 +1,68 @@
+{
+  "marque": "K CBD",
+  "statutStock": "en-stock",
+  "devise": "EUR",
+  "nom": "Garlic Hydro Indoor CBD",
+  "actif": true,
+  "prix": 4.99,
+  "ficheTechnique": [
+    {
+      "cle": "Catégorie",
+      "valeur": "Fleurs & Résines CBD"
+    },
+    {
+      "cle": "Culture",
+      "valeur": "Hydroponique, indoor"
+    },
+    {
+      "cle": "Origine",
+      "valeur": "États-Unis"
+    },
+    {
+      "cle": "Taux de CBD",
+      "valeur": "21 %"
+    },
+    {
+      "cle": "Taux de THC",
+      "valeur": "< 0,3 %"
+    },
+    {
+      "cle": "Séchage",
+      "valeur": "Lent, en chambre ventilée"
+    },
+    {
+      "cle": "Conditionnement",
+      "valeur": "Pesée à la commande, 2 à 20 g"
+    }
+  ],
+  "variantes": [
+    {
+      "stock": 23,
+      "label": "2g",
+      "prix": 11.99
+    },
+    {
+      "stock": 23,
+      "label": "4g",
+      "prix": 19.99
+    },
+    {
+      "stock": 21,
+      "label": "8",
+      "prix": 39.99
+    }
+  ],
+  "prixBarre": 6.99,
+  "stock": 69,
+  "descriptionCourte": "Une hydroponique américaine à 21 % de CBD, au nez d'ail, terreux et crémeux.",
+  "categorie": "cbd",
+  "dateAjout": "2026-09-26",
+  "galerie": [
+    "/assets/img/produits/garlic-hydro-indoor-cbd.jpg",
+    "/assets/img/produits/garlic-hydro-indoor-cbd..jpg"
+  ],
+  "id": "garlic-hydro-indoor-cbd",
+  "image": "/assets/img/produits/garlic-hydro-indoor-cbd.jpg",
+  "description": "La Garlic ne cherche pas à plaire à tout le monde. Son nez d'ail, terreux et légèrement gazeux, laisse place à une rondeur crémeuse, presque fromagère, avec une pointe sucrée en fond. Un profil singulier, pour les amateurs de variétés à caractère.\n\nCultivée aux États-Unis en hydroponie indoor, elle affiche 21 % de CBD : des têtes denses, givrées de trichomes. Manucurée à la main, puis séchée lentement.\n\nNous la pesons devant vous, de 2 - 8 - 12 grammes, depuis le bocal.",
+  "sousCategorie": "fleurs-indoor"
+}
