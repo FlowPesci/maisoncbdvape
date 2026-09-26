@@ -1,0 +1,28 @@
+{
+  "marque": "K CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [
+    "Culture hydroponique indoor, Milan",
+    "Nez citronné et fruité, fond terreux et poivré",
+    "Têtes manucurées à la main",
+    "Pesée devant vous, de 2 à 8 g"
+  ],
+  "devise": "EUR",
+  "nom": "Drizzle Hydro Indoor",
+  "actif": true,
+  "prix": 4.99,
+  "variantes": [],
+  "prixBarre": 5.99,
+  "stock": 34,
+  "descriptionCourte": "Une hydroponique aux agrumes sucrés et au fond poivré, cultivée à Milan. Une fleur indoor tout en nuances.",
+  "categorie": "cbd",
+  "dateAjout": "2026-09-26",
+  "id": "drizzle-hydro-indoor-cbd",
+  "image": "/assets/img/produits/drizzle-in-dam-hydro-indoor.jpg",
+  "description": "La Drizzle se choisit pour sa complexité. Les agrumes ouvrent le bal, suivis d'une note fruitée et sucrée, puis d'un fond terreux et poivré qui s'attarde en bouche. Un profil équilibré, qui se découvre par couches.\n\nCultivée à Milan en hydroponie indoor, elle offre des têtes compactes à la robe vert clair, parfois nuancée de reflets violines, couvertes de trichomes. Manucurée à la main, puis séchée lentement.\n\nNous la pesons devant vous, de 2 à 8 grammes, depuis le bocal.",
+  "sousCategorie": "fleurs-indoor",
+  "seo": {
+    "title": "Drizzle Hydro Indoor CBD – Fleur CBD Milan | MaisonCBDVape",
+    "description": "Drizzle Hydro Indoor CBD, cultivée à Milan : agrumes sucrés, fond poivré. Fleur pesée devant vous à Gex, dès 4,90 €/g. Click & Collect ou livraison 48h."
+  }
+}
