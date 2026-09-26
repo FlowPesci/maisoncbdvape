@@ -9,7 +9,7 @@
   ],
   "devise": "EUR",
   "nombreAvis": null,
-  "nom": "Mélange végétal Bergamote",
+  "nom": "Mélange végétal Bergamote 20g",
   "actif": true,
   "prix": 6.9,
   "unitePrix": null,
@@ -34,9 +34,9 @@
   "image": "/media/produits/1778340647193-melange-vegetal-bergamote.png",
   "description": "Quatre plantes, dosées pour la fraîcheur : la menthe bergamote donne le ton, vivifiante et légèrement citronnée ; le bouillon blanc apporte le volume et une fumée souple ; le calendula ajoute une note florale ; le chanvre referme sur un fond végétal plus ample.\n\nLe mélange se roule comme du tabac, avec la même tenue en cigarette. Il ne contient ni tabac, ni nicotine, ni additif — uniquement des plantes.\n\nC'est le plus frais des trois mélanges du comptoir. Le Natura est plus rond, le Menthe Nanah plus franchement mentholé.",
   "contenuKit": [],
+  "sousCategorie": "substituts-tabac",
   "seo": {
     "title": "",
     "description": ""
-  },
-  "sousCategorie": "substituts-tabac"
+  }
 }
