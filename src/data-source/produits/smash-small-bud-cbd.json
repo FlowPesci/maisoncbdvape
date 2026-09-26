@@ -1,0 +1,60 @@
+{
+  "marque": "K CBD",
+  "statutStock": "en-stock",
+  "pointsForts": [
+    "Culture greenhouse, Italie",
+    "Nez de banane mûre, fruité, sucré",
+    "Petites têtes, petit prix",
+    "Pesée devant vous"
+  ],
+  "devise": "EUR",
+  "nom": "Smash Small Bud CBD",
+  "actif": true,
+  "prix": 0.99,
+  "ficheTechnique": [
+    {
+      "cle": "10%",
+      "valeur": "10%"
+    },
+    {
+      "cle": "Hybride, dominante sativa",
+      "valeur": "Hybride, dominante sativa"
+    },
+    {
+      "cle": "Sous serre (greenhouse)",
+      "valeur": "Sous serre (greenhouse)"
+    },
+    {
+      "cle": "Small Bud",
+      "valeur": "Small Bud"
+    },
+    {
+      "cle": "< 0,3 %",
+      "valeur": "< 0,3 %"
+    }
+  ],
+  "variantes": [
+    {
+      "stock": 25,
+      "label": "10",
+      "prix": 9.99
+    }
+  ],
+  "prixBarre": 1.99,
+  "stock": 126,
+  "descriptionCourte": "Nouveau : une greenhouse d'Italie aux notes de banane mûre et de fruits sucrés. Petites têtes, grande rondeur.",
+  "categorie": "cbd",
+  "dateAjout": "2026-09-26",
+  "galerie": [
+    "/assets/img/produits/smash-small-bud-cbd.jpg",
+    "/assets/img/produits/smash-small-bud-cbd..jpg"
+  ],
+  "id": "smash-small-bud-cbd",
+  "image": "/assets/img/produits/smash-small-bud-cbd.jpg",
+  "description": "La Smash est la fleur des palais gourmands. La banane mûre ouvre le profil, suivie d'une douceur fruitée et sucrée, avec une pointe d'agrumes. Un ensemble rond et généreux, sans aucune agressivité.\n\nCultivée en Italie sous serre, entre lumière naturelle et environnement protégé, elle se présente ici en small buds : les petits bourgeons récoltés à part, avec le même caractère que les grosses têtes, à un prix imbattable.\n\nNous la pesons devant vous, depuis le bocal.",
+  "sousCategorie": "small-buds",
+  "seo": {
+    "title": "Smash Small Bud CBD Greenhouse Italie | MaisonCBDVape",
+    "description": "Nouveauté : Smash Small Bud CBD, greenhouse d'Italie. Banane, fruité, sucré. Pesée à Gex, 0,99 €/g. Click & Collect ou livraison 48h."
+  }
+}
