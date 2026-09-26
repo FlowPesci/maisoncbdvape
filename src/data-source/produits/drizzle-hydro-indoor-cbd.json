@@ -11,12 +11,32 @@
   "nom": "Drizzle Hydro Indoor",
   "actif": true,
   "prix": 4.99,
-  "variantes": [],
+  "unitePrix": "g",
+  "variantes": [
+    {
+      "stock": 200,
+      "label": "4g",
+      "prix": 19.99
+    },
+    {
+      "stock": 200,
+      "label": "8g",
+      "prix": 39.99
+    },
+    {
+      "stock": 250,
+      "label": "12g",
+      "prix": 59.99
+    }
+  ],
   "prixBarre": 5.99,
-  "stock": 34,
+  "stock": 140,
   "descriptionCourte": "Une hydroponique aux agrumes sucrés et au fond poivré, cultivée à Milan. Une fleur indoor tout en nuances.",
   "categorie": "cbd",
   "dateAjout": "2026-09-26",
+  "galerie": [
+    "/assets/img/produits/drizzle-in-dam-hydro-indoor..jpg"
+  ],
   "id": "drizzle-hydro-indoor-cbd",
   "image": "/assets/img/produits/drizzle-in-dam-hydro-indoor.jpg",
   "description": "La Drizzle se choisit pour sa complexité. Les agrumes ouvrent le bal, suivis d'une note fruitée et sucrée, puis d'un fond terreux et poivré qui s'attarde en bouche. Un profil équilibré, qui se découvre par couches.\n\nCultivée à Milan en hydroponie indoor, elle offre des têtes compactes à la robe vert clair, parfois nuancée de reflets violines, couvertes de trichomes. Manucurée à la main, puis séchée lentement.\n\nNous la pesons devant vous, de 2 à 8 grammes, depuis le bocal.",
