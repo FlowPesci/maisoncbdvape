@@ -4,6 +4,7 @@
 import { createHash } from "crypto";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { drapeauOrigine, libelleOrigine } from "./scripts/origines.mjs";
 
 // Cache hash en mémoire pour éviter de relire les fichiers à chaque template
 const _hashCache = {};
@@ -67,6 +68,32 @@ export default function (eleventyConfig) {
   );
 
   eleventyConfig.addFilter("dump", (value) => JSON.stringify(value, null, 2));
+
+  /**
+   * Origine géographique — drapeau et libellé.
+   *
+   * ⚠ Passer par ces filtres, jamais écrire un drapeau dans un gabarit : la
+   * carte CBD en portait cinq en dur, qui contredisaient les fiches produits.
+   * Voir `scripts/origines.mjs` pour la règle et la raison.
+   */
+  eleventyConfig.addFilter("drapeau", (origine) => drapeauOrigine(origine));
+  eleventyConfig.addFilter("origineLisible", (origine) => libelleOrigine(origine));
+
+  /**
+   * Mise en avant sur la carte CBD. Les deux filtres sont complémentaires :
+   * une vedette est affichée en tête et NE DOIT PAS reparaître dans la liste
+   * de son panneau, sans quoi le même produit figure deux fois.
+   *
+   * ⚠ Nunjucks n'a pas d'opérateur séquence : filtrer dans une boucle avec
+   * `{% set liste = (liste.push(x), liste) %}` ne fonctionne pas ici. D'où
+   * ces deux filtres plutôt qu'une construction dans le gabarit.
+   */
+  eleventyConfig.addFilter("vedettes", (arr) =>
+    (arr || []).filter((item) => item.carteVedette === true)
+  );
+  eleventyConfig.addFilter("sansVedettes", (arr) =>
+    (arr || []).filter((item) => item.carteVedette !== true)
+  );
 
   eleventyConfig.addFilter("includes", (haystack, needle) => {
     if (haystack == null) return false;

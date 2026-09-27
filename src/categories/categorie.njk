@@ -87,16 +87,37 @@ eleventyComputed:
       La carte · Prix au gramme
     </div>
 
-    {# Grille de panneaux — tout est tiré de `produits` (id, nom, prix, taux de
-       CBD) ; seuls les regroupements par panneau, le drapeau et les badges
-       "coup de cœur" restent des choix éditoriaux posés ici. #}
-    {% set fleursIndoor = produitsCat | where("sousCategorie", "fleurs-indoor") %}
-    {% set indoorSel    = fleursIndoor | rejectId("moon-rock-cbd-indoor") %}
+    {# ⚠ Tout vient des fiches Decap : nom, prix, taux de CBD, ORIGINE
+       (drapeau) et mise en avant. Plus aucun identifiant de produit ni aucun
+       drapeau n'est écrit dans ce gabarit.
+
+       C'est né d'un défaut réel : les drapeaux étaient posés par panneau, et
+       le Moon Rock affichait 🇫🇷 sur la carte alors que sa propre fiche
+       annonce « Union européenne ». Une origine est une mention commerciale,
+       au même titre qu'un prix — voir `scripts/origines.mjs`.
+
+       Les deux têtes d'affiche venaient d'une liste d'identifiants écrite
+       ici. Désactiver l'une d'elles depuis l'éditeur de contenu vidait sa
+       ligne sans le moindre message : nom absent, lien vers `/produits//`.
+       Elles sortent désormais du champ `carteVedette`, et `verify:carte`
+       échoue si la carte reste vide de vedettes.
+
+       Seuls les REGROUPEMENTS par panneau restent ici : ils suivent les
+       sous-catégories, que le commerçant choisit fiche par fiche. #}
+    {% set fleursIndoor  = produitsCat | where("sousCategorie", "fleurs-indoor") %}
+    {% set greenhouse    = produitsCat | where("sousCategorie", "fleurs-greenhouse") %}
     {% set resines       = produitsCat | where("sousCategorie", "pollens-resines") %}
     {% set smallBuds     = produitsCat | where("sousCategorie", "small-buds") %}
-    {% set melanges       = produitsCat | where("sousCategorie", "substituts-tabac") %}
-    {% set smallBudsMin   = smallBuds | pluck("prix") | min %}
-    {% set podRecharge    = (produits | where("id", "pod-recharge"))[0] %}
+    {% set melanges      = produitsCat | where("sousCategorie", "substituts-tabac") %}
+    {% set smallBudsMin  = smallBuds | pluck("prix") | min %}
+    {% set greenhouseMin = greenhouse | pluck("prix") | min %}
+    {% set podRecharge   = (produits | where("id", "pod-recharge"))[0] %}
+
+    {# Les vedettes sont les produits cochés « en avant sur la carte », toutes
+       sous-catégories CBD confondues — l'Extract Crumble est une résine et a
+       toujours figuré en tête d'Indoor, c'était un choix commercial. #}
+    {% set vedettes  = produitsCat | vedettes %}
+    {% set indoorSel = fleursIndoor | sansVedettes %}
 
     <div class="grid-cbd-menu">
 
@@ -110,24 +131,21 @@ eleventyComputed:
           <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
         </div>
 
-        {% set indoorProducts = [
-          {id: "moon-rock-cbd-indoor", flag: "🇫🇷", crown: true},
-          {id: "extract-crumble",      flag: "🇨🇭", star: true}
-        ] %}
-        {% for p in indoorProducts %}
-          {% set prod = (produits | where("id", p.id))[0] %}
+        {% for prod in vedettes %}
           <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:10px 0;border-bottom:1px solid var(--borderl);">
             <div style="display:flex;align-items:center;gap:8px;">
-              <span style="font-size:12px;">{% if p.crown %}👑{% elif p.star %}★{% endif %}</span>
+              <span style="font-size:12px;">👑</span>
               <a href="/produits/{{ prod.id }}/" style="font-size:14.5px;font-weight:500;color:var(--gold-light);text-decoration:none;transition:color .2s;" data-hover="cream">{{ prod.nom }}</a>
             </div>
-            <div style="text-align:right;font-size:14px;">{{ p.flag }}</div>
+            <div style="text-align:right;font-size:14px;" title="{{ prod.origine | origineLisible }}">{{ prod.origine | drapeau }}</div>
             <div style="text-align:right;font-size:12px;color:var(--gold);">{{ prod.ficheTechnique["Taux de CBD"] or "—" }}</div>
             <div style="text-align:right;font-size:15px;font-weight:500;color:var(--gold-light);">{{ prod.prix | eur | replace("€", "") | trim }}</div>
           </div>
         {% endfor %}
 
+        {% if indoorSel | count %}
         <div style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding:12px 0 6px;opacity:.6;">Sélection Indoor</div>
+        {% endif %}
 
         {% for prod in indoorSel %}
           <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
@@ -135,7 +153,7 @@ eleventyComputed:
               <span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>
               <a href="/produits/{{ prod.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" data-hover="gold">{{ prod.nom }}</a>
             </div>
-            <div style="text-align:right;font-size:13px;">🇫🇷</div>
+            <div style="text-align:right;font-size:13px;" title="{{ prod.origine | origineLisible }}">{{ prod.origine | drapeau }}</div>
             <div style="text-align:right;font-size:12px;color:var(--gold);">{{ prod.ficheTechnique["Taux de CBD"] or "—" }}</div>
             <div style="text-align:right;font-size:13.5px;font-weight:400;color:var(--text);">{{ prod.prix | eur | replace("€", "") | trim }}</div>
           </div>
@@ -151,24 +169,42 @@ eleventyComputed:
         <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--borderl);margin-bottom:4px;">
           <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
         </div>
-        {% for prod in smallBuds %}
+        {# ⚠ Ce panneau affichait `smallBuds` — exactement la même liste que le
+           panneau « Small Buds » juste en dessous. Le même produit paraissait
+           deux fois, ce qui laissait croire à un catalogue plus large qu'il
+           n'est. Il a désormais sa propre sous-catégorie, que le commerçant
+           renseigne fiche par fiche. #}
+        {% for prod in greenhouse %}
           <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
             <div style="display:flex;align-items:center;gap:8px;">
               <span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>
               <a href="/produits/{{ prod.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" data-hover="gold">{{ prod.nom }}</a>
             </div>
-            <div style="text-align:right;font-size:13px;">🇪🇺</div>
+            <div style="text-align:right;font-size:13px;" title="{{ prod.origine | origineLisible }}">{{ prod.origine | drapeau }}</div>
             <div style="text-align:right;font-size:12px;color:var(--gold);">{{ prod.ficheTechnique["Taux de CBD"] or "—" }}</div>
             <div style="text-align:right;font-size:13.5px;font-weight:500;color:var(--gold-light);">{{ prod.prix | eur | replace("€", "") | trim }}</div>
           </div>
         {% endfor %}
+        {% if greenhouseMin %}
         <div style="text-align:center;padding:20px 16px 8px;border-top:1px solid var(--borderl);margin-top:8px;">
-          <div style="font-family:var(--font-titre);font-size:26px;font-weight:400;color:var(--cream);letter-spacing:.02em;">À partir de <em style="font-style:normal;color:var(--gold);">{{ smallBudsMin | eur }}</em> /g</div>
+          <div style="font-family:var(--font-titre);font-size:26px;font-weight:400;color:var(--cream);letter-spacing:.02em;">À partir de <em style="font-style:normal;color:var(--gold);">{{ greenhouseMin | eur }}</em> /g</div>
           <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:4px;">Idéal pour découvrir · Qualité garantie</div>
         </div>
+        {% else %}
+        {# Panneau vide tant qu'aucune fiche n'est classée en greenhouse. On
+           l'annonce plutôt que de laisser un cadre muet, et surtout plutôt
+           que de le remplir avec les produits d'un autre panneau. #}
+        <div style="text-align:center;padding:24px 16px 8px;color:var(--muted);font-size:11.5px;letter-spacing:.1em;">
+          Sélection en cours de constitution.
+        </div>
+        {% endif %}
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;padding-top:14px;border-top:1px solid var(--borderl);">
+          {# ⚠ Le badge « 🇫🇷 Origine France » qui figurait ici a été retiré le
+             2026-09-27. Il affirmait une origine pour tout le panneau, alors
+             que chaque fiche porte désormais la sienne — et il l'aurait
+             contredite dès la première fiche suisse ou européenne classée en
+             greenhouse. L'origine s'affiche ligne par ligne, au-dessus. #}
           <div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">🌿 Zéro pesticides</div>
-          <div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">🇫🇷 Origine France</div>
           <div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--borderl);color:var(--muted);">☀️ Séchage naturel</div>
         </div>
       </div>
@@ -183,13 +219,13 @@ eleventyComputed:
           <span>Produit</span><span style="text-align:right;">Orig.</span><span style="text-align:right;">CBD</span><span style="text-align:right;">€/g</span>
         </div>
         {% for prod in resines %}
-          {% set top = prod.id == "extract-crumble" %}
+          {% set top = prod.carteVedette %}
           <div style="display:grid;grid-template-columns:1fr 44px 44px 52px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(201,169,110,0.07);">
             <div style="display:flex;align-items:center;gap:8px;">
               {% if top %}<span style="font-size:12px;">👑</span>{% else %}<span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>{% endif %}
               <a href="/produits/{{ prod.id }}/" style="font-size:13px;color:{% if top %}var(--gold-light){% else %}var(--cream){% endif %};text-decoration:none;transition:color .2s;" data-hover="gold">{{ prod.nom }}</a>
             </div>
-            <div style="text-align:right;font-size:13px;">{% if prod.id == "extract-crumble" %}🇨🇭{% else %}🇫🇷{% endif %}</div>
+            <div style="text-align:right;font-size:13px;" title="{{ prod.origine | origineLisible }}">{{ prod.origine | drapeau }}</div>
             <div style="text-align:right;font-size:12px;color:var(--gold);">{{ prod.ficheTechnique["Taux de CBD"] or "—" }}</div>
             <div style="text-align:right;font-size:{% if top %}15px;font-weight:500;color:var(--gold-light){% else %}13.5px;color:var(--text){% endif %};">{{ prod.prix | eur | replace("€", "") | trim }}</div>
           </div>
@@ -211,11 +247,24 @@ eleventyComputed:
               <span style="width:5px;height:5px;border-radius:50%;background:var(--muted);opacity:.5;flex-shrink:0;display:inline-block;"></span>
               <a href="/produits/{{ prod.id }}/" style="font-size:13px;color:var(--cream);text-decoration:none;transition:color .2s;" data-hover="gold">{{ prod.nom }}</a>
             </div>
-            <div style="text-align:right;font-size:13px;">🇪🇺</div>
+            <div style="text-align:right;font-size:13px;" title="{{ prod.origine | origineLisible }}">{{ prod.origine | drapeau }}</div>
             <div style="text-align:right;font-size:12px;color:var(--gold);">{{ prod.ficheTechnique["Taux de CBD"] or "—" }}</div>
             <div style="text-align:right;font-size:13.5px;font-weight:500;color:var(--gold-light);">{{ prod.prix | eur | replace("€", "") | trim }}</div>
           </div>
         {% endfor %}
+        {% if smallBudsMin %}
+        <div style="text-align:center;padding:20px 16px 8px;border-top:1px solid var(--borderl);margin-top:8px;">
+          <div style="font-family:var(--font-titre);font-size:26px;font-weight:400;color:var(--cream);letter-spacing:.02em;">À partir de <em style="font-style:normal;color:var(--gold);">{{ smallBudsMin | eur }}</em> /g</div>
+        </div>
+        {% endif %}
+
+        {# ⚠ Seul identifiant encore écrit en dur dans cette carte, et c'est
+           assumé : c'est un encart éditorial, pas une liste. Le `{% if %}`
+           n'est pas décoratif — sans lui, désactiver cette fiche depuis
+           l'éditeur de contenu affichait un nom vide et un lien vers
+           `/produits//`, sans la moindre erreur. `verify:carte` échoue si
+           l'identifiant disparaît ou passe inactif. #}
+        {% if podRecharge %}
         <div style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding:12px 0 6px;opacity:.6;margin-top:8px;">Accessoire</div>
         <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--borderl);">
           <div>
@@ -224,6 +273,7 @@ eleventyComputed:
           </div>
           <div style="font-size:15px;font-weight:500;color:var(--cream);">{{ podRecharge.prix | eur }}</div>
         </div>
+        {% endif %}
       </div>
 
       {# ── MÉLANGES VÉGÉTAUX ── #}

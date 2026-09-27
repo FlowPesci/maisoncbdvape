@@ -32,10 +32,6 @@ export const CATALOG = {
   "box-gen-se-vaporesso": 39.9,
   "box-voopoo-vinci-spark-100": 39.9,
   "brugnon-orange-sanguine-50-ml": 16.9,
-  "bubba-kush-hydro-indoor-cbd": 4.9,
-  "bubba-kush-hydro-indoor-cbd::2g": 9.8,
-  "bubba-kush-hydro-indoor-cbd::4g": 19.6,
-  "bubba-kush-hydro-indoor-cbd::8g": 39.2,
   "burn-baby-burn-indoor-cbd": 4.9,
   "burn-baby-burn-indoor-cbd::2g": 9.8,
   "burn-baby-burn-indoor-cbd::4g": 19.6,
@@ -265,7 +261,6 @@ export const STOCKS = {
   "box-gen-se-vaporesso": 10,
   "box-voopoo-vinci-spark-100": 10,
   "brugnon-orange-sanguine-50-ml": 10,
-  "bubba-kush-hydro-indoor-cbd": 10,
   "burn-baby-burn-indoor-cbd": 10,
   "cake-noisettes-50-ml": 10,
   "candy-hydro-indoor-cbd": 10,
@@ -540,21 +535,6 @@ export const CLES_STOCK = {
     "cle": "brugnon-orange-sanguine-50-ml",
     "facteur": 1,
     "unite": "pcs"
-  },
-  "bubba-kush-hydro-indoor-cbd::2g": {
-    "cle": "bubba-kush-hydro-indoor-cbd",
-    "facteur": 2,
-    "unite": "g"
-  },
-  "bubba-kush-hydro-indoor-cbd::4g": {
-    "cle": "bubba-kush-hydro-indoor-cbd",
-    "facteur": 4,
-    "unite": "g"
-  },
-  "bubba-kush-hydro-indoor-cbd::8g": {
-    "cle": "bubba-kush-hydro-indoor-cbd",
-    "facteur": 8,
-    "unite": "g"
   },
   "burn-baby-burn-indoor-cbd::2g": {
     "cle": "burn-baby-burn-indoor-cbd",
@@ -1512,7 +1492,6 @@ export const UNITES_STOCK = {
   "box-gen-se-vaporesso": "pcs",
   "box-voopoo-vinci-spark-100": "pcs",
   "brugnon-orange-sanguine-50-ml": "pcs",
-  "bubba-kush-hydro-indoor-cbd": "g",
   "burn-baby-burn-indoor-cbd": "g",
   "cake-noisettes-50-ml": "pcs",
   "candy-hydro-indoor-cbd": "g",
@@ -1807,13 +1786,6 @@ export const REFERENCES = [
     "marque": "Le Petit Verger",
     "categorie": "vape",
     "unite": "pcs"
-  },
-  {
-    "cle": "bubba-kush-hydro-indoor-cbd",
-    "nom": "Bubba Kush Hydro Indoor CBD",
-    "marque": "Bubba Kush Hydro Indoor CBD",
-    "categorie": "cbd",
-    "unite": "g"
   },
   {
     "cle": "burn-baby-burn-indoor-cbd",
@@ -2932,7 +2904,6 @@ export function resoudreStock(id, label) {
 export const PRODUITS_A_VARIANTES = new Set([
   "al-fakher-crown-bar-30k-20mg",
   "amnesia-hydro-indoor-cbd",
-  "bubba-kush-hydro-indoor-cbd",
   "burn-baby-burn-indoor-cbd",
   "candy-hydro-indoor-cbd",
   "charas-cbd",

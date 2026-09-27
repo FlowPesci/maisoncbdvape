@@ -121,13 +121,14 @@ npm run verify:api        # appels à des méthodes window.MCV_* inexistantes
 npm run verify:redaction  # allégations interdites, champs décoratifs
 npm run verify:puffs      # dispositifs à réservoir fixe (loi n° 2025-175)
 npm run verify:prix       # prix annoncé ≠ prix facturé sur un produit à variantes
+npm run verify:carte      # carte CBD : identifiants en dur, origines, drapeaux
 npm run verify:cache      # empreinte de contenu sur les scripts d'/assets/
 npm run test:diagnostic   # exécute réellement l'écran /admin/diagnostic/
 npm run test:sceau        # sceau retour Monetico, décodage du corps compris
 npm run test:alertes / test:inventaire / test:reception / test:commandes
 ```
 
-Les six `verify:` tournent dans `npm run build` et **font échouer la
+Les sept `verify:` tournent dans `npm run build` et **font échouer la
 construction**. Ce n'est pas de la rigueur gratuite : chacun est né d'un défaut
 parti en production sans que rien ne le signale.
 
@@ -385,6 +386,79 @@ boutique passe en bouton principal : ce n'est plus une alternative, c'est le
 parcours. Et `MONETICO_ENV = "production"` sans identifiants **fait échouer la
 construction**, pour qu'on ne déploie jamais une boutique qui se croit en
 encaissement réel.
+
+### La carte CBD ne contient plus aucune donnée produit
+
+`/categories/cbd/` affiche une « carte » en cinq panneaux, seul écran du site
+qui mélange données de fiches et choix éditoriaux. Les prix, noms et taux de
+CBD en venaient déjà ; **le reste était écrit dans le gabarit**, et trois
+défauts y ont vécu côte à côte jusqu'au 2026-09-27.
+
+**1. Les drapeaux étaient posés par panneau, pas par produit.** 🇫🇷 sur toute
+la colonne Indoor, 🇨🇭 sur le seul Extract Crumble, 🇪🇺 sur les Small Buds.
+Or le Moon Rock annonce « Origine : Union européenne » dans sa fiche
+technique et affichait 🇫🇷 sur la carte, à deux clics d'écart. Une origine
+est une **mention commerciale** au même titre qu'un prix (L121-2) : c'est
+exactement la famille de défaut que `prix-fiche.mjs` a fermée côté tarifs.
+
+`scripts/origines.mjs` porte la liste, et lui seul. Le champ `origine` est une
+**liste fermée** — en saisie libre, « Suisse », « suisse » et « CH » donneraient
+trois valeurs dont aucune n'a de drapeau, et la carte se dégraderait sans
+bruit. Les gabarits passent par les filtres `| drapeau` et `| origineLisible`.
+
+⚠ **Une origine absente n'affiche RIEN**, jamais un drapeau par défaut.
+Inventer 🇫🇷 sur une fiche non renseignée serait une mention commerciale
+fausse produite par le gabarit lui-même — pire que l'absence d'information.
+
+⚠ **`admin/contenu/config.yml` en porte une copie**, pour la raison habituelle :
+il est recopié tel quel vers `public/`, les filtres Nunjucks n'y sont pas
+évalués. `verify:carte` compare les deux listes. Ajouter un pays, c'est le
+faire aux deux endroits.
+
+**2. Les têtes d'affiche étaient appelées par identifiant.** Désactiver
+`moon-rock-cbd-indoor` depuis l'éditeur de contenu vidait sa ligne — nom
+absent, lien vers `/produits//` — sans erreur ni message. Elles sortent
+maintenant du champ **`carteVedette`**, une case à cocher. Une vedette est
+affichée en tête **et retirée de la liste de son panneau** : les deux filtres
+`| vedettes` et `| sansVedettes` se tiennent, en utiliser un sans l'autre fait
+paraître le produit deux fois.
+
+⚠ Nunjucks n'a pas d'opérateur séquence : `{% set l = (l.push(x), l) %}` ne
+filtre rien. D'où ces deux filtres plutôt qu'une boucle dans le gabarit.
+
+**3. Le panneau « Greenhouse » affichait la même liste que « Small Buds ».**
+Aucune sous-catégorie « greenhouse » n'existait. Le même produit paraissait
+deux fois, ce qui laissait croire à un catalogue plus large qu'il n'est.
+`fleurs-greenhouse` existe désormais ; le panneau annonce « sélection en cours
+de constitution » tant qu'il est vide, plutôt que d'emprunter les produits du
+voisin.
+
+Le badge **« 🇫🇷 Origine France »** du bas de ce panneau a été retiré : il
+affirmait une origine pour tout un panneau alors que chaque fiche porte la
+sienne.
+
+**`verify:carte` bloque la construction** sur : un identifiant en dur devenu
+inexistant ou inactif, une origine hors liste, une divergence entre
+`origines.mjs` et `config.yml`, une carte sans aucune vedette, et **tout
+drapeau réapparu en dur dans le gabarit**. Il avertit sans bloquer sur les
+fiches CBD sans origine — bloquer là-dessus produirait un contrôle qu'on finit
+par désactiver, et une origine absente est le bon comportement.
+
+⚠ Ce dernier point s'est retourné contre lui-même à l'écriture : la première
+version cherchait les drapeaux ligne à ligne et se déclenchait sur son propre
+commentaire, qui en cite un pour expliquer le défaut. Les commentaires
+Nunjucks sont retirés **par bloc** avant la recherche.
+
+**Un seul identifiant reste en dur**, assumé : l'encart « Accessoire » qui
+pointe `pod-recharge` dans le panneau Small Buds. C'est un encart éditorial,
+pas une liste. Son `{% if %}` n'est pas décoratif, et `verify:carte` le
+surveille.
+
+⚠ **Dix fiches CBD n'ont pas d'origine** au 2026-09-27 — les résines, les
+pollens, les small buds, les mélanges végétaux et l'Extract Crumble. Leur
+colonne « Orig. » est vide. L'Extract Crumble affichait 🇨🇭 : ce drapeau
+venait du gabarit, pas d'une donnée, et n'a **pas** été migré — recopier une
+affirmation dont on ignore la source, c'est la blanchir.
 
 ### ⚠ `.hidden` est en `!important` — et cela a coûté le menu du site
 

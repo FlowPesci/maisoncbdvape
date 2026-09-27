@@ -201,6 +201,7 @@ collections:
         hint: "Doit appartenir à la catégorie choisie ci-dessus. Laisser vide place le produit uniquement dans la catégorie."
         options:
           - { label: "CBD › Fleurs indoor", value: "fleurs-indoor" }
+          - { label: "CBD › Fleurs greenhouse", value: "fleurs-greenhouse" }
           - { label: "CBD › Pollens & résines", value: "pollens-resines" }
           - { label: "CBD › Small buds", value: "small-buds" }
           - { label: "CBD › Substituts de tabac", value: "substituts-tabac" }
@@ -224,6 +225,45 @@ collections:
           - { label: "Articles fumeurs › Cendriers", value: "cendriers" }
           - { label: "Articles fumeurs › Allume-charbons", value: "allume-charbons" }
           - { label: "Articles fumeurs › Boîtes", value: "boites" }
+
+      # ─── Origine & mise en avant ───────────────────────────────
+      # ⚠ Cette liste est une COPIE de `scripts/origines.mjs`, qui fait
+      #   autorité. Ce fichier est recopié tel quel vers `public/` : les
+      #   filtres Nunjucks n'y sont pas évalués, la liste ne peut donc pas y
+      #   être générée. `verify:carte` compare les deux et fait échouer la
+      #   construction si elles divergent — c'est ce contrôle, et lui seul,
+      #   qui rend la duplication acceptable. Ajouter un pays ici suppose de
+      #   l'ajouter là-bas, et inversement.
+      #
+      # ⚠ Les `value` sont ce qui est écrit dans la fiche : les changer sans
+      #   migrer les fiches existantes viderait la colonne « Orig. » de la
+      #   carte, en silence.
+      - label: "Origine"
+        name: "origine"
+        widget: "select"
+        required: false
+        hint: >-
+          Pays ou zone de provenance. S'affiche en drapeau dans la colonne
+          « Orig. » de la carte CBD. Laisser vide n'affiche rien — c'est
+          préférable à une origine approximative : une provenance annoncée
+          est une mention commerciale, au même titre qu'un prix.
+        options:
+          - { label: "France 🇫🇷", value: "france" }
+          - { label: "Suisse 🇨🇭", value: "suisse" }
+          - { label: "Union européenne 🇪🇺", value: "union-europeenne" }
+          - { label: "Italie 🇮🇹", value: "italie" }
+          - { label: "Espagne 🇪🇸", value: "espagne" }
+          - { label: "Autre origine 🌍", value: "autre" }
+
+      - label: "Mettre en avant sur la carte CBD"
+        name: "carteVedette"
+        widget: "boolean"
+        required: false
+        default: false
+        hint: >-
+          Place le produit en tête de la carte CBD, avec une couronne, quelle
+          que soit sa sous-catégorie. Réservé à deux ou trois références :
+          au-delà, la mise en avant ne distingue plus rien.
 
       # ─── Prix & stock ──────────────────────────────────────────
       - label: "Prix (€)"
