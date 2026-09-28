@@ -218,10 +218,6 @@ export const CATALOG = {
   "puff-adalya-30k": 19.9,
   "raisin-rouge-grenade": 16.9,
   "riz-au-lait-50-ml": 16.9,
-  "robin-cherry-cbd": 6.9,
-  "robin-cherry-cbd::2g": 13.8,
-  "robin-cherry-cbd::4g": 27.6,
-  "robin-cherry-cbd::8g": 55.2,
   "smash-small-bud-cbd": 9.99,
   "smash-small-bud-cbd::10g": 9.99,
   "snowing-in-dam": 4.9,
@@ -407,7 +403,6 @@ export const STOCKS = {
   "puff-adalya-30k": 10,
   "raisin-rouge-grenade": 10,
   "riz-au-lait-50-ml": 10,
-  "robin-cherry-cbd": 10,
   "smash-small-bud-cbd": 126,
   "smash-small-bud-cbd::10g": 25,
   "snowing-in-dam": 10,
@@ -1403,21 +1398,6 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
-  "robin-cherry-cbd::2g": {
-    "cle": "robin-cherry-cbd",
-    "facteur": 2,
-    "unite": "g"
-  },
-  "robin-cherry-cbd::4g": {
-    "cle": "robin-cherry-cbd",
-    "facteur": 4,
-    "unite": "g"
-  },
-  "robin-cherry-cbd::8g": {
-    "cle": "robin-cherry-cbd",
-    "facteur": 8,
-    "unite": "g"
-  },
   "smash-small-bud-cbd": {
     "cle": "smash-small-bud-cbd",
     "facteur": 1,
@@ -1658,7 +1638,6 @@ export const UNITES_STOCK = {
   "puff-adalya-30k": "pcs",
   "raisin-rouge-grenade": "pcs",
   "riz-au-lait-50-ml": "pcs",
-  "robin-cherry-cbd": "g",
   "smash-small-bud-cbd": "pcs",
   "smash-small-bud-cbd::10g": "pcs",
   "snowing-in-dam": "pcs",
@@ -2795,13 +2774,6 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
-    "cle": "robin-cherry-cbd",
-    "nom": "Robin Cherry CBD",
-    "marque": "Robin Cherry CBD",
-    "categorie": "cbd",
-    "unite": "g"
-  },
-  {
     "cle": "smash-small-bud-cbd::10g",
     "nom": "Smash Small Bud CBD 10g",
     "marque": "K CBD",
@@ -2970,7 +2942,6 @@ export const PRODUITS_A_VARIANTES = new Set([
   "pollen-d-amnesia-100-cbd",
   "pollen-d-or-100-cbd",
   "puff-30k-hyper-max-crown-bar-by-al-fakher",
-  "robin-cherry-cbd",
   "smash-small-bud-cbd"
 ]);
 

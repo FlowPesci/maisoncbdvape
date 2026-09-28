@@ -40,7 +40,7 @@
       "prix": 9.99
     }
   ],
-  "prixBarre": "",
+  "prixBarre": null,
   "stock": 126,
   "descriptionCourte": "Nouveau : une greenhouse d'Italie aux notes de banane mûre et de fruits sucrés. Petites têtes, grande rondeur.",
   "categorie": "cbd",

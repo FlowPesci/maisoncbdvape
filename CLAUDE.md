@@ -28,6 +28,35 @@ entre-temps. **`git pull --rebase` puis `git push`** — le rebase évite un
 commit de fusion, et les deux sources touchent des fichiers différents
 (`src/data-source/produits/*.json` pour le CMS).
 
+**L'ordre compte** : `git add -A`, `git commit`, PUIS `git pull --rebase`,
+PUIS `git push`. Le rebase exige un arbre propre — le faire avant le commit
+échoue en « cannot pull with rebase: You have unstaged changes ».
+
+⚠ **Le seul terrain de conflit réel, ce sont les fiches produits.** Les deux
+auteurs ne se marchent dessus que là, et donc seulement quand VOUS touchez à
+`src/data-source/produits/*.json` — c'est-à-dire lors d'une migration en lot
+(ajout d'un champ, changement de forme). Le 2026-09-27 et le 2026-09-28, deux
+migrations ont produit deux conflits, dont un `modify/delete` : le commerçant
+avait supprimé une fiche que la migration modifiait.
+
+Règles de résolution, dans l'ordre :
+
+1. **Sur une fiche produit, la version du commerçant gagne toujours.** C'est
+   lui qui connaît son magasin : ses prix, ses stocks, ses suppressions. On
+   garde son côté, on y réinjecte le champ que la migration ajoutait.
+2. **`modify/delete` → la suppression gagne** (`git rm <fiche>`). Il ne vend
+   plus ce produit ; la modification n'a plus d'objet.
+3. **Une migration en lot se fait vite** : `git pull --rebase` juste avant, et
+   `git push` juste après. La fenêtre de conflit est le temps qui s'écoule
+   entre les deux.
+
+⚠ **Ne jamais lancer une commande Git qui écrit depuis un environnement qui
+voit le dépôt à travers un montage** (bac à sable Linux, WSL, conteneur). Le
+2026-09-28, un `git fetch` lancé ainsi a écrit dans `.git/objects/` avec des
+droits que la session Windows ne pouvait plus reprendre : `git add` refusait
+tout avec « unable to write file … Permission denied ». Lecture seule de ce
+côté-là — `git status`, `git log`, `git show`.
+
 Conséquence moins évidente : **le site peut être en cours de reconstruction à
 tout moment**, déclenché par une modification de fiche. Pendant ces quelques
 secondes le Worker est injoignable, et un envoi d'image depuis le back-office
@@ -116,7 +145,7 @@ nécessaire après coup. À refaire pour toute clé existante réécrite en plac
 
 ```bash
 npm run verify:css        # classes utilisées sans règle CSS, tailles d'icônes
-npm run verify:cms        # config Decap (elle ne se valide que dans le navigateur)
+npm run verify:cms        # config Decap + forme des fiches en regard des widgets
 npm run verify:api        # appels à des méthodes window.MCV_* inexistantes
 npm run verify:redaction  # allégations interdites, champs décoratifs
 npm run verify:puffs      # dispositifs à réservoir fixe (loi n° 2025-175)
@@ -523,6 +552,33 @@ introuvables à la recherche — silencieusement.
 défaut de l'éditeur. C'est presque toujours un écart entre ce que `config.yml`
 déclare et ce que les fichiers contiennent. Comparer les deux avant de
 chercher ailleurs.
+
+**Et `verify:cms` le compare désormais tout seul.** Il ne contrôlait que la
+cohérence **interne** du fichier de configuration — doublons, options, longueur
+des `summary` — sans jamais l'ouvrir en regard des fiches. C'est ce qui a
+laissé `ficheTechnique` diverger pendant des mois : déclarée `list`, écrite en
+objet, et personne n'avait ouvert ce bloc.
+
+Il déduit maintenant de chaque `widget` la forme JS attendue (`list` → tableau,
+`boolean` → booléen, `number` → nombre, `string`/`text`/`image`/… → chaîne) et
+la compare à ce que portent réellement les 139 fiches. Une divergence fait
+échouer la construction, en nommant le champ, la forme trouvée et trois
+exemples — pas 139 lignes identiques.
+
+⚠ **Une valeur vide n'est pas une divergence**, quelle que soit son enveloppe :
+`""`, `{}` et `[]` veulent tous dire « pas renseigné », et Decap comme les
+anciens imports ne s'accordent pas sur celle qu'ils écrivent. Bloquer là-dessus
+aurait produit un contrôle qui échoue sur le travail quotidien du commerçant.
+Seule compte une valeur **remplie** dans la mauvaise forme — c'est elle qui
+rend le formulaire inutilisable.
+
+Ce contrôle a trouvé deux écarts dès sa première exécution : 20 fiches chicha
+et charbons avec `"ficheTechnique": {}`, et `"prixBarre": ""` sur
+`smash-small-bud-cbd`. Tous normalisés (`[]` et `null`).
+
+⚠ **Les widgets inconnus ne sont pas contrôlés**, volontairement : `relation`,
+`code`, un widget personnalisé. Le script ne se prononce que sur ce dont il
+connaît la forme, plutôt que d'inventer une règle et de bloquer à tort.
 
 ### ⚠ `.hidden` est en `!important` — et cela a coûté le menu du site
 
