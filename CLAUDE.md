@@ -153,6 +153,7 @@ npm run verify:prix       # prix annoncé ≠ prix facturé sur un produit à va
 npm run verify:carte      # carte CBD : identifiants en dur, origines, drapeaux
 npm run verify:cache      # empreinte de contenu sur les scripts d'/assets/
 npm run test:diagnostic   # exécute réellement l'écran /admin/diagnostic/
+npm run test:pages        # exécute les scripts des pages client — aucun ne doit lever
 npm run test:sceau        # sceau retour Monetico, décodage du corps compris
 npm run test:alertes / test:inventaire / test:reception / test:commandes
 ```
@@ -1315,6 +1316,45 @@ Aucun `verify:` ne peut attraper ça : `node --check` valide la syntaxe, et une
 demanderait un vrai analyseur syntaxique et produirait surtout des fausses
 alertes. **Le seul contrôle fiable reste d'ouvrir l'écran**, après toute
 modification de `src/assets/js/admin-*.js`.
+
+⚠ **Et ce n'est pas réservé au back-office — c'était une erreur de le croire.**
+Le 2026-09-28, la même classe de défaut a vidé une page de VENTE.
+`categorie-menu.js` levait `Cannot access 'brandChecks' before initialization` :
+`if (wrap) updateSlider()` était écrit **avant** le `const brandChecks` que
+`applyFilters()` lit. Un `const` déclaré plus bas n'est pas « pas encore
+défini », il est en **zone morte temporelle**, et y accéder jette.
+
+La fonction anonyme était donc abandonnée dès le chargement, et avec elle tout
+ce qui suit — dont l'`IntersectionObserver` de fin de fichier, celui qui retire
+l'opacité des cartes produits. Résultat : **le catalogue CBD affichait des
+produits invisibles**, présents dans le HTML, à `opacity: 0`.
+
+Le commerçant a signalé « ce produit n'apparaît pas dans la catégorie ». J'ai
+lu le HTML servi, l'y ai trouvé, et lui ai répondu que tout allait bien — deux
+fois. **C'était faux, et il avait raison.** Ce qui a tranché, c'est d'ouvrir la
+page dans un navigateur et de lire `getComputedStyle` sur la carte : `opacity:
+0`. Puis la console, qui nommait l'erreur en clair — comme pour la CSP de Decap
+et pour Monetico.
+
+**La leçon de méthode, pour la troisième fois** : lire le HTML généré ne prouve
+rien sur ce que le visiteur voit. Entre les deux il y a le CSS et le
+JavaScript, et un script mort ne produit aucune trace ailleurs que dans la
+console.
+
+`npm run test:pages` (`scripts/test-pages-client.mjs`) étend au parcours client
+la technique de `test:diagnostic` : il exécute réellement les scripts d'une
+page dans le HTML généré et **fait échouer la construction si l'un d'eux
+lève**. Il tourne dans `npm run build`.
+
+⚠ Il ne voit ni couleur, ni alignement, ni carte invisible — seulement un
+script qui meurt. Ouvrir la page reste nécessaire.
+
+⚠ Et il simule le navigateur au minimum : `IntersectionObserver`, `matchMedia`,
+`fetch`, `localStorage`, et une `location` complétée. linkedom en fournit une
+incomplète, sans `hash` — ce qui a fait accuser `tabacgex.js` à tort à
+l'écriture du test. **Une dépendance absente du simulateur produit une fausse
+alerte** : avant de corriger un script que ce test accuse, vérifier que l'erreur
+existe aussi dans un vrai navigateur.
 
 **Écrire un garde-fou plutôt qu'un correctif isolé** quand le défaut peut
 revenir. Les quatre scripts `verify:` sont tous nés de cette règle.

@@ -82,8 +82,6 @@
       updateSlider();
     });
   }
-  if (wrap) updateSlider(); /* initial paint */
-
   /* ─── Brand checkboxes ──────────────────────────────────────────── */
   const brandChecks = document.querySelectorAll('[data-filter-brand]');
   brandChecks.forEach(cb => cb.addEventListener('change', applyFilters));
@@ -91,6 +89,29 @@
   /* ─── Sort select ───────────────────────────────────────────────── */
   const sortSel = document.getElementById('sort-select');
   if (sortSel) sortSel.addEventListener('change', applyFilters);
+
+  /* ⚠ Le premier rendu du curseur vient APRÈS ces deux déclarations, et
+     c'est tout l'objet de cet ordre.
+
+     Il était placé plus haut, juste après les écouteurs du curseur. Or
+     `updateSlider()` finit par appeler `applyFilters()`, qui lit
+     `brandChecks` : un `const` déclaré plus bas n'est pas « pas encore
+     défini », il est en zone morte temporelle, et y accéder JETTE.
+
+        Uncaught ReferenceError: Cannot access 'brandChecks' before initialization
+
+     La fonction anonyme était donc abandonnée dès le chargement, et avec
+     elle tout ce qui suit — dont l'IntersectionObserver de bas de fichier,
+     celui qui retire l'opacité des cartes produits. Résultat constaté le
+     2026-09-28 : le catalogue CBD s'affichait avec des produits INVISIBLES,
+     présents dans le HTML, à `opacity: 0`. Le commerçant a signalé « le
+     produit n'est pas dans la catégorie » ; le HTML servi le contenait
+     pourtant.
+
+     Ne jamais remonter cet appel au-dessus des déclarations. `verify:api` et
+     `node --check` ne voient rien ici — c'est `npm run test:pages` qui
+     exécute vraiment le script et attrape la classe entière. */
+  if (wrap) updateSlider(); /* initial paint */
 
   /* ─── Apply all filters ─────────────────────────────────────────── */
   function applyFilters() {
