@@ -1358,3 +1358,61 @@ existe aussi dans un vrai navigateur.
 
 **Écrire un garde-fou plutôt qu'un correctif isolé** quand le défaut peut
 revenir. Les quatre scripts `verify:` sont tous nés de cette règle.
+
+---
+
+## Supprimer une commande — et pourquoi ce n'est pas qu'un `delete`
+
+Ajouté le 2026-09-28 pour faire le ménage des commandes de recette avant le
+lancement : des dizaines de lignes, toutes à l'adresse du développeur, dans
+lesquelles les vraies commandes allaient se noyer.
+
+**Le bouton « Supprimer »** vit dans `/admin/commandes/`, au bout de chaque
+ligne. Il appelle `functions/api/delete-order.js`.
+
+⚠ **Effacer l'entrée KV ne suffit pas : il faut rendre le stock.** Une commande
+« En attente » détient une réservation `active` — une unité retirée de `dispo`.
+Supprimer la commande sans toucher à cette ligne laisserait **du stock bloqué
+indéfiniment, sans plus aucune commande pour l'expliquer** ; et les
+réservations ne se purgent qu'au fil de l'eau, à la commande suivante. Sur une
+boutique sans trafic, « indéfiniment » est littéral.
+
+Le danger était d'autant plus concret que ce ménage précède la **saisie des
+stocks réels** : on aurait saisi des quantités justes sur des lignes déjà
+amputées, et l'écart ne serait apparu qu'à la première vente refusée.
+
+**L'ordre est donc imposé : rendre le stock, PUIS effacer.** Jamais l'inverse —
+si la suppression passait d'abord et que la restitution échouait, plus rien ne
+dirait ce qu'il fallait rendre. Le code s'arrête et laisse la commande intacte
+si la restitution échoue.
+
+`restituerCommande()` (`_shared/stock.js`) est réutilisée telle quelle : elle
+fait les trois gestes exigés — `dispo + qty`, changement d'état, **et
+l'insertion dans `mouvements`** — et elle est idempotente.
+
+⚠ **La ligne de `mouvements` survit à la suppression, volontairement.** La
+commande disparaît, la trace de ce qu'elle a fait au stock reste. C'est ce
+journal qui permet d'expliquer un écart d'inventaire.
+
+⚠ **La suppression elle-même est journalisée** dans `cmd:suppressions`
+(`ORDERS_KV`, 200 dernières) : qui, quand, quel numéro, quel montant, quel
+statut. Une suppression définitive sans trace serait le seul geste du
+back-office dont on ne pourrait pas rendre compte.
+
+**Trois freins, parce que ce bouton côtoie des commandes réelles :**
+
+1. il est discret — le regard va sur « Détail → » ;
+2. la confirmation rappelle **numéro, montant et statut** : « Supprimer cette
+   commande ? » ne dit pas laquelle ;
+3. l'API exige que l'appelant lui **renvoie le numéro exact** (`confirmation`).
+   Un bouton mal câblé ou un double clic ne peut rien effacer. Ce n'est pas
+   redondant avec la confirmation du navigateur : celle-ci vit dans une page,
+   l'API se défend seule.
+
+La correspondance `mtc:<référence>` posée par `create-payment.js` est effacée
+avec la commande — elle pointerait sinon vers une clé morte, qu'une
+notification Monetico tardive irait chercher.
+
+⚠ **Ce qui n'est PAS supprimé** : les avis (`avis`), les alertes de retour en
+stock (`attentes`), et le journal des mouvements. Décidé ainsi le 2026-09-28 —
+le périmètre demandé était les commandes seules.

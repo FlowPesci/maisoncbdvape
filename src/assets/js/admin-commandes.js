@@ -106,8 +106,13 @@
           <td class="py-3 px-4 font-mono text-white">${formatEur(o.totalTTC)}</td>
           <td class="py-3 px-4 text-xs text-smoke">${o.paiement?.methode === 'monetico' ? '💳 Monetico' : '🏪 Magasin'}</td>
           <td class="py-3 px-4">${statusBadge(esc(o.status))}${alerteEmail(o)}</td>
-          <td class="py-3 px-4 text-right">
+          <td class="py-3 px-4 text-right whitespace-nowrap">
             <a href="/admin/commande/?id=${encodeURIComponent(o.orderId)}" class="text-neon-violet text-xs hover:underline">Détail →</a>
+            <button type="button"
+                    data-supprimer="${esc(o.orderId)}"
+                    title="Supprimer définitivement cette commande"
+                    aria-label="Supprimer la commande ${esc(o.orderId)}"
+                    style="margin-left:.9rem;background:none;border:none;color:#8A8178;font-size:.72rem;cursor:pointer;text-decoration:underline;">Supprimer</button>
           </td>
         </tr>`).join('');
       statusEl.classList.add('hidden');
@@ -116,6 +121,66 @@
       statusEl.innerHTML = `<p class="text-red-400 text-sm">Erreur : ${err.message}</p>`;
     }
   }
+
+  /* ─── Suppression définitive d'une commande ────────────────────────────
+     ⚠ Ce bouton efface pour de bon, et il vit à côté de commandes RÉELLES.
+     Trois freins, volontairement :
+
+       1. il est discret (gris, souligné) — le regard va sur « Détail → » ;
+       2. la confirmation rappelle le numéro, le montant et le statut, parce
+          que « Supprimer cette commande ? » ne dit pas LAQUELLE ;
+       3. l'API exige qu'on lui renvoie le numéro exact. Un bouton mal câblé
+          ou un double clic ne peut donc rien effacer.
+
+     Il a été ajouté pour faire le ménage des commandes de recette avant le
+     lancement. Le geste reste disponible ensuite — d'où ces précautions, et
+     d'où le journal `cmd:suppressions` côté serveur : une suppression
+     définitive dont on ne pourrait pas rendre compte serait le seul geste du
+     back-office dans ce cas. */
+  tbody?.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-supprimer]');
+    if (!btn) return;
+
+    const id = btn.dataset.supprimer;
+    const ligne = btn.closest('tr');
+    const montant = ligne?.children[3]?.textContent?.trim() || '';
+    const statut  = ligne?.children[5]?.textContent?.trim() || '';
+
+    const avertissement =
+      'Supprimer définitivement cette commande ?\n\n' +
+      '  ' + id + '\n' +
+      '  ' + montant + '  ·  ' + statut + '\n\n' +
+      "Le stock qu'elle retenait sera rendu à la vente.\n" +
+      'Cette action est irréversible.';
+
+    if (!window.confirm(avertissement)) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Suppression…';
+    try {
+      const res = await fetch('/api/delete-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        // ⚠ `confirmation` n'est pas décoratif : le serveur refuse sans lui.
+        body: JSON.stringify({ orderId: id, confirmation: id }),
+      });
+      if (res.status === 401 || res.status === 403) return logout();
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || data.message || ('HTTP ' + res.status));
+
+      ligne?.remove();
+      if (!tbody.children.length) {
+        tableEl.classList.add('hidden');
+        statusEl.innerHTML = '<p class="text-smoke text-sm">Aucune commande pour ce filtre.</p>';
+        statusEl.classList.remove('hidden');
+      }
+    } catch (err) {
+      // On remet le bouton en état : la commande, elle, n'a pas bougé.
+      btn.disabled = false;
+      btn.textContent = 'Supprimer';
+      window.alert('Suppression impossible :\n\n' + err.message);
+    }
+  });
 
   filters?.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-filter-status]');

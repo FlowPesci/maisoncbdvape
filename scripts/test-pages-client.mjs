@@ -51,6 +51,17 @@ const PAGES = [
     html: "public/produits/moon-rock-cbd-indoor/index.html",
     scripts: ["src/assets/js/tabacgex.js"],
   },
+  // ⚠ Le back-office compte comme une page rendue, et c'est là que les
+  //   défauts survivent le plus longtemps : hors du parcours client, donc
+  //   hors de la passe visuelle. `/admin/commandes/` est resté figé sur
+  //   « Chargement… » pendant des jours pour exactement cette raison.
+  //   L'ordre des scripts compte : `admin-nav.js` définit `window.MCV_ADMIN`,
+  //   que `admin-commandes.js` appelle dès son chargement.
+  {
+    nom: "back-office commandes",
+    html: "public/admin/commandes/index.html",
+    scripts: ["src/assets/js/admin-nav.js", "src/assets/js/admin-commandes.js"],
+  },
 ];
 
 let parseHTML;
@@ -94,6 +105,20 @@ for (const page of PAGES) {
   if (!window.location.hash) window.location.hash = "";
   if (!window.location.search) window.location.search = "";
   window.scrollTo = () => {};
+  window.confirm = () => false;
+  window.alert = () => {};
+  // linkedom n'expose pas `document.cookie`. `admin-nav.js` le lit pour
+  // savoir si la session existe : sans ce complément, le test accuse un
+  // script correct — deuxième fausse alerte de ce simulateur, après
+  // `location.hash`. D'où l'avertissement en tête de fichier.
+  if (typeof window.document.cookie !== "string") {
+    let jar = "";
+    Object.defineProperty(window.document, "cookie", {
+      configurable: true,
+      get: () => jar,
+      set: (v) => { jar = String(v); },
+    });
+  }
   window.fetch = async () => ({ ok: true, status: 200, json: async () => ({}), text: async () => "" });
   window.localStorage = {
     _d: new Map(),
