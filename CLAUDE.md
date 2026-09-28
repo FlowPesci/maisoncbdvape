@@ -505,6 +505,29 @@ bruit. Les gabarits passent par les filtres `| drapeau` et `| origineLisible`.
 Inventer 🇫🇷 sur une fiche non renseignée serait une mention commerciale
 fausse produite par le gabarit lui-même — pire que l'absence d'information.
 
+⚠ **Les drapeaux sont des SVG dessinés dans `origines.mjs`, pas des émojis.**
+Le 2026-09-28, le commerçant a signalé que la colonne affichait « IT », « EU »
+au lieu de drapeaux. Le HTML contenait pourtant bien `🇮🇹` : **Windows ne
+fournit aucune police de drapeaux**, et les navigateurs y rendent à la place
+le couple de lettres qui compose le caractère. Un visiteur sur iPhone voyait
+un drapeau, un visiteur sur PC deux lettres — et la clientèle est
+majoritairement sur PC.
+
+Chaque origine porte donc trois choses : `emoji` (libellés de `config.yml`,
+où le rendu système suffit, et contrôle de `verify:carte`), `code` (FR, CH…),
+et **`svg`**, le dessin servi avec la page. Aucun appel extérieur, comme pour
+les polices.
+
+⚠ **Le filtre renvoie du BALISAGE** : écrire `| drapeau | safe` dans le
+gabarit. Sans `safe`, Nunjucks échappe le SVG et la colonne affiche son code
+source.
+
+⚠ **Les dessins sont simplifiés, et les rayons ont été mesurés.** Une première
+version posait les douze points européens à un rayon de 0,09 : rapporté à
+18 px de large, un demi-pixel — le drapeau n'était qu'un rectangle bleu. Ne
+pas « améliorer » en ajoutant du détail invisible à cette taille : les
+cinquante étoiles américaines sont six points, et c'est volontaire.
+
 ⚠ **`admin/contenu/config.yml` en porte une copie**, pour la raison habituelle :
 il est recopié tel quel vers `public/`, les filtres Nunjucks n'y sont pas
 évalués. `verify:carte` compare les deux listes. Ajouter un pays, c'est le

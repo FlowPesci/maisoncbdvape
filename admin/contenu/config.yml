@@ -253,6 +253,7 @@ collections:
           - { label: "Union européenne 🇪🇺", value: "union-europeenne" }
           - { label: "Italie 🇮🇹", value: "italie" }
           - { label: "Espagne 🇪🇸", value: "espagne" }
+          - { label: "États-Unis 🇺🇸", value: "etats-unis" }
           - { label: "Autre origine 🌍", value: "autre" }
 
       - label: "Mettre en avant sur la carte CBD"

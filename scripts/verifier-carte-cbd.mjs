@@ -160,7 +160,7 @@ if (vedettesCbd.length === 0) {
 }
 
 /* ── E. Un drapeau est-il réapparu en dur dans le gabarit ? ───────────────── */
-const drapeauxConnus = ORIGINES.map((o) => o.drapeau).filter((d) => d !== "🌍");
+const drapeauxConnus = ORIGINES.map((o) => o.emoji).filter((d) => d !== "🌍");
 
 // ⚠ Les commentaires Nunjucks sont retirés AVANT la recherche, et par bloc.
 // Une première version filtrait ligne à ligne sur `{#` en début de ligne :
