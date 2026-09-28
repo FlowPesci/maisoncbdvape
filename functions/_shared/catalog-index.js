@@ -103,10 +103,10 @@ export const CATALOG = {
   "fruit-du-dragon-jaune-framboise-bleue-frais": 16.9,
   "fruit-du-serpent-grenade-frais": 16.9,
   "fruits-rouges": 19.9,
-  "garlic-hydro-indoor-cbd": 11.99,
+  "garlic-hydro-indoor-cbd": 4.99,
   "garlic-hydro-indoor-cbd::2g": 11.99,
   "garlic-hydro-indoor-cbd::4g": 19.99,
-  "garlic-hydro-indoor-cbd::8": 39.99,
+  "garlic-hydro-indoor-cbd::8g": 39.99,
   "geekvape-zeus-nano-3": 24.9,
   "gelato-hydro-indoor-cbd": 4.9,
   "gelato-hydro-indoor-cbd::2g": 9.8,
@@ -218,7 +218,7 @@ export const CATALOG = {
   "puff-adalya-30k": 19.9,
   "raisin-rouge-grenade": 16.9,
   "riz-au-lait-50-ml": 16.9,
-  "smash-small-bud-cbd": 9.99,
+  "smash-small-bud-cbd": 0.99,
   "smash-small-bud-cbd::10g": 9.99,
   "snowing-in-dam": 4.9,
   "spliff-box-l": 19.9,
@@ -312,9 +312,6 @@ export const STOCKS = {
   "fruit-du-serpent-grenade-frais": 10,
   "fruits-rouges": 10,
   "garlic-hydro-indoor-cbd": 69,
-  "garlic-hydro-indoor-cbd::2g": 23,
-  "garlic-hydro-indoor-cbd::4g": 23,
-  "garlic-hydro-indoor-cbd::8": 21,
   "geekvape-zeus-nano-3": 10,
   "gelato-hydro-indoor-cbd": 10,
   "goyave-coco": 10,
@@ -404,7 +401,6 @@ export const STOCKS = {
   "raisin-rouge-grenade": 10,
   "riz-au-lait-50-ml": 10,
   "smash-small-bud-cbd": 126,
-  "smash-small-bud-cbd::10g": 25,
   "snowing-in-dam": 10,
   "spliff-box-l": 10,
   "spliff-box-m": 10,
@@ -863,25 +859,20 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
-  "garlic-hydro-indoor-cbd": {
-    "cle": "garlic-hydro-indoor-cbd",
-    "facteur": 1,
-    "unite": "pcs"
-  },
   "garlic-hydro-indoor-cbd::2g": {
-    "cle": "garlic-hydro-indoor-cbd::2g",
-    "facteur": 1,
-    "unite": "pcs"
+    "cle": "garlic-hydro-indoor-cbd",
+    "facteur": 2,
+    "unite": "g"
   },
   "garlic-hydro-indoor-cbd::4g": {
-    "cle": "garlic-hydro-indoor-cbd::4g",
-    "facteur": 1,
-    "unite": "pcs"
+    "cle": "garlic-hydro-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
   },
-  "garlic-hydro-indoor-cbd::8": {
-    "cle": "garlic-hydro-indoor-cbd::8",
-    "facteur": 1,
-    "unite": "pcs"
+  "garlic-hydro-indoor-cbd::8g": {
+    "cle": "garlic-hydro-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
   },
   "geekvape-zeus-nano-3": {
     "cle": "geekvape-zeus-nano-3",
@@ -1398,15 +1389,10 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
-  "smash-small-bud-cbd": {
-    "cle": "smash-small-bud-cbd",
-    "facteur": 1,
-    "unite": "pcs"
-  },
   "smash-small-bud-cbd::10g": {
-    "cle": "smash-small-bud-cbd::10g",
-    "facteur": 1,
-    "unite": "pcs"
+    "cle": "smash-small-bud-cbd",
+    "facteur": 10,
+    "unite": "g"
   },
   "snowing-in-dam": {
     "cle": "snowing-in-dam",
@@ -1546,10 +1532,7 @@ export const UNITES_STOCK = {
   "fruit-du-dragon-jaune-framboise-bleue-frais": "pcs",
   "fruit-du-serpent-grenade-frais": "pcs",
   "fruits-rouges": "pcs",
-  "garlic-hydro-indoor-cbd": "pcs",
-  "garlic-hydro-indoor-cbd::2g": "pcs",
-  "garlic-hydro-indoor-cbd::4g": "pcs",
-  "garlic-hydro-indoor-cbd::8": "pcs",
+  "garlic-hydro-indoor-cbd": "g",
   "geekvape-zeus-nano-3": "pcs",
   "gelato-hydro-indoor-cbd": "g",
   "goyave-coco": "pcs",
@@ -1638,8 +1621,7 @@ export const UNITES_STOCK = {
   "puff-adalya-30k": "pcs",
   "raisin-rouge-grenade": "pcs",
   "riz-au-lait-50-ml": "pcs",
-  "smash-small-bud-cbd": "pcs",
-  "smash-small-bud-cbd::10g": "pcs",
+  "smash-small-bud-cbd": "g",
   "snowing-in-dam": "pcs",
   "spliff-box-l": "pcs",
   "spliff-box-m": "pcs",
@@ -2151,25 +2133,11 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
-    "cle": "garlic-hydro-indoor-cbd::2g",
-    "nom": "Garlic Hydro Indoor CBD 2g",
+    "cle": "garlic-hydro-indoor-cbd",
+    "nom": "Garlic Hydro Indoor CBD",
     "marque": "K CBD",
     "categorie": "cbd",
-    "unite": "pcs"
-  },
-  {
-    "cle": "garlic-hydro-indoor-cbd::4g",
-    "nom": "Garlic Hydro Indoor CBD 4g",
-    "marque": "K CBD",
-    "categorie": "cbd",
-    "unite": "pcs"
-  },
-  {
-    "cle": "garlic-hydro-indoor-cbd::8",
-    "nom": "Garlic Hydro Indoor CBD 8",
-    "marque": "K CBD",
-    "categorie": "cbd",
-    "unite": "pcs"
+    "unite": "g"
   },
   {
     "cle": "geekvape-zeus-nano-3",
@@ -2774,11 +2742,11 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
-    "cle": "smash-small-bud-cbd::10g",
-    "nom": "Smash Small Bud CBD 10g",
+    "cle": "smash-small-bud-cbd",
+    "nom": "Smash Small Bud CBD",
     "marque": "K CBD",
     "categorie": "cbd",
-    "unite": "pcs"
+    "unite": "g"
   },
   {
     "cle": "snowing-in-dam",

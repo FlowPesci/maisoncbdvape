@@ -392,6 +392,42 @@ rien est exactement ce que les règles d'interface ci-dessus interdisent.
 qu'**aucune variante n'est dépourvue de prix ou de libellé**, le défaut qui
 rend un produit silencieusement invendable.
 
+### ⚠ `unitePrix` vide sur une fleur : le défaut qui en cache un autre
+
+Le 2026-09-28, `garlic-hydro-indoor-cbd` affichait **11,99 € barré de 6,99 €**
+— un « ancien prix » moins cher que le nouveau. Le badge « Promo » et le prix
+barré sont posés automatiquement dès que `prixBarre` existe ; personne ne relit
+la cohérence des deux nombres.
+
+Mais le prix barré n'était pas la cause. Le commerçant avait laissé
+**« Unité de prix » vide** sur une fiche à grammages. `prixFiche()` bascule
+alors sur « la variante la moins chère » : le prix de fiche devenait le pack de
+2 g (11,99 €) au lieu du gramme (4,99 €). D'où deux conséquences d'un seul
+champ oublié :
+
+- le catalogue annonçait **11,99 € dans une colonne « €/g »**, à côté de
+  voisines à 4,90 — le client compare deux choses différentes sur la même
+  ligne ;
+- le prix barré, juste par rapport au gramme, devenait **une annonce de
+  réduction trompeuse** par rapport au pack (L121-2 et les règles propres aux
+  annonces de réduction de prix).
+
+`verify:prix` surveille désormais les deux, à deux niveaux :
+
+| Contrôle | Effet | Pourquoi |
+|---|---|---|
+| `prixBarre` ≤ prix affiché | **bloque** | annonce de réduction trompeuse — juridique |
+| variantes toutes en grammes sans `unitePrix` | avertit | le repère est le libellé (`2g`, `4g`), donc heuristique |
+
+⚠ La comparaison du prix barré porte sur **`prixFiche()`**, le prix réellement
+affiché, et non sur `fiche.prix` brut. Comparer la donnée brute aurait raté
+exactement ce cas, puisque `fiche.prix` valait 4,99 et que seul le calcul
+produisait 11,99.
+
+Deux fiches étaient concernées : `garlic-hydro-indoor-cbd` et
+`smash-small-bud-cbd`, toutes deux passées en `unitePrix: "g"`. Le libellé de
+variante `"8"` a été corrigé en `"8g"` au passage.
+
 **Une variante peut porter sa propre photo** (champ `image`, facultatif,
 ajouté le 2026-09-24). Elle remplace la photo principale quand le client
 choisit la saveur, et **le suit jusque dans son panier et sa confirmation de
