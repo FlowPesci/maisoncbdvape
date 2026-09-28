@@ -14,13 +14,28 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Châssis": "Aluminium brossé",
-    "Format": "Ultra-compact",
-    "Tirage": "Serré (MTL)",
-    "Résistances": "Vaporesso XROS",
-    "Recharge": "USB-C"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Châssis",
+      "valeur": "Aluminium brossé"
+    },
+    {
+      "cle": "Format",
+      "valeur": "Ultra-compact"
+    },
+    {
+      "cle": "Tirage",
+      "valeur": "Serré (MTL)"
+    },
+    {
+      "cle": "Résistances",
+      "valeur": "Vaporesso XROS"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

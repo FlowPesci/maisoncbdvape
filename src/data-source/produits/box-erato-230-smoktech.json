@@ -14,13 +14,28 @@
   "prix": 29.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Puissance maximale": "230 W",
-    "Écran": "Couleur",
-    "Alimentation": "2 accus 18650 (non fournis)",
-    "Connectique": "510",
-    "Marque": "Smoktech"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Puissance maximale",
+      "valeur": "230 W"
+    },
+    {
+      "cle": "Écran",
+      "valeur": "Couleur"
+    },
+    {
+      "cle": "Alimentation",
+      "valeur": "2 accus 18650 (non fournis)"
+    },
+    {
+      "cle": "Connectique",
+      "valeur": "510"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Smoktech"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

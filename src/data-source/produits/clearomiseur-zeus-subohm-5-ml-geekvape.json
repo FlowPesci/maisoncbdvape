@@ -14,13 +14,28 @@
   "prix": 29.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Capacité": "5 ml",
-    "Airflow": "Supérieur, réglable",
-    "Type de vape": "Directe (DL)",
-    "Résistances": "Geekvape série Z",
-    "Connectique": "510"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Capacité",
+      "valeur": "5 ml"
+    },
+    {
+      "cle": "Airflow",
+      "valeur": "Supérieur, réglable"
+    },
+    {
+      "cle": "Type de vape",
+      "valeur": "Directe (DL)"
+    },
+    {
+      "cle": "Résistances",
+      "valeur": "Geekvape série Z"
+    },
+    {
+      "cle": "Connectique",
+      "valeur": "510"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

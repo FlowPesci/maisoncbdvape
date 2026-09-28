@@ -14,13 +14,28 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Contenance": "50 ml en flacon de 70 ml (shortfill)",
-    "Nicotine": "Sans — compatible boosters 10 ml",
-    "Ratio PG/VG": "50/50",
-    "Effet frais": "Non",
-    "Compatibilité": "Clearomiseurs MTL et pods"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Contenance",
+      "valeur": "50 ml en flacon de 70 ml (shortfill)"
+    },
+    {
+      "cle": "Nicotine",
+      "valeur": "Sans — compatible boosters 10 ml"
+    },
+    {
+      "cle": "Ratio PG/VG",
+      "valeur": "50/50"
+    },
+    {
+      "cle": "Effet frais",
+      "valeur": "Non"
+    },
+    {
+      "cle": "Compatibilité",
+      "valeur": "Clearomiseurs MTL et pods"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

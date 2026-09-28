@@ -14,12 +14,24 @@
   "prix": 24.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Type": "Allume-charbon à gaz",
-    "Format": "S, transportable",
-    "Recharge": "Gaz à briquet standard",
-    "Marque": "Blackcoco's"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Allume-charbon à gaz"
+    },
+    {
+      "cle": "Format",
+      "valeur": "S, transportable"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "Gaz à briquet standard"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Blackcoco's"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

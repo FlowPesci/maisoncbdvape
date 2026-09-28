@@ -14,11 +14,20 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Format": "L, grande capacité",
-    "Compartiments": "Séparés (papiers, filtres, briquet, tabac)",
-    "Fermeture": "Complète"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Format",
+      "valeur": "L, grande capacité"
+    },
+    {
+      "cle": "Compartiments",
+      "valeur": "Séparés (papiers, filtres, briquet, tabac)"
+    },
+    {
+      "cle": "Fermeture",
+      "valeur": "Complète"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

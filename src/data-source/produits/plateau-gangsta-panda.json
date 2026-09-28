@@ -14,11 +14,20 @@
   "prix": 6.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Matériau": "Résistant, rigide",
-    "Bords": "Relevés",
-    "Motif": "Gangsta Panda, exclusif"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Matériau",
+      "valeur": "Résistant, rigide"
+    },
+    {
+      "cle": "Bords",
+      "valeur": "Relevés"
+    },
+    {
+      "cle": "Motif",
+      "valeur": "Gangsta Panda, exclusif"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

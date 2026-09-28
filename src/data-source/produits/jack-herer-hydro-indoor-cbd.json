@@ -14,13 +14,28 @@
   "prix": 4.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {
-    "Culture": "Hydroponique, indoor",
-    "Origine": "Union européenne",
-    "Taux de THC": "< 0,3 %",
-    "Séchage": "Lent, en chambre ventilée",
-    "Conditionnement": "Pesée à la commande, 2 à 8 g"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Culture",
+      "valeur": "Hydroponique, indoor"
+    },
+    {
+      "cle": "Origine",
+      "valeur": "Union européenne"
+    },
+    {
+      "cle": "Taux de THC",
+      "valeur": "< 0,3 %"
+    },
+    {
+      "cle": "Séchage",
+      "valeur": "Lent, en chambre ventilée"
+    },
+    {
+      "cle": "Conditionnement",
+      "valeur": "Pesée à la commande, 2 à 8 g"
+    }
+  ],
   "variantes": [
     {
       "label": "2g",

@@ -1149,7 +1149,14 @@
         const haystack = [
           p.nom, p.marque, p.categorie, p.descriptionCourte,
           (p.tags || []).join(' '), (p.saveurs || []).join(' '),
-          ...(Object.values(p.ficheTechnique || {})),
+          // ⚠ La fiche technique a deux formes : objet (fiches d'origine) et
+          // liste de paires (tout ce qu'écrit l'éditeur de contenu, et les
+          // 117 fiches migrées le 2026-09-28). `Object.values` seul rendait
+          // les caractéristiques introuvables à la recherche dès qu'une fiche
+          // était enregistrée depuis le back-office — sans erreur.
+          ...(Array.isArray(p.ficheTechnique)
+            ? p.ficheTechnique.map((l) => (l && (l.valeur ?? l.value)) || '')
+            : Object.values(p.ficheTechnique || {})),
         ].map(norm).join(' ');
         return haystack.includes(query);
       });

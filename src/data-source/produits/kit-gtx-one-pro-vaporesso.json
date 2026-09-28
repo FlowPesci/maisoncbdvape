@@ -14,13 +14,28 @@
   "prix": 49.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Châssis": "Métal, texture antidérapante",
-    "Résistances": "Vaporesso GTX",
-    "Réglages": "Aucun",
-    "Recharge": "USB-C",
-    "Marque": "Vaporesso"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Châssis",
+      "valeur": "Métal, texture antidérapante"
+    },
+    {
+      "cle": "Résistances",
+      "valeur": "Vaporesso GTX"
+    },
+    {
+      "cle": "Réglages",
+      "valeur": "Aucun"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Vaporesso"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

@@ -172,6 +172,35 @@ sevrage tabagique.
 tort, revoir la formulation — pas la liste. Détail dans
 `docs/charte-fiches-produits.md`.
 
+⚠ **Ce contrôle a deux étages, et c'est ce qui le rend tenable.**
+
+| Étage | Contenu | Effet |
+|---|---|---|
+| **bloquant** | allégations de santé, champ `saveurs` décoratif | fait échouer le build |
+| **signalé** | longueurs, superlatifs, points forts manquants | affiché, jamais bloquant |
+
+Il n'en avait qu'un jusqu'au 2026-09-28 : `--strict` tournait dans
+`npm run build` et faisait échouer la construction sur **n'importe quel**
+écart. Le 2026-09-26, le commerçant a créé une fiche depuis l'éditeur de
+contenu sans remplir les points forts. Résultat : **cinq déploiements refusés
+d'affilée, et plus rien en ligne pendant deux jours** — ni ses fiches, ni la
+carte CBD. Le journal Cloudflare nommait la cause en clair, mais il n'a
+aucune raison d'aller l'y lire, et rien dans le back-office ne le signalait.
+
+**Un contrôle de qualité rédactionnelle ne doit pas pouvoir éteindre la
+boutique.** C'est la même leçon que `verify:puffs`, qui avertit sans bloquer
+sur une réponse fournisseur en attente : un contrôle qui se déclenche sur ce
+que le commerçant produit normalement finit par être désactivé en urgence — et
+c'est alors la partie légale qu'on perd avec.
+
+`npm run verify:redaction:strict` garde l'ancien comportement, pour une passe
+de relecture volontaire. Et `pointsForts` est passé `required: true` dans
+`config.yml` : mieux vaut empêcher le cas que le rattraper.
+
+⚠ **Le corollaire vaut pour tout nouveau `verify:`** : avant d'en rendre un
+bloquant, se demander *« le commerçant peut-il déclencher ça en travaillant
+normalement ? »*. Si oui, il avertit.
+
 ### Aucun avis inventé
 
 Le gabarit contenait deux avis écrits en dur, signés de noms fictifs et marqués
@@ -459,6 +488,41 @@ pollens, les small buds, les mélanges végétaux et l'Extract Crumble. Leur
 colonne « Orig. » est vide. L'Extract Crumble affichait 🇨🇭 : ce drapeau
 venait du gabarit, pas d'une donnée, et n'a **pas** été migré — recopier une
 affirmation dont on ignore la source, c'est la blanchir.
+
+### La fiche technique est une LISTE de paires, plus jamais un objet
+
+Le commerçant a signalé le 2026-09-28 qu'il ne pouvait rien modifier dans le
+bloc « Fiche technique » de l'éditeur de contenu. Le formulaire affichait le
+libellé hors du cadre et **la même valeur recopiée dans « Caractéristique » et
+dans « Valeur »**.
+
+Ce n'était pas un bug d'affichage : **le champ déclaré et la donnée n'avaient
+pas la même forme**. `config.yml` déclare `widget: list` avec deux sous-champs
+`cle` et `valeur` — c'est la seule chose que Decap sache faire, il n'a pas de
+widget pour un objet à clés libres (`BRIEF.md` le notait déjà). Or les 139
+fiches, écrites à la main avant l'éditeur, portaient un objet :
+`{ "Type": "…", "Taux de CBD": "…" }`. Decap tentait de le faire tenir dans sa
+liste, et le résultat n'était modifiable par personne.
+
+**Les 117 fiches concernées sont migrées** en `[{ "cle": …, "valeur": … }]`,
+567 lignes au total. `verify:carte` refuse désormais un objet, pour que le
+retour en arrière soit impossible.
+
+⚠ **Ne jamais lire `produit.ficheTechnique["Taux de CBD"]`** dans un gabarit :
+cette écriture ne fonctionne que sur la forme objet. Passer par le filtre
+**`| valeurFiche("…")`**, qui lit les deux formes et ignore casse et espaces.
+La carte CBD portait cinq de ces lectures directes : à la migration, ses cinq
+colonnes « CBD » seraient toutes retombées sur « — » sans la moindre erreur.
+
+Même piège côté navigateur : la recherche de `tabacgex.js` faisait
+`Object.values(p.ficheTechnique)`, qui renvoie `[]` sur une liste. Les
+caractéristiques d'une fiche enregistrée depuis le back-office étaient donc
+introuvables à la recherche — silencieusement.
+
+**La leçon** : un champ qu'on ne peut pas modifier dans l'éditeur n'est pas un
+défaut de l'éditeur. C'est presque toujours un écart entre ce que `config.yml`
+déclare et ce que les fichiers contiennent. Comparer les deux avant de
+chercher ailleurs.
 
 ### ⚠ `.hidden` est en `!important` — et cela a coûté le menu du site
 

@@ -14,13 +14,28 @@
   "prix": 39.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Batterie": "Grande capacité, intégrée",
-    "Finitions": "Plusieurs coloris, dont cuir",
-    "Résistances": "Vaporesso GTX",
-    "Recharge": "USB-C",
-    "Marque": "Vaporesso"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Batterie",
+      "valeur": "Grande capacité, intégrée"
+    },
+    {
+      "cle": "Finitions",
+      "valeur": "Plusieurs coloris, dont cuir"
+    },
+    {
+      "cle": "Résistances",
+      "valeur": "Vaporesso GTX"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Vaporesso"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

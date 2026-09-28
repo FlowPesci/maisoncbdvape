@@ -14,13 +14,28 @@
   "prix": 24.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Airflow": "Supérieur, réglable",
-    "Remplissage": "Par le haut",
-    "Résistances": "Geekvape série B",
-    "Connectique": "510",
-    "Marque": "Geekvape"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Airflow",
+      "valeur": "Supérieur, réglable"
+    },
+    {
+      "cle": "Remplissage",
+      "valeur": "Par le haut"
+    },
+    {
+      "cle": "Résistances",
+      "valeur": "Geekvape série B"
+    },
+    {
+      "cle": "Connectique",
+      "valeur": "510"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Geekvape"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

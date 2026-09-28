@@ -14,13 +14,28 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Type": "Pod à cartouche",
-    "Batterie": "1200 mAh",
-    "Activation": "Automatique, à l'inhalation",
-    "Cartouche": "Wiz préremplie, 2 ml",
-    "Recharge": "USB-C"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Pod à cartouche"
+    },
+    {
+      "cle": "Batterie",
+      "valeur": "1200 mAh"
+    },
+    {
+      "cle": "Activation",
+      "valeur": "Automatique, à l'inhalation"
+    },
+    {
+      "cle": "Cartouche",
+      "valeur": "Wiz préremplie, 2 ml"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

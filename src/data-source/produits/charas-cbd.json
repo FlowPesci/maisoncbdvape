@@ -14,13 +14,28 @@
   "prix": 4.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {
-    "Type": "Charas, résine roulée à la main",
-    "Extraction": "Manuelle, sur plante fraîche",
-    "Texture": "Souple, légèrement collante",
-    "Taux de THC": "< 0,3 %",
-    "Conditionnement": "Pesée à la commande, 2 à 8 g"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Charas, résine roulée à la main"
+    },
+    {
+      "cle": "Extraction",
+      "valeur": "Manuelle, sur plante fraîche"
+    },
+    {
+      "cle": "Texture",
+      "valeur": "Souple, légèrement collante"
+    },
+    {
+      "cle": "Taux de THC",
+      "valeur": "< 0,3 %"
+    },
+    {
+      "cle": "Conditionnement",
+      "valeur": "Pesée à la commande, 2 à 8 g"
+    }
+  ],
   "variantes": [
     {
       "label": "2g",

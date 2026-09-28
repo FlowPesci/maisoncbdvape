@@ -14,13 +14,28 @@
   "prix": 39.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Puissance maximale": "100 W",
-    "Chipset": "GENE.AI",
-    "Éclairage": "LED, désactivable",
-    "Connectique": "510",
-    "Marque": "Voopoo"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Puissance maximale",
+      "valeur": "100 W"
+    },
+    {
+      "cle": "Chipset",
+      "valeur": "GENE.AI"
+    },
+    {
+      "cle": "Éclairage",
+      "valeur": "LED, désactivable"
+    },
+    {
+      "cle": "Connectique",
+      "valeur": "510"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Voopoo"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

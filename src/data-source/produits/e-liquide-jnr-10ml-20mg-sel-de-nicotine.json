@@ -14,13 +14,28 @@
   "prix": 3.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Contenance": "10 ml",
-    "Taux de nicotine": "20 mg/ml",
-    "Type de nicotine": "Sels",
-    "Compatibilité": "Puffs rechargeables JNR, pods MTL",
-    "Saveurs au catalogue": "22"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Contenance",
+      "valeur": "10 ml"
+    },
+    {
+      "cle": "Taux de nicotine",
+      "valeur": "20 mg/ml"
+    },
+    {
+      "cle": "Type de nicotine",
+      "valeur": "Sels"
+    },
+    {
+      "cle": "Compatibilité",
+      "valeur": "Puffs rechargeables JNR, pods MTL"
+    },
+    {
+      "cle": "Saveurs au catalogue",
+      "valeur": "22"
+    }
+  ],
   "variantes": [
     {
       "label": "Myrtille Framboise acidulée",

@@ -14,14 +14,32 @@
   "prix": 4.2,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {
-    "Type": "Pollen tamisé",
-    "Variété d'origine": "Amnésia",
-    "Texture": "Poudre fine, légèrement grasse",
-    "Couleur": "Beige doré",
-    "Taux de THC": "< 0,3 %",
-    "Conditionnement": "Pesée à la commande, 2 à 8 g"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Pollen tamisé"
+    },
+    {
+      "cle": "Variété d'origine",
+      "valeur": "Amnésia"
+    },
+    {
+      "cle": "Texture",
+      "valeur": "Poudre fine, légèrement grasse"
+    },
+    {
+      "cle": "Couleur",
+      "valeur": "Beige doré"
+    },
+    {
+      "cle": "Taux de THC",
+      "valeur": "< 0,3 %"
+    },
+    {
+      "cle": "Conditionnement",
+      "valeur": "Pesée à la commande, 2 à 8 g"
+    }
+  ],
   "variantes": [
     {
       "label": "2g",

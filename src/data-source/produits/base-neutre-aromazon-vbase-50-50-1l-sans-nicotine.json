@@ -14,13 +14,28 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Volume": "1 litre",
-    "Ratio PG/VG": "50/50",
-    "Nicotine": "Aucune",
-    "Arôme": "Aucun",
-    "Fabrication": "Européenne"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Volume",
+      "valeur": "1 litre"
+    },
+    {
+      "cle": "Ratio PG/VG",
+      "valeur": "50/50"
+    },
+    {
+      "cle": "Nicotine",
+      "valeur": "Aucune"
+    },
+    {
+      "cle": "Arôme",
+      "valeur": "Aucun"
+    },
+    {
+      "cle": "Fabrication",
+      "valeur": "Européenne"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

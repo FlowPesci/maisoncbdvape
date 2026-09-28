@@ -346,8 +346,17 @@ collections:
         name: "pointsForts"
         widget: "list"
         field: { label: "Argument", name: "argument", widget: "string" }
-        hint: "Liste à puces des arguments clés du produit"
-        required: false
+        # ⚠ Obligatoire depuis le 2026-09-28. Une fiche créée ici sans points
+        #   forts affiche un bloc vide sur la page produit — et, jusqu'à cette
+        #   date, faisait échouer la construction : le site entier est resté
+        #   deux jours sans se déployer à cause d'une seule fiche. Le contrôle
+        #   ne bloque plus, mais mieux vaut ne pas pouvoir créer le cas.
+        required: true
+        hint: >-
+          Trois ou quatre arguments courts, affichés en tête de la fiche.
+          Ce qu'on voit, sent ou touche — jamais un effet sur celui qui
+          consomme : « Fleur enrobée de pollen », « Texture riche et
+          collante », « Pesée devant vous ».
 
       # ─── Fiche technique ───────────────────────────────────────
       - label: "Fiche technique"

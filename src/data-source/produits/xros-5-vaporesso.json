@@ -14,13 +14,28 @@
   "prix": 24.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Affichage": "Écran, puissance et autonomie",
-    "Puissance": "Réglable",
-    "Tirage": "Serré à modéré",
-    "Résistances": "Vaporesso XROS",
-    "Recharge": "USB-C"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Affichage",
+      "valeur": "Écran, puissance et autonomie"
+    },
+    {
+      "cle": "Puissance",
+      "valeur": "Réglable"
+    },
+    {
+      "cle": "Tirage",
+      "valeur": "Serré à modéré"
+    },
+    {
+      "cle": "Résistances",
+      "valeur": "Vaporesso XROS"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

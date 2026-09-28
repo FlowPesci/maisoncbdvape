@@ -14,12 +14,24 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Type": "Cendrier décoratif",
-    "Forme": "Astronaute sculpté",
-    "Base": "Large, stable",
-    "Entretien": "Éponge humide"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Cendrier décoratif"
+    },
+    {
+      "cle": "Forme",
+      "valeur": "Astronaute sculpté"
+    },
+    {
+      "cle": "Base",
+      "valeur": "Large, stable"
+    },
+    {
+      "cle": "Entretien",
+      "valeur": "Éponge humide"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

@@ -14,14 +14,32 @@
   "prix": 4.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {
-    "Extraction": "Tamisage à froid",
-    "Pressage": "Artisanal, à basse température",
-    "Terpènes dominants": "Myrcène, caryophyllène, limonène",
-    "Taux de THC": "< 0,3 %",
-    "Additifs": "Aucun",
-    "Conditionnement": "Pesée à la commande, 2 à 8 g"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Extraction",
+      "valeur": "Tamisage à froid"
+    },
+    {
+      "cle": "Pressage",
+      "valeur": "Artisanal, à basse température"
+    },
+    {
+      "cle": "Terpènes dominants",
+      "valeur": "Myrcène, caryophyllène, limonène"
+    },
+    {
+      "cle": "Taux de THC",
+      "valeur": "< 0,3 %"
+    },
+    {
+      "cle": "Additifs",
+      "valeur": "Aucun"
+    },
+    {
+      "cle": "Conditionnement",
+      "valeur": "Pesée à la commande, 2 à 8 g"
+    }
+  ],
   "variantes": [
     {
       "label": "2g",

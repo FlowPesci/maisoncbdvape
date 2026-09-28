@@ -14,13 +14,28 @@
   "prix": 39.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Matériau": "Aluminium anodisé",
-    "Tirage": "Serré (MTL)",
-    "Résistances": "Justfog",
-    "Recharge": "USB",
-    "Marque": "Justfog"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Matériau",
+      "valeur": "Aluminium anodisé"
+    },
+    {
+      "cle": "Tirage",
+      "valeur": "Serré (MTL)"
+    },
+    {
+      "cle": "Résistances",
+      "valeur": "Justfog"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Justfog"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

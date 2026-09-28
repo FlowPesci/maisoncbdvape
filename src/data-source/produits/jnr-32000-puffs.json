@@ -14,14 +14,32 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Bouffées annoncées": "32 000",
-    "Batterie": "850 mAh, rechargeable",
-    "Fourni": "2 flacons de 10 ml",
-    "Taux de nicotine": "20 mg/ml (sels)",
-    "Pod": "Remplaçable, vendu séparément",
-    "Recharge": "USB-C"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Bouffées annoncées",
+      "valeur": "32 000"
+    },
+    {
+      "cle": "Batterie",
+      "valeur": "850 mAh, rechargeable"
+    },
+    {
+      "cle": "Fourni",
+      "valeur": "2 flacons de 10 ml"
+    },
+    {
+      "cle": "Taux de nicotine",
+      "valeur": "20 mg/ml (sels)"
+    },
+    {
+      "cle": "Pod",
+      "valeur": "Remplaçable, vendu séparément"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    }
+  ],
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,

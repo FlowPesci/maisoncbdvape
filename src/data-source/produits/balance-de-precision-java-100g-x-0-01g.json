@@ -14,13 +14,28 @@
   "prix": 11.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Capacité": "100 g",
-    "Précision": "0,01 g",
-    "Couvercle": "Sert de plateau d'appoint",
-    "Format": "Poche",
-    "Marque": "Java LogicScale"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Capacité",
+      "valeur": "100 g"
+    },
+    {
+      "cle": "Précision",
+      "valeur": "0,01 g"
+    },
+    {
+      "cle": "Couvercle",
+      "valeur": "Sert de plateau d'appoint"
+    },
+    {
+      "cle": "Format",
+      "valeur": "Poche"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Java LogicScale"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

@@ -14,12 +14,24 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Bouffées annoncées": "30 000",
-    "Recharge": "USB-C",
-    "Réservoir": "Transparent, niveau visible",
-    "Format": "Compact"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Bouffées annoncées",
+      "valeur": "30 000"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    },
+    {
+      "cle": "Réservoir",
+      "valeur": "Transparent, niveau visible"
+    },
+    {
+      "cle": "Format",
+      "valeur": "Compact"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

@@ -14,12 +14,24 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Bouffées annoncées": "30 000",
-    "Saveurs au catalogue": "17",
-    "Batterie": "Rechargeable",
-    "Type": "Prérempli, longue durée"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Bouffées annoncées",
+      "valeur": "30 000"
+    },
+    {
+      "cle": "Saveurs au catalogue",
+      "valeur": "17"
+    },
+    {
+      "cle": "Batterie",
+      "valeur": "Rechargeable"
+    },
+    {
+      "cle": "Type",
+      "valeur": "Prérempli, longue durée"
+    }
+  ],
   "variantes": [
     {
       "label": "Blueberry Raspberry",

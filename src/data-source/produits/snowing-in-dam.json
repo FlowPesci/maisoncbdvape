@@ -14,12 +14,24 @@
   "prix": 4.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Culture": "Indoor",
-    "Origine": "Union européenne",
-    "Taux de THC": "< 0,3 %",
-    "Profil": "Hybride, dominante haze"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Culture",
+      "valeur": "Indoor"
+    },
+    {
+      "cle": "Origine",
+      "valeur": "Union européenne"
+    },
+    {
+      "cle": "Taux de THC",
+      "valeur": "< 0,3 %"
+    },
+    {
+      "cle": "Profil",
+      "valeur": "Hybride, dominante haze"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

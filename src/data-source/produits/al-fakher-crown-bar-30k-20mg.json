@@ -14,14 +14,32 @@
   "prix": 15.99,
   "unitePrix": null,
   "note": 4.5,
-  "ficheTechnique": {
-    "Bouffées annoncées": "30 000",
-    "Taux de nicotine": "20 mg/ml (sels)",
-    "E-liquide": "Flacon remplaçable",
-    "Recharge": "USB-C",
-    "Affichage": "Écran charge et niveau de liquide",
-    "Puissance": "Réglable"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Bouffées annoncées",
+      "valeur": "30 000"
+    },
+    {
+      "cle": "Taux de nicotine",
+      "valeur": "20 mg/ml (sels)"
+    },
+    {
+      "cle": "E-liquide",
+      "valeur": "Flacon remplaçable"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    },
+    {
+      "cle": "Affichage",
+      "valeur": "Écran charge et niveau de liquide"
+    },
+    {
+      "cle": "Puissance",
+      "valeur": "Réglable"
+    }
+  ],
   "variantes": [
     {
       "label": "Strawberry Punch",

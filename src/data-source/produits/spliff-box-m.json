@@ -14,11 +14,20 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Format": "M, compact",
-    "Compartiments": "Séparés (papiers, filtres, briquet)",
-    "Fermeture": "Complète"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Format",
+      "valeur": "M, compact"
+    },
+    {
+      "cle": "Compartiments",
+      "valeur": "Séparés (papiers, filtres, briquet)"
+    },
+    {
+      "cle": "Fermeture",
+      "valeur": "Complète"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

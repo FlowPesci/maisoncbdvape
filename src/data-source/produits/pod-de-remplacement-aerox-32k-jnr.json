@@ -14,12 +14,24 @@
   "prix": 9.99,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Type": "Pod de remplacement",
-    "Compatibilité": "Kit JNR AeroX 32K",
-    "Résistance": "Scellée, intégrée au pod",
-    "Tirage": "MTL ou RDL"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Pod de remplacement"
+    },
+    {
+      "cle": "Compatibilité",
+      "valeur": "Kit JNR AeroX 32K"
+    },
+    {
+      "cle": "Résistance",
+      "valeur": "Scellée, intégrée au pod"
+    },
+    {
+      "cle": "Tirage",
+      "valeur": "MTL ou RDL"
+    }
+  ],
   "variantes": [
     {
       "stock": 40,

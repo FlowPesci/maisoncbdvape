@@ -14,12 +14,24 @@
   "prix": 64.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Contenu": "Box Gen SE + clearomiseur Zeus Nano 2",
-    "Chipset": "AXON",
-    "Airflow": "Supérieur, anti-fuite",
-    "Alimentation": "1 accu 18650 (non fourni)"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Contenu",
+      "valeur": "Box Gen SE + clearomiseur Zeus Nano 2"
+    },
+    {
+      "cle": "Chipset",
+      "valeur": "AXON"
+    },
+    {
+      "cle": "Airflow",
+      "valeur": "Supérieur, anti-fuite"
+    },
+    {
+      "cle": "Alimentation",
+      "valeur": "1 accu 18650 (non fourni)"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

@@ -14,13 +14,28 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Hauteur": "20 cm",
-    "Matériau": "Verre borosilicaté",
-    "Filtration": "Percolateur intégré",
-    "Fourni": "Bol",
-    "Entretien": "Eau chaude ou alcool isopropylique"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Hauteur",
+      "valeur": "20 cm"
+    },
+    {
+      "cle": "Matériau",
+      "valeur": "Verre borosilicaté"
+    },
+    {
+      "cle": "Filtration",
+      "valeur": "Percolateur intégré"
+    },
+    {
+      "cle": "Fourni",
+      "valeur": "Bol"
+    },
+    {
+      "cle": "Entretien",
+      "valeur": "Eau chaude ou alcool isopropylique"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

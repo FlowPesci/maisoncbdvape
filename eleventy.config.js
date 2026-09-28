@@ -139,6 +139,29 @@ export default function (eleventyConfig) {
     return Object.entries(valeur);
   });
 
+  /**
+   * La valeur d'UNE caractéristique, par son libellé.
+   *
+   * ⚠ Ne jamais écrire `produit.ficheTechnique["Taux de CBD"]` dans un
+   * gabarit. La carte CBD le faisait, à cinq endroits, et cette lecture ne
+   * fonctionne que sur la forme objet. Le 2026-09-28 les 117 fiches sont
+   * passées en liste de paires — la seule forme que l'éditeur de contenu
+   * sache écrire — et ces cinq colonnes seraient toutes retombées sur « — »
+   * sans la moindre erreur.
+   *
+   * La comparaison ignore casse et espaces : « Taux de CBD » saisi par le
+   * commerçant avec une majuscule de plus ne doit pas vider la colonne.
+   */
+  eleventyConfig.addFilter("valeurFiche", (fiche, cle) => {
+    const cherche = String(cle || "").trim().toLowerCase();
+    if (!fiche || !cherche) return "";
+    const lignes = Array.isArray(fiche)
+      ? fiche.map((l) => [l?.cle ?? l?.label ?? "", l?.valeur ?? l?.value ?? ""])
+      : Object.entries(fiche);
+    const trouve = lignes.find(([c]) => String(c).trim().toLowerCase() === cherche);
+    return trouve ? trouve[1] : "";
+  });
+
   eleventyConfig.addFilter("min", (arr) => {
     const nums = (arr || []).map(Number).filter((n) => !isNaN(n));
     return nums.length ? Math.min(...nums) : 0;

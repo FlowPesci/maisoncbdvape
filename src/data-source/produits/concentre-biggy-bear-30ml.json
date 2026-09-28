@@ -14,13 +14,28 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Volume": "30 ml",
-    "Type": "Concentré aromatique DIY",
-    "Dilution conseillée": "15 à 20 %",
-    "Rendement": "150 à 200 ml de e-liquide",
-    "Compatibilité": "Toutes bases neutres"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Volume",
+      "valeur": "30 ml"
+    },
+    {
+      "cle": "Type",
+      "valeur": "Concentré aromatique DIY"
+    },
+    {
+      "cle": "Dilution conseillée",
+      "valeur": "15 à 20 %"
+    },
+    {
+      "cle": "Rendement",
+      "valeur": "150 à 200 ml de e-liquide"
+    },
+    {
+      "cle": "Compatibilité",
+      "valeur": "Toutes bases neutres"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

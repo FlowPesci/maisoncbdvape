@@ -14,12 +14,24 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Parties": "3",
-    "Matériau": "Métal",
-    "Fermeture": "Magnétique",
-    "Finition": "Effet holographique"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Parties",
+      "valeur": "3"
+    },
+    {
+      "cle": "Matériau",
+      "valeur": "Métal"
+    },
+    {
+      "cle": "Fermeture",
+      "valeur": "Magnétique"
+    },
+    {
+      "cle": "Finition",
+      "valeur": "Effet holographique"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

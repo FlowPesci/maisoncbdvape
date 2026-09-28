@@ -14,11 +14,20 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Matériau": "Métal, finition dorée",
-    "Fermeture": "Magnétique",
-    "Dents": "Affûtées, broyage homogène"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Matériau",
+      "valeur": "Métal, finition dorée"
+    },
+    {
+      "cle": "Fermeture",
+      "valeur": "Magnétique"
+    },
+    {
+      "cle": "Dents",
+      "valeur": "Affûtées, broyage homogène"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

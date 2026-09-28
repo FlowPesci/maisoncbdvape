@@ -14,12 +14,24 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Matériau": "Métal",
-    "Bords": "Relevés sur tout le pourtour",
-    "Surface": "Plane, indéformable",
-    "Entretien": "Éponge humide"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Matériau",
+      "valeur": "Métal"
+    },
+    {
+      "cle": "Bords",
+      "valeur": "Relevés sur tout le pourtour"
+    },
+    {
+      "cle": "Surface",
+      "valeur": "Plane, indéformable"
+    },
+    {
+      "cle": "Entretien",
+      "valeur": "Éponge humide"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

@@ -14,13 +14,28 @@
   "prix": 5.99,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {
-    "Type": "Fleur indoor enrobée de pollen",
-    "Origine": "Union européenne",
-    "Taux de THC": "< 0,3 %",
-    "Texture": "Dense et collante",
-    "Conditionnement": "Pesée à la commande, 2 à 8 g"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Fleur indoor enrobée de pollen"
+    },
+    {
+      "cle": "Origine",
+      "valeur": "Union européenne"
+    },
+    {
+      "cle": "Taux de THC",
+      "valeur": "< 0,3 %"
+    },
+    {
+      "cle": "Texture",
+      "valeur": "Dense et collante"
+    },
+    {
+      "cle": "Conditionnement",
+      "valeur": "Pesée à la commande, 2 à 8 g"
+    }
+  ],
   "variantes": [
     {
       "label": "4g",

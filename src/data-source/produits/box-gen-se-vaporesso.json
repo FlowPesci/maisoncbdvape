@@ -14,13 +14,28 @@
   "prix": 39.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Chipset": "AXON",
-    "Alimentation": "1 accu 18650 (non fourni)",
-    "Revêtement": "Soft-touch",
-    "Connectique": "510",
-    "Marque": "Vaporesso"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Chipset",
+      "valeur": "AXON"
+    },
+    {
+      "cle": "Alimentation",
+      "valeur": "1 accu 18650 (non fourni)"
+    },
+    {
+      "cle": "Revêtement",
+      "valeur": "Soft-touch"
+    },
+    {
+      "cle": "Connectique",
+      "valeur": "510"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Vaporesso"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

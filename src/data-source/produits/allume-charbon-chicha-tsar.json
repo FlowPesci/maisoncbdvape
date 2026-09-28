@@ -14,12 +14,24 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Type": "Chauffe-charbon électrique",
-    "Alimentation": "Secteur",
-    "Flamme": "Aucune",
-    "Usage": "Intérieur, sur surface non inflammable"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Chauffe-charbon électrique"
+    },
+    {
+      "cle": "Alimentation",
+      "valeur": "Secteur"
+    },
+    {
+      "cle": "Flamme",
+      "valeur": "Aucune"
+    },
+    {
+      "cle": "Usage",
+      "valeur": "Intérieur, sur surface non inflammable"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

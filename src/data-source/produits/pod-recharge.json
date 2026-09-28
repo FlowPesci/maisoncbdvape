@@ -14,13 +14,28 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Type": "Cartouche préremplie",
-    "Capacité": "2 ml",
-    "Compatibilité": "Pod Sunakin Wiz Go",
-    "E-liquide": "CBD full spectrum, sans THC",
-    "Entretien": "Aucun, cartouche jetable"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Cartouche préremplie"
+    },
+    {
+      "cle": "Capacité",
+      "valeur": "2 ml"
+    },
+    {
+      "cle": "Compatibilité",
+      "valeur": "Pod Sunakin Wiz Go"
+    },
+    {
+      "cle": "E-liquide",
+      "valeur": "CBD full spectrum, sans THC"
+    },
+    {
+      "cle": "Entretien",
+      "valeur": "Aucun, cartouche jetable"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

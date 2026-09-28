@@ -16,10 +16,11 @@ export const CATALOG = {
   "allume-charbon-chicha-tsar": 19.9,
   "allume-charbon-gaz-blackcoco-s": 24.9,
   "amazonien": 19.9,
-  "amnesia-hydro-indoor-cbd": 4.9,
-  "amnesia-hydro-indoor-cbd::2g": 9.8,
-  "amnesia-hydro-indoor-cbd::4g": 19.6,
-  "amnesia-hydro-indoor-cbd::8g": 39.2,
+  "amnesia-hydro-indoor-cbd": 4.99,
+  "amnesia-hydro-indoor-cbd::2g": 9.99,
+  "amnesia-hydro-indoor-cbd::4g": 19.99,
+  "amnesia-hydro-indoor-cbd::8g": 39.99,
+  "amnesia-hydro-indoor-cbd::12g": 59.99,
   "ananas-coco-50ml-le-petit-verger": 16.9,
   "ananas-coco-frais": 16.9,
   "baba-au-rhum-50-ml": 16.9,
@@ -56,6 +57,10 @@ export const CATALOG = {
   "clearomiseur-zeus-subohm-5-ml-geekvape": 29.9,
   "concentre-biggy-bear-30ml": 9.9,
   "corossol-peche-frais": 16.9,
+  "drizzle-hydro-indoor-cbd": 4.99,
+  "drizzle-hydro-indoor-cbd::4g": 19.99,
+  "drizzle-hydro-indoor-cbd::8g": 39.99,
+  "drizzle-hydro-indoor-cbd::12g": 59.99,
   "dutch-punch-indoor-cbd": 4.9,
   "dutch-punch-indoor-cbd::2g": 9.8,
   "dutch-punch-indoor-cbd::4g": 19.6,
@@ -98,6 +103,10 @@ export const CATALOG = {
   "fruit-du-dragon-jaune-framboise-bleue-frais": 16.9,
   "fruit-du-serpent-grenade-frais": 16.9,
   "fruits-rouges": 19.9,
+  "garlic-hydro-indoor-cbd": 11.99,
+  "garlic-hydro-indoor-cbd::2g": 11.99,
+  "garlic-hydro-indoor-cbd::4g": 19.99,
+  "garlic-hydro-indoor-cbd::8": 39.99,
   "geekvape-zeus-nano-3": 24.9,
   "gelato-hydro-indoor-cbd": 4.9,
   "gelato-hydro-indoor-cbd::2g": 9.8,
@@ -145,10 +154,9 @@ export const CATALOG = {
   "moby-dick-hydro-indoor-cbd::2g": 9.8,
   "moby-dick-hydro-indoor-cbd::4g": 19.6,
   "moby-dick-hydro-indoor-cbd::8g": 39.2,
-  "moon-rock-cbd-indoor": 7.9,
-  "moon-rock-cbd-indoor::2g": 15.8,
-  "moon-rock-cbd-indoor::4g": 31.6,
-  "moon-rock-cbd-indoor::8g": 63.2,
+  "moon-rock-cbd-indoor": 5.99,
+  "moon-rock-cbd-indoor::4g": 23.99,
+  "moon-rock-cbd-indoor::8g": 47.99,
   "mousse-chocolat-blanc-noisettes-50-ml": 16.9,
   "mure-myrtille-50ml-le-petit-verger": 16.9,
   "mure-myrtille-frais": 16.9,
@@ -214,14 +222,8 @@ export const CATALOG = {
   "robin-cherry-cbd::2g": 13.8,
   "robin-cherry-cbd::4g": 27.6,
   "robin-cherry-cbd::8g": 55.2,
-  "small-bud-lemon": 0.99,
-  "small-bud-lemon::2g": 1.98,
-  "small-bud-lemon::4g": 3.96,
-  "small-bud-lemon::8g": 7.92,
-  "small-bud-strawberry": 0.99,
-  "small-bud-strawberry::2g": 1.98,
-  "small-bud-strawberry::4g": 3.96,
-  "small-bud-strawberry::8g": 7.92,
+  "smash-small-bud-cbd": 9.99,
+  "smash-small-bud-cbd::10g": 9.99,
   "snowing-in-dam": 4.9,
   "spliff-box-l": 19.9,
   "spliff-box-m": 16.9,
@@ -276,6 +278,7 @@ export const STOCKS = {
   "clearomiseur-zeus-subohm-5-ml-geekvape": 10,
   "concentre-biggy-bear-30ml": 10,
   "corossol-peche-frais": 10,
+  "drizzle-hydro-indoor-cbd": 140,
   "dutch-punch-indoor-cbd": 10,
   "e-cg-50ml": 10,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine": 10,
@@ -312,6 +315,10 @@ export const STOCKS = {
   "fruit-du-dragon-jaune-framboise-bleue-frais": 10,
   "fruit-du-serpent-grenade-frais": 10,
   "fruits-rouges": 10,
+  "garlic-hydro-indoor-cbd": 69,
+  "garlic-hydro-indoor-cbd::2g": 23,
+  "garlic-hydro-indoor-cbd::4g": 23,
+  "garlic-hydro-indoor-cbd::8": 21,
   "geekvape-zeus-nano-3": 10,
   "gelato-hydro-indoor-cbd": 10,
   "goyave-coco": 10,
@@ -344,7 +351,7 @@ export const STOCKS = {
   "melon-fraise-des-bois-frais": 10,
   "menthe-intense": 10,
   "moby-dick-hydro-indoor-cbd": 10,
-  "moon-rock-cbd-indoor": 10,
+  "moon-rock-cbd-indoor": 63,
   "mousse-chocolat-blanc-noisettes-50-ml": 10,
   "mure-myrtille-50ml-le-petit-verger": 10,
   "mure-myrtille-frais": 10,
@@ -401,8 +408,8 @@ export const STOCKS = {
   "raisin-rouge-grenade": 10,
   "riz-au-lait-50-ml": 10,
   "robin-cherry-cbd": 10,
-  "small-bud-lemon": 10,
-  "small-bud-strawberry": 10,
+  "smash-small-bud-cbd": 126,
+  "smash-small-bud-cbd::10g": 25,
   "snowing-in-dam": 10,
   "spliff-box-l": 10,
   "spliff-box-m": 10,
@@ -474,6 +481,11 @@ export const CLES_STOCK = {
   "amnesia-hydro-indoor-cbd::8g": {
     "cle": "amnesia-hydro-indoor-cbd",
     "facteur": 8,
+    "unite": "g"
+  },
+  "amnesia-hydro-indoor-cbd::12g": {
+    "cle": "amnesia-hydro-indoor-cbd",
+    "facteur": 12,
     "unite": "g"
   },
   "ananas-coco-50ml-le-petit-verger": {
@@ -640,6 +652,21 @@ export const CLES_STOCK = {
     "cle": "corossol-peche-frais",
     "facteur": 1,
     "unite": "pcs"
+  },
+  "drizzle-hydro-indoor-cbd::4g": {
+    "cle": "drizzle-hydro-indoor-cbd",
+    "facteur": 4,
+    "unite": "g"
+  },
+  "drizzle-hydro-indoor-cbd::8g": {
+    "cle": "drizzle-hydro-indoor-cbd",
+    "facteur": 8,
+    "unite": "g"
+  },
+  "drizzle-hydro-indoor-cbd::12g": {
+    "cle": "drizzle-hydro-indoor-cbd",
+    "facteur": 12,
+    "unite": "g"
   },
   "dutch-punch-indoor-cbd::2g": {
     "cle": "dutch-punch-indoor-cbd",
@@ -838,6 +865,26 @@ export const CLES_STOCK = {
   },
   "fruits-rouges": {
     "cle": "fruits-rouges",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "garlic-hydro-indoor-cbd": {
+    "cle": "garlic-hydro-indoor-cbd",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "garlic-hydro-indoor-cbd::2g": {
+    "cle": "garlic-hydro-indoor-cbd::2g",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "garlic-hydro-indoor-cbd::4g": {
+    "cle": "garlic-hydro-indoor-cbd::4g",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "garlic-hydro-indoor-cbd::8": {
+    "cle": "garlic-hydro-indoor-cbd::8",
     "facteur": 1,
     "unite": "pcs"
   },
@@ -1049,11 +1096,6 @@ export const CLES_STOCK = {
   "moby-dick-hydro-indoor-cbd::8g": {
     "cle": "moby-dick-hydro-indoor-cbd",
     "facteur": 8,
-    "unite": "g"
-  },
-  "moon-rock-cbd-indoor::2g": {
-    "cle": "moon-rock-cbd-indoor",
-    "facteur": 2,
     "unite": "g"
   },
   "moon-rock-cbd-indoor::4g": {
@@ -1376,35 +1418,15 @@ export const CLES_STOCK = {
     "facteur": 8,
     "unite": "g"
   },
-  "small-bud-lemon::2g": {
-    "cle": "small-bud-lemon",
-    "facteur": 2,
-    "unite": "g"
+  "smash-small-bud-cbd": {
+    "cle": "smash-small-bud-cbd",
+    "facteur": 1,
+    "unite": "pcs"
   },
-  "small-bud-lemon::4g": {
-    "cle": "small-bud-lemon",
-    "facteur": 4,
-    "unite": "g"
-  },
-  "small-bud-lemon::8g": {
-    "cle": "small-bud-lemon",
-    "facteur": 8,
-    "unite": "g"
-  },
-  "small-bud-strawberry::2g": {
-    "cle": "small-bud-strawberry",
-    "facteur": 2,
-    "unite": "g"
-  },
-  "small-bud-strawberry::4g": {
-    "cle": "small-bud-strawberry",
-    "facteur": 4,
-    "unite": "g"
-  },
-  "small-bud-strawberry::8g": {
-    "cle": "small-bud-strawberry",
-    "facteur": 8,
-    "unite": "g"
+  "smash-small-bud-cbd::10g": {
+    "cle": "smash-small-bud-cbd::10g",
+    "facteur": 1,
+    "unite": "pcs"
   },
   "snowing-in-dam": {
     "cle": "snowing-in-dam",
@@ -1507,6 +1529,7 @@ export const UNITES_STOCK = {
   "clearomiseur-zeus-subohm-5-ml-geekvape": "pcs",
   "concentre-biggy-bear-30ml": "pcs",
   "corossol-peche-frais": "pcs",
+  "drizzle-hydro-indoor-cbd": "g",
   "dutch-punch-indoor-cbd": "g",
   "e-cg-50ml": "pcs",
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine": "pcs",
@@ -1543,6 +1566,10 @@ export const UNITES_STOCK = {
   "fruit-du-dragon-jaune-framboise-bleue-frais": "pcs",
   "fruit-du-serpent-grenade-frais": "pcs",
   "fruits-rouges": "pcs",
+  "garlic-hydro-indoor-cbd": "pcs",
+  "garlic-hydro-indoor-cbd::2g": "pcs",
+  "garlic-hydro-indoor-cbd::4g": "pcs",
+  "garlic-hydro-indoor-cbd::8": "pcs",
   "geekvape-zeus-nano-3": "pcs",
   "gelato-hydro-indoor-cbd": "g",
   "goyave-coco": "pcs",
@@ -1632,8 +1659,8 @@ export const UNITES_STOCK = {
   "raisin-rouge-grenade": "pcs",
   "riz-au-lait-50-ml": "pcs",
   "robin-cherry-cbd": "g",
-  "small-bud-lemon": "g",
-  "small-bud-strawberry": "g",
+  "smash-small-bud-cbd": "pcs",
+  "smash-small-bud-cbd::10g": "pcs",
   "snowing-in-dam": "pcs",
   "spliff-box-l": "pcs",
   "spliff-box-m": "pcs",
@@ -1699,7 +1726,7 @@ export const REFERENCES = [
   {
     "cle": "amnesia-hydro-indoor-cbd",
     "nom": "Amnésia Hydro Indoor CBD",
-    "marque": "Amnésia Hydro Indoor CBD",
+    "marque": "K CBD",
     "categorie": "cbd",
     "unite": "g"
   },
@@ -1891,6 +1918,13 @@ export const REFERENCES = [
     "marque": "Le Petit Verger",
     "categorie": "vape",
     "unite": "pcs"
+  },
+  {
+    "cle": "drizzle-hydro-indoor-cbd",
+    "nom": "Drizzle Hydro Indoor",
+    "marque": "K CBD",
+    "categorie": "cbd",
+    "unite": "g"
   },
   {
     "cle": "dutch-punch-indoor-cbd",
@@ -2138,6 +2172,27 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
+    "cle": "garlic-hydro-indoor-cbd::2g",
+    "nom": "Garlic Hydro Indoor CBD 2g",
+    "marque": "K CBD",
+    "categorie": "cbd",
+    "unite": "pcs"
+  },
+  {
+    "cle": "garlic-hydro-indoor-cbd::4g",
+    "nom": "Garlic Hydro Indoor CBD 4g",
+    "marque": "K CBD",
+    "categorie": "cbd",
+    "unite": "pcs"
+  },
+  {
+    "cle": "garlic-hydro-indoor-cbd::8",
+    "nom": "Garlic Hydro Indoor CBD 8",
+    "marque": "K CBD",
+    "categorie": "cbd",
+    "unite": "pcs"
+  },
+  {
     "cle": "geekvape-zeus-nano-3",
     "nom": "Geekvape Zeus Nano 3",
     "marque": "GeekVape",
@@ -2321,7 +2376,7 @@ export const REFERENCES = [
   },
   {
     "cle": "melange-vegetal-bergamote",
-    "nom": "Mélange végétal Bergamote",
+    "nom": "Mélange végétal Bergamote 20g",
     "marque": "Mélange végétal Bergamote",
     "categorie": "cbd",
     "unite": "pcs"
@@ -2335,7 +2390,7 @@ export const REFERENCES = [
   },
   {
     "cle": "melange-vegetal-natura",
-    "nom": "Mélange végétal Natura",
+    "nom": "Mélange végétal Natura 20g",
     "marque": "Mélange végétal Natura",
     "categorie": "cbd",
     "unite": "pcs"
@@ -2747,18 +2802,11 @@ export const REFERENCES = [
     "unite": "g"
   },
   {
-    "cle": "small-bud-lemon",
-    "nom": "Small Bud Lemon",
-    "marque": "Greenhouse",
+    "cle": "smash-small-bud-cbd::10g",
+    "nom": "Smash Small Bud CBD 10g",
+    "marque": "K CBD",
     "categorie": "cbd",
-    "unite": "g"
-  },
-  {
-    "cle": "small-bud-strawberry",
-    "nom": "Small Bud Strawberry",
-    "marque": "Greenhouse",
-    "categorie": "cbd",
-    "unite": "g"
+    "unite": "pcs"
   },
   {
     "cle": "snowing-in-dam",
@@ -2907,9 +2955,11 @@ export const PRODUITS_A_VARIANTES = new Set([
   "burn-baby-burn-indoor-cbd",
   "candy-hydro-indoor-cbd",
   "charas-cbd",
+  "drizzle-hydro-indoor-cbd",
   "dutch-punch-indoor-cbd",
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
   "extract-crumble",
+  "garlic-hydro-indoor-cbd",
   "gelato-hydro-indoor-cbd",
   "hash-primero",
   "jack-herer-hydro-indoor-cbd",
@@ -2921,8 +2971,7 @@ export const PRODUITS_A_VARIANTES = new Set([
   "pollen-d-or-100-cbd",
   "puff-30k-hyper-max-crown-bar-by-al-fakher",
   "robin-cherry-cbd",
-  "small-bud-lemon",
-  "small-bud-strawberry"
+  "smash-small-bud-cbd"
 ]);
 
 /**

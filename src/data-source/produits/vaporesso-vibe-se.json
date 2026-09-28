@@ -14,13 +14,28 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Type": "Pod électronique",
-    "Batterie": "Intégrée",
-    "Activation": "Automatique, à l'inhalation",
-    "Recharge": "USB-C",
-    "Marque": "Vaporesso"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Pod électronique"
+    },
+    {
+      "cle": "Batterie",
+      "valeur": "Intégrée"
+    },
+    {
+      "cle": "Activation",
+      "valeur": "Automatique, à l'inhalation"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Vaporesso"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

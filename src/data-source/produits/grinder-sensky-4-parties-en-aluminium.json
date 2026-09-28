@@ -14,12 +14,24 @@
   "prix": 9.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Parties": "4 (couvercle, broyage, tamis, bac à pollen)",
-    "Matériau": "Aluminium usiné",
-    "Fermeture": "Magnétique",
-    "Marque": "Sensky"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Parties",
+      "valeur": "4 (couvercle, broyage, tamis, bac à pollen)"
+    },
+    {
+      "cle": "Matériau",
+      "valeur": "Aluminium usiné"
+    },
+    {
+      "cle": "Fermeture",
+      "valeur": "Magnétique"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Sensky"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

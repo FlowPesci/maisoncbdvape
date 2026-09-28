@@ -14,15 +14,36 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Type": "Pod électronique",
-    "Batterie": "1400 mAh intégrée",
-    "Capacité": "4,5 ml",
-    "Activation": "Automatique, à l'inhalation",
-    "Recharge": "USB-C",
-    "E-liquide conseillé": "PG/VG 50/50",
-    "Indicateur": "LED de charge, 3 niveaux"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Pod électronique"
+    },
+    {
+      "cle": "Batterie",
+      "valeur": "1400 mAh intégrée"
+    },
+    {
+      "cle": "Capacité",
+      "valeur": "4,5 ml"
+    },
+    {
+      "cle": "Activation",
+      "valeur": "Automatique, à l'inhalation"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    },
+    {
+      "cle": "E-liquide conseillé",
+      "valeur": "PG/VG 50/50"
+    },
+    {
+      "cle": "Indicateur",
+      "valeur": "LED de charge, 3 niveaux"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

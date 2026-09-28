@@ -14,12 +14,24 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Bouffées annoncées": "25 000",
-    "Affichage": "Écran LED, batterie et liquide",
-    "Activation": "Automatique, à l'inhalation",
-    "Finition": "Texturée, antidérapante"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Bouffées annoncées",
+      "valeur": "25 000"
+    },
+    {
+      "cle": "Affichage",
+      "valeur": "Écran LED, batterie et liquide"
+    },
+    {
+      "cle": "Activation",
+      "valeur": "Automatique, à l'inhalation"
+    },
+    {
+      "cle": "Finition",
+      "valeur": "Texturée, antidérapante"
+    }
+  ],
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,

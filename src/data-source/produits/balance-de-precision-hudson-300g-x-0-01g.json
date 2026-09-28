@@ -14,13 +14,28 @@
   "prix": 16.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Capacité": "300 g",
-    "Précision": "0,01 g",
-    "Écran": "LCD rétroéclairé",
-    "Tare": "Oui",
-    "Marque": "Hudson LogicScale"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Capacité",
+      "valeur": "300 g"
+    },
+    {
+      "cle": "Précision",
+      "valeur": "0,01 g"
+    },
+    {
+      "cle": "Écran",
+      "valeur": "LCD rétroéclairé"
+    },
+    {
+      "cle": "Tare",
+      "valeur": "Oui"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Hudson LogicScale"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

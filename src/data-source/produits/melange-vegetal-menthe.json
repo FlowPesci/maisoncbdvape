@@ -14,13 +14,28 @@
   "prix": 6.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Composition": "Menthe nanah, bouillon blanc, calendula, chanvre",
-    "Tabac": "Aucun",
-    "Nicotine": "Aucune",
-    "Additifs": "Aucun",
-    "Usage": "Roulage"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Composition",
+      "valeur": "Menthe nanah, bouillon blanc, calendula, chanvre"
+    },
+    {
+      "cle": "Tabac",
+      "valeur": "Aucun"
+    },
+    {
+      "cle": "Nicotine",
+      "valeur": "Aucune"
+    },
+    {
+      "cle": "Additifs",
+      "valeur": "Aucun"
+    },
+    {
+      "cle": "Usage",
+      "valeur": "Roulage"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

@@ -14,14 +14,32 @@
   "prix": 9.9,
   "unitePrix": "g",
   "note": null,
-  "ficheTechnique": {
-    "Type": "Extrait, texture crumble",
-    "Taux de CBD": "95 %",
-    "Texture": "Sèche et friable",
-    "Couleur": "Dorée naturelle",
-    "Taux de THC": "< 0,3 %",
-    "Conditionnement": "Pesée à la commande, 2 à 8 g"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Extrait, texture crumble"
+    },
+    {
+      "cle": "Taux de CBD",
+      "valeur": "95 %"
+    },
+    {
+      "cle": "Texture",
+      "valeur": "Sèche et friable"
+    },
+    {
+      "cle": "Couleur",
+      "valeur": "Dorée naturelle"
+    },
+    {
+      "cle": "Taux de THC",
+      "valeur": "< 0,3 %"
+    },
+    {
+      "cle": "Conditionnement",
+      "valeur": "Pesée à la commande, 2 à 8 g"
+    }
+  ],
   "variantes": [
     {
       "label": "2g",

@@ -14,12 +14,24 @@
   "prix": 4.99,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Matériau": "Plastique rigide",
-    "Format": "Compact standard",
-    "Bords": "Relevés",
-    "Marque": "BEUZ"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Matériau",
+      "valeur": "Plastique rigide"
+    },
+    {
+      "cle": "Format",
+      "valeur": "Compact standard"
+    },
+    {
+      "cle": "Bords",
+      "valeur": "Relevés"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "BEUZ"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

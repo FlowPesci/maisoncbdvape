@@ -14,12 +14,24 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Bouffées annoncées": "30 000",
-    "Fourni": "2 recharges",
-    "Format": "Compact",
-    "Activation": "Automatique, à l'inhalation"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Bouffées annoncées",
+      "valeur": "30 000"
+    },
+    {
+      "cle": "Fourni",
+      "valeur": "2 recharges"
+    },
+    {
+      "cle": "Format",
+      "valeur": "Compact"
+    },
+    {
+      "cle": "Activation",
+      "valeur": "Automatique, à l'inhalation"
+    }
+  ],
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,

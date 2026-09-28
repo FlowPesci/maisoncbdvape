@@ -14,14 +14,32 @@
   "prix": 18.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Bouffées annoncées": "28 000",
-    "Batterie": "950 mAh, rechargeable",
-    "Réservoir": "2 ml",
-    "Fourni": "2 flacons de 10 ml",
-    "Taux de nicotine": "20 mg/ml (sels)",
-    "Recharge": "USB-C"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Bouffées annoncées",
+      "valeur": "28 000"
+    },
+    {
+      "cle": "Batterie",
+      "valeur": "950 mAh, rechargeable"
+    },
+    {
+      "cle": "Réservoir",
+      "valeur": "2 ml"
+    },
+    {
+      "cle": "Fourni",
+      "valeur": "2 flacons de 10 ml"
+    },
+    {
+      "cle": "Taux de nicotine",
+      "valeur": "20 mg/ml (sels)"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    }
+  ],
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,

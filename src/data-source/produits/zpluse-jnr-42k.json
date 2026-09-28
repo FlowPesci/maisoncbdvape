@@ -14,12 +14,24 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Bouffées annoncées": "42 000",
-    "Saveurs": "2 réservoirs séparés, commutables",
-    "Batterie": "Rechargeable",
-    "Recharge": "USB-C"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Bouffées annoncées",
+      "valeur": "42 000"
+    },
+    {
+      "cle": "Saveurs",
+      "valeur": "2 réservoirs séparés, commutables"
+    },
+    {
+      "cle": "Batterie",
+      "valeur": "Rechargeable"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    }
+  ],
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,

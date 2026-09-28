@@ -89,6 +89,37 @@ for (const p of actives) {
   }
 }
 
+/* ── B bis. La fiche technique a-t-elle la forme que l'éditeur sait écrire ?
+   Le champ est déclaré `widget: list` dans config.yml, avec deux sous-champs
+   `cle` et `valeur`. Les 139 fiches portaient un OBJET — Decap ne sait pas
+   éditer un objet à clés libres, il tentait de le faire tenir dans sa liste
+   et recopiait la valeur dans les deux sous-champs. Le commerçant voyait un
+   formulaire incohérent et ne pouvait rien y modifier. Migrées en liste le
+   2026-09-28 ; ce contrôle empêche le retour en arrière. */
+for (const p of actives) {
+  const ft = p.ficheTechnique;
+  if (ft === undefined || ft === null) continue;
+  if (Array.isArray(ft)) {
+    const boiteuses = ft.filter((l) => !l || !(l.cle ?? l.label));
+    if (boiteuses.length) {
+      erreurs.push(
+        `${p.fichier} : ${boiteuses.length} ligne(s) de fiche technique sans libellé.\n` +
+          `   → elles s'affichent en lignes vides sur la page produit.`,
+      );
+    }
+    continue;
+  }
+  if (typeof ft === "object" && Object.keys(ft).length) {
+    erreurs.push(
+      `${p.fichier} : fiche technique écrite en OBJET.\n` +
+        `   L'éditeur de contenu déclare une liste de paires { cle, valeur } et ne sait\n` +
+        `   pas éditer un objet à clés libres : le commerçant verrait un formulaire\n` +
+        `   incohérent, avec la valeur recopiée dans les deux champs.\n` +
+        `   → convertir en [{ "cle": …, "valeur": … }].`,
+    );
+  }
+}
+
 /* ── C. La copie de la liste dans config.yml a-t-elle divergé ? ───────────── */
 const cms = readFileSync(CONFIG_CMS, "utf8");
 const blocOrigine = cms.match(/name:\s*"origine"[\s\S]*?options:\s*\n([\s\S]*?)(?=\n\s*- label:|\n\s{0,6}#|\n\s*$)/);

@@ -14,12 +14,24 @@
   "prix": 14.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Type": "Cendrier décoratif",
-    "Forme": "Alien sculpté",
-    "Base": "Lestée, antibascule",
-    "Entretien": "Éponge humide"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Type",
+      "valeur": "Cendrier décoratif"
+    },
+    {
+      "cle": "Forme",
+      "valeur": "Alien sculpté"
+    },
+    {
+      "cle": "Base",
+      "valeur": "Lestée, antibascule"
+    },
+    {
+      "cle": "Entretien",
+      "valeur": "Éponge humide"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

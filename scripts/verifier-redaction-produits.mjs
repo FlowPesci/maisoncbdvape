@@ -228,6 +228,30 @@ if (signales.length) {
 }
 
 if (bloquants.length) process.exit(1);
+
+// ⚠ `--strict` ne tourne plus dans `npm run build`, et c'est délibéré.
+//
+// Le 2026-09-26, le commerçant a créé la fiche `garlic-hydro-indoor-cbd`
+// depuis l'éditeur de contenu sans remplir les points forts. `--strict` a
+// fait échouer la construction, donc le déploiement de TOUT le site, et
+// **plus rien n'est parti en ligne pendant deux jours** — ni ses propres
+// fiches, ni la carte CBD, ni le reste. Cinq déploiements refusés d'affilée,
+// tous sur la même ligne, et rien côté back-office ne le lui disait.
+//
+// Un contrôle de qualité rédactionnelle ne doit pas pouvoir éteindre la
+// boutique. La règle est désormais :
+//   · bloquant  → ce qui est ILLÉGAL (allégations de santé) ou TROMPEUR
+//                 (champ `saveurs` décoratif). Ceux-là restent au-dessus.
+//   · signalé   → tout le reste : longueurs, superlatifs, points forts
+//                 manquants. Affiché à chaque construction, jamais bloquant.
+//
+// C'est la même leçon que `verify:puffs`, qui avertit sans bloquer sur une
+// réponse fournisseur en attente : un contrôle qui bloque sur ce que le
+// commerçant produit normalement finit par être désactivé en urgence — et
+// c'est alors la partie légale qu'on perd avec.
+//
+// `npm run verify:redaction:strict` garde l'ancien comportement, pour une
+// passe de relecture volontaire.
 if (STRICT && signales.length) {
   console.error("[rédaction] ✕ mode strict : la charte n'est pas respectée partout.");
   process.exit(1);

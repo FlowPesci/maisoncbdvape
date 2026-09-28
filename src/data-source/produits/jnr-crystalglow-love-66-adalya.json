@@ -14,13 +14,28 @@
   "prix": 19.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Bouffées annoncées": "33 000",
-    "Batterie": "800 mAh, rechargeable",
-    "Réservoir": "10 ml, transparent et rechargeable",
-    "Éclairage": "LED RGB",
-    "Recharge": "USB-C"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Bouffées annoncées",
+      "valeur": "33 000"
+    },
+    {
+      "cle": "Batterie",
+      "valeur": "800 mAh, rechargeable"
+    },
+    {
+      "cle": "Réservoir",
+      "valeur": "10 ml, transparent et rechargeable"
+    },
+    {
+      "cle": "Éclairage",
+      "valeur": "LED RGB"
+    },
+    {
+      "cle": "Recharge",
+      "valeur": "USB-C"
+    }
+  ],
   "variantes": [],
   "couleurs": [],
   "prixBarre": null,

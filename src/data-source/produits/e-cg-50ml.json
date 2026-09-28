@@ -14,12 +14,24 @@
   "prix": 11.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Contenance": "50 ml",
-    "Nicotine": "Sans — compatible boosters 10 ml",
-    "Ratio PG/VG": "50/50",
-    "Compatibilité": "Clearomiseurs MTL et pods"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Contenance",
+      "valeur": "50 ml"
+    },
+    {
+      "cle": "Nicotine",
+      "valeur": "Sans — compatible boosters 10 ml"
+    },
+    {
+      "cle": "Ratio PG/VG",
+      "valeur": "50/50"
+    },
+    {
+      "cle": "Compatibilité",
+      "valeur": "Clearomiseurs MTL et pods"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,

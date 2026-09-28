@@ -14,13 +14,28 @@
   "prix": 24.9,
   "unitePrix": null,
   "note": null,
-  "ficheTechnique": {
-    "Airflow": "Supérieur, réglable",
-    "Tirage": "Serré à aéré",
-    "Remplissage": "Par le haut",
-    "Connectique": "510",
-    "Marque": "Geekvape"
-  },
+  "ficheTechnique": [
+    {
+      "cle": "Airflow",
+      "valeur": "Supérieur, réglable"
+    },
+    {
+      "cle": "Tirage",
+      "valeur": "Serré à aéré"
+    },
+    {
+      "cle": "Remplissage",
+      "valeur": "Par le haut"
+    },
+    {
+      "cle": "Connectique",
+      "valeur": "510"
+    },
+    {
+      "cle": "Marque",
+      "valeur": "Geekvape"
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
   "stock": 10,
