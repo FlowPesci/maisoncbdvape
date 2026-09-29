@@ -13,7 +13,7 @@
 import { readdirSync, readFileSync, writeFileSync, mkdirSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { prixFiche, variantesVendables } from "./prix-fiche.mjs";
+import { prixFiche, variantesVendables, grammesDe } from "./prix-fiche.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -77,10 +77,8 @@ const referencesStock = [];
 const nomsStock = {};
 
 /** Nombre de grammes d'un libellé de variante : « 4g » → 4. */
-const grammesDe = (label) => {
-  const m = String(label).match(/^([\d.,]+)\s*g$/i);
-  return m ? parseFloat(m[1].replace(",", ".")) : null;
-};
+// ⚠ `grammesDe` vit désormais dans prix-fiche.mjs, aux côtés de la règle de
+//   prix qu'elle sert : elle y était écrite deux fois, ici et là-bas.
 
 // Un stock absent est traité comme 0 : mieux vaut refuser une vente que
 // promettre un produit qu'on n'a pas.

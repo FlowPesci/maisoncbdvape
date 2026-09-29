@@ -101,7 +101,7 @@ export const CATALOG = {
   "fruit-du-serpent-grenade-frais": 16.9,
   "fruits-rouges": 19.9,
   "garlic-hydro-indoor-cbd": 4.99,
-  "garlic-hydro-indoor-cbd::2g": 11.99,
+  "garlic-hydro-indoor-cbd::2g": 9.98,
   "garlic-hydro-indoor-cbd::4g": 19.99,
   "garlic-hydro-indoor-cbd::8g": 39.99,
   "geekvape-zeus-nano-3": 24.9,

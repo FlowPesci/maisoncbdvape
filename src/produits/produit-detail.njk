@@ -156,6 +156,23 @@ eleventyComputed:
                       {% if poids > (produit.stock or 0) %}disabled aria-disabled="true" title="Il reste {{ produit.stock or 0 }} g"{% endif %}>
                 <span class="gram-btn-poids">{{ v.label }}</span>
                 <span class="gram-btn-prix">{{ v.prix | eur }}</span>
+                {# ⚠ Prix au gramme et repère d'économie : CALCULÉS par
+                   `variantesVendables` (prix-fiche.mjs), jamais saisis.
+
+                   Le repère n'apparaît que si l'économie dépasse 2 % — le
+                   bruit d'arrondi mesuré sur les tarifs réels. Au 2026-09-29
+                   les prix sont strictement proportionnels : il reste donc
+                   invisible partout, et s'allumera tout seul le jour où un
+                   conditionnement sera réellement dégressif.
+
+                   C'est la même règle que le prix barré : une réduction
+                   s'affiche quand elle existe, elle ne se déclare pas. #}
+                {% if v.prixAuGramme %}
+                  <span class="gram-btn-unitaire">{{ v.prixAuGramme | eur }}/g</span>
+                {% endif %}
+                {% if v.economiePct %}
+                  <span class="gram-btn-eco">−{{ v.economiePct }} %/g</span>
+                {% endif %}
               </button>
             {% endfor %}
           </div>

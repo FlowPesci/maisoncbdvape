@@ -56,6 +56,32 @@ export function prixFiche(p) {
 const estNombre = (n) => typeof n === "number" && Number.isFinite(n);
 
 /**
+ * Le nombre de grammes que désigne un libellé de conditionnement.
+ * « 4g » → 4 ; « 12 g » → 12 ; « Cherry ICE » → null.
+ *
+ * ⚠ Cette lecture vivait aussi dans `build-catalog-index.js`, qui s'en sert
+ * pour rattacher une variante au vrac du produit. Deux copies d'une même
+ * règle finissent toujours par diverger — celle-ci fait désormais autorité,
+ * et le catalogue l'importe.
+ */
+export function grammesDe(label) {
+  const m = String(label ?? "").match(/^\s*([\d.,]+)\s*g\s*$/i);
+  const n = m ? parseFloat(m[1].replace(",", ".")) : NaN;
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+/**
+ * Seuil en dessous duquel une économie n'est PAS annoncée.
+ *
+ * ⚠ Mesuré, pas choisi au hasard. Les tarifs actuels sont proportionnels,
+ * mais les arrondis créent un bruit de ±0,2 % (9,99 € les 2 g font
+ * 4,995 €/g quand 39,99 € les 8 g font 4,999 €/g). Annoncer « −0,1 % »
+ * serait une réduction inventée par l'arrondi. 2 % laisse le bruit dehors et
+ * reste bien en dessous de toute remise réelle.
+ */
+const SEUIL_ECONOMIE_PCT = 2;
+
+/**
  * Les variantes réellement proposables, **prix résolu**.
  *
  * ─── L'héritage du prix produit (2026-09-29) ──────────────────────────────
@@ -87,13 +113,68 @@ export function variantesVendables(p) {
   const brutes = Array.isArray(p?.variantes) ? p.variantes : [];
   const heritagePossible = !p?.unitePrix && estNombre(p?.prix);
 
-  return brutes.flatMap((v) => {
+  const retenues = brutes.flatMap((v) => {
     const label = String(v?.label ?? "").trim();
     if (!label) return [];                       // sans libellé : rien à proposer
     if (estNombre(v?.prix)) return [{ ...v, label }];
     if (heritagePossible) return [{ ...v, label, prix: p.prix, prixHerite: true }];
     return [];                                   // fleur sans prix : écartée
   });
+
+  return p?.unitePrix === "g" ? avecPrixAuGramme(retenues) : retenues;
+}
+
+/**
+ * Prix au gramme de chaque conditionnement, et économie réelle s'il y en a une.
+ *
+ * ─── Pourquoi c'est calculé et jamais saisi ───────────────────────────────
+ * Le commerçant voulait « montrer au client qu'il a un avantage à prendre 4 g
+ * plutôt que 2 ». Mesure faite le 2026-09-29 sur les 17 fiches au gramme :
+ * **cet avantage n'existait pas**. Les tarifs étaient strictement
+ * proportionnels — 8 g à 39,20 € contre quatre fois 9,80 €, soit exactement
+ * la même chose. Une seule fiche s'écartait, et dans le mauvais sens : le
+ * Garlic facturait les 2 g **20 % plus cher au gramme**.
+ *
+ * Afficher « avantage » là-dessus aurait été une annonce de réduction sans
+ * réduction — le terrain que `prixBarre` venait de coûter. D'où ce choix :
+ * **l'économie se constate, elle ne se déclare pas.** Le repère n'apparaît
+ * que si les chiffres la portent ; il reste invisible tant que les tarifs
+ * sont proportionnels, et s'allume tout seul le jour où le commerçant baisse
+ * un conditionnement.
+ *
+ * ⚠ La référence est le **plus petit conditionnement**, pas le prix de fiche.
+ * C'est la comparaison que fait le client : « si je prends 4 g au lieu de 2 ».
+ * Comparer au prix de fiche annoncerait une économie sur un format que
+ * personne ne peut acheter.
+ *
+ * ⚠ Le pourcentage est arrondi **vers le bas** (`Math.floor`). Une économie
+ * de 9,7 % s'affiche « −9 % » : mieux vaut promettre moins que le client ne
+ * reçoit.
+ */
+function avecPrixAuGramme(variantes) {
+  const avecG = variantes
+    .map((v) => ({ v, g: grammesDe(v.label) }))
+    .filter((x) => x.g !== null);
+
+  if (avecG.length < 1) return variantes;
+
+  avecG.sort((a, b) => a.g - b.g);
+  const refUnitaire = avecG[0].v.prix / avecG[0].g;
+
+  const parLabel = new Map();
+  for (const { v, g } of avecG) {
+    const unitaire = v.prix / g;
+    const gainPct = ((refUnitaire - unitaire) / refUnitaire) * 100;
+    parLabel.set(v.label, {
+      grammes: g,
+      prixAuGramme: Math.round(unitaire * 1000) / 1000,
+      // `null` — et non 0 — quand il n'y a rien à annoncer : le gabarit teste
+      // la présence, pas la valeur.
+      economiePct: gainPct >= SEUIL_ECONOMIE_PCT ? Math.floor(gainPct) : null,
+    });
+  }
+
+  return variantes.map((v) => (parLabel.has(v.label) ? { ...v, ...parLabel.get(v.label) } : v));
 }
 
 /** Une variante est proposable si elle a un libellé ET un prix exploitable. */

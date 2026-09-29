@@ -450,6 +450,57 @@ brute remettrait en place l'écart que ce module supprime.
 ⚠ **Les fleurs restent à saisie manuelle, et c'est volontaire** : 4,90 €/g
 donne 9,80 € les 2 g, l'écart y est la règle et non une anomalie.
 
+### Dégressivité : le prix au gramme est affiché, l'économie est CONSTATÉE
+
+Le 2026-09-29, le commerçant a demandé que le client « voie l'avantage à
+prendre 4 g plutôt que 2 ». **Mesure faite avant d'écrire quoi que ce soit :
+cet avantage n'existait pas.** Les 17 fiches au gramme étaient strictement
+proportionnelles — 8 g à 39,20 € contre quatre fois 9,80 €, à l'euro près.
+
+Une seule s'en écartait, **dans le mauvais sens** : `garlic-hydro-indoor-cbd`
+facturait les 2 g **11,99 €, soit 5,995 €/g**, alors que la fiche annonçait
+« 4,99 € / g » en gros titre — 20 % au-dessus du tarif affiché. Aligné à
+9,98 €.
+
+Afficher « avantage » là-dessus aurait été une annonce de réduction sans
+réduction, exactement le terrain que `prixBarre` venait de coûter. D'où le
+principe retenu :
+
+> **L'économie se constate, elle ne se déclare pas.**
+
+Chaque conditionnement affiche son **prix au gramme réel** (`.gram-btn-unitaire`),
+calculé depuis les données. Le repère **« −X %/g »** (`.gram-btn-eco`)
+n'apparaît que si l'économie est réelle. Aujourd'hui il est invisible partout ;
+il s'allumera tout seul le jour où un tarif baissera, sans que personne n'ait à
+y penser.
+
+⚠ **Seuil à 2 %, et il est mesuré, pas choisi.** Les arrondis créent un bruit
+de ±0,9 % — 9,99 € les 10 g font 0,999 €/g quand la fiche annonce 0,99 €/g.
+Annoncer « −0,1 % » serait une réduction inventée par l'arrondi. Le
+pourcentage est en outre arrondi **vers le bas** : 9,7 % s'affiche « −9 % »,
+mieux vaut promettre moins que le client ne reçoit.
+
+⚠ **La référence est le plus petit conditionnement, pas le prix de fiche.**
+C'est la comparaison que fait le client — « si je prends 4 g au lieu de 2 ».
+Comparer au prix de fiche annoncerait une économie sur un format que personne
+ne peut acheter.
+
+⚠ **Deux sélecteurs cohabitent dans `produit-detail.njk`, et ils ne se
+ressemblent pas** : `.gram-btn` (`data-gram-*`) pour les fleurs au gramme,
+`.variante-btn` (`data-variante-*`) pour les saveurs de puffs. J'ai d'abord
+modifié le second en croyant toucher les fleurs — le changement était inerte
+et invisible. Vérifier lequel on édite avant de commencer : le bloc des
+fleurs est conditionné par `produit.unitePrix == 'g'`.
+
+⚠ Toute classe nouvelle doit exister dans `input.css`, sinon `verify:css` fait
+échouer la construction. C'est ce qui a rattrapé l'oubli ici.
+
+**Reste à faire, et c'est une décision commerciale** : il n'y a aujourd'hui
+aucune dégressivité. Le mécanisme attend que le commerçant décide d'une grille
+(par exemple −5 % à 4 g, −10 % à 8 g). Deux fiches small buds gardent un écart
+de 0,9 % dû à un prix psychologique (9,99 € les 10 g au lieu de 9,90 €) :
+sous le seuil, donc sans effet.
+
 **Côté commerçant, modifier un tarif = modifier les variantes.** Le champ
 « Prix » de l'éditeur est ignoré dès qu'il y a des variantes ; son `hint` dans
 `admin/contenu/config.yml` le dit explicitement, parce qu'un champ qui ne fait

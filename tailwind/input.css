@@ -809,6 +809,25 @@ h1, h2, h3, .heading {
   color: var(--muted);
 }
 .gram-btn.active .gram-btn-prix { color: var(--gold-light); }
+/* Prix au gramme du conditionnement, et économie réelle s'il y en a une.
+   ⚠ Les deux sont CALCULÉS au build (`variantesVendables`, prix-fiche.mjs),
+   jamais saisis — et `.gram-btn-eco` n'est rendu que si l'économie dépasse
+   2 %, le bruit d'arrondi mesuré sur les tarifs réels. Au 2026-09-29 les
+   prix sont proportionnels : cette règle ne s'applique donc à rien, et
+   c'est voulu. Elle attend une vraie dégressivité. */
+.gram-btn-unitaire {
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  opacity: .8;
+}
+.gram-btn-eco {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #7FCF9A;
+}
+.gram-btn.active .gram-btn-unitaire { color: var(--gold-light); opacity: 1; }
 .variante-btn:disabled,
 .gram-btn:disabled {
   opacity: .35;
