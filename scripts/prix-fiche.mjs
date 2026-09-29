@@ -52,13 +52,60 @@ export function prixFiche(p) {
   return Math.min(...prix);
 }
 
+/** Une variante est proposable si elle a un libellé ET un prix exploitable. */
+export function varianteVendable(v) {
+  return Boolean(
+    v && String(v.label ?? "").trim() &&
+    typeof v.prix === "number" && Number.isFinite(v.prix),
+  );
+}
+
 /**
  * Applique la règle à une fiche, sans la muter.
  * `prixSaisi` conserve la valeur d'origine : utile pour expliquer au
  * commerçant que son champ est décoratif, et pour diagnostiquer un écart.
+ *
+ * ⚠ **Les variantes sans prix sont RETIRÉES de l'affichage**, et c'est le
+ * point le plus important de ce module.
+ *
+ * `build-catalog-index.js` ne les inscrit pas au catalogue serveur — elles
+ * n'ont pas de prix à facturer. Mais le gabarit, lui, les affichait : le
+ * client voyait la saveur, la choisissait, remplissait ses coordonnées, et sa
+ * commande était refusée à la validation par un « prix introuvable ». Le
+ * défaut n'apparaissait nulle part avant ce moment-là.
+ *
+ * Le 2026-09-29, le commerçant a ajouté deux saveurs à `jnr-32000-puffs`
+ * sans leur donner de prix. `verify:prix` faisait alors **échouer la
+ * construction** : dix déploiements refusés d'affilée, toute la boutique
+ * hors ligne, et lui sans moyen de comprendre pourquoi.
+ *
+ * Retirer la variante à l'affichage règle les deux problèmes d'un coup :
+ * le client ne peut plus choisir une saveur invendable, et le site n'a plus
+ * aucune raison de tomber. `verify:prix` se contente désormais d'avertir.
+ *
+ * ⚠ Si AUCUNE variante n'a de prix, le produit retombe sur son `prix` de
+ * fiche et se vend comme un produit simple — `build-catalog-index.js`
+ * inscrit toujours `entries[p.id]`, la commande aboutit donc. Un produit
+ * vendu sans son choix de saveur est un moindre mal devant un produit
+ * invendable, ou devant une boutique éteinte.
  */
 export function avecPrixCalcule(p) {
+  const variantes = Array.isArray(p?.variantes) ? p.variantes : [];
+  const vendables = variantes.filter(varianteVendable);
+  const aFiltre = vendables.length !== variantes.length;
+
   const calcule = prixFiche(p);
-  if (calcule === p?.prix) return p;
-  return { ...p, prix: calcule, prixSaisi: p?.prix };
+  if (calcule === p?.prix && !aFiltre) return p;
+
+  const fiche = { ...p, prix: calcule };
+  if (calcule !== p?.prix) fiche.prixSaisi = p?.prix;
+  if (aFiltre) {
+    fiche.variantes = vendables;
+    // Trace lisible pour le back-office et les contrôles : ce qui a été
+    // écarté, et pourquoi, plutôt qu'une disparition silencieuse.
+    fiche.variantesEcartees = variantes
+      .filter((v) => !varianteVendable(v))
+      .map((v) => String(v?.label ?? "(sans libellé)").trim());
+  }
+  return fiche;
 }

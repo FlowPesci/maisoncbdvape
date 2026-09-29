@@ -9,10 +9,7 @@
 
 /** @type {Record<string, number>} */
 export const CATALOG = {
-  "al-fakher-crown-bar-30k-20mg": 15.99,
-  "al-fakher-crown-bar-30k-20mg::Strawberry Punch": 15.99,
-  "al-fakher-crown-bar-30k-20mg::Space Dream": 15.99,
-  "al-fakher-crown-bar-30k-20mg::Cherry Ice": 15.99,
+  "al-fakher-50-k-prime": 19.99,
   "allume-charbon-chicha-tsar": 19.9,
   "allume-charbon-gaz-blackcoco-s": 24.9,
   "amazonien": 19.9,
@@ -124,10 +121,10 @@ export const CATALOG = {
   "jack-herer-hydro-indoor-cbd::2g": 9.8,
   "jack-herer-hydro-indoor-cbd::4g": 19.6,
   "jack-herer-hydro-indoor-cbd::8g": 39.2,
-  "jnr-28000-puffs": 18.9,
-  "jnr-32000-puffs": 19.9,
-  "jnr-crystalglow-love-66-adalya": 19.9,
-  "jnr-falcon-gem-30k": 19.9,
+  "jnr-32000-puffs": 14.99,
+  "jnr-32000-puffs::Cherry ICE": 15.99,
+  "jnr-32000-puffs::Blueberry Raspberry Cherry": 14.99,
+  "jnr-32000-puffs::Watermelon Mango Peach": 14.99,
   "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape": 64.9,
   "kit-gtx-one-pro-vaporesso": 49.9,
   "kit-q16-pro-plus-de-justfog": 39.9,
@@ -145,6 +142,8 @@ export const CATALOG = {
   "lemon-hydro-indoor-cbd::4g": 19.6,
   "lemon-hydro-indoor-cbd::8g": 39.2,
   "luxe-xr-max-2-vaporesso": 39.9,
+  "mango-small-bud-cbd": 0.99,
+  "mango-small-bud-cbd::10g": 9.99,
   "melange-vegetal-bergamote": 6.9,
   "melange-vegetal-menthe": 6.9,
   "melange-vegetal-natura": 6.9,
@@ -197,25 +196,6 @@ export const CATALOG = {
   "pomme-citron-50ml-le-petit-verger": 16.9,
   "pomme-citron-frais": 16.9,
   "pomme-rouge-pomme-verte": 16.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint": 19.9,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint": 19.9,
-  "puff-adalya-30k": 19.9,
   "raisin-rouge-grenade": 16.9,
   "riz-au-lait-50-ml": 16.9,
   "smash-small-bud-cbd": 0.99,
@@ -223,14 +203,12 @@ export const CATALOG = {
   "snowing-in-dam": 4.9,
   "spliff-box-l": 19.9,
   "spliff-box-m": 16.9,
-  "starbuzz-ultra-max-25k": 19.9,
   "tiramisu-cafe-50-ml": 16.9,
   "vaporesso-vibe-se-2": 16.9,
   "vaporesso-vibe-se": 9.9,
   "wiz": 19.9,
   "xros-5-mini-vaporesso": 19.9,
-  "xros-5-vaporesso": 24.9,
-  "zpluse-jnr-42k": 19.9
+  "xros-5-vaporesso": 24.9
 };
 
 /**
@@ -239,10 +217,7 @@ export const CATALOG = {
  * @type {Record<string, number>}
  */
 export const STOCKS = {
-  "al-fakher-crown-bar-30k-20mg": 10,
-  "al-fakher-crown-bar-30k-20mg::Strawberry Punch": 10,
-  "al-fakher-crown-bar-30k-20mg::Space Dream": 10,
-  "al-fakher-crown-bar-30k-20mg::Cherry Ice": 10,
+  "al-fakher-50-k-prime": 63,
   "allume-charbon-chicha-tsar": 10,
   "allume-charbon-gaz-blackcoco-s": 10,
   "amazonien": 10,
@@ -320,10 +295,10 @@ export const STOCKS = {
   "grinder-sensky-4-parties-en-aluminium": 10,
   "hash-primero": 10,
   "jack-herer-hydro-indoor-cbd": 10,
-  "jnr-28000-puffs": 10,
-  "jnr-32000-puffs": 10,
-  "jnr-crystalglow-love-66-adalya": 10,
-  "jnr-falcon-gem-30k": 10,
+  "jnr-32000-puffs": 21,
+  "jnr-32000-puffs::Cherry ICE": 21,
+  "jnr-32000-puffs::Blueberry Raspberry Cherry": 26,
+  "jnr-32000-puffs::Watermelon Mango Peach": 26,
   "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape": 10,
   "kit-gtx-one-pro-vaporesso": 10,
   "kit-q16-pro-plus-de-justfog": 10,
@@ -338,6 +313,7 @@ export const STOCKS = {
   "le-vanille": 10,
   "lemon-hydro-indoor-cbd": 10,
   "luxe-xr-max-2-vaporesso": 10,
+  "mango-small-bud-cbd": 113,
   "melange-vegetal-bergamote": 10,
   "melange-vegetal-menthe": 10,
   "melange-vegetal-natura": 10,
@@ -379,39 +355,18 @@ export const STOCKS = {
   "pomme-citron-50ml-le-petit-verger": 10,
   "pomme-citron-frais": 10,
   "pomme-rouge-pomme-verte": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint": 10,
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint": 10,
-  "puff-adalya-30k": 10,
   "raisin-rouge-grenade": 10,
   "riz-au-lait-50-ml": 10,
   "smash-small-bud-cbd": 126,
   "snowing-in-dam": 10,
   "spliff-box-l": 10,
   "spliff-box-m": 10,
-  "starbuzz-ultra-max-25k": 10,
   "tiramisu-cafe-50-ml": 10,
   "vaporesso-vibe-se-2": 10,
   "vaporesso-vibe-se": 10,
   "wiz": 10,
   "xros-5-mini-vaporesso": 10,
-  "xros-5-vaporesso": 10,
-  "zpluse-jnr-42k": 10
+  "xros-5-vaporesso": 10
 };
 
 /**
@@ -424,23 +379,8 @@ export const STOCKS = {
  * @type {Record<string, {cle: string, facteur: number, unite: string}>}
  */
 export const CLES_STOCK = {
-  "al-fakher-crown-bar-30k-20mg": {
-    "cle": "al-fakher-crown-bar-30k-20mg",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "al-fakher-crown-bar-30k-20mg::Strawberry Punch": {
-    "cle": "al-fakher-crown-bar-30k-20mg::Strawberry Punch",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "al-fakher-crown-bar-30k-20mg::Space Dream": {
-    "cle": "al-fakher-crown-bar-30k-20mg::Space Dream",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "al-fakher-crown-bar-30k-20mg::Cherry Ice": {
-    "cle": "al-fakher-crown-bar-30k-20mg::Cherry Ice",
+  "al-fakher-50-k-prime": {
+    "cle": "al-fakher-50-k-prime",
     "facteur": 1,
     "unite": "pcs"
   },
@@ -944,23 +884,23 @@ export const CLES_STOCK = {
     "facteur": 8,
     "unite": "g"
   },
-  "jnr-28000-puffs": {
-    "cle": "jnr-28000-puffs",
-    "facteur": 1,
-    "unite": "pcs"
-  },
   "jnr-32000-puffs": {
     "cle": "jnr-32000-puffs",
     "facteur": 1,
     "unite": "pcs"
   },
-  "jnr-crystalglow-love-66-adalya": {
-    "cle": "jnr-crystalglow-love-66-adalya",
+  "jnr-32000-puffs::Cherry ICE": {
+    "cle": "jnr-32000-puffs::Cherry ICE",
     "facteur": 1,
     "unite": "pcs"
   },
-  "jnr-falcon-gem-30k": {
-    "cle": "jnr-falcon-gem-30k",
+  "jnr-32000-puffs::Blueberry Raspberry Cherry": {
+    "cle": "jnr-32000-puffs::Blueberry Raspberry Cherry",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "jnr-32000-puffs::Watermelon Mango Peach": {
+    "cle": "jnr-32000-puffs::Watermelon Mango Peach",
     "facteur": 1,
     "unite": "pcs"
   },
@@ -1043,6 +983,11 @@ export const CLES_STOCK = {
     "cle": "luxe-xr-max-2-vaporesso",
     "facteur": 1,
     "unite": "pcs"
+  },
+  "mango-small-bud-cbd::10g": {
+    "cle": "mango-small-bud-cbd",
+    "facteur": 10,
+    "unite": "g"
   },
   "melange-vegetal-bergamote": {
     "cle": "melange-vegetal-bergamote",
@@ -1284,101 +1229,6 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint": {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "puff-adalya-30k": {
-    "cle": "puff-adalya-30k",
-    "facteur": 1,
-    "unite": "pcs"
-  },
   "raisin-rouge-grenade": {
     "cle": "raisin-rouge-grenade",
     "facteur": 1,
@@ -1406,11 +1256,6 @@ export const CLES_STOCK = {
   },
   "spliff-box-m": {
     "cle": "spliff-box-m",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "starbuzz-ultra-max-25k": {
-    "cle": "starbuzz-ultra-max-25k",
     "facteur": 1,
     "unite": "pcs"
   },
@@ -1443,11 +1288,6 @@ export const CLES_STOCK = {
     "cle": "xros-5-vaporesso",
     "facteur": 1,
     "unite": "pcs"
-  },
-  "zpluse-jnr-42k": {
-    "cle": "zpluse-jnr-42k",
-    "facteur": 1,
-    "unite": "pcs"
   }
 };
 
@@ -1460,10 +1300,7 @@ export const CLES_STOCK = {
  * @type {Record<string, string>}
  */
 export const UNITES_STOCK = {
-  "al-fakher-crown-bar-30k-20mg": "pcs",
-  "al-fakher-crown-bar-30k-20mg::Strawberry Punch": "pcs",
-  "al-fakher-crown-bar-30k-20mg::Space Dream": "pcs",
-  "al-fakher-crown-bar-30k-20mg::Cherry Ice": "pcs",
+  "al-fakher-50-k-prime": "pcs",
   "allume-charbon-chicha-tsar": "pcs",
   "allume-charbon-gaz-blackcoco-s": "pcs",
   "amazonien": "pcs",
@@ -1541,10 +1378,10 @@ export const UNITES_STOCK = {
   "grinder-sensky-4-parties-en-aluminium": "pcs",
   "hash-primero": "g",
   "jack-herer-hydro-indoor-cbd": "g",
-  "jnr-28000-puffs": "pcs",
   "jnr-32000-puffs": "pcs",
-  "jnr-crystalglow-love-66-adalya": "pcs",
-  "jnr-falcon-gem-30k": "pcs",
+  "jnr-32000-puffs::Cherry ICE": "pcs",
+  "jnr-32000-puffs::Blueberry Raspberry Cherry": "pcs",
+  "jnr-32000-puffs::Watermelon Mango Peach": "pcs",
   "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape": "pcs",
   "kit-gtx-one-pro-vaporesso": "pcs",
   "kit-q16-pro-plus-de-justfog": "pcs",
@@ -1559,6 +1396,7 @@ export const UNITES_STOCK = {
   "le-vanille": "pcs",
   "lemon-hydro-indoor-cbd": "g",
   "luxe-xr-max-2-vaporesso": "pcs",
+  "mango-small-bud-cbd": "g",
   "melange-vegetal-bergamote": "pcs",
   "melange-vegetal-menthe": "pcs",
   "melange-vegetal-natura": "pcs",
@@ -1600,39 +1438,18 @@ export const UNITES_STOCK = {
   "pomme-citron-50ml-le-petit-verger": "pcs",
   "pomme-citron-frais": "pcs",
   "pomme-rouge-pomme-verte": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint": "pcs",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint": "pcs",
-  "puff-adalya-30k": "pcs",
   "raisin-rouge-grenade": "pcs",
   "riz-au-lait-50-ml": "pcs",
   "smash-small-bud-cbd": "g",
   "snowing-in-dam": "pcs",
   "spliff-box-l": "pcs",
   "spliff-box-m": "pcs",
-  "starbuzz-ultra-max-25k": "pcs",
   "tiramisu-cafe-50-ml": "pcs",
   "vaporesso-vibe-se-2": "pcs",
   "vaporesso-vibe-se": "pcs",
   "wiz": "pcs",
   "xros-5-mini-vaporesso": "pcs",
-  "xros-5-vaporesso": "pcs",
-  "zpluse-jnr-42k": "pcs"
+  "xros-5-vaporesso": "pcs"
 };
 
 /**
@@ -1643,22 +1460,8 @@ export const UNITES_STOCK = {
  */
 export const REFERENCES = [
   {
-    "cle": "al-fakher-crown-bar-30k-20mg::Strawberry Punch",
-    "nom": "Al Fakher Crown Bar 30K 20MG Strawberry Punch",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "al-fakher-crown-bar-30k-20mg::Space Dream",
-    "nom": "Al Fakher Crown Bar 30K 20MG Space Dream",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "al-fakher-crown-bar-30k-20mg::Cherry Ice",
-    "nom": "Al Fakher Crown Bar 30K 20MG Cherry Ice",
+    "cle": "al-fakher-50-k-prime",
+    "nom": "Al Fakher 50k ",
     "marque": "Al Fakher",
     "categorie": "puffs",
     "unite": "pcs"
@@ -2196,30 +1999,23 @@ export const REFERENCES = [
     "unite": "g"
   },
   {
-    "cle": "jnr-28000-puffs",
-    "nom": "JNR 28000 Puffs",
+    "cle": "jnr-32000-puffs::Cherry ICE",
+    "nom": "JNR Aero x 32000 Puffs Cherry ICE",
     "marque": "JNR ",
     "categorie": "puffs",
     "unite": "pcs"
   },
   {
-    "cle": "jnr-32000-puffs",
-    "nom": "JNR 32000 Puffs",
+    "cle": "jnr-32000-puffs::Blueberry Raspberry Cherry",
+    "nom": "JNR Aero x 32000 Puffs Blueberry Raspberry Cherry",
     "marque": "JNR ",
     "categorie": "puffs",
     "unite": "pcs"
   },
   {
-    "cle": "jnr-crystalglow-love-66-adalya",
-    "nom": "JNR CRYSTALGLOW LOVE 66 Adalya",
+    "cle": "jnr-32000-puffs::Watermelon Mango Peach",
+    "nom": "JNR Aero x 32000 Puffs Watermelon Mango Peach",
     "marque": "JNR ",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "jnr-falcon-gem-30k",
-    "nom": "JNR Falcon Gem+ 30K",
-    "marque": "JNR",
     "categorie": "puffs",
     "unite": "pcs"
   },
@@ -2320,6 +2116,13 @@ export const REFERENCES = [
     "marque": "Vaporesso",
     "categorie": "vape",
     "unite": "pcs"
+  },
+  {
+    "cle": "mango-small-bud-cbd",
+    "nom": "Mango Small Bud CBD",
+    "marque": "K CBD",
+    "categorie": "cbd",
+    "unite": "g"
   },
   {
     "cle": "melange-vegetal-bergamote",
@@ -2602,132 +2405,6 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Raspberry",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Blueberry Raspberry",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mixed Berry",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Mixed Berry",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Peach Ice",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Peach Ice",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Menthol",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Menthol",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Punch",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Strawberry Punch",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Magic Love",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Magic Love",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Gum Mint",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Gum Mint",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Watermelon Kiwi",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Watermelon Kiwi",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mango Pineapple",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Mango Pineapple",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Cherry Fiesta",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Cherry Fiesta",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Cherry",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Blueberry Cherry",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Strawberry Cherry",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Strawberry Cherry",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Spearmint",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Spearmint",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Berry Blue",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Berry Blue",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Summer Dream",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Summer Dream",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Mint",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Mint",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-30k-hyper-max-crown-bar-by-al-fakher::Blueberry Mint",
-    "nom": "Puff 30k Hyper Max - Crown Bar by Al Fakher Blueberry Mint",
-    "marque": "Al Fakher",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
-    "cle": "puff-adalya-30k",
-    "nom": "PUFF Adalya 30K",
-    "marque": "Adalya",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
     "cle": "raisin-rouge-grenade",
     "nom": "Raisin rouge – Grenade",
     "marque": "Le Petit Verger",
@@ -2770,13 +2447,6 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
-    "cle": "starbuzz-ultra-max-25k",
-    "nom": "Starbuzz Ultra Max 25K",
-    "marque": "Starbuzz ",
-    "categorie": "puffs",
-    "unite": "pcs"
-  },
-  {
     "cle": "tiramisu-cafe-50-ml",
     "nom": "Tiramisu Café – 50 ml",
     "marque": "Le Petit Gourmet",
@@ -2816,13 +2486,6 @@ export const REFERENCES = [
     "nom": "XROS 5 Vaporesso",
     "marque": "Vaporesso",
     "categorie": "vape",
-    "unite": "pcs"
-  },
-  {
-    "cle": "zpluse-jnr-42k",
-    "nom": "Zpluse JNR 42K+",
-    "marque": "JNR",
-    "categorie": "puffs",
     "unite": "pcs"
   }
 ];
@@ -2890,7 +2553,6 @@ export function resoudreStock(id, label) {
  * @type {Set<string>}
  */
 export const PRODUITS_A_VARIANTES = new Set([
-  "al-fakher-crown-bar-30k-20mg",
   "amnesia-hydro-indoor-cbd",
   "burn-baby-burn-indoor-cbd",
   "candy-hydro-indoor-cbd",
@@ -2903,13 +2565,14 @@ export const PRODUITS_A_VARIANTES = new Set([
   "gelato-hydro-indoor-cbd",
   "hash-primero",
   "jack-herer-hydro-indoor-cbd",
+  "jnr-32000-puffs",
   "lemon-hydro-indoor-cbd",
+  "mango-small-bud-cbd",
   "moby-dick-hydro-indoor-cbd",
   "moon-rock-cbd-indoor",
   "pod-de-remplacement-aerox-32k-jnr",
   "pollen-d-amnesia-100-cbd",
   "pollen-d-or-100-cbd",
-  "puff-30k-hyper-max-crown-bar-by-al-fakher",
   "smash-small-bud-cbd"
 ]);
 

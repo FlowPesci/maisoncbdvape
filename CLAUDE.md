@@ -238,8 +238,22 @@ commerçant modifiait et supprimait des fiches. Rien de neuf dans le mécanisme 
 `verify:carte` et `verify:prix`, écrits la veille, bloquaient sur quatre gestes
 de son quotidien.
 
+**La cause réelle, lue dans le journal Cloudflare** : deux saveurs ajoutées à
+`jnr-32000-puffs` — « Black Dragon ice » et « Fizzi Cherry Cola » — **sans
+prix**. On crée la ligne, on écrit le libellé, on enregistre, on remplira le
+prix après : c'est le geste le plus banal de l'éditeur de contenu. Il a éteint
+la boutique.
+
+⚠ **J'avais d'abord désigné trois autres causes, toutes plausibles et toutes
+fausses**, avant de lire le journal. C'est la même erreur de méthode que
+pendant les deux jours Monetico. Le journal nomme la cause ; le raisonnement
+la devine, et se trompe.
+
+Les gestes qui faisaient tomber la construction, tous corrigés :
+
 | Geste | Contrôle qui tombait |
 |---|---|
+| **ajouter une saveur sans prix** | `verify:prix` ← la cause réelle |
 | supprimer une fiche appelée en dur (`pod-recharge`) | `verify:carte` |
 | la désactiver | `verify:carte` |
 | décocher les deux « vedettes » | `verify:carte` |
@@ -261,6 +275,19 @@ contrôle bloquait pour empêcher une annonce de réduction trompeuse ; désorma
 est strictement supérieur au prix**. La remise mensongère est devenue
 impossible à rendre — alors que le blocage, lui, se contentait d'empêcher de
 déployer.
+
+**Appliqué aux variantes sans prix, le gain est le même.** `avecPrixCalcule()`
+(`prix-fiche.mjs`) les **retire de l'affichage** : le client ne peut plus
+choisir une saveur qui ferait refuser sa commande à la validation. Le blocage,
+lui, n'empêchait rien de tel — il refusait seulement de déployer. La variante
+réapparaît dès que son prix est renseigné, et `variantesEcartees` garde la
+trace de ce qui a été écarté plutôt qu'une disparition silencieuse.
+
+⚠ Si **aucune** variante n'a de prix, le produit retombe sur son `prix` de
+fiche et se vend comme un produit simple : `build-catalog-index.js` inscrit
+toujours `entries[p.id]`, la commande aboutit donc. Vendre sans le choix de
+saveur est un moindre mal devant un produit invendable — et devant une
+boutique éteinte.
 
 ⚠ **Chercher d'abord le `{% if %}` dans le gabarit, avant le `process.exit(1)`
 dans le contrôle.** Un site qui affiche une information en moins vaut toujours

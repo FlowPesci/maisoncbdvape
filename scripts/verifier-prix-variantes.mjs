@@ -146,16 +146,34 @@ for (const nom of readdirSync(DOSSIER).filter((f) => f.endsWith(".json"))) {
   const slug = nom.replace(/\.json$/, "");
   const enVente = fiche.actif !== false;
 
+  // ⚠ AVERTIT, ne bloque pas — et c'est la troisième fois que cette leçon
+  //   se paie. Ajouter une saveur sans lui donner de prix est le geste le
+  //   plus banal du monde dans l'éditeur de contenu : on crée la ligne, on
+  //   écrit le libellé, on enregistre, on remplira le prix après.
+  //
+  //   Le 2026-09-29, deux saveurs ajoutées à `jnr-32000-puffs` ont fait
+  //   échouer DIX déploiements d'affilée. La boutique entière hors ligne
+  //   pour deux champs vides, et le commerçant sans aucun moyen de le voir.
+  //
+  //   La protection n'est pas perdue, elle a changé de place :
+  //   `avecPrixCalcule()` (prix-fiche.mjs) retire ces variantes de
+  //   l'affichage. Le client ne peut plus choisir une saveur invendable —
+  //   ce que le blocage, lui, n'empêchait pas : il se contentait de
+  //   refuser de déployer.
   if (sansLabel.length) {
-    anomalies.push({ slug, enVente, motif: `${sansLabel.length} variante(s) sans libellé` });
+    avertissements.push(
+      `${slug} : ${sansLabel.length} variante(s) sans libellé — retirée(s) de l'affichage.`,
+    );
   }
   if (sansPrix.length) {
-    anomalies.push({
-      slug,
-      enVente,
-      motif: `${sansPrix.length} variante(s) sans prix : ${sansPrix.slice(0, 4).join(", ")}` +
-             (sansPrix.length > 4 ? `, +${sansPrix.length - 4}` : ""),
-    });
+    avertissements.push(
+      `${slug}${enVente ? "" : " (retirée de la vente)"} : ` +
+      `${sansPrix.length} variante(s) sans prix, retirée(s) de l'affichage :\n` +
+      `         ${sansPrix.slice(0, 4).join(", ")}` +
+      (sansPrix.length > 4 ? `, +${sansPrix.length - 4}` : "") + `\n` +
+      `         Le client ne les voit pas tant qu'elles n'ont pas de prix.\n` +
+      `         Les renseigner dans /admin/contenu/ pour les remettre en vente.`,
+    );
   }
 }
 
