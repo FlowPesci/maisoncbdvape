@@ -208,7 +208,10 @@ eleventyComputed:
               {{ produit.prix | eur }}{% if produit.unitePrix %}<span style="font-size:1.5rem;">/{{ produit.unitePrix }}</span>{% endif %}
             {% endif %}
           </div>
-          {% if produit.prixBarre %}
+          {# ⚠ Même règle que sur les cartes : un prix barré inférieur ou égal
+             au prix pratiqué annonce une remise inexistante, et n'est donc
+             pas affiché. Voir components/product-card.njk. #}
+          {% if produit.prixBarre and produit.prixBarre > produit.prix %}
             <div class="mb-1">
               <div style="color:var(--muted);font-size:.875rem;text-decoration:line-through;font-family:'DM Sans',sans-serif;">{{ produit.prixBarre | eur }}</div>
               {% if discountPct %}

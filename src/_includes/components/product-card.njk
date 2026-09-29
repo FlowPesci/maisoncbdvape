@@ -78,7 +78,18 @@
 
       <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div class="flex items-center gap-2">
-          {% if produit.prixBarre %}
+          {# ⚠ Le prix barré n'est affiché que s'il est STRICTEMENT SUPÉRIEUR au
+             prix pratiqué. Un « ancien prix » inférieur ou égal annonce une
+             remise qui n'existe pas — pratique commerciale trompeuse (L121-2
+             et les règles propres aux annonces de réduction de prix).
+
+             La condition est ici, dans le rendu, et pas seulement dans un
+             contrôle de construction : le commerçant peut saisir n'importe
+             quel nombre dans « Prix barré », et faire échouer la construction
+             pour ça mettrait toute la boutique hors ligne le temps qu'il
+             s'en aperçoive. Le site se dégrade — il affiche le prix seul —
+             au lieu de disparaître. `verify:prix` le signale sans bloquer. #}
+          {% if produit.prixBarre and produit.prixBarre > produit.prix %}
             <div style="font-family:var(--font-titre);font-size:1.5rem;font-weight:300;color:var(--gold);">
               {{ produit.prix | eur }}{% if produit.unitePrix %}/{{ produit.unitePrix }}{% endif %}
             </div>

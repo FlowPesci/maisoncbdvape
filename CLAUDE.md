@@ -231,6 +231,45 @@ de relecture volontaire. Et `pointsForts` est passé `required: true` dans
 bloquant, se demander *« le commerçant peut-il déclencher ça en travaillant
 normalement ? »*. Si oui, il avertit.
 
+### ⚠ Cette règle a été enfreinte trois jours plus tard, par celui qui l'a écrite
+
+Le 2026-09-29, **dix déploiements d'affilée ont été refusés** pendant que le
+commerçant modifiait et supprimait des fiches. Rien de neuf dans le mécanisme :
+`verify:carte` et `verify:prix`, écrits la veille, bloquaient sur quatre gestes
+de son quotidien.
+
+| Geste | Contrôle qui tombait |
+|---|---|
+| supprimer une fiche appelée en dur (`pod-recharge`) | `verify:carte` |
+| la désactiver | `verify:carte` |
+| décocher les deux « vedettes » | `verify:carte` |
+| saisir un prix barré incohérent | `verify:prix` |
+
+**La formulation de la règle était trop faible.** « Se demander si… » invite à
+répondre non. La version qui tient :
+
+> **Ne bloquer que ce que le CODE peut casser.** Tout ce qui dépend d'une
+> donnée saisie par le commerçant avertit — et c'est la **page** qui se
+> dégrade proprement, pas la construction qui tombe.
+
+C'est plus sûr, pas moins : un contrôle bloquant sur une donnée saisie finit
+désactivé en urgence, et on perd alors la protection entière.
+
+**Appliqué au prix barré**, cela a même donné une meilleure garantie. Le
+contrôle bloquait pour empêcher une annonce de réduction trompeuse ; désormais
+`product-card.njk` et `produit-detail.njk` **n'affichent le prix barré que s'il
+est strictement supérieur au prix**. La remise mensongère est devenue
+impossible à rendre — alors que le blocage, lui, se contentait d'empêcher de
+déployer.
+
+⚠ **Chercher d'abord le `{% if %}` dans le gabarit, avant le `process.exit(1)`
+dans le contrôle.** Un site qui affiche une information en moins vaut toujours
+mieux qu'un site qui n'existe plus.
+
+Les blocages qui restent dans `verify:carte` sont les trois que le commerçant
+ne peut pas atteindre : champ « origine » disparu de `config.yml`, divergence
+entre `origines.mjs` et `config.yml`, drapeau réapparu en dur dans le gabarit.
+
 ### Aucun avis inventé
 
 Le gabarit contenait deux avis écrits en dur, signés de noms fictifs et marqués

@@ -76,16 +76,32 @@ for (const nom of readdirSync(DOSSIER).filter((f) => f.endsWith(".json"))) {
     typeof affiche === "number" && Number.isFinite(affiche) &&
     barre <= affiche
   ) {
-    anomalies.push({
-      slug: slugCourant,
-      enVente: fiche.actif !== false,
-      motif:
-        `prix barré ${barre} € ≤ prix affiché ${affiche} € — réduction trompeuse.\n` +
-        `         Le prix de référence doit être SUPÉRIEUR au prix pratiqué, sinon\n` +
-        `         le badge « Promo » annonce une remise qui n'existe pas (L121-2).\n` +
-        `         Vider « Prix barré », ou vérifier « Unité de prix » : un prix de\n` +
-        `         fiche calculé sur un pack au lieu du gramme produit ce symptôme.`,
-    });
+    // ⚠ AVERTIT, ne bloque pas — et ce choix a été payé.
+    //
+    // Cette vérification a d'abord fait échouer la construction. Le
+    // 2026-09-29, dix déploiements d'affilée ont été refusés pendant que le
+    // commerçant modifiait ses fiches : n'importe quel nombre saisi dans
+    // « Prix barré » mettait la boutique entière hors ligne, sans qu'il
+    // puisse ni le voir ni le comprendre. C'est mot pour mot le défaut que
+    // `--strict` avait déjà causé trois jours plus tôt, et que la règle
+    // écrite dans CLAUDE.md interdisait — règle que j'ai enfreinte en
+    // écrivant ce contrôle.
+    //
+    // La protection juridique n'est pas perdue pour autant, elle a changé de
+    // place : `product-card.njk` et `produit-detail.njk` n'affichent le prix
+    // barré QUE s'il est strictement supérieur au prix. La remise mensongère
+    // est donc impossible à rendre, et la boutique reste debout.
+    //
+    // La leçon générale : quand un contrôle porte sur une donnée que le
+    // commerçant saisit, faire dégrader la PAGE plutôt que tomber la
+    // construction.
+    avertissements.push(
+      `${slugCourant} : prix barré ${barre} € ≤ prix affiché ${affiche} €.\n` +
+      `         Le prix barré n'est PAS affiché dans ce cas — une remise annoncée\n` +
+      `         doit en être une (L121-2). Vider « Prix barré », ou vérifier\n` +
+      `         « Unité de prix » : un prix calculé sur un pack au lieu du gramme\n` +
+      `         produit exactement ce symptôme.`,
+    );
   }
 
   const variantes = Array.isArray(fiche.variantes) ? fiche.variantes : [];

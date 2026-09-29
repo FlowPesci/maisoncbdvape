@@ -22,6 +22,28 @@
  * l'œil sur la page rendue les voyait — et la carte n'est pas dans la passe
  * visuelle habituelle.
  *
+ * ─── ⚠ Ce qui BLOQUE, et ce qui se contente d'avertir ─────────────────────
+ * La règle, apprise deux fois à trois jours d'intervalle :
+ *
+ *   **Ne bloque que ce que le CODE peut casser. Tout ce que le commerçant
+ *   peut déclencher en travaillant normalement se contente d'avertir.**
+ *
+ * La première version de ce script bloquait sur quatre points que le
+ * commerçant produit tous les jours : supprimer une fiche appelée en dur,
+ * la désactiver, décocher ses deux vedettes. Le 2026-09-29, **dix
+ * déploiements d'affilée ont été refusés** pendant qu'il modifiait ses
+ * fiches — la boutique entière hors ligne, sans qu'il puisse le voir ni le
+ * comprendre. C'est exactement le défaut que `--strict` avait causé trois
+ * jours plus tôt, et que CLAUDE.md interdisait déjà noir sur blanc.
+ *
+ * Ne restent bloquants que trois points, tous hors de sa portée :
+ *   · le champ « origine » disparu de `config.yml` ;
+ *   · la divergence entre `origines.mjs` et `config.yml` ;
+ *   · un drapeau réapparu en dur dans le gabarit.
+ *
+ * Pour tout le reste, c'est la PAGE qui doit se dégrader proprement — un
+ * `{% if %}` dans le gabarit — et non la construction qui doit tomber.
+ *
  * Ce script vérifie ce qu'un humain ne relira pas à chaque déploiement :
  *  A. les identifiants encore écrits dans le gabarit existent et sont actifs ;
  *  B. aucune origine de fiche n'est inconnue de `origines.mjs` ;
@@ -60,18 +82,23 @@ const idsEnDur = [...gabarit.matchAll(/where\(\s*"id"\s*,\s*"([^"]+)"\s*\)/g)].m
   (m) => m[1],
 );
 
+// ⚠ AVERTIT, ne bloque pas. Supprimer ou désactiver une fiche est le
+//    geste le plus banal du commerçant, et `pod-recharge` — le seul
+//    identifiant encore en dur — est un produit comme un autre pour lui.
+//    Le gabarit sait déjà se passer de l'encart (`{% if podRecharge %}`) :
+//    la page se dégrade proprement, il n'y a donc rien à bloquer.
 for (const id of new Set(idsEnDur)) {
   const fiche = toutes.find((p) => p.id === id);
   if (!fiche) {
-    erreurs.push(
+    avertissements.push(
       `La carte CBD appelle le produit « ${id} », qui n'existe plus.\n` +
-        `   → soit la fiche a été supprimée, soit son identifiant a changé.\n` +
+        `   L'encart correspondant ne s'affiche plus (le gabarit le teste).\n` +
         `   Retirer l'encart de src/categories/categorie.njk, ou rétablir la fiche.`,
     );
   } else if (fiche.actif === false) {
-    erreurs.push(
+    avertissements.push(
       `La carte CBD appelle le produit « ${id} », désactivé dans l'éditeur de contenu.\n` +
-        `   → sa ligne serait vide sur la page, sans message d'erreur.\n` +
+        `   L'encart correspondant ne s'affiche plus (le gabarit le teste).\n` +
         `   Le remettre actif, ou retirer l'encart de src/categories/categorie.njk.`,
     );
   }
@@ -81,7 +108,7 @@ for (const id of new Set(idsEnDur)) {
 for (const p of actives) {
   if (p.origine === undefined || p.origine === "") continue;
   if (!VALEURS_ORIGINE.includes(p.origine)) {
-    erreurs.push(
+    avertissements.push(
       `${p.fichier} : origine « ${p.origine} » inconnue.\n` +
         `   Valeurs acceptées : ${VALEURS_ORIGINE.join(", ")}\n` +
         `   Une origine hors liste n'affiche AUCUN drapeau sur la carte, en silence.`,
@@ -102,7 +129,7 @@ for (const p of actives) {
   if (Array.isArray(ft)) {
     const boiteuses = ft.filter((l) => !l || !(l.cle ?? l.label));
     if (boiteuses.length) {
-      erreurs.push(
+      avertissements.push(
         `${p.fichier} : ${boiteuses.length} ligne(s) de fiche technique sans libellé.\n` +
           `   → elles s'affichent en lignes vides sur la page produit.`,
       );
@@ -110,7 +137,7 @@ for (const p of actives) {
     continue;
   }
   if (typeof ft === "object" && Object.keys(ft).length) {
-    erreurs.push(
+    avertissements.push(
       `${p.fichier} : fiche technique écrite en OBJET.\n` +
         `   L'éditeur de contenu déclare une liste de paires { cle, valeur } et ne sait\n` +
         `   pas éditer un objet à clés libres : le commerçant verrait un formulaire\n` +
@@ -147,9 +174,9 @@ if (!blocOrigine) {
 /* ── D. La carte a-t-elle au moins une vedette ? ──────────────────────────── */
 const vedettesCbd = actives.filter((p) => p.categorie === "cbd" && p.carteVedette === true);
 if (vedettesCbd.length === 0) {
-  erreurs.push(
+  avertissements.push(
     `Aucun produit CBD n'est coché « Mettre en avant sur la carte CBD ».\n` +
-      `   La colonne de tête de la carte serait vide, sous un titre « Best Sellers ».\n` +
+      `   La colonne de tête de la carte est vide sous son titre « Best Sellers ».\n` +
       `   Cocher la case sur une ou deux fiches depuis /admin/contenu/.`,
   );
 } else if (vedettesCbd.length > 4) {
