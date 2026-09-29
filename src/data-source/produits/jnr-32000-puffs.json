@@ -44,7 +44,25 @@
     {
       "stock": 21,
       "label": "Cherry ICE",
-      "prix": 19.99
+      "prix": 15.99
+    },
+    {
+      "stock": 26,
+      "label": "Blueberry Raspberry Cherry",
+      "prix": 14.99
+    },
+    {
+      "stock": 26,
+      "label": "Watermelon Mango Peach",
+      "prix": 14.99
+    },
+    {
+      "stock": 20,
+      "label": "Black Dragon ice"
+    },
+    {
+      "stock": 19,
+      "label": "Fizzi Cherry Cola"
     }
   ],
   "couleurs": [],
