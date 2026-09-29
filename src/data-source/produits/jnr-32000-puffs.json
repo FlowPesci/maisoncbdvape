@@ -11,7 +11,7 @@
   "nombreAvis": null,
   "nom": "JNR 32000 Puffs",
   "actif": true,
-  "prix": 19.9,
+  "prix": 14.99,
   "unitePrix": null,
   "note": null,
   "ficheTechnique": [
@@ -48,9 +48,9 @@
     }
   ],
   "couleurs": [],
-  "prixBarre": null,
+  "prixBarre": 19.99,
   "liquideRemplissable": "oui",
-  "stock": 10,
+  "stock": 21,
   "descriptionCourte": "32 000 bouffées et deux flacons fournis. Le format le plus endurant de la gamme JNR.",
   "categorie": "puffs",
   "dateAjout": "2026-05-09",
