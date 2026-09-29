@@ -495,6 +495,23 @@ fleurs est conditionné par `produit.unitePrix == 'g'`.
 ⚠ Toute classe nouvelle doit exister dans `input.css`, sinon `verify:css` fait
 échouer la construction. C'est ce qui a rattrapé l'oubli ici.
 
+**Un second repère, « Meilleur prix/g »** (`.gram-btn-best`), désigne le
+conditionnement au plus bas prix unitaire. Le commerçant veut pousser les 4 g,
+mais **aucun format n'est nommé dans le gabarit** : le repère suit les
+chiffres, et se déplacera tout seul si un autre format devient plus
+avantageux. Écrire « 4g » en dur serait reproduire les identifiants figés de
+la carte CBD, qui ont coûté une ligne vide et un déploiement.
+
+⚠ Il exige **un minimum unique** et une avance supérieure au seuil. Deux
+formats au même prix au gramme : il n'y a pas de « meilleur », et n'en
+désigner qu'un serait mensonger — le repère reste éteint.
+
+⚠ **Remiser un seul format rend les plus gros PLUS CHERS au gramme**, et le
+client le voit puisque la colonne affiche le prix unitaire. Remiser les 4 g
+sans toucher aux 8 g donne 4,40 €/g contre 4,90 €/g : un sachet deux fois plus
+gros vendu plus cher au gramme ressemble à une erreur de saisie. Si un format
+est poussé, veiller à ce que les plus grands **ne repassent jamais au-dessus**.
+
 **Reste à faire, et c'est une décision commerciale** : il n'y a aujourd'hui
 aucune dégressivité. Le mécanisme attend que le commerçant décide d'une grille
 (par exemple −5 % à 4 g, −10 % à 8 g). Deux fiches small buds gardent un écart

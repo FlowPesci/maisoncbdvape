@@ -828,6 +828,21 @@ h1, h2, h3, .heading {
   color: #7FCF9A;
 }
 .gram-btn.active .gram-btn-unitaire { color: var(--gold-light); opacity: 1; }
+/* Repère « meilleur prix au gramme » — posé sur le conditionnement au plus bas
+   prix unitaire, calculé, jamais nommé en dur. Éteint tant que les tarifs sont
+   proportionnels. */
+.gram-btn-best {
+  display: inline-block;
+  margin-top: 2px;
+  padding: 1px 5px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1A1714;
+  background: #C9A96E;
+  border-radius: 2px;
+}
 .variante-btn:disabled,
 .gram-btn:disabled {
   opacity: .35;

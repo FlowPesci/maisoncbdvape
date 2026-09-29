@@ -168,11 +168,42 @@ function avecPrixAuGramme(variantes) {
     parLabel.set(v.label, {
       grammes: g,
       prixAuGramme: Math.round(unitaire * 1000) / 1000,
+      unitaireExact: unitaire,
       // `null` — et non 0 — quand il n'y a rien à annoncer : le gabarit teste
       // la présence, pas la valeur.
       economiePct: gainPct >= SEUIL_ECONOMIE_PCT ? Math.floor(gainPct) : null,
     });
   }
+
+  // ── « Meilleur prix au gramme » ──────────────────────────────────────────
+  //
+  // Le commerçant veut pousser un conditionnement en particulier — les 4 g au
+  // 2026-09-29. Ce repère le met en avant, mais **il ne nomme aucun format** :
+  // il désigne celui qui a réellement le plus bas prix unitaire. Le jour où le
+  // tarif des 8 g devient meilleur, le repère s'y déplace tout seul. Écrire
+  // « 4g » dans un gabarit, c'est reproduire les identifiants en dur de la
+  // carte CBD, qui ont coûté une ligne vide et un déploiement.
+  //
+  // ⚠ Deux conditions, et les deux comptent :
+  //   · le minimum doit être UNIQUE — deux formats au même prix au gramme, il
+  //     n'y a pas de « meilleur », et n'en désigner qu'un serait mensonger ;
+  //   · son avance sur le suivant doit dépasser le seuil, sinon on annonce un
+  //     avantage créé par un arrondi.
+  // Aujourd'hui les tarifs sont proportionnels : le repère reste donc éteint,
+  // comme celui de l'économie.
+  const unitaires = [...parLabel.values()].map((x) => x.unitaireExact).sort((a, b) => a - b);
+  if (unitaires.length >= 2) {
+    const [meilleur, suivant] = unitaires;
+    const avance = ((suivant - meilleur) / suivant) * 100;
+    const uniques = unitaires.filter((u) => u === meilleur).length === 1;
+    if (uniques && avance >= SEUIL_ECONOMIE_PCT) {
+      for (const infos of parLabel.values()) {
+        if (infos.unitaireExact === meilleur) infos.meilleurRapport = true;
+      }
+    }
+  }
+
+  for (const infos of parLabel.values()) delete infos.unitaireExact;
 
   return variantes.map((v) => (parLabel.has(v.label) ? { ...v, ...parLabel.get(v.label) } : v));
 }

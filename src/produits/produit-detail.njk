@@ -173,6 +173,12 @@ eleventyComputed:
                 {% if v.economiePct %}
                   <span class="gram-btn-eco">−{{ v.economiePct }} %/g</span>
                 {% endif %}
+                {# ⚠ Désigne le conditionnement au plus bas prix au gramme, et
+                   lui seul — jamais un format écrit en dur. Si le commerçant
+                   remise un autre format demain, le repère s'y déplace. #}
+                {% if v.meilleurRapport %}
+                  <span class="gram-btn-best">Meilleur prix/g</span>
+                {% endif %}
               </button>
             {% endfor %}
           </div>
