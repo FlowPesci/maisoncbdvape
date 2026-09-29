@@ -1,0 +1,60 @@
+{
+  "marque": "Al Fakher",
+  "statutStock": "en-stock",
+  "pointsForts": [
+    "Jusqu'à 50 000 bouffées",
+    "Batterie rechargeable 1000 mAh, USB-C",
+    "2 cartouches magnétiques de 10 ml (Snap Dual)",
+    "Airflow réglable, tirage serré ou aérien",
+    "Écran LED : niveau de batterie et de e-liquide"
+  ],
+  "devise": "EUR",
+  "nom": "Al Fakher 50k ",
+  "actif": true,
+  "carteVedette": true,
+  "prix": 19.99,
+  "ficheTechnique": [
+    {
+      "cle": "Catégorie",
+      "valeur": "Puffs › Al Fakher"
+    },
+    {
+      "cle": "Gamme",
+      "valeur": "Crown Bar Hyper Max Prime"
+    },
+    {
+      "cle": "Nombre de bouffées",
+      "valeur": "50 000"
+    },
+    {
+      "cle": "Batterie",
+      "valeur": "1000 mAh, rechargeable USB-C"
+    },
+    {
+      "cle": "Contenance",
+      "valeur": "2 ml préremplis + 2 x 10 ml (cartouches)"
+    },
+    {
+      "cle": "Résistance",
+      "valeur": "Mesh 0,6 ohm"
+    },
+    {
+      "cle": "Nicotine ",
+      "valeur": "0.6 mg"
+    }
+  ],
+  "variantes": [],
+  "prixBarre": 24.99,
+  "liquideRemplissable": "oui",
+  "stock": 63,
+  "descriptionCourte": "La Crown Bar Hyper Max Prime pousse l'autonomie au maximum : jusqu'à 50 000 bouffées, portées par une batterie rechargeable de 1000 mAh et deux cartouches de 10 ml à clipser en un geste. Fini les puffs à jeter : seule la cartouche se change, la batterie reste.  Sa résistance mesh et son airflow réglable, du tirage serré au tirage aérien, offrent une vapeur dense et des saveurs constantes du premier au dernier souffle. L'écran LED affiche en temps réel le niveau de batterie et de liquide restant.",
+  "categorie": "puffs",
+  "dateAjout": "2026-09-29",
+  "id": "al-fakher-50-k-prime",
+  "image": "/assets/img/produits/al-fakher-50-k.jpg",
+  "sousCategorie": "al-fakher",
+  "seo": {
+    "title": "Al Fakher Crown Bar Hyper Max Prime 50K | MaisonCBDVape",
+    "description": "Al Fakher Hyper Max Prime 50K : jusqu'à 50 000 bouffées, rechargeable, 2 cartouches 10 ml. Retrait à Gex ou livraison 48h."
+  }
+}
