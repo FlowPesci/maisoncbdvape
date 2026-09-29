@@ -40,24 +40,30 @@
       "valeur": "USB-C"
     }
   ],
-  "variantes": [],
+  "variantes": [
+    {
+      "stock": 21,
+      "label": "Cherry ICE",
+      "prix": 19.99
+    }
+  ],
   "couleurs": [],
   "prixBarre": null,
+  "liquideRemplissable": "oui",
   "stock": 10,
   "descriptionCourte": "32 000 bouffées et deux flacons fournis. Le format le plus endurant de la gamme JNR.",
   "categorie": "puffs",
-  "liquideRemplissable": "oui",
   "dateAjout": "2026-05-09",
   "tags": [],
   "saveurs": [],
   "galerie": [],
   "id": "jnr-32000-puffs",
-  "image": "/media/produits/1778340756441-jnr-32000-puffs.png",
+  "image": "/assets/img/produits/aero-x-jnr.jpg",
   "description": "L'AeroX 32K pousse l'autonomie plus loin que la Falcon-X, avec le même principe : un appareil qu'on garde, un liquide qu'on renouvelle. Deux flacons de 10 ml sont livrés d'origine.\n\nLe pod se remplace séparément, ce qui prolonge encore la durée de vie de l'ensemble — une résistance fatiguée ne condamne pas l'appareil. Nous tenons le pod de rechange en boutique.\n\nUtilisation sans réglage, batterie de 850 mAh rechargeable en USB-C.",
   "contenuKit": [],
+  "sousCategorie": "jnr",
   "seo": {
     "title": "",
     "description": ""
-  },
-  "sousCategorie": "jnr"
+  }
 }
