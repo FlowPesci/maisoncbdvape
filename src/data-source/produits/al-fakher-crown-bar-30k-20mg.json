@@ -43,19 +43,21 @@
   "variantes": [
     {
       "label": "Strawberry Punch",
-      "prix": 15.99,
-      "stock": 10,
-      "image": "/assets/img/produits/puff-crown-bar-hypermax-advanced-30k-strawberry-punch-al-fakher.webp"
+      "prix": 14.99,
+      "stock": 31,
+      "image": "/assets/img/produits/al-fakher-crown-bar-30k-strawberry.png"
     },
     {
       "label": "Space Dream",
       "prix": 15.99,
-      "stock": 10
+      "stock": 26,
+      "image": "/assets/img/produits/al-fakher-crown-bar-30k-space-dream.png"
     },
     {
       "label": "Cherry Ice",
-      "prix": 15.99,
-      "stock": 10
+      "prix": 14.99,
+      "stock": 32,
+      "image": "/assets/img/produits/al-fakher-crown-bar-30k-cherry-ice.png"
     }
   ],
   "couleurs": [],
