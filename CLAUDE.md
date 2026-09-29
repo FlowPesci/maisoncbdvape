@@ -455,6 +455,50 @@ donne 9,80 € les 2 g, l'écart y est la règle et non une anomalie.
 `admin/contenu/config.yml` le dit explicitement, parce qu'un champ qui ne fait
 rien est exactement ce que les règles d'interface ci-dessus interdisent.
 
+### Le prix d'une variante est FACULTATIF : vide, il est hérité
+
+Depuis le 2026-09-29, à la demande du commerçant, qui vend ses saveurs au même
+tarif. **Prix de variante vide → la variante se vend au prix de la fiche.** Le
+champ reste disponible pour le jour où une saveur vaudra plus cher.
+
+Trois raisons, dans cet ordre d'importance :
+
+1. **Moins de façons de se tromper.** Quatre champs à tenir cohérents, c'est
+   quatre occasions d'en oublier un — c'est ainsi qu'une puff a annoncé
+   15,99 € et failli facturer 19,90 €.
+2. **Un tarif se change en un geste** au lieu d'autant de gestes qu'il y a de
+   saveurs.
+3. Une saveur ajoutée sans prix devient normale, et non plus une anomalie qui
+   a éteint la boutique dix déploiements d'affilée.
+
+⚠ **Les variantes ne peuvent PAS être supprimées pour autant.** Elles portent
+aussi le **stock par saveur** : `build-catalog-index.js` tient une ligne
+`jnr-32000-puffs::Cherry ICE` distincte. Sans elles, le site vendrait une
+saveur épuisée.
+
+⚠ **L'héritage est REFUSÉ sur une fiche au gramme**, et cette exception ne se
+lève jamais. Quand `unitePrix` est renseigné, `prix` vaut UN GRAMME (4,90 €) :
+un sachet de 4 g qui en hériterait serait vendu 4,90 € au lieu de 19,60 €. Là,
+la variante sans prix est **écartée de la vente** et `verify:prix` le signale.
+
+**`variantesVendables()` (`prix-fiche.mjs`) porte la règle, et elle seule.**
+`src/_data/produits.js` (affichage) **et** `build-catalog-index.js` (catalogue
+serveur) l'appellent tous les deux.
+
+⚠ **Elle fait plus qu'ajouter un prix : elle normalise aussi les libellés
+(`trim`).** Et c'est ce détail qui a failli tout casser à l'écriture : un
+raccourci « rien n'a changé, on rend la fiche telle quelle » laissait passer
+les libellés bruts à l'affichage pendant que le catalogue recevait les
+libellés nettoyés. Sur `pod-de-remplacement-aerox-32k-jnr`, deux saveurs se
+terminaient par une espace : la page proposait « Pastèque Glacée␣ », le
+catalogue connaissait « Pastèque Glacée », et la commande aurait été refusée
+sur un « prix introuvable ». **Dès qu'il y a des variantes, on rend toujours la
+version résolue — jamais de raccourci.**
+
+Le contrôle est automatisable et mérite de l'être : comparer, pour chaque
+`data-variante-label` / `data-variante-prix` des pages construites, la valeur
+du `CATALOG` correspondant. Zéro écart sur 39 variantes au 2026-09-29.
+
 `verify:prix` ne contrôle donc plus l'égalité — elle est structurelle — mais
 qu'**aucune variante n'est dépourvue de prix ou de libellé**, le défaut qui
 rend un produit silencieusement invendable.

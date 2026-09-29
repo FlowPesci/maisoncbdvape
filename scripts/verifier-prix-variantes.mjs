@@ -165,14 +165,24 @@ for (const nom of readdirSync(DOSSIER).filter((f) => f.endsWith(".json"))) {
       `${slug} : ${sansLabel.length} variante(s) sans libellé — retirée(s) de l'affichage.`,
     );
   }
-  if (sansPrix.length) {
+  // ⚠ Une variante sans prix n'est plus une anomalie en soi : depuis le
+  //   2026-09-29, elle HÉRITE du prix de la fiche (voir `variantesVendables`).
+  //   Le commerçant vend ses saveurs au même tarif — lui faire saisir quatre
+  //   fois le même nombre ne servait qu'à créer des occasions d'erreur.
+  //
+  //   Elle le redevient sur une fleur au gramme, où l'héritage est refusé :
+  //   `prix` y vaut le GRAMME, et un sachet de 4 g qui en hériterait serait
+  //   vendu 4,90 € au lieu de 19,60 €. Là, la variante est réellement écartée
+  //   et le client ne peut plus l'acheter — il faut le dire.
+  if (sansPrix.length && fiche.unitePrix) {
     avertissements.push(
       `${slug}${enVente ? "" : " (retirée de la vente)"} : ` +
-      `${sansPrix.length} variante(s) sans prix, retirée(s) de l'affichage :\n` +
+      `${sansPrix.length} conditionnement(s) sans prix, RETIRÉ(S) de la vente :\n` +
       `         ${sansPrix.slice(0, 4).join(", ")}` +
       (sansPrix.length > 4 ? `, +${sansPrix.length - 4}` : "") + `\n` +
-      `         Le client ne les voit pas tant qu'elles n'ont pas de prix.\n` +
-      `         Les renseigner dans /admin/contenu/ pour les remettre en vente.`,
+      `         Cette fiche est vendue au ${fiche.unitePrix} : le prix ne peut pas être\n` +
+      `         hérité (4,90 €/g donne 19,60 € les 4 g, pas 4,90 €). Saisir le prix\n` +
+      `         de chaque conditionnement dans /admin/contenu/.`,
     );
   }
 }

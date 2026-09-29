@@ -125,6 +125,8 @@ export const CATALOG = {
   "jnr-32000-puffs::Cherry ICE": 15.99,
   "jnr-32000-puffs::Blueberry Raspberry Cherry": 14.99,
   "jnr-32000-puffs::Watermelon Mango Peach": 14.99,
+  "jnr-32000-puffs::Black Dragon ice": 14.99,
+  "jnr-32000-puffs::Fizzi Cherry Cola": 14.99,
   "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape": 64.9,
   "kit-gtx-one-pro-vaporesso": 49.9,
   "kit-q16-pro-plus-de-justfog": 39.9,
@@ -172,12 +174,12 @@ export const CATALOG = {
   "plateau-euphoria": 9.9,
   "plateau-gangsta-panda": 6.9,
   "pod-de-remplacement-aerox-32k-jnr": 9.99,
-  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée": 9.99,
   "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée": 9.99,
   "pod-de-remplacement-aerox-32k-jnr::Pêche Glacée": 9.99,
   "pod-de-remplacement-aerox-32k-jnr::Pastèque Fraise": 9.99,
   "pod-de-remplacement-aerox-32k-jnr::Fraise Kiwi": 9.99,
-  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ": 9.99,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche": 9.99,
   "pod-de-remplacement-aerox-32k-jnr::Pastèque Bubble-gum": 9.99,
   "pod-de-remplacement-aerox-32k-jnr::Fruits Rouges": 9.99,
   "pod-de-remplacement-aerox-32k-jnr::Myrtille Grenade Glacée": 9.99,
@@ -299,6 +301,8 @@ export const STOCKS = {
   "jnr-32000-puffs::Cherry ICE": 21,
   "jnr-32000-puffs::Blueberry Raspberry Cherry": 26,
   "jnr-32000-puffs::Watermelon Mango Peach": 26,
+  "jnr-32000-puffs::Black Dragon ice": 20,
+  "jnr-32000-puffs::Fizzi Cherry Cola": 19,
   "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape": 10,
   "kit-gtx-one-pro-vaporesso": 10,
   "kit-q16-pro-plus-de-justfog": 10,
@@ -337,12 +341,12 @@ export const STOCKS = {
   "plateau-euphoria": 10,
   "plateau-gangsta-panda": 10,
   "pod-de-remplacement-aerox-32k-jnr": 10,
-  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ": 40,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée": 40,
   "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée": 40,
   "pod-de-remplacement-aerox-32k-jnr::Pêche Glacée": 40,
   "pod-de-remplacement-aerox-32k-jnr::Pastèque Fraise": 40,
   "pod-de-remplacement-aerox-32k-jnr::Fraise Kiwi": 40,
-  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ": 40,
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche": 40,
   "pod-de-remplacement-aerox-32k-jnr::Pastèque Bubble-gum": 40,
   "pod-de-remplacement-aerox-32k-jnr::Fruits Rouges": 10,
   "pod-de-remplacement-aerox-32k-jnr::Myrtille Grenade Glacée": 10,
@@ -904,6 +908,16 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
+  "jnr-32000-puffs::Black Dragon ice": {
+    "cle": "jnr-32000-puffs::Black Dragon ice",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "jnr-32000-puffs::Fizzi Cherry Cola": {
+    "cle": "jnr-32000-puffs::Fizzi Cherry Cola",
+    "facteur": 1,
+    "unite": "pcs"
+  },
   "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape": {
     "cle": "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape",
     "facteur": 1,
@@ -1119,8 +1133,8 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
-  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ": {
-    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ",
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée",
     "facteur": 1,
     "unite": "pcs"
   },
@@ -1144,8 +1158,8 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
-  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ": {
-    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ",
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche": {
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche",
     "facteur": 1,
     "unite": "pcs"
   },
@@ -1382,6 +1396,8 @@ export const UNITES_STOCK = {
   "jnr-32000-puffs::Cherry ICE": "pcs",
   "jnr-32000-puffs::Blueberry Raspberry Cherry": "pcs",
   "jnr-32000-puffs::Watermelon Mango Peach": "pcs",
+  "jnr-32000-puffs::Black Dragon ice": "pcs",
+  "jnr-32000-puffs::Fizzi Cherry Cola": "pcs",
   "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape": "pcs",
   "kit-gtx-one-pro-vaporesso": "pcs",
   "kit-q16-pro-plus-de-justfog": "pcs",
@@ -1420,12 +1436,12 @@ export const UNITES_STOCK = {
   "plateau-euphoria": "pcs",
   "plateau-gangsta-panda": "pcs",
   "pod-de-remplacement-aerox-32k-jnr": "pcs",
-  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée": "pcs",
   "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée": "pcs",
   "pod-de-remplacement-aerox-32k-jnr::Pêche Glacée": "pcs",
   "pod-de-remplacement-aerox-32k-jnr::Pastèque Fraise": "pcs",
   "pod-de-remplacement-aerox-32k-jnr::Fraise Kiwi": "pcs",
-  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ": "pcs",
+  "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche": "pcs",
   "pod-de-remplacement-aerox-32k-jnr::Pastèque Bubble-gum": "pcs",
   "pod-de-remplacement-aerox-32k-jnr::Fruits Rouges": "pcs",
   "pod-de-remplacement-aerox-32k-jnr::Myrtille Grenade Glacée": "pcs",
@@ -2020,6 +2036,20 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
+    "cle": "jnr-32000-puffs::Black Dragon ice",
+    "nom": "JNR Aero x 32000 Puffs Black Dragon ice",
+    "marque": "JNR ",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "jnr-32000-puffs::Fizzi Cherry Cola",
+    "nom": "JNR Aero x 32000 Puffs Fizzi Cherry Cola",
+    "marque": "JNR ",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
     "cle": "kit-box-gen-se-vaporesso-clearomiseur-zeus-nano-2-geek-vape",
     "nom": "Kit Box Gen SE Vaporesso + Clearomiseur Zeus Nano 2 Geek Vape",
     "marque": "Vaporesso",
@@ -2279,8 +2309,8 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
-    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée ",
-    "nom": "Pod de Remplacement AeroX 32K – JNR Pastèque Glacée ",
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Pastèque Glacée",
     "marque": "JNR",
     "categorie": "puffs",
     "unite": "pcs"
@@ -2314,8 +2344,8 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
-    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche ",
-    "nom": "Pod de Remplacement AeroX 32K – JNR Pastèque Mangue Pêche ",
+    "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Mangue Pêche",
+    "nom": "Pod de Remplacement AeroX 32K – JNR Pastèque Mangue Pêche",
     "marque": "JNR",
     "categorie": "puffs",
     "unite": "pcs"

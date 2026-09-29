@@ -40,24 +40,65 @@
 
 /** @param {object} p fiche produit brute @returns {number|undefined} */
 export function prixFiche(p) {
-  const variantes = Array.isArray(p?.variantes) ? p.variantes : [];
-  if (!variantes.length) return p?.prix;
+  const brutes = Array.isArray(p?.variantes) ? p.variantes : [];
+  if (!brutes.length) return p?.prix;
   if (p.unitePrix) return p.prix;
 
-  const prix = variantes
-    .map((v) => v?.prix)
-    .filter((n) => typeof n === "number" && Number.isFinite(n));
-
+  // ⚠ Sur les variantes RÉSOLUES, donc héritage compris : une saveur sans
+  //   prix vaut désormais le prix de la fiche, et doit compter dans le
+  //   « dès X € ». Lire `v.prix` brut ici annoncerait la variante la moins
+  //   chère parmi celles qui ont un prix saisi, en ignorant les autres.
+  const prix = variantesVendables(p).map((v) => v.prix);
   if (!prix.length) return p.prix;
   return Math.min(...prix);
 }
 
+const estNombre = (n) => typeof n === "number" && Number.isFinite(n);
+
+/**
+ * Les variantes réellement proposables, **prix résolu**.
+ *
+ * ─── L'héritage du prix produit (2026-09-29) ──────────────────────────────
+ * Le commerçant vend ses saveurs au même tarif. Lui faire saisir quatre fois
+ * le même nombre n'apportait rien et coûtait cher :
+ *   · modifier un tarif demandait autant de gestes qu'il y a de saveurs ;
+ *   · quatre champs à tenir cohérents, c'est quatre occasions d'en oublier un
+ *     — c'est ainsi qu'une puff a annoncé 15,99 € et failli facturer 19,90 € ;
+ *   · et une saveur ajoutée sans prix a éteint la boutique dix déploiements
+ *     d'affilée.
+ *
+ * **Prix de variante vide → la variante se vend au prix de la fiche.** Le
+ * champ reste là pour le jour où une saveur vaudra plus cher.
+ *
+ * ⚠ **SAUF sur les fleurs, et c'est le piège à ne jamais lever.** Quand
+ * `unitePrix` est renseigné, `prix` est le prix D'UN GRAMME (4,90 €). Un
+ * sachet de 4 g qui en hériterait serait vendu 4,90 € au lieu de 19,60 €.
+ * Sur ces fiches, une variante sans prix reste une vraie erreur : elle est
+ * écartée, et `verify:prix` la signale.
+ *
+ * ⚠ Cette fonction est la SEULE définition de l'héritage. `produits.js`
+ * (affichage) et `build-catalog-index.js` (catalogue serveur) l'appellent
+ * tous les deux — écrite deux fois, elle finirait par diverger, et on
+ * retomberait sur « prix annoncé ≠ prix facturé ».
+ *
+ * @returns {Array<{label:string, prix:number, prixHerite?:boolean, …}>}
+ */
+export function variantesVendables(p) {
+  const brutes = Array.isArray(p?.variantes) ? p.variantes : [];
+  const heritagePossible = !p?.unitePrix && estNombre(p?.prix);
+
+  return brutes.flatMap((v) => {
+    const label = String(v?.label ?? "").trim();
+    if (!label) return [];                       // sans libellé : rien à proposer
+    if (estNombre(v?.prix)) return [{ ...v, label }];
+    if (heritagePossible) return [{ ...v, label, prix: p.prix, prixHerite: true }];
+    return [];                                   // fleur sans prix : écartée
+  });
+}
+
 /** Une variante est proposable si elle a un libellé ET un prix exploitable. */
 export function varianteVendable(v) {
-  return Boolean(
-    v && String(v.label ?? "").trim() &&
-    typeof v.prix === "number" && Number.isFinite(v.prix),
-  );
+  return Boolean(v && String(v.label ?? "").trim() && estNombre(v.prix));
 }
 
 /**
@@ -91,21 +132,43 @@ export function varianteVendable(v) {
  */
 export function avecPrixCalcule(p) {
   const variantes = Array.isArray(p?.variantes) ? p.variantes : [];
-  const vendables = variantes.filter(varianteVendable);
+  const vendables = variantesVendables(p);
   const aFiltre = vendables.length !== variantes.length;
 
+  const aHerite = vendables.some((v) => v.prixHerite);
+
+  // ⚠ Dès qu'il y a des variantes, on rend TOUJOURS la version résolue : pas
+  //   de raccourci. `variantesVendables()` fait plus qu'ajouter un prix, elle
+  //   normalise aussi les libellés (`trim`). Le raccourci laissait donc
+  //   passer les libellés bruts à l'affichage pendant que le catalogue
+  //   serveur, lui, recevait les libellés nettoyés.
+  //
+  //   Constaté à l'écriture même de cette règle, sur
+  //   `pod-de-remplacement-aerox-32k-jnr` : deux saveurs au libellé terminé
+  //   par une espace. La page proposait « Pastèque Glacée␣ », le catalogue
+  //   connaissait « Pastèque Glacée » — une espace invisible, et la commande
+  //   aurait été refusée sur un « prix introuvable ».
+  //
+  //   C'est exactement la divergence que ce module existe pour supprimer, et
+  //   elle est réapparue par une optimisation de trois mots.
   const calcule = prixFiche(p);
-  if (calcule === p?.prix && !aFiltre) return p;
+  if (calcule === p?.prix && !aFiltre && !aHerite && !variantes.length) return p;
 
   const fiche = { ...p, prix: calcule };
   if (calcule !== p?.prix) fiche.prixSaisi = p?.prix;
+  // ⚠ Les variantes sont TOUJOURS remplacées par leur version résolue, même
+  //   si aucune n'a été écartée : c'est ce qui porte le prix hérité jusqu'aux
+  //   gabarits. Ne garder les brutes que « s'il n'y a rien à filtrer » ferait
+  //   afficher une saveur sans prix.
+  if (vendables.length) fiche.variantes = vendables;
   if (aFiltre) {
     fiche.variantes = vendables;
     // Trace lisible pour le back-office et les contrôles : ce qui a été
     // écarté, et pourquoi, plutôt qu'une disparition silencieuse.
+    const gardes = new Set(vendables.map((v) => v.label));
     fiche.variantesEcartees = variantes
-      .filter((v) => !varianteVendable(v))
-      .map((v) => String(v?.label ?? "(sans libellé)").trim());
+      .map((v) => String(v?.label ?? "(sans libellé)").trim())
+      .filter((l) => !gardes.has(l));
   }
   return fiche;
 }

@@ -13,7 +13,7 @@
 import { readdirSync, readFileSync, writeFileSync, mkdirSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { prixFiche } from "./prix-fiche.mjs";
+import { prixFiche, variantesVendables } from "./prix-fiche.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -120,10 +120,16 @@ for (const p of produits) {
   }
 
   // Prix et stock des variantes (clé : "id::label")
-  if (Array.isArray(p.variantes)) {
+  // ⚠ `variantesVendables()` et non `p.variantes` : c'est elle qui applique
+  //   l'héritage du prix produit (saveur sans prix → prix de la fiche), et
+  //   elle doit être la MÊME ici que côté affichage. Lire `p.variantes` brut
+  //   rendrait la saveur visible sur le site et introuvable au paiement —
+  //   « Article inconnu ou prix introuvable » au moment de valider.
+  {
+    const resolues = variantesVendables(p);
     let n = 0;
-    for (const v of p.variantes) {
-      if (v.label && typeof v.prix === "number") {
+    for (const v of resolues) {
+      {
         entries[`${p.id}::${v.label}`] = Number(v.prix);
 
         if (auPoids) {

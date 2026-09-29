@@ -403,7 +403,24 @@ collections:
         hint: "Une entrée par choix ACHETABLE, chacune avec SON PRIX et son stock. CBD : les grammages (2g, 4g, 8g). Puffs et e-liquides : une entrée par saveur. C'est le seul champ que le client peut sélectionner — et c'est ici qu'on modifie un tarif. Une variante sans prix rend le produit impossible à commander."
         fields:
           - { label: "Label", name: "label", widget: "string", hint: "Ex : 1g, 3g, Fraise, Mangue…" }
-          - { label: "Prix (€)", name: "prix", widget: "number", value_type: "float", required: false }
+          # ⚠ Facultatif, et c'est délibéré (2026-09-29). Laissé vide, la
+          #   saveur se vend au prix de la fiche — voir `variantesVendables()`
+          #   dans scripts/prix-fiche.mjs, qui porte la règle pour l'affichage
+          #   ET pour le catalogue serveur.
+          #   Faire saisir quatre fois le même nombre ne servait qu'à créer
+          #   des occasions de divergence, et une saveur ajoutée sans prix a
+          #   éteint la boutique dix déploiements d'affilée.
+          - label: "Prix (€)"
+            name: "prix"
+            widget: "number"
+            value_type: "float"
+            required: false
+            hint: >-
+              Facultatif. Vide, cette saveur se vend au prix du produit
+              ci-dessus — à ne remplir que si elle coûte un autre tarif.
+              ⚠ Sauf sur les fiches vendues au gramme (fleurs, résines) :
+              là, chaque conditionnement doit avoir son propre prix, sinon
+              4 g seraient vendus au prix d'un gramme.
           - { label: "Stock", name: "stock", widget: "number", value_type: "int", default: 10 }
           - label: "Photo de cette saveur"
             name: "image"
