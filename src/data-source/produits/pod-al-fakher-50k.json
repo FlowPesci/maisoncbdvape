@@ -1,0 +1,80 @@
+{
+  "marque": "Al Fakher",
+  "statutStock": "en-stock",
+  "devise": "EUR",
+  "nom": "Pod Al Fakher 50K",
+  "actif": true,
+  "carteVedette": true,
+  "prix": 14.99,
+  "variantes": [
+    {
+      "stock": 26,
+      "label": "Mint"
+    },
+    {
+      "stock": 10,
+      "label": "Menthol"
+    },
+    {
+      "stock": 10,
+      "label": "Spearmint"
+    },
+    {
+      "stock": 10,
+      "label": "Lush Ice"
+    },
+    {
+      "stock": 10,
+      "label": "Ice Blue"
+    },
+    {
+      "stock": 10,
+      "label": "Gum Mint"
+    },
+    {
+      "stock": 10,
+      "label": "Lemon Mint"
+    },
+    {
+      "stock": 10,
+      "label": "Blueberry Mint"
+    },
+    {
+      "stock": 10,
+      "label": "Blackcurrant Mint"
+    },
+    {
+      "stock": 10,
+      "label": "Lemon Lime"
+    },
+    {
+      "stock": 10,
+      "label": "Lemon Lime Cherry Fizz"
+    },
+    {
+      "stock": 10,
+      "label": "Blue Razz Lemonade"
+    },
+    {
+      "stock": 21,
+      "label": "Blueberry Lemonade"
+    },
+    {
+      "stock": 10,
+      "label": "Berry Blue"
+    }
+  ],
+  "prixBarre": 19.99,
+  "stock": 236,
+  "descriptionCourte": "La recharge officielle de la Crown Bar Hyper Max Prime : deux cartouches de 10 ml pour prolonger votre puff Al Fakher.",
+  "categorie": "puffs",
+  "dateAjout": "2026-09-30",
+  "id": "pod-al-fakher-50k",
+  "image": "/assets/img/produits/pod-al-fakher-50-k.jpg",
+  "description": "Ces cartouches sont le consommable dédié à la Crown Bar Hyper Max Prime : deux flacons de 10 ml préremplis, à clipser en un geste grâce au système magnétique Snap Dual. Seule la batterie reste, la cartouche vide se remplace en quelques secondes.\n\nÉquipées d'une résistance mesh intégrée, elles garantissent une chauffe homogène et une restitution fidèle des arômes, de la première à la dernière bouffée.",
+  "sousCategorie": "al-fakher",
+  "seo": {
+    "title": "Cartouche Al Fakher Hyper Max Prime 50K | MaisonCBDVape",
+    "description": "Recharge Al Fakher Crown Bar Hyper Max Prime 50K : 2 cartouches 10 ml, résistance mesh intégrée. Retrait à Gex ou livraison 48h."
+  }
+}
