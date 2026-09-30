@@ -63,15 +63,18 @@
     "indoor"
   ],
   "saveurs": [],
-  "galerie": [],
+  "galerie": [
+    "/assets/img/produits/lemon-haze-hydro-indoor-cbd.jpg",
+    "/assets/img/produits/fiche-lemon-haze-hydro-1x1.png"
+  ],
   "id": "lemon-hydro-indoor-cbd",
-  "image": "/media/produits/1778340449454-lemon-hydro-indoor-cbd.jpeg",
+  "image": "/assets/img/produits/lemon-haze-hydro-indoor-cbd.jpg",
   "description": "Du citron, immédiatement, et sans ambiguïté. La Lemon ouvre sur l'agrume vif, presque zesté, puis laisse venir un fond herbacé qui l'empêche d'être monotone. En bouche, c'est vif et rafraîchissant, avec une persistance surprenante pour un profil aussi léger.\n\nLes fleurs sont compactes et denses, d'un vert clair relevé de pistils orangés, sous une fine couche de trichomes brillants.\n\nCulture hydroponique indoor, manucure à la main, séchage lent. Pesée de 2 à 8 grammes.",
   "contenuKit": [],
+  "sousCategorie": "fleurs-indoor",
   "seo": {
     "title": "",
     "description": ""
   },
-  "sousCategorie": "fleurs-indoor",
   "origine": "union-europeenne"
 }
