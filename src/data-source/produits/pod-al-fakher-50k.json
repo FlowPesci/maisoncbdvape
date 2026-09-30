@@ -130,7 +130,7 @@
     {
       "stock": 33,
       "label": "Watermelon Kiwi",
-      "image": "/assets/img/produits/watermelon-cherry.jpg"
+      "image": "/assets/img/produits/watermelon-kiwi.jpg"
     },
     {
       "stock": 36,
@@ -143,28 +143,34 @@
       "image": "/assets/img/produits/watermelon-cherry.jpg"
     },
     {
-      "stock": 10,
-      "label": "Fusion Pop (Cocktail fruité)"
+      "stock": 36,
+      "label": "Fusion Pop (Cocktail fruité)",
+      "image": "/assets/img/produits/fusion-pop.jpg"
     },
     {
-      "stock": 10,
-      "label": "Magic Love (Fruits exotiques)"
+      "stock": 34,
+      "label": "Magic Love (Fruits exotiques)",
+      "image": "/assets/img/produits/magic-love.jpg"
     },
     {
-      "stock": 10,
-      "label": "Mango Pineapple (Mangue Ananas)"
+      "stock": 39,
+      "label": "Mango Pineapple (Mangue Ananas)",
+      "image": "/assets/img/produits/mango-pineapple.jpg"
     },
     {
-      "stock": 10,
-      "label": "Peach Ice "
+      "stock": 28,
+      "label": "Peach Ice ",
+      "image": "/assets/img/produits/peach-ice.jpg"
     },
     {
-      "stock": 10,
-      "label": "Pineapple Ice (Ananas)"
+      "stock": 30,
+      "label": "Pineapple Ice (Ananas)",
+      "image": "/assets/img/produits/pineapple-ice.jpg"
     },
     {
-      "stock": 10,
-      "label": "Summer Dream (Fruits d’été)"
+      "stock": 38,
+      "label": "Summer Dream (Fruits d’été)",
+      "image": "/assets/img/produits/summer-dream.jpg"
     }
   ],
   "prixBarre": 19.99,
