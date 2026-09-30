@@ -11,6 +11,8 @@
   "nom": "Smash Small Bud CBD",
   "actif": true,
   "prix": 0.99,
+  "unitePrix": "g",
+  "note": 5,
   "ficheTechnique": [
     {
       "cle": "10%",
@@ -45,6 +47,9 @@
   "descriptionCourte": "Nouveau : une greenhouse d'Italie aux notes de banane mûre et de fruits sucrés. Petites têtes, grande rondeur.",
   "categorie": "cbd",
   "dateAjout": "2026-09-26",
+  "tags": [
+    "hot"
+  ],
   "galerie": [
     "/assets/img/produits/smash-small-bud-cbd.jpg",
     "/assets/img/produits/smash-small-bud-cbd..jpg"
@@ -56,6 +61,5 @@
   "seo": {
     "title": "Smash Small Bud CBD Greenhouse Italie | MaisonCBDVape",
     "description": "Nouveauté : Smash Small Bud CBD, greenhouse d'Italie. Banane, fruité, sucré. Pesée à Gex, 0,99 €/g. Click & Collect ou livraison 48h."
-  },
-  "unitePrix": "g"
+  }
 }
