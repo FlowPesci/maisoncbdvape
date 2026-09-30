@@ -13,15 +13,11 @@
   "actif": true,
   "prix": 4.9,
   "unitePrix": "g",
-  "note": null,
+  "note": 5,
   "ficheTechnique": [
     {
       "cle": "Culture",
       "valeur": "Hydroponique, indoor"
-    },
-    {
-      "cle": "Origine",
-      "valeur": "Union européenne"
     },
     {
       "cle": "Taux de THC",
@@ -33,7 +29,7 @@
     },
     {
       "cle": "Conditionnement",
-      "valeur": "Pesée à la commande, 2 à 8 g"
+      "valeur": "Pesée à la commande, 2 à 20 g"
     }
   ],
   "variantes": [
@@ -60,18 +56,21 @@
   "categorie": "cbd",
   "dateAjout": "2026-05-09",
   "tags": [
-    "indoor"
+    "indoor",
+    "premium"
   ],
   "saveurs": [],
-  "galerie": [],
+  "galerie": [
+    "/assets/img/produits/fiche-moby-dick-hydro-1x1.png"
+  ],
   "id": "moby-dick-hydro-indoor-cbd",
-  "image": "/media/produits/1778340424986-moby-dick-hydro-indoor-cbd.jpeg",
+  "image": "/assets/img/produits/moby-dick-hydro-indoor-cbd.jpg",
   "description": "La Moby Dick est massive au nez comme à l'œil. Le bois et la terre dominent, mais une fraîcheur citronnée traverse l'ensemble et l'allège, avec une pointe épicée en fin de bouche. Le résultat est complexe, profond, et tient longtemps.\n\nSes buds sont volumineux et compacts — parmi les plus gros de la sélection — d'un vert clair rehaussé de pistils orangés éclatants, sous une fine couche de trichomes brillants.\n\nCulture hydroponique indoor, manucure à la main. Pesée depuis le bocal, de 2 à 8 grammes.",
   "contenuKit": [],
-  "seo": {
-    "title": "",
-    "description": ""
-  },
   "sousCategorie": "fleurs-indoor",
+  "seo": {
+    "title": "Moby Dick Hydro Indoor CBD 21 % | MaisonCBDVape",
+    "description": "Moby Dick Hydro Indoor CBD, fleur des USA à 21 % de CBD. Citron, résine, pin. Pesée à Gex, dès 4,90 €/g. Click & Collect ou livraison 48h."
+  },
   "origine": "union-europeenne"
 }
