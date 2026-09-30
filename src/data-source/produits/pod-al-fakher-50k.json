@@ -9,111 +9,162 @@
   "variantes": [
     {
       "stock": 26,
-      "label": "Mint"
+      "label": "Mint",
+      "image": "/assets/img/produits/mint.jpg"
     },
     {
-      "stock": 10,
-      "label": "Menthol"
+      "stock": 36,
+      "label": "Menthol",
+      "image": "/assets/img/produits/menthol.jpg"
     },
     {
-      "stock": 10,
-      "label": "Spearmint"
+      "stock": 54,
+      "label": "Spearmint",
+      "image": "/assets/img/produits/spearmint.jpg"
     },
     {
-      "stock": 10,
-      "label": "Lush Ice"
+      "stock": 58,
+      "label": "Lush Ice",
+      "image": "/assets/img/produits/lush-ice.jpg"
     },
     {
-      "stock": 10,
-      "label": "Ice Blue"
+      "stock": 25,
+      "label": "Ice Blue",
+      "image": "/assets/img/produits/ice-blue.jpg"
     },
     {
-      "stock": 10,
-      "label": "Gum Mint"
+      "stock": 45,
+      "label": "Gum Mint",
+      "image": "/assets/img/produits/gum-mint.jpg"
     },
     {
-      "stock": 10,
-      "label": "Lemon Mint"
+      "stock": 45,
+      "label": "Lemon Mint",
+      "image": "/assets/img/produits/lemon-mint.jpg"
     },
     {
-      "stock": 10,
-      "label": "Blueberry Mint"
+      "stock": 46,
+      "label": "Blueberry Mint",
+      "image": "/assets/img/produits/blueberry-mint.jpg"
     },
     {
-      "stock": 10,
-      "label": "Blackcurrant Mint"
+      "stock": 56,
+      "label": "Blackcurrant Mint",
+      "image": "/assets/img/produits/blackcurrant-mint.jpg"
     },
     {
-      "stock": 10,
-      "label": "Lemon Lime"
+      "stock": 54,
+      "label": "Lemon Lime",
+      "image": "/assets/img/produits/lemon-lime.jpg"
     },
     {
-      "stock": 10,
-      "label": "Lemon Lime Cherry Fizz"
+      "stock": 43,
+      "label": "Lemon Lime Cherry Fizz",
+      "image": "/assets/img/produits/lemon-lime-cherry-fizz.jpg"
     },
     {
-      "stock": 10,
-      "label": "Blue Razz Lemonade"
+      "stock": 56,
+      "label": "Blue Razz Lemonade",
+      "image": "/assets/img/produits/blue-razz-lemonade.jpg"
     },
     {
       "stock": 21,
-      "label": "Blueberry Lemonade"
+      "label": "Blueberry Lemonade",
+      "image": "/assets/img/produits/blueberry-lemonade.jpg"
+    },
+    {
+      "stock": 36,
+      "label": "Berry Blue",
+      "image": "/assets/img/produits/berry-blue.jpg"
+    },
+    {
+      "stock": 34,
+      "label": "Blackcurrant Ice",
+      "image": "/assets/img/produits/blackcurrant-ice.jpg"
+    },
+    {
+      "stock": 32,
+      "label": "Blueberry Cherry",
+      "image": "/assets/img/produits/blueberry-cherry.jpg"
+    },
+    {
+      "stock": 53,
+      "label": "Blueberry Gum",
+      "image": "/assets/img/produits/blueberry-gum.jpg"
+    },
+    {
+      "stock": 34,
+      "label": "Blueberry Sour Raspberry",
+      "image": "/assets/img/produits/blueberry-sour-raspberry.jpg"
+    },
+    {
+      "stock": 36,
+      "label": "Cherry Fiesta",
+      "image": "/assets/img/produits/cherry-fiesta.jpg"
+    },
+    {
+      "stock": 35,
+      "label": "Cherry Ice",
+      "image": "/assets/img/produits/cherry-ice.jpg"
+    },
+    {
+      "stock": 58,
+      "label": "Mixed Berry",
+      "image": "/assets/img/produits/mixed-berry.jpg"
+    },
+    {
+      "stock": 24,
+      "label": "Strawberry Cherry",
+      "image": "/assets/img/produits/strawberry-cherry.jpg"
+    },
+    {
+      "stock": 36,
+      "label": "Strawberry Punch",
+      "image": "/assets/img/produits/strawberry-punch.jpg"
     },
     {
       "stock": 10,
-      "label": "Berry Blue"
+      "label": "Watermelon Pineapple",
+      "image": "/assets/img/produits/watermelon-pineapple.jpg"
+    },
+    {
+      "stock": 33,
+      "label": "Watermelon Kiwi",
+      "image": "/assets/img/produits/watermelon-cherry.jpg"
+    },
+    {
+      "stock": 36,
+      "label": "Watermelon Lime",
+      "image": "/assets/img/produits/watermelon-lime.jpg"
     },
     {
       "stock": 10,
-      "label": "Blackcurrant Ice"
+      "label": "Watermelon Cherry",
+      "image": "/assets/img/produits/watermelon-cherry.jpg"
     },
     {
       "stock": 10,
-      "label": "Blueberry Cherry"
+      "label": "Fusion Pop (Cocktail fruité)"
     },
     {
       "stock": 10,
-      "label": "Blueberry Gum"
+      "label": "Magic Love (Fruits exotiques)"
     },
     {
       "stock": 10,
-      "label": "Blueberry Sour Raspberry"
+      "label": "Mango Pineapple (Mangue Ananas)"
     },
     {
       "stock": 10,
-      "label": "Cherry Fiesta"
+      "label": "Peach Ice "
     },
     {
       "stock": 10,
-      "label": "Cherry Ice"
+      "label": "Pineapple Ice (Ananas)"
     },
     {
       "stock": 10,
-      "label": "Mixed Berry"
-    },
-    {
-      "stock": 10,
-      "label": "Strawberry Cherry"
-    },
-    {
-      "stock": 10,
-      "label": "Strawberry Punch"
-    },
-    {
-      "stock": 10,
-      "label": "Watermelon Pineapple"
-    },
-    {
-      "stock": 10,
-      "label": "Watermelon Kiwi"
-    },
-    {
-      "stock": 10,
-      "label": "Watermelon Lime"
-    },
-    {
-      "stock": 10,
-      "label": "Watermelon Cherry"
+      "label": "Summer Dream (Fruits d’été)"
     }
   ],
   "prixBarre": 19.99,
