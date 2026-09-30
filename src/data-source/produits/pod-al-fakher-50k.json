@@ -62,6 +62,58 @@
     {
       "stock": 10,
       "label": "Berry Blue"
+    },
+    {
+      "stock": 10,
+      "label": "Blackcurrant Ice"
+    },
+    {
+      "stock": 10,
+      "label": "Blueberry Cherry"
+    },
+    {
+      "stock": 10,
+      "label": "Blueberry Gum"
+    },
+    {
+      "stock": 10,
+      "label": "Blueberry Sour Raspberry"
+    },
+    {
+      "stock": 10,
+      "label": "Cherry Fiesta"
+    },
+    {
+      "stock": 10,
+      "label": "Cherry Ice"
+    },
+    {
+      "stock": 10,
+      "label": "Mixed Berry"
+    },
+    {
+      "stock": 10,
+      "label": "Strawberry Cherry"
+    },
+    {
+      "stock": 10,
+      "label": "Strawberry Punch"
+    },
+    {
+      "stock": 10,
+      "label": "Watermelon Pineapple"
+    },
+    {
+      "stock": 10,
+      "label": "Watermelon Kiwi"
+    },
+    {
+      "stock": 10,
+      "label": "Watermelon Lime"
+    },
+    {
+      "stock": 10,
+      "label": "Watermelon Cherry"
     }
   ],
   "prixBarre": 19.99,
