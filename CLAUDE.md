@@ -508,15 +508,35 @@ désigner qu'un serait mensonger — le repère reste éteint.
 
 ⚠ **Remiser un seul format rend les plus gros PLUS CHERS au gramme**, et le
 client le voit puisque la colonne affiche le prix unitaire. Remiser les 4 g
-sans toucher aux 8 g donne 4,40 €/g contre 4,90 €/g : un sachet deux fois plus
-gros vendu plus cher au gramme ressemble à une erreur de saisie. Si un format
-est poussé, veiller à ce que les plus grands **ne repassent jamais au-dessus**.
+sans toucher aux 8 g donne 4,41 €/g contre 4,90 €/g : un sachet deux fois plus
+gros vendu plus cher au gramme ressemble à une erreur de saisie — et c'en est
+une. L'échelle au gramme doit rester **décroissante**.
 
-**Reste à faire, et c'est une décision commerciale** : il n'y a aujourd'hui
-aucune dégressivité. Le mécanisme attend que le commerçant décide d'une grille
-(par exemple −5 % à 4 g, −10 % à 8 g). Deux fiches small buds gardent un écart
-de 0,9 % dû à un prix psychologique (9,99 € les 10 g au lieu de 9,90 €) :
-sous le seuil, donc sans effet.
+**`verify:prix` le surveille désormais**, format par format : il compare les
+prix au gramme de deux conditionnements voisins et **avertit** dès que le plus
+grand repasse au-dessus de plus de 2 % (même seuil que le repère d'économie, et
+pour la même raison — les arrondis font ±0,9 % de bruit). Il **n'a pas à
+bloquer** : ce sont des prix saisis, et la page reste juste toute seule, elle
+affiche le prix réel et n'allume « −X %/g » que sur une économie réelle.
+
+**Les prix CBD sont gérés par le commerçant, référence par référence**
+(décidé le 2026-09-29). Ils ne seront pas les mêmes d'une fleur à l'autre : il
+n'y a donc **aucune grille à appliquer en lot**, et il ne faut pas en inventer
+une. La forme visée est celle qu'il a retenue : **les 4 g au meilleur prix au
+gramme** — c'est le format qu'il veut pousser — **et les formats plus grands
+jamais au-dessus**, quitte à les remiser un peu moins. Le mécanisme est
+entièrement piloté par les données : les deux repères s'allumeront tout seuls
+au premier tarif baissé, sans une ligne à écrire.
+
+⚠ **Personne ne relira ces échelles à sa place.** Un prix au gramme qui
+remonte ne produit aucune erreur, ne casse aucune page, et se lit pourtant
+sous les boutons. Le message de `verify:prix` est le seul endroit où
+l'incohérence se voit avant le client.
+
+Aucune dégressivité n'existe à ce jour : les 17 fiches au gramme sont
+proportionnelles, donc les deux repères sont éteints partout. Deux fiches small
+buds gardent un écart de 0,9 % dû à un prix psychologique (9,99 € les 10 g au
+lieu de 9,90 €) : sous le seuil, donc sans effet.
 
 **Côté commerçant, modifier un tarif = modifier les variantes.** Le champ
 « Prix » de l'éditeur est ignoré dès qu'il y a des variantes ; son `hint` dans

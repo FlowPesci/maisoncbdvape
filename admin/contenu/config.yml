@@ -420,7 +420,9 @@ collections:
               ci-dessus — à ne remplir que si elle coûte un autre tarif.
               ⚠ Sauf sur les fiches vendues au gramme (fleurs, résines) :
               là, chaque conditionnement doit avoir son propre prix, sinon
-              4 g seraient vendus au prix d'un gramme.
+              4 g seraient vendus au prix d'un gramme. Et si vous remisez un
+              format, gardez les plus grands moins chers au gramme : la fiche
+              affiche le prix au gramme de chaque sachet, côte à côte.
           - { label: "Stock", name: "stock", widget: "number", value_type: "int", default: 10 }
           - label: "Photo de cette saveur"
             name: "image"

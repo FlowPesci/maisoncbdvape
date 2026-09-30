@@ -32,7 +32,7 @@
 
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { prixFiche } from "./prix-fiche.mjs";
+import { prixFiche, grammesDe } from "./prix-fiche.mjs";
 
 const DOSSIER = "src/data-source/produits";
 
@@ -184,6 +184,63 @@ for (const nom of readdirSync(DOSSIER).filter((f) => f.endsWith(".json"))) {
       `         hérité (4,90 €/g donne 19,60 € les 4 g, pas 4,90 €). Saisir le prix\n` +
       `         de chaque conditionnement dans /admin/contenu/.`,
     );
+  }
+
+  // ── L'échelle au gramme doit rester DÉCROISSANTE ─────────────────────────
+  //
+  // ⚠ C'est le piège de la dégressivité, et il est arrivé avec elle. Depuis le
+  //   2026-09-29 la fiche affiche le prix au gramme réel de chaque
+  //   conditionnement (`.gram-btn-unitaire`) : le client compare donc les
+  //   formats entre eux, ce qu'il ne pouvait pas faire avant.
+  //
+  //   Remiser un seul format rend mécaniquement les plus gros PLUS CHERS au
+  //   gramme. Remiser les 4 g sans toucher aux 8 g donne 4,40 €/g contre
+  //   4,90 €/g : un sachet deux fois plus gros vendu plus cher au gramme, écrit
+  //   noir sur blanc sous les deux boutons. Ça ressemble à une erreur de
+  //   saisie, et ça en est une.
+  //
+  //   Le commerçant fixe lui-même ses prix, référence par référence — ils ne
+  //   sont pas les mêmes d'une fleur à l'autre, il n'y a donc aucune grille à
+  //   appliquer en lot. Personne ne relira ces échelles à sa place : ce
+  //   contrôle est le seul endroit où l'incohérence se voit.
+  //
+  // ⚠ AVERTIT, jamais ne bloque : c'est une donnée saisie par le commerçant.
+  //   La page, elle, reste juste — elle affiche le prix réel et éteint le
+  //   repère « −X %/g », qui ne s'allume que sur une économie réelle.
+  if (fiche.unitePrix === "g") {
+    const paliers = variantes
+      .map((v) => ({
+        label: String(v?.label ?? "").trim(),
+        g: grammesDe(v?.label),
+        prix: v?.prix,
+      }))
+      .filter((x) => x.g && typeof x.prix === "number" && Number.isFinite(x.prix))
+      .map((x) => ({ ...x, unitaire: x.prix / x.g }))
+      .sort((a, b) => a.g - b.g);
+
+    const remontees = [];
+    for (let i = 1; i < paliers.length; i++) {
+      const bas = paliers[i - 1];
+      const haut = paliers[i];
+      // Même seuil de 2 % que le repère d'économie, et pour la même raison :
+      // les arrondis créent un bruit de ±0,9 % (9,99 € les 10 g font
+      // 0,999 €/g quand la fiche annonce 0,99 €/g). En dessous, il n'y a
+      // rien à signaler.
+      const ecart = ((haut.unitaire - bas.unitaire) / bas.unitaire) * 100;
+      if (ecart >= 2) remontees.push({ bas, haut, ecart });
+    }
+
+    for (const r of remontees) {
+      avertissements.push(
+        `${slug} : le ${r.haut.label} est PLUS CHER au gramme que le ${r.bas.label}\n` +
+        `         ${r.haut.prix.toFixed(2)} € / ${r.haut.g} g = ${r.haut.unitaire.toFixed(2)} €/g` +
+        `   contre   ${r.bas.prix.toFixed(2)} € / ${r.bas.g} g = ${r.bas.unitaire.toFixed(2)} €/g` +
+        `   (+${r.ecart.toFixed(0)} %)\n` +
+        `         Les deux prix au gramme sont affichés côte à côte sur la fiche : le\n` +
+        `         client voit qu'il paie le grand format plus cher. Baisser le ${r.haut.label}\n` +
+        `         ou remonter le ${r.bas.label} dans /admin/contenu/.`,
+      );
+    }
   }
 }
 
