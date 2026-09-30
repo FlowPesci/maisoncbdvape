@@ -12,6 +12,7 @@
   "actif": true,
   "prix": 0.99,
   "unitePrix": "g",
+  "note": 4,
   "ficheTechnique": [
     {
       "cle": "10%",
