@@ -4,18 +4,48 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>{% if title %}{{ title }} – {% endif %}{{ site.nom }} | {{ site.tagline }}</title>
+{# ⚠ La marque n'apparaît QU'UNE FOIS. L'audit du 2026-09-30 a relevé sur
+   l'accueil : « MaisonCBDVape – L'art de savourer autrement – MaisonCBDVape |
+   L'art de savourer autrement ». La cause n'était pas ici mais dans le front
+   matter d'`index.njk`, qui portait déjà le nom ET la baseline, auxquels cette
+   ligne ajoutait les deux mêmes.
+
+   La règle : le front matter décrit LA PAGE, jamais la marque. Le suffixe est
+   ajouté ici, et ici seulement. La baseline ne sert plus qu'aux pages sans
+   titre propre — il n'en reste aucune, mais le repli évite un titre vide. #}
+<title>{{ title | titrePage(site.nom, site.tagline) }}</title>
 <meta name="description" content="{{ description or site.description }}" />
 
 {# ─── Open Graph / Twitter ─────────────────────────────────────────── #}
 <meta property="og:type"        content="website" />
 <meta property="og:locale"      content="{{ site.locale }}" />
 <meta property="og:site_name"   content="{{ site.nom }}" />
-<meta property="og:title"       content="{% if title %}{{ title }} – {% endif %}{{ site.nom }}" />
+<meta property="og:title"       content="{{ title | titrePage(site.nom, site.tagline) }}" />
 <meta property="og:description" content="{{ description or site.description }}" />
 <meta property="og:url"         content="{{ site.url }}{{ canonicalPath or page.url }}" />
-{% if ogImage %}<meta property="og:image" content="{{ ogImage }}" />{% endif %}
-<meta name="twitter:card" content="summary_large_image" />
+
+{# ⚠ `og:image` n'est JAMAIS conditionnelle. Elle l'était, et comme aucune page
+   hors fiche produit ne définissait `ogImage`, l'accueil partait sans visuel —
+   relevé par l'audit du 2026-09-30. Le pire était l'incohérence : la ligne
+   `twitter:card` annonçait `summary_large_image`, donc une grande image, à une
+   plateforme qui n'en recevait aucune. Un lien partagé sortait en carte grise.
+
+   Le repli est `scripts/generer-og-image.mjs`, dessiné depuis les tokens et
+   `site.json`. Les fiches produits continuent de passer leur propre photo.
+   L'URL doit être ABSOLUE : les plateformes ne résolvent pas un chemin
+   relatif, elles ne visitent pas la page. #}
+{% set partage = ogImage or (site.url + '/assets/img/og-maisoncbdvape.png') %}
+<meta property="og:image"     content="{{ partage }}" />
+<meta property="og:image:alt" content="{{ ogImageAlt or (site.nom + ' — ' + site.tagline) }}" />
+{# Les dimensions ne sont annoncées que pour le visuel de repli, dont on les
+   connaît. Les déclarer sur une photo produit — dont la taille varie d'une
+   fiche à l'autre — reviendrait à annoncer 1200 × 630 pour une image qui n'en
+   fait pas : une plateforme qui réserve la place d'après ces valeurs afficherait
+   un cadre de travers. Mieux vaut qu'elle mesure elle-même. #}
+{% if not ogImage %}<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />{% endif %}
+<meta name="twitter:card"  content="summary_large_image" />
+<meta name="twitter:image" content="{{ partage }}" />
 
 <link rel="canonical" href="{{ site.url }}{{ canonicalPath or page.url }}" />
 

@@ -163,15 +163,40 @@
   --cream:      #F5F0E8;
   --gold:       #C9A96E;
   --gold-light: #E8D5A3;
-  --muted:      #8A8070;
+  /* ⚠ Éclairci le 2026-09-30, et la valeur est MESURÉE, pas choisie.
+     L'ancienne, #8A8070, donnait 4,59:1 sur le fond principal — tout juste au
+     seuil WCAG AA (4,5:1) — mais seulement 4,26:1 sur les cartes (--dark2) et
+     3,87:1 sur --dark3, où elle sert le plus : prix au gramme, marque
+     au-dessus du nom produit, sous-titres de réassurance.
+
+     Elle échouait donc exactement là où elle était le plus employée, et ça ne
+     se voyait pas : mesurer une couleur sur le fond de la page ne dit rien de
+     son rendu sur une carte posée dessus. Relevé par l'audit du 2026-09-30,
+     recalculé avant d'être appliqué.
+
+     #A89E8C donne 6,74 / 6,25 / 5,68:1 sur les trois fonds. ~170 emplois dans
+     les gabarits, aucun comme couleur de bordure : l'éclaircir ne déplace
+     aucun trait, ça ne touche que du texte. */
+  --muted:      #A89E8C;
   --text:       #D8D0C4;
   /* Le vert ne fait plus partie de la charte : les prix et les totaux sont
      passés en doré. Il ne sert plus que de code d'état dans le back-office
      — « en stock », « ligne reconnue » — où un vert reste le signal le plus
      lisible. Ramené d'un fluo d'ancienne charte à un vert sobre.
-     ⚠ Ne pas le réintroduire côté boutique. */
-  --green:      #4A9E5C;   /* état positif, back-office uniquement */
-  --green-rgb:  74,158,92;
+     ⚠ Ne pas le réintroduire côté boutique.
+
+     ⚠ Éclairci lui aussi le 2026-09-30 : #4A9E5C tombait à 4,54:1 sur
+     --dark3, soit le seuil à 0,04 près — et le badge « En stock » pose le
+     texte sur un fond vert à 12 % d'opacité, qui éclaircit encore le fond et
+     fait donc passer le rapport réel SOUS le seuil. Le calcul sur la couleur
+     de fond nue ne suffisait pas à le voir. #6FCF82 donne 9,28 / 8,61 /
+     7,82:1 et reste un vert sobre. */
+  --green:      #6FCF82;   /* état positif — voir ci-dessus pour la boutique */
+  --green-rgb:  111,207,130;
+  /* --green-deep n'est employé nulle part (vérifié le 2026-09-30) et échoue
+     partout : 3,39:1 sur le fond principal. Conservé faute de savoir ce qu'il
+     servait, mais ne pas s'en servir — il n'atteint AA sur aucun fond du
+     site. */
   --green-deep: #2F7A42;
   --border:     rgba(201,169,110,0.22);
   --borderl:    rgba(201,169,110,0.13);
@@ -193,6 +218,27 @@ body {
 /* Tous les éléments respectent la boîte (déjà fait par Tailwind Preflight
    mais on le force pour les éléments hors-Tailwind) */
 *, *::before, *::after { box-sizing: border-box; }
+
+/* ─── Anneau de focus clavier ─────────────────────────────────────────────
+   Ajouté le 2026-09-30. Le site n'en avait aucun de portée générale : trois
+   composants définissaient le leur (`.rail-fleche`, les champs d'avis, le tri)
+   et tout le reste — liens du menu, cartes produits, boutons de format,
+   « Ajouter au panier » — héritait du contour par défaut du navigateur, que le
+   Preflight de Tailwind retire. Naviguer au clavier revenait donc à avancer
+   sans curseur : impossible de savoir où l'on est.
+
+   ⚠ `:focus-visible`, jamais `:focus`. `:focus` dessinerait aussi l'anneau au
+   clic à la souris, et c'est précisément ce que les développeurs supprimaient
+   à coups de `outline: none` — d'où des sites entiers inutilisables au
+   clavier. Le navigateur sait faire la différence ; on le laisse décider.
+
+   Doré clair plutôt que doré : l'anneau doit rester visible SUR un élément
+   déjà doré (un bouton au survol, un onglet actif). --gold sur --gold ne se
+   verrait pas. */
+:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 2px;
+}
 /* ─── Hero layout ─────────────────────────────────────────────────────── */
 .hero-inner {
   max-width: 1280px;
@@ -825,7 +871,9 @@ h1, h2, h3, .heading {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.03em;
-  color: #7FCF9A;
+  /* Écrit #7FCF9A en dur à sa création la veille — ma propre deuxième source
+     de vérité, corrigée le lendemain avec celle de `.stock-badge`. */
+  color: var(--green);
 }
 .gram-btn.active .gram-btn-unitaire { color: var(--gold-light); opacity: 1; }
 /* Repère « meilleur prix au gramme » — posé sur le conditionnement au plus bas
@@ -839,8 +887,8 @@ h1, h2, h3, .heading {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #1A1714;
-  background: #C9A96E;
+  color: var(--dark);
+  background: var(--gold);
   border-radius: 2px;
 }
 .variante-btn:disabled,
@@ -1328,10 +1376,14 @@ em, i, cite, dfn, address, blockquote, q {
 .breadcrumb-link:hover { color: var(--gold); }
 
 /* ─── Badges d'état d'une fiche ou d'une carte produit ─────────────────── */
+/* ⚠ Passé aux variables le 2026-09-30. Ces trois lignes portaient #4A9E5C en
+   dur, recopié de --green : la deuxième source de vérité habituelle. Éclaircir
+   le token n'aurait donc rien changé ici, et le badge serait resté sous le
+   seuil de contraste pendant qu'on croyait l'avoir corrigé. */
 .stock-badge {
-  background: rgba(74, 158, 92, 0.12);
-  color: #4A9E5C;
-  border: 1px solid rgba(74, 158, 92, 0.32);
+  background: rgba(var(--green-rgb), 0.12);
+  color: var(--green);
+  border: 1px solid rgba(var(--green-rgb), 0.32);
 }
 .stock-low {
   background: rgba(255, 165, 0, 0.14);

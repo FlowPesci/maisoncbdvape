@@ -70,6 +70,47 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("dump", (value) => JSON.stringify(value, null, 2));
 
   /**
+   * Titre de page — la marque n'apparaît qu'UNE fois.
+   *
+   * L'audit du 2026-09-30 a relevé la duplication sur l'accueil. Le front
+   * matter a été corrigé, mais la construction qui a suivi en a montré une
+   * autre, invisible de l'extérieur : « Al Fakher Crown Bar Hyper Max Prime
+   * 50K | MaisonCBDVape | MaisonCBDVape ». Les 8 fiches qui portent un
+   * `seo.title` écrivent TOUTES la marque dedans — elles ont été rédigées
+   * avant que `head.njk` l'ajoute.
+   *
+   * ⚠ Corriger ces 8 fiches n'aurait rien réglé : le champ « Titre SEO » est
+   *   libre dans l'éditeur de contenu, et écrire « Mon produit |
+   *   MaisonCBDVape » est le réflexe de tous ceux qui ont déjà rempli ce
+   *   genre de champ. Le défaut serait revenu à la première fiche suivante,
+   *   et personne ne relit les balises `<title>`.
+   *
+   *   D'où un filtre : le suffixe est retiré s'il est là, puis ajouté une
+   *   fois. Le commerçant peut l'écrire ou non, le résultat est le même.
+   *
+   * Accepte les trois séparateurs qu'on trouve dans ces champs — « | », « – »
+   * (demi-cadratin) et « - ». La comparaison ignore la casse : « maisoncbdvape »
+   * doit être reconnu autant que « MaisonCBDVape ».
+   */
+  eleventyConfig.addFilter("titrePage", (titre, nomSite, tagline) => {
+    const marque = String(nomSite || "");
+    let t = String(titre || "").trim();
+
+    // Retire le suffixe autant de fois qu'il est présent : un champ recopié
+    // deux fois donnerait sinon « … | Marque » au lieu d'un titre propre.
+    const suffixe = new RegExp(
+      `\\s*[|\\u2013\\u2014-]\\s*${marque.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*$`,
+      "i",
+    );
+    while (marque && suffixe.test(t)) t = t.replace(suffixe, "").trim();
+
+    // Sans titre de page, on retombe sur marque + baseline : c'est le seul
+    // endroit où la baseline a sa place dans un <title>.
+    if (!t) return tagline ? `${marque} | ${tagline}` : marque;
+    return `${t} | ${marque}`;
+  });
+
+  /**
    * Origine géographique — drapeau et libellé.
    *
    * ⚠ Passer par ces filtres, jamais écrire un drapeau dans un gabarit : la

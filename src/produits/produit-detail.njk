@@ -9,6 +9,10 @@ eleventyComputed:
   title: "{{ produit.seo.title or produit.nom }}"
   description: "{{ produit.seo.description or produit.descriptionCourte }}"
   ogImage: "{{ site.url }}{{ produit.image }}"
+  # Sans ça, la carte de partage d'une fiche décrit la MARQUE et non le
+  # produit : le repli de `head.njk` est « nom — baseline », juste pour
+  # l'accueil, absurde sur un produit.
+  ogImageAlt: "{{ produit.nom }}"
   canonicalPath: "/produits/{{ produit.id }}/"
 ---
 {# ──────────────────────────────────────────────────────────────────────────
@@ -220,7 +224,27 @@ eleventyComputed:
       <div style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.25rem;margin-bottom:1.25rem;">
         <div class="flex items-end gap-4 mb-3 flex-wrap">
           <div style="font-family:var(--font-titre);font-size:3rem;font-weight:300;color:var(--gold);">
-            {% if produit.variantes and produit.variantes | length > 0 %}
+            {% if auPoids %}
+              {# ⚠ Une fiche au gramme n'entre PAS dans le cas « dès » ci-dessous,
+                 et c'est une correction du 2026-09-30.
+
+                 `produit.prix` y vaut UN GRAMME — 4,99 € sur l'Amnésia — alors
+                 que le plus petit sachet achetable coûte 19,99 €. Le serveur
+                 rendait donc « dès 4,99 € » sur un produit dont rien n'est
+                 vendu à ce prix. Le JavaScript le remplaçait au chargement par
+                 le prix du premier contenant, si bien que le défaut ne se
+                 voyait pas — jusqu'à ce qu'un script meure, ce qui est arrivé
+                 deux fois dans ce projet.
+
+                 C'est exactement la famille « prix annoncé ≠ prix facturé »
+                 que `prix-fiche.mjs` existe pour fermer, et elle rouvrait ici
+                 par le gabarit. On rend donc le prix du premier contenant,
+                 côté serveur, sans dépendre de personne. Le prix au gramme
+                 reste affiché en tête du bloc « Contenant » — c'est sa place,
+                 et il y est juste. #}
+              {% set premier = produit.variantes | first %}
+              <span id="prix-display">{{ premier.prix | eur }}</span>
+            {% elif produit.variantes and produit.variantes | length > 0 %}
               {# Aucune saveur choisie à l'arrivée : on annonce le prix le plus
                  bas, précédé de « dès ». Afficher le prix de la première
                  variante ferait passer un tarif pour celui du produit alors
@@ -525,7 +549,12 @@ eleventyComputed:
     <div class="flex items-center gap-3">
       <div>
         <div style="color:var(--muted);font-size:.7rem;font-family:'DM Sans',sans-serif;max-width:140px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{ produit.nom }}</div>
-        <div style="font-family:var(--font-titre);font-size:1.5rem;font-weight:300;color:var(--gold);">{% if produit.variantes and produit.variantes | length > 0 %}<span id="prix-des-sticky" style="font-size:.9rem;color:var(--muted);">dès </span><span id="prix-display-sticky">{{ produit.prix | eur }}</span>{% else %}{{ produit.prix | eur }}{% endif %}</div>
+        {# Même règle que le bloc prix principal : sur une fiche au gramme,
+           `produit.prix` est le prix d'UN gramme et ne doit jamais être annoncé
+           comme un prix de vente. Les deux blocs doivent rester d'accord —
+           corriger l'un sans l'autre remettrait l'écart en place, à l'endroit
+           le plus visible sur mobile. #}
+        <div style="font-family:var(--font-titre);font-size:1.5rem;font-weight:300;color:var(--gold);">{% if auPoids %}<span id="prix-display-sticky">{{ (produit.variantes | first).prix | eur }}</span>{% elif produit.variantes and produit.variantes | length > 0 %}<span id="prix-des-sticky" style="font-size:.9rem;color:var(--muted);">dès </span><span id="prix-display-sticky">{{ produit.prix | eur }}</span>{% else %}{{ produit.prix | eur }}{% endif %}</div>
       </div>
       <button data-add-to-cart="{{ produit.id }}"
               class="btn-gold flex-1 py-3.5 text-sm uppercase tracking-widest font-semibold flex items-center justify-center gap-2">

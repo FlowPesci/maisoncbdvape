@@ -115,10 +115,19 @@
     <div class="gold-divider" style="margin:40px 0 24px;"></div>
     <div style="display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;">
       <p style="font-size:11px;color:var(--muted);">© {% year %} {{ site.nom }} – Tous droits réservés.</p>
-      {# Sert à la première connexion sur un appareil : sans jeton, le raccourci
-         flottant ne peut pas apparaître. Volontairement discret et sans intérêt
-         pour un visiteur — l'accès reste protégé par GitHub. #}
-      <a href="/admin/" rel="nofollow" style="font-size:10px;color:var(--muted);opacity:.55;letter-spacing:.08em;">Espace pro</a>
+      {# ⚠ Le lien « Espace pro » vers /admin/ a été RETIRÉ le 2026-09-30, après
+         l'audit qui l'a relevé en P1. Ne pas le remettre.
+
+         L'accès reste protégé par GitHub — ce n'était donc pas une faille, et
+         c'est précisément pourquoi il avait été jugé acceptable. Mais publier
+         l'adresse de son back-office sur chaque page d'une boutique, c'est
+         offrir la moitié du travail à qui cherche une porte : il ne reste plus
+         qu'à s'intéresser à l'authentification.
+
+         Il servait à la première connexion sur un nouvel appareil. L'adresse
+         est dans `docs/manuel-commercant.md` (tableau en tête) et tient dans un
+         favori : https://maisoncbdvape.fr/admin/. Une fois connecté, le
+         raccourci flottant réapparaît via le cookie `mcv_admin_hint`. #}
     </div>
   </div>
 </footer>

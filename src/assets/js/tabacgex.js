@@ -138,6 +138,23 @@
       badge.textContent = count > 99 ? '99+' : count;
       badge.style.display = count > 0 ? '' : 'none';
     });
+
+    // ⚠ Le compteur est INVISIBLE pour un lecteur d'écran sans cette ligne.
+    //   Le lien du panier porte `aria-label="Mon panier"`, et un aria-label
+    //   REMPLACE le contenu de l'élément : la pastille a beau afficher « 3 »,
+    //   elle n'est jamais annoncée. L'utilisateur entend « Mon panier, lien »
+    //   qu'il soit vide ou plein, et n'a aucun moyen de le savoir autrement.
+    //
+    //   D'où la mise à jour du libellé lui-même plutôt qu'un `aria-live` sur
+    //   la pastille : c'est l'état du lien qui change, pas une notification.
+    document.querySelectorAll('[data-panier-lien]').forEach((lien) => {
+      lien.setAttribute(
+        'aria-label',
+        count === 0
+          ? 'Mon panier, vide'
+          : `Mon panier, ${count} article${count > 1 ? 's' : ''}`,
+      );
+    });
   };
 
   const addToCart = (productId, qty = 1, variante = null) => {

@@ -108,7 +108,8 @@ collections:
         required: false
         collapsed: true
         fields:
-          - { label: "Titre SEO", name: "title", widget: "string", required: false }
+          - { label: "Titre SEO", name: "title", widget: "string", required: false,
+              hint: "Facultatif. Ne pas écrire « MaisonCBDVape » : le nom de la boutique est ajouté automatiquement à la fin. Environ 50 caractères." }
           - { label: "Description SEO", name: "description", widget: "text", required: false }
 
   # ════════════════════════════════════════════════════════════════════════
@@ -498,7 +499,8 @@ collections:
         widget: "object"
         required: false
         fields:
-          - { label: "Titre SEO", name: "title", widget: "string", required: false }
+          - { label: "Titre SEO", name: "title", widget: "string", required: false,
+              hint: "Facultatif. Ne pas écrire « MaisonCBDVape » : le nom de la boutique est ajouté automatiquement à la fin. Environ 50 caractères." }
           - { label: "Meta description", name: "description", widget: "string", required: false, hint: "150-160 caractères max" }
 
   - name: "categories"

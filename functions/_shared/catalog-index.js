@@ -14,7 +14,6 @@ export const CATALOG = {
   "allume-charbon-gaz-blackcoco-s": 24.9,
   "amazonien": 19.9,
   "amnesia-hydro-indoor-cbd": 4.99,
-  "amnesia-hydro-indoor-cbd::2g": 9.99,
   "amnesia-hydro-indoor-cbd::4g": 19.99,
   "amnesia-hydro-indoor-cbd::8g": 39.99,
   "amnesia-hydro-indoor-cbd::12g": 59.99,
@@ -30,15 +29,7 @@ export const CATALOG = {
   "box-gen-se-vaporesso": 39.9,
   "box-voopoo-vinci-spark-100": 39.9,
   "brugnon-orange-sanguine-50-ml": 16.9,
-  "burn-baby-burn-indoor-cbd": 4.9,
-  "burn-baby-burn-indoor-cbd::2g": 9.8,
-  "burn-baby-burn-indoor-cbd::4g": 19.6,
-  "burn-baby-burn-indoor-cbd::8g": 39.2,
   "cake-noisettes-50-ml": 16.9,
-  "candy-hydro-indoor-cbd": 4.9,
-  "candy-hydro-indoor-cbd::2g": 9.8,
-  "candy-hydro-indoor-cbd::4g": 19.6,
-  "candy-hydro-indoor-cbd::8g": 39.2,
   "cannele-50-ml": 16.9,
   "cassis-framboise-50ml-le-petit-verger": 16.9,
   "cassis-framboise-frais": 16.9,
@@ -54,14 +45,10 @@ export const CATALOG = {
   "clearomiseur-zeus-subohm-5-ml-geekvape": 29.9,
   "concentre-biggy-bear-30ml": 9.9,
   "corossol-peche-frais": 16.9,
-  "drizzle-hydro-indoor-cbd": 4.99,
-  "drizzle-hydro-indoor-cbd::4g": 19.99,
-  "drizzle-hydro-indoor-cbd::8g": 39.99,
-  "drizzle-hydro-indoor-cbd::12g": 59.99,
-  "dutch-punch-indoor-cbd": 4.9,
-  "dutch-punch-indoor-cbd::2g": 9.8,
-  "dutch-punch-indoor-cbd::4g": 19.6,
-  "dutch-punch-indoor-cbd::8g": 39.2,
+  "drizzle-in-dam-hydro-indoor-cbd": 4.99,
+  "drizzle-in-dam-hydro-indoor-cbd::4g": 19.99,
+  "drizzle-in-dam-hydro-indoor-cbd::8g": 39.99,
+  "drizzle-in-dam-hydro-indoor-cbd::12g": 59.99,
   "e-cg-50ml": 11.9,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine": 3.9,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée": 3.9,
@@ -105,10 +92,6 @@ export const CATALOG = {
   "garlic-hydro-indoor-cbd::4g": 19.99,
   "garlic-hydro-indoor-cbd::8g": 39.99,
   "geekvape-zeus-nano-3": 24.9,
-  "gelato-hydro-indoor-cbd": 4.9,
-  "gelato-hydro-indoor-cbd::2g": 9.8,
-  "gelato-hydro-indoor-cbd::4g": 19.6,
-  "gelato-hydro-indoor-cbd::8g": 39.2,
   "goyave-coco": 16.9,
   "grinder-champignon-3-parties-metal-effet-holographique": 9.9,
   "grinder-gold": 9.9,
@@ -173,6 +156,40 @@ export const CATALOG = {
   "plateau-beuz-purple-gorilla": 4.99,
   "plateau-euphoria": 9.9,
   "plateau-gangsta-panda": 6.9,
+  "pod-al-fakher-50k": 14.99,
+  "pod-al-fakher-50k::Mint": 14.99,
+  "pod-al-fakher-50k::Menthol": 14.99,
+  "pod-al-fakher-50k::Spearmint": 14.99,
+  "pod-al-fakher-50k::Lush Ice": 14.99,
+  "pod-al-fakher-50k::Ice Blue": 14.99,
+  "pod-al-fakher-50k::Gum Mint": 14.99,
+  "pod-al-fakher-50k::Lemon Mint": 14.99,
+  "pod-al-fakher-50k::Blueberry Mint": 14.99,
+  "pod-al-fakher-50k::Blackcurrant Mint": 14.99,
+  "pod-al-fakher-50k::Lemon Lime": 14.99,
+  "pod-al-fakher-50k::Lemon Lime Cherry Fizz": 14.99,
+  "pod-al-fakher-50k::Blue Razz Lemonade": 14.99,
+  "pod-al-fakher-50k::Blueberry Lemonade": 14.99,
+  "pod-al-fakher-50k::Berry Blue": 14.99,
+  "pod-al-fakher-50k::Blackcurrant Ice": 14.99,
+  "pod-al-fakher-50k::Blueberry Cherry": 14.99,
+  "pod-al-fakher-50k::Blueberry Gum": 14.99,
+  "pod-al-fakher-50k::Blueberry Sour Raspberry": 14.99,
+  "pod-al-fakher-50k::Cherry Fiesta": 14.99,
+  "pod-al-fakher-50k::Cherry Ice": 14.99,
+  "pod-al-fakher-50k::Mixed Berry": 14.99,
+  "pod-al-fakher-50k::Strawberry Cherry": 14.99,
+  "pod-al-fakher-50k::Strawberry Punch": 14.99,
+  "pod-al-fakher-50k::Watermelon Pineapple": 14.99,
+  "pod-al-fakher-50k::Watermelon Kiwi": 14.99,
+  "pod-al-fakher-50k::Watermelon Lime": 14.99,
+  "pod-al-fakher-50k::Watermelon Cherry": 14.99,
+  "pod-al-fakher-50k::Fusion Pop (Cocktail fruité)": 14.99,
+  "pod-al-fakher-50k::Magic Love (Fruits exotiques)": 14.99,
+  "pod-al-fakher-50k::Mango Pineapple (Mangue Ananas)": 14.99,
+  "pod-al-fakher-50k::Peach Ice": 14.99,
+  "pod-al-fakher-50k::Pineapple Ice (Ananas)": 14.99,
+  "pod-al-fakher-50k::Summer Dream (Fruits d’été)": 14.99,
   "pod-de-remplacement-aerox-32k-jnr": 9.99,
   "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée": 9.99,
   "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée": 9.99,
@@ -202,7 +219,6 @@ export const CATALOG = {
   "riz-au-lait-50-ml": 16.9,
   "smash-small-bud-cbd": 0.99,
   "smash-small-bud-cbd::10g": 9.99,
-  "snowing-in-dam": 4.9,
   "spliff-box-l": 19.9,
   "spliff-box-m": 16.9,
   "tiramisu-cafe-50-ml": 16.9,
@@ -236,9 +252,7 @@ export const STOCKS = {
   "box-gen-se-vaporesso": 10,
   "box-voopoo-vinci-spark-100": 10,
   "brugnon-orange-sanguine-50-ml": 10,
-  "burn-baby-burn-indoor-cbd": 10,
   "cake-noisettes-50-ml": 10,
-  "candy-hydro-indoor-cbd": 10,
   "cannele-50-ml": 10,
   "cassis-framboise-50ml-le-petit-verger": 10,
   "cassis-framboise-frais": 10,
@@ -251,8 +265,7 @@ export const STOCKS = {
   "clearomiseur-zeus-subohm-5-ml-geekvape": 10,
   "concentre-biggy-bear-30ml": 10,
   "corossol-peche-frais": 10,
-  "drizzle-hydro-indoor-cbd": 140,
-  "dutch-punch-indoor-cbd": 10,
+  "drizzle-in-dam-hydro-indoor-cbd": 140,
   "e-cg-50ml": 10,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine": 10,
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée": 10,
@@ -290,7 +303,6 @@ export const STOCKS = {
   "fruits-rouges": 10,
   "garlic-hydro-indoor-cbd": 69,
   "geekvape-zeus-nano-3": 10,
-  "gelato-hydro-indoor-cbd": 10,
   "goyave-coco": 10,
   "grinder-champignon-3-parties-metal-effet-holographique": 10,
   "grinder-gold": 10,
@@ -340,6 +352,40 @@ export const STOCKS = {
   "plateau-beuz-purple-gorilla": 10,
   "plateau-euphoria": 10,
   "plateau-gangsta-panda": 10,
+  "pod-al-fakher-50k": 236,
+  "pod-al-fakher-50k::Mint": 26,
+  "pod-al-fakher-50k::Menthol": 36,
+  "pod-al-fakher-50k::Spearmint": 54,
+  "pod-al-fakher-50k::Lush Ice": 58,
+  "pod-al-fakher-50k::Ice Blue": 25,
+  "pod-al-fakher-50k::Gum Mint": 45,
+  "pod-al-fakher-50k::Lemon Mint": 45,
+  "pod-al-fakher-50k::Blueberry Mint": 46,
+  "pod-al-fakher-50k::Blackcurrant Mint": 56,
+  "pod-al-fakher-50k::Lemon Lime": 54,
+  "pod-al-fakher-50k::Lemon Lime Cherry Fizz": 43,
+  "pod-al-fakher-50k::Blue Razz Lemonade": 56,
+  "pod-al-fakher-50k::Blueberry Lemonade": 21,
+  "pod-al-fakher-50k::Berry Blue": 36,
+  "pod-al-fakher-50k::Blackcurrant Ice": 34,
+  "pod-al-fakher-50k::Blueberry Cherry": 32,
+  "pod-al-fakher-50k::Blueberry Gum": 53,
+  "pod-al-fakher-50k::Blueberry Sour Raspberry": 34,
+  "pod-al-fakher-50k::Cherry Fiesta": 36,
+  "pod-al-fakher-50k::Cherry Ice": 35,
+  "pod-al-fakher-50k::Mixed Berry": 58,
+  "pod-al-fakher-50k::Strawberry Cherry": 24,
+  "pod-al-fakher-50k::Strawberry Punch": 36,
+  "pod-al-fakher-50k::Watermelon Pineapple": 10,
+  "pod-al-fakher-50k::Watermelon Kiwi": 33,
+  "pod-al-fakher-50k::Watermelon Lime": 36,
+  "pod-al-fakher-50k::Watermelon Cherry": 10,
+  "pod-al-fakher-50k::Fusion Pop (Cocktail fruité)": 36,
+  "pod-al-fakher-50k::Magic Love (Fruits exotiques)": 34,
+  "pod-al-fakher-50k::Mango Pineapple (Mangue Ananas)": 39,
+  "pod-al-fakher-50k::Peach Ice": 28,
+  "pod-al-fakher-50k::Pineapple Ice (Ananas)": 30,
+  "pod-al-fakher-50k::Summer Dream (Fruits d’été)": 38,
   "pod-de-remplacement-aerox-32k-jnr": 10,
   "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée": 40,
   "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée": 40,
@@ -362,7 +408,6 @@ export const STOCKS = {
   "raisin-rouge-grenade": 10,
   "riz-au-lait-50-ml": 10,
   "smash-small-bud-cbd": 126,
-  "snowing-in-dam": 10,
   "spliff-box-l": 10,
   "spliff-box-m": 10,
   "tiramisu-cafe-50-ml": 10,
@@ -402,11 +447,6 @@ export const CLES_STOCK = {
     "cle": "amazonien",
     "facteur": 1,
     "unite": "pcs"
-  },
-  "amnesia-hydro-indoor-cbd::2g": {
-    "cle": "amnesia-hydro-indoor-cbd",
-    "facteur": 2,
-    "unite": "g"
   },
   "amnesia-hydro-indoor-cbd::4g": {
     "cle": "amnesia-hydro-indoor-cbd",
@@ -483,40 +523,10 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
-  "burn-baby-burn-indoor-cbd::2g": {
-    "cle": "burn-baby-burn-indoor-cbd",
-    "facteur": 2,
-    "unite": "g"
-  },
-  "burn-baby-burn-indoor-cbd::4g": {
-    "cle": "burn-baby-burn-indoor-cbd",
-    "facteur": 4,
-    "unite": "g"
-  },
-  "burn-baby-burn-indoor-cbd::8g": {
-    "cle": "burn-baby-burn-indoor-cbd",
-    "facteur": 8,
-    "unite": "g"
-  },
   "cake-noisettes-50-ml": {
     "cle": "cake-noisettes-50-ml",
     "facteur": 1,
     "unite": "pcs"
-  },
-  "candy-hydro-indoor-cbd::2g": {
-    "cle": "candy-hydro-indoor-cbd",
-    "facteur": 2,
-    "unite": "g"
-  },
-  "candy-hydro-indoor-cbd::4g": {
-    "cle": "candy-hydro-indoor-cbd",
-    "facteur": 4,
-    "unite": "g"
-  },
-  "candy-hydro-indoor-cbd::8g": {
-    "cle": "candy-hydro-indoor-cbd",
-    "facteur": 8,
-    "unite": "g"
   },
   "cannele-50-ml": {
     "cle": "cannele-50-ml",
@@ -588,34 +598,19 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
-  "drizzle-hydro-indoor-cbd::4g": {
-    "cle": "drizzle-hydro-indoor-cbd",
+  "drizzle-in-dam-hydro-indoor-cbd::4g": {
+    "cle": "drizzle-in-dam-hydro-indoor-cbd",
     "facteur": 4,
     "unite": "g"
   },
-  "drizzle-hydro-indoor-cbd::8g": {
-    "cle": "drizzle-hydro-indoor-cbd",
+  "drizzle-in-dam-hydro-indoor-cbd::8g": {
+    "cle": "drizzle-in-dam-hydro-indoor-cbd",
     "facteur": 8,
     "unite": "g"
   },
-  "drizzle-hydro-indoor-cbd::12g": {
-    "cle": "drizzle-hydro-indoor-cbd",
+  "drizzle-in-dam-hydro-indoor-cbd::12g": {
+    "cle": "drizzle-in-dam-hydro-indoor-cbd",
     "facteur": 12,
-    "unite": "g"
-  },
-  "dutch-punch-indoor-cbd::2g": {
-    "cle": "dutch-punch-indoor-cbd",
-    "facteur": 2,
-    "unite": "g"
-  },
-  "dutch-punch-indoor-cbd::4g": {
-    "cle": "dutch-punch-indoor-cbd",
-    "facteur": 4,
-    "unite": "g"
-  },
-  "dutch-punch-indoor-cbd::8g": {
-    "cle": "dutch-punch-indoor-cbd",
-    "facteur": 8,
     "unite": "g"
   },
   "e-cg-50ml": {
@@ -822,21 +817,6 @@ export const CLES_STOCK = {
     "cle": "geekvape-zeus-nano-3",
     "facteur": 1,
     "unite": "pcs"
-  },
-  "gelato-hydro-indoor-cbd::2g": {
-    "cle": "gelato-hydro-indoor-cbd",
-    "facteur": 2,
-    "unite": "g"
-  },
-  "gelato-hydro-indoor-cbd::4g": {
-    "cle": "gelato-hydro-indoor-cbd",
-    "facteur": 4,
-    "unite": "g"
-  },
-  "gelato-hydro-indoor-cbd::8g": {
-    "cle": "gelato-hydro-indoor-cbd",
-    "facteur": 8,
-    "unite": "g"
   },
   "goyave-coco": {
     "cle": "goyave-coco",
@@ -1128,6 +1108,176 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
+  "pod-al-fakher-50k": {
+    "cle": "pod-al-fakher-50k",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Mint": {
+    "cle": "pod-al-fakher-50k::Mint",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Menthol": {
+    "cle": "pod-al-fakher-50k::Menthol",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Spearmint": {
+    "cle": "pod-al-fakher-50k::Spearmint",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Lush Ice": {
+    "cle": "pod-al-fakher-50k::Lush Ice",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Ice Blue": {
+    "cle": "pod-al-fakher-50k::Ice Blue",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Gum Mint": {
+    "cle": "pod-al-fakher-50k::Gum Mint",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Lemon Mint": {
+    "cle": "pod-al-fakher-50k::Lemon Mint",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Blueberry Mint": {
+    "cle": "pod-al-fakher-50k::Blueberry Mint",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Blackcurrant Mint": {
+    "cle": "pod-al-fakher-50k::Blackcurrant Mint",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Lemon Lime": {
+    "cle": "pod-al-fakher-50k::Lemon Lime",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Lemon Lime Cherry Fizz": {
+    "cle": "pod-al-fakher-50k::Lemon Lime Cherry Fizz",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Blue Razz Lemonade": {
+    "cle": "pod-al-fakher-50k::Blue Razz Lemonade",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Blueberry Lemonade": {
+    "cle": "pod-al-fakher-50k::Blueberry Lemonade",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Berry Blue": {
+    "cle": "pod-al-fakher-50k::Berry Blue",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Blackcurrant Ice": {
+    "cle": "pod-al-fakher-50k::Blackcurrant Ice",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Blueberry Cherry": {
+    "cle": "pod-al-fakher-50k::Blueberry Cherry",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Blueberry Gum": {
+    "cle": "pod-al-fakher-50k::Blueberry Gum",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Blueberry Sour Raspberry": {
+    "cle": "pod-al-fakher-50k::Blueberry Sour Raspberry",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Cherry Fiesta": {
+    "cle": "pod-al-fakher-50k::Cherry Fiesta",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Cherry Ice": {
+    "cle": "pod-al-fakher-50k::Cherry Ice",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Mixed Berry": {
+    "cle": "pod-al-fakher-50k::Mixed Berry",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Strawberry Cherry": {
+    "cle": "pod-al-fakher-50k::Strawberry Cherry",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Strawberry Punch": {
+    "cle": "pod-al-fakher-50k::Strawberry Punch",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Watermelon Pineapple": {
+    "cle": "pod-al-fakher-50k::Watermelon Pineapple",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Watermelon Kiwi": {
+    "cle": "pod-al-fakher-50k::Watermelon Kiwi",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Watermelon Lime": {
+    "cle": "pod-al-fakher-50k::Watermelon Lime",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Watermelon Cherry": {
+    "cle": "pod-al-fakher-50k::Watermelon Cherry",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Fusion Pop (Cocktail fruité)": {
+    "cle": "pod-al-fakher-50k::Fusion Pop (Cocktail fruité)",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Magic Love (Fruits exotiques)": {
+    "cle": "pod-al-fakher-50k::Magic Love (Fruits exotiques)",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Mango Pineapple (Mangue Ananas)": {
+    "cle": "pod-al-fakher-50k::Mango Pineapple (Mangue Ananas)",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Peach Ice": {
+    "cle": "pod-al-fakher-50k::Peach Ice",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Pineapple Ice (Ananas)": {
+    "cle": "pod-al-fakher-50k::Pineapple Ice (Ananas)",
+    "facteur": 1,
+    "unite": "pcs"
+  },
+  "pod-al-fakher-50k::Summer Dream (Fruits d’été)": {
+    "cle": "pod-al-fakher-50k::Summer Dream (Fruits d’été)",
+    "facteur": 1,
+    "unite": "pcs"
+  },
   "pod-de-remplacement-aerox-32k-jnr": {
     "cle": "pod-de-remplacement-aerox-32k-jnr",
     "facteur": 1,
@@ -1258,11 +1408,6 @@ export const CLES_STOCK = {
     "facteur": 10,
     "unite": "g"
   },
-  "snowing-in-dam": {
-    "cle": "snowing-in-dam",
-    "facteur": 1,
-    "unite": "pcs"
-  },
   "spliff-box-l": {
     "cle": "spliff-box-l",
     "facteur": 1,
@@ -1331,9 +1476,7 @@ export const UNITES_STOCK = {
   "box-gen-se-vaporesso": "pcs",
   "box-voopoo-vinci-spark-100": "pcs",
   "brugnon-orange-sanguine-50-ml": "pcs",
-  "burn-baby-burn-indoor-cbd": "g",
   "cake-noisettes-50-ml": "pcs",
-  "candy-hydro-indoor-cbd": "g",
   "cannele-50-ml": "pcs",
   "cassis-framboise-50ml-le-petit-verger": "pcs",
   "cassis-framboise-frais": "pcs",
@@ -1346,8 +1489,7 @@ export const UNITES_STOCK = {
   "clearomiseur-zeus-subohm-5-ml-geekvape": "pcs",
   "concentre-biggy-bear-30ml": "pcs",
   "corossol-peche-frais": "pcs",
-  "drizzle-hydro-indoor-cbd": "g",
-  "dutch-punch-indoor-cbd": "g",
+  "drizzle-in-dam-hydro-indoor-cbd": "g",
   "e-cg-50ml": "pcs",
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine": "pcs",
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée": "pcs",
@@ -1385,7 +1527,6 @@ export const UNITES_STOCK = {
   "fruits-rouges": "pcs",
   "garlic-hydro-indoor-cbd": "g",
   "geekvape-zeus-nano-3": "pcs",
-  "gelato-hydro-indoor-cbd": "g",
   "goyave-coco": "pcs",
   "grinder-champignon-3-parties-metal-effet-holographique": "pcs",
   "grinder-gold": "pcs",
@@ -1435,6 +1576,40 @@ export const UNITES_STOCK = {
   "plateau-beuz-purple-gorilla": "pcs",
   "plateau-euphoria": "pcs",
   "plateau-gangsta-panda": "pcs",
+  "pod-al-fakher-50k": "pcs",
+  "pod-al-fakher-50k::Mint": "pcs",
+  "pod-al-fakher-50k::Menthol": "pcs",
+  "pod-al-fakher-50k::Spearmint": "pcs",
+  "pod-al-fakher-50k::Lush Ice": "pcs",
+  "pod-al-fakher-50k::Ice Blue": "pcs",
+  "pod-al-fakher-50k::Gum Mint": "pcs",
+  "pod-al-fakher-50k::Lemon Mint": "pcs",
+  "pod-al-fakher-50k::Blueberry Mint": "pcs",
+  "pod-al-fakher-50k::Blackcurrant Mint": "pcs",
+  "pod-al-fakher-50k::Lemon Lime": "pcs",
+  "pod-al-fakher-50k::Lemon Lime Cherry Fizz": "pcs",
+  "pod-al-fakher-50k::Blue Razz Lemonade": "pcs",
+  "pod-al-fakher-50k::Blueberry Lemonade": "pcs",
+  "pod-al-fakher-50k::Berry Blue": "pcs",
+  "pod-al-fakher-50k::Blackcurrant Ice": "pcs",
+  "pod-al-fakher-50k::Blueberry Cherry": "pcs",
+  "pod-al-fakher-50k::Blueberry Gum": "pcs",
+  "pod-al-fakher-50k::Blueberry Sour Raspberry": "pcs",
+  "pod-al-fakher-50k::Cherry Fiesta": "pcs",
+  "pod-al-fakher-50k::Cherry Ice": "pcs",
+  "pod-al-fakher-50k::Mixed Berry": "pcs",
+  "pod-al-fakher-50k::Strawberry Cherry": "pcs",
+  "pod-al-fakher-50k::Strawberry Punch": "pcs",
+  "pod-al-fakher-50k::Watermelon Pineapple": "pcs",
+  "pod-al-fakher-50k::Watermelon Kiwi": "pcs",
+  "pod-al-fakher-50k::Watermelon Lime": "pcs",
+  "pod-al-fakher-50k::Watermelon Cherry": "pcs",
+  "pod-al-fakher-50k::Fusion Pop (Cocktail fruité)": "pcs",
+  "pod-al-fakher-50k::Magic Love (Fruits exotiques)": "pcs",
+  "pod-al-fakher-50k::Mango Pineapple (Mangue Ananas)": "pcs",
+  "pod-al-fakher-50k::Peach Ice": "pcs",
+  "pod-al-fakher-50k::Pineapple Ice (Ananas)": "pcs",
+  "pod-al-fakher-50k::Summer Dream (Fruits d’été)": "pcs",
   "pod-de-remplacement-aerox-32k-jnr": "pcs",
   "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée": "pcs",
   "pod-de-remplacement-aerox-32k-jnr::Fraise Glacée": "pcs",
@@ -1457,7 +1632,6 @@ export const UNITES_STOCK = {
   "raisin-rouge-grenade": "pcs",
   "riz-au-lait-50-ml": "pcs",
   "smash-small-bud-cbd": "g",
-  "snowing-in-dam": "pcs",
   "spliff-box-l": "pcs",
   "spliff-box-m": "pcs",
   "tiramisu-cafe-50-ml": "pcs",
@@ -1595,25 +1769,11 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
-    "cle": "burn-baby-burn-indoor-cbd",
-    "nom": "Burn Baby Burn Indoor CBD",
-    "marque": "Indoor Hydro LED",
-    "categorie": "cbd",
-    "unite": "g"
-  },
-  {
     "cle": "cake-noisettes-50-ml",
     "nom": "Cake Noisettes – 50 ml",
     "marque": "Le Petit Gourmet",
     "categorie": "vape",
     "unite": "pcs"
-  },
-  {
-    "cle": "candy-hydro-indoor-cbd",
-    "nom": "Candy Hydro Indoor CBD",
-    "marque": "Candy Hydro Indoor CBD",
-    "categorie": "cbd",
-    "unite": "g"
   },
   {
     "cle": "cannele-50-ml",
@@ -1700,16 +1860,9 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
-    "cle": "drizzle-hydro-indoor-cbd",
-    "nom": "Drizzle Hydro Indoor",
+    "cle": "drizzle-in-dam-hydro-indoor-cbd",
+    "nom": "Drizzle In Dam Hydro Indoor",
     "marque": "K CBD",
-    "categorie": "cbd",
-    "unite": "g"
-  },
-  {
-    "cle": "dutch-punch-indoor-cbd",
-    "nom": "Dutch Punch Indoor CBD",
-    "marque": "Dutch Punch Indoor CBD",
     "categorie": "cbd",
     "unite": "g"
   },
@@ -1964,13 +2117,6 @@ export const REFERENCES = [
     "marque": "GeekVape",
     "categorie": "vape",
     "unite": "pcs"
-  },
-  {
-    "cle": "gelato-hydro-indoor-cbd",
-    "nom": "Gelato Hydro Indoor CBD",
-    "marque": "Gelato Hydro Indoor CBD",
-    "categorie": "cbd",
-    "unite": "g"
   },
   {
     "cle": "goyave-coco",
@@ -2309,6 +2455,237 @@ export const REFERENCES = [
     "unite": "pcs"
   },
   {
+    "cle": "pod-al-fakher-50k::Mint",
+    "nom": "Pod Al Fakher 50K Mint",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Menthol",
+    "nom": "Pod Al Fakher 50K Menthol",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Spearmint",
+    "nom": "Pod Al Fakher 50K Spearmint",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Lush Ice",
+    "nom": "Pod Al Fakher 50K Lush Ice",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Ice Blue",
+    "nom": "Pod Al Fakher 50K Ice Blue",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Gum Mint",
+    "nom": "Pod Al Fakher 50K Gum Mint",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Lemon Mint",
+    "nom": "Pod Al Fakher 50K Lemon Mint",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Blueberry Mint",
+    "nom": "Pod Al Fakher 50K Blueberry Mint",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Blackcurrant Mint",
+    "nom": "Pod Al Fakher 50K Blackcurrant Mint",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Lemon Lime",
+    "nom": "Pod Al Fakher 50K Lemon Lime",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Lemon Lime Cherry Fizz",
+    "nom": "Pod Al Fakher 50K Lemon Lime Cherry Fizz",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Blue Razz Lemonade",
+    "nom": "Pod Al Fakher 50K Blue Razz Lemonade",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Blueberry Lemonade",
+    "nom": "Pod Al Fakher 50K Blueberry Lemonade",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Berry Blue",
+    "nom": "Pod Al Fakher 50K Berry Blue",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Blackcurrant Ice",
+    "nom": "Pod Al Fakher 50K Blackcurrant Ice",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Blueberry Cherry",
+    "nom": "Pod Al Fakher 50K Blueberry Cherry",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Blueberry Gum",
+    "nom": "Pod Al Fakher 50K Blueberry Gum",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Blueberry Sour Raspberry",
+    "nom": "Pod Al Fakher 50K Blueberry Sour Raspberry",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Cherry Fiesta",
+    "nom": "Pod Al Fakher 50K Cherry Fiesta",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Cherry Ice",
+    "nom": "Pod Al Fakher 50K Cherry Ice",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Mixed Berry",
+    "nom": "Pod Al Fakher 50K Mixed Berry",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Strawberry Cherry",
+    "nom": "Pod Al Fakher 50K Strawberry Cherry",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Strawberry Punch",
+    "nom": "Pod Al Fakher 50K Strawberry Punch",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Watermelon Pineapple",
+    "nom": "Pod Al Fakher 50K Watermelon Pineapple",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Watermelon Kiwi",
+    "nom": "Pod Al Fakher 50K Watermelon Kiwi",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Watermelon Lime",
+    "nom": "Pod Al Fakher 50K Watermelon Lime",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Watermelon Cherry",
+    "nom": "Pod Al Fakher 50K Watermelon Cherry",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Fusion Pop (Cocktail fruité)",
+    "nom": "Pod Al Fakher 50K Fusion Pop (Cocktail fruité)",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Magic Love (Fruits exotiques)",
+    "nom": "Pod Al Fakher 50K Magic Love (Fruits exotiques)",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Mango Pineapple (Mangue Ananas)",
+    "nom": "Pod Al Fakher 50K Mango Pineapple (Mangue Ananas)",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Peach Ice",
+    "nom": "Pod Al Fakher 50K Peach Ice",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Pineapple Ice (Ananas)",
+    "nom": "Pod Al Fakher 50K Pineapple Ice (Ananas)",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
+    "cle": "pod-al-fakher-50k::Summer Dream (Fruits d’été)",
+    "nom": "Pod Al Fakher 50K Summer Dream (Fruits d’été)",
+    "marque": "Al Fakher",
+    "categorie": "puffs",
+    "unite": "pcs"
+  },
+  {
     "cle": "pod-de-remplacement-aerox-32k-jnr::Pastèque Glacée",
     "nom": "Pod de Remplacement AeroX 32K – JNR Pastèque Glacée",
     "marque": "JNR",
@@ -2456,13 +2833,6 @@ export const REFERENCES = [
     "unite": "g"
   },
   {
-    "cle": "snowing-in-dam",
-    "nom": "Snowing In Dam",
-    "marque": "CBD Indoor Hybrid",
-    "categorie": "cbd",
-    "unite": "pcs"
-  },
-  {
     "cle": "spliff-box-l",
     "nom": "Spliff Box L",
     "marque": "Spliff Box",
@@ -2584,15 +2954,11 @@ export function resoudreStock(id, label) {
  */
 export const PRODUITS_A_VARIANTES = new Set([
   "amnesia-hydro-indoor-cbd",
-  "burn-baby-burn-indoor-cbd",
-  "candy-hydro-indoor-cbd",
   "charas-cbd",
-  "drizzle-hydro-indoor-cbd",
-  "dutch-punch-indoor-cbd",
+  "drizzle-in-dam-hydro-indoor-cbd",
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
   "extract-crumble",
   "garlic-hydro-indoor-cbd",
-  "gelato-hydro-indoor-cbd",
   "hash-primero",
   "jack-herer-hydro-indoor-cbd",
   "jnr-32000-puffs",
@@ -2600,6 +2966,7 @@ export const PRODUITS_A_VARIANTES = new Set([
   "mango-small-bud-cbd",
   "moby-dick-hydro-indoor-cbd",
   "moon-rock-cbd-indoor",
+  "pod-al-fakher-50k",
   "pod-de-remplacement-aerox-32k-jnr",
   "pollen-d-amnesia-100-cbd",
   "pollen-d-or-100-cbd",

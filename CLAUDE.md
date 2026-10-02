@@ -877,6 +877,118 @@ pur, aucun n'est piloté par le script — vérifié avant d'écrire la règle.
 et en créant un élément de test dans la page réelle, pas en relisant les
 gabarits — qui étaient corrects.
 
+### Ce que l'audit extérieur du 2026-09-30 a corrigé — et ce qu'il a manqué
+
+Un audit de direction artistique commandé par le commerçant. Honnête sur sa
+méthode, et il a trouvé de vraies choses qu'aucun `verify:` ne pouvait voir,
+parce qu'aucun ne regarde une page **de l'extérieur**.
+
+⚠ **Il annonçait lui-même avoir été préparé avec une IA, et deux de ses trois
+alertes les plus graves étaient fausses.** Il déduisait du nom de marque :
+« Al Fakher, Starbuzz, Adalya » → tabac à narguilé → vente à distance
+interdite. Or les 20 fiches chicha sont toutes `actif: false` et les deux
+références Al Fakher actives sont des **pods de vape**. Il alertait aussi sur
+une puff dont la fiche était déjà supprimée. **Recouper avant d'agir** : la
+vérification a pris dix minutes et a évité de « corriger » un catalogue juste.
+
+Ce qui était vrai et a été traité :
+
+| Constat | Correction |
+|---|---|
+| Titre d'accueil dupliqué | filtre `titrePage` (voir plus bas) |
+| `og:image` absente | `scripts/generer-og-image.mjs` + repli dans `head.njk` |
+| Lien « Espace pro » vers `/admin/` en pied public | retiré |
+| `--muted` sous le seuil AA sur les cartes | éclairci, mesuré |
+| Aucun anneau de focus clavier | `:focus-visible` global |
+
+⚠ **Le titre dupliqué n'était pas où il le disait.** Corriger le front matter
+de `index.njk` a suffi pour l'accueil — et la construction suivante a montré
+« Al Fakher … 50K | MaisonCBDVape | MaisonCBDVape » sur une fiche. Les 8 fiches
+qui portent un `seo.title` écrivent **toutes** la marque dedans.
+
+Corriger ces 8 fiches n'aurait rien réglé : le champ « Titre SEO » est libre
+dans l'éditeur, et y écrire le nom de la boutique est le réflexe de tout le
+monde. D'où le filtre **`titrePage`** (`eleventy.config.js`) : il retire le
+suffixe s'il est là, puis l'ajoute une fois. Écrit ou non, le résultat est le
+même. Vérifié sur les 161 pages construites, zéro duplication.
+
+⚠ **`og:image` ne doit JAMAIS être conditionnelle.** Elle l'était, et comme
+seules les fiches produits définissaient `ogImage`, tout le reste du site
+partait sans visuel — pendant que `twitter:card` annonçait
+`summary_large_image`, donc une grande image. Un lien partagé sortait en carte
+grise.
+
+`npm run og:generer` dessine le repli **depuis les tokens et `site.json`**, pas
+depuis un export d'outil de design : la carte suit la charte. Il n'est
+volontairement **pas** dans `npm run build` — il produirait un PNG à chaque
+construction, donc un binaire modifié à chaque commit.
+
+⚠ **Et si ce visuel change un jour, son URL ne change pas** : `/assets/` est en
+cache d'un an `immutable`, et les plateformes sociales gardent en plus leur
+propre copie. Renommer le fichier, ou purger — exactement le piège des images
+R2 réécrites en place.
+
+⚠ **Les contrastes ont été recalculés, pas recopiés.** L'audit donnait ses
+ratios ; ils se vérifient en dix lignes de JavaScript, et ils étaient justes.
+`--muted` (#8A8070) donnait 4,59:1 sur le fond principal — au seuil — mais
+**4,26:1 sur les cartes et 3,87:1 sur `--dark3`**, là où il sert le plus.
+
+**La leçon : mesurer une couleur sur le fond de la page ne dit rien de son
+rendu sur une carte posée dessus.** Même piège sur le badge « En stock », dont
+le fond vert à 12 % éclaircit encore le fond et fait passer le texte sous le
+seuil que le calcul sur couleur nue annonçait atteint.
+
+⚠ **Et `.stock-badge` portait `#4A9E5C` en dur**, recopié de `--green` :
+éclaircir le token n'aurait rien changé, et le badge serait resté illisible
+pendant qu'on croyait l'avoir corrigé. La deuxième source de vérité, encore.
+
+⚠ **`:focus-visible`, jamais `:focus`.** Le site n'avait aucun anneau de focus
+général : trois composants définissaient le leur, tout le reste héritait du
+contour par défaut que le preflight Tailwind retire. Naviguer au clavier
+revenait à avancer sans curseur. En `--gold-light` et non `--gold` : l'anneau
+doit rester visible **sur** un élément déjà doré.
+
+⚠ **Le panier n'annonçait pas son contenu.** `aria-label="Mon panier"`
+**remplace** le contenu de l'élément : la pastille affichait « 3 », elle
+n'était jamais lue. `updateCartBadge()` réécrit maintenant le libellé
+(`data-panier-lien`). L'audit accusait l'absence d'`aria-label` — ils étaient
+tous là ; le défaut était l'inverse, un libellé qui masquait l'information.
+
+**Et surtout, ce que l'audit ne pouvait pas voir.** Il n'a testé ni le mobile,
+ni le tunnel de commande — les deux endroits qui décident si l'argent arrive.
+Ses P1 sont cosmétiques devant : un premier paiement réel jamais vérifié, 163
+stocks à leur valeur de semis, et « accepté par Resend » qui ne veut pas dire
+« reçu ». **Un audit de DA ne hiérarchise pas un lancement.**
+
+⚠ **Deux de ses conseils sont à NE PAS appliquer tels quels** : ajouter
+`AggregateRating` au JSON-LD (diffuserait la note inventée jusque dans Google —
+voir « Aucun avis inventé »), et afficher « Économisez X € » sur les paliers
+(annonce de réduction sans réduction tant que les prix ne sont pas dégressifs).
+Il se contredit par ailleurs : il demande de retirer les badges « bestsellers »
+sur la vape (publicité interdite) et recommande d'en afficher sur l'accueil.
+
+### ⚠ « dès » sur une fiche au gramme annonçait un prix que rien ne coûte
+
+Trouvé en regardant l'aperçu d'une fiche pendant la passe ci-dessus — pas par
+un contrôle, et l'audit ne l'avait pas vu non plus.
+
+Le bloc prix affichait `dès {{ produit.prix }}`. Sur une fiche à saveurs,
+`produit.prix` **est** la variante la moins chère et « dès » est juste. Sur une
+fiche au gramme, `produit.prix` vaut **UN GRAMME** : l'Amnésia annonçait
+« dès 4,99 € » quand le plus petit sachet achetable coûte 19,99 €.
+
+⚠ **Le JavaScript le corrigeait au chargement**, `syncGram()` posant le prix du
+premier contenant. Le défaut était donc invisible — jusqu'au jour où un script
+meurt, ce qui est arrivé **deux fois** dans ce projet (`admin-commandes`,
+`categorie-menu`). Un prix faux derrière un correctif en JavaScript, c'est un
+prix faux.
+
+Le gabarit rend désormais, côté serveur, le prix du premier contenant, sans
+« dès ». Le prix au gramme reste en tête du bloc « Contenant », où il est juste.
+**Les deux blocs (principal et barre collante) portent la même règle** — n'en
+corriger qu'un remettrait l'écart à l'endroit le plus visible sur mobile.
+Vérifié sur les 13 fiches au gramme construites : aucune ne dit plus « dès ».
+
 **Les icônes ne sont pas des emojis.** `components/icone.njk` pose la classe
 `.icone` sur chaque SVG, qui le remet en `inline-block` — sans quoi le preflight
 Tailwind (`svg { display: block }`) le colle à gauche dans un conteneur
