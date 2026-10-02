@@ -102,6 +102,63 @@ empêcher.
 ne traîne** : `SELECT * FROM reservations WHERE etat='active'`. Sinon on
 saisit des quantités justes sur des lignes qui en ont une de bloquée.
 
+### ⚠ Renommer une variante ABANDONNE sa ligne de stock
+
+```bash
+npm run db:comparer    # clés de la base ↔ libellés réellement vendus
+```
+
+Le 2026-10-02, le commerçant n'a pas pu passer une commande de test :
+« Pod Al Fakher 50K · Summer Dream (Fruits d'été) » annoncé **épuisé** pendant
+que `/admin/stocks/` en affichait **20**. Les deux écrans disaient vrai, et ils
+ne parlaient pas du même objet :
+
+```
+fiche + catalogue  →  pod-al-fakher-50k::Summer Dream (Fruits d’été)
+base D1            →  pod-al-fakher-50k::Summer Dream
+```
+
+Il avait ajouté la glose française **après** le semis de la base. **La clé de
+stock EST le libellé** (`id::label`) : la renommer dans l'éditeur de contenu
+crée une référence sans ligne, et laisse l'ancienne ligne — avec tout le stock
+réel — orpheline.
+
+⚠ **Le message mentait, et c'est la moitié du défaut.** `reserverPanier()` fait
+`UPDATE stocks … WHERE cle = ?` : zéro ligne touchée. Le `SELECT dispo` qui
+suivait ne ramenait rien, et `ligne?.dispo ?? 0` écrasait **ligne absente** sur
+**dispo = 0**. Les deux ressortaient en « vient d'être épuisé ».
+
+Ce sont deux pannes différentes : un produit épuisé est une situation normale
+de commerce, une référence sans ligne de stock est un défaut de configuration
+que personne ne peut deviner depuis la boutique. Elles ne se corrigent pas au
+même endroit, elles ne doivent donc pas se dire pareil. `stock.js` les sépare
+désormais et **journalise la clé absente** côté serveur.
+
+⚠ **`npm run db:seed` ne répare pas ça.** Il est en `INSERT OR IGNORE` : il
+crée la nouvelle clé **à la valeur de semis** et laisse l'ancienne derrière. On
+obtient deux lignes, dont une morte, et un stock faux sur celle qui sert. Il
+faut **renommer** :
+
+```bash
+npx wrangler d1 execute maisoncbdvape-stocks --remote \
+  --command "UPDATE stocks SET cle = '<nouvelle>' WHERE cle = '<ancienne>'"
+```
+
+`npm run db:comparer` écrit ces commandes tout seul. Il ne modifie rien : un
+renommage déplace des quantités réelles, c'est au commerçant de valider les
+appariements. Et **une seule instruction par `--command`** — voir plus haut.
+
+⚠ **La ligne de `mouvements` garde l'ancienne clé**, volontairement. Une trace
+réécrite n'est plus une trace.
+
+⚠ **Huit libellés portaient déjà ce risque** au 2026-10-02 : cinq gloses entre
+parenthèses sur `pod-al-fakher-50k`, et trois espaces en fin de libellé
+(`"Peach Ice "`, `"Pastèque Glacée "`, `"Pastèque Mangue Pêche "`).
+`variantesVendables()` fait un `trim()` à l'affichage et au catalogue — donc
+une fiche enregistrée avec une espace finale produit une clé **sans** l'espace,
+qui ne correspond plus à la ligne semée **avec**. Lancer `db:comparer` après
+toute retouche de libellés.
+
 ### Médias
 
 ```bash
@@ -988,6 +1045,49 @@ Le gabarit rend désormais, côté serveur, le prix du premier contenant, sans
 **Les deux blocs (principal et barre collante) portent la même règle** — n'en
 corriger qu'un remettrait l'écart à l'endroit le plus visible sur mobile.
 Vérifié sur les 13 fiches au gramme construites : aucune ne dit plus « dès ».
+
+### ⚠ « L'écran est coupé à droite » — un enfant de grille ne rétrécit pas tout seul
+
+Signalé le 2026-10-02 depuis un téléphone. Mesuré sur le site en production,
+à 320 px de large : la carte « RÉCAPITULATIF » de `/commande/` faisait **457 px**,
+bord droit à 473. Le prix, posé de 384 à 444, était **entièrement hors écran**
+— un client ne voyait pas ce qu'il allait payer.
+
+Le `<form class="grid lg:grid-cols-3">` faisait pourtant bien 288 px. C'est sa
+**colonne implicite** qui était calculée à 456,594 px : un enfant de grille a
+`min-width: auto` par défaut, et cela **lui interdit de descendre sous sa
+largeur min-content**. Un seul texte en `white-space: nowrap` dans la colonne
+suffit à poser ce plancher — ici le nom du produit, devenu long depuis que le
+commerçant a ajouté la glose française à ses saveurs.
+
+Correction : `.grid > * { min-width: 0 }` dans `input.css`.
+
+⚠ **`.truncate` ne protège pas de ça.** Il pose `overflow:hidden`, ce qui
+annule la taille minimale automatique d'un enfant de **flex** — mais la colonne
+de la grille est calculée plus haut, et la troncature se contente alors de
+remplir une colonne déjà trop large.
+
+⚠ **Le symptôme est invisible à la mesure évidente.** `html, body
+{ overflow-x: hidden }` **plafonne `scrollWidth`** à la largeur de la fenêtre :
+`document.documentElement.scrollWidth === clientWidth` quoi qu'il arrive. Ma
+première mesure a donc conclu « aucun débordement » pendant que la moitié de la
+carte était hors écran. **Comparer le `getBoundingClientRect().right` des
+éléments à la largeur de la fenêtre**, et ignorer ceux dont un ancêtre est en
+`overflow:hidden` (le méga-menu en sort toujours, c'est normal).
+
+⚠ **Vérifié avant d'écrire la règle**, en l'injectant sur les pages en
+production : inerte sur `/categories/cbd/` et `/panier/` (nombre d'éléments
+débordants inchangé), décisive sur `/commande/` — colonne 457 → 288, plus aucun
+débordement. Une règle aussi large ne se pose pas sans cette mesure.
+
+⚠ **Si une grille doit garder une colonne plus large que l'écran** (un tableau),
+ce n'est pas cette règle qu'il faut retirer : c'est au conteneur de porter
+`overflow-x: auto`, pour que le contenu reste atteignable en faisant glisser.
+`/admin/stocks/` le fait déjà. **Masquer n'est pas afficher.**
+
+**Et le mobile n'est toujours pas testé par un contrôle.** `test:pages`
+n'exécute que du JavaScript, sans moteur de rendu : il ne voit aucune largeur.
+Ce défaut-là ne s'attrape qu'en ouvrant la page à un gabarit étroit.
 
 **Les icônes ne sont pas des emojis.** `components/icone.njk` pose la classe
 `.icone` sur chaque SVG, qui le remet en `inline-block` — sans quoi le preflight

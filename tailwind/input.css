@@ -219,6 +219,45 @@ body {
    mais on le force pour les éléments hors-Tailwind) */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* ─── ⚠ Les enfants de grille doivent pouvoir rétrécir ────────────────────
+   Ajouté le 2026-10-02, après que le commerçant a signalé « l'écran est coupé
+   sur la droite » sur son téléphone.
+
+   Mesuré sur le site réel, à 320 px de large : la carte « RÉCAPITULATIF » de
+   `/commande/` faisait **457 px**, bord droit à 473 — le prix (384→444) était
+   entièrement hors écran. Le `<form class="grid lg:grid-cols-3">` faisait bien
+   288 px, mais sa colonne implicite était calculée à 456,594 px.
+
+   La cause est une règle de CSS Grid, pas une faute de gabarit : un enfant de
+   grille a `min-width: auto` par défaut, ce qui **lui interdit de descendre
+   sous sa largeur min-content**. Il suffit d'un texte en `white-space: nowrap`
+   quelque part dans la colonne — ici le nom du produit, long depuis que le
+   commerçant a ajouté la glose française à ses saveurs — pour fixer un plancher
+   que rien ne peut plus franchir.
+
+   ⚠ `.truncate` ne protège PAS de ça. Il met `overflow:hidden`, ce qui annule
+   la taille minimale automatique d'un enfant de FLEX — mais la colonne de la
+   grille, elle, est déjà calculée plus haut, et la troncature se contente alors
+   de remplir une colonne trop large.
+
+   ⚠ Et le symptôme est muet : `html, body { overflow-x: hidden }` (voir plus
+   haut) PLAFONNE `scrollWidth` à la largeur de la fenêtre. Mesurer
+   `document.documentElement.scrollWidth` ne révèle donc jamais ce défaut — ma
+   première mesure a conclu « aucun débordement » alors que la moitié de la
+   carte était hors écran. Il faut comparer le `getBoundingClientRect().right`
+   des éléments à la largeur de la fenêtre.
+
+   Vérifié avant d'écrire la règle, en l'injectant sur le site en production :
+   inerte sur `/categories/cbd/` et `/panier/` (nombre d'éléments débordants
+   inchangé), décisive sur `/commande/` — colonne 457 → 288, plus aucun
+   débordement.
+
+   ⚠ Si une grille doit un jour garder une colonne plus large que l'écran (un
+   tableau, par exemple), ce n'est pas cette règle qu'il faut retirer : c'est au
+   conteneur de porter `overflow-x: auto`, pour que le contenu soit atteignable
+   en faisant glisser. Masquer n'est pas afficher. */
+.grid > * { min-width: 0; }
+
 /* ─── Anneau de focus clavier ─────────────────────────────────────────────
    Ajouté le 2026-09-30. Le site n'en avait aucun de portée générale : trois
    composants définissaient le leur (`.rail-fleche`, les champs d'avis, le tri)

@@ -137,10 +137,40 @@ export async function reserverPanier(db, orderId, items) {
       await relacherPanier(db, orderId, reserves, "relache");
 
       const ligne = await db.prepare("SELECT dispo FROM stocks WHERE cle = ?1").bind(op.cle).first();
-      const dispo = ligne?.dispo ?? 0;
+
+      // ⚠ `ligne` ABSENTE et `dispo = 0` sont deux pannes différentes, et le
+      //   code les confondait : `ligne?.dispo ?? 0` écrasait l'une sur l'autre,
+      //   et les deux ressortaient en « vient d'être épuisé ».
+      //
+      //   Le 2026-10-02, le commerçant n'a pas pu passer une commande de test :
+      //   « Summer Dream (Fruits d'été) » annoncé épuisé pendant que son écran
+      //   des stocks en affichait 20. Les deux disaient vrai — la base portait
+      //   la clé `…::Summer Dream`, la fiche vendait `…::Summer Dream (Fruits
+      //   d'été)`. Renommer une variante dans l'éditeur de contenu change la
+      //   clé de stock et abandonne l'ancienne ligne.
+      //
+      //   Un produit vraiment épuisé est une situation NORMALE de commerce.
+      //   Une référence sans ligne de stock est un défaut de configuration que
+      //   personne ne peut deviner depuis la boutique — et qu'un message
+      //   « épuisé » cache définitivement. Les deux ne se corrigent pas au même
+      //   endroit, ils ne doivent donc pas se dire pareil.
+      //
+      //   `npm run db:comparer` liste ces écarts et écrit le SQL de renommage.
+      let erreur;
+      if (!ligne) {
+        erreur =
+          `« ${it.nom} » n'est pas disponible à la vente en ligne pour le moment. ` +
+          `Vous pouvez le réserver en boutique, ou nous contacter.`;
+        // Tracé côté serveur pour que le défaut ne reste pas muet : c'est la
+        // seule trace qui distinguera, dans les journaux, une configuration
+        // cassée d'un vrai épuisement.
+        console.error(`[stock] clé absente de la base : ${op.cle} — référence invendable`);
+        return { ok: false, article: it.nom, erreur, cleAbsente: op.cle };
+      }
+
+      const dispo = ligne.dispo ?? 0;
 
       // Un produit au poids se raconte en grammes restants, pas en exemplaires
-      let erreur;
       if (dispo <= 0) {
         erreur = `« ${it.nom} » vient d'être épuisé.`;
       } else if (op.unite === "g") {

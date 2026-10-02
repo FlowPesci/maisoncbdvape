@@ -34,6 +34,7 @@
     "verify:puffs": "node scripts/verifier-puffs.mjs",
     "medias:rapatrier": "node scripts/rapatrier-images-fournisseur.mjs",
     "og:generer": "node scripts/generer-og-image.mjs",
+    "db:comparer": "node scripts/comparer-stocks-fiches.mjs",
     "medias:rapatrier:test": "node scripts/rapatrier-images-fournisseur.mjs --dry-run",
     "medias:filigraner": "node scripts/filigraner-medias.mjs",
     "medias:filigraner:test": "node scripts/filigraner-medias.mjs --dry-run",
