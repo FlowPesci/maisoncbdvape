@@ -902,9 +902,50 @@ l'appel à l'action principal dès l'arrivée — et ce projet a déjà payé un
 bouton `disabled` qui semblait cliquable.
 
 ⚠ Le garde-fou ne vaut que pour les boutons du produit affiché
-(`#zone-achat`, `#sticky-buy`, `#click-collect-btn`). Les quatre cartes de
-produits associés en bas de page ont leurs propres boutons et **aucun
-sélecteur** : les bloquer les rendrait inutilisables.
+(`#zone-achat`, `#sticky-buy`, `#click-collect-btn`). Les cartes de produits
+associés ont leurs propres boutons et **aucun sélecteur**.
+
+### ⚠ Une carte ne peut pas vendre une saveur — et c'était un défaut de STOCK
+
+Cette dernière phrase disait, jusqu'au 2026-10-03, « les bloquer les rendrait
+inutilisables ». C'était vrai et insuffisant : le problème n'était pas
+l'ergonomie, c'était le stock.
+
+Les cartes portent `data-add-to-cart="{{ produit.id }}"` **sans variante**.
+L'article partait donc au panier sans saveur et se résolvait sur la **clé NUE**
+du produit (`resoudreStock(id, null)`) — une ligne distincte de celles qui
+portent le stock par saveur. **Les mêmes pods étaient comptés deux fois**, et
+le commerçant aurait préparé une commande sans savoir quelle saveur expédier.
+
+Révélé par le premier semis réel : `pod-al-fakher-50k` n'avait pas de ligne nue
+et affichait une erreur au client, tandis que trois autres en avaient une,
+héritée d'un vieux semis, et « marchaient » en double-comptant. **L'erreur
+était le moins mauvais des deux comportements** — et c'est elle qui a mis le
+défaut au jour.
+
+⚠ **Semer la clé nue aurait été le mauvais réflexe.** L'erreur disparaissait,
+le double comptage s'installait partout. Un symptôme qui s'éteint n'est pas une
+cause qui se corrige.
+
+La carte d'un produit à saveurs affiche donc **« Choisir une saveur »** et mène
+à la fiche, où le sélecteur existe et où `choixDeVarianteManquant()` monte déjà
+la garde. C'est la règle du projet appliquée dans les deux sens : ce qui
+ressemble à un choix doit en être un, et on ne choisit pas à la place du client.
+
+⚠ **Ne vaut QUE pour les saveurs vendues à l'unité** (`produit.unitePrix != 'g'`).
+Une fleur au gramme tire d'un vrac unique : son conditionnement ne change pas la
+ligne de stock, l'ajout direct depuis une carte y reste juste. Vérifié sur le
+site construit — les quatre produits à saveurs n'ont plus aucun
+`data-add-to-cart` hors de leur propre fiche, les fleurs et les produits simples
+l'ont gardé.
+
+Quatre produits concernés au 2026-10-03 : `pod-al-fakher-50k` (33 saveurs),
+`e-liquide-jnr-10ml-20mg-sel-de-nicotine` (22),
+`pod-de-remplacement-aerox-32k-jnr` (12), `jnr-32000-puffs` (5).
+
+⚠ **Les lignes nues héritées restent en base**, et c'est volontaire : elles
+n'ont plus de chemin d'accès, `db:comparer` les signale comme orphelines, et
+les effacer n'apporterait rien avant la saisie des stocks réels.
 
 Troisième occurrence, la plus coûteuse : le bouton **« Payer en ligne (CB) »**
 s'affichait sans condition, alors que `create-payment.js` refuse de construire

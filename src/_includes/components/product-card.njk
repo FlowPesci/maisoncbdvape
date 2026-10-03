@@ -112,7 +112,45 @@
         {% endif %}
       </div>
 
-      {# ─── CTA toujours en bas ────────────────────────────────── #}
+      {# ─── CTA toujours en bas ──────────────────────────────────
+
+         ⚠ Un produit à SAVEURS ne s'ajoute pas depuis une carte, et ce n'est
+         pas un détail d'ergonomie : c'est une question de stock.
+
+         La carte n'a aucun sélecteur. Son bouton envoyait donc au panier un
+         article **sans variante**, qui se résout sur la clé NUE du produit
+         (`resoudreStock(id, null)`) — une ligne distincte de celles qui
+         portent le stock par saveur. Les mêmes pods étaient comptés deux
+         fois, et le commerçant aurait préparé une commande sans savoir quelle
+         saveur expédier.
+
+         Constaté le 2026-10-03 : `pod-al-fakher-50k` n'avait pas de ligne nue
+         et affichait une erreur au client ; trois autres produits en avaient
+         une, héritée d'un vieux semis, et « marchaient » en double-comptant.
+         L'erreur était le moins mauvais des deux comportements.
+
+         La carte mène donc à la fiche, où le sélecteur existe et où
+         `choixDeVarianteManquant()` monte déjà la garde. C'est la règle du
+         projet appliquée littéralement : **ce qui ressemble à un choix doit
+         en être un** — et réciproquement, on ne fait pas choisir à la place
+         du client.
+
+         ⚠ Ne vaut QUE pour les saveurs vendues à l'unité. Une fleur au gramme
+         (`unitePrix`) tire d'un vrac unique : son conditionnement ne change
+         pas la ligne de stock, l'ajout direct reste juste. #}
+      {% set aSaveurs = produit.variantes and produit.variantes | length > 0 and produit.unitePrix != 'g' %}
+
+      {% if aSaveurs and not isOutOfStock %}
+        <a href="/produits/{{ produit.id }}/"
+           class="add-cart-btn w-full py-2.5 flex items-center justify-center gap-2 mt-auto"
+           style="text-decoration:none;"
+           aria-label="Choisir une saveur de {{ produit.nom }}">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h10"/>
+          </svg>
+          Choisir une saveur
+        </a>
+      {% else %}
       <button class="add-cart-btn w-full py-2.5 flex items-center justify-center gap-2 mt-auto"
               data-add-to-cart="{{ produit.id }}"
               {% if isOutOfStock %}disabled{% endif %}
@@ -129,6 +167,7 @@
           Ajouter au panier
         {% endif %}
       </button>
+      {% endif %}
     </div>
   </article>
 {% endmacro %}
