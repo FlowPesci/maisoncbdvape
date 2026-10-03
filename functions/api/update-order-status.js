@@ -38,13 +38,56 @@ export async function onRequestPost({ request, env }) {
       } catch (e) { console.error("[update-order-status] Relâche stock KO :", e.message); }
     }
 
+    // ── « Prête » : le SEUL statut qui écrit au client ──
+    //
+    // `preparing` n'envoie rien, volontairement, et ce n'est pas un oubli :
+    // la confirmation de commande annonce déjà « nous préparons votre
+    // commande, vous recevrez un nouvel email dès qu'elle sera prête ». Un
+    // message « en préparation » n'apprendrait rien et casserait la promesse
+    // d'un seul e-mail suivant. Aucun statut n'écrit non plus au commerçant :
+    // c'est lui qui vient de faire le geste.
+    //
+    // ⚠ L'issue de l'envoi est ÉCRITE SUR LA COMMANDE, et c'est le cœur de ce
+    //   bloc. Elle ne l'était pas : le `catch` ne faisait qu'un
+    //   `console.error`, donc un échec de l'e-mail « votre commande est
+    //   prête » ne laissait **aucune trace** dans `/admin/commandes/`. Le
+    //   commerçant croyait avoir prévenu, le client attendait, et rien ne le
+    //   disait — exactement la panne du 2026-09-12, découverte en ne recevant
+    //   rien. `submit-reservation.js` le faisait déjà ; ce chemin-ci l'avait
+    //   oublié. Constaté le 2026-10-03.
+    //
+    // ⚠ `{ ...o.emails }` : on FUSIONNE, jamais on écrase. `order.emails`
+    //   porte déjà l'issue des envois de la commande initiale (`client`,
+    //   `commercant`) ; un remplacement effacerait la trace d'un échec
+    //   antérieur au moment même où le commerçant passe la commande en
+    //   « Prête ». Un journal qu'une étape suivante efface n'est pas un journal.
+    //
+    // ⚠ `{ stubbed: true }` ne lève pas d'exception — c'est le cas d'une clé
+    //   Resend absente, et c'est celui qui s'est produit. Il est donc
+    //   distingué d'un succès, sinon la seule panne réelle passerait pour un
+    //   envoi réussi.
+    let apres = updated;
     if (status === "ready" && before.status !== "ready") {
+      let issue;
       try {
         const tpl = readyClient(updated);
-        await sendEmail(env, { to: updated.client.email, ...tpl });
-      } catch (e) { console.error("[update-order-status] Email 'ready' KO :", e.message); }
+        const r = await sendEmail(env, { to: updated.client.email, ...tpl });
+        issue = r?.stubbed ? "non-configure" : "envoye";
+      } catch (e) {
+        issue = "echec : " + e.message;
+        console.error("[update-order-status] Email 'ready' KO :", e.message);
+      }
+      try {
+        apres = await updateOrder(env.ORDERS_KV, orderId,
+          (o) => { o.emails = { ...(o.emails || {}), prete: issue }; },
+          { actor: "update-order-status", note: "E-mail « prête » : " + issue });
+      } catch (e) {
+        // L'écriture du témoin ne doit pas faire échouer un changement de
+        // statut déjà appliqué : le stock et l'état de la commande sont justes.
+        console.error("[update-order-status] Ecriture du suivi e-mail KO :", e.message);
+      }
     }
-    return ok({ order: updated });
+    return ok({ order: apres });
   } catch (err) {
     return bad("Erreur : " + err.message, 500);
   }

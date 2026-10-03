@@ -1817,6 +1817,56 @@ n'a jamais rien reçu. Fermer vraiment ce trou demande de brancher les
 qui remonte l'état sur la commande — non fait, à faire avant de considérer la
 chaîne e-mail comme fiable.
 
+### Quel statut envoie un e-mail, et à qui
+
+Le commerçant a demandé le 2026-10-03 s'il était normal de ne rien recevoir
+après avoir passé une commande en « En préparation ». **Oui**, et le tableau
+mérite d'être écrit parce qu'un assistant qui reprend le dépôt le devinera mal :
+
+| Statut | Client | Commerçant |
+|---|---|---|
+| `pending` / `paid` | à la création (`submit-reservation`, `monetico-notification`) | idem |
+| `preparing` | **rien** | **rien** |
+| **`ready`** | **« votre commande est prête »** | rien |
+| `completed` | rien | rien |
+| `cancelled` | rien — mais le **stock est rendu** | rien |
+
+**`preparing` n'envoie rien volontairement**, et ce n'est pas un oubli : la
+confirmation annonce déjà « nous préparons votre commande, vous recevrez un
+nouvel email dès qu'elle sera prête ». Un message « en préparation »
+n'apprendrait rien au client et casserait la promesse d'un seul e-mail suivant.
+**Aucun** changement de statut n'écrit au commerçant : c'est lui qui vient de
+faire le geste.
+
+⚠ **Et en vérifiant ça, un défaut silencieux est apparu.** L'envoi de
+`ready` était enveloppé dans un `catch` qui ne faisait qu'un `console.error` :
+**l'issue n'était écrite nulle part sur la commande**. Un échec de l'e-mail
+« votre commande est prête » ne produisait donc **aucun** marqueur
+`✉ non envoyé` dans `/admin/commandes/` — le commerçant croyait avoir prévenu,
+le client attendait, et rien ne le disait.
+
+C'est littéralement la panne du 2026-09-12 (« aucun e-mail n'est parti et rien
+nulle part ne le dit ») reposée à un autre endroit. `submit-reservation.js`
+écrivait `order.emails` avec un commentaire expliquant pourquoi ; ce chemin-ci
+ne l'avait jamais fait. `update-order-status.js` l'écrit désormais sous la clé
+`prete`.
+
+⚠ **Il FUSIONNE, il n'écrase pas** : `o.emails = { ...(o.emails || {}), prete }`.
+`order.emails` porte déjà l'issue des envois de la commande initiale
+(`client`, `commercant`) ; un remplacement effacerait la trace d'un échec
+antérieur au moment même où le commerçant passe la commande en « Prête ». **Un
+journal qu'une étape suivante efface n'est pas un journal** — même règle que la
+ligne de `mouvements` conservée à la suppression d'une commande.
+
+⚠ **`{ stubbed: true }` est distingué d'un succès.** Une clé Resend absente ne
+lève aucune exception : sans ce test, la seule panne qui s'est réellement
+produite dans ce projet passerait pour un envoi réussi.
+
+⚠ L'échec d'écriture du témoin, lui, est absorbé : le changement de statut est
+déjà appliqué et le stock est juste. Faire échouer la requête pour un témoin
+manquant laisserait le commerçant devant une erreur alors que son geste a
+abouti.
+
 ### ⚠ Classé indésirable chez Outlook — et l'authentification était PARFAITE
 
 Le premier e-mail de paiement réel (2026-10-03, vers une boîte Hotmail) est
