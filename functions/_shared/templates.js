@@ -301,15 +301,34 @@ export function paiementClient(order) {
 
   const modeTxt = texteLivraison(order);
 
+  // ⚠ La partie texte porte les accents, comme les trois autres gabarits
+  //   clients. Celle-ci en était dépourvue — « est valide », « prete a etre
+  //   recuperee », « A bientot » — seule de tout le fichier.
+  //
+  //   Ce n'était pas une précaution d'encodage : le corps est déclaré
+  //   `charset=utf-8` en quoted-printable, les accents y transitent sans
+  //   dommage, et `reservationClient()` juste au-dessus les écrit depuis
+  //   toujours. Constaté dans la source du premier e-mail de paiement réel
+  //   (2026-10-03).
+  //
+  //   La partie texte n'est pas un repli décoratif : c'est ce que montrent les
+  //   clients en mode texte, les aperçus de notification, et les lecteurs
+  //   d'écran. Un français approximatif y dessert la boutique autant qu'ailleurs.
+  //
+  // ⚠ Ce n'est PAS un correctif de délivrabilité, et il ne faut pas le lire
+  //   comme tel. Le message a été classé indésirable par Outlook avec
+  //   `SCL:5` alors que spf, dkim et dmarc passaient tous les trois : la cause
+  //   est la réputation d'un domaine sans historique, que rien dans ce fichier
+  //   ne peut changer.
   const text = `Bonjour ${order.client.nom},
 
-Votre paiement de ${formatEur(montantPaye)} pour la commande ${order.orderId} est valide.
+Votre paiement de ${formatEur(montantPaye)} pour la commande ${order.orderId} est validé.
 
 ${modeTxt}
 
-Vous recevrez un email des que la commande sera ${isLiv ? "expediee" : "prete a etre recuperee"}.
+Vous recevrez un email dès que la commande sera ${isLiv ? "expédiée" : "prête à être récupérée"}.
 
-A bientot !`;
+À bientôt !`;
   return { subject, html, text };
 }
 

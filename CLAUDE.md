@@ -1817,6 +1817,80 @@ n'a jamais rien reçu. Fermer vraiment ce trou demande de brancher les
 qui remonte l'état sur la commande — non fait, à faire avant de considérer la
 chaîne e-mail comme fiable.
 
+### ⚠ Classé indésirable chez Outlook — et l'authentification était PARFAITE
+
+Le premier e-mail de paiement réel (2026-10-03, vers une boîte Hotmail) est
+arrivé dans les indésirables. L'hypothèse naturelle — SPF, DKIM, DMARC — est
+**fausse**, et les en-têtes du message reçu l'établissent sans discussion :
+
+```
+Authentication-Results: mx.microsoft.com 1;
+  spf=pass (sender IP is 54.240.3.13) smtp.mailfrom=send.maisoncbdvape.fr;
+  dkim=pass header.d=maisoncbdvape.fr;
+  dkim=pass header.d=amazonses.com;
+  dmarc=pass action=none header.from=maisoncbdvape.fr;
+  compauth=pass reason=100
+```
+
+**Les cinq passent.** Il n'y a donc rien à corriger dans le DNS, et c'est
+l'information la plus utile de tout cet épisode : elle ferme la piste sur
+laquelle on perdrait le plus de temps. Le découpage racine / `send.` décrit
+plus haut fonctionne exactement comme prévu, l'alignement DMARC compris.
+
+La cause est deux en-têtes plus bas :
+
+```
+X-MS-Exchange-Organization-SCL: 5          ← score de spam (0–9), 5 = spam
+X-Microsoft-Antispam: BCL:0                ← pas vu comme du publipostage
+X-Microsoft-Antispam-Mailbox-Delivery: … dest:J … RF:JunkEmail
+```
+
+`SCL:5` avec `BCL:0` dit : **contenu et réputation, pas configuration.** Deux
+facteurs, dont le poids respectif n'est pas mesurable de l'extérieur :
+
+1. **Le domaine n'a aucun historique d'envoi.** C'était son premier message
+   vers Outlook. Microsoft est le plus sévère des grands fournisseurs sur ce
+   point et il n'existe aucun réglage pour l'accélérer — seulement du volume
+   reçu sans plainte.
+2. **Le vocabulaire du commerce** (« CBD & Vape », noms de pods). Hypothèse
+   plausible, **non vérifiée** — à ne pas écrire comme un fait.
+
+⚠ **Ne pas « corriger » le DNS pour ça.** Ajouter un second SPF, durcir DMARC
+ou refaire le DKIM ne changera rien à un `SCL` de contenu, et le SPF de la
+racine appartient à la messagerie du commerçant (voir plus haut) — y toucher
+casserait sa boîte pour un gain nul. C'est le piège complet : un symptôme réel,
+une piste plausible, et une correction qui dégrade.
+
+**Ce qui aide réellement, par ordre d'effet décroissant :**
+
+| Geste | Effet | Portée |
+|---|---|---|
+| « Ce n'est pas un courrier indésirable » dans la boîte | fort, immédiat | **cette boîte seulement** |
+| Du volume reçu sans plainte, dans le temps | le vrai levier | tout Outlook |
+| `rua=` dans le DMARC | aucun sur le classement | donne de la **visibilité** |
+| `p=none` → `p=quarantine` | marginal | signale un domaine tenu |
+
+Le DMARC en service est `v=DMARC1; p=none;` **sans `rua`** —
+`docs/deploiement-cloudflare.md` § sur le DNS en prévoyait un. L'ajouter ne
+corrigera pas l'indésirable : il fait arriver les rapports agrégés, donc la
+seule mesure dont on disposera le jour d'un vrai problème d'alignement.
+
+⚠ **La leçon de méthode, pour la sixième fois dans ce projet.** Trois jours de
+Monetico, la clé Resend, le 7403 de wrangler, la CSP de Decap, le script mort
+de `categorie-menu` — et maintenant ceci. À chaque fois le raisonnement a
+désigné une cause plausible et fausse, et à chaque fois **ce que le tiers
+envoie** a donné la réponse en une lecture. Ici : les en-têtes du message reçu.
+Devant un refus extérieur, ne rien supposer et demander la trace.
+
+⚠ **Corrigé au passage, et ce n'est PAS un correctif de délivrabilité** : la
+partie `text/plain` de `paiementClient()` (`_shared/templates.js`) était
+désaccentuée — « est valide », « prete a etre recuperee », « A bientot » —
+seule de tout le fichier, les trois autres gabarits clients portant leurs
+accents depuis toujours. Le corps est en `charset=utf-8` quoted-printable, les
+accents y transitent sans dommage : il n'y avait aucune raison technique. La
+partie texte est ce que montrent les clients en mode texte, les aperçus de
+notification et les lecteurs d'écran — pas un repli décoratif.
+
 ⚠ **Il ne renvoie jamais la valeur d'un secret** — seulement sa présence et sa
 longueur. Ne pas « juste afficher les quatre premiers caractères » : la
 longueur suffit aux cas réels (une clé MAC Monetico fait 40 caractères ; 39
