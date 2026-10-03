@@ -80,6 +80,35 @@ npm run db:migrate:alertes     # colonne alerteLe + tables attentes et avis
 `Authentication error [code: 10000]`, puis les suivantes passent. Le jeton OAuth
 se renouvelle après le premier refus. Relancer, simplement.
 
+⚠ **Un wrangler trop ancien fait échouer D1 en accusant le COMPTE.** Le
+2026-10-03, `d1 execute` refusait toute requête :
+
+```
+The given account is not valid or is not authorized to access this service
+[code: 7403]
+```
+
+Le compte était le bon (`0f42b1d5…`, celui du projet Pages, vérifié dans l'URL
+du tableau de bord), le jeton portait `d1 (write)`, et **`d1 list` voyait la
+base** avec le bon UUID et ses 155 Ko. Seul `d1 execute` tombait — les deux ne
+tapent pas le même endpoint. La même commande est passée du premier coup avec
+`npx wrangler@latest` : **4.94.0 refusée, 4.147.0 acceptée.**
+
+⚠ **Ce n'est PAS le refus transitoire 10000 documenté ci-dessous.** Relancer ne
+sert à rien, et le message envoie chercher du côté de l'authentification. J'ai
+suivi cette piste pendant deux tours — compte, jeton, portée des droits — avant
+de penser au client. Le réflexe utile : **si `d1 list` passe et que
+`d1 execute` échoue, le compte est hors de cause.**
+
+La leçon est celle de la clé Resend, déplacée d'un cran : un message d'erreur
+nomme ce que le serveur a constaté, pas ce qui l'a provoqué. Et ici le serveur
+voyait bien un appel mal formé par un client périmé.
+
+⚠ **Monter wrangler, c'est `npm install` sur la machine Windows**, jamais
+depuis le bac à sable : `node_modules` vit dans le dépôt monté, et une écriture
+depuis l'autre côté y poserait les mêmes droits impossibles à reprendre que le
+`git fetch` du 2026-09-28.
+
 ⚠ **Une seule instruction par `--command`.** Le 2026-09-19, trois instructions
 séparées par `;` dans un même `--command` n'ont produit aucun effet — et
 aucune erreur : la vérification qui a suivi montrait la base inchangée.
@@ -150,6 +179,71 @@ appariements. Et **une seule instruction par `--command`** — voir plus haut.
 
 ⚠ **La ligne de `mouvements` garde l'ancienne clé**, volontairement. Une trace
 réécrite n'est plus une trace.
+
+### ⚠ Et ce script a failli faire pire que le défaut qu'il diagnostiquait
+
+La première version de `db:comparer` a proposé, le 2026-10-02, **46 renommages
+dont 41 auraient détruit des stocks justes**. Elle suggérait de renommer
+`amnesia-hydro-indoor-cbd` — 250 g de vrac, la **bonne** ligne — en
+`amnesia-hydro-indoor-cbd::4g`, puis `::8g`, puis `::12g`. La première commande
+serait passée, les deux autres n'auraient rien trouvé, et la fiche serait
+devenue invendable avec son stock réel sur une clé que plus personne
+n'interroge. Aucune n'a été lancée.
+
+**Deux fautes, et la seconde est la plus instructive.**
+
+1. Un bug bête : `"4g".startsWith("")` est vrai. Une clé orpheline sans `::`
+   s'appariait donc à **toutes** les variantes de son produit.
+
+2. ⚠ **Le script reconstruisait `id::label` lui-même.** C'est la faute de
+   fond : **une fleur au gramme n'a pas de ligne par conditionnement**. Son
+   stock est un vrac en grammes porté par la clé du PRODUIT, et un sachet de
+   4 g en retire 4 (`facteur`). La règle vit dans `resoudreStock()` /
+   `CLES_STOCK` — l'écrire une deuxième fois dans un script de diagnostic, c'est
+   exactement ce que `prix-fiche.mjs` existe pour empêcher côté tarifs. Le
+   script lit désormais `CLES_STOCK`, la table que le serveur lit.
+
+**La leçon** : un outil de diagnostic qui redéduit la règle au lieu de la lire
+ne constate pas un écart, il en invente un. Et comme il écrit du SQL, son
+erreur est exécutable.
+
+Trois garde-fous ajoutés à l'appariement, tous testés : les deux clés doivent
+porter un libellé non vide ; une ligne orpheline ne peut être proposée qu'une
+fois ; et l'appariement doit être **unique dans les deux sens** — « Fraise »
+pouvant aller vers « Fraise Glacée » comme vers « Fraise Kiwi », on ne propose
+rien plutôt que de deviner.
+
+### ⚠ Et le cas réel n'était PAS un renommage de variante
+
+Une fois le script corrigé, il n'a proposé **aucun** renommage — et c'était
+juste. Le vrai écart était ailleurs : **164 lignes en base, 181 références
+vendues, 56 sans ligne**.
+
+Les quantités que le commerçant voyait dans `/admin/stocks/` sont portées par
+**`al-fakher-crown-bar-30k-20mg`**, une fiche **supprimée du dépôt**. La fiche
+vendue s'appelle `pod-al-fakher-50k` et n'a aucune ligne. Il n'a pas renommé
+une saveur : il a supprimé un produit et en a créé un autre.
+
+⚠ **Et il ne faut surtout PAS transférer ces quantités.** « Crown Bar 30K » et
+« Pod Al Fakher 50K » sont deux appareils différents — 30 000 bouffées contre
+50 000. Ils partagent 33 libellés de saveur parce qu'**un fabricant décline la
+même gamme d'arômes sur tous ses appareils**. Un fort recoupement de libellés
+ne prouve donc rien.
+
+Le script détecte ce motif et le **signale sans écrire une seule commande**,
+contrairement au renommage de variante. C'est la conséquence directe de
+l'incident ci-dessus : une heuristique qui produit du SQL exécutable est une
+heuristique qui sera exécutée. Seul le commerçant sait si deux identifiants
+désignent le même objet sur son étagère.
+
+**La bonne voie ici est `db:seed` puis la saisie des stocks réels** — qui reste
+de toute façon à faire sur 163 références.
+
+⚠ **Les listes ne sont plus tronquées à 20 lignes.** La première version
+coupait, et le 2026-10-02 la clé du diagnostic était précisément dans les
+« +19 » masqués : les lignes `al-fakher-crown-bar-30k-20mg::…` qui nommaient
+l'ancien identifiant. Un outil qui cache une partie de ce qu'il a trouvé fait
+chercher ailleurs.
 
 ⚠ **Huit libellés portaient déjà ce risque** au 2026-10-02 : cinq gloses entre
 parenthèses sur `pod-al-fakher-50k`, et trois espaces en fin de libellé

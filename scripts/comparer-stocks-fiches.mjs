@@ -38,35 +38,38 @@
  *   produit donc une par ligne, à passer une par une.
  * ─────────────────────────────────────────────────────────────────────────── */
 
-import { readFileSync, readdirSync } from "node:fs";
-import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { variantesVendables } from "./prix-fiche.mjs";
 
-const DOSSIER = "src/data-source/produits";
 const BASE = "maisoncbdvape-stocks";
 
-// ── 1. Ce que le site vend réellement ──────────────────────────────────────
+// ── 1. Les clés de stock que le SERVEUR ira chercher ───────────────────────
 //
-// On passe par `variantesVendables()` — la même fonction que l'affichage et
-// que le catalogue serveur. Lire `fiche.variantes` brut ferait diverger ce
-// contrôle de ce qui est réellement vendu, ce qui est exactement le défaut
-// qu'il cherche.
-const attendues = new Map(); // clé → libellé lisible
+// ⚠ Ne JAMAIS reconstruire `id::label` ici. La première version le faisait, et
+//   elle a proposé le 2026-10-02 de renommer `amnesia-hydro-indoor-cbd` (250 g
+//   de vrac, la bonne ligne) en `amnesia-hydro-indoor-cbd::4g` — trois fois de
+//   suite sur la même ligne, pour trois conditionnements. La première commande
+//   aurait passé, les deux autres n'auraient rien trouvé, et la fiche serait
+//   restée invendable avec son stock réel sur une clé que personne n'interroge.
+//
+//   **Une fleur au gramme n'a PAS de ligne par conditionnement.** Son stock est
+//   un vrac en grammes porté par la clé du PRODUIT, et un sachet de 4 g en
+//   retire 4 (`facteur`). C'est `resoudreStock()` qui porte cette règle, et
+//   `CLES_STOCK` en est la table, générée par `build-catalog-index.js`.
+//
+//   D'où la correction : on lit la table que le serveur lit. Reconstruire la
+//   clé, c'était écrire la règle une deuxième fois — exactement la faute que
+//   `prix-fiche.mjs` existe pour empêcher côté tarifs.
+const { CLES_STOCK, NOMS_STOCK } = await import("../functions/_shared/catalog-index.js");
 
-for (const nom of readdirSync(DOSSIER).filter((f) => f.endsWith(".json"))) {
-  const fiche = JSON.parse(readFileSync(join(DOSSIER, nom), "utf8"));
-  if (fiche.actif === false) continue;
-  const slug = nom.replace(/\.json$/, "");
-  const variantes = variantesVendables(fiche);
+const attendues = new Map(); // clé de stock → libellé lisible
 
-  if (variantes.length) {
-    for (const v of variantes) {
-      attendues.set(`${slug}::${v.label}`, `${fiche.nom} · ${v.label}`);
-    }
-  } else {
-    attendues.set(slug, fiche.nom);
+for (const [reference, r] of Object.entries(CLES_STOCK)) {
+  if (!r?.cle) continue;
+  // Plusieurs références mènent à la même ligne (les 3 grammages d'une fleur) :
+  // on garde le premier libellé rencontré, le plus court étant le produit.
+  if (!attendues.has(r.cle)) {
+    attendues.set(r.cle, NOMS_STOCK?.[r.cle] || reference.split("::")[0]);
   }
 }
 
@@ -110,7 +113,10 @@ try {
   console.error("[stocks] ✕ lecture de la base impossible.\n");
   for (const l of detail.split("\n").slice(0, 12)) console.error("        " + l);
 
-  if (/authentication|10000|login|token/i.test(detail)) {
+  // Le conseil « relancer » ne vaut QUE pour le refus transitoire 10000. Le
+  // déclencher sur « CLOUDFLARE_API_TOKEN manquant » enverrait relancer en
+  // boucle une commande qui ne passera jamais.
+  if (/\b10000\b|Authentication error/i.test(detail)) {
     console.error("");
     console.error("        ⚠ La PREMIÈRE commande wrangler d'une session échoue");
     console.error("          systématiquement (Authentication error 10000), puis");
@@ -140,18 +146,44 @@ if (!manquantes.length && !orphelines.length) {
 // ⚠ On PROPOSE, on ne décide pas. Deux saveurs peuvent légitimement partager
 //   un préfixe, et déplacer un stock sur la mauvaise ligne ne se voit qu'à la
 //   première vente refusée.
+//
+// ⚠ Deux garde-fous, nés du même incident :
+//
+//   1. Les DEUX clés doivent porter un libellé non vide. Sans ça,
+//      `"4g".startsWith("")` est vrai, et toute variante s'appariait à la
+//      ligne nue du produit — c'est ce qui a produit les renommages
+//      destructeurs du 2026-10-02.
+//   2. Une ligne orpheline ne peut être proposée qu'UNE fois. Trois commandes
+//      renommant la même ligne source s'exécutent dans l'ordre : la première
+//      passe, les suivantes ne trouvent plus rien, et le silence tient lieu de
+//      confirmation.
+//   3. L'appariement doit être UNIQUE DANS LES DEUX SENS. « p::Fraise » peut
+//      correspondre à « p::Fraise Glacée » comme à « p::Fraise Kiwi » : en
+//      prendre une au hasard déplacerait un stock réel sur la mauvaise saveur,
+//      et l'erreur ne se verrait qu'à la première vente refusée. Dans ce cas on
+//      ne propose RIEN et on laisse la clé en « vendue sans ligne ».
 const normal = (s) => s.toLowerCase().replace(/[‘’]/g, "'").trim();
-const couples = [];
 
+const partie = (c) => {
+  const i = c.indexOf("::");
+  return i === -1 ? null : { prod: c.slice(0, i), lab: normal(c.slice(i + 2)) };
+};
+const compatible = (a, b) => {
+  const x = partie(a), y = partie(b);
+  // garde-fou 1 : les deux doivent porter un libellé non vide
+  if (!x || !y || !x.lab || !y.lab) return false;
+  if (x.prod !== y.prod) return false;
+  return x.lab.startsWith(y.lab) || y.lab.startsWith(x.lab);
+};
+
+const couples = [];
 for (const m of manquantes) {
-  const [prodM, labM = ""] = m.split("::");
-  const candidats = orphelines.filter((o) => {
-    const [prodO, labO = ""] = o.split("::");
-    if (prodO !== prodM) return false;
-    const a = normal(labM), b = normal(labO);
-    return a.startsWith(b) || b.startsWith(a);
-  });
-  if (candidats.length === 1) couples.push([candidats[0], m]);
+  const candidats = orphelines.filter((o) => compatible(m, o));
+  if (candidats.length !== 1) continue;
+  // garde-fous 2 et 3 : l'orpheline retenue ne doit convenir qu'à CETTE clé
+  const inverse = manquantes.filter((autre) => compatible(autre, candidats[0]));
+  if (inverse.length !== 1) continue;
+  couples.push([candidats[0], m]);
 }
 
 const apparies = new Set(couples.flat());
@@ -182,20 +214,124 @@ if (couples.length) {
 const vraimentManquantes = manquantes.filter((c) => !apparies.has(c));
 const vraimentOrphelines = orphelines.filter((c) => !apparies.has(c));
 
+// ── 4. Un PRODUIT entier re-slugué ─────────────────────────────────────────
+//
+// Cas trouvé le 2026-10-02, et que la comparaison variante par variante ne
+// pouvait pas voir : le commerçant a recréé une fiche sous un nouvel
+// identifiant. `al-fakher-crown-bar-30k-20mg` porte 30 lignes de stock avec des
+// quantités réelles ; la fiche vendue s'appelle maintenant `pod-al-fakher-50k`
+// et n'a aucune ligne. Les saveurs, elles, n'ont pas bougé.
+//
+// On ne peut pas le deviner en comparant les clés une à une — il faut comparer
+// les ENSEMBLES de libellés. Deux produits dont les saveurs coïncident
+// largement sont le même produit sous deux noms.
+//
+// ⚠ Exigeant volontairement : au moins 3 libellés identiques ET les deux tiers
+//   de l'ancien ensemble retrouvés. En dessous, deux produits d'une même marque
+//   partagent simplement des saveurs communes (« Mint », « Lush Ice »…) et les
+//   confondre déplacerait des dizaines de lignes de stock sur la mauvaise fiche.
+const parProduit = (cles) => {
+  const m = new Map();
+  for (const c of cles) {
+    const i = c.indexOf("::");
+    if (i === -1) continue;
+    const prod = c.slice(0, i), lab = normal(c.slice(i + 2));
+    if (!lab) continue;
+    if (!m.has(prod)) m.set(prod, new Map());
+    m.get(prod).set(lab, c);
+  }
+  return m;
+};
+
+const vieuxProduits = parProduit(vraimentOrphelines);
+const neufsProduits = parProduit(vraimentManquantes);
+const reslugs = [];
+
+for (const [neuf, labelsNeufs] of neufsProduits) {
+  const scores = [];
+  for (const [vieux, labelsVieux] of vieuxProduits) {
+    let communs = 0;
+    for (const lab of labelsVieux.keys()) if (labelsNeufs.has(lab)) communs++;
+    if (communs >= 3 && communs >= labelsVieux.size * (2 / 3)) {
+      scores.push({ vieux, communs, total: labelsVieux.size });
+    }
+  }
+  // Un seul candidat, sinon on ne tranche pas.
+  if (scores.length === 1) reslugs.push({ neuf, ...scores[0] });
+}
+
+if (reslugs.length) {
+  console.log(`⚠ ${reslugs.length} produit(s) semblent avoir CHANGÉ D'IDENTIFIANT.`);
+  console.log("  Les lignes de stock sont restées sous l'ancien, avec les quantités");
+  console.log("  réelles ; la fiche vendue sous le nouveau n'en a aucune.\n");
+
+  for (const r of reslugs) {
+    const labelsVieux = vieuxProduits.get(r.vieux);
+    const labelsNeufs = neufsProduits.get(r.neuf);
+    console.log(`   « ${r.vieux} »  →  « ${r.neuf} »`);
+    console.log(`   ${r.communs} libellé(s) identiques sur ${r.total} côté base.\n`);
+
+    const communs = [...labelsVieux.keys()].filter((l) => labelsNeufs.has(l));
+    const perdus = [...labelsVieux.keys()].filter((l) => !labelsNeufs.has(l));
+
+    // ⚠ AUCUN SQL n'est écrit ici, délibérément, à la différence du renommage
+    //   de variante plus haut.
+    //
+    //   Un fabricant décline les MÊMES saveurs sur toute sa gamme : « Mint »,
+    //   « Lush Ice », « Peach Ice » se retrouvent sur chacun de ses appareils.
+    //   Un fort recoupement de libellés ne prouve donc pas que ce soit le même
+    //   produit — et c'est exactement le cas rencontré le 2026-10-02, où
+    //   `al-fakher-crown-bar-30k-20mg` (30 000 bouffées, supprimé) partageait
+    //   33 saveurs avec `pod-al-fakher-50k` (50 000, actif) sans être le même
+    //   appareil. Transférer le stock de l'un vers l'autre aurait vendu des
+    //   unités qui n'existent pas.
+    //
+    //   Le script signale donc, et s'arrête là. Seul le commerçant sait si les
+    //   deux identifiants désignent le même objet sur son étagère.
+    console.log("   Quantités portées par l'ancienne fiche :\n");
+    for (const lab of communs) {
+      const l = enBase.get(labelsVieux.get(lab));
+      console.log(`     ${labelsVieux.get(lab)}  → dispo ${l.dispo}, réservé ${l.reserve}`);
+    }
+    console.log("");
+    console.log("   ⚠ AUCUNE commande n'est proposée ici, et c'est volontaire.");
+    console.log("     Un fabricant décline les mêmes saveurs sur toute sa gamme :");
+    console.log("     un recoupement de libellés ne prouve pas que ce soit le même");
+    console.log("     appareil. Si ce sont DEUX produits distincts, ces quantités");
+    console.log("     appartiennent à l'ancien et ne doivent pas être transférées —");
+    console.log("     `db:seed` puis saisie des stocks réels est la bonne voie.");
+    if (perdus.length) {
+      console.log(`\n   ⚠ ${perdus.length} libellé(s) de l'ancienne fiche n'existent plus dans la`);
+      console.log("     nouvelle — leurs lignes resteront orphelines, et c'est normal");
+      console.log("     si ces saveurs ne sont plus vendues :");
+      for (const lab of perdus) console.log(`       ${labelsVieux.get(lab)}`);
+    }
+    console.log("");
+  }
+
+  // ⚠ On ne RETIRE rien des listes ci-dessous. Tant que le commerçant n'a pas
+  //   tranché, ces références restent vendues sans ligne de stock — c'est-à-dire
+  //   invendables — et l'information doit rester visible. Les masquer sous
+  //   prétexte qu'une piste existe reviendrait à présenter une hypothèse comme
+  //   une correction.
+}
+
+// ⚠ Plus de troncature à 20 lignes. La première version coupait les listes, et
+//   le 2026-10-02 c'est précisément dans les « +19 » masqués que se trouvait la
+//   clé du diagnostic. Un outil qui cache une partie de ce qu'il a trouvé fait
+//   chercher ailleurs.
 if (vraimentManquantes.length) {
   console.log(`✕ ${vraimentManquantes.length} référence(s) VENDUE(S) sans ligne de stock —`);
   console.log("  toute commande les concernant est refusée en « vient d'être épuisé » :\n");
-  for (const c of vraimentManquantes.slice(0, 20)) console.log(`   ${c}`);
-  if (vraimentManquantes.length > 20) console.log(`   … +${vraimentManquantes.length - 20}`);
-  console.log("\n  `npm run db:seed` les créera à la valeur de semis.\n");
+  for (const c of vraimentManquantes) console.log(`   ${c}`);
+  console.log("\n  `npm run db:seed` les créera à la valeur de semis (10).\n");
 }
 
 if (vraimentOrphelines.length) {
   console.log(`⚠ ${vraimentOrphelines.length} ligne(s) de stock ne correspondent à rien de vendu`);
   console.log("  (produit supprimé ou désactivé). Sans effet sur les ventes —");
   console.log("  à nettoyer un jour, sans urgence :\n");
-  for (const c of vraimentOrphelines.slice(0, 20)) console.log(`   ${c}`);
-  if (vraimentOrphelines.length > 20) console.log(`   … +${vraimentOrphelines.length - 20}`);
+  for (const c of vraimentOrphelines) console.log(`   ${c}`);
   console.log("");
 }
 
