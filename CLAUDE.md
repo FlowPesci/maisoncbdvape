@@ -1867,6 +1867,11 @@ déjà appliqué et le stock est juste. Faire échouer la requête pour un témo
 manquant laisserait le commerçant devant une erreur alors que son geste a
 abouti.
 
+✅ **L'e-mail `ready` a tourné en production le 2026-10-03** sur la commande
+`MCV-202610030629-27ME`, et il est arrivé. C'était le **dernier des cinq
+statuts jamais exécuté** : les cinq sont maintenant prouvés. (Toujours en
+indésirable chez Outlook — voir la section suivante, c'est une autre question.)
+
 ### ⚠ Classé indésirable chez Outlook — et l'authentification était PARFAITE
 
 Le premier e-mail de paiement réel (2026-10-03, vers une boîte Hotmail) est
@@ -1924,6 +1929,23 @@ Le DMARC en service est `v=DMARC1; p=none;` **sans `rua`** —
 `docs/deploiement-cloudflare.md` § sur le DNS en prévoyait un. L'ajouter ne
 corrigera pas l'indésirable : il fait arriver les rapports agrégés, donc la
 seule mesure dont on disposera le jour d'un vrai problème d'alignement.
+
+⚠ **Confirmé par un second message le même jour.** L'e-mail « votre commande
+est prête » est arrivé lui aussi en indésirable, après les correctifs poussés
+entre les deux. C'est la **prédiction qui se vérifie**, pas un échec : rien de
+ce qui a été modifié ne touchait à la réputation, et deux messages ne font pas
+un historique. **Ne pas en déduire qu'il faut chercher ailleurs** — c'est
+exactement le moment où l'on se met à toucher au DNS par impatience.
+
+⚠ **Et surtout : une boîte Hotmail n'est pas la clientèle.** Tout ce qui
+précède est mesuré sur **une** adresse chez **un** fournisseur, celle du
+développeur. La question commerciale est de savoir où atterrissent les
+messages des vrais clients — en France, massivement **Gmail**. Tant qu'aucun
+envoi vers Gmail et Yahoo n'a été observé, on ne sait rien de la délivrabilité
+réelle de la boutique ; on sait seulement qu'Outlook est sévère avec un domaine
+neuf. **Mesurer avant de conclure**, ici comme ailleurs : envoyer l'e-mail de
+test de `/admin/diagnostic/` vers une adresse Gmail et une adresse Yahoo, et
+regarder le dossier d'arrivée.
 
 ⚠ **La leçon de méthode, pour la sixième fois dans ce projet.** Trois jours de
 Monetico, la clé Resend, le 7403 de wrangler, la CSP de Decap, le script mort
