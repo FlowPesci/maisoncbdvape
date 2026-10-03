@@ -42,7 +42,30 @@ export async function sendEmail(env, { to, subject, html, text, from, replyTo })
       subject,
       html,
       text,
-      ...(replyTo ? { reply_to: replyTo } : {}),
+      // ⚠ Le `reply-to` est posé ICI par défaut, pas chez l'appelant.
+      //
+      //   Il ne l'était que dans `submit-reservation.js` (retrait boutique).
+      //   Le parcours CARTE — `monetico-notification.js` — n'en passait aucun,
+      //   et `update-order-status.js` ni `attentes.js` non plus : une réponse
+      //   du client à sa confirmation de paiement partait donc vers
+      //   `noreply@maisoncbdvape.fr`, une adresse que personne ne lit.
+      //
+      //   Constaté le 2026-10-03, après le premier vrai paiement. Le défaut
+      //   est de la famille la plus coûteuse de ce projet : **silencieux côté
+      //   boutique**. Rien ne manque à l'écran, aucune erreur n'est levée, et
+      //   c'est le client qui se retrouve sans réponse.
+      //
+      //   Le repli vit dans cette fonction parce que c'est le seul endroit par
+      //   lequel passent TOUS les envois. Le poser chez chaque appelant, c'est
+      //   garantir qu'un futur appelant l'oubliera — comme trois l'ont déjà
+      //   fait.
+      //
+      // ⚠ `contact.js` passe volontairement son propre `replyTo` (l'adresse du
+      //   visiteur, pour que le commerçant lui réponde directement) : le `||`
+      //   laisse cette intention intacte.
+      ...(replyTo || env.EMAIL_REPLY_TO
+        ? { reply_to: replyTo || env.EMAIL_REPLY_TO }
+        : {}),
     }),
   });
 

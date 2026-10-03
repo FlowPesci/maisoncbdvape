@@ -1365,9 +1365,21 @@ de vrac**, pas le sachet — un bocal de 500 g se saisit `500`.
 **En attente d'accès externes :** compte Mondial Relay Start, contrat Colissimo
 Entreprise.
 
-⚠ **Créer la boîte `contact@maisoncbdvape.fr` chez l'hébergeur du domaine.**
-Elle n'existe pas (constaté le 2026-09-12 : rebond *Recipient not found* sur
-le premier envoi réel). Ce n'est pas un détail de configuration, l'adresse est
+✅ **La boîte `contact@maisoncbdvape.fr` existe depuis le 2026-10-03**, et
+l'adresse a été retirée de la liste de suppression Resend — l'étape invisible
+de la procédure ci-dessous. Une commande de test en **retrait boutique** a été
+passée dans la foulée.
+
+⚠ **Ce qui n'est PAS encore prouvé**, et qu'il ne faut pas conclure de ce qui
+précède : qu'un e-mail soit **remis**. « Accepté par Resend » n'est pas
+« reçu » (voir plus bas), et le `reply-to` ne se vérifie qu'en **répondant** à
+la confirmation reçue côté client. Tant que le journal Resend n'affiche pas
+*Delivered* sur les **deux** destinataires, la chaîne e-mail reste à l'état
+d'hypothèse.
+
+**L'historique, conservé parce qu'il explique la procédure.** La boîte
+n'existait pas (constaté le 2026-09-12 : rebond *Recipient not found* sur le
+premier envoi réel). Ce n'était pas un détail de configuration, l'adresse est
 **publiée** :
 
 | Où | Conséquence tant qu'elle n'existe pas |
@@ -1638,21 +1650,43 @@ du contrat ; `MONETICO_ENV` vaut `"production"` dans `wrangler.toml`. Le
 bouton « Payer en ligne (CB) » est donc visible du public et tout paiement
 débite réellement.
 
-**Reste à faire pour clore :**
+### ✅ Premier paiement réel : le 2026-10-03 à 08:30
 
-1. **Un vrai paiement de quelques euros**, avec une vraie carte, sur une
-   commande neuve.
-2. Vérifier le journal de `/admin/diagnostic/` : `code-retour` doit être
-   **`paiement`** et non plus `payetest`. C'est le seul témoin fiable de la
-   bascule côté banque — ni l'écran Cloudflare ni le site ne la connaissent.
-3. Vérifier que la commande passe en **Payée** et que les deux e-mails
-   partent (`/admin/commandes/`, pas de marqueur `✉ non envoyé`).
-4. **Rembourser** depuis le back-office Monetico.
+**La chaîne complète a fonctionné**, pour la première fois depuis l'ouverture
+du contrat. Commande `MCV-202610030629-27ME`, 14,99 €, un pod avec saveur.
 
-⚠ **Si le journal affiche encore `payetest`**, la banque n'a pas basculé de
-son côté : repasser `MONETICO_ENV = "test"` et pousser immédiatement. Laisser
-la variable à `"production"` dans ce cas donne le pire des deux mondes — un
-bouton CB visible du public, menant à une plateforme qui n'encaisse pas.
+```
+SCEAU VALIDÉ    cdr=0    code-retour : paiement · standard/v3.0
+```
+
+Les quatre témoins, et chacun dit quelque chose de distinct :
+
+| Témoin | Valeur | Ce qu'il prouve |
+|---|---|---|
+| `code-retour` | **`paiement`** | la banque a basculé en production — ce n'est plus `payetest` |
+| `cdr` | **0** | notre accusé a été accepté |
+| sceau | **validé** | la clé MAC en service est la bonne |
+| variante | **`standard/v3.0`** | lecture du corps et méthode de scellement inchangées depuis la recette |
+
+⚠ **Le statut « Payée » ne prouvait rien à lui seul** : `payetest` marque une
+commande payée exactement de la même façon. Seul le `code-retour` du journal
+sépare les deux, et c'est pour ça qu'il est écrit.
+
+⚠ **`standard/v3.0` est désormais la valeur de référence.** Si le sceau échoue
+un jour, c'est à elle qu'il faut comparer la `variante` du dernier appel
+validé : un changement signe une migration côté banque, et dit laquelle des
+deux moitiés — lecture du corps, ou méthode de scellement — a bougé.
+
+La commande est passée en **Payée**, l'e-mail client est arrivé, aucun marqueur
+`✉ non envoyé` dans `/admin/commandes/`.
+
+**Reste à faire :** rembourser ces 14,99 € depuis le back-office Monetico.
+
+⚠ **Si le journal affichait encore `payetest`**, la banque n'aurait pas
+basculé : il faudrait repasser `MONETICO_ENV = "test"` et pousser
+immédiatement. Laisser la variable à `"production"` dans ce cas donne le pire
+des deux mondes — un bouton CB visible du public, menant à une plateforme qui
+n'encaisse pas. Ce n'est plus le cas, la note reste pour le jour d'un doute.
 
 ⚠ **Une clé MAC de production.** Si la banque en a remis une nouvelle avec
 l'ouverture du contrat, elle doit remplacer l'ancienne dans Cloudflare
