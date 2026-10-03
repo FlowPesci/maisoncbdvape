@@ -46,11 +46,23 @@ for (const p of produits) {
   } else if (Array.isArray(p.variantes) && p.variantes.length) {
     // Produit à variantes vendues à l'unité : un stock par variante.
     for (const v of p.variantes) {
-      if (!v.label) continue;
+      // ⚠ `trim()` OBLIGATOIRE, et c'est la clé de stock qui en dépend.
+      //
+      //   `variantesVendables()` (prix-fiche.mjs) normalise les libellés avant
+      //   de les écrire dans le catalogue serveur. Semer la valeur BRUTE crée
+      //   donc une ligne que personne n'ira jamais chercher : la fiche vend
+      //   « Peach Ice », la base porte « Peach Ice␣ », et `reserverPanier()`
+      //   ne touche aucune ligne — la saveur est silencieusement invendable.
+      //
+      //   Trois libellés étaient dans ce cas au 2026-10-03 (« Peach Ice »,
+      //   « Pastèque Glacée », « Pastèque Mangue Pêche »). Le défaut n'aurait
+      //   été visible qu'à la première commande refusée.
+      const label = String(v.label ?? "").trim();
+      if (!label) continue;
       lignes.push(
         `INSERT OR IGNORE INTO stocks (cle, dispo, reserve, libelle, majLe) ` +
-        `VALUES ('${echappe(p.id)}::${echappe(v.label)}', ${entier(v.stock)}, 0, ` +
-        `'${echappe(p.nom)} — ${echappe(v.label)}', unixepoch() * 1000);`
+        `VALUES ('${echappe(p.id)}::${echappe(label)}', ${entier(v.stock)}, 0, ` +
+        `'${echappe(p.nom)} — ${echappe(label)}', unixepoch() * 1000);`
       );
       n++;
     }

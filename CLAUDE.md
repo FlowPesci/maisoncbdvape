@@ -116,9 +116,23 @@ j'ai fait dans la foulée, et **le déploiement suivant est tombé** — voir
    Même avec un lock régénéré, on installerait un paquet hors de son moteur
    pour un gain nul au build.
 
-**Le besoin était purement local**, et `npx wrangler@latest d1 execute …` y
-répond sans toucher au dépôt. C'est la bonne porte de sortie tant que l'image
-Cloudflare est en Node 20.
+**Le besoin était purement local.** Les huit scripts `db:` appellent donc
+**`npx -y wrangler@4.147.0`**, et non le wrangler du projet :
+
+| | version | pourquoi |
+|---|---|---|
+| `npm run dev` (`wrangler pages dev`) | 4.94, celle du dépôt | pinée dans le lock, installée par `npm ci` |
+| `npm run db:*` | **4.147.0, via npx** | la seule qui parle encore à l'API D1 |
+
+⚠ **Version figée, jamais `@latest`.** `@latest` ferait dépendre une commande
+qui écrit dans la base de ce que npm publiera demain. Deux versions cohabitent,
+c'est assumé et c'est écrit ici pour que personne ne « simplifie » en les
+réunissant sans s'être assuré que le build survit.
+
+**Le vrai correctif, le jour où on le prendra** : monter wrangler dans le
+dépôt, régénérer le lock (`npm install` **et commiter le lock**), et passer
+l'image Cloudflare en Node 22 (variable `NODE_VERSION`). C'est un geste
+délibéré, pas un effet de bord d'un dépannage.
 
 ⚠ **Et si on monte wrangler un jour, c'est `npm install` sur la machine
 Windows**, jamais depuis le bac à sable : `node_modules` vit dans le dépôt
@@ -304,6 +318,18 @@ coupait, et le 2026-10-02 la clé du diagnostic était précisément dans les
 « +19 » masqués : les lignes `al-fakher-crown-bar-30k-20mg::…` qui nommaient
 l'ancien identifiant. Un outil qui cache une partie de ce qu'il a trouvé fait
 chercher ailleurs.
+
+⚠ **Et `seed-stocks.js` fabriquait lui-même des clés introuvables.** Il lisait
+`v.label` **brut**, sans le `trim()` qu'applique `variantesVendables()` avant
+d'écrire le catalogue. Les trois libellés à espace finale auraient donc été
+semés **avec** l'espace : une ligne de stock que `reserverPanier()` n'irait
+jamais chercher, et une saveur silencieusement invendable. Corrigé le
+2026-10-03, avant le premier semis réel.
+
+Le reste du script est juste, et il mérite d'être lu avant d'y toucher : une
+fiche au gramme reçoit **une seule** ligne, au niveau du produit, en grammes de
+vrac — exactement la règle que ma première version de `db:comparer` avait
+oubliée.
 
 ⚠ **Huit libellés portaient déjà ce risque** au 2026-10-02 : cinq gloses entre
 parenthèses sur `pod-al-fakher-50k`, et trois espaces en fin de libellé
