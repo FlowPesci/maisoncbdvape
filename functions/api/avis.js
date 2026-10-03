@@ -27,7 +27,30 @@ import { ok, bad, parseJson } from "../_shared/http.js";
 import { rateLimit, getClientIp } from "../_shared/ratelimit.js";
 import { requireGithubUser } from "../_shared/auth.js";
 import { getOrder } from "../_shared/orders.js";
-import { CATALOG } from "../_shared/catalog-index.js";
+import { CATALOG, REFERENCES } from "../_shared/catalog-index.js";
+import { sendEmail, merchantEmail } from "../_shared/email.js";
+import { avisMerchant } from "../_shared/templates.js";
+
+/**
+ * Nom lisible d'un produit, pour l'e-mail de modération.
+ *
+ * ⚠ Ne PAS lire `CATALOG[id].nom` : les valeurs de `CATALOG` sont des
+ *   **nombres** (le prix de fiche), pas des objets. L'écriture ne lève pas —
+ *   l'optionnel rend `undefined` — et l'e-mail serait simplement retombé sur
+ *   l'identifiant brut sans que rien ne le signale. C'est exactement ce que
+ *   j'avais écrit en premier.
+ *
+ * Le nom vit dans `REFERENCES`. Un produit à saveurs n'y a pas d'entrée nue :
+ * ses lignes sont `id::label`. On accepte donc le préfixe à défaut d'exact —
+ * le libellé portera alors une saveur en trop, ce qui identifie quand même le
+ * produit, et c'est tout ce qu'on demande à un objet d'e-mail.
+ */
+function nomProduit(id) {
+  const exact = REFERENCES.find((r) => r.cle === id);
+  if (exact) return exact.nom;
+  const prefixe = REFERENCES.find((r) => r.cle.startsWith(id + "::"));
+  return prefixe ? prefixe.nom : id;
+}
 
 const MAX_AUTEUR = 60;
 const MAX_COMMENTAIRE = 1500;
@@ -160,6 +183,45 @@ export async function onRequestPost({ request, env }) {
   } catch (err) {
     console.error("[avis] Dépôt KO :", err.message);
     return bad("Enregistrement impossible. Réessayez plus tard.", 500);
+  }
+
+  // ── Prévenir le commerçant ────────────────────────────────────────────────
+  //
+  // ⚠ Sans ça, un avis déposé n'existait pour PERSONNE. Il dormait en
+  //   `etat = 'attente'`, et le seul moyen de le voir était d'ouvrir
+  //   `/admin/avis/` en le devinant — alors que le client venait de lire
+  //   « votre avis sera publié après vérification » et que la fiche continuait
+  //   d'afficher « Aucun avis pour le moment ».
+  //
+  //   Silencieux des deux côtés : ni le commerçant ni le client ne pouvaient
+  //   s'en apercevoir. Et sur une boutique qui démarre, un avis réel est
+  //   précisément ce qu'on ne peut pas se permettre de perdre.
+  //
+  // ⚠ APRÈS l'insertion, jamais avant : prévenir d'un avis qui n'a pas été
+  //   enregistré enverrait le commerçant devant une file vide.
+  //
+  // ⚠ Et l'échec est ABSORBÉ. L'avis est déjà en base ; faire échouer la
+  //   requête pour un e-mail non parti afficherait une erreur au client, qui
+  //   recommencerait — et se heurterait au « vous avez déjà déposé un avis ».
+  //   Le défaut deviendrait pire que celui qu'on corrige.
+  try {
+    const merchant = merchantEmail(env);
+    if (merchant) {
+      const siteUrl = env.SITE_URL || "https://maisoncbdvape.fr";
+      await sendEmail(env, {
+        to: merchant,
+        ...avisMerchant(
+          {
+            produitId,
+            produitNom: nomProduit(produitId),
+            orderId, auteur, note, commentaire,
+          },
+          siteUrl
+        ),
+      });
+    }
+  } catch (e) {
+    console.error("[avis] Notification commercant KO :", e.message);
   }
 
   // Rien n'est publié tout de suite, et on le dit : laisser croire à une

@@ -557,6 +557,53 @@ appartient. À reprendre dès que de vrais avis existent, ou avant si la
 question de la conformité se pose. Les deux autres chiffres du bandeau
 (« 121+ références », « 48h livraison ») sont exacts.
 
+### ⚠ Un avis déposé n'existait pour PERSONNE
+
+Le commerçant a demandé le 2026-10-03, après avoir laissé un avis de test :
+« qui se charge de sa vérification ? ». C'est lui, dans `/admin/avis/` — et la
+question a mis au jour que **rien ne l'en informait**.
+
+`/api/avis` enregistrait l'avis en `etat = 'attente'` et s'arrêtait là. Aucun
+e-mail, aucun compteur, aucun badge. Le seul moyen de voir la file était
+d'ouvrir `/admin/avis/` **en le devinant**, spéculativement, pour toujours.
+
+**Le défaut est silencieux des DEUX côtés**, et c'est ce qui le rend grave :
+
+- le client a lu « votre avis sera publié après vérification », revient, et
+  voit « Aucun avis pour le moment » — il en conclut que la boutique l'ignore ;
+- le commerçant ne sait pas qu'il y a quelque chose à faire.
+
+Sur une boutique qui démarre, un avis réel est exactement ce qu'on ne peut pas
+se permettre de perdre : c'est la denrée rare, et celle que `verify:redaction`
+et `/api/avis` tout entier existent pour obtenir honnêtement.
+
+**`avisMerchant()` (`_shared/templates.js`) est envoyé au dépôt.** La mécanique
+existait déjà (`sendEmail`, `merchantEmail`, comme pour le réassort) ; elle
+n'était simplement pas câblée là.
+
+⚠ **Envoyé APRÈS l'insertion**, jamais avant : prévenir d'un avis non
+enregistré enverrait le commerçant devant une file vide.
+
+⚠ **L'échec est absorbé.** L'avis est déjà en base ; faire échouer la requête
+pour un e-mail non parti afficherait une erreur au client, qui recommencerait
+— et se heurterait au « vous avez déjà déposé un avis sur ce produit ». Le
+correctif serait pire que le défaut.
+
+⚠ **L'adresse du client n'est PAS dans l'e-mail.** Elle a servi à vérifier la
+commande, elle n'a aucune raison de voyager ensuite : le commerçant n'en a pas
+besoin pour modérer, et `avis.js` prend déjà soin de ne jamais la publier.
+
+⚠ **Ne PAS lire `CATALOG[id].nom` pour nommer le produit** — c'est ce que
+j'avais écrit en premier. Les valeurs de `CATALOG` sont des **nombres** (le
+prix de fiche), pas des objets : l'optionnel rend `undefined`, rien ne lève, et
+l'e-mail serait retombé sur l'identifiant brut sans qu'aucune erreur ne le
+signale. Le nom vit dans **`REFERENCES`**. Un produit à saveurs n'y a pas
+d'entrée nue (ses lignes sont `id::label`), d'où le repli sur le préfixe.
+
+**Reste ouvert** : aucun compteur d'avis en attente dans le back-office. L'e-mail
+suffit tant que le volume est nul ; le jour où il ne le sera plus, un badge sur
+`/admin/` vaudra mieux qu'une boîte de réception.
+
 ⚠ **Le blog est soumis à la même règle, et c'est là qu'elle sera enfreinte.**
 Une fiche produit se tient en trois phrases ; un article de fond invite à
 expliquer « à quoi ça sert », et « le CBD aide à mieux dormir » s'écrit tout

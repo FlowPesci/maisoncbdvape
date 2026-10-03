@@ -3,12 +3,13 @@
  * ─────────────────────────────────────────────────────────────────────────────
  * Templates HTML + texte des emails transactionnels MaisonCBDVape.
  *
- * 5 modèles disponibles :
+ * 6 modèles disponibles :
  *  - reservationClient(order)        → confirmation Click & Collect au client
  *  - reservationMerchant(order)      → notification commerçant nouvelle commande
  *  - paiementClient(order)           → confirmation paiement reçu (Monetico)
  *  - paiementMerchant(order)         → notification commerçant paiement reçu
  *  - readyClient(order)              → "votre commande est prête à être récupérée"
+ *  - avisMerchant(avis)              → un avis client attend d'être modéré
  *
  * Chaque fonction retourne { subject, html, text }.
  * Style email : compatible clients mail (inline styles, pas de Tailwind).
@@ -415,6 +416,69 @@ ${livraisonText}
 Total ${isPaid ? "déjà payé" : "à régler en boutique"} : ${formatEur(order.totalTTC)}
 
 À très vite !`;
+  return { subject, html, text };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Avis clients
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Un avis vient d'être déposé et attend la modération du commerçant.
+ *
+ * ─── Pourquoi cet e-mail existe ──────────────────────────────────────────────
+ * Rien ne prévenait le commerçant. L'avis s'enregistrait en `etat = 'attente'`
+ * et `/api/avis` s'arrêtait là : pour le voir, il fallait ouvrir
+ * `/admin/avis/` en le devinant. Or le client, lui, a lu « votre avis sera
+ * publié après vérification » — et la fiche continuait d'afficher « Aucun avis
+ * pour le moment ».
+ *
+ * C'est la famille de défaut la plus coûteuse de ce projet : silencieuse des
+ * DEUX côtés. Personne ne peut s'en apercevoir, et un avis réel — denrée rare
+ * sur une boutique qui démarre — pouvait dormir des mois.
+ *
+ * ⚠ L'adresse du client n'y figure PAS. Elle a servi à vérifier la commande,
+ *   elle n'a aucune raison de voyager ensuite : le commerçant n'en a pas
+ *   besoin pour modérer, et `avis.js` prend déjà soin de ne jamais la publier.
+ *
+ * ⚠ Le commentaire est tronqué à 300 caractères. L'e-mail sert à dire
+ *   « allez modérer », pas à modérer depuis la messagerie — la décision se
+ *   prend dans `/admin/avis/`, où les boutons existent.
+ */
+export function avisMerchant(avis, siteUrl = "https://maisoncbdvape.fr") {
+  const etoiles = "★".repeat(avis.note) + "☆".repeat(5 - avis.note);
+  const extrait = String(avis.commentaire || "").trim();
+  const court = extrait.length > 300 ? extrait.slice(0, 300) + "…" : extrait;
+  const subject = `✍ Nouvel avis à modérer — ${avis.produitNom || avis.produitId} (${avis.note}/5)`;
+
+  const html = shell({
+    preheader: `${etoiles} sur ${avis.produitNom || avis.produitId}. En attente de votre validation.`,
+    title: "Un avis attend votre validation",
+    intro: `<p>Un client a déposé un avis. <strong>Il n'est pas visible sur le site</strong> tant que vous ne l'avez pas publié.</p>`,
+    body: `
+      ${infoBox("Produit", escapeHtml(avis.produitNom || avis.produitId))}
+      ${infoBox("Note", `<span style="color:${C.green};font-size:18px;letter-spacing:2px;">${etoiles}</span> &nbsp;${avis.note}/5`)}
+      ${infoBox("Signé", escapeHtml(avis.auteur))}
+      ${infoBox("Commande", `<span style="font-family:monospace;">${escapeHtml(avis.orderId)}</span>`, C.violet)}
+      ${court
+        ? `<div style="background:#f7f7fa;border-radius:6px;padding:16px;margin:16px 0;color:#333;font-size:14px;line-height:1.6;font-style:italic;">« ${escapeHtml(court)} »</div>`
+        : `<p style="color:#888;font-size:13px;">Aucun commentaire — une note seule.</p>`}
+    `,
+    cta: ctaButton("Modérer cet avis", `${siteUrl}/admin/avis/`),
+    footer: "Avis déposé depuis une commande vérifiée : elle existe, elle est à cette adresse, elle a été honorée, et elle contenait ce produit.",
+  });
+
+  const text = `Un avis attend votre validation. Il n'est pas visible sur le site.
+
+Produit  : ${avis.produitNom || avis.produitId}
+Note     : ${avis.note}/5
+Signé    : ${avis.auteur}
+Commande : ${avis.orderId}
+
+${court ? `« ${court} »` : "Aucun commentaire — une note seule."}
+
+Modérer : ${siteUrl}/admin/avis/`;
+
   return { subject, html, text };
 }
 
