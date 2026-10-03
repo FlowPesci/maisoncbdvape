@@ -1869,8 +1869,7 @@ abouti.
 
 ✅ **L'e-mail `ready` a tourné en production le 2026-10-03** sur la commande
 `MCV-202610030629-27ME`, et il est arrivé. C'était le **dernier des cinq
-statuts jamais exécuté** : les cinq sont maintenant prouvés. (Toujours en
-indésirable chez Outlook — voir la section suivante, c'est une autre question.)
+statuts jamais exécuté** : les cinq sont maintenant prouvés.
 
 ### ⚠ Classé indésirable chez Outlook — et l'authentification était PARFAITE
 
@@ -1937,15 +1936,33 @@ ce qui a été modifié ne touchait à la réputation, et deux messages ne font 
 un historique. **Ne pas en déduire qu'il faut chercher ailleurs** — c'est
 exactement le moment où l'on se met à toucher au DNS par impatience.
 
-⚠ **Et surtout : une boîte Hotmail n'est pas la clientèle.** Tout ce qui
-précède est mesuré sur **une** adresse chez **un** fournisseur, celle du
-développeur. La question commerciale est de savoir où atterrissent les
-messages des vrais clients — en France, massivement **Gmail**. Tant qu'aucun
-envoi vers Gmail et Yahoo n'a été observé, on ne sait rien de la délivrabilité
-réelle de la boutique ; on sait seulement qu'Outlook est sévère avec un domaine
-neuf. **Mesurer avant de conclure**, ici comme ailleurs : envoyer l'e-mail de
-test de `/admin/diagnostic/` vers une adresse Gmail et une adresse Yahoo, et
-regarder le dossier d'arrivée.
+### ✅ Et la mesure a tranché : c'est Outlook, pas la boutique
+
+**Une boîte Hotmail n'est pas la clientèle.** Tout ce qui précède était mesuré
+sur **une** adresse chez **un** fournisseur, celle du développeur — alors que
+la clientèle française est massivement sur **Gmail**. On ne savait donc rien de
+la délivrabilité réelle ; on savait seulement qu'Outlook est sévère.
+
+**Test fait le 2026-10-03 : Gmail met le message en BOÎTE PRINCIPALE.** Même
+domaine, même configuration, même contenu. La chaîne e-mail est donc saine, et
+le classement d'Outlook est un comportement de ce fournisseur-là envers un
+domaine neuf — **pas un défaut de la boutique**. Rien à corriger.
+
+⚠ **Le bouton de `/admin/diagnostic/` ne pouvait PAS servir à ce test** : il
+envoie vers `EMAIL_MERCHANT` (`wrangler.toml`), et nulle part ailleurs — l'écran
+le dit en toutes lettres. Aucune des deux adresses n'est chez Gmail. La bonne
+méthode est donc de **passer une commande de test en retrait boutique avec une
+adresse Gmail comme adresse client** : c'est gratuit, et c'est meilleur, puisque
+cela éprouve le vrai gabarit de confirmation plutôt qu'un message de service.
+Supprimer la commande ensuite — le bouton rend le stock avant d'effacer.
+
+⚠ **Un champ « envoyer à » sur l'écran de diagnostic a été envisagé et NON
+retenu.** Il transformerait un bouton qui n'écrit qu'au commerçant en un envoi
+vers n'importe quelle adresse depuis le domaine de la boutique. Protégé par
+l'authentification admin, certes, et à contenu figé — mais c'est exactement la
+capacité qui détruit une réputation d'expéditeur si une session fuite. Or la
+réputation est précisément ce qui manquait ici. Ne pas l'ajouter sans une
+raison plus forte que la commodité.
 
 ⚠ **La leçon de méthode, pour la sixième fois dans ce projet.** Trois jours de
 Monetico, la clé Resend, le 7403 de wrangler, la CSP de Decap, le script mort
