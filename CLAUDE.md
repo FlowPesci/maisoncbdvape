@@ -104,10 +104,70 @@ La leçon est celle de la clé Resend, déplacée d'un cran : un message d'erreu
 nomme ce que le serveur a constaté, pas ce qui l'a provoqué. Et ici le serveur
 voyait bien un appel mal formé par un client périmé.
 
-⚠ **Monter wrangler, c'est `npm install` sur la machine Windows**, jamais
-depuis le bac à sable : `node_modules` vit dans le dépôt monté, et une écriture
-depuis l'autre côté y poserait les mêmes droits impossibles à reprendre que le
-`git fetch` du 2026-09-28.
+⚠ **Ne PAS monter wrangler dans `package.json` pour autant.** C'est ce que
+j'ai fait dans la foulée, et **le déploiement suivant est tombé** — voir
+« `npm ci` refuse de réconcilier » plus bas. Deux raisons de s'en abstenir :
+
+1. **La construction ne se sert pas de wrangler.** `npm run build` enchaîne
+   clean, css, catalog, les contrôles, eleventy et la CSP. Wrangler ne sert
+   qu'à `npm run dev` et aux commandes `db:` — toutes locales.
+2. **wrangler 4.147 exige Node ≥ 22**, et l'image de construction Cloudflare
+   tourne en **Node 20.20.0** (lui-même en fin de vie, le journal le dit).
+   Même avec un lock régénéré, on installerait un paquet hors de son moteur
+   pour un gain nul au build.
+
+**Le besoin était purement local**, et `npx wrangler@latest d1 execute …` y
+répond sans toucher au dépôt. C'est la bonne porte de sortie tant que l'image
+Cloudflare est en Node 20.
+
+⚠ **Et si on monte wrangler un jour, c'est `npm install` sur la machine
+Windows**, jamais depuis le bac à sable : `node_modules` vit dans le dépôt
+monté, et une écriture depuis l'autre côté y poserait les mêmes droits
+impossibles à reprendre que le `git fetch` du 2026-09-28.
+
+### ⚠ `npm ci` refuse de réconcilier — et une ligne éteint la boutique
+
+```bash
+npm run verify:lock    # tourne en PREMIER dans npm run build
+```
+
+Le 2026-10-03, j'ai changé une version dans `package.json` sans régénérer
+`package-lock.json`. En local, rien ne l'a signalé — `npm install` l'aurait
+corrigé, je ne l'ai pas lancé. Le déploiement a échoué :
+
+```
+npm error `npm ci` can only install packages when your package.json and
+package-lock.json are in sync.
+npm error Invalid: lock file's wrangler@4.94.0 does not satisfy wrangler@4.147.0
+```
+
+**Cloudflare installe avec `npm clean-install`**, et `npm ci` ne réconcilie
+rien par conception — c'est ce qui garantit des constructions reproductibles.
+
+⚠ **Soixante lignes d'erreur pour une seule cause.** esbuild, miniflare,
+workerd, les paquets de plateforme de sharp : tout cela n'est que l'arbre de
+dépendances de la version demandée comparé à celui du lock. **Lire la première
+ligne `Invalid:` suffit**, les autres en découlent. Chercher un défaut par
+ligne ferait perdre une heure.
+
+⚠ **Ce n'est pas mon commit qui était bloqué, c'est `main`.** Tant que les deux
+fichiers divergent, **toute** construction échoue — y compris celle déclenchée
+par le commerçant quand il enregistre une fiche depuis `/admin/contenu/`. Il
+n'aurait vu qu'un déploiement rouge sans rapport avec son geste. C'est le
+scénario que `verify:redaction` a déjà coûté deux jours.
+
+`verify:lock` compare donc les deux fichiers et **bloque la construction**.
+Il respecte la règle du projet — il ne se déclenche que sur ce que le CODE peut
+casser : le commerçant ne touche jamais à `package.json`.
+
+⚠ Il ne gère volontairement que les formes employées ici (`^`, `~`, exact) et
+**se tait** sur tout le reste (`*`, `>=`, `git+…`). Un contrôle qui invente une
+règle bloque à tort, et un contrôle qui bloque à tort finit désactivé — même
+prudence que les widgets inconnus de `verify:cms`.
+
+**La réparation est toujours la même** : `npm install`, puis **commiter
+`package-lock.json`**. Modifier `package.json` sans le lock n'est jamais
+correct dans ce dépôt.
 
 ⚠ **Une seule instruction par `--command`.** Le 2026-09-19, trois instructions
 séparées par `;` dans un même `--command` n'ont produit aucun effet — et
