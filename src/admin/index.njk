@@ -96,11 +96,31 @@ eleventyExcludeFromCollections: true
       </a>
     </div>
 
+    {# ─── Témoin de mise en ligne ──────────────────────────────────────────
+       Rendu CÔTÉ SERVEUR, à la construction. C'est tout l'intérêt : la date
+       ne peut bouger que si une construction a réussi.
+
+       Si le commerçant enregistre une fiche et que cette date n'a pas bougé
+       quelques minutes plus tard, la construction a échoué — et le site
+       continue de servir l'ancienne version sans que rien ne l'annonce.
+       Voir `src/_data/build.js` pour le détail du défaut que ça rend visible. #}
     <div class="rounded-2xl border border-dark-border bg-dark-card p-5">
       <p class="text-smoke text-sm">
         Une modification du catalogue est publiée après un court redéploiement automatique
         (une à deux minutes). Les stocks, eux, sont immédiats.
       </p>
+
+      <p class="text-smoke text-sm mt-3">
+        Dernière mise en ligne :
+        <strong style="color:var(--gold);">{{ build.horodatage }}</strong>
+        <span class="font-mono text-xs" style="color:var(--muted);">· {{ build.commit }}</span>
+      </p>
+      <p class="text-xs mt-1" style="color:var(--muted);">
+        Si vous venez d'enregistrer une fiche et que cette date n'a pas changé après
+        quelques minutes, la publication a échoué — le site reste alors en ligne,
+        mais sur sa version précédente.
+      </p>
+
       <a href="/" class="text-xs font-mono uppercase tracking-wider mt-3 inline-block" style="color:var(--gold);">
         Voir la boutique →
       </a>

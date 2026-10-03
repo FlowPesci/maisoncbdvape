@@ -68,6 +68,57 @@ relayer le message brut.
 temps. Dans un environnement à durée limitée, ignorer `src/produits/**` et
 `src/categories/**` pour vérifier le reste.
 
+⚠ **Et ne pas la lancer depuis un environnement qui voit le dépôt à travers un
+montage.** Eleventy écrit `public/` : lancé depuis le bac à sable, il y poserait
+les mêmes droits impossibles à reprendre que le `git fetch` du 2026-09-28 — et
+c'est `npm run clean` (`rmSync('public')`) qui tomberait au build suivant, donc
+le déploiement. Même règle que pour `npm install`. Construire sur la machine
+Windows, et se contenter de lecture de l'autre côté.
+
+### ⚠ « Plusieurs fiches enregistrées d'affilée : sont-elles toutes passées ? »
+
+Question du commerçant, le 2026-10-03. **Rien ne se perd, et ce n'est pas là
+qu'est le danger.**
+
+Le contenu vit dans Git, pas dans la construction. Chaque build récupère `main`
+**à son sommet** : la dernière construction contient donc déjà toutes les
+modifications antérieures. Une construction intermédiaire sautée ou annulée
+n'emporte aucune fiche avec elle. La question utile n'est pas « sont-elles
+toutes passées ? » mais **« la dernière est-elle verte ? »**.
+
+**Le danger est l'inverse, et il a déjà coûté deux jours.** Si une seule fiche
+introduit une donnée qu'un `verify:` refuse, cette donnée **reste dans le
+dépôt** : toutes les constructions suivantes échouent aussi, y compris celles
+déclenchées par des fiches parfaitement correctes. Ce n'est pas « un
+déploiement perdu », c'est **`main` cassé, et qui le reste**.
+
+⚠ **Et le site ne tombe pas.** Cloudflare continue de servir le dernier
+déploiement réussi. Rien n'alerte, tout a l'air normal — le site cesse
+simplement de refléter le travail du commerçant, qui peut modifier dix fiches
+en croyant les publier. C'est plus pernicieux qu'une panne.
+
+**Ce qui manquait n'était pas une garantie, c'était un signal.** Deux mesures,
+complémentaires :
+
+| | Effet | Où |
+|---|---|---|
+| Notifications Cloudflare sur échec de déploiement | **prévient** : un e-mail quand `main` casse | réglage du tableau de bord, hors dépôt |
+| Horodatage de build dans `/admin/` | **se constate** : la date ne bouge pas → le build a échoué | `src/_data/build.js` |
+
+`src/_data/build.js` expose `build.horodatage` (Europe/Paris explicitement —
+l'image de construction tourne en UTC, et deux heures d'écart feraient douter
+au lieu de rassurer) et `build.commit` (`CF_PAGES_COMMIT_SHA` tronqué, `local`
+hors Cloudflare). Affiché en bas de `/admin/`.
+
+⚠ **Rendu côté serveur, jamais en JavaScript.** Ce projet a déjà payé deux fois
+un affichage juste uniquement parce qu'un script tournait (`admin-commandes`,
+`categorie-menu`) : un témoin de santé qui dépend d'un script est muet
+précisément le jour où quelque chose ne va pas.
+
+⚠ Rien n'est commité — la valeur vit dans `public/`, non versionné. C'est ce
+qui distingue ce fichier d'`og:generer`, exclu du build parce qu'il écrit un
+binaire dans le dépôt.
+
 ### Base de données (D1)
 
 ```bash
