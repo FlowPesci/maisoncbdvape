@@ -1524,6 +1524,40 @@ ce n'est pas cette règle qu'il faut retirer : c'est au conteneur de porter
 n'exécute que du JavaScript, sans moteur de rendu : il ne voit aucune largeur.
 Ce défaut-là ne s'attrape qu'en ouvrant la page à un gabarit étroit.
 
+### ⚠ Le fil d'Ariane vivait en SEPT exemplaires et QUATRE tailles
+
+Le commerçant a demandé le 2026-10-09 d'agrandir « le texte sur le chemin ».
+Le geste tenait en une valeur ; **il tenait en sept** :
+
+| Gabarit | Comment la taille était écrite |
+|---|---|
+| `categories/categorie.njk`, `sous-categorie.njk` | `font-size:11px` en style en ligne |
+| `boutique.njk`, `panier.njk`, `commande.njk`, `produits/produit-detail.njk` | `text-xs` de Tailwind (12 px) |
+| `_includes/layouts/article.njk` | `font-size:.75rem` |
+| *et* `.breadcrumb-link` lui-même | `font-size: 0.75rem` |
+
+Deux pages n'avaient donc déjà pas la même taille que les cinq autres, et la
+classe prévue pour porter la règle était court-circuitée par un style en ligne
+là où elle était appelée. **`.fil-ariane` (`input.css`) porte désormais taille,
+espacement et alignement, et lui seul** ; les gabarits ne gardent que leur
+marge. Une valeur à toucher pour les sept pages. Passé de 11-12 px à **13 px**.
+
+⚠ **Les chevrons devaient suivre**, sinon agrandir le texte rapetissit le
+séparateur par contraste. Ils étaient à `w-3 h-3` ou `width:10px` : la règle
+`.fil-ariane svg { width:1em; height:1em }` les lie au texte. Même raison que
+les tailles d'`icone()` contrôlées par `verify:css` — un SVG sans dimension ne
+produit aucune erreur, il s'étire.
+
+⚠ **`.breadcrumb-link` est passé en `font-size: inherit`.** Y réécrire une
+taille un jour reprendrait la main sur le `<nav>` et rétablirait exactement la
+divergence qu'on vient de fermer.
+
+⚠ Deux divergences mineures trouvées au passage et refermées : le fil de
+`/boutique/` était le seul en `font-mono`, et le survol des liens était tantôt
+or (`data-hover="gold"`) tantôt crème (`data-hover="cream"`). Les `data-hover`
+sont retirés — `.breadcrumb-link:hover` portait déjà la règle, en or, comme
+`nav-link` et `footer-link`.
+
 **Les icônes ne sont pas des emojis.** `components/icone.njk` pose la classe
 `.icone` sur chaque SVG, qui le remet en `inline-block` — sans quoi le preflight
 Tailwind (`svg { display: block }`) le colle à gauche dans un conteneur

@@ -1454,13 +1454,40 @@ em, i, cite, dfn, address, blockquote, q {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ─── Fil d'Ariane ─────────────────────────────────────────────────────── */
+/* ⚠ UNE SEULE taille pour les sept fils d'Ariane du site. Ils vivaient dans
+   sept gabarits, avec QUATRE façons d'écrire leur taille : `font-size:11px`
+   en style en ligne (catégorie, sous-catégorie), `text-xs` de Tailwind
+   (boutique, panier, commande, fiche produit), `font-size:.75rem` (article de
+   blog) et une quatrième dans `.breadcrumb-link` lui-même. Agrandir « le
+   chemin » demandait donc sept gestes, et six suffisaient à faire diverger
+   les pages — la famille de défaut que `prix-fiche.mjs` ferme côté tarifs.
+
+   Les gabarits ne portent plus que leur marge : la taille, l'espacement et
+   l'alignement sont ici. Une seule valeur à toucher pour les sept pages. */
+.fil-ariane {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+/* ⚠ Les chevrons suivent le texte (`1em`), ils ne portent plus de dimension
+   propre. Ils étaient à `w-3 h-3` (12px) ou `width:10px` selon le gabarit :
+   agrandir le texte sans eux donnerait un séparateur devenu minuscule. */
+.fil-ariane svg { width: 1em; height: 1em; flex-shrink: 0; }
+
+/* ⚠ `font-size: inherit` — c'est le `<nav>` qui décide. Une taille écrite ici
+   reprendrait la main sur `.fil-ariane` et rétablirait la divergence. */
 .breadcrumb-link {
   color: var(--muted);
-  font-size: 0.75rem;
+  font-size: inherit;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 .breadcrumb-link:hover { color: var(--gold); }
+.fil-ariane-actuel { color: var(--gold); }
 
 /* ─── Badges d'état d'une fiche ou d'une carte produit ─────────────────── */
 /* ⚠ Passé aux variables le 2026-09-30. Ces trois lignes portaient #4A9E5C en
