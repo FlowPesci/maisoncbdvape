@@ -2109,6 +2109,62 @@ servent aujourd'hui le même contenu ; les balises `canonical` pointent toutes
 vers l'apex, donc le référencement est déjà consolidé, mais une redirection
 serait plus propre.
 
+### ⚠ Le site répond en HTTP sans rediriger — « site non sécurisé »
+
+Le 2026-10-09, le commerçant a signalé que Chrome affichait « le site n'est pas
+sécurisé » et proposait de « revenir en lieu sûr » **au moment de se connecter
+au back-office**. Mesuré : `http://maisoncbdvape.fr/` **sert la page en clair,
+sans aucune redirection vers HTTPS** — la requête reste sur `http://` de bout
+en bout, alors qu'une URL sans barre oblique finale redirige bien, ce qui prouve
+que le mécanisme de redirection fonctionne par ailleurs.
+
+Le déclencheur a été un **favori enregistré en `http://`**, créé le jour même
+pour contourner la disparition du lien « Espace pro » (voir plus bas).
+
+⚠ **Et ce n'est pas qu'un avertissement cosmétique.** Le cookie de session
+`mcv_admin_session` est posé en **`Secure`** (`_shared/session.js`) : un
+navigateur refuse de le poser et de l'envoyer sur une origine `http`. Depuis
+une entrée en clair, la connexion au back-office ne peut donc **pas** aboutir
+— elle boucle, sans qu'aucun message n'explique pourquoi. Le symptôme visible
+(l'avertissement) et le symptôme invisible (la session qui ne s'établit jamais)
+ont la même cause.
+
+**Le correctif est un interrupteur, hors dépôt** : Cloudflare → SSL/TLS →
+Edge Certificates → **Always Use HTTPS**. Tant qu'il n'est pas activé, tout
+visiteur arrivant en `http` y reste.
+
+⚠ **`src/_headers` ne pose aucun `Strict-Transport-Security`.** HSTS
+compléterait la redirection — le navigateur refuserait de lui-même le `http` —
+mais il ne la remplace pas : il ne s'applique qu'**après** une première visite
+en HTTPS. Et c'est un engagement : tant que la durée annoncée court, un
+problème de certificat rend le site **injoignable** au lieu d'afficher un
+avertissement contournable. À poser délibérément, avec une durée courte au
+début, pas en passant.
+
+### ⚠ Retirer le lien « Espace pro » a coupé l'accès au back-office
+
+Conséquence non anticipée du retrait du 2026-09-30, constatée le 2026-10-08 :
+le commerçant ne trouvait plus l'entrée du back-office.
+
+La note de `footer.njk` disait que le lien « servait à la première connexion
+sur un nouvel appareil ». **C'était trop étroit.** La session dure **7 jours**
+(`TTL_SECS`, `_shared/session.js`) ; à son expiration, le cookie non-secret
+`mcv_admin_hint` disparaît avec elle, donc **le raccourci flottant aussi**. Le
+commerçant se retrouve alors exactement dans la situation du « nouvel
+appareil » — sans avoir changé d'appareil, et sans aucun chemin visible.
+
+Le calendrier le dit : lien retiré le 30/09, session de 7 jours, panne le 08/10.
+
+**Résolu par un favori**, et c'est la solution prévue par la note — mais elle
+repose entièrement sur le commerçant, un seul navigateur, un seul poste. Si le
+cas revient (nouveau PC, profil réinitialisé), **ne pas remettre le lien
+public** : l'audit avait raison sur le fond. La bonne réponse serait une entrée
+qui ne révèle rien au visiteur, ou l'adresse rappelée dans
+`docs/manuel-commercant.md` — où elle figure déjà.
+
+⚠ **Et le favori doit être en `https://`** — voir juste au-dessus, c'est ce qui
+a produit l'avertissement de sécurité dans la foulée.
+
 **Chantier de sécurité clos : jeton d'admin + CSP script-src.** Les deux
 étaient liés — un jeton lisible en `localStorage` combiné à une CSP qui
 autorisait `unsafe-inline`/`unsafe-eval` voulait dire qu'une seule injection
