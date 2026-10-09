@@ -61,10 +61,21 @@ eleventyComputed:
     <a href="/categories/{{ sous.categorieSlug }}/"
        style="padding:16px 18px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:color .25s;"
        data-hover="gold">Tout voir</a>
+    {# ⚠ Même règle que le menu (voir `partials/header.njk`) : une
+       sous-catégorie vide n'est pas proposée.
+
+       ⚠ SAUF celle qu'on est en train de consulter. Sans cette exception,
+       arriver sur une sous-catégorie vide — par un lien, un favori ou un
+       résultat de recherche — ferait disparaître son propre onglet du rail :
+       le visiteur verrait la page d'une rubrique qui n'est listée nulle part,
+       et n'aurait aucun repère pour savoir où il se trouve. #}
     {% for s in sousCategories %}{% if s.categorieSlug == sous.categorieSlug %}
-      <a href="{{ s.url }}"
-         style="padding:16px 18px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .25s;{% if s.slug == sous.slug %}color:var(--gold);border-bottom:2px solid var(--gold);{% else %}color:var(--muted);border-bottom:2px solid transparent;{% endif %}"
-         {% if s.slug != sous.slug %}data-hover="gold"{% endif %}>{{ s.nom }}</a>
+      {% set nS = produits | where("categorie", s.categorieSlug) | where("sousCategorie", s.slug) | count %}
+      {% if nS > 0 or s.slug == sous.slug %}
+        <a href="{{ s.url }}"
+           style="padding:16px 18px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .25s;{% if s.slug == sous.slug %}color:var(--gold);border-bottom:2px solid var(--gold);{% else %}color:var(--muted);border-bottom:2px solid transparent;{% endif %}"
+           {% if s.slug != sous.slug %}data-hover="gold"{% endif %}>{{ s.nom }}</a>
+      {% endif %}
     {% endif %}{% endfor %}
   </div>
 </div>

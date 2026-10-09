@@ -95,13 +95,31 @@
             <a href="/categories/{{ cat.slug }}/" style="font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .25s;"
                data-hover="gold">Tout voir →</a>
           </div>
+          {# ⚠ Une sous-catégorie VIDE n'est pas listée.
+             Relevé par l'audit du 2026-09-30 (« masquer les catégories
+             vides ») et constaté en ligne le 2026-10-09 : le menu annonçait
+             « Starbuzz 0 » et « Adalya 0 ». Un univers affiché avec un zéro
+             est une promesse non tenue — le visiteur clique et tombe sur une
+             page sans produit, ce qui fait paraître le catalogue en panne
+             plutôt que simplement incomplet.
+
+             ⚠ La PAGE de la sous-catégorie, elle, continue d'exister : elle
+             est générée par `sousCategories.js` et peut être liée ailleurs.
+             On retire l'invitation, pas l'adresse — masquer n'est pas
+             supprimer.
+
+             ⚠ Et la sous-catégorie réapparaît TOUTE SEULE au premier produit
+             qui l'alimente. Rien à penser le jour où le commerçant reçoit du
+             Starbuzz : le compteur est lu depuis `produits`, pas saisi. #}
           <div class="mega-grid">
             {% for s in cat.sousCategories %}
               {% set n = produits | where("categorie", cat.slug) | where("sousCategorie", s.slug) | count %}
-              <a href="/categories/{{ cat.slug }}/{{ s.slug }}/" class="mega-link">
-                <span class="mega-link-nom">{{ s.nom }}</span>
-                <span class="mega-link-nb">{{ n }}</span>
-              </a>
+              {% if n > 0 %}
+                <a href="/categories/{{ cat.slug }}/{{ s.slug }}/" class="mega-link">
+                  <span class="mega-link-nom">{{ s.nom }}</span>
+                  <span class="mega-link-nb">{{ n }}</span>
+                </a>
+              {% endif %}
             {% endfor %}
           </div>
         </div>
@@ -131,11 +149,22 @@
             {% endif %}
           </div>
           {% if cat.sousCategories %}
+            {# ⚠ MÊME règle que le méga-menu ci-dessus — et c'est le piège.
+               Ce menu-ci n'affiche pas de compteur, donc une sous-catégorie
+               vide n'y est pas visiblement vide : elle ressemble à une entrée
+               normale qui mène à une page déserte. Le défaut est donc PIRE
+               sur mobile, là où se fait l'essentiel du trafic.
+
+               N'en corriger qu'un des deux ferait diverger les deux menus —
+               la famille de défaut que ce dépôt paie le plus cher. #}
             <div class="mobile-sub hidden" data-sub="{{ cat.slug }}" style="padding:0 0 12px 14px;">
               {% for s in cat.sousCategories %}
-                <a href="/categories/{{ cat.slug }}/{{ s.slug }}/"
-                   style="display:block;padding:7px 0;font-size:12.5px;letter-spacing:.08em;color:var(--muted);text-decoration:none;transition:color .25s;"
-                   data-hover="gold">{{ s.nom }}</a>
+                {% set n = produits | where("categorie", cat.slug) | where("sousCategorie", s.slug) | count %}
+                {% if n > 0 %}
+                  <a href="/categories/{{ cat.slug }}/{{ s.slug }}/"
+                     style="display:block;padding:7px 0;font-size:12.5px;letter-spacing:.08em;color:var(--muted);text-decoration:none;transition:color .25s;"
+                     data-hover="gold">{{ s.nom }}</a>
+                {% endif %}
               {% endfor %}
             </div>
           {% endif %}

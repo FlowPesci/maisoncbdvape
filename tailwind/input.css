@@ -179,6 +179,34 @@
      aucun trait, ça ne touche que du texte. */
   --muted:      #A89E8C;
   --text:       #D8D0C4;
+
+  /* ─── Appel à l'action principal ────────────────────────────────────────
+     Source unique du bouton PLEIN. Posé le 2026-10-09, sur le point n° 4 des
+     dix actions prioritaires de l'audit du 2026-09-30 : « CTA principal plein
+     doré (fiche, hero, cartes au survol) ».
+
+     Le site avait DEUX grammaires de bouton doré sans que rien ne les
+     départage : `.btn-gold` au filet (fiche, hero, panier, commande) et
+     `.btn-neon-green` déjà plein (contact, suivi, 404, back-office). Le
+     commentaire de ce dernier disait même qu'il se distinguait du premier.
+     Résultat : l'appel à l'action le plus important du site — « Commander »,
+     « Payer en ligne », « Ajouter au panier » — était le DISCRET des deux.
+
+     Les deux pointent désormais ici. Une seule valeur décide du plein, et
+     c'est elle qu'on change le jour où la charte bouge.
+
+     ⚠ Contraste mesuré, pas choisi : #0E0C09 sur #C9A96E donne 8,7:1 — au-delà
+     du seuil AA (4,5:1) et du AAA (7:1). Ne pas remettre `--dark` (#1A1714)
+     comme couleur de texte : il tombe à 7,9:1, encore bon, mais le noir
+     profond tient mieux sur un aplat doré à cette taille de petites capitales.
+
+     ⚠ Les CARTES produit ne sont pas concernées. `.add-cart-btn` garde son
+     filet et son remplissage au survol, exactement comme l'audit le demande.
+     Vingt boutons pleins sur une grille de catégorie détruiraient la
+     hiérarchie que ce plein existe pour créer — et la sobriété est ce que
+     l'audit classe « forte » dans ce site. */
+  --cta-bg:     #C9A96E;
+  --cta-fg:     #0E0C09;
   /* Le vert ne fait plus partie de la charte : les prix et les totaux sont
      passés en doré. Il ne sert plus que de code d'état dans le back-office
      — « en stock », « ligne reconnue » — où un vert reste le signal le plus
@@ -553,30 +581,40 @@ h1, h2, h3, .heading {
 }
 
 /* ─── Boutons ─────────────────────────────────────────────────────────── */
+/* ⚠ PLEIN, et c'est le point n° 4 de l'audit du 2026-09-30.
+   Il était au filet avec remplissage au survol : élégant, et trop discret
+   pour ce qu'il porte — « Commander », « Payer en ligne », « Ajouter au
+   panier », le hero d'accueil. Un appel à l'action qui ne se remplit qu'au
+   survol n'existe pas sur un écran tactile, où il n'y a pas de survol.
+
+   Le survol INVERSE maintenant le bouton (plein → filet) au lieu de le
+   remplir. Même geste, sens opposé : l'état au repos est désormais le fort. */
 .btn-gold {
   display: inline-flex; align-items: center; gap: 12px;
   padding: 14px 36px;
-  border: 1px solid var(--gold);
-  color: var(--gold);
+  background: var(--cta-bg);
+  border: 1px solid var(--cta-bg);
+  color: var(--cta-fg);
   text-decoration: none;
   font-size: 10.5px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   font-family: 'DM Sans', sans-serif;
-  position: relative; overflow: hidden;
-  isolation: isolate;
-  transition: color .35s;
+  font-weight: 600;
+  transition: background .25s, color .25s;
 }
-.btn-gold::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: var(--gold);
-  transform: translateX(-101%);
-  transition: transform .35s cubic-bezier(.4,0,.2,1);
-  z-index: -1;
+.btn-gold:hover {
+  background: transparent;
+  color: var(--cta-bg);
 }
-.btn-gold:hover { color: var(--dark); }
-.btn-gold:hover::before { transform: translateX(0); }
+/* Un bouton d'achat désactivé ne doit pas rester un aplat doré : il
+   continuerait d'appeler le clic. Même traitement que `.add-cart-btn`. */
+.btn-gold:disabled {
+  background: transparent;
+  border-color: var(--borderl);
+  color: var(--muted);
+  cursor: not-allowed;
+}
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 12px;
   padding: 14px 36px;
@@ -647,16 +685,26 @@ h1, h2, h3, .heading {
    Onze pages l'utilisent pour leur appel à l'action : envoyer le formulaire
    de contact, suivre une commande, revenir à l'accueil depuis une 404. La
    classe n'était définie nulle part : ces boutons s'affichaient sans aucun
-   habillage. Version dorée pleine, pour se distinguer de `.btn-gold` qui
-   est le bouton au filet. */
+   habillage.
+
+   ⚠ Cette note disait, jusqu'au 2026-10-09, « pour se distinguer de
+   `.btn-gold` qui est le bouton au filet ». Ce n'est plus vrai, et c'était
+   le défaut : les deux classes rendaient deux boutons dorés différents sans
+   qu'aucune règle ne dise lequel employer, et le plus visible n'était pas
+   celui qui portait les ventes. Elles partagent désormais `--cta-bg` /
+   `--cta-fg` et rendent le même bouton.
+
+   ⚠ Ne pas « simplifier » en supprimant l'une des deux sans relire les 28
+   gabarits et scripts qui les emploient. Elles sont équivalentes, pas
+   interchangeables sans vérification. */
 .btn-neon-green {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: var(--gold);
-  color: var(--dark);
-  border: 1px solid var(--gold);
+  background: var(--cta-bg);
+  color: var(--cta-fg);
+  border: 1px solid var(--cta-bg);
   font-family: 'DM Sans', sans-serif;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -666,7 +714,7 @@ h1, h2, h3, .heading {
 }
 .btn-neon-green:hover {
   background: transparent;
-  color: var(--gold);
+  color: var(--cta-bg);
 }
 .btn-neon-green:disabled {
   opacity: .45;

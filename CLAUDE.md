@@ -1343,6 +1343,82 @@ voir « Aucun avis inventé »), et afficher « Économisez X € » sur les pal
 Il se contredit par ailleurs : il demande de retirer les badges « bestsellers »
 sur la vape (publicité interdite) et recommande d'en afficher sur l'accueil.
 
+### Où en est sa feuille de route — relu le 2026-10-09
+
+Le rapport (`uploads/Rapport_MaisonCBDVape_Audit_DA_Conversion.pdf`) propose
+trois phases. État réel, neuf jours après :
+
+| Phase 1 — « semaines 1-2 » | Prio | État |
+|---|---|---|
+| Validation juridique de la section 8 | P1 | **non faite** — 2 alertes sur 3 écartées par recoupement, aucun juriste saisi |
+| Bouton back-office / lien « Espace pro » | P1 | ✅ 30/09 — et ça a coupé l'accès du commerçant le 08/10, voir plus haut |
+| Contrastes `--muted`, badges, sous-titres | P1 | ✅ aux valeurs exactes de son annexe A |
+| **CTA principal plein doré** | P1 | ✅ **09/10** |
+| Titre, `og:image`, meta, aria-labels | P1 | ✅ 30/09 |
+| Nomenclature des univers ; **catégories vides** | P2 | ✅ **09/10** pour les vides ; nomenclature **non faite** |
+| Sourcer ou retirer le « 4,9★ » | P1 | ⏳ décision du commerçant, toujours en ligne |
+
+**Phases 2 et 3 : rien d'engagé**, sauf « test mobile et tunnel de commande »
+— fait, mais par nécessité (la grille qui débordait, le premier paiement réel),
+pas en suivant son plan.
+
+#### Le CTA plein : le défaut n'était pas l'absence de plein, c'était d'en avoir deux
+
+Le site portait **deux grammaires de bouton doré** sans règle pour les
+départager : `.btn-gold` au filet (fiche, hero, panier, commande, 13 emplois)
+et `.btn-neon-green` déjà plein (contact, suivi, 404, back-office, 15 emplois).
+Le commentaire du second disait même qu'il se distinguait du premier.
+
+**Conséquence : l'appel à l'action le plus important du site — « Commander »,
+« Payer en ligne », « Ajouter au panier », le hero — était le DISCRET des
+deux.** Et un bouton qui ne se remplit qu'au survol n'existe pas sur un écran
+tactile, là où se fait l'essentiel du trafic.
+
+Les deux pointent désormais sur `--cta-bg` / `--cta-fg`. Une seule valeur
+décide du plein.
+
+⚠ **Les cartes produit ne sont PAS concernées.** `.add-cart-btn` garde son
+filet et son remplissage au survol — c'est ce que l'audit demande (« cartes au
+survol »), et vingt aplats dorés sur une grille détruiraient la hiérarchie que
+ce plein existe pour créer. La sobriété est ce que l'audit classe « forte »
+dans ce site.
+
+⚠ **Contrastes mesurés après coup, pas supposés** : plein **8,73:1** (au-delà
+du AAA), survol 7,98:1, désactivé 6,74:1. Et `.btn-ghost` — le secondaire —
+tient à **4,80:1**.
+
+⚠ **Sur ce dernier je me suis trompé et j'ai failli le « corriger ».** J'avais
+approximé la composition de `rgba(245,240,232,.5)` sur le fond sombre à la
+main : 4,17:1, donc sous le seuil. La composition réelle (`α·fg + (1−α)·bg`)
+donne `#88847E`, soit 4,80:1 — conforme. **Composer une couche
+semi-transparente se calcule, ne s'estime pas**, exactement comme mesurer une
+couleur sur une carte et non sur le fond de page.
+
+#### Les sous-catégories vides ne sont plus listées
+
+Le menu annonçait « Starbuzz **0** » et « Adalya **0** ». Un univers affiché
+avec un zéro fait paraître le catalogue **en panne** plutôt qu'incomplet.
+
+⚠ **Trois endroits les listaient, et il fallait les trois** : le méga-menu
+(avec compteur), le menu mobile (**sans** compteur — le défaut y était donc
+pire, une entrée vide n'y a pas l'air vide) et le rail d'onglets de
+`sous-categorie.njk`. N'en corriger qu'un ferait diverger les menus.
+
+⚠ **Le rail garde l'onglet de la page COURANTE, même vide.** Sans cette
+exception, arriver sur une sous-catégorie vide — lien, favori, résultat de
+recherche — ferait disparaître son propre onglet : une page dont la rubrique
+n'est listée nulle part, et aucun repère pour savoir où l'on est.
+
+⚠ **La page de la sous-catégorie continue d'exister** (`sousCategories.js` la
+génère, `sitemap.xml` la porte). On retire l'invitation, pas l'adresse —
+masquer n'est pas supprimer, et c'est la règle inverse de celle du panneau
+« Greenhouse », qui annonce « sélection en cours de constitution » parce qu'il
+est éditorial, pas un lien.
+
+⚠ **Et la sous-catégorie réapparaît toute seule** au premier produit qui
+l'alimente : le compteur est lu depuis `produits`, jamais saisi. Rien à penser
+le jour où le commerçant reçoit du Starbuzz.
+
 ### ⚠ « dès » sur une fiche au gramme annonçait un prix que rien ne coûte
 
 Trouvé en regardant l'aperçu d'une fiche pendant la passe ci-dessus — pas par
