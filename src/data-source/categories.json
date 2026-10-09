@@ -73,12 +73,12 @@
     },
     {
       "slug": "vape",
-      "nom": "Cigarettes Électroniques & DIY",
+      "nom": "Vape & E-liquides",
       "icone": "spark",
       "ordre": 3,
       "image": "/assets/img/produits/cigarettes-electroniques.jpg",
       "couleurHex": "#BF5FFF",
-      "description": "Box, pods, kits débutants et avancés. E-liquides Le Petit Verger, Curieux, E-CG. Marques expertes : Vaporesso, Geek Vape, Justfog.",
+      "description": "Cigarettes électroniques, box, pods, kits débutants et avancés. E-liquides Le Petit Verger, Curieux, E-CG. Marques expertes : Vaporesso, Geek Vape, Justfog.",
       "nomCourt": "Vape & E-liquides",
       "couleur": "violet",
       "sousCategories": [
@@ -138,7 +138,7 @@
     },
     {
       "slug": "accessoires",
-      "nom": "Articles Fumeurs",
+      "nom": "Articles fumeurs",
       "icone": "tool",
       "ordre": 4,
       "image": "/assets/img/produits/accessoires.jpg",

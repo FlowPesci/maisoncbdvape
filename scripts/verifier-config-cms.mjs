@@ -249,6 +249,48 @@ function formeReelle(v) {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Nomenclature des univers — SIGNALÉ, jamais bloquant
+// ─────────────────────────────────────────────────────────────────────────────
+//
+// Relevé par l'audit du 2026-09-30 (« harmoniser la nomenclature »), corrigé le
+// 2026-10-09. `categories.json` portait pour la vape deux noms SANS AUCUN MOT
+// COMMUN : « Cigarettes Électroniques & DIY » en `nom`, « Vape & E-liquides »
+// en `nomCourt`. Le visiteur lisait l'un dans le menu, cliquait, et arrivait
+// sur une page titrée de l'autre — de quoi douter d'être au bon endroit.
+//
+// La règle : **`nomCourt` est une ABRÉVIATION de `nom`, pas un autre nom.**
+// « CBD » ⊂ « Fleurs & Résines CBD » est juste ; deux libellés disjoints ne le
+// sont jamais. Accents et casse ignorés — « Articles Fumeurs » / « Articles
+// fumeurs » était l'autre écart, invisible mais révélateur qu'aucune règle
+// n'existait.
+//
+// ⚠ AVERTIT, ne bloque pas. Le commerçant édite les catégories depuis
+//   `/admin/contenu/` → collection « categories » : un contrôle bloquant ici
+//   éteindrait la boutique sur une retouche de libellé, exactement ce que
+//   `verify:redaction` a déjà coûté deux jours. Ne bloquer que ce que le CODE
+//   peut casser — un nom mal accordé dégrade la page, il ne la casse pas.
+try {
+  // Chemin relatif à la racine du dépôt, comme `FICHIER` plus haut : ces
+  // scripts sont lancés par npm, donc depuis la racine.
+  const brut = JSON.parse(readFileSync("src/data-source/categories.json", "utf8"));
+  const cats = (Array.isArray(brut) ? brut : brut.categories || []).filter((c) => c.actif !== false);
+  const sansAccent = (s) => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+  const ecarts = cats.filter((c) => c.nomCourt && !sansAccent(c.nom).includes(sansAccent(c.nomCourt)));
+  if (ecarts.length) {
+    console.warn(`[cms] ⚠ ${ecarts.length} univers dont le nom court n'est pas tiré du nom long :`);
+    for (const c of ecarts) {
+      console.warn(`       · ${c.slug} — nom « ${c.nom} » / court « ${c.nomCourt} »`);
+    }
+    console.warn("         → le menu annonce un libellé, la page en affiche un autre.");
+    console.warn("         Signalé seulement : la construction continue.");
+  }
+} catch (e) {
+  // Un contrôle de confort ne doit pas faire tomber la vérification principale.
+  console.warn("[cms] ⚠ nomenclature non vérifiée :", e.message);
+}
+
 // Une faute de frappe ici et l'admin ne se connecte plus du tout.
 if (!config?.backend?.repo) problemes.push("backend.repo manquant");
 if (!config?.backend?.base_url) problemes.push("backend.base_url manquant");

@@ -1355,7 +1355,7 @@ trois phases. État réel, neuf jours après :
 | Contrastes `--muted`, badges, sous-titres | P1 | ✅ aux valeurs exactes de son annexe A |
 | **CTA principal plein doré** | P1 | ✅ **09/10** |
 | Titre, `og:image`, meta, aria-labels | P1 | ✅ 30/09 |
-| Nomenclature des univers ; **catégories vides** | P2 | ✅ **09/10** pour les vides ; nomenclature **non faite** |
+| Nomenclature des univers ; **catégories vides** | P2 | ✅ **09/10**, les deux |
 | Sourcer ou retirer le « 4,9★ » | P1 | ⏳ décision du commerçant, toujours en ligne |
 
 **Phases 2 et 3 : rien d'engagé**, sauf « test mobile et tunnel de commande »
@@ -1418,6 +1418,46 @@ est éditorial, pas un lien.
 ⚠ **Et la sous-catégorie réapparaît toute seule** au premier produit qui
 l'alimente : le compteur est lu depuis `produits`, jamais saisi. Rien à penser
 le jour où le commerçant reçoit du Starbuzz.
+
+#### Nomenclature : `nomCourt` est une ABRÉVIATION de `nom`, jamais un autre nom
+
+`categories.json` porte deux libellés par univers — `nom` pour les titres,
+`nomCourt` pour le menu. Deux des quatre divergeaient :
+
+| slug | avant | après |
+|---|---|---|
+| vape | nom « **Cigarettes Électroniques & DIY** » / court « Vape & E-liquides » | les deux « Vape & E-liquides » |
+| accessoires | « Articles **F**umeurs » / « Articles **f**umeurs » | les deux en minuscule |
+| cbd | « Fleurs & Résines CBD » / « CBD » | inchangé — **c'est le modèle juste** |
+
+Le cas `vape` était le vrai défaut : **aucun mot commun entre les deux**. Le
+visiteur lisait « Vape & E-liquides » au menu, cliquait, et arrivait sur une
+page titrée « Cigarettes Électroniques & DIY ».
+
+⚠ **Le choix n'a pas été fait au goût, il a été tranché par les données.**
+`admin/contenu/config.yml` emploie déjà « Vape & E-liquides » dans **huit**
+libellés et « Articles fumeurs » en minuscule ; le menu principal aussi. Trois
+sources sur quatre étaient donc déjà d'accord — c'est `nom` qui était l'intrus.
+
+⚠ **« Cigarettes électroniques » n'est pas perdu pour le référencement** : la
+sous-catégorie « Kits & cigarettes électroniques » le porte, avec sa page, son
+H1 et sa meta. Le terme a en outre été ajouté en tête de la `description` de la
+catégorie, qui alimente la meta-description.
+
+**`verify:cms` le surveille désormais** : `nomCourt` doit être contenu dans
+`nom`, accents et casse ignorés.
+
+⚠ **Il AVERTIT, il ne bloque pas.** Le commerçant édite les catégories depuis
+`/admin/contenu/` → collection « categories » : bloquer là-dessus éteindrait la
+boutique sur une retouche de libellé. Un nom mal accordé dégrade la page, il ne
+la casse pas.
+
+⚠ **Et ce contrôle était MORT à l'écriture.** Première version : `resolve(RACINE,
+…)` — ni l'un ni l'autre n'existe dans ce script. Le `try/catch` l'a absorbé en
+silence et la construction passait au vert. **Je ne l'ai vu qu'en exécutant le
+script**, et je l'ai ensuite éprouvé sur une copie du JSON avec la divergence
+remise, pour le voir réellement se déclencher. Un garde-fou qu'on n'a jamais vu
+échouer ne prouve rien — c'est le même piège que le test qui s'auto-désactive.
 
 ### ⚠ « dès » sur une fiche au gramme annonçait un prix que rien ne coûte
 
