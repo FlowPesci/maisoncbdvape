@@ -2130,8 +2130,21 @@ une entrée en clair, la connexion au back-office ne peut donc **pas** aboutir
 ont la même cause.
 
 **Le correctif est un interrupteur, hors dépôt** : Cloudflare → SSL/TLS →
-Edge Certificates → **Always Use HTTPS**. Tant qu'il n'est pas activé, tout
-visiteur arrivant en `http` y reste.
+Edge Certificates → **Always Use HTTPS**.
+
+✅ **Activé le 2026-10-09**, et vérifié par la mesure : `http://maisoncbdvape.fr/contact`
+renvoie désormais `→ https://maisoncbdvape.fr/contact/`.
+
+⚠ **Pour re-tester un jour, prendre une page qu'on n'a pas déjà demandée** :
+les outils de récupération mettent les réponses en cache le temps d'une
+session, et j'ai failli conclure que le réglage n'était pas actif en relisant
+une réponse vieille de quinze minutes. Même piège que le cache CDN sur
+l'accueil, la veille — **deux fois en deux jours, sur la même question.**
+
+⚠ **Et l'icône de la barre d'adresse n'est pas un avertissement.** Depuis fin
+2023, Chrome remplace le cadenas par une icône de réglages sur une connexion
+**sécurisée**. Un vrai défaut s'écrit **« Non sécurisé »** en toutes lettres
+avant le nom de domaine. Ne pas diagnostiquer sur l'absence de cadenas.
 
 ⚠ **`src/_headers` ne pose aucun `Strict-Transport-Security`.** HSTS
 compléterait la redirection — le navigateur refuserait de lui-même le `http` —
