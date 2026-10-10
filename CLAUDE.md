@@ -2737,6 +2737,69 @@ enverrait Googlebot sur une 404. Et que le fichier commence bien par `<?xml`.
 le nomme en clair, parce que le symptôme (« ma page n'est pas indexée ») ne
 désigne jamais la pagination.
 
+### ⚠ PageSpeed 89/100 — et les deux vrais défauts n'étaient pas des performances
+
+Relevé le 2026-10-10. Accueil : **Performances 89 (mobile) / 100 (bureau),
+Accessibilité 95, Bonnes pratiques 100, SEO 100.**
+
+⚠ **Ces scores sont un LABORATOIRE, pas une mesure.** Le bloc « Découvrez
+l'expérience de vos utilisateurs » affiche **« Aucune donnée »** : faute de
+trafic, Google n'a aucune mesure de terrain. Le 89 décrit une page chargée une
+fois sur un appareil simulé — et **la vignette montre le portail d'âge**, donc
+c'est le temps d'affichage d'un écran noir à deux boutons, pas du catalogue.
+Ne pas chasser les 11 points manquants : ils valent moins que les stocks réels.
+
+**Deux défauts réels dans l'audit d'accessibilité, et les deux étaient plus
+larges que la page testée.**
+
+#### Le contraste : une couche semi-transparente, encore
+
+Les quatre sous-titres de `.reassurance-strip` (accueil) portaient
+`rgba(245,240,232,0.35)`. **Composé sur le fond de la bande : 2,99:1** — très
+en dessous du 4,5:1 exigé à 11,5 px. Passés à `var(--muted)` : **6,60:1**.
+
+⚠ **C'est la troisième fois que le même piège coûte quelque chose** : `--muted`
+mesuré sur le fond de page et non sur une carte, `.btn-ghost` estimé à la main
+au lieu d'être composé, et maintenant ceci. **Une couleur semi-transparente se
+calcule** (`α·fg + (1−α)·bg`), jamais ne s'estime.
+
+⚠ **Et le vrai défaut de fond est une deuxième source de vérité** :
+`rgba(245,240,232,0.35)` était un `--muted` réécrit à la main. Les deux autres
+opacités de l'accueil ont été mesurées au passage et sont conformes — le
+sous-titre du hero à `0.5` donne **4,80:1** —, mais la règle tient : pour du
+texte secondaire, écrire `var(--muted)` et rien d'autre.
+
+#### L'ordre des titres : trois sauts, dont un sur les 146 pages
+
+PageSpeed ne signalait que l'accueil. La mesure sur les pages construites en a
+trouvé **trois, de trois causes différentes** :
+
+| Suite relevée | Cause | Portée |
+|---|---|---|
+| … → **h4** | `footer.njk` titrait ses colonnes en `h4` | **toutes les pages** |
+| h1 → **h3** | les cartes produit, sans titre de section au-dessus | `/boutique/` |
+| h1 → **h3** | « POINTS FORTS » | toutes les fiches produit |
+
+Sur `/blog/` le saut était **h1 → h4**, deux niveaux d'un coup.
+
+⚠ **Le pied de page est passé en `h2`, pas en `h3`.** Un `h2` ne peut jamais
+produire de saut, quel que soit le titre qui le précède — un `h3` aurait
+recassé `/blog/`, où le dernier titre avant le pied est le `h1`. C'est une
+règle plutôt qu'un réglage page par page, et c'est la même leçon que
+`.fil-ariane` : un seul fichier, toutes les pages.
+
+⚠ **`/boutique/` reçoit un `h2` en `.sr-only`**, lu et non affiché : le `h1`
+« BOUTIQUE » dit déjà la même chose à l'écran, l'afficher ferait un doublon.
+Les pages de catégorie n'en ont pas besoin, elles portent déjà un `h2` visible.
+
+⚠ **Aucun changement visuel** : les trois titres du pied et « POINTS FORTS »
+portent leur taille en style en ligne, qui l'emporte sur la règle de `h2`.
+
+**Ce que PageSpeed apporte, et ce qu'il n'apporte pas.** Il regarde la page de
+l'extérieur, ce qu'aucun `verify:` ne fait — c'est ainsi qu'il a trouvé ces
+deux-là. Mais il n'a testé **qu'une URL**, et les trois quarts du défaut
+étaient ailleurs. Devant un rapport sur une page, mesurer sur toutes.
+
 ### La fiche Google ne porte pas le nom du site, et c'est normal
 
 Elle s'appelle **« Tabac PRESSE - CBD - VAPE - CHICHA »**, catégorie « Bureau

@@ -306,7 +306,10 @@ eleventyComputed:
 
       {% if produit.pointsForts and produit.pointsForts | length > 0 %}
         <div style="border-radius:2px;background:var(--dark2);border:1px solid var(--borderl);padding:1.25rem;margin-bottom:1.5rem;">
-          <h3 style="font-family:var(--font-titre);font-size:1rem;letter-spacing:.15em;color:var(--cream);margin-bottom:.5rem;font-weight:400;">POINTS FORTS</h3>
+          {# ⚠ h2 et non h3 : le titre précédent est le h1 du produit. Un h3
+             sauterait un niveau — un lecteur d'écran annonce alors un creux
+             dans la structure. Voir CLAUDE.md § ordre des titres. #}
+          <h2 style="font-family:var(--font-titre);font-size:1rem;letter-spacing:.15em;color:var(--cream);margin-bottom:.5rem;font-weight:400;">POINTS FORTS</h2>
           <div>
             {% for fort in produit.pointsForts %}
               <div class="feature-item">

@@ -78,6 +78,14 @@ permalink: /boutique/index.html
 <section class="pb-24 lg:pb-32" style="background:var(--dark);">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
+    {# ⚠ Titre de section, lu mais non affiché (.sr-only).
+       Les cartes produit sont des h3 ; sans ce h2, la page passait du h1 au
+       h3 — un niveau sauté, donc un creux annoncé par les lecteurs d'écran.
+       Les pages de catégorie ne l'ont pas, elles portent déjà un h2 visible.
+       ⚠ Ne pas le rendre visible : le h1 « BOUTIQUE » le dit déjà à l'écran,
+       l'afficher serait un doublon. Voir CLAUDE.md § ordre des titres. #}
+    <h2 class="sr-only">Tous les produits</h2>
+
     <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
       {% for produit in tousProduits %}
         <div class="product-item fade-up h-full" data-cat="{{ produit.categorie }}" style="transition-delay:{{ loop.index0 * 0.03 }}s;">
