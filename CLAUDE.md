@@ -2558,20 +2558,79 @@ encore. À changer le jour où ils ouvriront, pas avant.
 | | État |
 |---|---|
 | **Fiche Google Business** | ✅ existe et **vérifiée** — c'est le levier n° 1 d'une boutique physique, et il est acquis |
-| **Search Console** | ❌ **non connecté** — mesuré : aucun TXT de vérification dans le DNS, aucun `google*.html`, aucune balise, aucun Analytics. Les trois chemins sont vides |
+| **Search Console** | ✅ **connecté le 2026-10-10**, propriété **de domaine**, validée par TXT DNS chez Cloudflare |
 | `robots.txt`, `sitemap.xml`, `canonical`, `og:image` | ✅ |
 | JSON-LD `Store`, `Product`, `BreadcrumbList`, `CollectionPage` | ✅ |
 | **Articles de blog** | **0** — la machinerie date du 25/09 et n'a jamais servi |
 
 ⚠ **Search Console d'abord, et rien d'autre avant.** Sans lui, aucune
 recommandation de mots-clés n'est autre chose qu'une supposition — y compris
-celles d'un assistant. Propriété **de domaine** → TXT dans Cloudflare →
-soumettre `https://maisoncbdvape.fr/sitemap.xml`.
+celles d'un assistant.
+
+⚠ **Il n'a AUCUN lien avec le compte qui gère la fiche Google.** Deux produits
+séparés. La propriété a été créée avec le compte du développeur, pas celui du
+commerçant, auquel il n'a pas accès — et c'est sans conséquence. On avait
+d'abord suggéré le compte du commerçant par commodité, et ça a failli bloquer
+l'étape pour rien.
+
+⚠ **Qui contrôle le DNS ne perd jamais la propriété** : elle se re-valide en
+reposant un TXT. En revanche la validation en cours **dépend de ce seul
+enregistrement** — un ménage DNS la ferait sauter sans prévenir. Ajouter une
+**seconde méthode** (Paramètres → Validation de la propriété) ferme ce risque.
 
 ⚠ **Ce TXT ne touche pas au SPF.** Un domaine ne porte qu'un seul SPF mais
 autant de TXT qu'on veut : on **ajoute** une ligne, on ne modifie pas celle qui
 existe. L'écraser casserait la messagerie du commerçant — voir la section
 Resend.
+
+⚠ **Sur l'historique, je me suis trompé DEUX fois le même jour — ne pas
+rejouer la scène.** D'abord affirmé que les mesures commencent au branchement.
+Puis « corrigé » en affirmant l'inverse, sur la foi d'un graphique aperçu
+derrière la fenêtre de validation — **qui appartenait à une autre propriété du
+même compte**. Le commerçant l'a relevé.
+
+Ce qui est observé, et rien de plus : au lendemain de la validation, l'écran
+affiche *« Traitement des données en cours, réessayez dans un jour environ »*.
+C'est l'état normal d'une propriété neuve et **il ne dit rien sur
+l'historique**. La réponse arrive d'elle-même en 24 à 72 h ; il n'y a aucune
+raison de la deviner avant.
+
+**La leçon est celle du projet, appliquée à un tableau de bord** : un
+graphique lu de travers vaut une hypothèse, pas une mesure. Vérifier quelle
+propriété est sélectionnée avant de lire une courbe.
+
+### ⚠ Google a découvert ce site par `vapelab.fr` — troisième dépendance à l'ancien projet
+
+Relevé le 2026-10-10 dans l'inspection d'URL de l'accueil, champ **« Page
+d'origine »** :
+
+```
+https://www.vapelab.fr/
+https://vapelab.fr/produits/puff-adalya-30k/
+```
+
+**C'est par là que Google est arrivé.** L'accueil était déjà exploré le 08/10
+à 19:02 par Googlebot smartphone, et indexé — avant même que Search Console
+existe. Le site n'était donc pas inconnu de Google, contrairement à ce qu'on
+supposait.
+
+⚠ **Deux conséquences, et la seconde est un risque.**
+
+1. **La bonne** : « zéro lien entrant » était faux. Il en existe au moins deux,
+   depuis un domaine du même propriétaire.
+2. ⚠ **Le risque** : `vapelab.fr` est en pause depuis le 2026-09-09 et il
+   serait naturel de le fermer. **Le fermer couperait le chemin de découverte
+   et les seuls liens entrants connus** — sans aucun message, et sans que rien
+   dans ce dépôt ne le signale.
+
+C'est la **troisième** dépendance invisible à l'ancien projet, après le compte
+Resend et la clé d'API qui en venait. Le motif est maintenant établi : **tout
+ce qui porte le nom `vapelab` est suspect, et rien de ce qui en dépend n'est
+documenté ailleurs qu'ici.**
+
+**Avant d'éteindre `vapelab.fr` un jour** : poser une redirection 301 vers
+`maisoncbdvape.fr` plutôt que de le supprimer. Une redirection conserve le peu
+d'autorité accumulée ; une suppression la jette.
 
 ### La fiche Google ne porte pas le nom du site, et c'est normal
 
