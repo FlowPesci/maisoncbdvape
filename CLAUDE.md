@@ -2800,6 +2800,82 @@ l'extérieur, ce qu'aucun `verify:` ne fait — c'est ainsi qu'il a trouvé ces
 deux-là. Mais il n'a testé **qu'une URL**, et les trois quarts du défaut
 étaient ailleurs. Devant un rapport sur une page, mesurer sur toutes.
 
+### ⚠⚠ `tabacgex.fr` existe, vend les mêmes produits, et c'est LUI que Google cite
+
+Découvert le 2026-10-10, parce que le commerçant a cherché **« cbd gex »** et
+m'a montré le résultat. L'Aperçu IA de Google décrit la boutique, donne
+l'adresse, le téléphone, les horaires — et son champ **« Site internet »**
+pointe vers **`tabacgex.fr`**, pas vers nous.
+
+**Ce n'est PAS un site vitrine résiduel.** Mesuré en le lisant : catalogue
+complet, prix affichés, panier, paiement, hébergé chez **eProShopping**, même
+adresse (48 rue de Genève), même téléphone, **même SIREN (40197874700012)**.
+C'est la même boutique, vendue deux fois.
+
+Il porte même des rayons que nous n'avons pas : **Poppers, Gummies, Pouch
+Nicotine**.
+
+⚠ **Et c'est la QUATRIÈME dépendance héritée**, après le compte Resend, la clé
+d'API qui en venait, et `vapelab.fr` comme chemin de découverte. Celle-ci est
+de loin la plus lourde, et personne ne l'avait écrite ici.
+
+#### ⚠ Le point grave : des appareils retirés de chez nous y sont en vente
+
+Les quatre puffs supprimées de ce dépôt pour la **loi n° 2025-175** — parce que
+le fournisseur n'a jamais dit si le réservoir se recharge — sont **en vente sur
+`tabacgex.fr`**, prix affichés, sur la page d'accueil :
+
+```
+JNR Falcon Gem+ 30K                       19,90 €
+Puff 30k Hyper Max – Crown Bar Al Fakher  15,90 €
+(+ un rayon « Star Buzz » entier)
+```
+
+**Retirer une fiche de ce dépôt n'a donc fermé le risque que de notre côté.**
+La question du réservoir reste entière, elle a simplement changé de site — et
+le vendeur est le même, au même SIREN. Amende jusqu'à 100 000 €, 200 000 € en
+récidive. **Ce n'est pas un sujet de référencement, c'est le commerçant qui
+doit trancher, vite.**
+
+#### Et côté référencement, cela explique peut-être tout
+
+Deux sites du même propriétaire, même ville, même catalogue, mêmes produits.
+L'un est établi et cité par Google ; l'autre a trois jours d'existence connue.
+**C'est le cas d'école du contenu dupliqué**, et c'est une raison très banale
+pour qu'un domaine neuf ne soit jamais indexé — exactement l'échec que
+décrivait l'article lu le matin même.
+
+⚠ **Je ne l'affirme pas comme la cause** : Search Console n'a pas encore rendu
+ses données, et `Indexation → Pages` est le seul écran qui nommera les motifs.
+Mais aucune optimisation de notre côté ne pèsera tant que les deux sites se
+font concurrence.
+
+⚠ **Correction d'une note de ce fichier.** Il était écrit que « la fiche
+pointait déjà vers le site » : **c'est faux**, elle pointe vers `tabacgex.fr`.
+Le levier n° 1 d'un commerce physique envoie donc ses visiteurs sur l'autre
+boutique. C'est le geste le moins cher et le plus rentable de tout ce journal —
+**et il ne demande pas une ligne de code**, seulement le compte Google du
+commerçant.
+
+#### Ce qu'il ne faut PAS faire
+
+⚠ **Ne pas éteindre `tabacgex.fr` brutalement.** Il porte l'autorité, les
+liens et le chemin par lequel Google connaît ce commerce. Une suppression la
+jette ; une **redirection 301 page à page** vers l'équivalent chez nous la
+transfère. Même règle que pour `vapelab.fr`, mais avec un enjeu cent fois plus
+gros.
+
+⚠ **Ne pas non plus décider à la place du commerçant.** Garder les deux,
+basculer sur le nôtre, ou garder l'ancien : c'est un choix commercial, pas
+technique. Il paie peut-être un abonnement eProShopping, il a peut-être des
+clients habitués. Ce qui est certain et mesuré, c'est que **les deux sites se
+nuisent tant qu'ils coexistent à l'identique**.
+
+⚠ **Les liens sociaux divergent aussi.** `tabacgex.fr` pointe vers
+`facebook.com/Halldelapressegex` et `instagram.com/tabachalldelapressegex`,
+alors que notre pied de page est en `@tabacgex`. Au moins l'un des deux est
+faux. À vérifier avant de recopier quoi que ce soit.
+
 ### La fiche Google ne porte pas le nom du site, et c'est normal
 
 Elle s'appelle **« Tabac PRESSE - CBD - VAPE - CHICHA »**, catégorie « Bureau
@@ -2812,6 +2888,55 @@ marque. L'adresse et le téléphone, identiques des deux côtés, font déjà
 l'essentiel du rapprochement ; `alternateName` et `sameAs` dans le `Store`
 lèvent le reste. Le lien site → fiche existe désormais, et la fiche pointait
 déjà vers le site.
+
+### « Comment apparaître sur "cbd gex" ? » — la question était mal posée
+
+Demandée par le commerçant le 2026-10-10. **Il apparaît déjà**, et en tête :
+l'Aperçu IA de Google décrit sa boutique, son adresse, ses horaires. Le
+problème n'était pas le classement, c'était **la destination du clic**.
+
+**Sur une requête locale, le levier n'est pas le site, c'est la fiche Google.**
+Hiérarchie, du plus rentable au moins :
+
+| Geste | Effet | Qui |
+|---|---|---|
+| **champ « Site internet » de la fiche → `maisoncbdvape.fr`** | récupère le trafic déjà gagné | commerçant, 1 min |
+| catégories secondaires, photos, Posts, réponses aux avis | fait monter la fiche dans le pack local | commerçant |
+| 301 depuis `tabacgex.fr` | transfère l'autorité | voir section ci-dessus |
+| annuaires (Pages Jaunes, Mappy, bureautabac.fr…) | cohérence nom/adresse/tél/site | fastidieux, réel |
+| le site lui-même | **le plus faible des cinq** | nous |
+
+⚠ **Ne pas vendre le site comme la solution.** C'est la tentation quand on est
+celui qui l'écrit. Un domaine de trois jours ne double pas un domaine
+établi, même parfaitement optimisé ; la fiche, elle, est déjà première.
+
+#### Ce qui a quand même été corrigé côté site
+
+**Le `h1` de l'accueil ne disait ni le produit ni la ville.** Il portait
+« L'art de savourer autrement. » — le titre le plus lourd de la page, et il ne
+nommait rien de ce qu'on cherche. Le `<title>` le faisait pourtant déjà.
+
+La signature reste : elle est devenue la **seconde ligne du même `h1`**, après
+un surlignage doré qui porte le sens. ⚠ Et ce surlignage lit **`{{ title }}`**,
+le front matter — pas une deuxième formulation à tenir à jour.
+
+**`/contact/` est la page qui reçoit « tabac gex horaires ».** Titre et `h1`
+nomment désormais l'adresse ; un bloc « Venir à la boutique » donne le retrait
+en 1 h et le lien vers la fiche Google.
+
+⚠ **Et ses quatre lignes d'horaires étaient ÉCRITES EN DUR** — le doublon
+fermé le matin même pour `site.horaires`, reposé sur une autre page. Elles
+disaient la même chose que le pied de page ce jour-là, et rien ne le
+garantissait. Elles lisent maintenant `ouverture.lignes`, comme le pied de page
+et le balisage schema.org. **Vérifié en exécutant le gabarit**, pas en le
+relisant.
+
+⚠ **Rien d'autre n'a été ajouté sur `/contact/`, volontairement.** Le
+stationnement, le commerce voisin, le trajet depuis la frontière : ce sont les
+repères qui font la valeur d'une page locale, et **personne ici ne les
+connaît**. Les inventer serait une mention commerciale fausse produite par le
+gabarit — exactement ce que les drapeaux de la carte CBD ont coûté. À demander
+au commerçant, puis à écrire.
 
 ### ⚠ Une page par commune serait une erreur
 

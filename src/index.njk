@@ -29,7 +29,16 @@ permalink: /index.html
 
       {# ─── Texte gauche ─────────────────────────────────────────── #}
       <div style="animation:fadeUp 1.1s ease forwards;opacity:0;animation-delay:.4s;">
+        {# ⚠ Le h1 porte CE QU'ON VEND ET OÙ, pas seulement la signature.
+           Jusqu'au 2026-10-10 il ne disait que « L'art de savourer
+           autrement. » : le titre le plus lourd de la page d'accueil ne
+           nommait ni le produit ni la ville, alors que les requêtes visées
+           sont « cbd gex », « tabac gex ». La signature reste, elle fait la
+           marque — elle est devenue la seconde ligne du MÊME titre.
+           ⚠ Le texte vient de `title` (front matter), déjà employé par
+           `head.njk` : une seule source, pas deux formulations à tenir. #}
         <h1 style="font-family:var(--font-titre);font-size:clamp(52px,7.5vw,96px);font-weight:300;line-height:1.0;color:var(--cream);margin-bottom:28px;">
+          <span style="display:block;font-family:'DM Sans',system-ui,sans-serif;font-size:11px;font-weight:400;letter-spacing:.3em;line-height:1.6;text-transform:uppercase;color:var(--gold);margin-bottom:20px;">{{ title }}</span>
           L'art de<br/>
           <em style="font-style:normal;color:var(--gold-light);">savourer</em><br/>
           autrement.
