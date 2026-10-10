@@ -44,6 +44,8 @@ export async function onRequestGet({ request, env }) {
       // `faible` est calculé par ligne, en tenant compte de son unité : un
       // seuil unique alerterait trop tard sur les fleurs au gramme.
       faibles:  lignes.filter((l) => l.faible).length,
+      // Lignes qu'aucune vente ne peut atteindre — voir `listerStocks`.
+      horsCatalogue: lignes.filter((l) => !l.vendue).length,
     });
   } catch (err) {
     return bad("Lecture des stocks impossible : " + err.message, 500);

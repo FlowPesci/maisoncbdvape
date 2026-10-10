@@ -21,7 +21,19 @@
  * quand Monetico rejoue une notification.
  * ─────────────────────────────────────────────────────────────────────────── */
 
-import { resoudreStock, uniteStock, seuilAlerte, stockFaible } from "./catalog-index.js";
+import {
+  resoudreStock, uniteStock, seuilAlerte, stockFaible, VARIANTE_OBLIGATOIRE, CLES_STOCK,
+} from "./catalog-index.js";
+
+/**
+ * Les clés de stock qu'une vente peut réellement décrémenter.
+ *
+ * ⚠ C'est la MÊME lecture que `db:comparer` : les valeurs de `CLES_STOCK`,
+ * pas ses clés. Plusieurs références y mènent à la même ligne (les trois
+ * grammages d'une fleur tirent du vrac du produit), et reconstruire la liste
+ * autrement serait réécrire `resoudreStock()` une deuxième fois.
+ */
+const CLES_VENDUES = new Set(Object.values(CLES_STOCK).map((r) => r.cle));
 
 /** Durée de vie d'une réservation non confirmée, en minutes. */
 const EXPIRATION_MINUTES = 30;
@@ -124,6 +136,34 @@ export async function reserverPanier(db, orderId, items) {
   const reserves = [];
 
   for (const it of items) {
+    // ⚠ Un produit à saveurs commandé SANS saveur est refusé ici, et pas
+    //   seulement dans le navigateur.
+    //
+    //   `choixDeVarianteManquant()` (tabacgex.js) monte la garde sur la fiche,
+    //   et les cartes des produits à saveurs ne portent plus de bouton d'ajout
+    //   depuis le 2026-10-03. Mais **le panier vit dans le localStorage du
+    //   client** : un visiteur venu avant ce correctif revient avec un article
+    //   sans saveur déjà dans son panier, et plus aucun écran ne le lui
+    //   demande. Côté serveur, cet article se résolvait alors sur la clé NUE
+    //   du produit — une ligne distincte de celles qui portent le stock par
+    //   saveur, d'où un DOUBLE COMPTAGE, et un bon de préparation qui ne dit
+    //   pas quelle saveur expédier.
+    //
+    //   Le symptôme était éteint côté interface ; la cause ne l'était pas.
+    //   Elle devient impossible à atteindre le jour où les stocks réels sont
+    //   saisis — c'est-à-dire au moment où un double comptage coûte vraiment.
+    if (!it.varianteLabel && VARIANTE_OBLIGATOIRE.has(String(it.id))) {
+      await relacherPanier(db, orderId, reserves, "relache");
+      console.error(`[stock] article sans saveur sur un produit à variantes : ${it.id}`);
+      return {
+        ok: false,
+        article: it.nom,
+        erreur:
+          `« ${it.nom} » se vend par saveur. Retirez-le du panier et ` +
+          `rajoutez-le depuis sa fiche en choisissant une saveur.`,
+      };
+    }
+
     const op = operationStock(it.id, it.varianteLabel, it.qty);
 
     // Le cœur du dispositif : atomique, sans lecture préalable.
@@ -415,11 +455,23 @@ export async function listerStocks(db) {
   // L'unité et le seuil ne vivent pas en base : ils découlent du catalogue.
   // Une fleur pesée au gramme et un pod à l'unité ne se comptent pas de la
   // même façon, et ne deviennent donc pas « faibles » au même moment.
+  // ⚠ `vendue` existe pour la SAISIE D'INVENTAIRE, pas pour la décoration.
+  //
+  //   La table porte des lignes qu'aucune vente ne peut plus atteindre :
+  //   produits supprimés du dépôt, fiches désactivées, clés nues héritées
+  //   d'un ancien semis. Elles étaient 42 sur 219 au 2026-10-10, et rien ne
+  //   les distinguait à l'écran. Le commerçant, qui a 177 quantités réelles
+  //   à taper, en aurait saisi sur « Crown Bar · Peach Ice » sans jamais le
+  //   savoir — et ce stock-là n'aurait servi aucune commande.
+  //
+  //   On ne les masque pas et on ne les efface pas : certaines portent le
+  //   stock réel d'une fiche seulement DÉSACTIVÉE, qui peut revenir.
   return (results || []).map((l) => ({
     ...l,
     unite:  uniteStock(l.cle),
     seuil:  seuilAlerte(l.cle),
     faible: stockFaible(l.cle, l.dispo),
+    vendue: CLES_VENDUES.has(l.cle),
   }));
 }
 

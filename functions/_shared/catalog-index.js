@@ -618,11 +618,6 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
-  "e-liquide-jnr-10ml-20mg-sel-de-nicotine": {
-    "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
-    "facteur": 1,
-    "unite": "pcs"
-  },
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée": {
     "cle": "e-liquide-jnr-10ml-20mg-sel-de-nicotine::Myrtille Framboise acidulée",
     "facteur": 1,
@@ -868,11 +863,6 @@ export const CLES_STOCK = {
     "facteur": 8,
     "unite": "g"
   },
-  "jnr-32000-puffs": {
-    "cle": "jnr-32000-puffs",
-    "facteur": 1,
-    "unite": "pcs"
-  },
   "jnr-32000-puffs::Cherry ICE": {
     "cle": "jnr-32000-puffs::Cherry ICE",
     "facteur": 1,
@@ -1108,11 +1098,6 @@ export const CLES_STOCK = {
     "facteur": 1,
     "unite": "pcs"
   },
-  "pod-al-fakher-50k": {
-    "cle": "pod-al-fakher-50k",
-    "facteur": 1,
-    "unite": "pcs"
-  },
   "pod-al-fakher-50k::Mint": {
     "cle": "pod-al-fakher-50k::Mint",
     "facteur": 1,
@@ -1275,11 +1260,6 @@ export const CLES_STOCK = {
   },
   "pod-al-fakher-50k::Summer Dream (Fruits d’été)": {
     "cle": "pod-al-fakher-50k::Summer Dream (Fruits d’été)",
-    "facteur": 1,
-    "unite": "pcs"
-  },
-  "pod-de-remplacement-aerox-32k-jnr": {
-    "cle": "pod-de-remplacement-aerox-32k-jnr",
     "facteur": 1,
     "unite": "pcs"
   },
@@ -2971,6 +2951,27 @@ export const PRODUITS_A_VARIANTES = new Set([
   "pollen-d-amnesia-100-cbd",
   "pollen-d-or-100-cbd",
   "smash-small-bud-cbd"
+]);
+
+/**
+ * Produits dont la SAVEUR est obligatoire : un article sans variante y est un
+ * défaut, jamais un cas de repli.
+ *
+ * ⚠ Ce n'est PAS `PRODUITS_A_VARIANTES` : une fleur au gramme y figure aussi,
+ * et elle, se commande légitimement sans libellé — son stock est un vrac porté
+ * par la clé du produit, et une carte qui l'ajoute retire un gramme. Confondre
+ * les deux casserait la vente des fleurs depuis les grilles de catégorie.
+ *
+ * Généré par la même condition que l'absence de clé de stock nue : si le
+ * produit n'a pas de ligne à lui, c'est qu'on ne peut pas l'acheter sans
+ * choisir.
+ * @type {Set<string>}
+ */
+export const VARIANTE_OBLIGATOIRE = new Set([
+  "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
+  "jnr-32000-puffs",
+  "pod-al-fakher-50k",
+  "pod-de-remplacement-aerox-32k-jnr"
 ]);
 
 /**

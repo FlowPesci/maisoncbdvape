@@ -99,16 +99,31 @@
       const enCours = enAttente.has(s.cle);
       const valeur  = enCours ? enAttente.get(s.cle) : s.dispo;
 
+      // ⚠ Une ligne qu'aucune vente ne peut atteindre est MONTRÉE, marquée,
+      //   et sa saisie est fermée. Les trois ensemble :
+      //   · la montrer — certaines portent le stock réel d'une fiche
+      //     seulement désactivée ; la masquer la ferait oublier ;
+      //   · la marquer — sans cela rien ne la distingue des 177 autres ;
+      //   · fermer la saisie — sur 177 quantités à taper, un repère visuel
+      //     seul ne survit pas à la vingtième ligne. Le champ dit pourquoi.
+      const morte = s.vendue === false;
+
       html += `
         <tr class="border-b border-dark-border last:border-0${enCours ? ' ligne-modifiee' : ''}"
-            ${d.variante && !nouveauProduit ? 'style="border-top:0;"' : ''}>
-          <td class="py-3 px-4">${libelle}</td>
+            ${morte ? 'style="opacity:.45;"' : (d.variante && !nouveauProduit ? 'style="border-top:0;"' : '')}>
+          <td class="py-3 px-4">${libelle}${morte ? `
+            <div class="text-xs mt-1" style="color:var(--muted);">
+              <span class="font-mono px-2 py-0.5 rounded-full"
+                    style="border:1px solid var(--borderl);">hors catalogue</span>
+              — plus vendue, ne pas saisir
+            </div>` : ''}</td>
           <td class="py-3 px-4 text-right font-mono font-bold" style="color:${couleur(s)};">${quantite(s, s.dispo)}</td>
           <td class="py-3 px-4 text-right font-mono text-smoke">${quantite(s, s.reserve || 0)}</td>
           <td class="py-3 px-4 text-right">
             <div class="flex items-center gap-2 justify-end">
               <input type="number" min="0" step="1" value="${valeur}" data-cle="${esc(s.cle)}"
-                     aria-label="Stock disponible${unite(s) ? ' en grammes' : ''}"
+                     ${morte ? 'disabled title="Cette référence n\'est plus vendue : sa ligne de stock ne sert aucune commande."' : ''}
+                     aria-label="Stock disponible${unite(s) ? ' en grammes' : ''}${morte ? ' — référence hors catalogue, saisie désactivée' : ''}"
                      class="champ-stock w-20 bg-dark-bg border border-dark-border rounded-lg px-2 py-1.5 text-white text-sm text-right focus:outline-none"/>
               ${unite(s) ? '<span class="text-smoke text-xs font-mono w-3">g</span>' : '<span class="w-3"></span>'}
             </div>
@@ -126,9 +141,14 @@
         <p class="text-smoke text-xs uppercase tracking-wider font-mono mb-1">${label}</p>
         <p class="font-display text-3xl" style="color:${col};">${val}</p>
       </div>`;
-    kpi.innerHTML = carte('Références', d.total, 'var(--cream)')
+    // « Références » comptait les lignes de la base, pas celles qu'on vend :
+    // 219 affichées pour 177 vendables. Le chiffre sur lequel se cale une
+    // saisie d'inventaire est le second.
+    const hors = d.horsCatalogue || 0;
+    kpi.innerHTML = carte('Références vendues', d.total - hors, 'var(--cream)')
                   + carte('Stock faible', d.faibles, '#FFA500')
-                  + carte('Ruptures', d.ruptures, '#FF5050');
+                  + carte('Ruptures', d.ruptures, '#FF5050')
+                  + (hors ? carte('Hors catalogue', hors, 'var(--muted)') : '');
   }
 
   /**

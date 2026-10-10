@@ -43,6 +43,14 @@ const stocks = {};
 const avecVariantes = [];
 
 /**
+ * Produits dont la variante est OBLIGATOIRE à la commande : saveurs vendues à
+ * l'unité, chacune avec sa propre ligne de stock. Les fleurs au gramme en sont
+ * exclues — elles tirent d'un vrac unique porté par la clé du produit.
+ * @type {string[]}
+ */
+const varianteObligatoire = [];
+
+/**
  * Où et combien prélever pour chaque article vendable.
  *
  * Deux modèles coexistent :
@@ -151,6 +159,28 @@ for (const p of produits) {
     // pour eux, un label inconnu doit être rejeté et non retomber sur le prix
     // de base (sinon 8 g de fleur seraient facturés au tarif d'un gramme).
     if (n > 0) avecVariantes.push(p.id);
+
+    // ⚠ Un produit à SAVEURS n'a pas de ligne de stock nue, et c'est le même
+    //   raisonnement que `referencesStock` quelques lignes plus haut : « c'est
+    //   chaque variante qui est réceptionnable, pas le produit ». Il manquait
+    //   ici, et le coût était double :
+    //
+    //   · `db:comparer` réclamait `pod-al-fakher-50k` nu comme « référence
+    //     vendue sans ligne » et conseillait `db:seed` — qui ne la crée pas
+    //     (seed-stocks.js est juste), donc un diagnostic qu'aucune commande ne
+    //     peut satisfaire ;
+    //   · les trois lignes nues héritées d'un vieux semis passaient pour
+    //     légitimes au lieu d'être signalées comme orphelines — le 2026-10-03
+    //     disait pourtant déjà qu'elles devaient l'être.
+    //
+    //   La condition est au PLURIEL des conséquences mais UNIQUE : la même
+    //   ligne décide qu'il n'y a pas de clé nue et que la saveur est exigée.
+    //   Une fleur au gramme n'est pas concernée — son stock EST au niveau du
+    //   produit, et l'ajout depuis une carte y reste juste.
+    if (n > 0 && !auPoids) {
+      delete clesStock[p.id];
+      varianteObligatoire.push(p.id);
+    }
   }
 }
 
@@ -262,6 +292,22 @@ export function resoudreStock(id, label) {
  * @type {Set<string>}
  */
 export const PRODUITS_A_VARIANTES = new Set(${JSON.stringify(avecVariantes, null, 2)});
+
+/**
+ * Produits dont la SAVEUR est obligatoire : un article sans variante y est un
+ * défaut, jamais un cas de repli.
+ *
+ * ⚠ Ce n'est PAS \`PRODUITS_A_VARIANTES\` : une fleur au gramme y figure aussi,
+ * et elle, se commande légitimement sans libellé — son stock est un vrac porté
+ * par la clé du produit, et une carte qui l'ajoute retire un gramme. Confondre
+ * les deux casserait la vente des fleurs depuis les grilles de catégorie.
+ *
+ * Généré par la même condition que l'absence de clé de stock nue : si le
+ * produit n'a pas de ligne à lui, c'est qu'on ne peut pas l'acheter sans
+ * choisir.
+ * @type {Set<string>}
+ */
+export const VARIANTE_OBLIGATOIRE = new Set(${JSON.stringify(varianteObligatoire, null, 2)});
 
 /**
  * Renvoie le prix serveur vérifié pour un article du panier.

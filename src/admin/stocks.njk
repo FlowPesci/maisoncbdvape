@@ -25,7 +25,11 @@ eleventyExcludeFromCollections: true
   </div>
 
   <div id="stocks-panel" class="hidden">
-    <div class="grid grid-cols-3 gap-3 mb-6" id="stocks-kpi"></div>
+    {# 4 colonnes depuis le 2026-10-10 : la carte « Hors catalogue » s'ajoute
+       aux trois autres dès qu'une ligne de stock n'est plus vendable. Les deux
+       classes existent déjà dans la feuille compilée — en ajouter une nouvelle
+       sans règle ferait échouer `verify:css`. #}
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6" id="stocks-kpi"></div>
 
     <div class="flex items-center gap-3 mb-4 flex-wrap">
       <input type="search" id="stocks-filtre" placeholder="Rechercher une référence…"

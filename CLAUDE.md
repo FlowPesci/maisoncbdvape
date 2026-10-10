@@ -1045,6 +1045,93 @@ Quatre produits concernés au 2026-10-03 : `pod-al-fakher-50k` (33 saveurs),
 n'ont plus de chemin d'accès, `db:comparer` les signale comme orphelines, et
 les effacer n'apporterait rien avant la saisie des stocks réels.
 
+#### ⚠ Sauf que `db:comparer` ne les signalait PAS, et réclamait l'inverse
+
+Constaté le 2026-10-10, juste avant la saisie des stocks réels. Le script
+annonçait **une** référence vendue sans ligne — `pod-al-fakher-50k`, la clé
+**nue** — et conseillait en toutes lettres `npm run db:seed`. C'est exactement
+le mauvais réflexe que le paragraphe ci-dessus venait de nommer.
+
+Et le conseil était en plus **impossible à suivre** : `seed-stocks.js` est
+juste, il ne sème jamais la clé nue d'un produit à saveurs. Lancer `db:seed`
+n'aurait rien créé, rien changé, et laissé croire à une panne ailleurs. **Un
+diagnostic qui prescrit une commande sans effet est pire qu'un silence.**
+
+La cause est en amont, dans `build-catalog-index.js` : il écrivait
+`clesStock[p.id]` pour **tout** produit non pesé, saveurs comprises. Or le
+raisonnement juste était déjà écrit six lignes plus haut, pour
+`referencesStock` — « c'est chaque variante qui est réceptionnable, pas le
+produit ». Il manquait seulement à la table des clés de stock.
+
+Deux conséquences, et la seconde est la plus sournoise :
+
+| | Avant | Après |
+|---|---|---|
+| `pod-al-fakher-50k` nu | réclamé comme manquant | n'est plus attendu |
+| 3 lignes nues héritées | passaient pour **légitimes** | signalées **orphelines** |
+
+La seconde ligne est celle qui comptait : `jnr-32000-puffs`,
+`pod-de-remplacement-aerox-32k-jnr` et `e-liquide-jnr-10ml-20mg-sel-de-nicotine`
+ont une ligne nue en base, et le diagnostic la validait. **On allait saisir un
+stock réel sur une ligne morte**, et croire la référence servie.
+
+⚠ **Le garde-fou côté client ne suffisait pas, et c'est le vrai défaut.**
+`choixDeVarianteManquant()` vit dans la page, les cartes n'ont plus de bouton
+d'ajout — mais **le panier vit dans le `localStorage` du client**. Un visiteur
+venu avant le 2026-10-03 revient avec un article sans saveur déjà dans son
+panier : plus aucun écran ne lui demande de choisir, et le serveur acceptait,
+en retirant du stock sur la clé nue. Double comptage, et un bon de préparation
+muet sur la saveur à expédier.
+
+`reserverPanier()` **refuse désormais** un article sans saveur sur un produit
+qui s'en vend, relâche ce qui était déjà réservé pour cette commande, et le
+journalise. Message explicite : retirer l'article et le rajouter depuis sa
+fiche.
+
+⚠ **Et ce n'est PAS `PRODUITS_A_VARIANTES` qui porte la règle.** Une fleur au
+gramme y figure aussi, et elle se commande légitimement **sans** libellé — son
+stock est un vrac au niveau du produit, un ajout depuis une carte en retire un
+gramme. Confondre les deux casserait la vente des fleurs depuis les grilles de
+catégorie. D'où **`VARIANTE_OBLIGATOIRE`**, généré par la **même ligne** que la
+suppression de la clé nue : s'il n'y a pas de ligne à soi, c'est qu'on ne peut
+pas acheter sans choisir. Une condition, deux conséquences, aucune chance
+qu'elles divergent.
+
+⚠ `PRODUITS_A_VARIANTES` était par ailleurs **exporté et consommé nulle part**
+hors du fichier généré. Un garde-fou qui n'est appelé par personne ne garde
+rien — même famille que le contrôle mort de `verify:cms`.
+
+#### ⚠ Et `/admin/stocks/` ne distinguait pas les lignes mortes
+
+Dernier maillon du même épisode, trouvé en se demandant simplement *ce que le
+commerçant allait voir à l'écran*. `listerStocks()` lit la **base**, pas le
+catalogue : l'écran affichait donc **219 lignes dont 42 mortes**, mêlées aux
+autres, sans aucune marque. Avec 177 quantités réelles à taper, on en saisit
+sur « Crown Bar · Peach Ice » sans jamais s'en apercevoir — et ce stock-là ne
+sert aucune commande.
+
+`listerStocks()` renvoie désormais `vendue`, calculé sur **les valeurs** de
+`CLES_STOCK` — la même lecture que `db:comparer`, parce que plusieurs
+références mènent à la même ligne et que reconstruire la liste autrement
+réécrirait `resoudreStock()` une deuxième fois.
+
+L'écran fait **trois** choses de cette information, et il faut les trois :
+
+| Geste | Pourquoi |
+|---|---|
+| la ligne reste **affichée** | certaines portent le stock réel d'une fiche seulement **désactivée**, qui peut revenir ; la masquer la ferait oublier |
+| badge « hors catalogue », ligne estompée | sans marque, rien ne la distingue des 177 autres |
+| **champ de saisie fermé** | sur 177 lignes à remplir, un repère visuel seul ne survit pas à la vingtième |
+
+⚠ **Ni masquée, ni supprimée.** Effacer ces lignes perdrait le stock d'une
+fiche désactivée le jour de sa réactivation, et c'est une décision du
+commerçant, pas un ménage d'assistant.
+
+⚠ **Le compteur « Références » comptait la base** — 219 — alors que le nombre
+sur lequel se cale un inventaire est celui des références **vendues**. Il les
+sépare désormais, et une quatrième carte affiche les lignes hors catalogue
+quand il y en a.
+
 Troisième occurrence, la plus coûteuse : le bouton **« Payer en ligne (CB) »**
 s'affichait sans condition, alors que `create-payment.js` refuse de construire
 un formulaire sans `MONETICO_TPE` ni `MONETICO_SOCIETE`. Un client arrivé au
@@ -2394,16 +2481,17 @@ de script suffisait à voler un jeton GitHub `repo`. Traité dans cet ordre :
 - pdf.js (`/admin/reception/`) n'a pas été testé avec un vrai PDF sous la CSP
   resserrée : à confirmer au premier usage réel après déploiement.
 
-**Quatre puffs attendent une confirmation fournisseur** sur la nature de leur
-réservoir (voir la contrainte légale plus haut). Cinq des neuf appareils sont
-documentés conformes par leur propre fiche technique — « Fourni : 2 flacons de
-10 ml », « E-liquide : flacon remplaçable ». Les quatre autres ne disent rien :
-`jnr-falcon-gem-30k`, `puff-30k-hyper-max-crown-bar-by-al-fakher`,
-`starbuzz-ultra-max-25k`, `zpluse-jnr-42k`.
+✅ **Les quatre puffs en attente fournisseur sont réglés** — constaté le
+2026-10-10 : `jnr-falcon-gem-30k`, `puff-30k-hyper-max-crown-bar-by-al-fakher`,
+`starbuzz-ultra-max-25k` et `zpluse-jnr-42k` ont tous leur **fiche supprimée**
+du dépôt. Aucun n'est plus vendu, le risque de la loi n° 2025-175 est donc
+fermé sur ces appareils. Leurs lignes de stock subsistent en base et
+apparaissent en orphelines dans `db:comparer` — sans effet sur les ventes.
 
-Le plus exposé est `puff-30k-hyper-max…`, dont la fiche technique porte
-« Type : Prérempli » sans aucune mention de recharge. Si la réponse est
-« réservoir scellé », passer la fiche en `actif: false` le jour même.
+⚠ **La contrainte, elle, ne se ferme pas.** `verify:puffs` reste en place, et
+toute nouvelle référence d'appareil repose la question : le test est le
+**réservoir**, pas la prise. Le jour où une fiche revient, son champ
+`liquideRemplissable` doit être renseigné avant la mise en vente.
 
 **Liens sociaux** du pied de page encore en `@tabacgex` — à changer quand les
 comptes seront ouverts.
