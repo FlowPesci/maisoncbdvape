@@ -67,7 +67,15 @@
           <li style="display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--muted);">
             <svg style="width:14px;height:14px;margin-top:2px;color:var(--gold);flex-shrink:0;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             <div style="line-height:1.7;">
-              {% for h in site.horaires %}
+              {# ⚠ `ouverture.lignes`, pas `site.horaires` — ce dernier a été
+                 supprimé le 2026-10-10. Il répétait en texte libre ce que
+                 `livraison.modes['click-and-collect'].horairesRetrait` dit
+                 déjà en machine, et que le tunnel de commande interroge pour
+                 accepter un créneau de retrait. Deux copies, un seul horaire
+                 réel : le jour où le commerçant change ses heures, le site
+                 proposait un retrait à une heure où la boutique est fermée.
+                 Voir `src/_data/ouverture.js`. #}
+              {% for h in ouverture.lignes %}
                 <div>{{ h.jours }} : {{ h.heures }}</div>
               {% endfor %}
             </div>

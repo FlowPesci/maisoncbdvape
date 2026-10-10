@@ -76,8 +76,53 @@
   "@context": "https://schema.org",
   "@type": "Store",
   "name": "{{ site.nom }}",
+  {# ⚠ L'enseigne et le site n'ont pas le même nom : la devanture et la fiche
+     Google disent « Tabac PRESSE - CBD - VAPE - CHICHA », le site dit
+     « MaisonCBDVape ». Ce n'est pas une incohérence à corriger — Google exige
+     que le nom d'une fiche soit celui de la devanture, et cette fiche porte
+     141 avis qu'on ne risque pas pour une question de cohérence de marque.
+     On déclare les deux : l'adresse et le téléphone, identiques des deux
+     côtés, font le rapprochement ; `alternateName` lève le doute restant. #}
+  "alternateName": "{{ site.etablissement.nomEnseigne }}",
   "url": "{{ site.url }}",
   "telephone": "{{ site.contact.telephoneE164 }}",
+  "image": "{{ site.url }}/assets/img/og-maisoncbdvape.png",
+  "priceRange": "{{ site.etablissement.gammePrix }}",
+  "sameAs": [
+    "{{ site.etablissement.ficheGoogle }}",
+    "{{ site.social.instagram }}",
+    "{{ site.social.facebook }}"
+  ],
+  {# La zone réellement desservie par le retrait en boutique. Gex est à vingt
+     minutes de Genève, et la clientèle vient de tout le Pays de Gex — le
+     déclarer aide Google à rattacher la boutique à ces recherches. On ne
+     déclare que des communes d'où l'on vient vraiment ; une liste gonflée
+     n'apporte rien et finit par ressembler à ce qu'elle est. #}
+  "areaServed": [
+    { "@type": "City", "name": "Gex" },
+    { "@type": "City", "name": "Cessy" },
+    { "@type": "City", "name": "Ferney-Voltaire" },
+    { "@type": "City", "name": "Saint-Genis-Pouilly" },
+    { "@type": "City", "name": "Divonne-les-Bains" },
+    { "@type": "AdministrativeArea", "name": "Pays de Gex" }
+  ],
+  {# ⚠ Généré depuis `horairesRetrait`, la table que le serveur interroge pour
+     accepter un créneau de retrait — pas depuis une phrase. Voir
+     `src/_data/ouverture.js` : annoncer à Google un horaire que le tunnel de
+     commande contredit est la pire des deux erreurs possibles. #}
+  "openingHoursSpecification": {{ ouverture.jsonld | dump | safe }},
+  {# ⚠ Ces coordonnées ne sont pas estimées : ce sont celles du point de la
+     fiche Google elle-même, relevées dans l'URL de sa page Maps. Google
+     géocode de toute façon l'adresse, mais Bing, Apple et les annuaires ne le
+     font pas tous aussi bien. **Ne jamais les deviner** : une latitude
+     inventée place la boutique dans un champ, et c'est une mention fausse
+     produite par nous. Si le commerçant déplace le point de sa fiche, ces
+     deux nombres doivent suivre. #}
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": {{ site.etablissement.latitude }},
+    "longitude": {{ site.etablissement.longitude }}
+  },
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "{{ site.adresse.rue }}",

@@ -599,14 +599,33 @@ elle contenait ce produit. Modération obligatoire dans `/admin/avis/`.
 réintroduire `aggregateRating` dans le JSON-LD depuis le catalogue : cela
 diffuserait une note inventée jusque dans les résultats Google.
 
-⚠ **Une occurrence subsiste, en connaissance de cause.** `src/index.njk`
-affiche « 4.9 ★ / Satisfaction » écrit en dur dans le bandeau de chiffres de
-la page d'accueil, alors qu'aucun avis client n'existe encore. C'est la même
-nature que les deux faux avis retirés le 2026-08-01. Signalé au commerçant le
-2026-08-22, qui a choisi de le laisser pour l'instant — la décision lui
-appartient. À reprendre dès que de vrais avis existent, ou avant si la
-question de la conformité se pose. Les deux autres chiffres du bandeau
-(« 121+ références », « 48h livraison ») sont exacts.
+### ✅ Le « 4,9 ★ » inventé est remplacé par un chiffre vrai
+
+`src/index.njk` a affiché « 4.9 ★ / Satisfaction » écrit en dur pendant deux
+mois, alors qu'aucun avis client n'existait — même nature que les deux faux
+avis retirés le 2026-08-01. Signalé le 2026-08-22, laissé par décision du
+commerçant, **reposé et encore laissé le matin du 2026-10-10**.
+
+**Résolu l'après-midi même, et par accident** : en regardant sa fiche Google
+pour tout autre chose, on y a lu **4,4 ★ sur 141 avis réels**. Le chiffre vrai
+existait depuis le début, personne n'avait pensé à le chercher là.
+
+Le bandeau affiche donc la note Google, **son nombre d'avis, et le lien vers
+la fiche**. C'est plus honnête et c'est plus convaincant : « 141 avis » dit
+quelque chose, « 4.9 » ne disait rien. La décision « on laisse » n'avait pas
+tort sur le fond — il manquait simplement une alternative vraie.
+
+⚠ **En TEXTE, jamais en `aggregateRating`.** Google interdit de rebaliser chez
+soi des avis collectés ailleurs : dire « 4,4 sur Google, 141 avis » avec le
+lien est un fait attribué, le baliser serait s'attribuer la note. C'est
+exactement ce que l'audit du 2026-09-30 recommandait à tort, et la raison
+tient toujours.
+
+⚠ **Les valeurs vivent dans `site.json` → `etablissement`**, pas dans le
+gabarit. Une note recopiée en dur redeviendrait fausse au 142ᵉ avis.
+
+Les deux autres chiffres du bandeau (« 121+ références », « 48h livraison »)
+sont exacts.
 
 ### ⚠ Un avis déposé n'existait pour PERSONNE
 
@@ -701,6 +720,31 @@ endroits finit toujours par diverger.
 | Prix, stock, unités, seuils | `src/data-source/produits/*.json` | `functions/_shared/catalog-index.js` |
 | Format des numéros de commande | `functions/_shared/orders.js` | importé partout |
 | Validation client | `functions/_shared/valide-client.js` | les deux chemins de commande |
+| Horaires d'ouverture | `site.json` → `livraison.modes['click-and-collect'].horairesRetrait` | `src/_data/ouverture.js` → pied de page **et** `openingHoursSpecification` |
+
+⚠ **Les horaires étaient en double, et personne ne l'avait vu** (fermé le
+2026-10-10). `site.json` portait un tableau `horaires` en texte libre pour le
+pied de page, et `horairesRetrait` par jour de semaine pour les créneaux de
+retrait. Les deux disaient la même chose ce jour-là ; rien ne le garantissait.
+Le commerçant change ses heures, corrige la phrase, et le site **accepte une
+commande à retirer un jour où la boutique est fermée** — ou l'inverse.
+
+**`horairesRetrait` gagne**, parce que c'est la forme que le SERVEUR
+interroge : une phrase ne peut pas arbitrer une commande, une table d'heures
+si. `src/_data/ouverture.js` en dérive les deux usages, et `site.horaires` est
+supprimé. Changer un horaire = un seul endroit.
+
+⚠ **Une entrée de balisage par PLAGE, pas par jour.** schema.org n'a pas de
+coupure méridienne : « 7h30–12h30 / 14h–19h » se déclare en deux
+`OpeningHoursSpecification` du même jour. Les fusionner en 7h30–19h ferait
+annoncer **par Google** une boutique ouverte à midi alors qu'elle est fermée.
+
+⚠ **Ma première version lisait `livraison[…]` au lieu de `livraison.modes[…]`.**
+Elle ne levait rien : objet vide, pied de page sans horaires, balisage sans
+horaires, construction au vert. Vu en exécutant le fichier, jamais autrement.
+Le script **jette** désormais si la table est vide — sur une donnée pareille,
+le silence n'est pas une dégradation acceptable, c'est une boutique qui
+n'annonce plus quand elle ouvre.
 
 ⚠ **`SITE_URL` a une source de vérité jumelle, hors du dépôt.**
 `functions/api/auth/login.js` construit `redirect_uri = SITE_URL +
@@ -1437,7 +1481,7 @@ trois phases. État réel, neuf jours après :
 
 | Phase 1 — « semaines 1-2 » | Prio | État |
 |---|---|---|
-| Validation juridique de la section 8 | P1 | **non faite** — 2 alertes sur 3 écartées par recoupement, aucun juriste saisi |
+| Validation juridique de la section 8 | P1 | **écartée le 10/10** — 2 alertes sur 3 fausses au recoupement, mentions obligatoires jugées présentes par le commerçant. Aucun juriste saisi, et ce n'est pas un oubli |
 | Bouton back-office / lien « Espace pro » | P1 | ✅ 30/09 — et ça a coupé l'accès du commerçant le 08/10, voir plus haut |
 | Contrastes `--muted`, badges, sous-titres | P1 | ✅ aux valeurs exactes de son annexe A |
 | **CTA principal plein doré** | P1 | ✅ **09/10** |
@@ -1698,19 +1742,28 @@ rapport avec la réalité du magasin. Pour les 19 fleurs, l'unité est le **gram
 de vrac**, pas le sachet — un bocal de 500 g se saisit `500`.
 
 **En attente d'accès externes :** compte Mondial Relay Start, contrat Colissimo
-Entreprise.
+Entreprise. **Laissés de côté volontairement** (2026-10-10) : la boutique
+tourne avec les modes déjà actifs — livraison et retrait en boutique. Ne pas
+relancer tant que le commerçant n'ouvre pas le sujet.
 
 ✅ **La boîte `contact@maisoncbdvape.fr` existe depuis le 2026-10-03**, et
 l'adresse a été retirée de la liste de suppression Resend — l'étape invisible
 de la procédure ci-dessous. Une commande de test en **retrait boutique** a été
 passée dans la foulée.
 
-⚠ **Ce qui n'est PAS encore prouvé**, et qu'il ne faut pas conclure de ce qui
-précède : qu'un e-mail soit **remis**. « Accepté par Resend » n'est pas
-« reçu » (voir plus bas), et le `reply-to` ne se vérifie qu'en **répondant** à
-la confirmation reçue côté client. Tant que le journal Resend n'affiche pas
-*Delivered* sur les **deux** destinataires, la chaîne e-mail reste à l'état
-d'hypothèse.
+✅ **Les e-mails sont bien remis** — constaté par le commerçant le 2026-10-10,
+après les envois réels du 03/10 (confirmation de paiement, « commande prête »)
+et le test Gmail en boîte principale. La chaîne e-mail n'est plus une
+hypothèse.
+
+⚠ **Ce constat ne remplace pas un signal, et c'est la seule chose qui reste
+ouverte de ce côté.** Il vaut pour les messages déjà partis, vérifiés à la
+main. `order.emails = "envoye"` signifie toujours « accepté par Resend », pas
+« reçu » : une remise qui échouera plus tard ne reviendra pas au Worker, et la
+commande s'affichera sans alerte pendant que le client n'aura rien eu. Les
+*webhooks* Resend (`email.bounced`, `email.delivered`) branchés sur une Pages
+Function fermeraient ce trou — **non fait, et c'est le dernier endroit où la
+boutique peut échouer en silence**.
 
 **L'historique, conservé parce qu'il explique la procédure.** La boîte
 n'existait pas (constaté le 2026-09-12 : rebond *Recipient not found* sur le
@@ -2015,7 +2068,8 @@ deux moitiés — lecture du corps, ou méthode de scellement — a bougé.
 La commande est passée en **Payée**, l'e-mail client est arrivé, aucun marqueur
 `✉ non envoyé` dans `/admin/commandes/`.
 
-**Reste à faire :** rembourser ces 14,99 € depuis le back-office Monetico.
+✅ **Aucun remboursement à faire** (décidé le 2026-10-10) : ce n'était pas un
+test, le paiement et la commande étaient réels. Ne pas rouvrir le sujet.
 
 ⚠ **Si le journal affichait encore `payetest`**, la banque n'aurait pas
 basculé : il faudrait repasser `MONETICO_ENV = "test"` et pousser
@@ -2493,8 +2547,85 @@ toute nouvelle référence d'appareil repose la question : le test est le
 **réservoir**, pas la prise. Le jour où une fiche revient, son champ
 `liquideRemplissable` doit être renseigné avant la mise en vente.
 
-**Liens sociaux** du pied de page encore en `@tabacgex` — à changer quand les
-comptes seront ouverts.
+**Liens sociaux** du pied de page en `@tabacgex`, **et on les y laisse**
+(2026-10-10). Ce n'est pas un oubli : les comptes MaisonCBDVape n'existent pas
+encore. À changer le jour où ils ouvriront, pas avant.
+
+---
+
+## Référencement — état mesuré le 2026-10-10
+
+| | État |
+|---|---|
+| **Fiche Google Business** | ✅ existe et **vérifiée** — c'est le levier n° 1 d'une boutique physique, et il est acquis |
+| **Search Console** | ❌ **non connecté** — mesuré : aucun TXT de vérification dans le DNS, aucun `google*.html`, aucune balise, aucun Analytics. Les trois chemins sont vides |
+| `robots.txt`, `sitemap.xml`, `canonical`, `og:image` | ✅ |
+| JSON-LD `Store`, `Product`, `BreadcrumbList`, `CollectionPage` | ✅ |
+| **Articles de blog** | **0** — la machinerie date du 25/09 et n'a jamais servi |
+
+⚠ **Search Console d'abord, et rien d'autre avant.** Sans lui, aucune
+recommandation de mots-clés n'est autre chose qu'une supposition — y compris
+celles d'un assistant. Propriété **de domaine** → TXT dans Cloudflare →
+soumettre `https://maisoncbdvape.fr/sitemap.xml`.
+
+⚠ **Ce TXT ne touche pas au SPF.** Un domaine ne porte qu'un seul SPF mais
+autant de TXT qu'on veut : on **ajoute** une ligne, on ne modifie pas celle qui
+existe. L'écraser casserait la messagerie du commerçant — voir la section
+Resend.
+
+### La fiche Google ne porte pas le nom du site, et c'est normal
+
+Elle s'appelle **« Tabac PRESSE - CBD - VAPE - CHICHA »**, catégorie « Bureau
+de tabac », 48 Rue de Genève, **4,4 ★ / 141 avis**. Le site s'appelle
+MaisonCBDVape.
+
+**Ne pas renommer la fiche.** Google exige que le nom soit celui de la
+devanture, et on ne touche pas à 141 avis pour une question de cohérence de
+marque. L'adresse et le téléphone, identiques des deux côtés, font déjà
+l'essentiel du rapprochement ; `alternateName` et `sameAs` dans le `Store`
+lèvent le reste. Le lien site → fiche existe désormais, et la fiche pointait
+déjà vers le site.
+
+### ⚠ Une page par commune serait une erreur
+
+La tentation du « [produit] [ville] » est forte ici : Gex, Cessy,
+Ferney-Voltaire, Saint-Genis-Pouilly, Divonne, et Genève à vingt minutes. Mais
+une page par commune avec trois mots changés est exactement ce que Google
+appelle une *doorway page*, et c'est le motif que ce dépôt a déjà payé sous une
+autre forme (les pages de sous-catégorie vides).
+
+**Une page commune ne se justifie que si elle porte quelque chose de vrai** :
+le trajet, le stationnement, le retrait en une heure, un horaire. Sinon, une
+seule page « Pays de Gex » solide. Les communes sont en attendant déclarées
+dans `areaServed` du `Store` — on ne déclare que celles d'où la clientèle vient
+réellement.
+
+### Ce qu'on retient d'un article extérieur (2026-10-10)
+
+Un article de méthode SEO assistée par IA, lu à la demande du commerçant. Trois
+idées valent d'être gardées, et une est à écarter.
+
+- **« L'IA ne connaît ni vos volumes, ni vos positions. »** Exact, et c'est la
+  règle de ce projet appliquée au référencement : ne jamais écrire un volume de
+  recherche de mémoire.
+- **Une requête, une page.** Vérifier dans Search Console si une page existe
+  déjà avant d'en créer une : deux pages qui se concurrencent sortent 7ᵉ et 8ᵉ
+  au lieu d'une 3ᵉ.
+- **Le « diff gate » avant publication** : lister ce qui existait dans
+  l'ancienne version et manque dans la nouvelle. L'auteur raconte que son
+  agent a supprimé le seul élément original de ses pages, sans erreur ni
+  message. Ce dépôt connaît cette panne sous d'autres noms.
+- ⚠ **À écarter : l'achat de liens.** Viole la politique de Google sur les
+  liens, pour un gain sans rapport avec le risque d'une action manuelle. Une
+  boutique qui refuse les faux avis et les allégations de santé n'achète pas
+  ses liens.
+
+⚠ **Et la mise en garde qui nous vise directement** : l'auteur raconte l'échec
+d'un site neuf qui a publié vite et beaucoup, et n'a **jamais** été indexé —
+domaine jeune, zéro recherche de marque, zéro lien. C'est notre profil. Publier
+trente pages générées nous rangerait dans la même catégorie. Le blog doit
+avancer lentement et porter quelque chose que les neuf autres résultats n'ont
+pas.
 
 ---
 

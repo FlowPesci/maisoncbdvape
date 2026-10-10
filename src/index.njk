@@ -55,10 +55,27 @@ permalink: /index.html
             <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);">Références</div>
           </div>
           <div style="width:1px;height:40px;background:var(--borderl);"></div>
-          <div>
-            <div style="font-family:var(--font-titre);font-size:2.2rem;font-weight:300;color:var(--gold-light);">4.9★</div>
-            <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);">Satisfaction</div>
-          </div>
+          {# ⚠ Ce bloc affichait « 4.9★ / Satisfaction », écrit en dur, alors
+             qu'aucun avis client n'existait. C'était la même nature que les
+             deux faux avis retirés le 2026-08-01, et il a survécu deux mois
+             faute de chiffre vrai à mettre à la place.
+
+             Il en existait un : la fiche Google de la boutique porte
+             **4,4 ★ sur 141 avis** réels. Un chiffre vrai, vérifiable d'un
+             clic, et plus convaincant qu'une note sans source — 141 avis
+             disent quelque chose, « 4.9 » ne disait rien.
+
+             ⚠ Affiché en TEXTE, avec sa source et son lien. Surtout PAS en
+             `aggregateRating` dans le JSON-LD : Google interdit de rebaliser
+             chez soi des avis collectés ailleurs, et c'est exactement ce que
+             l'audit du 2026-09-30 recommandait à tort (voir CLAUDE.md).
+             Dire « 4,4 sur Google » est un fait attribué ; le baliser serait
+             s'attribuer la note. #}
+          <a href="{{ site.etablissement.ficheGoogle }}" rel="noopener nofollow"
+             target="_blank" style="text-decoration:none;" data-hover="gold">
+            <div style="font-family:var(--font-titre);font-size:2.2rem;font-weight:300;color:var(--gold-light);">{{ site.etablissement.noteGoogle | replace(".", ",") }}★</div>
+            <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);">{{ site.etablissement.nombreAvisGoogle }} avis Google</div>
+          </a>
           <div style="width:1px;height:40px;background:var(--borderl);"></div>
           <div>
             <div style="font-family:var(--font-titre);font-size:2.2rem;font-weight:300;color:var(--gold-light);">48h</div>

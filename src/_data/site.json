@@ -6,24 +6,15 @@
   },
   "baseline": "CBD & Vape Premium",
   "nom": "MaisonCBDVape",
-  "horaires": [
-    {
-      "jours": "Lun, Mar, Jeu, Ven",
-      "heures": "7h30–12h30 / 14h–19h"
-    },
-    {
-      "jours": "Mercredi",
-      "heures": "7h30–12h00 / 14h–19h"
-    },
-    {
-      "jours": "Samedi",
-      "heures": "8h–12h30 / 14h–18h40"
-    },
-    {
-      "jours": "Dimanche",
-      "heures": "8h–12h"
-    }
-  ],
+  "etablissement": {
+    "nomEnseigne": "Tabac PRESSE - CBD - VAPE - CHICHA",
+    "ficheGoogle": "https://maps.google.com/?cid=9644295333020537117",
+    "latitude": 46.3314907,
+    "longitude": 6.0575126,
+    "noteGoogle": 4.4,
+    "nombreAvisGoogle": 141,
+    "gammePrix": "€€"
+  },
   "social": {
     "instagram": "https://instagram.com/tabaccbdvapechichagex",
     "facebook": "https://facebook.com/tabacgex",
