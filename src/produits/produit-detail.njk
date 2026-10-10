@@ -39,6 +39,22 @@ eleventyComputed:
    tous les contenants. Un sachet de 4 g en retire 4. #}
 {% set auPoids           = produit.unitePrix == 'g' and produit.variantes and produit.variantes | length > 0 %}
 {% set uniteStock        = 'g' if auPoids else '' %}
+
+{# ⚠ LE prix annoncé — il n'y en a qu'un, et TROIS endroits le lisent : le
+   bloc principal, la barre collante de mobile, et le JSON-LD `Offer` que
+   Google peut afficher directement dans ses résultats.
+
+   Les trois le redéduisaient chacun de leur côté, et le troisième se
+   trompait : le JSON-LD déclarait `produit.prix`, qui vaut UN GRAMME sur une
+   fiche au poids. Google lisait donc « 4,99 € » pour l'Amnésia quand le plus
+   petit sachet achetable coûte 19,99 € — un prix annoncé dans un résultat de
+   recherche que la boutique n'honore pas. 14 fiches étaient concernées.
+
+   C'est exactement le défaut « dès » (voir CLAUDE.md), déplacé dans la donnée
+   structurée, donc **plus** grave : l'affichage, lui, se corrige en ouvrant
+   la page ; une annonce de prix dans Google se corrige des semaines plus
+   tard, et c'est une pratique commerciale trompeuse entre-temps (L121-2). #}
+{% set prixAnnonce       = (produit.variantes | first).prix if auPoids else produit.prix %}
 {% set produitsAssocies  = produits | where("categorie", produit.categorie) | rejectId(produit.id) | limit(4) %}
 
 {# ═══════════════════════════════════════════════════════════════════════════
@@ -247,8 +263,7 @@ eleventyComputed:
                  côté serveur, sans dépendre de personne. Le prix au gramme
                  reste affiché en tête du bloc « Contenant » — c'est sa place,
                  et il y est juste. #}
-              {% set premier = produit.variantes | first %}
-              <span id="prix-display">{{ premier.prix | eur }}</span>
+              <span id="prix-display">{{ prixAnnonce | eur }}</span>
             {% elif produit.variantes and produit.variantes | length > 0 %}
               {# Aucune saveur choisie à l'arrivée : on annonce le prix le plus
                  bas, précédé de « dès ». Afficher le prix de la première
@@ -562,7 +577,7 @@ eleventyComputed:
            comme un prix de vente. Les deux blocs doivent rester d'accord —
            corriger l'un sans l'autre remettrait l'écart en place, à l'endroit
            le plus visible sur mobile. #}
-        <div style="font-family:var(--font-titre);font-size:1.5rem;font-weight:300;color:var(--gold);">{% if auPoids %}<span id="prix-display-sticky">{{ (produit.variantes | first).prix | eur }}</span>{% elif produit.variantes and produit.variantes | length > 0 %}<span id="prix-des-sticky" style="font-size:.9rem;color:var(--muted);">dès </span><span id="prix-display-sticky">{{ produit.prix | eur }}</span>{% else %}{{ produit.prix | eur }}{% endif %}</div>
+        <div style="font-family:var(--font-titre);font-size:1.5rem;font-weight:300;color:var(--gold);">{% if auPoids %}<span id="prix-display-sticky">{{ prixAnnonce | eur }}</span>{% elif produit.variantes and produit.variantes | length > 0 %}<span id="prix-des-sticky" style="font-size:.9rem;color:var(--muted);">dès </span><span id="prix-display-sticky">{{ produit.prix | eur }}</span>{% else %}{{ produit.prix | eur }}{% endif %}</div>
       </div>
       <button data-add-to-cart="{{ produit.id }}"
               class="btn-gold flex-1 py-3.5 text-sm uppercase tracking-widest font-semibold flex items-center justify-center gap-2">
@@ -590,7 +605,10 @@ eleventyComputed:
     "@type": "Offer",
     "url": "{{ site.url }}/produits/{{ produit.id }}/",
     "priceCurrency": "{{ produit.devise or 'EUR' }}",
-    "price": "{{ produit.prix }}",
+    {#- ⚠ `prixAnnonce`, jamais `produit.prix` : voir le commentaire en tête
+        de fichier. Sur une fiche au poids, `produit.prix` est le prix du
+        GRAMME, et Google l'afficherait tel quel dans son résultat. -#}
+    "price": "{{ prixAnnonce }}",
     "availability": "{% if isOutOfStock %}https://schema.org/OutOfStock{% else %}https://schema.org/InStock{% endif %}",
     "itemCondition": "https://schema.org/NewCondition"
   }

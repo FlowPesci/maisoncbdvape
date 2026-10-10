@@ -2950,6 +2950,47 @@ sens unique et les deux heures de parking répondent à la vraie question du
 visiteur — « est-ce que je peux y passer en vingt minutes ? ». Aucun travail de
 balise ne remplace ça.
 
+### ⚠⚠ Le JSON-LD annonçait à Google un prix que personne ne peut payer
+
+Trouvé le 2026-10-10 en cherchant **comment enrichir l'affichage d'un résultat
+Google** — pas en cherchant un bug. Le balisage `Product` / `Offer` déclarait
+`produit.prix`. Or sur une fiche au poids, **`produit.prix` vaut UN GRAMME** :
+
+| Fiche | déclaré à Google | plus petit format achetable |
+|---|---|---|
+| `amnesia-hydro-indoor-cbd` | **4,99 €** | 4 g = 19,99 € |
+| `extract-crumble` | **9,90 €** | 2 g = 19,80 € |
+| `garlic-hydro-indoor-cbd` | **4,99 €** | 2 g = 9,98 € |
+
+**14 fiches concernées.** C'est le défaut « dès » (voir plus haut), déplacé
+dans la donnée structurée — et **plus grave là**, pour deux raisons :
+
+1. Google **affiche ce prix** dans ses résultats enrichis. Un tarif annoncé
+   dans un résultat de recherche et non honoré en caisse est une pratique
+   commerciale trompeuse (L121-2), la constante de ce dépôt.
+2. Un affichage faux se corrige en rechargeant la page. **Une annonce de prix
+   partie dans l'index de Google met des semaines à se corriger.**
+
+⚠ **Et la cause est toujours la même** : trois endroits redéduisaient le prix
+chacun de leur côté — le bloc principal, la barre collante de mobile, et le
+JSON-LD. Les deux premiers avaient été corrigés le 2026-09-28, chacun avec son
+long commentaire ; **le troisième n'avait jamais été regardé**, parce qu'il ne
+s'affiche pas.
+
+**`prixAnnonce` est posé une fois en tête de `produit-detail.njk`**, et les
+trois le lisent. Corriger le JSON-LD seul aurait laissé trois sources pour une
+valeur — c'est-à-dire le défaut suivant, déjà écrit.
+
+⚠ **Les autres lectures de `produit.prix` dans ce fichier sont justes** et ne
+doivent pas être « uniformisées » : le prix au gramme en tête du bloc
+« Contenant » (`… €/g`), le « dès X € » d'un produit à saveurs, le produit
+simple, et la comparaison du prix barré. Chacune parle d'autre chose.
+
+⚠ **Aucun `verify:` ne l'aurait attrapé.** `verify:prix` compare l'affichage au
+catalogue serveur ; le JSON-LD n'est lu par personne du dépôt. Le seul contrôle
+possible serait de comparer `"price"` au prix rendu dans la même page — à
+écrire le jour où ce défaut revient, pas avant.
+
 ### ⚠ Une page par commune serait une erreur
 
 La tentation du « [produit] [ville] » est forte ici : Gex, Cessy,
