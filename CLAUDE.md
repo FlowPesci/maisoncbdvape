@@ -2931,12 +2931,24 @@ garantissait. Elles lisent maintenant `ouverture.lignes`, comme le pied de page
 et le balisage schema.org. **Vérifié en exécutant le gabarit**, pas en le
 relisant.
 
-⚠ **Rien d'autre n'a été ajouté sur `/contact/`, volontairement.** Le
-stationnement, le commerce voisin, le trajet depuis la frontière : ce sont les
-repères qui font la valeur d'une page locale, et **personne ici ne les
-connaît**. Les inventer serait une mention commerciale fausse produite par le
-gabarit — exactement ce que les drapeaux de la carte CBD ont coûté. À demander
-au commerçant, puis à écrire.
+✅ **Et le commerçant a donné les repères qui manquaient**, le jour même. Ils
+sont écrits, et **eux seuls** :
+
+- la **rue de Genève est à sens unique** — un conducteur doit le savoir avant
+  d'arriver, c'est l'information la plus utile de la page ;
+- elle compte des **places gratuites** le long de la chaussée ;
+- le **parking couvert du Jura**, à quelques pas, offre **deux heures**.
+
+⚠ **Rien d'autre, et surtout rien lu sur la carte.** Elle montre une boucherie,
+un cuisiniste, une agence bancaire — autant de repères plausibles que personne
+n'a confirmés. Un détail d'accès faux est une mention commerciale fausse
+produite par le gabarit, exactement ce que les drapeaux de la carte CBD ont
+coûté. **Ce que le commerçant dit s'écrit ; ce qu'on devine, non.**
+
+⚠ **C'est ce contenu-là qui fait la valeur de la page**, pas les mots-clés. Le
+sens unique et les deux heures de parking répondent à la vraie question du
+visiteur — « est-ce que je peux y passer en vingt minutes ? ». Aucun travail de
+balise ne remplace ça.
 
 ### ⚠ Une page par commune serait une erreur
 

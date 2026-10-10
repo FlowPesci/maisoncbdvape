@@ -6,7 +6,7 @@ permalink: /contact/index.html
 #   les recherches d'un client qui veut venir. `head.njk` ajoute déjà
 #   « | MaisonCBDVape » : 34 + 16 = 50 signes, sous les 60 affichés.
 title: "Contact, adresse et horaires à Gex"
-description: "Tabac, CBD et vape au 48 Rue de Genève à Gex (01170). Horaires d'ouverture, téléphone, retrait en 1 heure et formulaire de contact."
+description: "Tabac, CBD et vape au 48 Rue de Genève à Gex (01170). Horaires, accès, places gratuites dans la rue et parking du Jura à deux pas. Retrait en 1 heure."
 ---
 {% from "components/icone.njk" import icone %}
 <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
@@ -43,16 +43,23 @@ description: "Tabac, CBD et vape au 48 Rue de Genève à Gex (01170). Horaires d
       </div>
 
       {# ─── Venir à la boutique ──────────────────────────────────────────
-         ⚠ Tout ici vient de `site.json`. Ne RIEN y inventer — un détail
-         d'accès faux (un parking qui n'existe pas, un arrêt de bus
-         approximatif) est une mention commerciale fausse produite par le
-         gabarit, exactement ce que la carte CBD a coûté avec ses drapeaux.
-         Les repères réels (stationnement, commerce voisin, trajet depuis
-         la frontière) sont à demander au commerçant avant d'être écrits. #}
+         ⚠ Les repères de stationnement viennent du COMMERÇANT (2026-10-10),
+         pas d'une lecture de carte. Ne rien y ajouter qu'il n'ait dit : un
+         détail d'accès faux est une mention commerciale fausse produite par
+         le gabarit, exactement ce que la carte CBD a coûté avec ses drapeaux.
+         ⚠ Et c'est le contenu qui fait la valeur de cette page sur « tabac
+         gex » : le trajet, pas les mots-clés. #}
       <div class="rounded-2xl bg-dark-card border border-dark-border p-5">
         <h2 class="font-display text-base tracking-widest text-white mb-3">VENIR À LA BOUTIQUE</h2>
         <p class="text-smoke text-sm leading-relaxed mb-3">
           Commandez en ligne, retirez sur place en <strong style="color:var(--cream);font-weight:400;">{{ site.livraison.modes["click-and-collect"].delai }}</strong> — sans frais de port.
+        </p>
+        <p class="text-smoke text-sm leading-relaxed mb-3">
+          La <strong style="color:var(--cream);font-weight:400;">rue de Genève est à sens unique</strong> : prévoyez le bon côté en arrivant.
+          Elle compte des <strong style="color:var(--cream);font-weight:400;">places gratuites</strong> le long de la chaussée.
+        </p>
+        <p class="text-smoke text-sm leading-relaxed mb-3">
+          À quelques pas, le <strong style="color:var(--cream);font-weight:400;">parking couvert du Jura</strong> offre deux heures de stationnement — de quoi passer sans surveiller l'horloge.
         </p>
         <a href="{{ site.etablissement.ficheGoogle }}" target="_blank" rel="noopener"
            class="text-neon-violet text-sm hover:underline">
