@@ -2,51 +2,70 @@
 permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 ---
+{#- ───────────────────────────────────────────────────────────────────────
+    sitemap.xml — UNE boucle, et chaque page décide si elle en fait partie.
+
+    ⚠ Ce fichier était une liste ÉCRITE À LA MAIN : accueil, catégories,
+    sous-catégories, blog, articles, produits. Les pages éditoriales n'y
+    avaient jamais été ajoutées — et c'est ainsi que **`/contact/` est restée
+    hors du sitemap**, constaté le 2026-10-10 en comparant l'XML servi aux
+    pages construites. Soit la page qui porte l'adresse, le téléphone et les
+    horaires d'une boutique physique.
+
+    Une liste tenue à la main diverge toujours : rien n'avertit, et personne
+    ne relit un XML. La boucle lit donc `collections.all` — **une page créée
+    demain y entre sans que personne y pense**, et c'est le bon sens du
+    défaut : une URL en trop est inoffensive, une URL manquante est invisible.
+
+    ⚠ Ce qui est EXCLU l'est explicitement, dans le front matter de la page
+    concernée (`sitemap: false`) :
+      · les écrans transactionnels (`/panier/`, `/commande/`, `/compte/`,
+        `/suivi-commande/`, `/recherche/`) — ils n'ont aucun contenu à
+        indexer, et `/commande/` encore moins que les autres ;
+      · les 7 écrans d'`/admin/`, la 404, `robots` et `sitemap` lui-même
+        n'ont rien à déclarer : ils portaient DÉJÀ
+        `eleventyExcludeFromCollections`, donc `collections.all` ne les voit
+        pas. Le dépôt était à moitié préparé pour ce changement.
+
+    ⚠ Le filtre `actif != false` sur les produits a été RETIRÉ, et ce n'est
+    pas un oubli : `src/_data/produits.js` l'applique déjà à la source (ligne
+    33). Un produit désactivé n'a donc pas de page du tout, et ne peut pas
+    entrer ici. Le réappliquer était une deuxième écriture de la même règle —
+    exactement ce que `prix-fiche.mjs` existe pour empêcher côté tarifs.
+
+    ⚠ `priority` et `changefreq` sont conservés par habitude, mais **Google
+    a publiquement déclaré les ignorer**. Ne pas y passer de temps, et
+    surtout ne pas croire qu'y toucher changera un classement.
+
+    ⚠ Ce commentaire se ferme avec un TIRET avant l'accolade, et c'est
+    obligatoire : sans lui il laisse un saut de ligne, et la déclaration
+    `<?xml` n'est plus le tout premier caractère du fichier. Un analyseur
+    strict refuse alors le document entier — et Google dirait « impossible
+    de récupérer le sitemap » sans jamais nommer la cause.
+
+    ⚠ Et ne pas écrire le marqueur de fermeture en toutes lettres ici : je
+    l'ai fait, le commentaire s'est fermé dessus, et le rendu est tombé sur
+    « unexpected end of comment ». Même défaut que la première version de
+    `verify:carte`, qui se déclenchait sur son propre commentaire.
+    ─────────────────────────────────────────────────────────────────────── -#}
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for p in collections.all %}
+{%- if p.data.sitemap !== false %}
+{#- La date la plus vraie disponible : date d'ajout d'une fiche produit,
+    date d'un article, sinon celle de la construction. #}
+{%- set quand = (p.data.produit.dateAjout if p.data.produit else null) or p.data.date or p.date %}
+{%- set prio = "0.5" %}
+{%- if p.url == "/" %}{% set prio = "1.0" %}
+{%- elif p.url | includes("/produits/") %}{% set prio = "0.7" %}
+{%- elif p.url | includes("/categories/") %}{% set prio = "0.8" %}
+{%- elif p.url | includes("/blog/") %}{% set prio = "0.6" %}
+{%- endif %}
   <url>
-    <loc>{{ site.url }}/</loc>
-    <lastmod>{{ page.date | isoDate }}</lastmod>
+    <loc>{{ site.url }}{{ p.url }}</loc>
+    <lastmod>{{ quand | isoDate }}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-{%- for cat in categories %}
-  <url>
-    <loc>{{ site.url }}/categories/{{ cat.slug }}/</loc>
-    <lastmod>{{ page.date | isoDate }}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-{%- endfor %}
-{%- for sous in sousCategories %}
-  <url>
-    <loc>{{ site.url }}{{ sous.url }}</loc>
-    <lastmod>{{ page.date | isoDate }}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-{%- endfor %}
-  <url>
-    <loc>{{ site.url }}/blog/</loc>
-    <lastmod>{{ page.date | isoDate }}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-{%- for a in collections.article %}
-  <url>
-    <loc>{{ site.url }}{{ a.url }}</loc>
-    <lastmod>{{ a.data.date | isoDate if a.data.date else (page.date | isoDate) }}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-{%- endfor %}
-{%- for produit in produits %}
-{%- if produit.actif != false %}
-  <url>
-    <loc>{{ site.url }}/produits/{{ produit.id }}/</loc>
-    <lastmod>{{ produit.dateAjout | isoDate if produit.dateAjout else (page.date | isoDate) }}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>{{ prio }}</priority>
   </url>
 {%- endif %}
 {%- endfor %}

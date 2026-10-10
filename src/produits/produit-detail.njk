@@ -4,6 +4,11 @@ pagination:
   data: produits
   size: 1
   alias: produit
+  # ⚠ Sans ce drapeau, Eleventy n'inscrit dans les collections que la
+  # PREMIÈRE page d'un gabarit paginé. Les 108 autres fiches existaient donc
+  # sur le disque et étaient absentes de `collections.all` — donc du sitemap,
+  # qui s'en nourrit depuis le 2026-10-10. Voir CLAUDE.md § sitemap.
+  addAllPagesToCollections: true
 permalink: "/produits/{{ produit.id }}/index.html"
 eleventyComputed:
   title: "{{ produit.seo.title or produit.nom }}"

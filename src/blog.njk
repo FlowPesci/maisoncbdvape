@@ -3,7 +3,14 @@ layout: layouts/base.njk
 permalink: /blog/index.html
 title: "Blog"
 description: "Conseils, repères et actualités CBD, vape et articles fumeurs — par MaisonCBDVape à Gex."
-eleventyExcludeFromCollections: true
+# ⚠ `eleventyExcludeFromCollections` a été RETIRÉ le 2026-10-10. Il visait à
+#   empêcher cette page de passer pour un article — mais elle vit à la racine
+#   de `src/`, elle n'hérite donc pas de `blog.json` et ne porte pas le tag
+#   `article` : l'exclusion ne protégeait de rien. En revanche elle la sortait
+#   de `collections.all`, et donc du sitemap, qui s'en nourrit désormais.
+#   `/blog/` y était rattrapé par une ligne écrite à la main ; elle a disparu
+#   avec la liste manuelle, et `/blog/` avec elle. Vu en relisant le tableau
+#   des pages, pas à la construction.
 ---
 {# ──────────────────────────────────────────────────────────────────────────
    Liste des articles.

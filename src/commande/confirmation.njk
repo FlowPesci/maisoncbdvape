@@ -1,6 +1,10 @@
 ---
 layout: layouts/base.njk
 permalink: /commande/confirmation/index.html
+# Hors sitemap : page d'après-paiement, qui n'a de sens qu'avec une commande
+# en session. Indexée, elle enverrait un visiteur venu de Google sur une
+# « Commande confirmée » qui n'est pas la sienne — pire qu'une page vide.
+sitemap: false
 title: "Commande confirmée"
 description: "Votre commande est confirmée. Merci pour votre achat chez {{ site.nom }}."
 ---

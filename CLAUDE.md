@@ -440,6 +440,7 @@ npm run verify:puffs      # dispositifs à réservoir fixe (loi n° 2025-175)
 npm run verify:prix       # prix annoncé ≠ prix facturé sur un produit à variantes
 npm run verify:carte      # carte CBD : identifiants en dur, origines, drapeaux
 npm run verify:cache      # empreinte de contenu sur les scripts d'/assets/
+npm run verify:sitemap    # pages construites ↔ URL annoncées (APRÈS eleventy)
 npm run test:diagnostic   # exécute réellement l'écran /admin/diagnostic/
 npm run test:pages        # exécute les scripts des pages client — aucun ne doit lever
 npm run test:sceau        # sceau retour Monetico, décodage du corps compris
@@ -2632,6 +2633,110 @@ documenté ailleurs qu'ici.**
 `maisoncbdvape.fr` plutôt que de le supprimer. Une redirection conserve le peu
 d'autorité accumulée ; une suppression la jette.
 
+### ⚠ Le sitemap était une liste écrite à la main, et `/contact/` n'y était pas
+
+Constaté le 2026-10-10 en comparant l'XML **servi** aux pages construites.
+`sitemap.njk` énumérait à la main : accueil, catégories, sous-catégories,
+blog, articles, produits. Les pages éditoriales n'y avaient jamais été
+ajoutées — dont **`/contact/`**, celle qui porte l'adresse, le téléphone et
+les horaires d'un commerce physique, et qui recevra les recherches du type
+« tabac gex horaires ».
+
+Ce n'était pas une décision, c'était une liste qu'on n'a jamais complétée.
+Le réflexe — ajouter sept lignes — aurait reproduit le défaut.
+
+**Une seule boucle désormais, sur `collections.all`, et chaque page décide.**
+Une page créée demain y entre sans que personne y pense. C'est le bon sens du
+défaut : une URL en trop est inoffensive, une URL manquante est invisible.
+
+Ce qui est exclu l'est **explicitement**, par `sitemap: false` dans le front
+matter : `/panier/`, `/commande/`, `/compte/`, `/suivi-commande/` et
+`/recherche/` — aucun contenu à indexer, et Google demande expressément de ne
+pas indexer les résultats de recherche internes.
+
+⚠ **Et deux pages que la liste manuelle masquait sont apparues au premier
+sitemap généré** : `/commande/confirmation/` et `/commande/paiement-echec/`.
+Elles vivent dans `src/commande/`, elles n'étaient donc dans aucune des six
+boucles écrites à la main — la liste manuelle les cachait par omission, pas
+par décision. Exclues à leur tour : « Commande confirmée » dans les résultats
+Google enverrait un visiteur sur la confirmation de quelqu'un d'autre, et
+« Paiement échoué » est l'inverse de ce qu'on veut lire sous le nom de la
+boutique.
+
+**C'est le prix de la bascule, et il valait d'être payé** : passer d'une liste
+à une règle fait apparaître d'un coup tout ce que la liste oubliait — les sept
+pages éditoriales qui manquaient, et ces deux-là qu'il fallait écarter. On ne
+le voit qu'en lisant le fichier **produit**, jamais le gabarit.
+
+⚠ **Le filtre `actif != false` sur les produits a été retiré**, et ce n'est
+pas un oubli : `src/_data/produits.js` l'applique déjà à la source. Un produit
+désactivé n'a pas de page, il ne peut donc pas entrer dans le sitemap. Le
+réappliquer était une deuxième écriture de la même règle.
+
+⚠ **Deux pièges rencontrés en l'écrivant, tous deux vérifiés par le rendu réel
+du gabarit** (nunjucks appelé à la main avec des données factices, pas une
+construction complète) :
+
+1. **Le commentaire d'en-tête s'est fermé sur lui-même.** Il expliquait qu'il
+   fallait un tiret avant l'accolade de fermeture… en écrivant le marqueur en
+   toutes lettres. Rendu : « unexpected end of comment ». Même défaut que la
+   première version de `verify:carte`.
+2. **La déclaration `<?xml` doit être le tout premier caractère du fichier.**
+   Le commentaire Nunjucks doit donc trimer sa fin, sinon un analyseur strict
+   refuse le document — et Google dirait « impossible de récupérer le
+   sitemap » sans jamais nommer la cause.
+
+⚠ `priority` et `changefreq` sont conservés par habitude : **Google déclare
+publiquement les ignorer.** Ne pas y passer de temps.
+
+#### ⚠ Et la bascule a coûté 150 URL, en silence — `addAllPagesToCollections`
+
+```bash
+npm run verify:sitemap    # tourne APRÈS eleventy, dans npm run build
+```
+
+Le premier sitemap généré annonçait **12 URL pour 153 pages construites** : un
+produit, deux catégories. La cause :
+
+> **Eleventy n'inscrit dans les collections que la PREMIÈRE page d'un gabarit
+> paginé**, sauf `addAllPagesToCollections: true`.
+
+Les 109 fiches, les 4 catégories et les 20 sous-catégories sont **toutes**
+paginées (`pagination.data` + `size: 1`). Elles étaient donc sur le disque,
+servies, correctes — et absentes de `collections.all`, donc du sitemap. **Tout
+le catalogue était invisible de Google.**
+
+⚠ **C'est la panne la plus silencieuse que ce dépôt ait produite.** Rien ne
+tombe, rien ne s'affiche de travers, le déploiement est vert, les douze
+`verify:` sont au vert. La liste manuelle, elle, bouclait sur `produits` et
+`categories` — les données, pas les collections — et n'avait donc jamais
+rencontré ce piège. **La bascule vers la règle a introduit un défaut que la
+liste n'avait pas**, et c'est le prix qu'on n'avait pas vu venir.
+
+⚠ **Et je l'ai trouvé par hasard**, en recomptant un chiffre que j'avais
+annoncé de travers (« ~146 URL ») — pas par un contrôle. C'était le deuxième
+sitemap de la journée que je déclarais juste sans avoir compté ses lignes. **Le
+« diff gate » de l'article SEO lu le matin même décrivait exactement ça** :
+lister ce que l'ancienne version portait et que la nouvelle a perdu. Il était
+noté dans ce fichier trois sections plus haut, et il n'a pas été appliqué.
+
+`verify:sitemap` compare désormais les pages HTML écrites dans `public/` aux
+`<loc>` du fichier, **et fait échouer la construction**. Il respecte la règle
+du projet : les deux côtés sortent de la même construction, le commerçant qui
+ajoute une fiche les fait monter ensemble — un écart ne peut venir que du CODE.
+
+⚠ **Il LIT les exclusions, il ne les redéduit pas** : une page absente n'est
+tolérée que si son front matter porte `sitemap: false`. Réécrire la liste des
+exclusions dans le script serait exactement la faute de la première version de
+`db:comparer` — inventer un écart au lieu de le constater.
+
+⚠ Il contrôle aussi **les deux sens** : une `<loc>` sans page construite
+enverrait Googlebot sur une 404. Et que le fichier commence bien par `<?xml`.
+
+⚠ **Tout nouveau gabarit paginé doit porter le drapeau.** Le message d'erreur
+le nomme en clair, parce que le symptôme (« ma page n'est pas indexée ») ne
+désigne jamais la pagination.
+
 ### La fiche Google ne porte pas le nom du site, et c'est normal
 
 Elle s'appelle **« Tabac PRESSE - CBD - VAPE - CHICHA »**, catégorie « Bureau
@@ -2713,8 +2818,14 @@ serait devenue un article de plus, pointant vers elle-même.
 ne le reconnaît pas s'il est précédé de quoi que ce soit, même d'un
 commentaire Nunjucks — le layout serait alors ignoré, sans erreur.
 
-Les articles entrent dans `sitemap.xml` via `collections.article`. Sans cela,
-ils existeraient sans être indexés, ce qui viderait l'opération de son sens.
+Les articles entrent dans `sitemap.xml` **comme toutes les pages**, par
+`collections.all` — voir la section sitemap plus bas. Sans cela, ils
+existeraient sans être indexés, ce qui viderait l'opération de son sens.
+
+⚠ **`src/blog.njk` ne porte plus `eleventyExcludeFromCollections`** (retiré le
+2026-10-10). Il était là pour l'empêcher de passer pour un article, ce dont
+sa position à la racine le protégeait déjà ; en revanche il la sortait de
+`collections.all`, donc du sitemap. Ne pas le remettre.
 
 **Visibilité :** lien en pied de page uniquement, décidé ainsi au départ. Un
 bandeau « trois derniers articles » sur l'accueil est envisagé — la collection

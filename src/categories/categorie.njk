@@ -4,6 +4,9 @@ pagination:
   data: categories
   size: 1
   alias: cat
+  # ⚠ Voir produit-detail.njk : sans ce drapeau, seule la première catégorie
+  # entre dans `collections.all`, et le sitemap n'en annonce qu'une.
+  addAllPagesToCollections: true
 permalink: "/categories/{{ cat.slug }}/index.html"
 eleventyComputed:
   title: "{{ cat.nom }}"

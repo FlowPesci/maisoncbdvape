@@ -4,6 +4,9 @@ pagination:
   data: sousCategories
   size: 1
   alias: sous
+  # ⚠ Voir produit-detail.njk : sans ce drapeau, seule la première
+  # sous-catégorie entre dans `collections.all`, donc dans le sitemap.
+  addAllPagesToCollections: true
 permalink: "/categories/{{ sous.categorieSlug }}/{{ sous.slug }}/index.html"
 eleventyComputed:
   title: "{{ sous.nom }}"
