@@ -2968,10 +2968,24 @@ export const PRODUITS_A_VARIANTES = new Set([
  * @type {Set<string>}
  */
 export const VARIANTE_OBLIGATOIRE = new Set([
+  "amnesia-hydro-indoor-cbd",
+  "charas-cbd",
+  "drizzle-in-dam-hydro-indoor-cbd",
   "e-liquide-jnr-10ml-20mg-sel-de-nicotine",
+  "extract-crumble",
+  "garlic-hydro-indoor-cbd",
+  "hash-primero",
+  "jack-herer-hydro-indoor-cbd",
   "jnr-32000-puffs",
+  "lemon-hydro-indoor-cbd",
+  "mango-small-bud-cbd",
+  "moby-dick-hydro-indoor-cbd",
+  "moon-rock-cbd-indoor",
   "pod-al-fakher-50k",
-  "pod-de-remplacement-aerox-32k-jnr"
+  "pod-de-remplacement-aerox-32k-jnr",
+  "pollen-d-amnesia-100-cbd",
+  "pollen-d-or-100-cbd",
+  "smash-small-bud-cbd"
 ]);
 
 /**

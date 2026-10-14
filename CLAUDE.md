@@ -1075,12 +1075,13 @@ La carte d'un produit à saveurs affiche donc **« Choisir une saveur »** et m�
 la garde. C'est la règle du projet appliquée dans les deux sens : ce qui
 ressemble à un choix doit en être un, et on ne choisit pas à la place du client.
 
-⚠ **Ne vaut QUE pour les saveurs vendues à l'unité** (`produit.unitePrix != 'g'`).
-Une fleur au gramme tire d'un vrac unique : son conditionnement ne change pas la
-ligne de stock, l'ajout direct depuis une carte y reste juste. Vérifié sur le
-site construit — les quatre produits à saveurs n'ont plus aucun
-`data-add-to-cart` hors de leur propre fiche, les fleurs et les produits simples
-l'ont gardé.
+⚠ **Cette section exceptait les fleurs au gramme — et c'était faux.** Elle
+disait : « une fleur tire d'un vrac unique, son conditionnement ne change pas
+la ligne de stock, l'ajout direct depuis une carte y reste juste ». Exact sur
+le stock, faux sur le PRIX — la carte vendait un gramme à 4,99 €. Corrigé le
+2026-10-13, voir « ⚠⚠ Et l'exception "sauf les fleurs" » plus bas. **Les cartes
+ne portent plus de `data-add-to-cart` dès qu'il y a des variantes**, poids
+compris ; seuls les produits simples l'ont gardé.
 
 Quatre produits concernés au 2026-10-03 : `pod-al-fakher-50k` (33 saveurs),
 `e-liquide-jnr-10ml-20mg-sel-de-nicotine` (22),
@@ -1176,6 +1177,86 @@ commerçant, pas un ménage d'assistant.
 sur lequel se cale un inventaire est celui des références **vendues**. Il les
 sépare désormais, et une quatrième carte affiche les lignes hors catalogue
 quand il y en a.
+
+#### ⚠⚠ Et l'exception « sauf les fleurs » vendait UN GRAMME à 4,99 €
+
+Signalé par le commerçant le 2026-10-13, capture du panier à l'appui : un clic
+sur « Ajouter au panier » depuis une carte de catégorie mettait
+**« Amnésia Hydro Indoor CBD — 4,99 € »** dans le panier. Le plus petit sachet
+vendu fait **4 g à 19,99 €**.
+
+La cause est la dernière phrase de la section ci-dessus, écrite le
+2026-10-03 : *« Ne vaut QUE pour les saveurs vendues à l'unité. Une fleur au
+gramme tire d'un vrac unique : son conditionnement ne change pas la ligne de
+stock, l'ajout direct reste juste. »*
+
+**C'était juste sur le stock, et faux sur la vente.** Les deux questions
+avaient été confondues parce que, pour les saveurs, elles ont la même réponse :
+
+| | saveurs | **fleurs au gramme** |
+|---|---|---|
+| ligne de stock sans libellé | **fausse** (double comptage) | juste (le vrac) |
+| **prix** sans libellé | juste (variante la moins chère) | **faux — c'est un prix au GRAMME** |
+
+⚠ **Et le serveur l'acceptait.** `lookupPrice(id, null)` retombe sur
+`CATALOG[id]`, qui vaut bien 4,99 € ; `resoudreStock(id, null)` ne trouve pas
+de clé nue — une fleur n'en a jamais eu — et tombe sur le repli
+`{ facteur: 1 }`, donc retire **1 g** du vrac. Stock cohérent, commande
+honorée, et un gramme facturé au prix d'affichage. Rien n'aurait jamais
+signalé la vente.
+
+**Le garde-fou va dans `VARIANTE_OBLIGATOIRE`, et les deux conséquences se
+séparent.** Elles tenaient sur une seule ligne (`n > 0 && !auPoids`), au motif
+qu'elles disaient la même chose — « pas de ligne à soi, donc pas d'achat sans
+choisir ». Sur une fleur elles divergent :
+
+| | condition | pourquoi |
+|---|---|---|
+| `delete clesStock[p.id]` | reste `n > 0 && !auPoids` | sans objet sur une fleur, qui n'a jamais eu cette entrée |
+| `varianteObligatoire.push` | devient **`n > 0`** | un format est un format |
+
+⚠ La première ligne est une ceinture, pas une règle : la branche `auPoids`
+n'écrit jamais `clesStock[p.id]`. Le vrac vit sur **`stocks[p.id]`**, et
+`CLES_STOCK` de chaque variante y pointe par `cle: p.id` avec son `facteur`.
+
+La règle ne mentionne plus le poids : **un produit vendu en formats s'achète
+en choisissant un format.** 18 produits au lieu de 4 — les 4 à saveurs et les
+**14 fiches au gramme**, exactement celles du défaut JSON-LD.
+
+⚠ **`reserverPanier()` n'a pas eu une ligne de logique à recevoir** : il
+refusait déjà un article sans libellé sur un produit de cette liste. C'est la
+preuve que le garde-fou était au bon endroit, et que seule son assiette était
+trop étroite. Seul le MESSAGE change — « se vend par saveur » ne veut rien dire
+sur une fleur ; il se choisit désormais sur `uniteStock(id)`, la donnée, et
+non sur une seconde liste à tenir.
+
+⚠ **Et cela couvre le panier déjà posé dans le `localStorage` d'un visiteur**,
+venu avant le correctif — le seul chemin que l'interface ne peut pas fermer.
+
+**Les deux moitiés visibles suivent, et aucune n'est le garde-fou :**
+
+- la carte (`product-card.njk`) perd son `unitePrix != 'g'` et affiche
+  « Choisir un format » — le mot suit `unitePrix`, « saveur » ailleurs ;
+- ⚠ la FICHE portait le même défaut, caché par un script. Ses deux boutons
+  d'achat n'avaient **aucun** `data-variante-label` dans le HTML : c'est
+  `syncGram()` qui le posait au chargement, en même temps que le prix. Un prix
+  juste et un libellé absent derrière le MÊME script — or deux scripts sont
+  déjà morts dans ce dépôt (`admin-commandes`, `categorie-menu`). Ce jour-là,
+  la fiche elle-même aurait vendu un gramme. `formatInitial` est désormais rendu
+  côté serveur, depuis la **même** lecture que `prixAnnonce` et que le
+  `loop.first` qui allume le bouton.
+
+**La leçon**, et c'est la deuxième fois en trois jours sur la même fiche : une
+exception écrite dans un commentaire est un raisonnement figé. Celle-ci était
+exacte le jour où elle a été écrite, sur la question qu'on se posait ce
+jour-là — le stock. Elle est restée en place pour une autre question, le prix,
+qu'elle n'avait jamais examinée. **Une exception doit nommer ce qu'elle
+excepte**, pas seulement ce qu'elle autorise.
+
+⚠ `lookupPrice(id, null)` renvoie toujours 4,99 € sur une fleur, et **il le
+doit** : c'est le prix au gramme, celui qu'affichent la colonne « €/g » et le
+bandeau « Contenant ». Le refus vit dans le panier, pas dans le catalogue. Ne
+pas « corriger » cette valeur.
 
 Troisième occurrence, la plus coûteuse : le bouton **« Payer en ligne (CB) »**
 s'affichait sans condition, alors que `create-payment.js` refuse de construire

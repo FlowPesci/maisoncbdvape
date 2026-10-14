@@ -135,20 +135,31 @@
          en être un** — et réciproquement, on ne fait pas choisir à la place
          du client.
 
-         ⚠ Ne vaut QUE pour les saveurs vendues à l'unité. Une fleur au gramme
-         (`unitePrix`) tire d'un vrac unique : son conditionnement ne change
-         pas la ligne de stock, l'ajout direct reste juste. #}
-      {% set aSaveurs = produit.variantes and produit.variantes | length > 0 and produit.unitePrix != 'g' %}
+         ⚠ Cette note excluait les fleurs au gramme jusqu'au 2026-10-13
+         (`and produit.unitePrix != 'g'`), au motif qu'un conditionnement ne
+         change pas leur ligne de stock. **C'était juste sur le stock et faux
+         sur la vente.** Le prix d'une fleur est un prix au GRAMME : la carte
+         envoyait donc au panier **un gramme d'Amnésia à 4,99 €**, quand le
+         plus petit sachet vendu fait 4 g à 19,99 €. Et le serveur l'acceptait
+         — `lookupPrice(id, null)` retombe sur `CATALOG[id]`, qui vaut bien
+         4,99 €. Signalé par le commerçant, capture du panier à l'appui.
 
-      {% if aSaveurs and not isOutOfStock %}
+         La règle ne mentionne donc plus le poids : **un produit vendu en
+         formats s'achète en choisissant un format.** Le garde-fou qui compte
+         est `VARIANTE_OBLIGATOIRE`, côté serveur ; ceci n'en est que la
+         moitié visible. #}
+      {% set aFormats = produit.variantes and produit.variantes | length > 0 %}
+      {% set motFormat = "un format" if produit.unitePrix == 'g' else "une saveur" %}
+
+      {% if aFormats and not isOutOfStock %}
         <a href="/produits/{{ produit.id }}/"
            class="add-cart-btn w-full py-2.5 flex items-center justify-center gap-2 mt-auto"
            style="text-decoration:none;"
-           aria-label="Choisir une saveur de {{ produit.nom }}">
+           aria-label="Choisir {{ motFormat }} de {{ produit.nom }}">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h10"/>
           </svg>
-          Choisir une saveur
+          Choisir {{ motFormat }}
         </a>
       {% else %}
       <button class="add-cart-btn w-full py-2.5 flex items-center justify-center gap-2 mt-auto"

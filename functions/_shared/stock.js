@@ -152,15 +152,26 @@ export async function reserverPanier(db, orderId, items) {
     //   Le symptôme était éteint côté interface ; la cause ne l'était pas.
     //   Elle devient impossible à atteindre le jour où les stocks réels sont
     //   saisis — c'est-à-dire au moment où un double comptage coûte vraiment.
+    //
+    // ⚠ Depuis le 2026-10-13, les FLEURS AU GRAMME sont dans cette liste, et
+    //   le motif n'y est pas le double comptage — leur stock est bien un vrac
+    //   unique, la clé nue y était juste. C'est le PRIX qui ne l'était pas :
+    //   `prix` vaut un gramme, et un article sans format partait à 4,99 €
+    //   quand le plus petit sachet d'Amnésia fait 4 g à 19,99 €. Une même
+    //   règle, deux motifs — d'où le libellé choisi sur l'unité ci-dessous
+    //   plutôt qu'un « par saveur » qui ne veut rien dire sur une fleur.
     if (!it.varianteLabel && VARIANTE_OBLIGATOIRE.has(String(it.id))) {
       await relacherPanier(db, orderId, reserves, "relache");
-      console.error(`[stock] article sans saveur sur un produit à variantes : ${it.id}`);
+      console.error(`[stock] article sans format sur un produit à variantes : ${it.id}`);
+      const auPoids = uniteStock(it.id) === "g";
+      const mot = auPoids ? "format" : "saveur";
       return {
         ok: false,
         article: it.nom,
         erreur:
-          `« ${it.nom} » se vend par saveur. Retirez-le du panier et ` +
-          `rajoutez-le depuis sa fiche en choisissant une saveur.`,
+          `« ${it.nom} » se vend ${auPoids ? "au poids" : "par saveur"}. ` +
+          `Retirez-le du panier et rajoutez-le depuis sa fiche en ` +
+          `choisissant ${auPoids ? "un" : "une"} ${mot}.`,
       };
     }
 

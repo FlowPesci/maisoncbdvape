@@ -173,14 +173,36 @@ for (const p of produits) {
     //     légitimes au lieu d'être signalées comme orphelines — le 2026-10-03
     //     disait pourtant déjà qu'elles devaient l'être.
     //
-    //   La condition est au PLURIEL des conséquences mais UNIQUE : la même
-    //   ligne décide qu'il n'y a pas de clé nue et que la saveur est exigée.
-    //   Une fleur au gramme n'est pas concernée — son stock EST au niveau du
-    //   produit, et l'ajout depuis une carte y reste juste.
-    if (n > 0 && !auPoids) {
-      delete clesStock[p.id];
-      varianteObligatoire.push(p.id);
-    }
+    //   ⚠ Sur une fleur, cette ligne est sans effet et le `!auPoids` est une
+    //     ceinture : la branche `auPoids` plus haut n'écrit JAMAIS
+    //     `clesStock[p.id]`. Ne pas en conclure qu'on peut l'élargir — c'est
+    //     `stocks[p.id]` qui porte le vrac, et `CLES_STOCK` de chaque variante
+    //     y pointe par `cle: p.id`.
+    if (n > 0 && !auPoids) delete clesStock[p.id];
+
+    // ⚠ Et le FORMAT est exigé dès qu'il y en a — fleurs au gramme comprises.
+    //
+    //   Ces deux conséquences ont longtemps tenu sur une seule ligne
+    //   (`n > 0 && !auPoids`), au motif qu'elles disaient la même chose : pas
+    //   de ligne de stock à soi, donc pas d'achat sans choisir. Sur une fleur
+    //   elles DIVERGENT, et c'est tout le défaut du 2026-10-13 :
+    //
+    //   · côté STOCK il n'y a rien à fermer — le vrac en grammes vit sur
+    //     `stocks[p.id]` et chaque variante y puise avec son `facteur` ;
+    //   · le format doit quand même être EXIGÉ — `prix` vaut UN GRAMME, une
+    //     quantité qui n'est pas vendue. Le plus petit sachet d'Amnésia fait
+    //     4 g à 19,99 € ; sans ce garde-fou, un ajout depuis une carte de
+    //     catégorie partait au panier à **4,99 €**, et `lookupPrice(id, null)`
+    //     retombant sur `CATALOG[id]`, le serveur l'acceptait. Un gramme
+    //     facturé au tarif affiché à côté d'un bocal — l'inverse exact du
+    //     défaut que `avecVariantes` ferme deux lignes plus haut.
+    //
+    //   La règle tient donc en une phrase, et elle ne mentionne plus le poids :
+    //   **un produit vendu en formats s'achète en choisissant un format.**
+    //   `reserverPanier()` (`_shared/stock.js`) la fait respecter côté serveur,
+    //   ce qui couvre aussi les paniers déjà posés dans le `localStorage` d'un
+    //   visiteur venu avant le correctif.
+    if (n > 0) varianteObligatoire.push(p.id);
   }
 }
 
