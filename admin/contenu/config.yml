@@ -581,6 +581,17 @@ collections:
               - { label: "Facebook",  name: "facebook",  widget: "string", required: false }
               - { label: "TikTok",    name: "tiktok",    widget: "string", required: false }
 
+          # ⚠ Interrupteur de la fumée animée du hero de l'accueil
+          #   (src/assets/js/hero-fumee.js). Décocher puis enregistrer : la
+          #   reconstruction suivante rend le hero d'avant, sans fumée, sans
+          #   animation du titre. Voir CLAUDE.md, « Fumée du hero ».
+          - label: "Effets visuels"
+            name: "effets"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Fumée animée sur l'accueil", name: "fumeeAccueil", widget: "boolean", default: true, hint: "Décocher pour retirer la fumée dorée et l'animation du titre de la page d'accueil. Visible 2-3 minutes après l'enregistrement." }
+
           - label: "Menu de navigation"
             name: "navigation"
             widget: "list"

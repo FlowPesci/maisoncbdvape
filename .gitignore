@@ -11,3 +11,6 @@ src/assets/css/tailwind.css
 
 # Wrangler local dev cache
 .wrangler/
+
+# Maquettes et démos autonomes (motion design) : jamais déployées
+demo-motion/

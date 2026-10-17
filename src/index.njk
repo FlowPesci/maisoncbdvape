@@ -16,7 +16,19 @@ permalink: /index.html
 {# ═══════════════════════════════════════════════════════════════════════
    HERO
    ═══════════════════════════════════════════════════════════════════════ #}
-<section class="hero-bg" style="position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;">
+{# ─── Fumée dorée — interrupteur : site.json → effets.fumeeAccueil ─────────
+   (case « Fumée animée sur l'accueil » dans /admin/contenu/ → Configuration
+   du site). À false, AUCUN des ajouts ci-dessous n'est rendu : ni canvas, ni
+   script, ni animation du titre — le hero redevient exactement celui d'avant.
+   ⚠ La fumée n'est qu'un décor : le contenu ne dépend jamais du script
+   (le titre se révèle en CSS pur). Voir CLAUDE.md, « Fumée du hero ». #}
+{% set fumee = site.effets and site.effets.fumeeAccueil %}
+<section class="hero-bg{% if fumee %} hero-fx{% endif %}"{% if fumee %} data-hero-fumee{% endif %} style="position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;">
+
+  {% if fumee %}
+    <canvas class="fx-fumee" aria-hidden="true"></canvas>
+    <canvas class="fx-poussiere" aria-hidden="true"></canvas>
+  {% endif %}
 
   {# Grain texture #}
   <div class="hero-grain"></div>
@@ -37,11 +49,15 @@ permalink: /index.html
            marque — elle est devenue la seconde ligne du MÊME titre.
            ⚠ Le texte vient de `title` (front matter), déjà employé par
            `head.njk` : une seule source, pas deux formulations à tenir. #}
-        <h1 style="font-family:var(--font-titre);font-size:clamp(52px,7.5vw,96px);font-weight:300;line-height:1.0;color:var(--cream);margin-bottom:28px;">
+        <h1{% if fumee %} class="hero-titre-anime"{% endif %} style="font-family:var(--font-titre);font-size:clamp(52px,7.5vw,96px);font-weight:300;line-height:1.0;color:var(--cream);margin-bottom:28px;">
           <span style="display:block;font-family:'DM Sans',system-ui,sans-serif;font-size:11px;font-weight:400;letter-spacing:.3em;line-height:1.6;text-transform:uppercase;color:var(--gold);margin-bottom:20px;">{{ title }}</span>
-          L'art de<br/>
-          <em style="font-style:normal;color:var(--gold-light);">savourer</em><br/>
-          autrement.
+          {# Une ligne = un `.rv-ligne` (bloc), à la place des <br/> : c'est ce
+             qui permet de révéler le titre ligne par ligne. Sans l'effet, le
+             rendu est identique à l'ancien. #}
+          <span class="rv-ligne"><span style="animation-delay:.45s;">L'art de</span></span>
+          <span class="rv-ligne"><span style="animation-delay:.6s;"><em style="font-style:normal;color:var(--gold-light);">savourer</em></span></span>
+          <span class="rv-ligne"><span style="animation-delay:.75s;">autrement.</span></span>
+          {% if fumee %}<span class="rv-filet" aria-hidden="true"></span>{% endif %}
         </h1>
 
         <p style="font-size:13.5px;letter-spacing:.03em;line-height:1.85;color:rgba(245,240,232,0.5);max-width:400px;margin-bottom:48px;">
@@ -121,7 +137,16 @@ permalink: /index.html
         {% set vapecat = categories | where("slug","vape") | first %}
         <div class="hero-showcase" style="position:relative;z-index:10;border:1px solid var(--borderl);overflow:hidden;aspect-ratio:4/5;">
           {% if vapecat and vapecat.image %}
-            <img src="{{ vapecat.image }}" alt="Collection Vape" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" loading="eager"/>
+            {# Avec la fumée, l'image déborde de 14 px de chaque côté : la
+               parallaxe (± 7 px) ne découvre jamais le bord du cadre.
+               ⚠ `max-width:none` est indispensable : le preflight Tailwind
+               pose `img { max-width:100% }`, qui annulait le débordement et
+               laissait une bande sombre à droite de la vitrine. #}
+            {% if fumee %}
+              <img src="{{ vapecat.image }}" alt="Collection Vape" data-hero-parallaxe style="position:absolute;inset:-14px;width:calc(100% + 28px);height:calc(100% + 28px);max-width:none;object-fit:cover;will-change:transform;" loading="eager"/>
+            {% else %}
+              <img src="{{ vapecat.image }}" alt="Collection Vape" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" loading="eager"/>
+            {% endif %}
           {% endif %}
           <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(14,12,9,0.3) 0%, rgba(14,12,9,0.7) 60%, rgba(14,12,9,0.95) 100%);"></div>
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:36px;text-align:center;">
@@ -157,6 +182,9 @@ permalink: /index.html
   {# Fade bottom #}
   <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(0deg,var(--dark),transparent);pointer-events:none;"></div>
 
+  {% if fumee %}
+    <script src="/assets/js/hero-fumee.js?v={{ '/assets/js/hero-fumee.js' | contentHash }}" defer></script>
+  {% endif %}
 </section>
 
 

@@ -162,5 +162,8 @@
       "g": 30
     },
     "destinataireAlerte": ""
+  },
+  "effets": {
+    "fumeeAccueil": true
   }
 }

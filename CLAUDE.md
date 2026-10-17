@@ -1780,6 +1780,78 @@ sans dimension, étiré à **958 px** de côté, sans la moindre erreur.
 
 ---
 
+## Fumée du hero (accueil)
+
+Ajoutée le 2026-10-17 : une fumée dorée animée derrière le hero de l'accueil,
+une poussière d'or, une parallaxe légère de la vitrine et une révélation du
+titre ligne par ligne. Validée par le développeur ; **l'accord du commerçant
+n'est pas encore acquis**, d'où l'interrupteur.
+
+### L'interrupteur
+
+```json
+"effets": { "fumeeAccueil": true }      // src/_data/site.json
+```
+
+Exposé dans `/admin/contenu/` → Configuration du site → « Effets visuels »
+(widget `boolean`) : **le commerçant peut l'éteindre lui-même**, sans nous.
+À `false`, `index.njk` ne rend **rien** de l'effet — ni canvas, ni script, ni
+classe d'animation, ni filet doré. Vérifié sur la page construite : zéro
+occurrence. Le seul résidu est structurel et invisible : les `<br/>` du titre
+sont devenus des `.rv-ligne` (blocs), au rendu identique.
+
+⚠ **Éteindre, pas supprimer.** Si le commerçant refuse, décocher suffit. Ne
+retirer le code que le jour où la décision est définitive — et alors les
+quatre morceaux ensemble : `hero-fumee.js`, le bloc « Fumée dorée du hero »
+d'`input.css`, les `{% if fumee %}` d'`index.njk`, le champ de `config.yml`.
+
+### Ce que c'est
+
+`src/assets/js/hero-fumee.js` : une **simulation de fluide** (méthode
+« stable fluids ») en WebGL, sans librairie. Une première version en bruit
+fractal déformé a été refusée : elle « faisait liquide ». Une fumée doit
+naître d'une source, monter, s'enrouler et se dissiper — ce qu'un motif de
+bruit ne fait pas.
+
+Réglages regroupés dans `CFG` en tête de fichier. Trois pièges rencontrés en
+les ajustant, à connaître avant d'y toucher :
+
+| Symptôme | Cause | Réglage |
+|---|---|---|
+| la fumée s'étale à l'horizontale à mi-hauteur | le haut se comportait comme un couvercle fermé | `OPEN` : pression nulle au-dessus du cadre |
+| elle se couche et file le long du sol | côtés ouverts eux aussi : ils aspirent l'air de travers | **seul le haut** est ouvert |
+| un nuage qui remplit l'écran | dissipation trop faible | `DEN_DISS` ≥ 0,4 |
+
+### ⚠ Le contenu ne dépend JAMAIS du script
+
+Le titre se révèle en **CSS pur** (`.hero-titre-anime`, animations à délai),
+pas par une classe posée en JavaScript. Deux scripts morts ont déjà vidé des
+pages ici (`admin-commandes`, `categorie-menu`) ; si celui-ci meurt, on perd
+la fumée et rien d'autre. Ne pas « simplifier » en pilotant l'animation du
+titre depuis le script.
+
+### Garde-fous du script
+
+- pas de WebGL, ou pas de textures demi-flottantes : canvas vide, fond CSS d'origine ;
+- `prefers-reduced-motion` : une image fixe, aucune boucle (et le titre ne s'anime pas) ;
+- hero hors de vue ou onglet masqué : la boucle s'arrête ;
+- **appareil lent** : moyenne des images 30 à 150 au-delà de 34 ms → la fumée
+  s'éteint en fondu et le contexte WebGL est libéré. La poussière reste.
+- `test:pages` l'exécute sur l'accueil : il doit sortir proprement sans WebGL.
+
+⚠ **`max-width:none` sur l'image de la vitrine.** La parallaxe exige que
+l'image déborde de 14 px ; le preflight Tailwind (`img { max-width:100% }`)
+annulait le débordement et laissait une bande sombre à droite. Vu sur la page
+construite, pas dans la démo autonome — qui n'avait pas Tailwind.
+
+⚠ **La fluidité n'a été mesurée sur aucun vrai appareil** au moment de
+l'intégration, seulement dans un navigateur à rendu logiciel. Si le commerçant
+ou un client signale que l'accueil « rame », baisser `CFG.SIM` / `CFG.DYE`
+avant d'éteindre l'effet.
+
+La démo autonome qui a servi à le valider vit dans `demo-motion/`, ignoré
+par Git.
+
 ## Environnement
 
 **Le projet ne doit pas vivre dans OneDrive.** Il verrouille les fichiers

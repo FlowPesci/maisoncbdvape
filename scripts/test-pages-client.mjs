@@ -51,6 +51,14 @@ const PAGES = [
     html: "public/produits/moon-rock-cbd-indoor/index.html",
     scripts: ["src/assets/js/tabacgex.js"],
   },
+  // L'accueil porte la fumée du hero. Le simulateur n'a ni WebGL ni
+  // requestAnimationFrame : le script doit alors s'arrêter proprement, sans
+  // lever — c'est exactement ce qu'il fait sur un navigateur sans WebGL.
+  {
+    nom: "accueil",
+    html: "public/index.html",
+    scripts: ["src/assets/js/hero-fumee.js", "src/assets/js/index-newsletter.js"],
+  },
   // ⚠ Le back-office compte comme une page rendue, et c'est là que les
   //   défauts survivent le plus longtemps : hors du parcours client, donc
   //   hors de la passe visuelle. `/admin/commandes/` est resté figé sur

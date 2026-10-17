@@ -753,6 +753,65 @@ h1, h2, h3, .heading {
   background-size: 160px;
   pointer-events: none;
 }
+/* ─── Fumée dorée du hero (accueil) ──────────────────────────────────────
+   Interrupteur : site.json → effets.fumeeAccueil. Script :
+   src/assets/js/hero-fumee.js. Voir CLAUDE.md, « Fumée du hero ».
+
+   Les deux canvas se posent ENTRE le fond (.hero-bg) et le contenu
+   (.hero-inner, z-index 2). Sans WebGL, le canvas de fumée reste vide et
+   transparent : on retombe exactement sur le hero d'avant.
+   ⚠ L'opacité du canvas de fumée est posée par le script (fondu d'entrée,
+   et fondu de sortie s'il éteint l'effet sur un appareil trop lent) : aucune
+   classe n'est ajoutée en JavaScript, rien à purger côté Tailwind. */
+.fx-fumee,
+.fx-poussiere {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+  pointer-events: none;
+}
+.fx-fumee     { z-index: 0; opacity: 0; transition: opacity 2.2s ease; }
+.fx-poussiere { z-index: 1; }
+/* Le grain, légèrement renforcé : il « tient » la fumée et évite l'aspect
+   de dégradé numérique trop lisse. */
+.hero-fx .hero-grain { opacity: .05; }
+
+/* Titre du hero : une ligne = un bloc. Sert aussi SANS l'effet — il
+   remplace les <br/> d'origine, rendu identique. */
+.rv-ligne { display: block; }
+
+/* ─── Révélation du titre, en CSS PUR ────────────────────────────────────
+   ⚠ Jamais pilotée par un script. Si l'animation dépendait d'une classe
+   posée en JavaScript, un script mort laisserait le h1 de l'accueil
+   invisible — exactement le défaut qui a vidé le catalogue CBD
+   (`categorie-menu.js`, voir CLAUDE.md). Ici, au pire, pas d'animation.
+   Délais calés sur le fadeUp de la colonne (.4s). */
+.hero-titre-anime .rv-ligne {
+  overflow: hidden;
+  padding-bottom: .1em;      /* les jambages (g, p) ne sont pas rognés */
+  margin-bottom: -.1em;
+}
+.hero-titre-anime .rv-ligne > span {
+  display: inline-block;
+  animation: rvMonte 1.25s cubic-bezier(.19,1,.22,1) both;
+}
+/* Délais posés en ligne sur chaque <span> (index.njk), pas en :nth-of-type :
+   le h1 contient aussi le surtitre, qui fausserait le compte. */
+@keyframes rvMonte { from { transform: translateY(110%); } to { transform: none; } }
+/* Filet doré qui se trace sous la signature */
+.rv-filet {
+  display: block;
+  height: 1px; width: 120px;
+  margin-top: 22px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  transform-origin: left;
+  animation: rvFilet 1.6s cubic-bezier(.19,1,.22,1) 1.4s both;
+}
+@keyframes rvFilet { from { transform: scaleX(0); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-titre-anime .rv-ligne > span,
+  .rv-filet { animation: none; }
+}
 /* ─── Marquee ─────────────────────────────────────────────────────────── */
 .marquee-wrap {
   border-top: 1px solid var(--border);
