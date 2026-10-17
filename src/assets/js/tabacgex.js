@@ -231,6 +231,11 @@
     const qty           = parseInt(document.getElementById('qty-display')?.textContent || '1', 10);
     addToCart(productId, qty || 1, variante);
     flashButton(btn);
+    // Pour l'animation d'ajout (`effets-panier.js`, chargé seulement si
+    // `site.json → effets.ajoutPanier` est vrai). Un événement plutôt qu'un
+    // appel : ce fichier n'a pas à savoir si l'effet existe, et l'effet ne
+    // peut rien empêcher. Émis APRÈS l'ajout, jamais sur un ajout refusé.
+    document.dispatchEvent(new CustomEvent('mcv:ajout-panier', { detail: { bouton: btn, produitId: productId } }));
   });
 
   // Initialisation au chargement

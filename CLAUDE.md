@@ -1852,6 +1852,97 @@ avant d'éteindre l'effet.
 La démo autonome qui a servi à le valider vit dans `demo-motion/`, ignoré
 par Git.
 
+## Effets visuels — transitions, vapeur, ajout au panier
+
+Ajoutés le 2026-10-17, dans la foulée de la fumée du hero, et sur le même
+principe : **chacun a son interrupteur, et aucun ne conditionne le contenu.**
+
+```json
+"effets": {                       // src/_data/site.json
+  "fumeeAccueil": true,           // voir « Fumée du hero »
+  "transitionsPages": true,
+  "vapeurUnivers": true,
+  "ajoutPanier": true
+}
+```
+
+Les quatre sont des cases dans `/admin/contenu/` → Configuration du site →
+« Effets visuels » : **le commerçant les coupe lui-même, un par un.** À
+`false`, le gabarit ne rend rien de l'effet — vérifié sur les pages construites
+(accueil, boutique, fiche) : zéro occurrence. Les pages `/admin/` ne chargent
+aucun effet, quel que soit l'interrupteur.
+
+| Effet | Où | Fichiers |
+|---|---|---|
+| fondu entre pages + photo carte → fiche | toutes les pages publiques | `head.njk` (`@view-transition`), `transitions-pages.js` |
+| photo qui ondule comme à travers de la vapeur | 4 cartes « Nos univers » de l'accueil | `index.njk` (`data-vapeur`), `vapeur-univers.js` |
+| miniature qui file au panier, pastille qui rebondit | tout bouton `[data-add-to-cart]` | `base.njk`, `effets-panier.js`, 1 ligne dans `tabacgex.js` |
+
+### Transitions entre pages
+
+Le fondu est du **CSS pur** : `@view-transition { navigation: auto }`, posé en
+`<style>` dans `head.njk` parce qu'il ne peut pas être conditionné par une
+classe. Firefox et les Safari anciens l'ignorent : navigation normale.
+
+`transitions-pages.js` ne fait qu'une chose : nommer `produit-image` la photo
+de la carte cliquée (`pageswap`), puis `#main-image` sur la fiche
+(`pagereveal`) — et l'inverse au retour. Vérifié dans Chromium 141 : le
+navigateur anime bien `::view-transition-group(produit-image)` dans les deux
+sens, et l'en-tête (`entete`) reste fixe.
+
+⚠ **Aucun `view-transition-name` dans les gabarits.** Un nom doit être unique
+dans la page, sinon le navigateur ABANDONNE la transition — et une même fiche
+peut paraître deux fois sur l'accueil. On nomme une seule image, au clic, et
+on retire le nom dès qu'il est capturé.
+
+⚠ **Le script est chargé SANS `defer`**, dans le `<head>`. `pagereveal` part
+avant le premier affichage : un script différé ne le verrait jamais. Ne pas
+« optimiser » en ajoutant `defer`, l'effet mourrait sans erreur.
+
+⚠ Une image hors de l'écran ne vole pas : au retour, si la carte n'est pas
+visible, la photo de la fiche s'efface simplement.
+
+### Vapeur des cartes « Nos univers »
+
+UN canvas WebGL partagé, glissé dans la carte survolée par-dessus sa photo. La
+photo d'origine n'est masquée qu'après la première image dessinée et rendue dès
+la fin de l'effet. Rien ne tourne hors survol.
+
+⚠ **Jamais sur une photo de produit**, décidé ainsi : le client doit voir
+l'article net. **Jamais au doigt** : `(hover: hover) and (pointer: fine)`.
+
+⚠ **Déformation ≤ 0,024** : la carte grossit déjà de 5 % au survol
+(`.cat-card-inner`), ce qui rogne 2,5 % de chaque bord — la déformation
+n'y révèle donc jamais le bord étiré de l'image. Augmenter l'une suppose
+d'augmenter l'autre.
+
+⚠ **Le fondu de sortie est calé sur le temps, pas sur les images.** La première
+version faisait `force *= …` par image : dans un navigateur lent (3 images/s),
+la photo restait remplacée par le canvas plusieurs secondes après le départ de
+la souris. Mesuré, puis corrigé.
+
+### Ajout au panier
+
+`tabacgex.js` émet `mcv:ajout-panier` **après** un ajout réussi — jamais sur
+un ajout refusé (saveur ou format non choisi). `effets-panier.js` écoute et
+anime. C'est un événement, pas un appel : le panier ignore si l'effet existe,
+et l'effet ne peut rien empêcher. Le « ✓ Ajouté ! » du bouton reste la
+confirmation de référence.
+
+⚠ Le bouton Click & Collect n'émet rien : il redirige vers `/commande/`, il n'y
+aurait rien à voir.
+
+⚠ **`test:pages` a attrapé un vrai défaut à l'écriture** : `!window.Element ||
+!Element.prototype…` — la seconde moitié lisait `Element` sans `window`, et
+levait dans le simulateur. Les trois scripts n'écrivent désormais que
+`window.X` pour les API du navigateur. Ils sont tous les trois exécutés par
+`test:pages` (accueil et fiche produit).
+
+⚠ **Aucun de ces effets n'a été mesuré sur un vrai téléphone** au moment de
+l'intégration — seulement dans Chromium à rendu logiciel, où tout est lent. Si
+le commerçant signale une lenteur, c'est l'interrupteur concerné qu'on coupe
+d'abord, puis on mesure.
+
 ## Environnement
 
 **Le projet ne doit pas vivre dans OneDrive.** Il verrouille les fichiers

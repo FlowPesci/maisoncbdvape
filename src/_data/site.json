@@ -164,6 +164,9 @@
     "destinataireAlerte": ""
   },
   "effets": {
-    "fumeeAccueil": true
+    "fumeeAccueil": true,
+    "transitionsPages": true,
+    "vapeurUnivers": true,
+    "ajoutPanier": true
   }
 }

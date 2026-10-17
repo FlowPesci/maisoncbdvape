@@ -812,6 +812,42 @@ h1, h2, h3, .heading {
   .hero-titre-anime .rv-ligne > span,
   .rv-filet { animation: none; }
 }
+/* ─── Effets visuels (hors hero) ─────────────────────────────────────────
+   Interrupteurs : site.json → effets.transitionsPages / vapeurUnivers /
+   ajoutPanier. Voir CLAUDE.md, « Effets visuels ».
+
+   Transitions entre pages. Ces règles ne font rien tant que `head.njk` ne
+   pose pas `@view-transition` : elles ne règlent que la durée et la courbe.
+   `produit-image` est le nom que transitions-pages.js donne, au moment du
+   clic, à la photo de la carte puis à celle de la fiche. */
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: .3s; }
+::view-transition-group(produit-image) {
+  animation-duration: .5s;
+  animation-timing-function: cubic-bezier(.22,.8,.2,1);
+}
+/* Vapeur des cartes « Nos univers » : le canvas que vapeur-univers.js glisse
+   par-dessus la photo survolée. */
+.fx-vapeur {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+  pointer-events: none;
+}
+/* Ajout au panier : la miniature qui file vers l'icône (effets-panier.js). */
+.vol-panier {
+  position: fixed; z-index: 10000;
+  pointer-events: none;
+}
+.vol-panier img {
+  display: block;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  box-shadow: 0 10px 30px rgba(0,0,0,.45);
+}
 /* ─── Marquee ─────────────────────────────────────────────────────────── */
 .marquee-wrap {
   border-top: 1px solid var(--border);

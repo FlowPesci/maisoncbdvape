@@ -581,16 +581,19 @@ collections:
               - { label: "Facebook",  name: "facebook",  widget: "string", required: false }
               - { label: "TikTok",    name: "tiktok",    widget: "string", required: false }
 
-          # ⚠ Interrupteur de la fumée animée du hero de l'accueil
-          #   (src/assets/js/hero-fumee.js). Décocher puis enregistrer : la
-          #   reconstruction suivante rend le hero d'avant, sans fumée, sans
-          #   animation du titre. Voir CLAUDE.md, « Fumée du hero ».
+          # ⚠ Interrupteurs des effets visuels. Décocher puis enregistrer : la
+          #   reconstruction suivante retire l'effet, et lui seul — le site
+          #   fonctionne à l'identique sans aucun d'eux. Voir CLAUDE.md,
+          #   « Fumée du hero » et « Effets visuels ».
           - label: "Effets visuels"
             name: "effets"
             widget: "object"
             collapsed: true
             fields:
               - { label: "Fumée animée sur l'accueil", name: "fumeeAccueil", widget: "boolean", default: true, hint: "Décocher pour retirer la fumée dorée et l'animation du titre de la page d'accueil. Visible 2-3 minutes après l'enregistrement." }
+              - { label: "Transitions entre les pages", name: "transitionsPages", widget: "boolean", default: true, hint: "Fondu entre les pages, et photo d'une carte produit qui glisse jusqu'à la fiche. Décocher pour des changements de page instantanés." }
+              - { label: "Vapeur au survol des univers", name: "vapeurUnivers", widget: "boolean", default: true, hint: "Les photos des quatre grandes cartes de l'accueil ondulent au passage de la souris. Ordinateur uniquement." }
+              - { label: "Animation d'ajout au panier", name: "ajoutPanier", widget: "boolean", default: true, hint: "La photo du produit file vers l'icône du panier et le compteur rebondit. Le panier fonctionne pareil sans." }
 
           - label: "Menu de navigation"
             name: "navigation"

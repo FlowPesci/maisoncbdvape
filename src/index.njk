@@ -228,7 +228,9 @@ permalink: /index.html
     </div>
 
     {# Grille : 1ère carte grande (col 1-2), les 4 autres en 2×2 #}
-    <div class="grid-cat-home" style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:360px 280px;gap:2px;">
+    {# `data-vapeur` : repère de vapeur-univers.js — interrupteur
+       site.json → effets.vapeurUnivers. #}
+    <div class="grid-cat-home"{% if site.effets and site.effets.vapeurUnivers %} data-vapeur{% endif %} style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:360px 280px;gap:2px;">
 
       {% for cat in categories %}
         {# La première carte occupe toute la hauteur. Avec 4 catégories, il
@@ -258,6 +260,9 @@ permalink: /index.html
         </a>
       {% endfor %}
     </div>
+    {% if site.effets and site.effets.vapeurUnivers %}
+      <script src="/assets/js/vapeur-univers.js?v={{ '/assets/js/vapeur-univers.js' | contentHash }}" defer></script>
+    {% endif %}
   </div>
 </section>
 

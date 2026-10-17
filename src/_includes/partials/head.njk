@@ -51,6 +51,22 @@
 
 {# ─── Tailwind CSS ────────────────────────────────────────────────────── #}
 <link rel="stylesheet" href="/assets/css/tailwind.css?v={{ '/assets/css/tailwind.css' | contentHash }}">
+{# ─── Transitions entre pages — interrupteur : site.json → effets.transitionsPages
+   `@view-transition` ne peut pas être conditionné par une classe : il vit
+   donc ici, rendu ou non. Navigateurs sans prise en charge (Firefox, Safari
+   ancien) : navigation normale, rien ne casse. Mouvement réduit : rien.
+   ⚠ Le script est SANS `defer`, volontairement : il doit être en place avant
+   le premier affichage pour recevoir `pagereveal`. Voir transitions-pages.js
+   et CLAUDE.md, « Effets visuels ». #}
+{% if site.effets and site.effets.transitionsPages and not (page.url and page.url.startsWith('/admin')) %}
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    @view-transition { navigation: auto; }
+    .mcv-header { view-transition-name: entete; }
+  }
+</style>
+<script src="/assets/js/transitions-pages.js?v={{ '/assets/js/transitions-pages.js' | contentHash }}"></script>
+{% endif %}
 
 {# ─── Polices (Bitter + DM Sans + Space Mono) ──────────────────────────
    Auto-hébergées dans src/assets/fonts/, déclarées dans tailwind/input.css.
