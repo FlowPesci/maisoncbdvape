@@ -1929,6 +1929,19 @@ l'image n'apparaît jamais. Voile : volutes en `mix(…, .38)`, placées au-dess
 du dégradé. Mesuré ensuite : deux instants du survol diffèrent en moyenne de
 9,5/255 par pixel, et l'ondulation se lit sur les lettres des paquets.
 
+**Deuxième retour, le même matin** : « fumée fine et peu visible, distorsion
+assez prononcée ». Deux réglages inverses :
+
+- déformation divisée par deux environ (`.003 + .009 × proximité`, zoom 3 %) ;
+- ⚠ **la vapeur était pâle pour une raison de structure, pas de réglage.** Le
+  canvas portait `opacity: .55` pour imiter la photo — et ces 55 % écrasaient
+  AUSSI la vapeur peinte par-dessus. Augmenter son intensité n'y pouvait
+  presque rien. Le shader fait désormais lui-même le mélange photo/fond
+  (`mix(uFond, photo, uOpac)`, valeurs **lues** sur la page, jamais
+  recopiées) et le canvas reste opaque : la vapeur garde toute sa force, la
+  photo garde exactement sa luminosité d'avant. Deux couches de vapeur : un
+  voile large et des filets fins, opacité `.75`.
+
 ⚠ **Le fondu de sortie est calé sur le temps, pas sur les images.** La première
 version faisait `force *= …` par image : dans un navigateur lent (3 images/s),
 la photo restait remplacée par le canvas plusieurs secondes après le départ de

@@ -17,7 +17,9 @@
  * ⚠ Pas de survol au doigt : sur écran tactile, rien n'est chargé ni dessiné.
  * ⚠ La photo d'origine n'est masquée qu'APRÈS la première image dessinée, et
  *   rendue dès la fin de l'effet : en cas d'échec, elle ne disparaît jamais.
- * ⚠ Réglages dans le shader (FS) : amplitude `.006+.02*pres`, voile `*.38`.
+ * ⚠ Réglages dans le shader (FS) : amplitude `.003+.009*pres` (déformation),
+ *   `*.75` (opacité de la vapeur). Ajustés à la demande du développeur :
+ *   « fumée peu visible, distorsion assez prononcée ».
  */
 (function () {
   var grille = document.querySelector('[data-vapeur]');
@@ -34,7 +36,7 @@
   var VS = 'attribute vec2 a;varying vec2 v;void main(){v=a*.5+.5;gl_Position=vec4(a,0.,1.);}';
   var FS = [
     'precision mediump float;',
-    'uniform sampler2D uImg;uniform vec2 uEchelle,uDecal,uSouris;uniform float uTemps,uForce;varying vec2 v;',
+    'uniform sampler2D uImg;uniform vec2 uEchelle,uDecal,uSouris;uniform float uTemps,uForce,uOpac;uniform vec3 uFond;varying vec2 v;',
     'float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}',
     'float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);',
     ' return mix(mix(h(i),h(i+vec2(1.,0.)),u.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),u.x),u.y);}',
@@ -47,19 +49,30 @@
     ' vec2 q=v*vec2(2.5,3.2)+vec2(0.,-uTemps*.45);',
     ' vec2 d=(vec2(fbm(q),fbm(q+vec2(5.2,1.3)))-.5)*2.;',
     ' float pres=1.-smoothstep(0.,.55,distance(v,uSouris));',
-    /* Léger zoom qui monte avec l'effet : il libère 2,25 % de marge par bord,
+    /* Léger zoom qui monte avec l'effet : il libère 1,5 % de marge par bord,
        qui s'ajoutent aux 2,5 % du grossissement de la carte au survol
-       (.cat-card-inner), soit 4,75 %. Déformation au plus ±2,6 % : le bord
+       (.cat-card-inner), soit 4 %. Déformation au plus ±1,2 % : le bord
        étiré de l'image n'apparaît jamais. Progressif, il ne saute pas à l'entrée. */
-    ' float z=1.-.045*uForce;',
-    ' vec2 p=(v-.5)*z+.5+d*uForce*(.006+.02*pres);',
+    ' float z=1.-.03*uForce;',
+    ' vec2 p=(v-.5)*z+.5+d*uForce*(.003+.009*pres);',
     ' vec2 iu=uDecal+vec2(p.x,1.-p.y)*uEchelle;',
     ' vec4 c=texture2D(uImg,iu);',
+    /* La photo est posée à 55 % d'opacité sur le fond de la carte : on fait ce
+       mélange ICI, sur la photo seule, et le canvas reste opaque. Sinon les 55 %
+       s'appliquaient aussi à la vapeur, qui restait pâle quoi qu'on règle. */
+    ' c.rgb=mix(uFond,c.rgb,uOpac*c.a);c.a=1.;',   /* *c.a : les zones transparentes d'un PNG laissent voir le fond */
     /* Volutes lumineuses qui montent, dans la partie visible de la carte —
        le bas est déjà sous le dégradé sombre (.cat-overlay). */
-    ' float w=fbm(q*1.3+vec2(0.,-uTemps*.3)+d*.6);',
-    ' float voile=smoothstep(.5,.78,w)*smoothstep(.12,.45,v.y)*(.6+.4*pres)*uForce;',
-    ' c.rgb=mix(c.rgb,vec3(.93,.82,.6),voile*.38);',
+    /* Deux couches : un voile large et doux, et des filets plus fins par-dessus.
+       Volutes à plus basse fréquence que la déformation, pour qu'elles se
+       lisent comme de la vapeur et non comme du grain. */
+    ' vec2 qv=v*vec2(1.6,2.)+vec2(0.,-uTemps*.28);',
+    ' float w=fbm(qv+d*.35);',
+    ' float large=smoothstep(.38,.7,w);',
+    ' float fin=pow(1.-abs(fbm(qv*2.2+vec2(3.1,0.))*2.-1.),6.);',
+    ' float zone=smoothstep(.05,.4,v.y)*(1.-smoothstep(.9,1.,v.y));',
+    ' float voile=(large*.55+fin*.35)*zone*(.65+.35*pres)*uForce;',
+    ' c.rgb=mix(c.rgb,vec3(.96,.87,.68),clamp(voile,0.,1.)*.75);',
     ' gl_FragColor=c;',
     '}'
   ].join('\n');
@@ -77,7 +90,7 @@
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error('link');
   } catch (e) { return; }
   gl.useProgram(prog);
-  ['uImg', 'uEchelle', 'uDecal', 'uSouris', 'uTemps', 'uForce'].forEach(function (k) { U[k] = gl.getUniformLocation(prog, k); });
+  ['uImg', 'uEchelle', 'uDecal', 'uSouris', 'uTemps', 'uForce', 'uOpac', 'uFond'].forEach(function (k) { U[k] = gl.getUniformLocation(prog, k); });
   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
   gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0); gl.enableVertexAttribArray(0);
@@ -134,10 +147,7 @@
     gl.uniform1f(U.uTemps, (performance.now() - t0) / 1000);
     gl.uniform2f(U.uSouris, souris[0], souris[1]);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    if (actif.img.style.visibility !== 'hidden') {
-      canvas.style.opacity = getComputedStyle(actif.img).opacity;   // même voile que la photo (.55)
-      actif.img.style.visibility = 'hidden';
-    }
+    if (actif.img.style.visibility !== 'hidden') actif.img.style.visibility = 'hidden';
     if (cible === 0 && force < .01) { quitter(); return; }
     raf = window.requestAnimationFrame(image);
   }
@@ -159,6 +169,11 @@
       actif = { carte: carte, img: img };
       gl.bindTexture(gl.TEXTURE_2D, tex);
       img.parentNode.appendChild(canvas);
+      /* Opacité de la photo et couleur du fond de carte, lues sur la page
+         (jamais recopiées) : le shader refait exactement le même mélange. */
+      gl.uniform1f(U.uOpac, parseFloat(getComputedStyle(img).opacity) || 1);
+      var fond = (getComputedStyle(carte).backgroundColor.match(/\d+(\.\d+)?/g) || [34, 30, 26]).map(Number);
+      gl.uniform3f(U.uFond, fond[0] / 255, fond[1] / 255, fond[2] / 255);
       cadrer();
     }
     cible = 1;
