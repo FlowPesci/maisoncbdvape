@@ -17,6 +17,7 @@
  * ⚠ Pas de survol au doigt : sur écran tactile, rien n'est chargé ni dessiné.
  * ⚠ La photo d'origine n'est masquée qu'APRÈS la première image dessinée, et
  *   rendue dès la fin de l'effet : en cas d'échec, elle ne disparaît jamais.
+ * ⚠ Réglages dans le shader (FS) : amplitude `.006+.02*pres`, voile `*.38`.
  */
 (function () {
   var grille = document.querySelector('[data-vapeur]');
@@ -39,19 +40,26 @@
     ' return mix(mix(h(i),h(i+vec2(1.,0.)),u.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),u.x),u.y);}',
     'float fbm(vec2 p){float s=0.,a=.5;for(int k=0;k<3;k++){s+=a*n(p);p*=2.03;a*=.5;}return s;}',
     'void main(){',
-    /* Champ de bruit qui monte : c'est ce qui fait « vapeur » plutôt que « eau ». */
-    ' vec2 q=v*vec2(3.,4.)+vec2(0.,-uTemps*.35);',
-    ' vec2 d=vec2(fbm(q),fbm(q+vec2(5.2,1.3)))-.5;',
-    ' float pres=1.-smoothstep(0.,.65,distance(v,uSouris));',
-    /* ⚠ ≤ 0,024 : la carte grossit déjà de 5 % au survol (.cat-card-inner),
-       ce qui rogne 2,5 % de chaque bord — la déformation n'y fait donc jamais
-       apparaître le bord étiré de l'image. */
-    ' vec2 p=v+d*uForce*(.012+.012*pres);',
+    /* Champ de bruit qui monte : c'est ce qui fait « vapeur » plutôt que « eau ».
+       ⚠ Recentré sur ±1 (`*2.`) : brut, `fbm - .5` reste vers ±0,2, et la
+       première version ne déplaçait la photo que de 2-3 px — effet invisible,
+       signalé le jour même par le développeur. */
+    ' vec2 q=v*vec2(2.5,3.2)+vec2(0.,-uTemps*.45);',
+    ' vec2 d=(vec2(fbm(q),fbm(q+vec2(5.2,1.3)))-.5)*2.;',
+    ' float pres=1.-smoothstep(0.,.55,distance(v,uSouris));',
+    /* Léger zoom qui monte avec l'effet : il libère 2,25 % de marge par bord,
+       qui s'ajoutent aux 2,5 % du grossissement de la carte au survol
+       (.cat-card-inner), soit 4,75 %. Déformation au plus ±2,6 % : le bord
+       étiré de l'image n'apparaît jamais. Progressif, il ne saute pas à l'entrée. */
+    ' float z=1.-.045*uForce;',
+    ' vec2 p=(v-.5)*z+.5+d*uForce*(.006+.02*pres);',
     ' vec2 iu=uDecal+vec2(p.x,1.-p.y)*uEchelle;',
     ' vec4 c=texture2D(uImg,iu);',
-    /* Un voile doré à peine perceptible suit les volutes. */
-    ' float voile=smoothstep(.55,.82,fbm(q*.8+vec2(0.,-uTemps*.2)))*uForce*.12;',
-    ' c.rgb+=vec3(.79,.66,.43)*voile;',
+    /* Volutes lumineuses qui montent, dans la partie visible de la carte —
+       le bas est déjà sous le dégradé sombre (.cat-overlay). */
+    ' float w=fbm(q*1.3+vec2(0.,-uTemps*.3)+d*.6);',
+    ' float voile=smoothstep(.5,.78,w)*smoothstep(.12,.45,v.y)*(.6+.4*pres)*uForce;',
+    ' c.rgb=mix(c.rgb,vec3(.93,.82,.6),voile*.38);',
     ' gl_FragColor=c;',
     '}'
   ].join('\n');

@@ -1911,10 +1911,23 @@ la fin de l'effet. Rien ne tourne hors survol.
 ⚠ **Jamais sur une photo de produit**, décidé ainsi : le client doit voir
 l'article net. **Jamais au doigt** : `(hover: hover) and (pointer: fine)`.
 
-⚠ **Déformation ≤ 0,024** : la carte grossit déjà de 5 % au survol
-(`.cat-card-inner`), ce qui rogne 2,5 % de chaque bord — la déformation
-n'y révèle donc jamais le bord étiré de l'image. Augmenter l'une suppose
-d'augmenter l'autre.
+⚠⚠ **La première version était INVISIBLE, et le développeur l'a signalé le
+jour même** (« je ne vois pas cette animation »). Le code tournait, le canvas
+remplaçait bien la photo — mais la déformation réelle faisait **2 à 3 px** :
+`fbm() - .5` ne s'écarte que de ±0,2 environ, et l'amplitude avait été bridée
+à 0,024 par prudence pour les bords. Le voile doré, lui, était à 55 %
+d'opacité et en partie sous le dégradé sombre du bas de carte. Aucune erreur,
+aucun contrôle ne pouvait le voir : **un effet qui fonctionne n'est pas un
+effet qui se voit.** Ma capture de vérification ne le montrait pas non plus,
+et je l'avais acceptée.
+
+Correction : bruit recentré sur ±1, amplitude `.006 + .02 × proximité`, et un
+**léger zoom progressif** (4,5 % au maximum) qui libère de la marge. Avec les
+5 % de grossissement de la carte au survol (`.cat-card-inner`), la marge fait
+4,75 % par bord pour une déformation de 2,6 % au plus : le bord étiré de
+l'image n'apparaît jamais. Voile : volutes en `mix(…, .38)`, placées au-dessus
+du dégradé. Mesuré ensuite : deux instants du survol diffèrent en moyenne de
+9,5/255 par pixel, et l'ondulation se lit sur les lettres des paquets.
 
 ⚠ **Le fondu de sortie est calé sur le temps, pas sur les images.** La première
 version faisait `force *= …` par image : dans un navigateur lent (3 images/s),
