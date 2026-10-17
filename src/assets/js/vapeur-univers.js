@@ -118,7 +118,7 @@
   }
 
   var actif = null;     // { carte, img, tex }
-  var force = 0, cible = 0, souris = [.5, .5], t0 = performance.now(), raf = 0, avant = 0;
+  var force = 0, cible = 0, souris = [.5, .5], t0 = window.performance.now(), raf = 0, avant = 0;
 
   function cadrer() {
     /* Reproduit `object-fit: cover` centré : quelle partie de l'image la
@@ -140,11 +140,11 @@
     /* Fondu calé sur le TEMPS, pas sur le nombre d'images : sur une machine
        lente, l'effet retombait en plusieurs secondes et la photo restait
        remplacée par le canvas bien après la sortie de la souris. */
-    var maintenant = performance.now(), dt = Math.min(.25, (maintenant - (avant || maintenant)) / 1000);
+    var maintenant = window.performance.now(), dt = Math.min(.25, (maintenant - (avant || maintenant)) / 1000);
     avant = maintenant;
     force += (cible - force) * (1 - Math.exp(-dt * 6));
     gl.uniform1f(U.uForce, force);
-    gl.uniform1f(U.uTemps, (performance.now() - t0) / 1000);
+    gl.uniform1f(U.uTemps, (window.performance.now() - t0) / 1000);
     gl.uniform2f(U.uSouris, souris[0], souris[1]);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     if (actif.img.style.visibility !== 'hidden') actif.img.style.visibility = 'hidden';
@@ -171,8 +171,8 @@
       img.parentNode.appendChild(canvas);
       /* Opacité de la photo et couleur du fond de carte, lues sur la page
          (jamais recopiées) : le shader refait exactement le même mélange. */
-      gl.uniform1f(U.uOpac, parseFloat(getComputedStyle(img).opacity) || 1);
-      var fond = (getComputedStyle(carte).backgroundColor.match(/\d+(\.\d+)?/g) || [34, 30, 26]).map(Number);
+      gl.uniform1f(U.uOpac, parseFloat(window.getComputedStyle(img).opacity) || 1);
+      var fond = (window.getComputedStyle(carte).backgroundColor.match(/\d+(\.\d+)?/g) || [34, 30, 26]).map(Number);
       gl.uniform3f(U.uFond, fond[0] / 255, fond[1] / 255, fond[2] / 255);
       cadrer();
     }

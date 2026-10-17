@@ -834,6 +834,50 @@ h1, h2, h3, .heading {
   display: block;
   pointer-events: none;
 }
+/* Loupe de la fiche produit (loupe-produit.js). */
+.loupe-souris { cursor: zoom-in; }
+.loupe-active img#main-image { will-change: transform; }
+.loupe-indice {
+  position: absolute; left: 12px; bottom: 12px; z-index: 5;
+  padding: 5px 10px;
+  font-size: 10px; letter-spacing: .08em;
+  color: var(--cream);
+  background: rgba(26,23,20,.72);
+  border: 1px solid var(--borderl);
+  border-radius: 999px;
+  pointer-events: none;
+  transition: opacity .5s;
+}
+.loupe-indice-off { opacity: 0; }
+/* Repère doré des sélecteurs de format et de saveur (selecteurs-glisse.js).
+   ⚠ `.selecteur-glisse` n'est posée qu'une fois le repère en place : sans
+   elle, le bouton actif garde son cadre d'origine (voir .gram-btn.active). */
+.selecteur-repere {
+  position: absolute; left: 0; top: 0;
+  border: 1px solid var(--gold);
+  background: rgba(201,169,110,0.08);
+  pointer-events: none;
+  opacity: 0;
+  transition: transform .42s cubic-bezier(.3,.8,.3,1), width .42s cubic-bezier(.3,.8,.3,1),
+              height .42s cubic-bezier(.3,.8,.3,1), opacity .25s;
+}
+.selecteur-glisse > .gram-btn,
+.selecteur-glisse > .variante-btn { position: relative; z-index: 1; }
+.selecteur-glisse > .gram-btn.active,
+.selecteur-glisse > .variante-btn.active { border-color: transparent; background: transparent; }
+@media (prefers-reduced-motion: reduce) { .selecteur-repere { transition: opacity .2s; } }
+/* Chiffres du hero : chiffres à chasse fixe, le bandeau ne tressaute pas
+   pendant le défilement (chiffres-hero.js). */
+[data-compteur] { font-variant-numeric: tabular-nums; }
+/* Sortie du portail d'âge (portail-fumee.js) : le petit canvas agrandi au
+   plein écran — l'agrandissement lui donne son flou de fumée. Sous le
+   contenu du portail (z-index 9999), au-dessus de la page. */
+.portail-fumee {
+  position: fixed; inset: 0;
+  width: 100vw; height: 100vh;
+  z-index: 9998;
+  pointer-events: none;
+}
 /* Ajout au panier : la miniature qui file vers l'icône (effets-panier.js). */
 .vol-panier {
   position: fixed; z-index: 10000;

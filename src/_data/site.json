@@ -167,6 +167,10 @@
     "fumeeAccueil": true,
     "transitionsPages": true,
     "vapeurUnivers": true,
-    "ajoutPanier": true
+    "ajoutPanier": true,
+    "loupeProduit": true,
+    "portailFumee": true,
+    "selecteursGlisse": true,
+    "chiffresHero": true
   }
 }

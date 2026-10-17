@@ -1862,11 +1862,15 @@ principe : **chacun a son interrupteur, et aucun ne conditionne le contenu.**
   "fumeeAccueil": true,           // voir « Fumée du hero »
   "transitionsPages": true,
   "vapeurUnivers": true,
-  "ajoutPanier": true
+  "ajoutPanier": true,
+  "loupeProduit": true,           // voir « Deuxième vague » plus bas
+  "portailFumee": true,
+  "selecteursGlisse": true,
+  "chiffresHero": true
 }
 ```
 
-Les quatre sont des cases dans `/admin/contenu/` → Configuration du site →
+Toutes sont des cases dans `/admin/contenu/` → Configuration du site →
 « Effets visuels » : **le commerçant les coupe lui-même, un par un.** À
 `false`, le gabarit ne rend rien de l'effet — vérifié sur les pages construites
 (accueil, boutique, fiche) : zéro occurrence. Les pages `/admin/` ne chargent
@@ -1968,6 +1972,54 @@ levait dans le simulateur. Les trois scripts n'écrivent désormais que
 l'intégration — seulement dans Chromium à rendu logiciel, où tout est lent. Si
 le commerçant signale une lenteur, c'est l'interrupteur concerné qu'on coupe
 d'abord, puis on mesure.
+
+### Deuxième vague — loupe, portail, sélecteurs, chiffres (2026-10-17)
+
+| Effet | Interrupteur | Fichiers |
+|---|---|---|
+| loupe sur la photo principale (survol ordinateur, double toucher téléphone) | `loupeProduit` | `loupe-produit.js`, `produit-detail.njk` |
+| le portail d'âge se dissipe en fumée | `portailFumee` | `portail-fumee.js`, `base.njk` |
+| repère doré qui glisse entre formats / saveurs | `selecteursGlisse` | `selecteurs-glisse.js`, `produit-detail.njk` |
+| 109+, 4,4★, 48h qui défilent à l'arrivée | `chiffresHero` | `chiffres-hero.js`, `index.njk` (`data-compteur`) |
+
+⚠ **Le portail d'âge reste maître de lui-même.** Sa logique (mémoire de
+session, refus) vit toujours dans le script en ligne de `base.njk`, empreinté
+dans la CSP. `portail-fumee.js` n'expose que `window.mcvSortiePortail()` ; le
+script en ligne l'appelle **s'il existe et s'il renvoie `true`**, sinon il fait
+son fondu d'origine. Absent, pas chargé ou en échec : l'entrée sur le site
+n'est jamais bloquée.
+
+⚠ **Les chiffres réels sont dans le HTML** (Google, lecteurs d'écran, script
+mort). Le script part de zéro puis **recopie le texte d'origine** à la fin —
+jamais reformaté. Il attend le clic sur le portail s'il est affiché.
+
+⚠ **Le repère n'efface le cadre du bouton actif qu'une fois posé**
+(`.selecteur-glisse` ajoutée après). Il observe `.active` sans jamais la poser :
+prix, libellé et panier n'en dépendent pas.
+
+⚠ **Loupe : le zoom est retiré dès qu'on sort**, sinon la transition de page
+partirait d'une photo agrandie. Sur téléphone, `touch-action: manipulation`
+empêche le zoom natif de la page au double toucher.
+
+⚠ **Les balises de la loupe et des sélecteurs avaient été posées DANS le
+`{% if isOutOfStock %}`** de `produit-detail.njk` — elles ne se seraient
+chargées que sur les produits épuisés. Vu en relisant la page construite ;
+elles sont désormais après le bloc. Un `{% endif %}` se vérifie, il ne se
+suppose pas.
+
+⚠ **`getComputedStyle` nu a fait tomber `test:pages`** : linkedom ne le fournit
+pas. Écrire `window.getComputedStyle`, avec un repli. Même famille que
+`Element` sans `window`.
+
+### « Sur téléphone je ne vois que la fumée » — c'est en partie voulu
+
+- vapeur des univers : **coupée exprès** sans souris (`hover: hover`) ;
+- animation d'ajout au panier : ne joue que sur un ajout réussi — sur une fiche
+  à formats/saveurs, il faut d'abord choisir ;
+- transitions de pages : Chrome Android, ou iOS 18.2+ ; Firefox mobile ne les
+  a pas ;
+- **« Réduire les animations »** activé dans le téléphone coupe tout, sauf une
+  image fixe de la fumée.
 
 ## Environnement
 

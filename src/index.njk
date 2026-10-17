@@ -76,7 +76,7 @@ permalink: /index.html
         {# Stats #}
         <div style="display:flex;gap:36px;align-items:center;">
           <div>
-            <div style="font-family:var(--font-titre);font-size:2.2rem;font-weight:300;color:var(--gold-light);">{{ collections.produitsActifs.length }}+</div>
+            <div{% if site.effets and site.effets.chiffresHero %} data-compteur{% endif %} style="font-family:var(--font-titre);font-size:2.2rem;font-weight:300;color:var(--gold-light);">{{ collections.produitsActifs.length }}+</div>
             <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);">Références</div>
           </div>
           <div style="width:1px;height:40px;background:var(--borderl);"></div>
@@ -98,12 +98,12 @@ permalink: /index.html
              s'attribuer la note. #}
           <a href="{{ site.etablissement.ficheGoogle }}" rel="noopener nofollow"
              target="_blank" style="text-decoration:none;" data-hover="gold">
-            <div style="font-family:var(--font-titre);font-size:2.2rem;font-weight:300;color:var(--gold-light);">{{ site.etablissement.noteGoogle | replace(".", ",") }}★</div>
+            <div{% if site.effets and site.effets.chiffresHero %} data-compteur{% endif %} style="font-family:var(--font-titre);font-size:2.2rem;font-weight:300;color:var(--gold-light);">{{ site.etablissement.noteGoogle | replace(".", ",") }}★</div>
             <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);">{{ site.etablissement.nombreAvisGoogle }} avis Google</div>
           </a>
           <div style="width:1px;height:40px;background:var(--borderl);"></div>
           <div>
-            <div style="font-family:var(--font-titre);font-size:2.2rem;font-weight:300;color:var(--gold-light);">48h</div>
+            <div{% if site.effets and site.effets.chiffresHero %} data-compteur{% endif %} style="font-family:var(--font-titre);font-size:2.2rem;font-weight:300;color:var(--gold-light);">48h</div>
             <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);">Livraison</div>
           </div>
         </div>
@@ -184,6 +184,11 @@ permalink: /index.html
 
   {% if fumee %}
     <script src="/assets/js/hero-fumee.js?v={{ '/assets/js/hero-fumee.js' | contentHash }}" defer></script>
+  {% endif %}
+  {# Chiffres qui défilent — interrupteur : site.json → effets.chiffresHero.
+     Les vrais chiffres restent dans le HTML ; le script les remet tels quels. #}
+  {% if site.effets and site.effets.chiffresHero %}
+    <script src="/assets/js/chiffres-hero.js?v={{ '/assets/js/chiffres-hero.js' | contentHash }}" defer></script>
   {% endif %}
 </section>
 

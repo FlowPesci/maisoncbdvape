@@ -594,6 +594,10 @@ collections:
               - { label: "Transitions entre les pages", name: "transitionsPages", widget: "boolean", default: true, hint: "Fondu entre les pages, et photo d'une carte produit qui glisse jusqu'à la fiche. Décocher pour des changements de page instantanés." }
               - { label: "Vapeur au survol des univers", name: "vapeurUnivers", widget: "boolean", default: true, hint: "Les photos des quatre grandes cartes de l'accueil ondulent au passage de la souris. Ordinateur uniquement." }
               - { label: "Animation d'ajout au panier", name: "ajoutPanier", widget: "boolean", default: true, hint: "La photo du produit file vers l'icône du panier et le compteur rebondit. Le panier fonctionne pareil sans." }
+              - { label: "Loupe sur les photos produit", name: "loupeProduit", widget: "boolean", default: true, hint: "Sur la fiche produit : la photo s'agrandit sous la souris, ou au double toucher sur téléphone." }
+              - { label: "Portail d'âge qui se dissipe en fumée", name: "portailFumee", widget: "boolean", default: true, hint: "Après « Oui, j'ai 18 ans », l'écran noir se dissipe en volutes. Décoché : simple fondu." }
+              - { label: "Repère doré sur les choix de format et de saveur", name: "selecteursGlisse", widget: "boolean", default: true, hint: "Sur la fiche produit, le cadre doré glisse d'un choix à l'autre au lieu de sauter." }
+              - { label: "Chiffres du hero qui défilent", name: "chiffresHero", widget: "boolean", default: true, hint: "Les chiffres de l'accueil (références, note Google, livraison) défilent jusqu'à leur valeur à l'arrivée." }
 
           - label: "Menu de navigation"
             name: "navigation"

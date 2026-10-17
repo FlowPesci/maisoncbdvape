@@ -653,3 +653,16 @@ eleventyComputed:
 {% if isOutOfStock %}
 <script src="/assets/js/produit-detail-achat.js?v={{ '/assets/js/produit-detail-achat.js' | contentHash }}" defer></script>
 {% endif %}
+
+{# Effets de la fiche — interrupteurs : site.json → effets.loupeProduit et
+   effets.selecteursGlisse. Ni l'un ni l'autre ne choisit ni n'achète rien :
+   la loupe agrandit la photo, le repère suit la classe `.active` posée par
+   les scripts de la fiche. Voir CLAUDE.md, « Effets visuels ».
+   ⚠ HORS du bloc « isOutOfStock » ci-dessus : une première version s'y était
+   glissée, et ne se serait chargée que sur les produits en rupture. #}
+{% if site.effets and site.effets.loupeProduit %}
+<script src="/assets/js/loupe-produit.js?v={{ '/assets/js/loupe-produit.js' | contentHash }}" defer></script>
+{% endif %}
+{% if site.effets and site.effets.selecteursGlisse %}
+<script src="/assets/js/selecteurs-glisse.js?v={{ '/assets/js/selecteurs-glisse.js' | contentHash }}" defer></script>
+{% endif %}

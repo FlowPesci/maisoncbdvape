@@ -51,7 +51,8 @@ const PAGES = [
     html: "public/produits/moon-rock-cbd-indoor/index.html",
     // `transitions-pages.js` et `effets-panier.js` n'ont rien à faire sans
     // WebGL, sans `pageswap` ni `Element.animate` : ils doivent sortir sans lever.
-    scripts: ["src/assets/js/transitions-pages.js", "src/assets/js/tabacgex.js", "src/assets/js/effets-panier.js"],
+    scripts: ["src/assets/js/transitions-pages.js", "src/assets/js/tabacgex.js", "src/assets/js/effets-panier.js",
+              "src/assets/js/portail-fumee.js", "src/assets/js/loupe-produit.js", "src/assets/js/selecteurs-glisse.js"],
   },
   // L'accueil porte la fumée du hero. Le simulateur n'a ni WebGL ni
   // requestAnimationFrame : le script doit alors s'arrêter proprement, sans
@@ -59,7 +60,7 @@ const PAGES = [
   {
     nom: "accueil",
     html: "public/index.html",
-    scripts: ["src/assets/js/hero-fumee.js", "src/assets/js/vapeur-univers.js", "src/assets/js/index-newsletter.js"],
+    scripts: ["src/assets/js/hero-fumee.js", "src/assets/js/vapeur-univers.js", "src/assets/js/chiffres-hero.js", "src/assets/js/index-newsletter.js"],
   },
   // ⚠ Le back-office compte comme une page rendue, et c'est là que les
   //   défauts survivent le plus longtemps : hors du parcours client, donc
