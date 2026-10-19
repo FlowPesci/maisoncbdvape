@@ -99,8 +99,8 @@ eleventyComputed:
       <section class="ve-etape" data-nom="Le réservoir">
         <div class="ve-num">05 / 09</div>
         <h2>Le réservoir</h2>
-        <p>Le réservoir contient le e‑liquide. En Europe, sa contenance est limitée à 2 ml. Le liquide passe par de petites ouvertures à sa base et imbibe le coton de la résistance par capillarité, comme une mèche.</p>
-        <p>Depuis le 25 février 2025, les cigarettes électroniques à réservoir scellé, que l'on ne peut pas remplir, sont interdites à la vente en France. Un appareil se remplit, et se garde.</p>
+        <p>Le réservoir contient le e‑liquide. Pour un liquide nicotiné, sa contenance est limitée à 2 ml en Europe, par la <a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0040" rel="noopener" target="_blank">directive 2014/40/UE</a>. Le liquide passe par de petites ouvertures à sa base et imbibe le coton de la résistance par capillarité, comme une mèche.</p>
+        <p>Depuis la <a href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000051244550" rel="noopener" target="_blank">loi du 24 février 2025</a>, les cigarettes électroniques à réservoir scellé, que l'on ne peut pas remplir, sont interdites à la vente en France. Un appareil se remplit, et se garde.</p>
         <ul class="ve-specs"><li>2 ml max. (UE)</li><li>Remplissage par le haut ou le bas</li></ul>
       </section>
 
@@ -139,6 +139,30 @@ eleventyComputed:
     </div>
   </div>
 
+  <section class="ve-faq" aria-labelledby="ve-faq-titre">
+    <h2 id="ve-faq-titre">Questions fréquentes</h2>
+    <details>
+      <summary>Combien de temps dure une résistance ?</summary>
+      <p>En général une à trois semaines, selon l'usage, la puissance et le liquide. Le signal ne trompe pas : un goût qui s'affadit ou qui tire vers le brûlé.</p>
+    </details>
+    <details>
+      <summary>Pourquoi ma cigarette électronique a un goût de brûlé ?</summary>
+      <p>Trois causes reviennent presque toujours : un coton sec (résistance neuve pas encore imbibée, réservoir presque vide), une puissance trop élevée pour la résistance, ou une résistance arrivée en fin de vie.</p>
+    </details>
+    <details>
+      <summary>Pourquoi mon réservoir fuit-il ?</summary>
+      <p>Le plus souvent, une résistance mal vissée ou un joint abîmé. Un liquide trop fluide pour la résistance, ou un appareil rangé couché réservoir plein, peuvent aussi en être la cause.</p>
+    </details>
+    <details>
+      <summary>Tous les e‑liquides vont-ils dans tous les appareils ?</summary>
+      <p>Non : le rapport PG/VG compte. Un liquide épais, riche en VG, convient aux résistances sous 0,5 Ω et au tirage aérien ; un liquide plus fluide, autour de 50/50, au tirage serré.</p>
+    </details>
+    <details>
+      <summary>Combien de temps tient une charge ?</summary>
+      <p>De quelques heures à plus d'une journée, selon la capacité de la batterie et la puissance utilisée. Au fil des recharges, la batterie perd peu à peu de son autonomie.</p>
+    </details>
+  </section>
+
   <div class="ve-pied">
     <div class="ve-pied-titre">Le matériel en boutique</div>
     <div class="ve-pied-liens">
@@ -169,5 +193,53 @@ eleventyComputed:
   "mainEntityOfPage": "{{ site.url }}{{ page.url }}",
   "author": { "@type": "Organization", "name": "{{ site.nom }}" },
   "publisher": { "@type": "Organization", "name": "{{ site.nom }}", "url": "{{ site.url }}" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien de temps dure une résistance ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En général une à trois semaines, selon l'usage, la puissance et le liquide. Le signal ne trompe pas : un goût qui s'affadit ou qui tire vers le brûlé."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi ma cigarette électronique a un goût de brûlé ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois causes reviennent presque toujours : un coton sec (résistance neuve pas encore imbibée, réservoir presque vide), une puissance trop élevée pour la résistance, ou une résistance arrivée en fin de vie."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi mon réservoir fuit-il ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le plus souvent, une résistance mal vissée ou un joint abîmé. Un liquide trop fluide pour la résistance, ou un appareil rangé couché réservoir plein, peuvent aussi en être la cause."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Tous les e‑liquides vont-ils dans tous les appareils ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non : le rapport PG/VG compte. Un liquide épais, riche en VG, convient aux résistances sous 0,5 Ω et au tirage aérien ; un liquide plus fluide, autour de 50/50, au tirage serré."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps tient une charge ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "De quelques heures à plus d'une journée, selon la capacité de la batterie et la puissance utilisée. Au fil des recharges, la batterie perd peu à peu de son autonomie."
+      }
+    }
+  ]
 }
 </script>

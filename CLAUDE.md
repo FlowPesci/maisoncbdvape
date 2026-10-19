@@ -3436,6 +3436,11 @@ scène épinglée, étapes non lues atténuées ; `.ve-pret` : le canvas remplac
 l'image. Appareil lent (images 30 à 150 au-delà de 34 ms en moyenne) : retour
 à l'image fixe et contexte WebGL libéré, comme la fumée du hero.
 
+**FAQ et sources (ajoutées le 2026-10-19)** : cinq questions sous le récit,
+avec leur `FAQPage` en JSON-LD, et deux liens externes dans l'étape réservoir
+(directive 2014/40/UE pour les 2 ml, loi du 24 février 2025 sur Légifrance).
+La FAQ est HORS des `.ve-etape` : le script compte les étapes.
+
 **Liens depuis la boutique** : sous le titre de la catégorie Vape et des
 sous-catégories kits, box, clearomiseurs et pods, et en carte sous les points
 forts des fiches de ces sous-catégories. La liste vit dans le partial, et nulle

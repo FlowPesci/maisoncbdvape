@@ -2351,6 +2351,18 @@ em, i, cite, dfn, address, blockquote, q {
 .ve-astuces li::before { content: ""; width: 14px; height: 1px; background: var(--gold); margin-top: .9em; }
 .ve-astuces strong { color: var(--cream); font-weight: 500; }
 .ve-etape .ve-boutique { color: var(--muted); font-size: .92rem; }
+.ve-etape a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+.ve-etape a:hover { color: var(--cream); }
+
+/* Questions fréquentes, sous le récit */
+.ve-faq { max-width: 1280px; margin: 0 auto; padding: 48px 40px 56px; border-top: 1px solid var(--borderl); display: grid; gap: 10px; }
+.ve-faq h2 { font-family: var(--font-titre); font-weight: 300; font-size: clamp(1.7rem, 2.6vw, 2.2rem); color: var(--cream); margin-bottom: 14px; }
+.ve-faq details { max-width: 48rem; border: 1px solid var(--borderl); background: var(--dark2); padding: 0 20px; }
+.ve-faq summary { cursor: pointer; list-style: none; position: relative; padding: 16px 28px 16px 0; color: var(--cream); font-weight: 400; }
+.ve-faq summary::-webkit-details-marker { display: none; }
+.ve-faq summary::after { content: "+"; position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.3rem; transition: transform .2s; }
+.ve-faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.ve-faq details p { padding: 0 0 16px; color: var(--text); line-height: 1.75; max-width: 60ch; }
 
 .ve-etiquettes { position: absolute; inset: 0; pointer-events: none; }
 .ve-tag {
@@ -2403,6 +2415,7 @@ em, i, cite, dfn, address, blockquote, q {
   .ve-actif .ve-etape { min-height: 64vh; min-height: 64svh; justify-content: flex-start; }
   .ve-compteur { bottom: 12px; left: 16px; }
   .ve-pied { padding: 28px 20px 48px; }
+  .ve-faq { padding: 36px 20px 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ve-etape, .ve-poster, .ve-canvas, .ve-compteur { transition: none; }
