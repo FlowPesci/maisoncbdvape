@@ -1866,7 +1866,8 @@ principe : **chacun a son interrupteur, et aucun ne conditionne le contenu.**
   "loupeProduit": true,           // voir « Deuxième vague » plus bas
   "portailFumee": true,
   "selecteursGlisse": true,
-  "chiffresHero": true
+  "chiffresHero": true,
+  "vueEclatee": true              // voir « Article 3D » (section Blog)
 }
 ```
 
@@ -3394,6 +3395,70 @@ sa position à la racine le protégeait déjà ; en revanche il la sortait de
 bandeau « trois derniers articles » sur l'accueil est envisagé — la collection
 `collections.article` est déjà disponible pour ça, rien à préparer d'autre.
 
+
+### Article 3D — « Comment fonctionne une cigarette électronique » (2026-10-19)
+
+Premier article du blog, validé par le commerçant sur prototype. Une
+cigarette électronique **générique** (aucune marque) se démonte en 3D au fil
+de la lecture : neuf étapes, de l'appareil monté à l'entretien.
+
+| Élément | Rôle |
+|---|---|
+| `src/blog/comment-fonctionne-une-cigarette-electronique.njk` | l'article, en gabarit et pas en Markdown |
+| `src/assets/js/vue-eclatee.js` | la scène 3D, ses neuf états (table `ETAPES`) |
+| `src/assets/js/three-r128.min.js` | Three.js r128 (MIT), servi par le site — aucun CDN |
+| `src/assets/img/blog/cigarette-electronique-*.{webp,jpg}` | image fixe légendée, vignette du blog, image de partage |
+| `.ve-*` dans `input.css` | la mise en page du récit |
+| `partials/lien-guide-vape.njk` | le lien vers l'article depuis la boutique |
+
+**Interrupteur** : `site.json → effets.vueEclatee`, case « Cigarette
+électronique en 3D » dans l'éditeur. À `false`, ni Three.js ni le script ne
+sont chargés ; le texte et l'image fixe restent. Vérifié sur la page
+construite : zéro occurrence de `three-r128` et de `ve-canvas`.
+
+⚠ **Un `.njk` dans `src/blog/`, et c'est voulu.** Le récit synchronisé avec la
+3D ne s'écrit pas en Markdown. Il hérite quand même de `blog.json` (tag
+`article`, permalien, sitemap) mais **n'apparaît pas dans l'éditeur** : la
+collection Blog ne lit que les `.md`. Le commerçant ne peut ni le casser ni le
+corriger ; c'est écrit dans son manuel.
+
+⚠ **`verify:redaction` lit désormais aussi les `.njk` de `src/blog/`.** Avant,
+seul le Markdown passait au crible : un article en gabarit y échappait. Le
+texte reste technique : aucune comparaison avec le tabac, aucune promesse de
+sevrage, aucun effet sur la santé.
+
+⚠ **Le script attend exactement neuf `.ve-etape`**, dans l'ordre de `ETAPES`.
+Une étape ajoutée d'un seul côté : la 3D ne démarre pas, l'image fixe reste.
+
+**Trois états, page juste dans chacun** — rien (script absent, éteint, sans
+WebGL ou « Réduire les animations ») : image fixe, texte entier ; `.ve-actif` :
+scène épinglée, étapes non lues atténuées ; `.ve-pret` : le canvas remplace
+l'image. Appareil lent (images 30 à 150 au-delà de 34 ms en moyenne) : retour
+à l'image fixe et contexte WebGL libéré, comme la fumée du hero.
+
+**Liens depuis la boutique** : sous le titre de la catégorie Vape et des
+sous-catégories kits, box, clearomiseurs et pods, et en carte sous les points
+forts des fiches de ces sous-catégories. La liste vit dans le partial, et nulle
+part ailleurs. Pas sur les e-liquides : c'est en tenant un appareil qu'on se
+pose la question.
+
+⚠⚠ **`position: sticky` ne collait à rien sur tout le site.** `html` ET `body`
+portaient `overflow-x: hidden` : le body devenait un conteneur de défilement
+qui ne défile jamais, et la scène partait avec la page. `body` porte désormais
+`overflow-x: clip` (même découpe, sans conteneur), après un `hidden` gardé pour
+les navigateurs qui ignorent `clip`. Aucune autre page n'utilisait `sticky`
+jusque-là — ce qui explique qu'on ne l'ait pas vu.
+
+⚠ **`base.njk` se terminait par 3 467 octets nuls**, depuis le commit
+`ec46a9b` du 2026-05-25 : ils partaient à la fin de CHAQUE page servie, et
+faisaient passer le HTML pour un fichier binaire aux yeux de `grep`. Retirés le
+2026-10-19. Même famille que les fichiers tronqués par le montage : relire la
+fin d'un fichier écrit depuis un autre environnement.
+
+**Mesuré** dans Chromium à rendu logiciel seulement, comme les autres effets :
+la fluidité réelle n'a été vue sur aucun téléphone au moment de l'intégration.
+Si le commerçant signale une lenteur, couper la case, puis mesurer. Le
+prototype qui a servi à la validation est un artefact Claude, hors dépôt.
 ---
 
 ## Documents de référence

@@ -1,0 +1,28 @@
+{# ──────────────────────────────────────────────────────────────────────────
+   Lien vers l'article « Comment fonctionne une cigarette électronique ».
+
+   Avant l'include, poser :
+     guideCat   — slug de la catégorie
+     guideSous  — slug de la sous-catégorie ('' sur la page catégorie)
+     guideStyle — 'entete' (sous le titre d'une catégorie) ou 'carte' (fiche)
+
+   ⚠ Une seule liste décide où il apparaît : GUIDE_SOUS. Le matériel, pas les
+     e-liquides — c'est en tenant un appareil qu'on se pose la question.
+     Sur une fiche, la sous-catégorie est exigée : un produit vape sans
+     sous-catégorie n'est pas forcément un appareil.
+────────────────────────────────────────────────────────────────────────── #}
+{% set GUIDE_SOUS = ['kits', 'box', 'clearomiseurs', 'pods-recharges'] %}
+{% set guideOk = guideCat == 'vape' and ((guideSous and guideSous in GUIDE_SOUS) or (not guideSous and guideStyle == 'entete')) %}
+{% if guideOk %}
+  {% if guideStyle == 'carte' %}
+    <a href="/blog/comment-fonctionne-une-cigarette-electronique/" class="lien-guide-carte">
+      <span class="lien-guide-sur">Guide en 3D</span>
+      <span class="lien-guide-titre">Comment fonctionne une cigarette électronique ?</span>
+      <span class="lien-guide-fleche" aria-hidden="true">→</span>
+    </a>
+  {% else %}
+    <a href="/blog/comment-fonctionne-une-cigarette-electronique/" class="lien-guide">
+      Comment fonctionne une cigarette électronique ? Le guide en 3D <span aria-hidden="true">→</span>
+    </a>
+  {% endif %}
+{% endif %}

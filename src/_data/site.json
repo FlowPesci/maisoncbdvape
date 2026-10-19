@@ -171,6 +171,7 @@
     "loupeProduit": true,
     "portailFumee": true,
     "selecteursGlisse": true,
-    "chiffresHero": true
+    "chiffresHero": true,
+    "vueEclatee": true
   }
 }

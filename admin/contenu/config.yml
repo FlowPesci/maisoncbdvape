@@ -598,6 +598,7 @@ collections:
               - { label: "Portail d'âge qui se dissipe en fumée", name: "portailFumee", widget: "boolean", default: true, hint: "Après « Oui, j'ai 18 ans », l'écran noir se dissipe en volutes. Décoché : simple fondu." }
               - { label: "Repère doré sur les choix de format et de saveur", name: "selecteursGlisse", widget: "boolean", default: true, hint: "Sur la fiche produit, le cadre doré glisse d'un choix à l'autre au lieu de sauter." }
               - { label: "Chiffres du hero qui défilent", name: "chiffresHero", widget: "boolean", default: true, hint: "Les chiffres de l'accueil (références, note Google, livraison) défilent jusqu'à leur valeur à l'arrivée." }
+              - { label: "Cigarette électronique en 3D (article du blog)", name: "vueEclatee", widget: "boolean", default: true, hint: "Dans l'article « Comment fonctionne une cigarette électronique », l'appareil se démonte en 3D au fil de la lecture. Décoché : une image fixe de l'appareil démonté, le texte reste identique." }
 
           - label: "Menu de navigation"
             name: "navigation"

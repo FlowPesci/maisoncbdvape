@@ -357,6 +357,10 @@ eleventyComputed:
         </div>
       {% endif %}
 
+      {# Guide en 3D — matériel vape uniquement (liste dans le partial) #}
+      {% set guideCat = produit.categorie %}{% set guideSous = produit.sousCategorie %}{% set guideStyle = 'carte' %}
+      {% include "partials/lien-guide-vape.njk" %}
+
       {# Configuration : couleurs + quantité #}
       <div class="space-y-5 mb-7">
 

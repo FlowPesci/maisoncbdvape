@@ -1,0 +1,173 @@
+---
+layout: layouts/base.njk
+titre: "Comment fonctionne une cigarette électronique"
+title: "Comment fonctionne une cigarette électronique"
+date: 2026-10-19
+chapeau: "Batterie, puce, résistance, réservoir, arrivée d'air : l'appareil se démonte pièce par pièce, en 3D, pour montrer ce qui se passe à chaque inspiration."
+description: "Batterie, puce, résistance et coton, réservoir, arrivée d'air : une cigarette électronique démontée pièce par pièce, en 3D, et les gestes pour bien l'entretenir."
+image: "/assets/img/blog/cigarette-electronique-carte.webp"
+eleventyComputed:
+  ogImage: "{{ site.url }}/assets/img/blog/cigarette-electronique-og.jpg"
+  ogImageAlt: "Cigarette électronique démontée en vue éclatée"
+---
+{# ──────────────────────────────────────────────────────────────────────────
+   Article du blog — « Comment fonctionne une cigarette électronique »
+
+   ⚠ Le front matter ci-dessus DOIT rester en première ligne (voir article.njk).
+
+   Pourquoi un `.njk` et pas un `.md` comme les autres articles : la page est
+   un récit en neuf étapes synchronisé avec une vue 3D, ce que le Markdown de
+   l'éditeur ne sait pas exprimer. Conséquences, voulues :
+   - l'article n'apparaît PAS dans /admin/contenu/ (la collection Blog ne lit
+     que les .md) : le commerçant ne peut pas le casser, ni le modifier ;
+   - il hérite quand même de `blog.json` : tag `article` (liste du blog,
+     sitemap) et permalien /blog/<nom-du-fichier>/ ;
+   - `verify:redaction` le lit comme les .md : même crible légal.
+
+   Interrupteur de la 3D : site.json → effets.vueEclatee. À `false`, ni
+   Three.js ni vue-eclatee.js ne sont chargés ; le texte et l'image fixe
+   (`.ve-poster`, l'appareil démonté avec ses légendes) restent.
+
+   ⚠ Le script attend EXACTEMENT neuf `.ve-etape`, dans cet ordre : sa table
+     ETAPES leur correspond ligne à ligne. Ajouter une étape ici sans l'ajouter
+     là-bas, et la 3D ne démarre pas (l'image fixe reste, rien ne casse).
+
+   Rédaction : description technique et neutre. Aucune comparaison avec le
+   tabac, aucune promesse de sevrage, aucun effet sur la santé — voir
+   CLAUDE.md, « Contraintes légales ».
+────────────────────────────────────────────────────────────────────────── #}
+{% set troisD = site.effets and site.effets.vueEclatee %}
+
+<div data-vue-eclatee>
+
+  <div class="ve-entete">
+    <nav aria-label="Fil d'Ariane" class="fil-ariane">
+      <a href="/" class="breadcrumb-link">Accueil</a>
+      <span style="color:var(--borderl);">/</span>
+      <a href="/blog/" class="breadcrumb-link">Blog</a>
+      <span style="color:var(--borderl);">/</span>
+      <span class="fil-ariane-actuel">Cigarette électronique</span>
+    </nav>
+  </div>
+
+  <div class="ve-recit">
+
+    <div class="ve-scene">
+      <img class="ve-poster" src="/assets/img/blog/cigarette-electronique-eclatee.webp" width="413" height="1500"
+           alt="Cigarette électronique démontée : embout, réservoir, résistance et coton, arrivée d'air, puce, batterie et sa coque." />
+      {% if troisD %}
+        <canvas class="ve-canvas" aria-hidden="true"></canvas>
+        <div class="ve-etiquettes" aria-hidden="true"></div>
+        <div class="ve-compteur" aria-hidden="true"><span class="ve-compteur-num">01 / 09</span><span class="ve-compteur-nom">L'appareil</span></div>
+      {% endif %}
+    </div>
+
+    <div class="ve-etapes">
+
+      <section class="ve-etape" data-nom="L'appareil">
+        <div class="ve-num">Guide matériel · {{ date | dateFr }}</div>
+        <h1>Comment fonctionne une <span class="ve-or">cigarette électronique</span></h1>
+        <p class="ve-chapo">Une cigarette électronique transforme un liquide en vapeur, sans flamme ni combustion. Suivez l'appareil : il se démonte pièce par pièce et montre ce qui se passe à chaque inspiration.</p>
+        {% if troisD %}
+          <div class="ve-indice">
+            <svg width="34" height="12" viewBox="0 0 34 12" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M1 6h32M5 2 1 6l4 4M29 2l4 4-4 4"/></svg>
+            Faites glisser l'appareil pour le tourner
+          </div>
+        {% endif %}
+      </section>
+
+      <section class="ve-etape" data-nom="Les éléments">
+        <div class="ve-num">02 / 09</div>
+        <h2>Six éléments, un seul circuit</h2>
+        <p>Une cigarette électronique rechargeable réunit toujours les mêmes éléments : une batterie, une puce, une arrivée d'air, une résistance entourée de coton, un réservoir et un embout. Le modèle présenté ici est générique. Chaque fabricant les dispose à sa façon, en stylo, en pod ou en box, mais le principe ne change pas.</p>
+      </section>
+
+      <section class="ve-etape" data-nom="La batterie">
+        <div class="ve-num">03 / 09</div>
+        <h2>La batterie</h2>
+        <p>Une batterie lithium-ion rechargeable fournit le courant. Sa capacité, exprimée en mAh, donne l'autonomie : environ 650 mAh pour un modèle compact, plus de 3 000 mAh pour un appareil puissant. La plupart des modèles récents se rechargent en USB‑C.</p>
+        <ul class="ve-specs"><li>3,7 V nominal</li><li>650 – 3 000 mAh</li><li>USB‑C</li></ul>
+      </section>
+
+      <section class="ve-etape" data-nom="La puce">
+        <div class="ve-num">04 / 09</div>
+        <h2>La puce</h2>
+        <p>Entre la batterie et la résistance, une carte électronique dose l'énergie envoyée. Elle se déclenche par le bouton, ou automatiquement à l'aspiration sur les modèles à capteur. Elle protège aussi l'appareil : coupure au bout d'une dizaine de secondes, protection contre les courts‑circuits et la surchauffe, alerte de batterie faible.</p>
+        <ul class="ve-specs"><li>Coupure ≈ 10 s</li><li>Anti court‑circuit</li><li>Réglage de puissance</li></ul>
+      </section>
+
+      <section class="ve-etape" data-nom="Le réservoir">
+        <div class="ve-num">05 / 09</div>
+        <h2>Le réservoir</h2>
+        <p>Le réservoir contient le e‑liquide. En Europe, sa contenance est limitée à 2 ml. Le liquide passe par de petites ouvertures à sa base et imbibe le coton de la résistance par capillarité, comme une mèche.</p>
+        <p>Depuis le 25 février 2025, les cigarettes électroniques à réservoir scellé, que l'on ne peut pas remplir, sont interdites à la vente en France. Un appareil se remplit, et se garde.</p>
+        <ul class="ve-specs"><li>2 ml max. (UE)</li><li>Remplissage par le haut ou le bas</li></ul>
+      </section>
+
+      <section class="ve-etape" data-nom="La résistance">
+        <div class="ve-num">06 / 09</div>
+        <h2>La résistance et le coton</h2>
+        <p>La résistance est un fil métallique, ou une fine grille dite « mesh », enroulé autour d'un coton imbibé. Le courant la fait chauffer en une fraction de seconde et le liquide contenu dans le coton se vaporise. Sa valeur en ohms (Ω) change le rendu : autour de 1 Ω pour un tirage serré, sous 0,5 Ω pour un tirage aérien.</p>
+        <ul class="ve-specs"><li>0,15 – 1,2 Ω</li><li>Kanthal · inox · nichrome</li><li>Coton</li></ul>
+      </section>
+
+      <section class="ve-etape" data-nom="L'arrivée d'air">
+        <div class="ve-num">07 / 09</div>
+        <h2>L'arrivée d'air</h2>
+        <p>À l'aspiration, l'air entre par de petites ouvertures, passe au contact de la résistance chaude et emporte la vapeur. Ouvrir ou fermer ces entrées change la sensation : tirage serré pour une inhalation indirecte, en deux temps, ou tirage ample pour une inhalation directe.</p>
+        <ul class="ve-specs"><li>Inhalation indirecte · serré</li><li>Inhalation directe · aérien</li></ul>
+      </section>
+
+      <section class="ve-etape" data-nom="La vapeur">
+        <div class="ve-num">08 / 09</div>
+        <h2>La vapeur</h2>
+        <p>Chargé de vapeur, l'air remonte par la cheminée, le tube au centre du réservoir, puis sort par l'embout. Il n'y a ni flamme ni combustion : ce que l'on voit est un aérosol, de fines gouttelettes qui se dissipent en quelques secondes.</p>
+      </section>
+
+      <section class="ve-etape" data-nom="L'entretien">
+        <div class="ve-num">09 / 09</div>
+        <h2>Bien l'entretenir</h2>
+        <ul class="ve-astuces">
+          <li><p><strong>Amorcer une résistance neuve.</strong> Après le remplissage, attendez cinq minutes que le coton soit imbibé avant la première bouffée. Un coton sec brûle.</p></li>
+          <li><p><strong>Changer la résistance quand le goût s'altère.</strong> En général toutes les une à trois semaines, selon l'usage et le liquide.</p></li>
+          <li><p><strong>Adapter la puissance au liquide.</strong> Un e‑liquide au CBD se vapote de préférence à puissance modérée, qui préserve ses arômes.</p></li>
+          <li><p><strong>Recharger sous surveillance.</strong> Avec le câble prévu, sur une surface dure, sans laisser l'appareil en charge toute la nuit.</p></li>
+        </ul>
+        <p class="ve-boutique">Un doute sur une résistance ou un réglage ? Passez à la boutique de Gex, on regarde votre appareil avec vous.</p>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="ve-pied">
+    <div class="ve-pied-titre">Le matériel en boutique</div>
+    <div class="ve-pied-liens">
+      <a href="/categories/vape/kits/" class="ve-lien">Kits</a>
+      <a href="/categories/vape/clearomiseurs/" class="ve-lien">Clearomiseurs</a>
+      <a href="/categories/vape/box/" class="ve-lien">Box</a>
+    </div>
+    <a href="/blog/" class="footer-link">← Tous les articles</a>
+    <p class="ve-mention">Appareil représenté : modèle générique, sans marque. Contenu informatif réservé aux personnes majeures.</p>
+  </div>
+
+</div>
+
+{% if troisD %}
+  <script src="/assets/js/three-r128.min.js?v={{ '/assets/js/three-r128.min.js' | contentHash }}" defer></script>
+  <script src="/assets/js/vue-eclatee.js?v={{ '/assets/js/vue-eclatee.js' | contentHash }}" defer></script>
+{% endif %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ titre }}",
+  "description": "{{ description }}",
+  "datePublished": "{{ date | isoDate }}",
+  "image": "{{ site.url }}/assets/img/blog/cigarette-electronique-og.jpg",
+  "inLanguage": "fr-FR",
+  "mainEntityOfPage": "{{ site.url }}{{ page.url }}",
+  "author": { "@type": "Organization", "name": "{{ site.nom }}" },
+  "publisher": { "@type": "Organization", "name": "{{ site.nom }}", "url": "{{ site.url }}" }
+}
+</script>

@@ -52,6 +52,8 @@ eleventyComputed:
           {{ cat.description | truncate(80) }}
         </p>
       {% endif %}
+      {% set guideCat = cat.slug %}{% set guideSous = '' %}{% set guideStyle = 'entete' %}
+      {% include "partials/lien-guide-vape.njk" %}
     </div>
 
     {# Stats #}

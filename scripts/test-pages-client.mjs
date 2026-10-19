@@ -62,6 +62,14 @@ const PAGES = [
     html: "public/index.html",
     scripts: ["src/assets/js/hero-fumee.js", "src/assets/js/vapeur-univers.js", "src/assets/js/chiffres-hero.js", "src/assets/js/index-newsletter.js"],
   },
+  // L'article en 3D : le simulateur n'a ni Three.js ni WebGL, le script
+  // doit sortir sans lever et laisser l'image fixe. Three.js lui-même n'est
+  // pas exécuté ici — c'est une bibliothèque, pas notre code.
+  {
+    nom: "article cigarette électronique",
+    html: "public/blog/comment-fonctionne-une-cigarette-electronique/index.html",
+    scripts: ["src/assets/js/vue-eclatee.js"],
+  },
   // ⚠ Le back-office compte comme une page rendue, et c'est là que les
   //   défauts survivent le plus longtemps : hors du parcours client, donc
   //   hors de la passe visuelle. `/admin/commandes/` est resté figé sur

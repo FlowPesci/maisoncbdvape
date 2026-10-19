@@ -109,6 +109,7 @@ Dashboard `https://resend.com/` → onglet "Logs" :
 | Le paiement en ligne ne marche pas      | Vérifier `MONETICO_ENV`, le n° de TPE et la clé MAC     |
 | Modification CMS qui ne se voit pas     | Attendre 2-3 min (rebuild), forcer Ctrl+Shift+R        |
 | Retirer la fumée animée de l'accueil    | Admin → Configuration du site → Infos boutique → « Effets visuels » → décocher « Fumée animée sur l'accueil » → Enregistrer. Visible 2-3 min après. Recocher pour la remettre |
-| Retirer un autre effet visuel           | Même endroit, « Effets visuels » : décocher « Transitions entre les pages », « Vapeur au survol des univers », « Animation d'ajout au panier », « Loupe sur les photos produit », « Portail d'âge qui se dissipe en fumée », « Repère doré sur les choix de format et de saveur » ou « Chiffres du hero qui défilent ». Chacun se coupe seul, le site fonctionne pareil sans |
+| Retirer un autre effet visuel           | Même endroit, « Effets visuels » : décocher « Transitions entre les pages », « Vapeur au survol des univers », « Animation d'ajout au panier », « Loupe sur les photos produit », « Portail d'âge qui se dissipe en fumée », « Repère doré sur les choix de format et de saveur », « Chiffres du hero qui défilent » ou « Cigarette électronique en 3D (article du blog) ». Chacun se coupe seul, le site fonctionne pareil sans |
+| L'article « Comment fonctionne une cigarette électronique » | Il n'apparaît pas dans l'éditeur du Blog : c'est une page construite à la main, à cause de la 3D. Pour une correction de texte, la demander au développeur. La 3D se coupe avec la case « Cigarette électronique en 3D » ; l'article reste en ligne avec une image fixe |
 
 **Si rien ne marche → contacte le développeur** (Florian — leblanc.florian.8@gmail.com).

@@ -121,7 +121,10 @@ const DIR_ARTICLES = "src/blog";
 let articles = [];
 try {
   articles = readdirSync(DIR_ARTICLES)
-    .filter((f) => f.endsWith(".md"))
+    // ⚠ `.njk` aussi : un article rédigé à la main en gabarit (la cigarette
+    //   électronique en 3D) échappe à l'éditeur, pas à la loi. On lit le
+    //   fichier entier, balises comprises — les motifs visent des mots.
+    .filter((f) => f.endsWith(".md") || f.endsWith(".njk"))
     .map((f) => ({ fichier: f, texte: readFileSync(join(DIR_ARTICLES, f), "utf8") }));
 } catch {
   // Dossier absent tant qu'aucun article n'est écrit : ce n'est pas une erreur.
