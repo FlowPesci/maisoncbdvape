@@ -1822,6 +1822,28 @@ les ajustant, à connaître avant d'y toucher :
 | elle se couche et file le long du sol | côtés ouverts eux aussi : ils aspirent l'air de travers | **seul le haut** est ouvert |
 | un nuage qui remplit l'écran | dissipation trop faible | `DEN_DISS` ≥ 0,4 |
 
+### Plus de sources fixes (2026-10-23)
+
+Le développeur a vu « trois sources de départ » : les trois points d'émission
+immobiles se lisaient comme trois cheminées. Ils sont remplacés par des
+**foyers éphémères** (`FOYERS`, 6 sur ordinateur, 4 sur téléphone) : chacun
+naît à un endroit tiré au hasard dans `ZONE`, dérive lentement, enfle puis
+s'éteint en 3 à 7,5 s, et renaît ailleurs. Ils se chevauchent, si bien que
+l'émission totale reste à peu près constante.
+
+⚠ **La naissance est cachée** : émission au ras du bas du cadre, et le rendu
+efface la fumée entre `uBase + .01` et `uBase + .18` (`display`). On ne voit
+que la fumée qui monte, jamais le point d'où elle part.
+
+⚠ **Tous les foyers en UNE passe** (`splats`, jusqu'à 8 points) : un `splat`
+par foyer aurait fait 12 passes plein écran par pas au lieu de 2 — dans le
+navigateur à rendu logiciel, la page a mis plus de 30 s à répondre avec cette
+première version. Ne pas revenir à une boucle de `splat()`.
+
+⚠ La densité est rendue par `ECHELLE` (on ramène la somme des enveloppes à
+celle des trois anciennes sources) et le `× 1,45` du colorant : des foyers plus
+larges diluent la fumée. Si elle paraît trop pâle ou trop dense, c'est là.
+
 ### ⚠ Le contenu ne dépend JAMAIS du script
 
 Le titre se révèle en **CSS pur** (`.hero-titre-anime`, animations à délai),

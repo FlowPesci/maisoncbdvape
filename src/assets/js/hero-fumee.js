@@ -2,9 +2,10 @@
  * src/assets/js/hero-fumee.js — fumée dorée du hero de l'accueil
  *
  * Une vraie simulation de fluide (méthode « stable fluids », Navier-Stokes
- * simplifié) et non un motif de bruit : la fumée naît de sources en bas du
- * hero, monte par flottaison, s'enroule, se dissipe en montant, et la souris
- * la déplace comme une main dans l'air. Plus une poussière d'or en canvas 2D
+ * simplifié) et non un motif de bruit : la fumée naît de foyers éphémères en
+ * bas du hero, jamais deux fois au même endroit, monte par flottaison,
+ * s'enroule, se dissipe en montant, et la souris la déplace comme une main
+ * dans l'air. Plus une poussière d'or en canvas 2D
  * et une parallaxe légère de la vitrine. Aucune librairie.
  *
  * ─── Interrupteur ─────────────────────────────────────────────────────────
@@ -115,6 +116,11 @@
       splat: 'uniform sampler2D uTarget;uniform float aspectRatio,radius;uniform vec3 color;uniform vec2 point;' +
         'void main(){vec2 p=vUv-point;p.x*=aspectRatio;vec3 s=exp(-dot(p,p)/radius)*color;' +
         'gl_FragColor=vec4(texture2D(uTarget,vUv).xyz+s,1.);}',
+      /* Tous les foyers en UNE passe (jusqu'à 8) : une passe plein écran par
+         foyer coûterait 12 passes par pas de simulation au lieu de 2. */
+      splats: 'uniform sampler2D uTarget;uniform float aspectRatio,radius,uN;uniform vec4 pts[8];' +
+        'void main(){vec3 s=vec3(0.);for(int i=0;i<8;i++){if(float(i)>=uN)break;vec2 p=vUv-pts[i].xy;p.x*=aspectRatio;' +
+        's+=exp(-dot(p,p)/radius)*vec3(pts[i].zw,0.);}gl_FragColor=vec4(texture2D(uTarget,vUv).xyz+s,1.);}',
       advect: 'uniform sampler2D uVelocity,uSource;uniform vec2 texelSize,dyeTexelSize;uniform float dt,dissipation;' +
         'vec4 bilerp(sampler2D s,vec2 uv,vec2 ts){vec2 st=uv/ts-.5;vec2 i=floor(st);vec2 f=fract(st);' +
         'vec4 a=texture2D(s,(i+vec2(.5,.5))*ts),b=texture2D(s,(i+vec2(1.5,.5))*ts),c=texture2D(s,(i+vec2(.5,1.5))*ts),d=texture2D(s,(i+vec2(1.5,1.5))*ts);' +
@@ -142,7 +148,7 @@
          crème dorée là où la fumée est dense (elle « prend la lumière »). */
       display: 'uniform sampler2D uTexture;uniform float uMin,uOpacity,uBase,uGain;' +
         'void main(){float d=texture2D(uTexture,vUv).x;float a=1.-exp(-d*uGain);' +
-        'a*=mix(uMin,1.,smoothstep(.2,.55,vUv.x));a*=smoothstep(1.,.8,vUv.y)*smoothstep(uBase,uBase+.1,vUv.y);a*=.78*uOpacity;' +
+        'a*=mix(uMin,1.,smoothstep(.2,.55,vUv.x));a*=smoothstep(1.,.8,vUv.y)*smoothstep(uBase+.01,uBase+.18,vUv.y);a*=.78*uOpacity;' +
         'vec3 c=mix(vec3(.5,.36,.18),vec3(.92,.8,.56),smoothstep(.08,.65,a));gl_FragColor=vec4(c*a,a);}'
     };
     function sh(t, s) {
@@ -214,6 +220,16 @@
       blit(target.write); target.swap();
     }
 
+    /* pts : [x, y, c0, c1] × n, n ≤ 8 */
+    function splats(target, pts, n, radius) {
+      var u = use(P.splats);
+      gl.uniform1i(u.uTarget, target.read.bind(0));
+      gl.uniform1f(u.aspectRatio, gl.drawingBufferWidth / gl.drawingBufferHeight);
+      gl.uniform4fv(u['pts[0]'], pts); gl.uniform1f(u.uN, n);
+      gl.uniform1f(u.radius, radius * radScale);
+      blit(target.write); target.swap();
+    }
+
     function step(dt) {
       gl.disable(gl.BLEND);
       var u;
@@ -253,31 +269,58 @@
       blit(null);
     }
 
-    return { gl: gl, init: init, step: step, splat: splat, render: render, vel: function () { return vel; }, dye: function () { return dye; } };
+    return { gl: gl, init: init, step: step, splat: splat, splats: splats, render: render, vel: function () { return vel; }, dye: function () { return dye; } };
   } catch (e) { return null; } })();
 
   /* ─── Sources de fumée ─────────────────────────────────────────────────
-     Sur ordinateur : une entre le texte et la vitrine, une DERRIÈRE la
-     vitrine (elle réapparaît au-dessus, ce qui donne de la profondeur), une
-     au bord droit. Chacune a son propre balancement, pour que les filets ne
-     montent jamais en même temps. */
-  var SOURCES = small
-    ? [{ x: .74, s: 1, ph: 0 }, { x: .94, s: .75, ph: 2.1 }]
-    : [{ x: .535, s: .7, ph: 0 }, { x: .76, s: 1, ph: 1.7 }, { x: .965, s: .85, ph: 3.9 }];
+     Plus de sources FIXES (2026-10-23). Trois points d'émission immobiles se
+     lisaient comme trois cheminées : le commerçant voyait « d'où sortait » la
+     fumée. Désormais, des foyers ÉPHÉMÈRES : chacun naît à une position tirée
+     au hasard dans la zone, glisse lentement de côté, enfle puis s'éteint, et
+     renaît ailleurs. Ils se chevauchent dans le temps, si bien que l'émission
+     totale reste à peu près constante sans jamais venir deux fois du même
+     point. Et l'émission se fait au ras du bas du cadre, dans la zone où le
+     rendu efface la fumée (`uBase` → `uBase + .18`) : on ne voit jamais la
+     naissance, seulement la fumée qui monte. */
+  var ZONE = small ? [.5, 1.02] : [.44, 1.02];      // de l'entre-deux texte/vitrine au bord droit
+  var FOYERS = [];
+  var N_FOYERS = small ? 4 : 6;
+  function nouveauFoyer(f, decale) {
+    f.x = ZONE[0] + Math.random() * (ZONE[1] - ZONE[0]);
+    f.vx = (Math.random() - .5) * .03;               // dérive latérale, en largeur de cadre par seconde
+    f.vie = 3 + Math.random() * 4.5;                 // 3 à 7,5 s
+    f.age = decale ? Math.random() * f.vie : 0;      // au démarrage, des âges étalés
+    f.s = .6 + Math.random() * .5;
+    f.ph = Math.random() * 6.28;
+    return f;
+  }
+  for (var k = 0; k < N_FOYERS; k++) FOYERS.push(nouveauFoyer({}, true));
+  /* Somme moyenne des enveloppes ≈ N × 0,64 × 0,85 : on ramène l'émission
+     totale à celle des trois anciennes sources pour garder la même densité. */
+  var ECHELLE = 1.8 / (N_FOYERS * .64 * .85);
   var srcY = 0;
 
+  var ptsV = new Float32Array(32), ptsD = new Float32Array(32);
   function emit(t, dt) {
-    var V = fx.vel();
-    for (var i = 0; i < SOURCES.length; i++) {
-      var s = SOURCES[i];
-      var x = s.x + Math.sin(t * .21 + s.ph) * .012;
+    var V = fx.vel(), n = 0;
+    for (var i = 0; i < FOYERS.length; i++) {
+      var f = FOYERS[i];
+      f.age += dt;
+      if (f.age >= f.vie) nouveauFoyer(f, false);
+      f.x += f.vx * dt;
+      var env = Math.sin(Math.PI * f.age / f.vie);   // naît et s'éteint en douceur
+      if (env <= 0) continue;
       /* Balancement latéral : trois sinus de périodes non multiples, d'où un
          mouvement qui ne se répète pas — c'est ce qui déclenche les volutes. */
-      var wob = Math.sin(t * 1.3 + s.ph) * .55 + Math.sin(t * 2.9 + s.ph * 1.7) * .3 + Math.sin(t * .47 + s.ph) * .6;
-      var puff = .7 + .3 * Math.sin(t * .9 + s.ph * 2.3);           // la source « respire »
-      fx.splat(V, x, srcY + .07, wob * 90 * dt * V.h / 128, CFG.LIFT * dt * s.s, .0011);
-      fx.splat(fx.dye(), x, srcY + .065, CFG.DYE_RATE * dt * s.s * puff, 0, .00035);
+      var wob = Math.sin(t * 1.3 + f.ph) * .55 + Math.sin(t * 2.9 + f.ph * 1.7) * .3 + Math.sin(t * .47 + f.ph) * .6;
+      var k2 = env * f.s * ECHELLE;
+      ptsV.set([f.x, srcY + .03, wob * 90 * dt * V.h / 128, CFG.LIFT * dt * k2], n * 4);
+      ptsD.set([f.x, srcY + .025, CFG.DYE_RATE * dt * k2 * 1.45, 0], n * 4);   // ×1,45 : les foyers plus larges diluent la fumée, on rend la densité d'avant
+      n++;
     }
+    if (!n) return;
+    fx.splats(V, ptsV, n, .0016);
+    fx.splats(fx.dye(), ptsD, n, .0006);
   }
   function mouse() {
     if (!ptr.moved) return;
